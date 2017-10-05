@@ -70,6 +70,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE4F78021F85DF8F004379F5 /* Build configuration list for PBXNativeTarget "WarCraft2" */;
 			buildPhases = (
+				CE4F78051F85E32A004379F5 /* Run Script */,
 				CE4F77EE1F85DF8F004379F5 /* Sources */,
 				CE4F77EF1F85DF8F004379F5 /* Frameworks */,
 				CE4F77F01F85DF8F004379F5 /* Resources */,
@@ -128,6 +129,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CE4F78051F85E32A004379F5 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "chmod u+x \"${SRCROOT}/swiftformat\"\n\"${SRCROOT}/swiftformat\" \"${SRCROOT}/WarCraft2/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE4F77EE1F85DF8F004379F5 /* Sources */ = {
