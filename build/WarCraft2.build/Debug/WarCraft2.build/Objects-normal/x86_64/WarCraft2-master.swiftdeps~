@@ -1,0 +1,6 @@
+version: "Apple Swift version 4.0 (swiftlang-900.0.65 clang-900.0.37)"
+options: "43d3734b1b16ffe24a49bc621d8433c9"
+build_time: [1507254993, 623405000]
+inputs:
+  "/Users/asoong/Desktop/ECS/ECS160/Mac/ECS160OSX/WarCraft2/ViewController.swift": [1507254993, 0]
+  "/Users/asoong/Desktop/ECS/ECS160/Mac/ECS160OSX/WarCraft2/AppDelegate.swift": [1507254993, 0]
