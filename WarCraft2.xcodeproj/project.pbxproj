@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F71F85DF8F004379F5 /* ViewController.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F71F85DF8F004379F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				CE4F77FB1F85DF8F004379F5 /* Main.storyboard */,
 				CE4F77FE1F85DF8F004379F5 /* Info.plist */,
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
+				A1AAF57C1F872930005007C4 /* GameDataTypes.swift */,
 			);
 			path = WarCraft2;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			files = (
 				CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
+				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
