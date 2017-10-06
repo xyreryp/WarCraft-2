@@ -14,7 +14,9 @@ import Foundation
 /*
 **  I made CDataContainerIterator and CDataContainer
 **  protocols, because in DataContainer.h they only
-**  included virtual functions.
+**  included virtual functions. Also, they returned
+**  shared pointers, which I replaced with the actual
+**  class type
 */
 
 protocol CDataContainerIterator {
