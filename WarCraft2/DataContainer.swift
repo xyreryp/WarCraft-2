@@ -19,6 +19,9 @@ import Foundation
 **  class type
 */
 
+//  class DataSource ??
+//  class DataSink
+
 protocol CDataContainerIterator {
     func Name() -> String
     func IsContainer() -> Bool
