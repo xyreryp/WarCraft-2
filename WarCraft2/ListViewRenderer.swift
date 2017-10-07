@@ -5,13 +5,15 @@
 //  Created by Disha Bendre on 10/5/17.
 //
 
+#define let _auto_type
+
 import Foundation
 
 //  In Swift, you define a class or a structure in a single file, and the
 //  external interface to that class or structure is automatically made
 //  available for other code to use.
 
-// TODO: convert accessors to Swift Access Levels
+
 
 class CListViewRenderer {
     public enum EListViewObject {
@@ -20,9 +22,6 @@ class CListViewRenderer {
         case None = -3
     }
 
-    // NOTE: XCode indicates Consecutive declarations on a line must be separated
-    // by ';' eror. Not sure where the consective declaration happens if I'm
-    // trying to declare a strong variable
     internal var DIconTileset: CGraphicTileset
     internal var DFont: CFontTileset
     internal var DFontHeight: Int
@@ -49,7 +48,7 @@ class CListViewRenderer {
     }
     
     // Function ItemAt takes parameters x and y, which are coordinates on the map
-    func ItemAt(x: Int, y: Int) -> Int {
+    public func ItemAt(x: Int, y: Int) -> Int {
         if (0 > x) || (0 > y) {
             return EListViewObject.None.rawValue
         }
@@ -74,8 +73,57 @@ class CListViewRenderer {
         return EListViewObject.None.rawValue
     }
     
-    // TODO: Finish function body
-//    func DrawListView(surface: CGraphicSurface, selectedIndex: Int, offsetIndex: Int, vector<string> &items) -> void {
-//        <#function body#>
-//    }
+     //TODO: Finish function body
+    public func DrawListView(surface: CGraphicSurface, selectedIndex: Int, offsetIndex: Int, items: [String]) {
+        let ResourceContext = surface.createResourceContext();
+        var TextWidth: Int
+        var TextHeight: Int
+        var MaxTextWidth: Int
+        
+        var BlackIndex: Int = DFont.FindColor("black")
+        var WhiteIndex: Int = DFont.FindColor("white")
+        var GoldIndex: Int = DFont.FindColor("gold")
+        var TextYOffset: Int = 0
+        
+        DLastViewWidth = surface.Width()
+        DLastViewHeight = surface.Height();
+        
+        DLastItemCount = 0
+        DLastItemOffset = offsetIndex
+        MaxTextWidth = DLastViewWidth - DIconTileset.TileWidth()
+        
+        ResourceContext.SetSourceRGBA(0x4000044C)
+        ResourceContext.Rectangle(0, 0, DLastViewWidth, DLastViewHeight)
+        ResourceContext.Fill()
+        DIconTileset.DrawTile(surface, MaxTextWidth, 0, offsetIndex ? DIconTileset.FindTile("up-active") : DIconTileset.FindTile("up-inactive"))
+        DLastUndisplayed = false
+        
+        while (offsetIndex < items.count) && (TextYOffset < DLastViewHeight) {
+            var TempString: String = items[offsetIndex]
+            DFont.MeasureText(TempString, TextWidth, TextHeight)
+            if TextWidth >= MaxTextWidth {
+                while(TempString.count) {
+                    var substr = TempString.index(TempString.start, offsetBy: (TempString.count - 1))
+                    TempString = string(substr)
+                    DFont.MeasureText(TempString + "...", TextWidth, TextHeight)
+                    if TextWidth < MaxTextWidth {
+                        TempString = TempString + "..."
+                        break
+                    }
+                }
+            }
+            DFont.DrawTextWithShadow(surface, 0, TextYOffset, offsetIndex == selectedIndex ? WhiteIndex : GoldIndex, BlackIndex, 1, TempString)
+            DFontHeight = TextHeight
+            TextYOffset += DFontHeight
+            DLastItemCount += 1
+            offsetIndex += 1
+        }
+        
+        if (DLastItemCount + DLastItemOffset) < items.count {
+            DLastUndisplayed = true
+        }
+        
+        DIconTileset.DrawTile(surface, MaxTextWidth, DLastViewHeight - DIconTileset.TileWidth(), DLastUndisplayed ? DIconTileset.FindTile("down-active") : DIconTileset -> FindTile("down-inactive"))
+        
+    }
 }
