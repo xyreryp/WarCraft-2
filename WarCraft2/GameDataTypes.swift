@@ -14,6 +14,10 @@
 import Foundation
 
 // Available colors for players
+<<<<<<< HEAD
+=======
+
+>>>>>>> f21295835124daaba26d7711858262009c404b96
 enum EPlayerColor: Int {
     case None = 0
     case Red
@@ -122,12 +126,7 @@ enum EDirection: Int {
     case Max
 }
 
-// Verify the return type function, and the input param are the same: EDirection
-func to_underlying<T>(enumerator: T) -> T {
-    return enumerator
-}
-
 // Return the oppostie Direction, tested in xCode Playground, and it works!
 func DirectionOpposite(dir: EDirection) -> EDirection {
-    return EDirection(rawValue: (to_underlying(enumerator: dir).rawValue + to_underlying(enumerator: EDirection.Max).rawValue / 2) % to_underlying(enumerator: EDirection.Max).rawValue)!
+    return EDirection(rawValue: (dir.rawValue + EDirection.Max.rawValue / 2) % EDirection.Max.rawValue)!
 }
