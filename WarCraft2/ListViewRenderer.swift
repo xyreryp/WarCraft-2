@@ -5,10 +5,8 @@
 //  Created by Disha Bendre on 10/5/17.
 //
 
-#define let _auto_type
-
 //
-// This file contains the class and memeber functions required for
+// This file contains the class and member functions required for
 // rendering the list view
 //
 
@@ -16,21 +14,21 @@ import Foundation
 
 class CListViewRenderer {
     // Available key options to scroll through objects in a list
-    public enum EListViewObject {
+    enum EListViewObject {
         case UpArrow = -1
         case DownArrow = -2
         case None = -3
     }
     
     // Member variables include display tiles, fonts, number of items, etc
-    internal var DIconTileset: CGraphicTileset
-    internal var DFont: CFontTileset
-    internal var DFontHeight: Int
-    internal var DLastItemCount: Int
-    internal var DLastItemOffset: Int
-    internal var DLastViewWidth: Int
-    internal var DLastViewHeight: Int
-    internal var DLastUndisplayed: Bool
+    private var DIconTileset: CGraphicTileset
+    private var DFont: CFontTileset
+    private var DFontHeight: Int
+    private var DLastItemCount: Int
+    private var DLastItemOffset: Int
+    private var DLastViewWidth: Int
+    private var DLastViewHeight: Int
+    private var DLastUndisplayed: Bool
     
     // Constructor to initalize member variables
     init(icons: CGraphicTileset, font: CFontTileset) {
@@ -49,10 +47,13 @@ class CListViewRenderer {
     deinit {
     }
     
-    // Function ItemAt
-    // @param int x: x coordinate of item on the map
-    // @param int y: y coordinate of item on the map
-    // @return int type: value of the EListView enumeration
+    
+    /*
+     - pamameters
+     - x: x coordinate of item on the map
+     - y: y coordinate of item on the map
+     - returns: int value of the EListView enumeratio
+     */
     public func ItemAt(x: Int, y: Int) -> Int {
         if (0 > x) || (0 > y) {
             return EListViewObject.None.rawValue
@@ -78,14 +79,16 @@ class CListViewRenderer {
         return EListViewObject.None.rawValue
     }
     
-    // Function DrawListView
-    // @param CGraphicSurface surface: surface of board
-    // @param Int selectedIndex: index of array
-    // @param Int offsetIndex: offset index of array
-    // @param [String] items: string array containing items
-    // @return void
+    /*
+     - parameters
+     - CGraphicSurface surface: surface of board
+     - Int selectedIndex: index of array
+     - Int offsetIndex: offset index of array
+     - [String] items: string array containing items
+     - returns: void
+     */
     public func DrawListView(surface: CGraphicSurface, selectedIndex: Int, offsetIndex: Int, items: [String]) {
-        let ResourceContext = surface.createResourceContext();
+        var ResourceContext = surface.createResourceContext();
         var TextWidth: Int
         var TextHeight: Int
         var MaxTextWidth: Int
