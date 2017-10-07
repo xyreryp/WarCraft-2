@@ -19,14 +19,13 @@ class CListViewRenderer {
         case DownArrow = -2
         case None = -3
     }
-    
-    //  protected: // this might be internal access modifer in swift
 
-    internal strong var DIconTileset: CGraphicTileset? //  strong indicates shared_ptr
-                                               //  variable is of type
-                                               // CGrphCGraphicTileset
-    internal strong var DFont: CFontTileset? // ? indicates var is intiliazed to nil
-    internal var DFontHeight: Int //  explicitly define type as Int
+    // NOTE: XCode indicates Consecutive declarations on a line must be separated
+    // by ';' eror. Not sure where the consective declaration happens if I'm
+    // trying to declare a strong variable
+    internal var DIconTileset: CGraphicTileset
+    internal var DFont: CFontTileset
+    internal var DFontHeight: Int
     internal var DLastItemCount: Int
     internal var DLastItemOffset: Int
     internal var DLastViewWidth: Int
@@ -47,12 +46,32 @@ class CListViewRenderer {
     //  NOTE: Destructor in cpp file is empty
     //  denit is destructor
     deinit {
-    
     }
     
     // Function ItemAt takes parameters x and y, which are coordinates on the map
     func ItemAt(x: Int, y: Int) -> Int {
-        // TODO: Finish function body
+        if (0 > x) || (0 > y) {
+            return EListViewObject.None.rawValue
+        }
+        if (DLastViewWidth <= x) || (DLastViewHeight <= y) {
+            return EListViewObject.None.rawValue
+        }
+        if (x < DLastViewWidth - DIconTileset.TileWidth()) {
+            if (y / DFontHeight) < DLastItemCount {
+                return DLastItemOffset + (y / DFontHeight)
+            }
+        }
+        else if (y < DIconTileset.TileHeight()) {
+            if DLastItemOffset {
+                return EListViewObject.UpArrow.rawValue
+            }
+        }
+        else if (y > DLastViewHeight - DIconTileset.TileHeight()) {
+            if DLastUndisplayed {
+                return EListViewObject.DownArrow.rawValue
+            }
+        }
+        return EListViewObject.None.rawValue
     }
     
     // TODO: Finish function body
