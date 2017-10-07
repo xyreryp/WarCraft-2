@@ -7,21 +7,22 @@
 
 #define let _auto_type
 
+//
+// This file contains the class and memeber functions required for
+// rendering the list view
+//
+
 import Foundation
 
-//  In Swift, you define a class or a structure in a single file, and the
-//  external interface to that class or structure is automatically made
-//  available for other code to use.
-
-
-
 class CListViewRenderer {
+    // Available key options to scroll through objects in a list
     public enum EListViewObject {
         case UpArrow = -1
         case DownArrow = -2
         case None = -3
     }
-
+    
+    // Member variables include display tiles, fonts, number of items, etc
     internal var DIconTileset: CGraphicTileset
     internal var DFont: CFontTileset
     internal var DFontHeight: Int
@@ -31,6 +32,7 @@ class CListViewRenderer {
     internal var DLastViewHeight: Int
     internal var DLastUndisplayed: Bool
     
+    // Constructor to initalize member variables
     init(icons: CGraphicTileset, font: CFontTileset) {
         DIconTileset = icons
         DFont = font
@@ -43,11 +45,14 @@ class CListViewRenderer {
     }
     
     //  NOTE: Destructor in cpp file is empty
-    //  denit is destructor
+    //  Destructor
     deinit {
     }
     
-    // Function ItemAt takes parameters x and y, which are coordinates on the map
+    // Function ItemAt
+    // @param int x: x coordinate of item on the map
+    // @param int y: y coordinate of item on the map
+    // @return int type: value of the EListView enumeration
     public func ItemAt(x: Int, y: Int) -> Int {
         if (0 > x) || (0 > y) {
             return EListViewObject.None.rawValue
@@ -73,7 +78,12 @@ class CListViewRenderer {
         return EListViewObject.None.rawValue
     }
     
-     //TODO: Finish function body
+    // Function DrawListView
+    // @param CGraphicSurface surface: surface of board
+    // @param Int selectedIndex: index of array
+    // @param Int offsetIndex: offset index of array
+    // @param [String] items: string array containing items
+    // @return void
     public func DrawListView(surface: CGraphicSurface, selectedIndex: Int, offsetIndex: Int, items: [String]) {
         let ResourceContext = surface.createResourceContext();
         var TextWidth: Int
