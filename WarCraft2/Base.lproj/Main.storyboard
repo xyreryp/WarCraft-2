@@ -802,6 +802,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="multiPlayerGameBtnClicked:" target="Rwh-cE-fUM" id="MXg-L4-7Gp"/>
+                                </connections>
                             </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qdj-xe-Pil">
                                 <rect key="frame" x="344" y="567" width="113" height="25"/>
@@ -1128,13 +1131,93 @@
             </objects>
             <point key="canvasLocation" x="3417" y="1198"/>
         </scene>
+        <!--Multi Player Game Options View Controller-->
+        <scene sceneID="K96-bT-C9F">
+            <objects>
+                <viewController storyboardIdentifier="multiPlayerGameOptionsMenuID" id="CaG-wt-YRP" customClass="MultiPlayerGameOptionsViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="lbK-81-NaX">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MpP-a1-i8y">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="zPk-LL-fny"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-2R-XNk">
+                                <rect key="frame" x="249" y="564" width="303" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="303" id="Q9I-hP-UGl"/>
+                                    <constraint firstAttribute="height" constant="28" id="t0e-4h-ZwV"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_multi_player_game_options" id="jzn-rX-DfH"/>
+                            </imageView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="99f-07-m1K">
+                                <rect key="frame" x="281" y="387" width="238" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="238" id="C3p-NP-mXe"/>
+                                    <constraint firstAttribute="height" constant="42" id="eY4-ba-8Oi"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_host_multi_player_game" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="coO-8c-bma">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="qHD-Fy-mkC">
+                                <rect key="frame" x="281" y="327" width="238" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="1bF-2r-Toh"/>
+                                    <constraint firstAttribute="width" constant="238" id="DCw-CV-k78"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_join_multi_player_game" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="cB6-Xk-3r3">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="pKW-TN-3kG">
+                                <rect key="frame" x="281" y="197" width="238" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="TK1-Y1-ft9"/>
+                                    <constraint firstAttribute="width" constant="238" id="sRQ-JP-hrc"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_back_(multi_player_game_options)" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pRH-wm-MgO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="backBtnClicked:" target="CaG-wt-YRP" id="DAE-Jd-N1k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="pKW-TN-3kG" firstAttribute="top" secondItem="qHD-Fy-mkC" secondAttribute="bottom" constant="88" id="2Zw-P0-4fr"/>
+                            <constraint firstItem="qHD-Fy-mkC" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="E4M-mI-sGc"/>
+                            <constraint firstAttribute="trailing" secondItem="MpP-a1-i8y" secondAttribute="trailing" id="FKe-vj-Aod"/>
+                            <constraint firstItem="MpP-a1-i8y" firstAttribute="leading" secondItem="lbK-81-NaX" secondAttribute="leading" id="GJw-Zi-tO6"/>
+                            <constraint firstItem="99f-07-m1K" firstAttribute="top" secondItem="zhX-2R-XNk" secondAttribute="bottom" constant="135" id="I6N-PB-z3R"/>
+                            <constraint firstAttribute="bottom" secondItem="MpP-a1-i8y" secondAttribute="bottom" id="KWN-V5-tOi"/>
+                            <constraint firstItem="zhX-2R-XNk" firstAttribute="top" secondItem="lbK-81-NaX" secondAttribute="top" constant="8" id="MFG-3S-JJT"/>
+                            <constraint firstItem="99f-07-m1K" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="V1a-Ub-9Th"/>
+                            <constraint firstItem="qHD-Fy-mkC" firstAttribute="top" secondItem="99f-07-m1K" secondAttribute="bottom" constant="18" id="dLx-YO-4PX"/>
+                            <constraint firstItem="MpP-a1-i8y" firstAttribute="top" secondItem="lbK-81-NaX" secondAttribute="top" id="quR-nj-yp1"/>
+                            <constraint firstItem="pKW-TN-3kG" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="wQB-7d-Nh4"/>
+                            <constraint firstItem="zhX-2R-XNk" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="zso-oX-rr7"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="nAb-4H-gsz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4239" y="1198"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Splash800x600" width="800" height="600"/>
         <image name="Texture800x600" width="800" height="600"/>
         <image name="btn_up_back" width="173" height="46"/>
+        <image name="btn_up_back_(multi_player_game_options)" width="238" height="42"/>
         <image name="btn_up_cancel" width="96" height="37"/>
         <image name="btn_up_exit_game" width="194" height="44"/>
+        <image name="btn_up_host_multi_player_game" width="238" height="42"/>
+        <image name="btn_up_join_multi_player_game" width="238" height="42"/>
         <image name="btn_up_multi_player_game" width="194" height="44"/>
         <image name="btn_up_network_options" width="173" height="46"/>
         <image name="btn_up_ok" width="96" height="37"/>
@@ -1142,6 +1225,7 @@
         <image name="btn_up_single_player_game" width="194" height="44"/>
         <image name="btn_up_sound_options" width="173" height="46"/>
         <image name="label_fx_volume" width="80" height="14"/>
+        <image name="label_multi_player_game_options" width="303" height="28"/>
         <image name="label_music_volume" width="103" height="14"/>
         <image name="label_network_options" width="193" height="29"/>
         <image name="label_options" width="87" height="28"/>

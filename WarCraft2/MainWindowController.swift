@@ -14,6 +14,7 @@ class MainWindowController: NSWindowController {
     var optionsMenuVC: OptionsMenuViewController?
     var soundOptionsMenuVC: SoundOptionsMenuViewController?
     var networkOptionsMenuVC: NetworkOptionsMenuViewController?
+    var multiPlayerGameOptionsMenuVC: MultiPlayerGameOptionsViewController?
 
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -43,6 +44,11 @@ class MainWindowController: NSWindowController {
                 networkOptionsMenuVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "networkOptionsMenuID")) as? NetworkOptionsMenuViewController
             }
             window?.contentView = networkOptionsMenuVC?.view
+        case "MultiPlayerGameOptionsMenu":
+            if nil == multiPlayerGameOptionsMenuVC {
+                multiPlayerGameOptionsMenuVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "multiPlayerGameOptionsMenuID")) as? MultiPlayerGameOptionsViewController
+            }
+            window?.contentView = multiPlayerGameOptionsMenuVC?.view
         default:
             print("error")
         }

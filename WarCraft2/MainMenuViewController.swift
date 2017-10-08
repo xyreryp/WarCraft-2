@@ -10,6 +10,12 @@ import Cocoa
 
 class MainMenuViewController: NSViewController {
 
+    @IBAction func multiPlayerGameBtnClicked(_: Any) {
+        if let mainWC = view.window?.windowController as? MainWindowController {
+            mainWC.move(newMenu: "MultiPlayerGameOptionsMenu")
+        }
+    }
+
     @IBAction func optionsBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
             mainWC.move(newMenu: "OptionsMenu")
