@@ -13,8 +13,7 @@
 		CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F71F85DF8F004379F5 /* ViewController.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
-		E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */; };
-		E1F589971F89FB440072BE93 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
+		DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +27,7 @@
 		CE4F77FC1F85DF8F004379F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE4F77FE1F85DF8F004379F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WarCraft2.entitlements; sourceTree = "<group>"; };
-		E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
+		DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +65,7 @@
 				CE4F77F71F85DF8F004379F5 /* ViewController.swift */,
 				CE4F77F91F85DF8F004379F5 /* Assets.xcassets */,
 				CE4F77FB1F85DF8F004379F5 /* Main.storyboard */,
+				DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */,
 				CE4F77FE1F85DF8F004379F5 /* Info.plist */,
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
 				E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */,
@@ -169,7 +169,7 @@
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
-				939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
+				DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
