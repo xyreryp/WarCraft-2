@@ -12,12 +12,15 @@
 		4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */; };
 		4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */; };
 		4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA30961F888C28006C46D5 /* MainWindowController.swift */; };
-		4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */; };
+		4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */; }
+		939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77F81F85DF8F004379F5 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F71F85DF8F004379F5 /* SplashViewController.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
+		E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */; };
+		E1F589971F89FB440072BE93 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +30,9 @@
 		4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPlayerGameOptionsViewController.swift; sourceTree = "<group>"; };
 		4BBA30961F888C28006C46D5 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
+		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F71F85DF8F004379F5 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +40,7 @@
 		CE4F77FC1F85DF8F004379F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE4F77FE1F85DF8F004379F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WarCraft2.entitlements; sourceTree = "<group>"; };
+		E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,7 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
+				939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
 				4BBA30961F888C28006C46D5 /* MainWindowController.swift */,
 				CE4F77F71F85DF8F004379F5 /* SplashViewController.swift */,
@@ -79,7 +86,9 @@
 				CE4F77F91F85DF8F004379F5 /* Assets.xcassets */,
 				CE4F77FE1F85DF8F004379F5 /* Info.plist */,
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
+				E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */,
 				A1AAF57C1F872930005007C4 /* GameDataTypes.swift */,
+				A1AAF57E1F87E650005007C4 /* Position.swift */,
 			);
 			path = WarCraft2;
 			sourceTree = "<group>";
@@ -179,9 +188,13 @@
 				CE4F77F81F85DF8F004379F5 /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
+				E1F589971F89FB440072BE93 /* Position.swift in Sources */,
+				CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
+				E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 				4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */,
+				939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
