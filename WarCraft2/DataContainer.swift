@@ -19,8 +19,6 @@ import Foundation
 **  class type
 */
 
-//  class DataSource ??
-//  class DataSink
 
 protocol CDataContainerIterator {
     func Name() -> String
@@ -31,8 +29,30 @@ protocol CDataContainerIterator {
 
 protocol CDataContainer {
     func First() -> CDataContainerIterator
-    func DataSource(name: String) -> CDataSource
-    func DataSink(name: String) -> CDataSink
+    // TODO: Uncomment When CDataSource has been written
+    func DataSource(name: String) // -> CDataSource
+    // TODO: Uncomment when CDataSink has been written
+    func DataSink(name: String) // -> CDataSink
     func Container() -> CDataContainer
     func DataContainer(name: String) -> CDataContainer
 }
+
+//
+// Experimenting with classes, optional return types
+// instead of protocols
+//
+//class CDataContainerIterator {
+//    func Name() -> String? {}
+//    func IsContainer() -> Bool? {}
+//    func IsValid() -> Bool? {}
+//    func Next() {}
+//}
+//
+//class CDataContainer {
+//    func First() -> CDataContainerIterator? {}
+//    func DataSource(name: String) -> CDataSource? {}
+//    func DataSink(name: String) -> CDataSink? {}
+//    func Container() -> CDataContainer? {}
+//    func DataContainer(name: String) -> CDataContainer? {}
+//}
+
