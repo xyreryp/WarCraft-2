@@ -704,10 +704,10 @@
             </objects>
             <point key="canvasLocation" x="85" y="429"/>
         </scene>
-        <!--Splash View Controller-->
+        <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="SplashViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -892,7 +892,7 @@
                                 </buttonCell>
                             </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NQH-ec-epM">
-                                <rect key="frame" x="352" y="553" width="98" height="39"/>
+                                <rect key="frame" x="351" y="553" width="98" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="SKr-5N-mGb"/>
                                     <constraint firstAttribute="width" constant="98" id="cvI-Al-rCz"/>

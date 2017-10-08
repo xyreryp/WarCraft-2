@@ -1,5 +1,5 @@
 //
-//  SplashViewController.swift
+//  ViewController.swift
 //  WarCraft2
 //
 //  Created by Yepu Xie on 10/4/17.
@@ -9,7 +9,7 @@
 import Cocoa
 import AVFoundation
 
-class SplashViewController: NSViewController {
+class ViewController: NSViewController {
 
     var player: AVAudioPlayer?
 
