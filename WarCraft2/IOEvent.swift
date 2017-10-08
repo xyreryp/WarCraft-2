@@ -28,33 +28,34 @@ class IOEvent{
         var EventInvalid: UInt32
     
         //listing functions defined in the corresponding IOEvent.h file
-        func SetIn(){}
-        func SetOut(){}
-        func SetPriority(){}
-        func SetError(){}
-        func SetHangUp(){}
-        func SetInvalid(){}
+        func SetIn() {}
+        func SetOut() {}
+        func SetPriority() {}
+        func SetError() {}
+        func SetHangUp() {}
+        func SetInvalid() {}
     
-        func ClearIn(){}
-        func ClearOut(){}
-        func ClearPriority(){}
-        func ClearError(){}
-        func ClearHangUp(){}
-        func ClearInvalid(){}
+        func ClearIn() {}
+        func ClearOut() {}
+        func ClearPriority() {}
+        func ClearError() {}
+        func ClearHangUp() {}
+        func ClearInvalid() {}
     
         /*these were originally unimplemented virtual functions defined in IOEvent.h
          i've decided to initialize all return values to false, until they are overloaded later
          because Swift doesn't let me define these within a struct without initialization */
         
-        func IsIn()->Bool{return false}
-        func IsOut()->Bool{return false}
-        func IsPriority()->Bool{return false}
-        func IsError()->Bool{return false}
-        func IsHangUp()->Bool{return false}
-        func IsInvalid()->Bool{return false}
+        func IsIn() -> Bool {return false}
+        func IsOut() -> Bool {return false}
+        func IsPriority() -> Bool {return false}
+        func IsError()-> Bool {return false}
+        func IsHangUp()-> Bool {return false}
+        func IsInvalid()-> Bool {return false}
         
         /*
-         The following is some code from the original .h file, looks like some sort of aliasing,
+         FIXME:
+         The following is some C++ code from the original .h file, looks like some sort of aliasing,
          I'd love any input on what exactly this implies and how to handle this in Swift.
          
          using TIOCalldata = void *;
