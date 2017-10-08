@@ -6,7 +6,6 @@
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
-
 //
 // This file contains the enumeration types for:
 // PlayerColor, AssetAction, AssetCapabilityType, AssetType, Direction
@@ -15,7 +14,7 @@
 import Foundation
 
 // Available colors for players
-enum EPlayerColor:  Int {
+enum EPlayerColor: Int {
     case None = 0
     case Red
     case Blue
@@ -29,7 +28,7 @@ enum EPlayerColor:  Int {
 }
 
 // Available actions for different assets
-enum EAssetAction : Int {
+enum EAssetAction: Int {
     case None = 0
     case Construct
     case Build
@@ -47,7 +46,7 @@ enum EAssetAction : Int {
 }
 
 // Available capabilities for different asset types
-enum EAssetCapabilityType : Int{
+enum EAssetCapabilityType: Int {
     case None = 0
     case BuildPeasant
     case BuildFootman
@@ -90,7 +89,7 @@ enum EAssetCapabilityType : Int{
 }
 
 // Available asset types
-enum EAssetType : Int{
+enum EAssetType: Int {
     case None = 0
     case Peasant
     case Footman
@@ -111,7 +110,7 @@ enum EAssetType : Int{
 }
 
 // Available directions for assets to move
-enum EDirection : Int{
+enum EDirection: Int {
     case North = 0
     case NorthEast
     case East
@@ -123,9 +122,8 @@ enum EDirection : Int{
     case Max
 }
 
-
 // Verify the return type function, and the input param are the same: EDirection
-func to_underlying<T>(enumerator : T) -> T{
+func to_underlying<T>(enumerator: T) -> T {
     return enumerator
 }
 
