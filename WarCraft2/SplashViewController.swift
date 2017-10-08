@@ -22,19 +22,19 @@ class SplashViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        playSound(audioFileName: "load", audioType: "mp3")
+        playSound(audioFileName: "load", audioType: "mp3", numloops: 9999)
         // Do view setup here.
     }
 
     // sourced from https://developer.apple.com/library/content/qa/qa1913/_index.html
-    func playSound(audioFileName: String, audioType: String) {
+    func playSound(audioFileName: String, audioType: String, numloops: Int) {
         if let asset = NSDataAsset(name: NSDataAsset.Name(rawValue: audioFileName)) {
             do {
                 // Use NSDataAsset's data property to access the audio file stored in Sound.
                 player = try AVAudioPlayer(data: asset.data, fileTypeHint: audioType)
                 // Play the above sound file.
                 player?.volume = 1.0
-                player?.numberOfLoops = 9999
+                player?.numberOfLoops = numloops
                 player?.play()
             } catch let error as NSError {
                 print(error.localizedDescription)
