@@ -16,7 +16,6 @@
 		939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
-		CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F71F85DF8F004379F5 /* ViewController.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
 		E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */; };
@@ -185,11 +184,9 @@
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
-				CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				E1F589971F89FB440072BE93 /* Position.swift in Sources */,
-				CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
