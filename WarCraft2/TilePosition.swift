@@ -8,6 +8,6 @@
 
 import Foundation
 
-class TilePosition : CPosition {
+class CTilePosition : CPosition {
     
 }
