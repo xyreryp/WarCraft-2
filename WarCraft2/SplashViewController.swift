@@ -15,7 +15,8 @@ class SplashViewController: NSViewController {
 
     @IBAction func mainMenuBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
-            // mainWC.moveToMainMenu()
+            player?.stop()
+            playSound(audioFileName: "menu", audioType: "mp3", numloops: 9999)
             mainWC.move(newMenu: "MainMenu")
         }
     }
