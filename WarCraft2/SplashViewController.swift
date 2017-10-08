@@ -22,7 +22,7 @@ class SplashViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // playSound(audioFileName: "load", audioType: "mp3")
+        playSound(audioFileName: "load", audioType: "mp3")
 
         // Do any additional setup after loading the view.
     }
