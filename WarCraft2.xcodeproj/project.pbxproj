@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B5A5CE81F8B26CB00A7B009 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A5CE71F8B26CB00A7B009 /* RandomNumberGenerator.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
 		A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5891F8AD924005007C4 /* PixelPosition.swift */; };
@@ -182,12 +181,8 @@
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
-<<<<<<< HEAD
-				6B5A5CE81F8B26CB00A7B009 /* RandomNumberGenerator.swift in Sources */,
-=======
 				939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
->>>>>>> db557c9ea97a495662796fcc59fb7afda7f8a775
 				DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
