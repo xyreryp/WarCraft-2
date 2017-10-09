@@ -1,19 +1,19 @@
 //
-//  ViewController.swift
+//  SplashViewController.swift
 //  WarCraft2
 //
-//  Created by Yepu Xie on 10/4/17.
+//  Created by David Montes on 10/8/17.
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
 import Cocoa
 import AVFoundation
 
-class ViewController: NSViewController {
+class SplashViewController: NSViewController {
 
     var player: AVAudioPlayer?
 
-    @IBAction func mainMenuBtn(_: Any) {
+    @IBAction func mainMenuBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
             // mainWC.moveToMainMenu()
             mainWC.move(newMenu: "MainMenu")
@@ -23,14 +23,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         playSound(audioFileName: "load", audioType: "mp3")
-
-        // Do any additional setup after loading the view.
-    }
-
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
+        // Do view setup here.
     }
 
     // sourced from https://developer.apple.com/library/content/qa/qa1913/_index.html
