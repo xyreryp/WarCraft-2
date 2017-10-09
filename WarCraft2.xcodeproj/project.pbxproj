@@ -185,9 +185,11 @@
 			files = (
 				CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
+				E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
+				39B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
 				DD6707E01F8B2F5400702F9F /* DataSource.swift in Sources */,
 				DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */,
