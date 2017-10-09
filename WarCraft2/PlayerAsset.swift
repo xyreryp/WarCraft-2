@@ -13,7 +13,7 @@
 **                removed shared pointer because of swift's memory management
 **                Override instead of virtual functions
 **                Protocols instead of pure virtual functions: throws error if subclass doesn't implement protocol method
-**                Function values constant by default
+**                Function parmaters pass by constant by default, inout to pass by reference
 */
 
 
@@ -36,7 +36,7 @@ protocol CActivatedPlayerCapability {
 
 protocol CPlayerCapability {
     
-        public enum ETargetType{
+    public enum ETargetType{
             case None = 0
             case Asset
             case Terrain
@@ -46,8 +46,22 @@ protocol CPlayerCapability {
     
     var DName: String
     var DAssetCappabilityType: EAssetCapabilityType
+    var DTargetType: ETargetType
     
-    init()
+    init(name: String, targettype: ETargetType)
+    
+    //unordered maps
+    //static function
+    
+    func Name() -> String{
+        return DName
+    }
+    
+    AssetCapabilityType() -> EAssetCapabilityType {
+    
+    }
+    
+    
     
 }
 
