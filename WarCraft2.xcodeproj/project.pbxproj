@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B12BCC71F8C376100F1E62D /* SoundManager.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
 		4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */; };
 		4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
 				4BBA30961F888C28006C46D5 /* MainWindowController.swift */,
 				4B39625F1F8ACCE7003238AB /* SplashViewController.swift */,
+				4B12BCC71F8C376100F1E62D /* SoundManager.swift */,
 				4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */,
 				4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */,
 				4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */,
@@ -186,6 +189,7 @@
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
 				4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
+				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
