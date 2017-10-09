@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
+		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
+		A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5891F8AD924005007C4 /* PixelPosition.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F71F85DF8F004379F5 /* ViewController.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
+		A1AAF5891F8AD924005007C4 /* PixelPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPosition.swift; sourceTree = "<group>"; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F71F85DF8F004379F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -75,8 +79,10 @@
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
 				E19B18731F889E2F007BBAE4 /* GraphicResourceContext.swift */,
 				A1AAF57C1F872930005007C4 /* GameDataTypes.swift */,
+				A1AAF5871F8A955D005007C4 /* TilePosition.swift */,
 				A1AAF57E1F87E650005007C4 /* Position.swift */,
 				E1F589981F8A01C80072BE93 /* GraphicSurface.swift */,
+				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
 			);
 			path = WarCraft2;
 			sourceTree = "<group>";
@@ -174,6 +180,8 @@
 				CE4F77F81F85DF8F004379F5 /* ViewController.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				E19B18741F889E2F007BBAE4 /* GraphicResourceContext.swift in Sources */,
+				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
+				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 				939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
