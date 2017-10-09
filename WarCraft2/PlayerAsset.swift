@@ -14,6 +14,8 @@
 **                Override instead of virtual functions
 **                Protocols instead of pure virtual functions: throws error if subclass doesn't implement protocol method
 **                Function parmaters pass by constant by default, inout to pass by reference
+**                Constant member functions: do not modify object in which they are called
+**                Protocols don't allow bodies for functions, use { get set } with in data members to dictate whether they are gettable or settable
 */
 
 
@@ -33,7 +35,7 @@ protocol CActivatedPlayerCapability {
     public override func Cancel()
     
 }
-
+    //COME BACK TO CPLAYERCAPABILITY
 protocol CPlayerCapability {
     
     public enum ETargetType{
@@ -43,23 +45,41 @@ protocol CPlayerCapability {
             case TerrainOrAsset
             case Player
         }
-    
-    var DName: String
-    var DAssetCappabilityType: EAssetCapabilityType
-    var DTargetType: ETargetType
+    //how is it protected?
+    var DName: String { get }       //provides get function for variable DName
+    var DAssetCappabilityType: EAssetCapabilityType { get }
+    var DTargetType: ETargetType { get }
     
     init(name: String, targettype: ETargetType)
     
-    //unordered maps
-    //static function
+    var NameRegistry [String : CPlayerCapability]   //STILL NEED TO DO: STATIC unordered maps REFERENCE
+    var TypeRegistry [Int : CPlayerCapability]
     
-    func Name() -> String{
-        return DName
-    }
+    //static function
     
     AssetCapabilityType() -> EAssetCapabilityType {
     
     }
+    
+}
+
+class CPlayerUpgrade{
+    
+    var DName: String { get }
+    var DArmor: Int { get }
+    var DSight: Int { get }
+    var DSpeed: Int { get }
+    var DBasicDamage: Int { get }
+    var DPiercingDamage: Int { get }
+    var DRange: Int { get }
+    var DGoldCost: Int { get }
+    var DLumberCost: Int { get }
+    var DResearchTime: Int { get }
+    
+    var DAffectedAssets : [EAssetType]
+    
+    
+    
     
     
     
