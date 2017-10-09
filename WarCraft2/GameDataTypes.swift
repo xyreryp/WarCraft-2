@@ -14,7 +14,6 @@
 import Foundation
 
 // Available colors for players
-
 enum EPlayerColor: Int {
     case None = 0
     case Red
