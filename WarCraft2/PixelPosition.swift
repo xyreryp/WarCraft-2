@@ -10,6 +10,10 @@ import Foundation
 
 class CPixelPosition: CPosition {
 
+    override init() {
+        super.init()
+    }
+
     // constructor via an x, and y point
     override init(x: Int, y: Int) {
         super.init(x: x, y: y)
@@ -59,12 +63,12 @@ class CPixelPosition: CPosition {
     }
 
     // call CPositions's DistanceSquared()
-    func DistanceSquared(pos: CTilePosition) -> Int {
+    func DistanceSquared(pos: CPixelPosition) -> Int {
         return super.DistanceSquared(pos: pos)
     }
 
     // call CPosition's Distance()
-    func Distance(pos: CTilePosition) -> Int {
+    func Distance(pos: CPixelPosition) -> Int {
         return super.Distance(pos: pos)
     }
 

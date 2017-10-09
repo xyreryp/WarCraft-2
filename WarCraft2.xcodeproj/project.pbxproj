@@ -39,6 +39,7 @@
 		4BBA30961F888C28006C46D5 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGenerator.swift; sourceTree = "<group>"; };
+		6BC677471F8C186D00953C3A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Rectangle.swift; path = WarCraft2/Rectangle.swift; sourceTree = "<group>"; };
 		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 		CE4F77E91F85DF8F004379F5 = {
 			isa = PBXGroup;
 			children = (
+				6BC677471F8C186D00953C3A /* Rectangle.swift */,
 				CE4F77F41F85DF8F004379F5 /* WarCraft2 */,
 				CE4F77F31F85DF8F004379F5 /* Products */,
 				E18B688D1F8B3C8700962891 /* Recovered References */,
@@ -231,6 +233,7 @@
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
 				DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */,
 				E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */,
+				6BC677481F8C186D00953C3A /* Rectangle.swift in Sources */,
 				6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
