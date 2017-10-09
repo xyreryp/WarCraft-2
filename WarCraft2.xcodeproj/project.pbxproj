@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FDDEE841F8C29B90012A79D /* DataSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDDEE831F8C29B90012A79D /* DataSink.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
 		4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */; };
 		4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0FDDEE831F8C29B90012A79D /* DataSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSink.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */,
+				0FDDEE831F8C29B90012A79D /* DataSink.swift */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
 				4BBA30961F888C28006C46D5 /* MainWindowController.swift */,
 				6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */,
@@ -229,6 +232,7 @@
 				939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
 				DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */,
+				0FDDEE841F8C29B90012A79D /* DataSink.swift in Sources */,
 				E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */,
 				6BC677481F8C186D00953C3A /* Rectangle.swift in Sources */,
 				6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */,
