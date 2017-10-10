@@ -74,6 +74,7 @@
 		CE4F77E91F85DF8F004379F5 = {
 			isa = PBXGroup;
 			children = (
+				6BC677471F8C186D00953C3A /* Rectangle.swift */,
 				CE4F77F41F85DF8F004379F5 /* WarCraft2 */,
 				CE4F77F31F85DF8F004379F5 /* Products */,
 				E18B688D1F8B3C8700962891 /* Recovered References */,
@@ -114,7 +115,6 @@
 				A1AAF57E1F87E650005007C4 /* Position.swift */,
 				E1F589981F8A01C80072BE93 /* GraphicSurface.swift */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
-				6BC677471F8C186D00953C3A /* Rectangle.swift */,
 				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
 			);
 			path = WarCraft2;
