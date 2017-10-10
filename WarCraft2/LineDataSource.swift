@@ -8,18 +8,8 @@
 
 import Foundation
 
-// used in CommentSkipLineDataSource
-protocol PLineDataSource {
-
-    // set/get data
-    var DDataSource: CDataSource { get set }
-
-    // initializer
-    init(source: CDataSource)
-    func Read(line: inout String) -> Bool
-}
-
-final class CLineDataSource: PLineDataSource {
+// used in CCommentSkipLineDataSource
+class CLineDataSource {
 
     var DDataSource: CDataSource
 
