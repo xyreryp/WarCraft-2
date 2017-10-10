@@ -60,35 +60,27 @@
 // };
 //
 // #endif
-
-class CVisibilityMap {
-    
-    enum ETileVisibility {
-        case None
-        case PartialPartial
-        case Partial
-        case Visible
-        case SeenPartial
-        case Seen
-    }
-    
-    //    std::vector< std::vector< ETileVisibility > > DMap;
-    var DMaxVisibility: Int
-    var DTotalMapTiles: Int
-    var DUnseenTiles: Int
-    
-    init(width: Int, height: Int, maxvisibility: Int) {
-        
-    }
-    func SeenPercent(max: Int) -> Int {}
+enum ETileVisibility {
+    case None
+    case PartialPartial
+    case Partial
+    case Visible
+    case SeenPartial
+    case Seen
 }
 
+protocol CVisibilityMap {
+    var DMap: [[ETileVisibility]] { get set }
+    var DMaxVisibility: Int { get set }
+    var DTotalMapTiles: Int { get set }
+    var DUnseenTiles: Int { get set }
+    init(width: Int, height: Int, maxvisibility: Int)
 
+    func SeenPercent(max: Int) -> Int
+}
 
 //
-//#include "VisibilityMap.h"
-//
-//CVisibilityMap::CVisibilityMap(int width, int height, int maxvisibility){
+// CVisibilityMap::CVisibilityMap(int width, int height, int maxvisibility){
 //    DMaxVisibility = maxvisibility;
 //    DMap.resize(height + 2 * DMaxVisibility);
 //    for(auto &Row : DMap){
@@ -99,20 +91,21 @@ class CVisibilityMap {
 //    }
 //    DTotalMapTiles = width * height;
 //    DUnseenTiles = DTotalMapTiles;
-//}
+// }
+
 //
-//CVisibilityMap::CVisibilityMap(const CVisibilityMap &map){
+// CVisibilityMap::CVisibilityMap(const CVisibilityMap &map){
 //    DMaxVisibility = map.DMaxVisibility;
 //    DMap = map.DMap;
 //    DTotalMapTiles = map.DTotalMapTiles;
 //    DUnseenTiles = map.DUnseenTiles;
-//}
+// }
 //
-//CVisibilityMap::~CVisibilityMap(){
-//    
-//}
+// CVisibilityMap::~CVisibilityMap(){
 //
-//CVisibilityMap &CVisibilityMap::operator=(const CVisibilityMap &map){
+// }
+//
+// CVisibilityMap &CVisibilityMap::operator=(const CVisibilityMap &map){
 //    if(this != &map){
 //        DMaxVisibility = map.DMaxVisibility;
 //        DMap = map.DMap;
@@ -120,24 +113,24 @@ class CVisibilityMap {
 //        DUnseenTiles = map.DUnseenTiles;
 //    }
 //    return *this;
-//}
+// }
 //
-//int CVisibilityMap::Width() const{
+// int CVisibilityMap::Width() const{
 //    if(DMap.size()){
 //        return DMap[0].size() - 2 * DMaxVisibility;
 //    }
 //    return 0;
-//}
+// }
 //
-//int CVisibilityMap::Height() const{
+// int CVisibilityMap::Height() const{
 //    return DMap.size() - 2 * DMaxVisibility;
-//}
+// }
 //
-//int CVisibilityMap::SeenPercent(int max) const{
+// int CVisibilityMap::SeenPercent(int max) const{
 //    return (max * (DTotalMapTiles - DUnseenTiles)) / DTotalMapTiles;
-//}
+// }
 //
-//void CVisibilityMap::Update(const std::list< std::weak_ptr< CPlayerAsset > > &assets){
+// void CVisibilityMap::Update(const std::list< std::weak_ptr< CPlayerAsset > > &assets){
 //    for(auto &Row : DMap){
 //        for(auto &Cell : Row){
 //            if((ETileVisibility::Visible == Cell)||(ETileVisibility::Partial == Cell)){
@@ -158,11 +151,11 @@ class CVisibilityMap {
 //            for(int X = 0; X <= Sight; X++){
 //                int XSquared = X * X;
 //                int XSquared1 = X ? (X - 1) * (X - 1) : 0;
-//                
+//
 //                for(int Y = 0; Y <= Sight; Y++){
 //                    int YSquared = Y * Y;
 //                    int YSquared1 = Y ? (Y - 1) * (Y - 1) : 0;
-//                    
+//
 //                    if((XSquared + YSquared) < SightSquared){
 //                        // Visible
 //                        DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility::Visible;
@@ -218,8 +211,5 @@ class CVisibilityMap {
 //            }
 //        }
 //    }
-//    
-//}
-
-
-
+//
+// }
