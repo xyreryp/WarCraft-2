@@ -10,13 +10,13 @@ import Foundation
 
 /// Data Source protocol
 protocol CDataSource {
-    
+
     /// Read function
     ///
     /// - Parameter length: length of data
     /// - Returns: tuple, with the data read and its length (-1 if error)
     func Read(length: Int) -> (Any, Int)
-    
+
     // TODO: Uncomment return type when CDataContainer has been merged
     func Container() // -> CDataContainer
 }

@@ -20,6 +20,7 @@
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
 		A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5891F8AD924005007C4 /* PixelPosition.swift */; };
+		A1AAF5CE1F8C5874005007C4 /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
@@ -39,12 +40,13 @@
 		4BBA30961F888C28006C46D5 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGenerator.swift; sourceTree = "<group>"; };
-		6BC677471F8C186D00953C3A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Rectangle.swift; path = WarCraft2/Rectangle.swift; sourceTree = "<group>"; };
+		6BC677471F8C186D00953C3A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
 		A1AAF5891F8AD924005007C4 /* PixelPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPosition.swift; sourceTree = "<group>"; };
+		A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRenderer.swift; sourceTree = "<group>"; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F71F85DF8F004379F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				A1AAF57E1F87E650005007C4 /* Position.swift */,
 				E1F589981F8A01C80072BE93 /* GraphicSurface.swift */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
+				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
 			);
 			path = WarCraft2;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
+				A1AAF5CE1F8C5874005007C4 /* MapRenderer.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
