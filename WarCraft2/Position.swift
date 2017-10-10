@@ -33,12 +33,12 @@ class CPosition {
         ]
 
     // different initializers/constructors
-    required init() {}
-    required init(x: Int, y: Int) {
+    init() {}
+    init(x: Int, y: Int) {
         DX = x
         DY = y
     }
-    required init(pos: CPosition) {
+    init(pos: CPosition) {
         DX = pos.DX
         DY = pos.DY
     }
