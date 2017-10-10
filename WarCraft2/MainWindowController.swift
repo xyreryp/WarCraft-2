@@ -15,16 +15,27 @@ class MainWindowController: NSWindowController {
     var soundOptionsMenuVC: SoundOptionsMenuViewController?
     var networkOptionsMenuVC: NetworkOptionsMenuViewController?
     var multiPlayerGameOptionsMenuVC: MultiPlayerGameOptionsViewController?
+    var splashVC: SplashViewController?
+    var musicManager = SoundManager()
+    var tickManager = SoundManager()
+    var startedMainMenu = false
 
     override func windowDidLoad() {
         super.windowDidLoad()
-
+        splashVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "splashViewControllerID")) as? SplashViewController
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
 
     func move(newMenu: String) {
+        tickManager.playMusic(audioFileName: "tick", audioType: "wav", numloops: 1)
+
         switch newMenu {
         case "MainMenu":
+            if false == startedMainMenu {
+                startedMainMenu = true
+                musicManager.playMusic(audioFileName: "menu", audioType: "mp3", numloops: 9999)
+            }
+
             if nil == mainMenuVC {
                 mainMenuVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "mainMenuID")) as? MainMenuViewController
             }
