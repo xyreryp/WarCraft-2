@@ -8,6 +8,7 @@
 
 import Foundation
 
+// used in CommentSkipLineDataSource
 protocol PLineDataSource {
 
     // set/get data
