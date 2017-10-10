@@ -8,7 +8,7 @@
 
 import Foundation
 
-// used in CommentSkipLineDataSource
+// lused in CommentSkipLineDataSource
 protocol PLineDataSource {
 
     // set/get data
@@ -17,4 +17,37 @@ protocol PLineDataSource {
     // initializer
     init(source: CDataSource)
     func Read(line: String) -> Bool
+}
+
+final class CLineDataSource : PLineDataSource {
+    
+    var DDataSource: CDataSource
+    
+    // implement initializer
+    init(source: CDataSource) {
+        self.DDataSource = source
+    }
+    
+    func Read(line: String) -> Bool {
+        var TempChar: Character
+        
+        // line.clear()
+        
+        while(true) {
+            if (0 < DDataSource.Read(length: 1).1) {
+                if ("\n" == TempChar) {
+                    return true
+                }
+                else if ("\r" != TempChar) {
+                    line += TempChar
+                }
+            }
+            else {
+                return 0 < line.count
+            }
+        }
+        
+        return false
+    }
+
 }
