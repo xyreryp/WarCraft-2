@@ -16,38 +16,36 @@ protocol PLineDataSource {
 
     // initializer
     init(source: CDataSource)
-    func Read(line: String) -> Bool
+    func Read(line: inout String) -> Bool
 }
 
-final class CLineDataSource : PLineDataSource {
-    
+final class CLineDataSource: PLineDataSource {
+
     var DDataSource: CDataSource
-    
+
     // implement initializer
     init(source: CDataSource) {
-        self.DDataSource = source
-    }
-    
-    func Read(line: String) -> Bool {
-        var TempChar: Character
-        
-        // line.clear()
-        
-        while(true) {
-            if (0 < DDataSource.Read(length: 1).1) {
-                if ("\n" == TempChar) {
-                    return true
-                }
-                else if ("\r" != TempChar) {
-                    line += TempChar
-                }
-            }
-            else {
-                return 0 < line.count
-            }
-        }
-        
-        return false
+        DDataSource = source
     }
 
+    // NOTE: not 100% sure
+    // please notify Alex, Yepu or Aidan if this function causes issues
+    func Read(line: inout String) -> Bool {
+        let TempChar: String = ""
+
+        // line.clear()
+        line = ""
+
+        while true {
+            if 0 < DDataSource.Read(length: 1).1 {
+                if "\n" == TempChar {
+                    return true
+                } else if "\r" != TempChar {
+                    line += TempChar
+                }
+            } else {
+                return false
+            }
+        }
+    }
 }
