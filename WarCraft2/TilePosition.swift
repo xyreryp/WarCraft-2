@@ -85,5 +85,4 @@ class CTilePosition: CPosition {
             return AdjacentTileDirection(pos: TargetTilePosition, objsize: 1)
         }
     }
-
 }
