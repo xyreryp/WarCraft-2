@@ -12,59 +12,63 @@
  **                Initializer instead of class constructor,
  **                removed shared pointer because of swift's memory management
  **                Override instead of virtual functions
- **                Protocols instead of pure virtual functions: throws error if subclass doesn't implement protocol method
+ **                Protocols:
+                         instead of pure virtual functions: throws error if subclass doesn't implement protocol method
+                         Protocols don't allow bodies for functions, use { get set } with in data members to dictate whether they are gettable or settable
+                         Protocols dont allow public members
  **                Function parmaters pass by constant by default, inout to pass by reference
  **                Constant member functions: do not modify object in which they are called.
- **                Protocols don't allow bodies for functions, use { get set } with in data members to dictate whether they are gettable or settable
+ **
+                   Static seems to have same function
  */
 
 import Foundation
 // File inherits from classes Datasource, Position, GameDataTypes
 
 protocol CActivatedPlayerCapability {
-    var DActor: CPlayerAsset
-    var DPlayerData: CPlayerData
-    var DTarget: CPlayerAsset
+    var DActor: CPlayerAsset { get }
+    var DPlayerData: CPlayerData { get }
+    var DTarget: CPlayerAsset { get }
 
-    public init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset)
+    init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset)
 
-    public override func PercentComplete(max: Int) -> Int
-    public override func IncrementStep() -> bool
-    public override func Cancel()
+    func PercentComplete(max: Int) -> Int
+    func IncrementStep() -> bool
+    func Cancel()
+}
+
+enum ETargetType {
+    case None = 0
+    case Asset
+    case Terrain
+    case TerrainOrAsset
+    case Player
 }
 
 protocol CPlayerCapability {
-
-    public enum ETargetType {
-        case None = 0
-        case Asset
-        case Terrain
-        case TerrainOrAsset
-        case Player
-    }
-
+    
     var DName: String { get }
     var DAssetCappabilityType: EAssetCapabilityType { get }
     var DTargetType: ETargetType { get }
 
     init(name: String, targettype: ETargetType)
 
-    public static func NameRegistry -> [String: CPlayerCapability]()
-    public static func TypeRegistry -> [Int: CPlayerCapability]()
-    public static func Register(capability: CPlayerCapability) -> bool
+     static func NameRegistry() -> [String: CPlayerCapability]
+     static func TypeRegistry() -> [Int: CPlayerCapability]
+     static func Register(capability: CPlayerCapability) -> Bool
 
-    public static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability
-    public static func FindCapability(name: String)
+     static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability
+     static func FindCapability(name: String)
     
-    public static func NameToType(name: String) -> EAssetCapabilityType
-    public static func TypeToName(type: EAssetCapabilityType) -> String
+     static func NameToType(name: String) -> EAssetCapabilityType
+     static func TypeToName(type: EAssetCapabilityType) -> String
     
-    public override func CanInitiate(actor: CPlayerAsset, playerdata: CPlayerData) -> bool
-    public override func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> bool
-    public override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> bool
+    func CanInitiate(actor: CPlayerAsset, playerdata: CPlayerData) -> Bool
+    func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool
+    func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool
 }
 
-protocol CPlayerUpgrade {
+class CPlayerUpgrade {
 
     var DName: String { get }
     var DArmor: Int { get }
@@ -76,10 +80,10 @@ protocol CPlayerUpgrade {
     var DGoldCost: Int { get }
     var DLumberCost: Int { get }
     var DResearchTime: Int { get }
+    var DAffectedAssets: [EAssetType] { get }
     
-    var DAffectedAssets: [EAssetType]
-    static var DRegistryByName: [String: CPlayerUpgrade]()
-    static var DRegistryByType: [Int: CPlayerUpgrade]()
+    static var DRegistryByName: [String: CPlayerUpgrade]
+    static var DRegistryByType: [Int: CPlayerUpgrade]
     
     public init()
     
