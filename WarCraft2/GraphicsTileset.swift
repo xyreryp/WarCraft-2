@@ -89,7 +89,7 @@ class CGraphicTileset {
         }
     }
     
-    public func CGraphicTileset() {
+    init() {
         DSurfaceTileset = nil
         DTileCount = 0
         DTileWidth = 0
