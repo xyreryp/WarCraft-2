@@ -65,35 +65,81 @@ class CGraphicTileset {
             }
         } while LastIndex > 0
     return false
-    }    
-    // void UpdateGroupNames();
+    } // end ParseGroupName()
+    
     private func UpdateGroupName() {
         DGroupSteps.removeAll()
         DGroupNames.removeAll()
         
         for i in 0...DTileCount {
-            var GroupName: String
-            var GroupStep: Int
+            var GroupName: String?
+            var GroupStep: Int?
             var tileIndex: String = String(DTileNames.index(DTileNames.startIndex, offsetBy: i))
             
             // ParseGroupName returns a bool
-            let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex, aniname: &GroupName, anistep: &GroupStep)
+            let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex, aniname: &GroupName!, anistep: &GroupStep!)
             
             if (parseGroupReturn) {
-                if (DGroupSteps[GroupName] != nil) {
-                    if (DGroupSteps[GroupName]! <= GroupStep) { // we know it's not
+                if (DGroupSteps[GroupName!] != nil) {
+                    if (DGroupSteps[GroupName!]! <= GroupStep!) { // we know it's not
                                                                 // going to be
-                        DGroupSteps[GroupName] = GroupStep + 1
+                        DGroupSteps[GroupName!] = GroupStep! + 1
                     }
                 }
                 else {
-                    DGroupSteps[GroupName] = GroupStep + 1
-                    DGroupNames.append(GroupName)
+                    DGroupSteps[GroupName!] = GroupStep! + 1
+                    DGroupNames.append(GroupName!)
                 }
             }
-            
-        
         }
+    } // end UpdateGroupName()
+    
+    func TileCount() -> Int {
+        return DTileCount
+    }
+    
+    func TileCount(count: Int) -> Int {
+        if 0 > count {
+            return DTileCount
+        }
+        
+        if ((DTileWidth <= 0) || (DTileHeight <= 0)) {
+            return DTileCount
+        }
+        if (count < DTileCount) {
+            // iterator stuff
+        }
+        
+        return 0 // CHANGE THIS LATER
+    } // end TileCount()
+    
+    func ClearTile(index: Int) -> Bool {
+        if (0 > index) || (index >= DTileCount) {
+            return false
+        }
+        if (DSurfaceTileset != nil) {
+            return false
+        }
+        DSurfaceTileset?.Clear(xpos: 0, ypos: (index * DTileHeight), width: DTileWidth, height: DTileHeight)
+        return true
+    } // end ClearTile()
+    
+    func DuplicateTile(destindex: Int, tilename: inout String, srcindex: Int) -> Bool {
+        if (0 > srcindex) || (0 > destindex) || (srcindex >= DTileCount) || (destindex >= DTileCount) {
+            return false
+        }
+        if tilename.isEmpty {
+            return false
+        }
+        ClearTile(index: destindex)
+        DSurfaceTileset?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: (destindex * DTileHeight), width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: srcindex * DTileHeight)
+        let charIndex = DTileNames.index(DTileNames.startIndex, offsetBy: destindex)
+        let char = DTileNames[charIndex]
+        var OldMapping = DMapping[char]
+        if (OldMapping != nil) {
+            DMapping.removeValue(forKey: String(describing: OldMapping)) // not sure if this is correct
+        }
+        return true
     }
 }
 
