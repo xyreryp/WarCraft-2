@@ -14,7 +14,7 @@
  **                Override instead of virtual functions
  **                Protocols instead of pure virtual functions: throws error if subclass doesn't implement protocol method
  **                Function parmaters pass by constant by default, inout to pass by reference
- **                Constant member functions: do not modify object in which they are called
+ **                Constant member functions: do not modify object in which they are called.
  **                Protocols don't allow bodies for functions, use { get set } with in data members to dictate whether they are gettable or settable
  */
 
@@ -33,7 +33,6 @@ protocol CActivatedPlayerCapability {
     public override func Cancel()
 }
 
-// COME BACK TO CPLAYERCAPABILITY
 protocol CPlayerCapability {
 
     public enum ETargetType {
@@ -43,23 +42,29 @@ protocol CPlayerCapability {
         case TerrainOrAsset
         case Player
     }
-    // how is it protected?
-    var DName: String { get } // provides get function for variable DName
+
+    var DName: String { get }
     var DAssetCappabilityType: EAssetCapabilityType { get }
     var DTargetType: ETargetType { get }
 
     init(name: String, targettype: ETargetType)
 
-    var NameRegistry[String: CPlayerCapability] // STILL NEED TO DO: STATIC unordered maps REFERENCE
-    var TypeRegistry[Int: CPlayerCapability]
+    public static func NameRegistry -> [String: CPlayerCapability]()
+    public static func TypeRegistry -> [Int: CPlayerCapability]()
+    public static func Register(capability: CPlayerCapability) -> bool
 
-    // static function
-
-    AssetCapabilityType() -> EAssetCapabilityType {
-    }
+    public static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability
+    public static func FindCapability(name: String)
+    
+    public static func NameToType(name: String) -> EAssetCapabilityType
+    public static func TypeToName(type: EAssetCapabilityType) -> String
+    
+    public override func CanInitiate(actor: CPlayerAsset, playerdata: CPlayerData) -> bool
+    public override func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> bool
+    public override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> bool
 }
 
-class CPlayerUpgrade {
+protocol CPlayerUpgrade {
 
     var DName: String { get }
     var DArmor: Int { get }
@@ -71,6 +76,13 @@ class CPlayerUpgrade {
     var DGoldCost: Int { get }
     var DLumberCost: Int { get }
     var DResearchTime: Int { get }
-
+    
     var DAffectedAssets: [EAssetType]
+    static var DRegistryByName: [String: CPlayerUpgrade]()
+    static var DRegistryByType: [Int: CPlayerUpgrade]()
+    
+    public init()
+    
+    
+
 }
