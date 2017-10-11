@@ -10,7 +10,7 @@ import Foundation
 
 class CGraphicTileset {
     // C++ protected functions
-    private var DSurfaceTileset: CGraphicSurface // shared pointer variable, strong variable
+    private var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
     private var DClippingMasks: [CGraphicSurface] // array of CGraphicSurface objects,
     // vector of shared pointers in C++
     private var DMapping = [String: Int] () // creating empty dictionary
@@ -23,42 +23,49 @@ class CGraphicTileset {
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
     
- func ParseGroupName(tilename: inout String, aniname: inout String,
-                               anistep: inout Int) -> Bool {
-        
-    }
-
-//    static func ParseGroupName( tilename: inout String, aniname: inout String, anistep: inout Int) -> Bool {
-//        var LastIndex = tilename.count; // figure out the warnings for this one
-//
-//        if LastIndex <= 0 { // equivalent to if (!(LastIndex))
-//            return false;
-//        }
-//        repeat {
-//            LastIndex = LastIndex - 1
-//            let digitSet = String(describing: CharacterSet.decimalDigits) // contains decimals 0-9
-//
-//            var char = tilename.index(tilename.startIndex, offsetBy: LastIndex)
-//
-//            if digitSet.contains(char) {
-//                return true
-//            }
-//
-//
-//
-////            let char: Character = (Character)tilename.index(tilename.startIndex, offsetBy: LastIndex)
-////            if !(digitSet.contains(char) {
-////                print("something")
-////            }
-//////            if !(digitSet.contains(tilename.index(tilename.startIndex, offsetBy: LastIndex))) {
-////
-////            }
-//        } while
-//
-//        //print(LastIndex)
-//
-//    }
+    init() {
+        DSurfaceTileset = nil
+        DTileCount = 0
+        DTileWidth = 0
+        DTileHeight = 0
+        DTileHalfWidth = 0
+        DTileHalfHeight = 0
+    } // still not sure about error
     
+    deinit {
+        // no statements
+    }
+    
+    func ParseGroupName(tilename: inout String, aniname: inout String,
+                               anistep: inout Int) -> Bool {
+        var LastIndex = tilename.count // get lenght of string
+        if LastIndex <= 0 {
+            return false
+        }
+        repeat {
+            LastIndex = LastIndex - 1
+            // check of charcter from string is not a digit
+            let charIndex = tilename.index(tilename.startIndex, offsetBy: LastIndex)
+            let char = tilename[charIndex] // get the value we want to compare to digit
+            let s = String(char).unicodeScalars
+            let uni = s[s.startIndex]
+            let decimalChars = CharacterSet.decimalDigits
+            let decimalRange = decimalChars.hasMember(inPlane: UInt8(uni.value))
+           // let decimalRange = char.rangeOfCharacter(from: decimalChars)
+            if (!decimalRange) { // no numbers are found
+                if (LastIndex + 1 == tilename.count) {
+                    return false
+                }
+                // extra word for the substring part
+                let substrIndex = tilename.index(tilename.startIndex, offsetBy: LastIndex+1)
+                aniname = String(tilename[..<substrIndex])
+                anistep = Int(tilename[..<substrIndex])! // this may be incorrect,
+                                        // c++: anistep = std::stoi(tilename.substr(LastIndex+1));
+                return true
+            }
+        } while LastIndex > 0
+    return false
+    }    
     // void UpdateGroupNames();
     private func UpdateGroupName() {
         DGroupSteps.removeAll()
@@ -88,15 +95,5 @@ class CGraphicTileset {
         
         }
     }
-    
-    init() {
-        DSurfaceTileset = nil
-        DTileCount = 0
-        DTileWidth = 0
-        DTileHeight = 0
-        DTileHalfWidth = 0
-        DTileHalfHeight = 0
-    }
-    
 }
 
