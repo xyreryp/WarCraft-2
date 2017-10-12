@@ -46,11 +46,32 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
         myContext.setLineWidth(width)
     }
 
+    //: ELineCap is replaced by cap which is a built-in in CG
     override func SetLineCap(cap: CGLineCap) {
         myContext.setLineCap(cap)
     }
-
+    
+    //: ElineJoin is replaced by join which is a built-in in CG
     override func SetLineJoin(join: CGLineJoin) {
         myContext.setLineJoin(join)
     }
+//    void Paint() override;
+//    void PaintWithAlpha(double alpha) override;
+//    void Fill() override;
+//    override func Fill() {
+//        myContext.fill()
+//    }
+//    void Stroke() override;
+//    void Rectangle(int xpos, int ypos, int width, int height) override;
+//    void MoveTo(int xpos, int ypos) override;
+//    void LineTo(int xpos, int ypos) override;
+//    void Clip() override;
+//    void MaskSurface(std::shared_ptr<CGraphicSurface> srcsurface, int xpos, int ypos) override;
+//
+//    std::shared_ptr<CGraphicSurface> GetTarget() override;
+//    void Save() override;
+//    void Restore() override;
+//    void DrawSurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
+//    void CopySurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
+    
 }
