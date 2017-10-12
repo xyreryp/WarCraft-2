@@ -221,9 +221,55 @@ class CGraphicTileset {
             DClippingMasks.reserveCapacity(DTileCount)
             for Index in 0...DTileCount {
 //                DClippingMasks[Index] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1) // uncomment later
-                DClippingMasks[Index].Copy(srcsurface: DSurfaceTileset, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (Index * DTileHeight))
+                DClippingMasks[Index].Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (Index * DTileHeight))
             }
         }
+    } // end CreateCLippingMasks()
+    
+    func LoadTileset(source: CDataSource) -> Bool {
+        //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
+        var PNGpath: String
+        var TempString: String
+        var Tokens = [String]()
+        var ReturnStatus: Bool = false
+        if (source == nil) {
+            return false
+        }
+        
+        //        if(!LineSource.Read(PNGPath)){ //NOTE:  also idk how to deal this
+//            PrintError("Failed to get path.\n");
+//            goto LoadTilesetExit;
+//        }
+        
+//        DSurfaceTileset.LoadSurface(source.Container().DataSource(PNGpath)) // from CGraphicFactory
+        
+        if (nil == DSurfaceTileset) {
+            catch let error as NSError {
+                print("Failed to load file \(PNGpath)")
+            }
+        }
+        
+        return true; // fix later
     }
+    
+    func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int) {
+        if (0 > tileindex || tileindex >= DTileCount) {
+            return
+        }
+        
+        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
+    } // end LoadTileset()
+    
+    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
+        if (0 > tileindex || tileindex >= DClippingMasks.count) {
+            return
+        }
+        
+        let ResourceContext = surface.CreateResourceContext()
+        ResourceContext.Fill()
+        //        ResourceContext.SetSourceRGB(rgb) // function used from GraphicFactoryCairo, done thru CoreGraphics kit
+//        ResourceContext.MaskSurface(DClippingMasks[tileindex], xpos, ypos) // done thru CoreGraphics kit
+    }
+    
 }
 
