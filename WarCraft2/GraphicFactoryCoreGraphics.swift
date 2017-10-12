@@ -50,28 +50,61 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     override func SetLineCap(cap: CGLineCap) {
         myContext.setLineCap(cap)
     }
-    
+
     //: ElineJoin is replaced by join which is a built-in in CG
     override func SetLineJoin(join: CGLineJoin) {
         myContext.setLineJoin(join)
     }
-//    void Paint() override;
-//    void PaintWithAlpha(double alpha) override;
-//    void Fill() override;
-//    override func Fill() {
-//        myContext.fill()
-//    }
-//    void Stroke() override;
-//    void Rectangle(int xpos, int ypos, int width, int height) override;
-//    void MoveTo(int xpos, int ypos) override;
-//    void LineTo(int xpos, int ypos) override;
-//    void Clip() override;
-//    void MaskSurface(std::shared_ptr<CGraphicSurface> srcsurface, int xpos, int ypos) override;
-//
-//    std::shared_ptr<CGraphicSurface> GetTarget() override;
-//    void Save() override;
-//    void Restore() override;
-//    void DrawSurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
-//    void CopySurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
+
+    //    void Paint() override;
+    override func Paint() {
+        //        myContext.
+    }
+
+    //    void PaintWithAlpha(double alpha) override;
+    override func PaintWithAlpha(alpha _: CGFloat) {
+        //
+    }
+
+    override func Fill() {
+        //        myContext.fill()
+    }
+
+    override func Stroke() {
+        myContext.strokePath()
+    }
     
+    override func Rectangle(xpos: Int, ypos: Int, width: Int, height: Int) {
+        let rect = CGRect(x: Double(xpos) + 0.5, y: Double(ypos) + 0.5, width: Double(width), height: Double(height))
+        myContext.addRects([rect])
+    }
+
+    //    void MoveTo(int xpos, int ypos) override;
+    override func MoveTo(xpos: Int, ypos: Int) {
+        let point = CGPoint(x: Double(xpos) + 0.5, y: Double(ypos) + 0.5)
+        myContext.move(to: point)
+    }
+
+    override func LineTo(xpos : Int, ypos : Int) {
+        let point = CGPoint (x: Double(xpos) + 0.5, y: Double(ypos) + 0.5)
+                myContext.addLine(to: point)
+    }
+    override func Clip() {
+        myContext.clip()
+    }
+
+    //    void MaskSurface(std::shared_ptr<CGraphicSurface> srcsurface, int xpos, int ypos) override;
+    //
+    //    std::shared_ptr<CGraphicSurface> GetTarget() override;
+    
+    override func Save() {
+        myContext.saveGState()
+    }
+    
+    override func Restore() {
+        myContext.restoreGState()
+    }
+    
+    //    void DrawSurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
+    //    void CopySurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
 }
