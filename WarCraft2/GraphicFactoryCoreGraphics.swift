@@ -40,6 +40,7 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     // FIXME: implement
     override func SetSourceSurface(srcsurface _: CGraphicSurface, xpos: Int, ypos: Int) {
         fatalError()
+        
     }
 
     override func SetLineWidth(width: CGFloat) {
@@ -55,15 +56,18 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     override func SetLineJoin(join: CGLineJoin) {
         myContext.setLineJoin(join)
     }
+    override func Scale(sx : CGFloat, sy : CGFloat) {
+        myContext.scaleBy(x: sx, y: sy)
+    }
 
     //    void Paint() override;
     override func Paint() {
-        //        myContext.
+//        myContext.layer
     }
 
     //    void PaintWithAlpha(double alpha) override;
     override func PaintWithAlpha(alpha _: CGFloat) {
-        //
+//
     }
 
     override func Fill() {
@@ -94,6 +98,9 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     }
 
     //    void MaskSurface(std::shared_ptr<CGraphicSurface> srcsurface, int xpos, int ypos) override;
+//    override func MaskSurface() {
+//
+//    }
     //
     //    std::shared_ptr<CGraphicSurface> GetTarget() override;
     
