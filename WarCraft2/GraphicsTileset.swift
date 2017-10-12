@@ -11,7 +11,7 @@ import Foundation
 class CGraphicTileset {
     // C++ protected functions
     private var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
-    private var DClippingMasks: [CGraphicSurface] // array of CGraphicSurface objects,
+    private var DClippingMasks = [CGraphicSurface]() // array of CGraphicSurface objects,
     // vector of shared pointers in C++
     private var DMapping = [String: Int] () // creating empty dictionary
     private var DTileNames: [String]
@@ -77,7 +77,8 @@ class CGraphicTileset {
             var tileIndex: String = String(DTileNames.index(DTileNames.startIndex, offsetBy: i))
             
             // ParseGroupName returns a bool
-            let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex, aniname: &GroupName!, anistep: &GroupStep!)
+            let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex,
+                                                        aniname: &GroupName!, anistep: &GroupStep!)
             
             if (parseGroupReturn) {
                 if (DGroupSteps[GroupName!] != nil) {
@@ -96,7 +97,7 @@ class CGraphicTileset {
     
     func TileCount() -> Int {
         return DTileCount
-    }
+    } // end TileCount without any parameters
     
     func TileCount(count: Int) -> Int {
         if 0 > count {
@@ -120,7 +121,8 @@ class CGraphicTileset {
         if (DSurfaceTileset != nil) {
             return false
         }
-        DSurfaceTileset?.Clear(xpos: 0, ypos: (index * DTileHeight), width: DTileWidth, height: DTileHeight)
+        DSurfaceTileset?.Clear(xpos: 0, ypos: (index * DTileHeight),
+                               width: DTileWidth, height: DTileHeight)
         return true
     } // end ClearTile()
     
@@ -132,14 +134,96 @@ class CGraphicTileset {
             return false
         }
         ClearTile(index: destindex)
-        DSurfaceTileset?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: (destindex * DTileHeight), width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: srcindex * DTileHeight)
-        let charIndex = DTileNames.index(DTileNames.startIndex, offsetBy: destindex)
-        let char = DTileNames[charIndex]
-        var OldMapping = DMapping[char]
-        if (OldMapping != nil) {
-            DMapping.removeValue(forKey: String(describing: OldMapping)) // not sure if this is correct
+        DSurfaceTileset?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0,
+                              dypos: (destindex * DTileHeight), width: DTileWidth,
+                              height: DTileHeight, sxpos: 0, sypos: srcindex * DTileHeight)
+        
+        let arrEntry: String = DTileNames[destindex] // get correct element of array,
+                                                     // we know it's a string
+        // find this arry in the Map
+        if DMapping[arrEntry] != nil { // erase the entry from map if key-value
+                                                        // exists in dictionary
+            DMapping.removeValue(forKey: arrEntry)
         }
+        DTileNames[destindex] = tilename
+        DMapping[tilename] = destindex
+        
         return true
+    } // end DuplicateTile()
+    
+    func DuplicateClippedTile(destindex: Int, tilename: inout String, srcindex: Int,
+                              clipindex: Int) -> Bool {
+        if ((0 > srcindex) || (0 > destindex) || (0 > clipindex) ||
+            (srcindex >= DTileCount) || (destindex >= DTileCount) || (clipindex >= DClippingMasks.count)) {
+            return false
+        }
+        if tilename.isEmpty {
+            return false
+        }
+        ClearTile(index: destindex)
+        DSurfaceTileset?.CopyMaskSurface(srcsurface: DSurfaceTileset!, dxpos: 0,
+                                         dypos: (destindex * DTileHeight), masksurface: DClippingMasks[clipindex], sxpos: 0, sypos: (srcindex * DTileHeight))
+        let arrEntry: String = DTileNames[destindex]
+        if DMapping[arrEntry] != nil {
+            DMapping.removeValue(forKey: arrEntry)
+        }
+        DTileNames[destindex] = tilename
+        DMapping[tilename] = destindex
+     
+        if (destindex >= DClippingMasks.count) {
+            DClippingMasks.reserveCapacity(destindex + 1)
+        }
+        
+        // NOTE: uncomment below function after CGraphicFactory.swift is written
+//        DClippingMasks[destindex] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1)
+        DClippingMasks[destindex].Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (destindex * DTileHeight))
+        
+        return true
+    } // end DuplicateClippedTile()
+    
+    func FindTile(tilename: inout String) -> Int {
+        let findTile = DMapping[tilename]
+        if findTile != nil { // if findTile exists
+            return findTile!
+        }
+        return -1
+    } // end FindTile()
+    
+    func GroupName(index: Int) -> String {
+        if 0 > index {
+            return ""
+        }
+        if DGroupNames.count <= index {
+            return ""
+        }
+        return DGroupNames[index]
+    } // end GroupName()
+    
+    func GroupSteps(index: Int) -> Int {
+        if 0 > index {
+            return 0
+        }
+        if DGroupNames.count <= index {
+            return 0
+        }
+        return DGroupSteps[DGroupNames[index]]!
+    } // end GroupSteps()
+    
+    func GroupSteps(Groupname: inout String) -> Int {
+        if DGroupSteps[Groupname] != nil {
+            return DGroupSteps[Groupname]!
+        }
+        return 0
+    }
+    
+    func CreateClippingMasks() {
+        if DSurfaceTileset != nil {
+            DClippingMasks.reserveCapacity(DTileCount)
+            for Index in 0...DTileCount {
+//                DClippingMasks[Index] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1) // uncomment later
+                DClippingMasks[Index].Copy(srcsurface: DSurfaceTileset, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (Index * DTileHeight))
+            }
+        }
     }
 }
 
