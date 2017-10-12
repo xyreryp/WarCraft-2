@@ -69,7 +69,7 @@ enum ETileVisibility {
     case Seen
 }
 
-protocol CVisibilityMap {
+protocol PVisibilityMap {
     var DMap: [[ETileVisibility]] { get set }
     var DMaxVisibility: Int { get set }
     var DTotalMapTiles: Int { get set }
@@ -79,57 +79,70 @@ protocol CVisibilityMap {
     func SeenPercent(max: Int) -> Int
 }
 
+class CVisibilityMap : PVisibilityMap {
+    var DMap: [[ETileVisibility]] = [[ETileVisibility.None]]
+    
+    var DMaxVisibility: Int = Int()
+    
+    var DTotalMapTiles: Int = Int()
+    
+    var DUnseenTiles: Int = Int()
+    
+    // required initializer
+    required init(width: Int, height: Int, maxvisibility: Int) {
+        DMaxVisibility = maxvisibility
+        resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [ETileVisibility.None])
+        for (i, _) in DMap.enumerated() {
+            resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
+            _ = ETileVisibility.None
+        }
+        
+        DTotalMapTiles = width * height
+        DUnseenTiles = DTotalMapTiles
+    }
+    
+    // alternate initializer
+    init (map: CVisibilityMap) {
+        DMaxVisibility = map.DMaxVisibility
+        DMap = map.DMap
+        DTotalMapTiles = map.DTotalMapTiles
+        DUnseenTiles = map.DUnseenTiles
+    }
+    
+    func SeenPercent(max: Int) -> Int {
+        return (max * (DTotalMapTiles - DUnseenTiles)) / DTotalMapTiles
+    }
+    
+    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+        while array.count < size {
+            array.append(defaultValue)
+        }
+        while array.count > size {
+            array.removeLast()
+        }
+    }
+    
+    func Width() -> Int {
+        if (DMap.count > 2) {
+            return DMap.first!.count - 2 * DMaxVisibility
+        }
+        return 0
+    }
+    
+    func Height() -> Int {
+        return DMap.count - 2 * DMaxVisibility
+    }
+    
+    // TODO: need CPlayerAsset
+//    func Update(assets: [[CPlayerAsset]]) {
 //
-// CVisibilityMap::CVisibilityMap(int width, int height, int maxvisibility){
-//    DMaxVisibility = maxvisibility;
-//    DMap.resize(height + 2 * DMaxVisibility);
-//    for(auto &Row : DMap){
-//        Row.resize(width + 2 * DMaxVisibility);
-//        for(auto &Cell : Row){
-//            Cell = ETileVisibility::None;
-//        }
 //    }
-//    DTotalMapTiles = width * height;
-//    DUnseenTiles = DTotalMapTiles;
-// }
+    
+    
+}
 
-//
-// CVisibilityMap::CVisibilityMap(const CVisibilityMap &map){
-//    DMaxVisibility = map.DMaxVisibility;
-//    DMap = map.DMap;
-//    DTotalMapTiles = map.DTotalMapTiles;
-//    DUnseenTiles = map.DUnseenTiles;
-// }
-//
-// CVisibilityMap::~CVisibilityMap(){
-//
-// }
-//
-// CVisibilityMap &CVisibilityMap::operator=(const CVisibilityMap &map){
-//    if(this != &map){
-//        DMaxVisibility = map.DMaxVisibility;
-//        DMap = map.DMap;
-//        DTotalMapTiles = map.DTotalMapTiles;
-//        DUnseenTiles = map.DUnseenTiles;
-//    }
-//    return *this;
-// }
-//
-// int CVisibilityMap::Width() const{
-//    if(DMap.size()){
-//        return DMap[0].size() - 2 * DMaxVisibility;
-//    }
-//    return 0;
-// }
-//
-// int CVisibilityMap::Height() const{
-//    return DMap.size() - 2 * DMaxVisibility;
-// }
-//
-// int CVisibilityMap::SeenPercent(int max) const{
-//    return (max * (DTotalMapTiles - DUnseenTiles)) / DTotalMapTiles;
-// }
-//
+
+
 // void CVisibilityMap::Update(const std::list< std::weak_ptr< CPlayerAsset > > &assets){
 //    for(auto &Row : DMap){
 //        for(auto &Cell : Row){
