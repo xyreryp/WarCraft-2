@@ -36,6 +36,7 @@
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
+		E1B8047F1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactoryCoreGraphics.swift; sourceTree = "<group>"; };
 		E1F589981F8A01C80072BE93 /* GraphicSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicSurface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,11 +127,12 @@
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
 				E18B68901F8B3DCF00962891 /* DataSource.swift */,
 				A1AAF57C1F872930005007C4 /* GameDataTypes.swift */,
-				E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */,
 				A1AAF5871F8A955D005007C4 /* TilePosition.swift */,
 				A1AAF57E1F87E650005007C4 /* Position.swift */,
+				E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */,
 				E10BA0911F8A13D70097867A /* VisibilityMap.swift */,
 				E1F589981F8A01C80072BE93 /* GraphicSurface.swift */,
+				E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
 				6BC677471F8C186D00953C3A /* Rectangle.swift */,
 				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
@@ -250,6 +253,7 @@
 				DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */,
 				A1AAF5D21F8CA0C5005007C4 /* CommentSkipLineDataSource.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
+				E1B8047F1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				A1AAF5CE1F8C5874005007C4 /* MapRenderer.swift in Sources */,
