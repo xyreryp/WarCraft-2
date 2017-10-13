@@ -12,31 +12,20 @@ import Foundation
 // using TGraphicSurfaceTransformCallback = uint32_t (*)(void *calldata, uint32_t src);
 
 class CGraphicResourceContext {
-    enum ELineCap {
-        case Butt
-        case Round
-        case Square
-    }
 
-    enum ELineJoin {
-        case Miter
-        case Round
-        case Bevel
-    }
+    func SetSourceRGB(rgb _: UInt32) {}
+    func SetSourceRGB(r _: CGFloat, g _: CGFloat, b _: CGFloat) {}
+    func SetSourceRGBA(rgba _: UInt32) {}
+    func SetSourceRGBA(r _: CGFloat, g _: CGFloat, b _: CGFloat, a _: CGFloat) {}
+    func SetSourceSurface(srcsurface _: CGraphicSurface, xpos _: Int, ypos _: Int) {}
 
-    // TODO: need external frameworks
-    //    func SetSourceRGB(rgb: Uint32) {}
-    //    func SetSourceRGB(r: Double, g: Double, b: Double) {}
-    //    func SetSourceRGBA(rgb: Uint32) {}
-    //    func SetSourceRGBA(r: Double, g: Double, b: Double,a: Double) {}
-    //    func SetSourceSurface(srcsurface: CGraphicSurface,xpos: Int, ypos: Int) {}
+    func SetLineWidth(width _: CGFloat) {}
+    func SetLineCap(cap _: CGLineCap) {}
+    func SetLineJoin(join _: CGLineJoin) {}
 
-    func SetLineWidth(width _: Double) {}
-    func SetLineCap(cap _: ELineCap) {}
-    func SetLineJoin(join _: ELineJoin) {}
-    func Scale(sx _: Double, sy _: Double) {}
+    func Scale(sx _: CGFloat, sy _: CGFloat) {}
     func Paint() {}
-    func PaintWithAlpha(alpha _: Double) {}
+    func PaintWithAlpha(alpha _: CGFloat) {}
     func Fill() {}
     func Stroke() {}
     func Rectangle(xpos _: Int, ypos _: Int, width _: Int, height _: Int) {}

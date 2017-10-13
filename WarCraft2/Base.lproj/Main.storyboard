@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="03q-YW-0MF">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
@@ -704,6 +704,19 @@
             </objects>
             <point key="canvasLocation" x="85" y="429"/>
         </scene>
+        <!--Handling Mouse Clicks-->
+        <scene sceneID="7Ed-b4-1Y8">
+            <objects>
+                <viewController id="03q-YW-0MF" customClass="HandlingMouseClicks" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="KVB-7c-R9o">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="OfE-mu-ubp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="873" y="403"/>
+        </scene>
         <!--Splash View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
@@ -716,9 +729,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" imageFrameStyle="groove" image="Splash800x600" id="aXb-Nx-fxD"/>
                             </imageView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISg-aT-Aol">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ISg-aT-Aol">
                                 <rect key="frame" x="570" y="460" width="107" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="00j-v4-N2t"/>
+                                    <constraint firstAttribute="width" constant="95" id="a1p-B2-YG3"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="main menu" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lgW-ub-iAx">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -729,8 +745,10 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="ISg-aT-Aol" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="112" id="14e-zM-Abn"/>
                             <constraint firstAttribute="bottom" secondItem="Ttu-CD-yFy" secondAttribute="bottom" constant="3" id="W75-Dy-thG"/>
                             <constraint firstAttribute="trailing" secondItem="Ttu-CD-yFy" secondAttribute="trailing" constant="3" id="YGe-j0-tdY"/>
+                            <constraint firstAttribute="trailing" secondItem="ISg-aT-Aol" secondAttribute="trailing" constant="129" id="bjO-pE-nzv"/>
                             <constraint firstItem="Ttu-CD-yFy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="3" id="d5d-l3-bj4"/>
                             <constraint firstItem="Ttu-CD-yFy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="3" id="vfg-eS-JZ8"/>
                         </constraints>
