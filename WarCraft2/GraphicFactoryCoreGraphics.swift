@@ -12,6 +12,7 @@ import CoreGraphics
 class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     var myContext: CGContext!
 
+    // TODO: implement
     override init() {
         myContext = nil
     }
@@ -40,7 +41,6 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     // FIXME: implement
     override func SetSourceSurface(srcsurface _: CGraphicSurface, xpos: Int, ypos: Int) {
         fatalError()
-        
     }
 
     override func SetLineWidth(width: CGFloat) {
@@ -56,28 +56,32 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
     override func SetLineJoin(join: CGLineJoin) {
         myContext.setLineJoin(join)
     }
-    override func Scale(sx : CGFloat, sy : CGFloat) {
+
+    override func Scale(sx: CGFloat, sy: CGFloat) {
         myContext.scaleBy(x: sx, y: sy)
     }
 
     //    void Paint() override;
-    override func Paint() {
-//        myContext.layer
-    }
+    //    this function is never used
+    //    override func Paint() {
+    //
+    //    }
 
     //    void PaintWithAlpha(double alpha) override;
-    override func PaintWithAlpha(alpha _: CGFloat) {
-//
+
+    override func PaintWithAlpha(alpha: CGFloat) {
+        myContext.setAlpha(alpha)
+        // TODO: call fill() maybe
     }
 
     override func Fill() {
-        //        myContext.fill()
+        myContext.fillPath()
     }
 
     override func Stroke() {
         myContext.strokePath()
     }
-    
+
     override func Rectangle(xpos: Int, ypos: Int, width: Int, height: Int) {
         let rect = CGRect(x: Double(xpos) + 0.5, y: Double(ypos) + 0.5, width: Double(width), height: Double(height))
         myContext.addRects([rect])
@@ -89,29 +93,34 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
         myContext.move(to: point)
     }
 
-    override func LineTo(xpos : Int, ypos : Int) {
-        let point = CGPoint (x: Double(xpos) + 0.5, y: Double(ypos) + 0.5)
-                myContext.addLine(to: point)
+    override func LineTo(xpos: Int, ypos: Int) {
+        let point = CGPoint(x: Double(xpos) + 0.5, y: Double(ypos) + 0.5)
+        myContext.addLine(to: point)
     }
+
     override func Clip() {
         myContext.clip()
     }
 
+    // TODO: IMPLEMENT
     //    void MaskSurface(std::shared_ptr<CGraphicSurface> srcsurface, int xpos, int ypos) override;
-//    override func MaskSurface() {
-//
-//    }
+    //    override func MaskSurface(srcsurface: CGraphicSurface, xpos : Int, ypos : Int) {
+    //        var CGSourceSurface = CGraphicResourceContextCoreGraphics()
+    //
+    //        CGraphicSurface = CGSourceSurface
+    //    }
+
     //
     //    std::shared_ptr<CGraphicSurface> GetTarget() override;
-    
+
     override func Save() {
         myContext.saveGState()
     }
-    
+
     override func Restore() {
         myContext.restoreGState()
     }
-    
-    //    void DrawSurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
+
+    //    void DrawSurface(std::shared_ptr<CGraphicSurface>nn srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
     //    void CopySurface(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos) override;
 }
