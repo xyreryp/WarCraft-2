@@ -11,11 +11,11 @@ import Foundation
 class CGraphicTileset {
     // C++ protected functions
     private var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
-    private var DClippingMasks = [CGraphicSurface]() // array of CGraphicSurface objects,
+    private var DClippingMasks = [CGraphicSurface]()
     // vector of shared pointers in C++
-    private var DMapping = [String: Int] () // creating empty dictionary
-    private var DTileNames: [String]
-    private var DGroupNames: [String]
+    private var DMapping = [String: Int] ()
+    private var DTileNames = [String]()
+    private var DGroupNames = [String]()
     private var DGroupSteps = [String: Int] ()
     private var DTileCount: Int
     private var DTileWidth: Int
@@ -32,9 +32,7 @@ class CGraphicTileset {
         DTileHalfHeight = 0
     } // still not sure about error
     
-    deinit {
-        // no statements
-    }
+    deinit {}
     
     func ParseGroupName(tilename: inout String, aniname: inout String,
                                anistep: inout Int) -> Bool {
@@ -82,8 +80,7 @@ class CGraphicTileset {
             
             if (parseGroupReturn) {
                 if (DGroupSteps[GroupName!] != nil) {
-                    if (DGroupSteps[GroupName!]! <= GroupStep!) { // we know it's not
-                                                                // going to be
+                    if (DGroupSteps[GroupName!]! <= GroupStep!) {
                         DGroupSteps[GroupName!] = GroupStep! + 1
                     }
                 }
@@ -103,15 +100,32 @@ class CGraphicTileset {
         if 0 > count {
             return DTileCount
         }
-        
         if ((DTileWidth <= 0) || (DTileHeight <= 0)) {
             return DTileCount
         }
         if (count < DTileCount) {
-            // iterator stuff
+            DTileCount = count
+            for key in DMapping.keys {
+                if (DMapping[key]! >= DTileCount) {
+                    DMapping.removeValue(forKey: key) // remove value
+                } // otherwise, go to next iteration
+            }
+            DTileNames.reserveCapacity(DTileCount)
+            UpdateGroupName()
+            return DTileCount
+        }
+        // TODO: Uncomment below function after CreateSurface() is implemented
+        let TempSurface: CGraphicSurface? // change this
+//        var TempSurface = CreateSurface(DTileWidth, (count * DTileHeight), DSurfaceTileset?.Format()) // TODO: need to finish the GraphicFactory file (swift)
+        if (TempSurface! != nil) {
+            return DTileCount
         }
         
-        return 0 // CHANGE THIS LATER
+        DTileNames.reserveCapacity(count)
+        TempSurface?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
+        DSurfaceTileset = TempSurface
+        DTileCount = count
+        return DTileCount
     } // end TileCount()
     
     func ClearTile(index: Int) -> Bool {
@@ -176,6 +190,7 @@ class CGraphicTileset {
         
         // NOTE: uncomment below function after CGraphicFactory.swift is written
 //        DClippingMasks[destindex] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1)
+        DClippingMasks[destindex] = CreateSurface(DTileWidth, DTileHeight, enumeration)
         DClippingMasks[destindex].Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (destindex * DTileHeight))
         
         return true
@@ -228,7 +243,7 @@ class CGraphicTileset {
     
     func LoadTileset(source: CDataSource) -> Bool {
         //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
-        var PNGpath: String
+        let PNGpath: String?
         var TempString: String
         var Tokens = [String]()
         var ReturnStatus: Bool = false
@@ -244,9 +259,8 @@ class CGraphicTileset {
 //        DSurfaceTileset.LoadSurface(source.Container().DataSource(PNGpath)) // from CGraphicFactory
         
         if (nil == DSurfaceTileset) {
-            catch let error as NSError {
-                print("Failed to load file \(PNGpath)")
-            }
+                print("Failed to load file")
+            
         }
         
         return true; // fix later
@@ -265,10 +279,11 @@ class CGraphicTileset {
             return
         }
         
-        let ResourceContext = surface.CreateResourceContext()
+        // following done through core graphics kit
+        let ResourceContext: CGraphicResourceContextCoreGraphics = surface.CreateResourceContext() as! CGraphicResourceContextCoreGraphics
         ResourceContext.Fill()
-        //        ResourceContext.SetSourceRGB(rgb) // function used from GraphicFactoryCairo, done thru CoreGraphics kit
-//        ResourceContext.MaskSurface(DClippingMasks[tileindex], xpos, ypos) // done thru CoreGraphics kit
+        ResourceContext.SetSourceRGB(rgb: rgb)
+        ResourceContext.MaskSurface(srcsurface: DClippingMasks[tileindex], xpos: xpos, ypos: ypos)
     }
     
 }
