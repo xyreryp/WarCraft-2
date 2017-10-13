@@ -7,22 +7,25 @@
 //
 
 import Foundation
+import SpriteKit
+import Cocoa
 
 class CGraphicTileset {
     // C++ protected functions
     private var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
     private var DClippingMasks = [CGraphicSurface]()
     // vector of shared pointers in C++
-    private var DMapping = [String: Int] ()
+    private var DMapping = [String: Int]()
     private var DTileNames = [String]()
     private var DGroupNames = [String]()
-    private var DGroupSteps = [String: Int] ()
+    private var DGroupSteps = [String: Int]()
     private var DTileCount: Int
     private var DTileWidth: Int
     private var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
-    
+    private var DTileSet: [SKNode] = []
+
     init() {
         DSurfaceTileset = nil
         DTileCount = 0
@@ -31,27 +34,27 @@ class CGraphicTileset {
         DTileHalfWidth = 0
         DTileHalfHeight = 0
     } // still not sure about error
-    
+
     deinit {}
-    
+
     func TileWidth() -> Int {
         return DTileWidth
     }
-    
+
     func TileHeight() -> Int {
         return DTileHeight
     }
-    
+
     func TileHalfWidth() -> Int {
         return DTileHalfWidth
     }
-    
+
     func TileHalfHeight() -> Int {
         return DTileHalfHeight
     }
-    
+
     func ParseGroupName(tilename: inout String, aniname: inout String,
-                               anistep: inout Int) -> Bool {
+                        anistep: inout Int) -> Bool {
         var LastIndex = tilename.count // get length of string
         if LastIndex <= 0 {
             return false
@@ -65,63 +68,62 @@ class CGraphicTileset {
             let uni = s[s.startIndex]
             let decimalChars = CharacterSet.decimalDigits
             let decimalRange = decimalChars.hasMember(inPlane: UInt8(uni.value))
-           // let decimalRange = char.rangeOfCharacter(from: decimalChars)
-            if (!decimalRange) { // no numbers are found
-                if (LastIndex + 1 == tilename.count) {
+            // let decimalRange = char.rangeOfCharacter(from: decimalChars)
+            if !decimalRange { // no numbers are found
+                if LastIndex + 1 == tilename.count {
                     return false
                 }
                 // extra word for the substring part
-                let substrIndex = tilename.index(tilename.startIndex, offsetBy: LastIndex+1)
+                let substrIndex = tilename.index(tilename.startIndex, offsetBy: LastIndex + 1)
                 aniname = String(tilename[..<substrIndex])
                 anistep = Int(tilename[..<substrIndex])! // this may be incorrect,
-                                        // c++: anistep = std::stoi(tilename.substr(LastIndex+1));
+                // c++: anistep = std::stoi(tilename.substr(LastIndex+1));
                 return true
             }
         } while LastIndex > 0
-    return false
+        return false
     } // end ParseGroupName()
-    
+
     private func UpdateGroupName() {
         DGroupSteps.removeAll()
         DGroupNames.removeAll()
-        
-        for i in 0...DTileCount {
+
+        for i in 0 ... DTileCount {
             var GroupName: String?
             var GroupStep: Int?
             var tileIndex: String = String(DTileNames.index(DTileNames.startIndex, offsetBy: i))
-            
+
             // ParseGroupName returns a bool
             let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex,
                                                         aniname: &GroupName!, anistep: &GroupStep!)
-            if (parseGroupReturn) {
-                if (DGroupSteps[GroupName!] != nil) {
-                    if (DGroupSteps[GroupName!]! <= GroupStep!) {
+            if parseGroupReturn {
+                if DGroupSteps[GroupName!] != nil {
+                    if DGroupSteps[GroupName!]! <= GroupStep! {
                         DGroupSteps[GroupName!] = GroupStep! + 1
                     }
-                }
-                else {
+                } else {
                     DGroupSteps[GroupName!] = GroupStep! + 1
                     DGroupNames.append(GroupName!)
                 }
             }
         }
     } // end UpdateGroupName()
-    
+
     func TileCount() -> Int {
         return DTileCount
     } // end TileCount without any parameters
-    
+
     func TileCount(count: Int) -> Int {
         if 0 > count {
             return DTileCount
         }
-        if ((DTileWidth <= 0) || (DTileHeight <= 0)) {
+        if (DTileWidth <= 0) || (DTileHeight <= 0) {
             return DTileCount
         }
-        if (count < DTileCount) {
+        if count < DTileCount {
             DTileCount = count
             for key in DMapping.keys {
-                if (DMapping[key]! >= DTileCount) {
+                if DMapping[key]! >= DTileCount {
                     DMapping.removeValue(forKey: key) // remove value
                 } // otherwise, go to next iteration
             }
@@ -130,31 +132,31 @@ class CGraphicTileset {
             return DTileCount
         }
         // TODO: Uncomment below function after CreateSurface() is implemented
-        let TempSurface: CGraphicSurface? // change this
-//        var TempSurface = CreateSurface(DTileWidth, (count * DTileHeight), DSurfaceTileset?.Format()) // TODO: need to finish the GraphicFactory file (swift)
-        if (TempSurface! != nil) {
-            return DTileCount
-        }
-        
+        //        let TempSurface: CGraphicSurface? // change this
+        //        var TempSurface = CreateSurface(DTileWidth, (count * DTileHeight), DSurfaceTileset?.Format()) // TODO: need to finish the GraphicFactory file (swift)
+        //        if TempSurface! != nil {
+        //            return DTileCount
+        //        }
+
         DTileNames.reserveCapacity(count)
-        TempSurface?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
-        DSurfaceTileset = TempSurface
+        //       TempSurface?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
+        //       DSurfaceTileset = TempSurface
         DTileCount = count
         return DTileCount
     } // end TileCount()
-    
+
     func ClearTile(index: Int) -> Bool {
         if (0 > index) || (index >= DTileCount) {
             return false
         }
-        if (DSurfaceTileset != nil) {
+        if DSurfaceTileset != nil {
             return false
         }
         DSurfaceTileset?.Clear(xpos: 0, ypos: (index * DTileHeight),
                                width: DTileWidth, height: DTileHeight)
         return true
     } // end ClearTile()
-    
+
     func DuplicateTile(destindex: Int, tilename: inout String, srcindex: Int) -> Bool {
         if (0 > srcindex) || (0 > destindex) || (srcindex >= DTileCount) || (destindex >= DTileCount) {
             return false
@@ -166,24 +168,24 @@ class CGraphicTileset {
         DSurfaceTileset?.Copy(srcsurface: DSurfaceTileset!, dxpos: 0,
                               dypos: (destindex * DTileHeight), width: DTileWidth,
                               height: DTileHeight, sxpos: 0, sypos: srcindex * DTileHeight)
-        
+
         let arrEntry: String = DTileNames[destindex] // get correct element of array,
-                                                     // we know it's a string
+        // we know it's a string
         // find this arry in the Map
         if DMapping[arrEntry] != nil { // erase the entry from map if key-value
-                                                        // exists in dictionary
+            // exists in dictionary
             DMapping.removeValue(forKey: arrEntry)
         }
         DTileNames[destindex] = tilename
         DMapping[tilename] = destindex
-        
+
         return true
     } // end DuplicateTile()
-    
+
     func DuplicateClippedTile(destindex: Int, tilename: inout String, srcindex: Int,
                               clipindex: Int) -> Bool {
-        if ((0 > srcindex) || (0 > destindex) || (0 > clipindex) ||
-            (srcindex >= DTileCount) || (destindex >= DTileCount) || (clipindex >= DClippingMasks.count)) {
+        if (0 > srcindex) || (0 > destindex) || (0 > clipindex) ||
+            (srcindex >= DTileCount) || (destindex >= DTileCount) || (clipindex >= DClippingMasks.count) {
             return false
         }
         if tilename.isEmpty {
@@ -198,19 +200,19 @@ class CGraphicTileset {
         }
         DTileNames[destindex] = tilename
         DMapping[tilename] = destindex
-     
-        if (destindex >= DClippingMasks.count) {
+
+        if destindex >= DClippingMasks.count {
             DClippingMasks.reserveCapacity(destindex + 1)
         }
-        
+
         // NOTE: uncomment below function after CGraphicFactory.swift is written
-//        DClippingMasks[destindex] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1)
-//        DClippingMasks[destindex] = CreateSurface(DTileWidth, DTileHeight, enumeration)
+        //        DClippingMasks[destindex] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1)
+        //        DClippingMasks[destindex] = CreateSurface(DTileWidth, DTileHeight, enumeration)
         DClippingMasks[destindex].Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (destindex * DTileHeight))
-        
+
         return true
     } // end DuplicateClippedTile()
-    
+
     func FindTile(tilename: inout String) -> Int {
         let findTile = DMapping[tilename]
         if findTile != nil { // if findTile exists
@@ -218,7 +220,7 @@ class CGraphicTileset {
         }
         return -1
     } // end FindTile()
-    
+
     func GroupName(index: Int) -> String {
         if 0 > index {
             return ""
@@ -228,7 +230,7 @@ class CGraphicTileset {
         }
         return DGroupNames[index]
     } // end GroupName()
-    
+
     func GroupSteps(index: Int) -> Int {
         if 0 > index {
             return 0
@@ -238,68 +240,232 @@ class CGraphicTileset {
         }
         return DGroupSteps[DGroupNames[index]]!
     } // end GroupSteps()
-    
+
     func GroupSteps(Groupname: inout String) -> Int {
         if DGroupSteps[Groupname] != nil {
             return DGroupSteps[Groupname]!
         }
         return 0
     }
-    
+
     func CreateClippingMasks() {
         if DSurfaceTileset != nil {
             DClippingMasks.reserveCapacity(DTileCount)
-            for Index in 0...DTileCount {
-//                DClippingMasks[Index] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1) // uncomment later
+            for Index in 0 ... DTileCount {
+                //                DClippingMasks[Index] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1) // uncomment later
                 DClippingMasks[Index].Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (Index * DTileHeight))
             }
         }
     } // end CreateCLippingMasks()
-    
-    func LoadTileset(source: CDataSource) -> Bool {
-        //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
-        let PNGpath: String?
-        var TempString: String
-        var Tokens = [String]()
-        var ReturnStatus: Bool = false
-        if (source == nil) {
-            return false
-        }
-        
-        //        if(!LineSource.Read(PNGPath)){ //NOTE:  also idk how to deal this
-//            PrintError("Failed to get path.\n");
-//            goto LoadTilesetExit;
-//        }
-        
-//        DSurfaceTileset.LoadSurface(source.Container().DataSource(PNGpath)) // from CGraphicFactory
-        
-        if (nil == DSurfaceTileset) {
-                print("Failed to load file")
-            
-        }
-        
-        return true; // fix later
+
+    func LoadTileset(source _: CDataSource!) -> Bool {
+        let Tileset = #imageLiteral(resourceName: "Blacksmith")
+        DTileWidth = Int(Tileset.size.width)
+        DTileHeight = Int(Tileset.size.height)
+        DTileCount = 4
+        DTileHeight /= DTileCount
+        DTileHalfWidth = DTileWidth / 2
+        DTileHalfHeight = DTileHeight / 2
+
+        //        let tileSets = cropImage(image: Tileset, tileSize: DTileCount)
+
+        let tempTexture = SKTexture(image: Tileset)
+        let tempNode = SKSpriteNode(texture: tempTexture)
+        DTileSet.append(tempNode)
+
+        return true
     }
-    
-    func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int) {
-        if (0 > tileindex || tileindex >= DTileCount) {
-            return
+
+    // https://stackoverflow.com/questions/42076184/split-picture-in-tiles-and-put-in-array
+    func cropImage(image: NSImage, tileSize: Int) -> [NSImage]? {
+        let hCount = Int(image.size.height) / tileSize
+        let wCount = Int(image.size.width) / tileSize
+
+        var tiles: [NSImage] = []
+
+        for i in 0 ... hCount - 1 {
+            for p in 0 ... wCount - 1 {
+                let rect = CGRect(x: p * tileSize, y: i * tileSize, width: tileSize, height: tileSize)
+                //                let temp: NSImage = image.crop(size:)
+                //tiles.append(temp)
+            }
         }
-        
-        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
-    } // end LoadTileset()
-    
-    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
-        if (0 > tileindex || tileindex >= DClippingMasks.count) {
-            return
-        }
-        
-        // following done through core graphics kit
-        let ResourceContext: CGraphicResourceContextCoreGraphics = surface.CreateResourceContext() as! CGraphicResourceContextCoreGraphics
-        ResourceContext.Fill()
-        ResourceContext.SetSourceRGB(rgb: rgb)
-        ResourceContext.MaskSurface(srcsurface: DClippingMasks[tileindex], xpos: xpos, ypos: ypos)
+        return tiles
     }
-    
+
+    //    func LoadTileset(source: CDataSource) -> Bool {
+    //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
+    //        let PNGpath: String?
+    //        var TempString: String
+    //        var Tokens = [String]()
+    //        var ReturnStatus: Bool = false
+    //        if source == nil {
+    //            return false
+    //        }
+    //
+    //        //        if(!LineSource.Read(PNGPath)){ //NOTE:  also idk how to deal this
+    //        //            PrintError("Failed to get path.\n");
+    //        //            goto LoadTilesetExit;
+    //        //        }
+    //
+    //        //        DSurfaceTileset.LoadSurface(source.Container().DataSource(PNGpath)) // from CGraphicFactory
+    //
+    //        if nil == DSurfaceTileset {
+    //            print("Failed to load file")
+    //        }
+    //
+    //        return true // fix later
+    //    }
+    func DrawTile(skscene: SKScene, xpos _: Int, ypos _: Int, tileindex: Int) {
+        //        if 0 > tileindex || tileindex >= DTileCount {
+        //            return
+        //        }
+        DTileSet[tileindex].position = CGPoint(x: 100, y: 100)
+        skscene.addChild(DTileSet[tileindex])
+    }
+    //
+    //    func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int) {
+    //        if 0 > tileindex || tileindex >= DTileCount {
+    //            return
+    //        }
+    //
+    //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
+    //    } // end LoadTileset()
+    //
+    //    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
+    //        if 0 > tileindex || tileindex >= DClippingMasks.count {
+    //            return
+    //        }
+    //
+    //        // following done through core graphics kit
+    //        let ResourceContext: CGraphicResourceContext = surface.CreateResourceContext()
+    //        ResourceContext.Fill()
+    //        ResourceContext.SetSourceRGB(rgb: rgb)
+    //        ResourceContext.MaskSurface(srcsurface: DClippingMasks[tileindex], xpos: xpos, ypos: ypos)
+    //    }
 }
 
+// https://gist.github.com/MaciejGad/11d8469b218817290ee77012edb46608
+extension NSImage {
+
+    /// Returns the height of the current image.
+    var height: CGFloat {
+        return size.height
+    }
+
+    /// Returns the width of the current image.
+    var width: CGFloat {
+        return size.width
+    }
+
+    /// Returns a png representation of the current image.
+    var PNGRepresentation: Data? {
+        if let tiff = self.tiffRepresentation, let tiffData = NSBitmapImageRep(data: tiff) {
+            return tiffData.representation(using: .png, properties: [:])
+        }
+
+        return nil
+    }
+
+    ///  Copies the current image and resizes it to the given size.
+    ///
+    ///  - parameter size: The size of the new image.
+    ///
+    ///  - returns: The resized copy of the given image.
+    func copy(size: NSSize) -> NSImage? {
+        // Create a new rect with given width and height
+        let frame = NSMakeRect(0, 0, size.width, size.height)
+
+        // Get the best representation for the given size.
+        guard let rep = self.bestRepresentation(for: frame, context: nil, hints: nil) else {
+            return nil
+        }
+
+        // Create an empty image with the given size.
+        let img = NSImage(size: size)
+
+        // Set the drawing context and make sure to remove the focus before returning.
+        img.lockFocus()
+        defer { img.unlockFocus() }
+
+        // Draw the new image
+        if rep.draw(in: frame) {
+            return img
+        }
+
+        // Return nil in case something went wrong.
+        return nil
+    }
+
+    ///  Copies the current image and resizes it to the size of the given NSSize, while
+    ///  maintaining the aspect ratio of the original image.
+    ///
+    ///  - parameter size: The size of the new image.
+    ///
+    ///  - returns: The resized copy of the given image.
+    func resizeWhileMaintainingAspectRatioToSize(size: NSSize) -> NSImage? {
+        let newSize: NSSize
+
+        let widthRatio = size.width / width
+        let heightRatio = size.height / height
+
+        if widthRatio > heightRatio {
+            newSize = NSSize(width: floor(width * widthRatio), height: floor(height * widthRatio))
+        } else {
+            newSize = NSSize(width: floor(width * heightRatio), height: floor(height * heightRatio))
+        }
+
+        return copy(size: newSize)
+    }
+
+    ///  Copies and crops an image to the supplied size.
+    ///
+    ///  - parameter size: The size of the new image.
+    ///
+    ///  - returns: The cropped copy of the given image.
+    func crop(size: NSSize) -> NSImage? {
+        // Resize the current image, while preserving the aspect ratio.
+        guard let resized = self.resizeWhileMaintainingAspectRatioToSize(size: size) else {
+            return nil
+        }
+        // Get some points to center the cropping area.
+        let x = floor((resized.width - size.width) / 2)
+        let y = floor((resized.height - size.height) / 2)
+
+        // Create the cropping frame.
+        let frame = NSMakeRect(x, y, size.width, size.height)
+
+        // Get the best representation of the image for the given cropping frame.
+        guard let rep = resized.bestRepresentation(for: frame, context: nil, hints: nil) else {
+            return nil
+        }
+
+        // Create a new image with the new size
+        let img = NSImage(size: size)
+
+        img.lockFocus()
+        defer { img.unlockFocus() }
+
+        if rep.draw(in: NSMakeRect(0, 0, size.width, size.height),
+                    from: frame,
+                    operation: NSCompositingOperation.copy,
+                    fraction: 1.0,
+                    respectFlipped: false,
+                    hints: [:]) {
+            // Return the cropped image.
+            return img
+        }
+
+        // Return nil in case anything fails.
+        return nil
+    }
+
+    ///  Saves the PNG representation of the current image to the HD.
+    ///
+    /// - parameter url: The location url to which to write the png file.
+    func savePNGRepresentationToURL(url: URL) throws {
+        if let png = self.PNGRepresentation {
+            try png.write(to: url, options: .atomicWrite)
+        }
+    }
+}
