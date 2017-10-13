@@ -286,6 +286,7 @@ class CGraphicTileset {
         for i in 0 ... hCount - 1 {
             for p in 0 ... wCount - 1 {
                 let rect = CGRect(x: p * tileSize, y: i * tileSize, width: tileSize, height: tileSize)
+                // TODO: copy the origin image, crop and save
                 //                let temp: NSImage = image.crop(size:)
                 //tiles.append(temp)
             }
@@ -423,6 +424,8 @@ extension NSImage {
     ///  - parameter size: The size of the new image.
     ///
     ///  - returns: The cropped copy of the given image.
+
+    // TODO: rewrite - parametes: height, width
     func crop(size: NSSize) -> NSImage? {
         // Resize the current image, while preserving the aspect ratio.
         guard let resized = self.resizeWhileMaintainingAspectRatioToSize(size: size) else {
