@@ -34,9 +34,25 @@ class CGraphicTileset {
     
     deinit {}
     
+    func TileWidth() -> Int {
+        return DTileWidth
+    }
+    
+    func TileHeight() -> Int {
+        return DTileHeight
+    }
+    
+    func TileHalfWidth() -> Int {
+        return DTileHalfWidth
+    }
+    
+    func TileHalfHeight() -> Int {
+        return DTileHalfHeight
+    }
+    
     func ParseGroupName(tilename: inout String, aniname: inout String,
                                anistep: inout Int) -> Bool {
-        var LastIndex = tilename.count // get lenght of string
+        var LastIndex = tilename.count // get length of string
         if LastIndex <= 0 {
             return false
         }
@@ -77,7 +93,6 @@ class CGraphicTileset {
             // ParseGroupName returns a bool
             let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex,
                                                         aniname: &GroupName!, anistep: &GroupStep!)
-            
             if (parseGroupReturn) {
                 if (DGroupSteps[GroupName!] != nil) {
                     if (DGroupSteps[GroupName!]! <= GroupStep!) {
@@ -190,7 +205,7 @@ class CGraphicTileset {
         
         // NOTE: uncomment below function after CGraphicFactory.swift is written
 //        DClippingMasks[destindex] = CGraphicFactory.CreateSurface(DTileWidth, DTileHeight, CGraphicSurface::ESurfaceFormat::A1)
-        DClippingMasks[destindex] = CreateSurface(DTileWidth, DTileHeight, enumeration)
+//        DClippingMasks[destindex] = CreateSurface(DTileWidth, DTileHeight, enumeration)
         DClippingMasks[destindex].Copy(srcsurface: DSurfaceTileset!, dxpos: 0, dypos: 0, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (destindex * DTileHeight))
         
         return true
