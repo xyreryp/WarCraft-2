@@ -69,7 +69,7 @@ class CTokenizer: PTokenizer {
 
         // tokens.clear()
         tokens = []
-        var Index: size_t = 0
+        var Index: Int = 0
         repeat {
 
             if nil != Delimiters.range(of: data) {
