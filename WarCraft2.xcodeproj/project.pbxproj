@@ -27,6 +27,7 @@
 		A1AAF5D01F8C6001005007C4 /* LineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5CF1F8C6001005007C4 /* LineDataSource.swift */; };
 		A1AAF5D21F8CA0C5005007C4 /* CommentSkipLineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5D11F8CA0C5005007C4 /* CommentSkipLineDataSource.swift */; };
 		A1AE6E5F1F90B78F00D40A86 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AE6E5E1F90B78F00D40A86 /* Tokenizer.swift */; };
+		A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AE6E601F92A95200D40A86 /* PixelType.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		A1AAF5CF1F8C6001005007C4 /* LineDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineDataSource.swift; sourceTree = "<group>"; };
 		A1AAF5D11F8CA0C5005007C4 /* CommentSkipLineDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSkipLineDataSource.swift; sourceTree = "<group>"; };
 		A1AE6E5E1F90B78F00D40A86 /* Tokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		A1AE6E601F92A95200D40A86 /* PixelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelType.swift; sourceTree = "<group>"; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F91F85DF8F004379F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */,
 				6BD98D371F9010EE00EDC2ED /* HandlingMouseClicks.xib */,
 				A1AE6E5E1F90B78F00D40A86 /* Tokenizer.swift */,
+				A1AE6E601F92A95200D40A86 /* PixelType.swift */,
 			);
 			path = WarCraft2;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			files = (
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				A1AE6E5F1F90B78F00D40A86 /* Tokenizer.swift in Sources */,
+				A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */,
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
