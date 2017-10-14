@@ -35,21 +35,21 @@ protocol PMapRenderer {
     func DrawMiniMap(surface: CGraphicSurface)
 }
 
-//
-// class CMapRenderer : PMapRenderer{
-//
-//    var DTileIndices: [[[Int]]]
-//
-//    var DPixelIndices: [Int]
-//
-//    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-//        while array.count < size {
-//            array.append(defaultValue)
-//        }
-//        while array.count > size {
-//            array.removeLast()
-//        }
-//    }
+
+ class CMapRenderer : PMapRenderer{
+
+    var DTileIndices: [[[Int]]]
+
+    var DPixelIndices: [Int]
+
+    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+        while array.count < size {
+            array.append(defaultValue)
+        }
+        while array.count > size {
+            array.removeLast()
+        }
+    }
 
 //    // huge constructor
 //    init(config: CDataSource, tileset: CGraphicTileset, map: CTerrainMap) {
@@ -90,27 +90,56 @@ protocol PMapRenderer {
 //
 //
 //    func MapWidth() -> Int {
-//        <#code#>
+//        return DMap.Width()
 //    }
 //
 //    func MapHeight() -> Int {
-//        <#code#>
+//        return DMap.Height()
 //    }
 //
 //    func DetailedMapWidth() -> Int {
-//        <#code#>
+//        return DMap.Width() * DTileset.TileWidth()
 //    }
 //
 //    func DetailedMapHeight() -> Int {
-//        <#code#>
+//        return DMap.Height() * DTileset.TileHeight()
 //    }
 //
 //    func DrawMap(surface: CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
-//        <#code#>
+//        var TileWidth: Int = Int()
+//        var TileHeight: Int = Int()
+//        
+//        TileWidth = DTileset.TileWidth()
+//        TileHeight = DTileset.TileHeight()
+//        
+//        typesurface.Clear(xpos: Int(nil), ypos: Int(nil), width: Int(nil), height: Int(nil))
+//        
+//        var YIndex: Int = rect.DYPosition / TileHeight
+//        var YPos: Int = -(rect.DYPosition % TileHeight)
+//        var XIndex: Int = rect.DXPosition / TileWidth
+//        var XPos: Int = -(rect.DXPosition % TileWidth)
+//        repeat {
+//            repeat {
+//                var PixelType: CPixelType = CPixelType(DMap.TileType(XIndex, YIndex))
+//                
+//                
+//                
+//                
+//                
+//                XIndex += 1
+//                YPos += TileWidth
+//            } while XPos < rect.DWidth
+//            
+//            YIndex += 1
+//            YPos += TileHeight
+//        } while YPos < rect.DHeight
+//        
+//
 //    }
 //
 //    func DrawMiniMap(surface: CGraphicSurface) {
 //        <#code#>
 //    }
 //
-// }
+ }
+
