@@ -38,7 +38,7 @@ class CTokenizer: PTokenizer {
 
     //    http://www.cplusplus.com/reference/string/string/npos/
     func Read(token: inout String) -> Bool {
-        var TempChar: String = String()
+        let TempChar: String = String()
 
         // token.clear()
         token = ""
@@ -55,9 +55,11 @@ class CTokenizer: PTokenizer {
         }
     }
 
+    // reads in delimiters and writes back to token String
     func Tokenize(tokens: inout [String], data: String, delimiters: String) {
         var TempString: String = String()
         var Delimiters: String = String()
+        let data: String = String(data)
 
         if delimiters.count > 0 {
             Delimiters = delimiters
@@ -70,9 +72,9 @@ class CTokenizer: PTokenizer {
         var Index: size_t = 0
         repeat {
 
-            let index = data.index(data.startIndex, offsetArray: 4)
             if nil != Delimiters.range(of: data) {
-                TempString += data.startIndex.advancedBy(Index)
+                let index: String.Index = data.index(data.startIndex, offsetBy: Index)
+                TempString += String(data[index])
             } else if TempString.count > 0 {
                 // pushback to tokens, clear tempString
                 tokens.append(TempString)
@@ -80,5 +82,8 @@ class CTokenizer: PTokenizer {
             }
             Index += 1
         } while Index < data.count
+        if TempString.count > 0 {
+            tokens.append(TempString)
+        }
     }
 }
