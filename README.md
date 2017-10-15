@@ -12,7 +12,7 @@
 |        |                                                            | BuildingUpgradeCapabilities.cpp |                                                         |              |
 |        | ButtonRenderer.h                                           | ButtonRenderer.cpp              |                                                         |              |
 |        |                                                            | ButtonMenuMode.cpp              |                                                         |              |
-|        | CommentSkipLineDataSource.h, CommentSkipLineDataSource.cpp |                                 | CommentSkipLineDataSource.swift                         |              |
+|        | CommentSkipLineDataSource.h| CommentSkipLineDataSource.cpp| CommentSkipLineDataSource.swift                         |              |
 |        | CursorSet.h                                                | CursorSet.cpp                   |                                                         |              |
 |        | DataContainer.h                                            |                                 | DataContainer.swift                                     |              |
 |        | DataSink.h                                                 |                                 | DataSink.swift                                          |              |
