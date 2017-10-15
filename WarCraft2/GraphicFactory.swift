@@ -14,4 +14,3 @@ protocol CGraphicFactory {
     static func LoadSurface(source: CDataSource) -> CGraphicSurface
     static func StoreSurface(sink: CDataSink, surface: CGraphicSurface) -> Bool
 }
-
