@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol PPixelType {
-    enum EAssetTerrainType{
+class CPixelType {
+    enum EAssetTerrainType {
         case None
         case Grass
         case Dirt
@@ -37,4 +37,18 @@ protocol PPixelType {
         case CannonTower
         case Max
     }
+    
+    var DType: EAssetTerrainType
+    
+    // TODO: Uncomment from PlayerAsset
+    // var EPlayerColor: DColor
+    CPixelType(int red, int green, int blue);
+    CPixelType(CTerrainMap::ETileType type);
+    CPixelType(const CPlayerAsset &asset);
+    CPixelType(const CPixelType &pixeltype);
+    init(red: Int, green: Int, blue: Int) {}
+    init(type: CTerrainMap.ETileType) {}
+    init() {}
+    init() {}
+
 }
