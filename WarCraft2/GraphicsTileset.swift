@@ -266,34 +266,17 @@ class CGraphicTileset {
         DTileHeight /= DTileCount
         DTileHalfWidth = DTileWidth / 2
         DTileHalfHeight = DTileHeight / 2
+        for i in 0 ... DTileCount - 1 {
+            let newSize: NSSize
+            newSize = NSSize(width: DTileWidth, height: (DTileCount - i) * DTileHeight)
 
-        //        let tileSets = cropImage(image: Tileset, tileSize: DTileCount)
-
-        let tempTexture = SKTexture(image: Tileset)
-        let tempNode = SKSpriteNode(texture: tempTexture)
-        DTileSet.append(tempNode)
-
+            let temp: NSImage = Tileset.crop(size: newSize)!
+            let tempTexture = SKTexture(image: temp)
+            let tempNode = SKSpriteNode(texture: tempTexture)
+            DTileSet.append(tempNode)
+        }
         return true
     }
-
-    // https://stackoverflow.com/questions/42076184/split-picture-in-tiles-and-put-in-array
-    func cropImage(image: NSImage, tileSize: Int) -> [NSImage]? {
-        let hCount = Int(image.size.height) / tileSize
-        let wCount = Int(image.size.width) / tileSize
-
-        var tiles: [NSImage] = []
-
-        for i in 0 ... hCount - 1 {
-            for p in 0 ... wCount - 1 {
-                let rect = CGRect(x: p * tileSize, y: i * tileSize, width: tileSize, height: tileSize)
-                // TODO: copy the origin image, crop and save
-                //                let temp: NSImage = image.crop(size:)
-                //tiles.append(temp)
-            }
-        }
-        return tiles
-    }
-
     //    func LoadTileset(source: CDataSource) -> Bool {
     //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
     //        let PNGpath: String?
@@ -321,7 +304,7 @@ class CGraphicTileset {
         //        if 0 > tileindex || tileindex >= DTileCount {
         //            return
         //        }
-        DTileSet[tileindex].position = CGPoint(x: 100, y: 100)
+        DTileSet[tileindex].position = CGPoint(x: 0, y: 0)
         skscene.addChild(DTileSet[tileindex])
     }
     //
@@ -433,7 +416,9 @@ extension NSImage {
         }
         // Get some points to center the cropping area.
         let x = floor((resized.width - size.width) / 2)
-        let y = floor((resized.height - size.height) / 2)
+        //        let x = floor(size.width / 2)
+        //        let y = floor((resized.height - size.height) / 2)
+        let y = floor(size.height - 48)
 
         // Create the cropping frame.
         let frame = NSMakeRect(x, y, size.width, size.height)

@@ -12,7 +12,7 @@ import SpriteKit
 
 class GameViewController: NSViewController {
 
-    var skview = SKView(frame: NSRect(x: 0, y: 0, width: 400, height: 400))
+    var skview = SKView(frame: NSRect(x: 0, y: 0, width: 500, height: 500))
     var skscene = SKScene(fileNamed: "Scene")
 
     override func viewDidLoad() {
@@ -26,5 +26,8 @@ class GameViewController: NSViewController {
         // TODO:
         graphicTileSet.LoadTileset(source: nil)
         graphicTileSet.DrawTile(skscene: skscene!, xpos: 100, ypos: 100, tileindex: 0)
+        //        graphicTileSet.DrawTile(skscene: skscene!, xpos: 300, ypos: 350, tileindex: 1)
+        //                graphicTileSet.DrawTile(skscene: skscene!, xpos: 200, ypos: 200, tileindex: 2)
+        //        graphicTileSet.DrawTile(skscene: skscene!, xpos: 250, ypos: 250, tileindex: 3)
     }
 }
