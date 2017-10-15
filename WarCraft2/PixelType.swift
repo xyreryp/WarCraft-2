@@ -42,13 +42,35 @@ class CPixelType {
     
     // TODO: Uncomment from PlayerAsset
     // var EPlayerColor: DColor
-    CPixelType(int red, int green, int blue);
-    CPixelType(CTerrainMap::ETileType type);
-    CPixelType(const CPlayerAsset &asset);
-    CPixelType(const CPixelType &pixeltype);
+    
     init(red: Int, green: Int, blue: Int) {}
     init(type: CTerrainMap.ETileType) {}
-    init() {}
-    init() {}
+    init(asset: CPlayerAsset) {}
+    init(pixeltype: CPixelType) {}
+    
+    func Type() -> EAssetTerrainType {
+        return DType
+    }
+    
+    // TODO: Uncomment from PlayerAsset
+    // func Color() -> EPlayerColor {
+    //     return DColor
+    // }
+    
+    func toPixelColor() -> uint32 {
+        
+    }
 
+    func AssetType() -> EAssetType {
+        
+    }
+    
+    func GetPixelType(surface: CGraphicSurface, pos: CPixelPosition) -> CPixelType {
+        
+    }
+    
+    func GetPixelType(surface: CGraphicSurface, xpos: Int, ypos: Int) -> CPixelType {
+        
+    }
+    
 }
