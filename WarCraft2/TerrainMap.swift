@@ -273,9 +273,9 @@ class CTerrainMap {
     }
 
     func LoadMap(source: CDataSource) throws -> Bool {
-        var LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
-        var TempString: String
-        var Tokens: [String]
+        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
+        var TempString = String()
+        var Tokens: [String] = [String]()
         var MapWidth: Int
         var MapHeight: Int
         var ReturnStatus: Bool = false
@@ -339,18 +339,17 @@ class CTerrainMap {
                     case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
                         break
                     default: return ReturnStatus
-                        break
                     }
-                  //  if(Inner) { to do confused on this part?
-                        if (!CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue]){
-                            return ReturnStatus
-                        }
-                  //  }
-                  //  if(Index) { to do confused on this part?
-                        if (!CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue]) {
-                            return ReturnStatus
-                        }
-                    //}
+                    //  if(Inner) { to do confused on this part?
+                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
+                        return ReturnStatus
+                    }
+                    //  }
+                    //  if(Index) { to do confused on this part?
+                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
+                        return ReturnStatus
+                    }
+                    // }
                 }
             }
             StringMap.removeAll()
@@ -370,10 +369,14 @@ class CTerrainMap {
             for Index in 0 ..< DTerrainMap.count {
                 resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
                 for Inner in 0 ..< MapWidth + 1 {
-                    if ("0" <= StringMap[Index][Inner]) && ("9" >= StringMap[Index][Inner]) {
-                        DPartials[Index][Inner] = StringMap[Index][Inner] - "0"
-                    } else if ("A" <= StringMap[Index * Inner]) && ("F" >= StringMap[Index][Inner]) {
-                        DPartials[Index][Inner] = StringMap[Index][Inner] - "A" + 0x0A
+                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
+                    let valueStringValues: [Character] = ["0", "A"]
+                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
+                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
+                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
+                        DPartials[Index][Inner] = intValue - asciiValues[0]
+                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
+                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
                     } else {
                         return ReturnStatus
                     }
