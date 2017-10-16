@@ -418,7 +418,7 @@ extension NSImage {
         let x = floor((resized.width - size.width) / 2)
         //        let x = floor(size.width / 2)
         //        let y = floor((resized.height - size.height) / 2)
-        let y = floor(size.height - 48)
+        let y = floor(size.height - resized.width)
 
         // Create the cropping frame.
         let frame = NSMakeRect(x, y, size.width, size.height)
