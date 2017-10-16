@@ -9,31 +9,31 @@
 import Foundation
 
 class CGraphicRecolorMap {
-    
+
     // CGraphicRecolorMap.h has empty constructor
     //    init() {
     //    }
-    
+
     //    deinit {
     //    }
-    
+
     var DState: Int = 0 // had to set this to zero otherwise would get "no initializer" error
     var DMapping = [String: Int]()
     var DColorNames = [String]()
     var DColors = [[UInt32]]()
     var DOriginalColors = [[UInt32]]()
-    
+
     func GroupCount() -> Int {
         return DColors.count
     }
-    
+
     func ColorCount() -> Int {
         if !DColors.isEmpty {
             return DColors[0].count
         }
         return 0
     }
-    
+
     static func RecolorPixels(data: inout Any, pixel: UInt32) -> UInt32 {
         //        The following line of code is translated from this C++ code:
         //        CGraphicRecolorMap *RecolorMap = static_cast<CGraphicRecolorMap *>(data);
@@ -53,7 +53,7 @@ class CGraphicRecolorMap {
         }
         return 0x0000_0000
     }
-    
+
     static func ObservePixels(data: inout Any, pixel: UInt32) -> UInt32 {
         let RecolorMap: CGraphicRecolorMap = data as! CGraphicRecolorMap
         let Row: Int = RecolorMap.DState / RecolorMap.DColors[0].count
@@ -63,7 +63,7 @@ class CGraphicRecolorMap {
         RecolorMap.DState += 1
         return pixel
     }
-    
+
     func FindColor(colorname: String) -> Int {
         if let found = DMapping[colorname] {
             return found
@@ -71,7 +71,7 @@ class CGraphicRecolorMap {
             return -1
         }
     }
-    
+
     func ColorValue(gindex: Int, cindex: Int) -> UInt32 {
         if (0 > gindex) || (0 > cindex) || (gindex >= DOriginalColors.count) {
             return 0x0000_0000
@@ -81,7 +81,7 @@ class CGraphicRecolorMap {
         }
         return DOriginalColors[gindex][cindex]
     }
-    
+
     // https://stackoverflow.com/questions/42821473/in-swift-can-i-write-a-generic-function-to-resize-an-array
     // there is no default resize function in swift for lists
     func resize<T>(array: inout [T], size: Int, defaultValue: T) {
@@ -92,13 +92,13 @@ class CGraphicRecolorMap {
             array.removeLast()
         }
     }
-    
+
     func Load(source: CDataSource) -> Bool {
         var LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
         var PNGPath = String()
         var TempString = String()
         var Tokens: [String]
-        
+
         if nil == source {
             return false
         }
@@ -110,20 +110,20 @@ class CGraphicRecolorMap {
         if nil == ColorSurface {
             return false
         }
-        
-        resize(array: &DColors, size: ColorSurface.Height(), defaultValue: [0x0])
-        resize(array: &DOriginalColors, size: ColorSurface.Height(), defaultValue: [0x0])
+
+        resize(array: &DColors, size: ColorSurface!.Height(), defaultValue: [0x0])
+        resize(array: &DOriginalColors, size: ColorSurface!.Height(), defaultValue: [0x0])
         for var Row in DColors {
-            resize(array: &Row, size: ColorSurface.Width(), defaultValue: 0x0)
+            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
         }
         for var Row in DOriginalColors {
-            resize(array: &Row, size: ColorSurface.Width(), defaultValue: 0x0)
+            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
         }
-        
+
         DState = 0
-        //        TODO: Uncomment when
-        //        ColorSurface.Transform(ColorSurface, 0, 0, -1, -1, 0, 0, self, ObservePixels)
-        
+        //        TODO: Uncomment when Transform in GraphicSurface.swift has been written
+        // ColorSurface.Transform(ColorSurface, 0, 0, -1, -1, 0, 0, self, ObservePixels)
+
         if !LineSource.Read(line: &TempString) {
             return false
         }
@@ -146,7 +146,7 @@ class CGraphicRecolorMap {
         }
         return true
     }
-    
+
     func RecolorSurface(index: Int, srcsurface: CGraphicSurface) -> CGraphicSurface? {
         if (0 > index) || (index >= DColors.count) {
             return nil
@@ -154,7 +154,7 @@ class CGraphicRecolorMap {
         DState = index
         //    TODO: Uncomment when CGraphicFactory has been written
         var RecoloredSurface = CGraphicFactory.CreateSurface(width: srcsurface.Width(), height: srcsurface.Height(), format: srcsurface.Format())
-        //        TODO: Update this when CGraphicSurface::Transform has been written
+        //    TODO: Update this when CGraphicSurface::Transform has been written
         //        RecoloredSurface.Transform(srcsurface, 0, 0, -1, -1, 0, 0, self, RecolorPixels)
         return RecoloredSurface
     }
