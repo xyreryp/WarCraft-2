@@ -39,11 +39,9 @@ class CTerrainMap {
         case ShallowWater
         case Max
     }
-
     static let DInvalidPartial: UInt8 = UInt8()
-
     //  "protected:"
-    static var DAllowedAdjacent: [[Bool]] = //whether or not different terrains should be allowed close to each other
+    static var DAllowedAdjacent: [[Bool]] = // whether or not different terrains should be allowed close to each other
         [
             [true, true, true, true, true, true, true, true, true, true, true],
             [true, true, true, false, false, false, false, false, false, false, false],
@@ -58,8 +56,7 @@ class CTerrainMap {
             [true, false, false, false, true, false, false, false, false, true, true],
         ]
     
-    //initialized variables
-    internal var DTerrainMap = [[ETerrainTileType]]()
+    internal var DTerrainMap = [[ETerrainTileType]]() //initialized variables
     internal var DPartials = [[UInt8]]()
     internal var DMap = [[ETileType]]()
     internal var DMapIndices = [[Int]]()
@@ -245,7 +242,6 @@ class CTerrainMap {
             array.removeLast()
         }
     }
-    
     //terain being rendered
     func RenderTerrain() {
         resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [ETileType.None])
