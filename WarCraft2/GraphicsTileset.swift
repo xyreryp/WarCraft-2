@@ -446,12 +446,4 @@ extension NSImage {
         return nil
     }
 
-    ///  Saves the PNG representation of the current image to the HD.
-    ///
-    /// - parameter url: The location url to which to write the png file.
-    func savePNGRepresentationToURL(url: URL) throws {
-        if let png = self.PNGRepresentation {
-            try png.write(to: url, options: .atomicWrite)
-        }
-    }
 }
