@@ -259,18 +259,18 @@ class CGraphicTileset {
     } // end CreateCLippingMasks()
 
     func LoadTileset(source _: CDataSource!) -> Bool {
-        let Tileset = #imageLiteral(resourceName: "Blacksmith")
+        let Tileset = #imageLiteral(resourceName: "ListViewIcons")
 
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)
-        DTileCount = 4
+        DTileCount = 5
         DTileHeight /= DTileCount
         DTileHalfWidth = DTileWidth / 2
         DTileHalfHeight = DTileHeight / 2
         for i in 1 ... DTileCount {
             let newSize: NSSize
-            newSize = NSSize(width: DTileWidth, height: i * DTileHeight)
-            let temp: NSImage = Tileset.crop(size: newSize)!
+            newSize = NSSize(width: DTileWidth, height: DTileHeight)
+            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
             let tempTexture = SKTexture(image: temp)
             let tempNode = SKSpriteNode(texture: tempTexture)
             DTileSet.append(tempNode)
@@ -409,16 +409,14 @@ extension NSImage {
     ///  - returns: The cropped copy of the given image.
 
     // TODO: rewrite - parametes: height, width
-    func crop(size: NSSize) -> NSImage? {
+    func crop(size: NSSize, index: Int) -> NSImage? {
         // Resize the current image, while preserving the aspect ratio.
         guard let resized = self.resizeWhileMaintainingAspectRatioToSize(size: size) else {
             return nil
         }
         // Get some points to center the cropping area.
         let x = floor((resized.width - size.width) / 2)
-        //        let x = floor(size.width / 2)
-        //        let y = floor((resized.height - size.height) / 2)
-        let y = floor(resized.height - size.height)
+        let y = floor(resized.height - CGFloat(index) * size.height)
 
         // Create the cropping frame.
         let frame = NSMakeRect(x, y, size.width, size.height)
