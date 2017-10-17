@@ -259,19 +259,18 @@ class CGraphicTileset {
     } // end CreateCLippingMasks()
 
     func LoadTileset(source _: CDataSource!) -> Bool {
-        let Tileset = #imageLiteral(resourceName: "GuardTower")
+        let Tileset = #imageLiteral(resourceName: "Blacksmith")
 
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)
-        DTileCount = 2
+        DTileCount = 4
         DTileHeight /= DTileCount
         DTileHalfWidth = DTileWidth / 2
         DTileHalfHeight = DTileHeight / 2
-        for i in 0 ... DTileCount - 1 {
+        for i in 1 ... DTileCount {
             let newSize: NSSize
-            newSize = NSSize(width: DTileWidth, height: (DTileCount - i) * DTileHeight)
+            newSize = NSSize(width: DTileWidth, height: i * DTileHeight)
             let temp: NSImage = Tileset.crop(size: newSize)!
-
             let tempTexture = SKTexture(image: temp)
             let tempNode = SKSpriteNode(texture: tempTexture)
             DTileSet.append(tempNode)
@@ -419,7 +418,7 @@ extension NSImage {
         let x = floor((resized.width - size.width) / 2)
         //        let x = floor(size.width / 2)
         //        let y = floor((resized.height - size.height) / 2)
-        let y = floor(size.height - resized.width)
+        let y = floor(resized.height - size.height)
 
         // Create the cropping frame.
         let frame = NSMakeRect(x, y, size.width, size.height)

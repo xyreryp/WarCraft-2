@@ -26,8 +26,8 @@ class GameViewController: NSViewController {
         // TODO:
         graphicTileSet.LoadTileset(source: nil)
 //        graphicTileSet.DrawTile(skscene: skscene!, xpos: 100, ypos: 100, tileindex: 0)
-                graphicTileSet.DrawTile(skscene: skscene!, xpos: 300, ypos: 350, tileindex: 1)
-        //                        graphicTileSet.DrawTile(skscene: skscene!, xpos: 200, ypos: 200, tileindex: 2)
-        //                graphicTileSet.DrawTile(skscene: skscene!, xpos: 250, ypos: 250, tileindex: 3)
+        //                graphicTileSet.DrawTile(skscene: skscene!, xpos: 300, ypos: 350, tileindex: 1)
+                                        graphicTileSet.DrawTile(skscene: skscene!, xpos: 200, ypos: 200, tileindex: 2)
+//                                graphicTileSet.DrawTile(skscene: skscene!, xpos: 250, ypos: 250, tileindex: 3)
     }
 }
