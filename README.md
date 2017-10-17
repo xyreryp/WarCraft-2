@@ -21,7 +21,7 @@
 |              |        | EditOptionsMode.h                                          | EditOptionsMode.cpp             |                                                          |
 |              |        | EditRenderer.h                                             | EditRenderer.cpp                |                                                          |
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
-|              |        | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
+| :red_circle: |        | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
 | :red_circle: |        | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
 | :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
@@ -50,7 +50,7 @@
 | :red_circle: |        | GraphicMulticolorTileset.h                                 | GraphicMulticolorTileset.cpp    |                                                          |
 | :red_circle: |        | GraphicRecolorMap.h                                        | GraphicRecolorMap.cpp           |                                                          |
 |              |        | GraphicResourceContext.h                                   |                                 | GraphicResourceContext.swift                             |
-|              | [⋅]    | GraphicSurface.h                                           |                                 | GraphicSurface.swift                                     |
+| :red_circle: | [⋅]    | GraphicSurface.h                                           |                                 | GraphicSurface.swift                                     |
 | :red_circle: | [⋅]    | GraphicTileset.h                                           | GraphicTileset.cpp              |                                                          |
 |              |        | IOChannel.h                                                |                                 |                                                          |
 |              |        | IOEvent.h                                                  |                                 | HandlingMouseClicks.swift, IOEvent.swift                 |
@@ -60,7 +60,7 @@
 |              |        | LineDataSource.h                                           | LineDataSource.cpp              | LineDataSource.swift                                     |
 |              |        | ListViewRenderer.h                                         | ListViewRenderer.cpp            | ListViewRenderer.swift                                   |
 |              |        | MainMenuMode.h                                             | MainMenuMode.cpp                | MainMenuViewController.swift,MainWindowController.swift  |
-| :red_circle: |        | MapRenderer.h                                              | MapRenderer.cpp                 | MapRenderer.swift                                        |
+| :red_circle: | [⋅]    | MapRenderer.h                                              | MapRenderer.cpp                 | MapRenderer.swift                                        |
 |              |        | MapSelectionMode.h                                         | MapSelectionMode.cpp            |                                                          |
 |              |        | MemoryDataSource.h                                         | MemoryDataSource.cpp            |                                                          |
 |              |        | MiniMapRenderer.h                                          | MiniMapRenderer.cpp             |                                                          |
@@ -83,7 +83,7 @@
 |              |        | SoundLibraryMixer.h                                        | SoundLibraryMixer.cpp           | SoundOptionsMenuViewController.swift                     |
 |              |        | SoundOptionsMode.h                                         | SoundOptionsMode.cpp            | SplashViewController.swift                               |
 |              |        |                                                            | TrainCapabilities.cpp           | TilePosition.swift                                       |
-| :red_circle: |        | TerrainMap.h                                               | TerrainMap.cpp                  | TerrainMap.swift                                         |
+| :red_circle: | [⋅]    | TerrainMap.h                                               | TerrainMap.cpp                  | TerrainMap.swift                                         |
 |              |        | TextFormatter.h                                            | TextFormatter.cpp               |                                                          |
 |              |        | Tokenizer.h                                                | Tokenizer.cpp                   | Tokenizer.swift                                          |
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
