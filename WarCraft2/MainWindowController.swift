@@ -15,6 +15,7 @@ class MainWindowController: NSWindowController {
     var soundOptionsMenuVC: SoundOptionsMenuViewController?
     var networkOptionsMenuVC: NetworkOptionsMenuViewController?
     var multiPlayerGameOptionsMenuVC: MultiPlayerGameOptionsViewController?
+    var gameVC: GameViewController?
     var splashVC: SplashViewController?
     var musicManager = SoundManager()
     var tickManager = SoundManager()
@@ -22,7 +23,7 @@ class MainWindowController: NSWindowController {
 
     override func windowDidLoad() {
         super.windowDidLoad()
-        splashVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "splashViewControllerID")) as? SplashViewController
+        gameVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "gameViewControllerId")) as? GameViewController
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
 
@@ -60,6 +61,7 @@ class MainWindowController: NSWindowController {
                 multiPlayerGameOptionsMenuVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "multiPlayerGameOptionsMenuID")) as? MultiPlayerGameOptionsViewController
             }
             window?.contentView = multiPlayerGameOptionsMenuVC?.view
+
         default:
             print("error")
         }
