@@ -22,7 +22,7 @@
 |              |        | EditRenderer.h                                             | EditRenderer.cpp                |                                                          |
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
 | :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
-| :red_circle: |        | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
+| :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
 | :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
 |              |        | FontTileset.h                                              | FontTileset.cpp                 |                                                          |
