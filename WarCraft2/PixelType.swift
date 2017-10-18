@@ -41,7 +41,7 @@ class CPixelType {
     var DType: EAssetTerrainType
 
     // TODO: Uncomment from PlayerAsset
-//    var EPlayerColor: DColor
+    //    var EPlayerColor: DColor
 
     init(red _: Int, green: Int, blue _: Int) {
         //        DColor = EPlayerColor(rawValue: red)!
@@ -51,99 +51,101 @@ class CPixelType {
     init(type: CTerrainMap.ETileType) {
         var DColor: EPlayerColor = EPlayerColor.None
         switch type {
-        case ETileType.LightGrass:
+        case CTerrainMap.ETileType.LightGrass:
             DType = EAssetTerrainType.Grass
             break
-        case ETileType.DarkGrass:
+        case CTerrainMap.ETileType.DarkGrass:
             DType = EAssetTerrainType.Grass
             break
-        case ETileType.LightDirt:
+        case CTerrainMap.ETileType.LightDirt:
             DType = EAssetTerrainType.Dirt
             break
-        case ETileType.LightDirt:
+        case CTerrainMap.ETileType.DarkDirt:
             DType = EAssetTerrainType.Dirt
             break
-        case ETileType.Rock:
+        case CTerrainMap.ETileType.Rock:
             DType = EAssetTerrainType.Rock
             break
-        case ETileType.Forest:
+        case CTerrainMap.ETileType.Forest:
             DType = EAssetTerrainType.Tree
             break
-        case ETileType.Stump:
+        case CTerrainMap.ETileType.Stump:
             DType = EAssetTerrainType.Stump
             break
-        case ETileType.ShallowWater:
+        case CTerrainMap.ETileType.ShallowWater:
             DType = EAssetTerrainType.Water
             break
-        case ETileType.DeepWater:
+        case CTerrainMap.ETileType.DeepWater:
             DType = EAssetTerrainType.Water
             break
-        case ETileType.Rubble:
+        case CTerrainMap.ETileType.Rubble:
             DType = EAssetTerrainType.Rubble
             break
-        case ETileType.Default:
+        case CTerrainMap.ETileType.None:
             DType = EAssetTerrainType.None
             break
+        case CTerrainMap.ETileType.Max:
+            DType = EAssetTerrainType.Max
         }
     }
 
-    init(asset: CPlayerAsset) {
-        switch asset.Type() {
-        case EAssetType.Peasant:
-            DType = EAssetTerrainType.Peasant
-            break
-        case EAssetType.Footman:
-            DType = EAssetTerrainType.Footman
-            break
-        case EAssetType.Archer:
-            DType = EAssetTerrainType.Archer
-            break
-        case EAssetType.Ranger:
-            DType = EAssetTerrainType.Ranger
-            break
-        case EAssetType.GoldMine:
-            DType = EAssetTerrainType.GoldMine
-            break
-        case EAssetType.TownHall:
-            DType = EAssetTerrainType.TownHall
-            break
-        case EAssetType.Keep:
-            DType = EAssetTerrainType.Keep
-            break
-        case EAssetType.Castle:
-            DType = EAssetTerrainType.Castle
-            break
-        case EAssetType.Farm:
-            DType = EAssetTerrainType.Farm
-            break
-        case EAssetType.Barracks:
-            DType = EAssetTerrainType.Barracks
-            break
-        case EAssetType.LumberMill:
-            DType = EAssetTerrainType.LumberMill
-            break
-        case EAssetType.Blacksmith:
-            DType = EAssetTerrainType.Blacksmith
-            break
-        case EAssetType.ScoutTower:
-            DType = EAssetTerrainType.ScoutTower
-            break
-        case EAssetType.GuardTower:
-            DType = EAssetTerrainType.GuardTower
-            break
-        case EAssetType.CannonTower:
-            DType = EAssetTerrainType.CannonTower
-            break
-        case EAssetType.None:
-            DType = EAssetTerrainType.None
-            break
-        }
-    }
+    //    init(asset: CPlayerAsset) {
+    //        switch asset.Type() {
+    //        case EAssetType.Peasant:
+    //            DType = EAssetTerrainType.Peasant
+    //            break
+    //        case EAssetType.Footman:
+    //            DType = EAssetTerrainType.Footman
+    //            break
+    //        case EAssetType.Archer:
+    //            DType = EAssetTerrainType.Archer
+    //            break
+    //        case EAssetType.Ranger:
+    //            DType = EAssetTerrainType.Ranger
+    //            break
+    //        case EAssetType.GoldMine:
+    //            DType = EAssetTerrainType.GoldMine
+    //            break
+    //        case EAssetType.TownHall:
+    //            DType = EAssetTerrainType.TownHall
+    //            break
+    //        case EAssetType.Keep:
+    //            DType = EAssetTerrainType.Keep
+    //            break
+    //        case EAssetType.Castle:
+    //            DType = EAssetTerrainType.Castle
+    //            break
+    //        case EAssetType.Farm:
+    //            DType = EAssetTerrainType.Farm
+    //            break
+    //        case EAssetType.Barracks:
+    //            DType = EAssetTerrainType.Barracks
+    //            break
+    //        case EAssetType.LumberMill:
+    //            DType = EAssetTerrainType.LumberMill
+    //            break
+    //        case EAssetType.Blacksmith:
+    //            DType = EAssetTerrainType.Blacksmith
+    //            break
+    //        case EAssetType.ScoutTower:
+    //            DType = EAssetTerrainType.ScoutTower
+    //            break
+    //        case EAssetType.GuardTower:
+    //            DType = EAssetTerrainType.GuardTower
+    //            break
+    //        case EAssetType.CannonTower:
+    //            DType = EAssetTerrainType.CannonTower
+    //            break
+    //        case EAssetType.None:
+    //            DType = EAssetTerrainType.None
+    //            break
+    //        }
+    //    }
 
     init(pixeltype: CPixelType) {
         DType = pixeltype.DType
         // TODO: Uncomment from PlayerAsset
-        //DColor = pixeltype.DColor
+        // DColor = pixeltype.DColor
     }
 
     func Type() -> EAssetTerrainType {
@@ -151,16 +153,16 @@ class CPixelType {
     }
 
     // TODO: Uncomment from PlayerAsset
-//    func Color() -> EPlayerColor {
-//        return DColor
-//    }
+    //    func Color() -> EPlayerColor {
+    //        return DColor
+    //    }
 
     func toPixelColor() -> uint32 {
         // TODO: Uncomment from PlayerAsset
-        var RetVal: uint32
-//        var RetVal: uint32 = uint32(DColor.rawValue)
-//        RetVal <<= 16
-//        RetVal |= (uint32(DType.rawValue)) << 8
+        let RetVal: uint32 = uint32()
+        //        var RetVal: uint32 = uint32(DColor.rawValue)
+        //        RetVal <<= 16
+        //        RetVal |= (uint32(DType.rawValue)) << 8
         return RetVal
     }
 
@@ -196,29 +198,29 @@ class CPixelType {
             return EAssetType.CannonTower
         case EAssetTerrainType.None:
             return EAssetType.None
-        // these dont return anything
-//        case .Grass:
-//            break
-//        case .Dirt:
-//            break
-//        case .Rock:
-//            break
-//        case .Tree:
-//            break
-//        case .Stump:
-//            break
-//        case .Water:
-//            break
-//        case .Wall:
-//            break
-//        case .WallDamaged:
-//            break
-//        case .Rubble:
-//            break
-//        case .Farm:
-//            break
-//        case .Max:
-//            break
+            // these dont return anything
+        case .Grass:
+            return EAssetType.None
+        case .Dirt:
+            return EAssetType.None
+        case .Rock:
+            return EAssetType.None
+        case .Tree:
+            return EAssetType.None
+        case .Stump:
+            return EAssetType.None
+        case .Water:
+            return EAssetType.None
+        case .Wall:
+            return EAssetType.None
+        case .WallDamaged:
+            return EAssetType.None
+        case .Rubble:
+            return EAssetType.None
+        case .Farm:
+            return EAssetType.None
+        case .Max:
+            return EAssetType.None
         }
     }
 
@@ -227,7 +229,7 @@ class CPixelType {
     }
 
     func GetPixelType(surface: CGraphicSurface, xpos: Int, ypos: Int) -> CPixelType {
-        var PixelColor: uint32 = surface.PixelAt(xpos: xpos, ypos: ypos)
+        let PixelColor: uint32 = surface.PixelAt(xpos: xpos, ypos: ypos)
         return CPixelType(red: Int((PixelColor >> 16) & 0xFF), green: Int((PixelColor >> 8) & 0xFF), blue: Int(PixelColor & 0xFF))
     }
 }
