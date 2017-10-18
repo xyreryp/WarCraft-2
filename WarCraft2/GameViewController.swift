@@ -23,8 +23,10 @@ class GameViewController: NSViewController {
         // skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
         let graphicTileSet = CGraphicTileset()
+        var terrainMap = CTerrainMap()
+        terrainMap.loadMap(source: nil)
         // TODO:
-        graphicTileSet.LoadTileset(source: nil)
-        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
+        //        graphicTileSet.LoadTileset(source: nil)
+        //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
     }
 }
