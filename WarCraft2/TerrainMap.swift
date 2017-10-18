@@ -273,7 +273,7 @@ class CTerrainMap {
 
     func LoadMap(source _: CDataSource) throws -> Bool {
         //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
-        if let filepath = Bundle.main.url(forResource: "mountain", withExtension: "map") {
+        if let filepath = Bundle.main.path(forResource: "mountain", ofType: "map") {
             do {
                 let contents = try String(contentsOfFile: filepath)
                 print(contents)
@@ -394,9 +394,10 @@ class CTerrainMap {
         //            }
         //            ReturnStatus = true
         //        }
-        //        return ReturnStatus
+        //                return ReturnStatus
         //        //  catch {
         //        //      print("LoadMap function Error (TerrainMap.swift)")
         //        // }
+        return true
     }
 }

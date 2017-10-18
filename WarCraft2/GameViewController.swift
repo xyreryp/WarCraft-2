@@ -24,7 +24,7 @@ class GameViewController: NSViewController {
         skview.presentScene(skscene)
         let graphicTileSet = CGraphicTileset()
         var terrainMap = CTerrainMap()
-        terrainMap.loadMap(source: nil)
+        terrainMap.LoadMap(source: nil)
         // TODO:
         //        graphicTileSet.LoadTileset(source: nil)
         //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
