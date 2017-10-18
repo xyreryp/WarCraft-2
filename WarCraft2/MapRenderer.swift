@@ -38,7 +38,7 @@ protocol PMapRenderer {
 
 class CMapRenderer : PMapRenderer{
     var DTileSet: CGraphicTileset
-
+    
     var DTileIndices: [[[Int]]]
 
     var DPixelIndices: [Int]
