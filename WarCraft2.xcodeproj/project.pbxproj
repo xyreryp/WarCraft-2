@@ -37,6 +37,8 @@
 		DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */; };
 		E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BA0911F8A13D70097867A /* VisibilityMap.swift */; };
 		E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0AD21F959094001B569C /* TerrainMap.swift */; };
+		E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
+		E14136B71F97F8530086A0A6 /* Scene.sks in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
@@ -260,6 +262,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */,
+				E14136B71F97F8530086A0A6 /* Scene.sks in Sources */,
 				E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */,
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				A1AE6E5F1F90B78F00D40A86 /* Tokenizer.swift in Sources */,
