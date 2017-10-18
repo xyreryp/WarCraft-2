@@ -16,7 +16,7 @@ protocol PMapRenderer {
     var DTileSet: CGraphicTileset {get set}
 
     // TODO: uncomment after CTerrainMap is implemented
-    var DMap: CTerrainMap {get set}
+    var DMapp: CTerrainMap {get set}
     var DTileIndices: [[[Int]]] { get set }
     var DPixelIndices: [Int] { get set }
 
@@ -38,7 +38,7 @@ protocol PMapRenderer {
 
 class CMapRenderer : PMapRenderer{
     var DTileSet: CGraphicTileset
-    
+    var x = CTerrain
     var DTileIndices: [[[Int]]]
 
     var DPixelIndices: [Int]
