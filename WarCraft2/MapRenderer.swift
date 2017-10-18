@@ -13,10 +13,10 @@ import Foundation
 protocol PMapRenderer {
 
     // TODO: uncomment after CGraphicTileset is implemented
-    var DTileSet: CGraphicTileset {get set}
+    var DTileset: CGraphicTileset {get set}
 
     // TODO: uncomment after CTerrainMap is implemented
-    var DMapp: CTerrainMap {get set}
+    var DMap: CTerrainMap {get set}
     var DTileIndices: [[[Int]]] { get set }
     var DPixelIndices: [Int] { get set }
 
@@ -36,12 +36,11 @@ protocol PMapRenderer {
 }
 
 
-class CMapRenderer : PMapRenderer{
-    var DTileSet: CGraphicTileset
-    var x = CTerrain
-    var DTileIndices: [[[Int]]]
-
-    var DPixelIndices: [Int]
+final class CMapRenderer : PMapRenderer{
+    var DTileset: CGraphicTileset
+    var DMap: CTerrainMap = CTerrainMap()
+    var DTileIndices: [[[Int]]] = [[[Int]]()]
+    var DPixelIndices: [Int] = [Int]()
 
     func resize<T>(array: inout [T], size: Int, defaultValue: T) {
         while array.count < size {
@@ -59,10 +58,10 @@ class CMapRenderer : PMapRenderer{
         var ItemCount: Int = Int()
 
         // TODO: uncomment after DTileset is implemented
-//         var tileset: DTileset = DTileset()
+         var tileset: CGraphicTileset = CGraphicTileset()
 
         // TODO: uncomment after DTileset is implemented
-        // var map: DMap = DMap()
+         var map: CTerrainMap = CTerrainMap()
 
         // TODO: COME BACK AFTER I DO CTERRAINMAP
         resize(array: &DPixelIndices, size: ETileType.Max, defaultValue: ETileType.None)
@@ -90,33 +89,33 @@ class CMapRenderer : PMapRenderer{
                 PixelIndex = CTerrainMap.ETileType.LightGrass.rawValue
             }
             else if(tokens.first == "dark-grass"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.DarkGrass.rawValue
+                PixelIndex = CTerrainMap.ETileType.DarkGrass.rawValue
             }
             else if(tokens.first == "light-dirt"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.LightDirt.rawValue
+                PixelIndex = CTerrainMap.ETileType.LightDirt.rawValue
             }
             else if(tokens.first == "dark-dirt"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.DarkDirt)
+                PixelIndex = CTerrainMap.ETileType.DarkDirt.rawValue
             }
             else if(tokens.first == "rock"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.Rock)
+                PixelIndex = CTerrainMap.ETileType.Rock.rawValue
             }
             else if(tokens.first == "forest"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.Forest)
+                PixelIndex = CTerrainMap.ETileType.Forest.rawValue
             }
             else if(tokens.first == "stump"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.Stump)
+                PixelIndex = CTerrainMap.ETileType.Stump.rawValue
             }
             else if(tokens.first == "shallow-water"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.ShallowWater)
+                PixelIndex = CTerrainMap.ETileType.ShallowWater.rawValue
             }
             else if(tokens.first == "deep-water"){
-                PixelIndex = to_underlying(CTerrainMap.ETileType.DeepWater)
+                PixelIndex = CTerrainMap.ETileType.DeepWater.rawValue
             }
             else{
-                PixelIndex = to_underlying(CTerrainMap.ETileType.Rubble)
+                PixelIndex = CTerrainMap.ETileType.Rubble.rawValue
             }
-            DPixelIndices[PixelIndex] = ColorValue
+            DPixelIndices[PixelIndex] = Int(ColorValue)
             
             
             
