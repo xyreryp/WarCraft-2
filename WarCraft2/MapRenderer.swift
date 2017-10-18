@@ -77,12 +77,49 @@ class CMapRenderer : PMapRenderer{
             if !LineSource.Read(line: &TempString) {
                 return
             }
-
-            Tokenize(Tokens, TempString)
-            var ColorValue: uint32 = Int(Tokens.first!)
+            let tokenizer: CTokenizer
+            var tokens: [String]
+            tokenizer.Tokenize(tokens: &tokens, data: TempString)//, delimiters: TempString)
+            
+//            Richard, I’m assuming you already tried `var uint = char as! UInt8` (edited)
+//            var ColorValue: uint32 = tokens.first as! uint32
+            var ColorValue: uint32 = uint32(tokens.first!)!
             var PixelIndex: Int = 0
-
-
+            
+            if(tokens.first == "light-grass"){
+                PixelIndex = CTerrainMap.ETileType.LightGrass.rawValue
+            }
+            else if(tokens.first == "dark-grass"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.DarkGrass.rawValue
+            }
+            else if(tokens.first == "light-dirt"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.LightDirt.rawValue
+            }
+            else if(tokens.first == "dark-dirt"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.DarkDirt)
+            }
+            else if(tokens.first == "rock"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.Rock)
+            }
+            else if(tokens.first == "forest"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.Forest)
+            }
+            else if(tokens.first == "stump"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.Stump)
+            }
+            else if(tokens.first == "shallow-water"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.ShallowWater)
+            }
+            else if(tokens.first == "deep-water"){
+                PixelIndex = to_underlying(CTerrainMap.ETileType.DeepWater)
+            }
+            else{
+                PixelIndex = to_underlying(CTerrainMap.ETileType.Rubble)
+            }
+            DPixelIndices[PixelIndex] = ColorValue
+            
+            
+            
             Index += 1
         } while Index < ItemCount
 

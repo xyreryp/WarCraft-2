@@ -20,6 +20,7 @@ protocol PTokenizer {
 
     // Tokenize()
     func Tokenize(tokens: inout [String], data: String, delimiters: String)
+    //    func Tokenize(data: String, delimiters: String) -> [String]
 }
 
 class CTokenizer: PTokenizer {
@@ -56,7 +57,7 @@ class CTokenizer: PTokenizer {
     }
 
     // reads in delimiters and writes back to token String
-    func Tokenize(tokens: inout [String], data: String, delimiters: String) {
+    func Tokenize(tokens: inout [String], data: String, delimiters: String = "") {
         var TempString: String = String()
         var Delimiters: String = String()
         let data: String = String(data)
