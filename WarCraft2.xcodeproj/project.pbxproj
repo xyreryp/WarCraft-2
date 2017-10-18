@@ -35,10 +35,10 @@
 		DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */; };
 		DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */; };
 		E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BA0911F8A13D70097867A /* VisibilityMap.swift */; };
+		E14136B51F97388B0086A0A6 /* TerrainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0AD21F959094001B569C /* TerrainMap.swift */; };
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
-		E19A0AD31F959094001B569C /* TerrainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0AD21F959094001B569C /* TerrainMap.swift */; };
 		E1B8047F1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
 /* End PBXBuildFile section */
@@ -251,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14136B51F97388B0086A0A6 /* TerrainMap.swift in Sources */,
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				A1AE6E5F1F90B78F00D40A86 /* Tokenizer.swift in Sources */,
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
@@ -280,7 +281,6 @@
 				0FDDEE841F8C29B90012A79D /* DataSink.swift in Sources */,
 				E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */,
 				A1AAF5D01F8C6001005007C4 /* LineDataSource.swift in Sources */,
-				E19A0AD31F959094001B569C /* TerrainMap.swift in Sources */,
 				6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
