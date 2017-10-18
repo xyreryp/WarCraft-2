@@ -48,7 +48,7 @@
 | :red_circle: | [⋅]    | GraphicFactory.h                                           |                                 | GraphicFactory.swift                                     |
 | :red_circle: | [⋅]    | GraphicFactoryCairo.h                                      | GraphicFactoryCairo.cpp         | GraphicFactoryCoreGraphics.swift                         |
 | :red_circle: |        | GraphicMulticolorTileset.h                                 | GraphicMulticolorTileset.cpp    |                                                          |
-| :red_circle: |        | GraphicRecolorMap.h                                        | GraphicRecolorMap.cpp           |                                                          |
+| :red_circle: |  [.]      | GraphicRecolorMap.h                                        | GraphicRecolorMap.cpp           |                                                          |
 |              |        | GraphicResourceContext.h                                   |                                 | GraphicResourceContext.swift                             |
 | :red_circle: | [⋅]    | GraphicSurface.h                                           |                                 | GraphicSurface.swift                                     |
 | :red_circle: | [⋅]    | GraphicTileset.h                                           | GraphicTileset.cpp              |                                                          |
