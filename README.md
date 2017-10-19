@@ -76,7 +76,7 @@
 |              |        | Position.h                                                 | ResourceRenderer.cpp            | RandomNumberGenerator.swift                              |
 |              |        | RandomNumberGenerator.h                                    | RouterMap.cpp                   |                                                          |
 |              |        | Rectangle.h                                                |                                 | Rectangle.swift                                          |
-| :red_circle: |        | ResourceRenderer.h                                         |                                 |                                                          |
+| :red_circle: | [⋅]    | ResourceRenderer.h                                         |                                 |                                                          |
 |              |        | RouterMap.h                                                |                                 |                                                          |
 |              |        | SoundClip.h                                                | SoundClip.cpp                   |                                                          |
 |              |        | SoundEventRenderer.h                                       | SoundEventRenderer.cpp          | SoundManager.swift                                       |
