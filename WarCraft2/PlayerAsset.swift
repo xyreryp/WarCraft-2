@@ -79,26 +79,36 @@ class CPlayerAsset {
     func IncrementStep() {
         DStep += 1
     }
+    
+    func TilePosition() -> CTilePosition {
+        return CTilePosition()
+    }
 
-    //
-    //    CTilePosition TilePosition() const;
-    //
-    //    CTilePosition TilePosition(const CTilePosition &pos);
-    //
-    //    int TilePositionX() const;
-    //
-    //    int TilePositionX(int x);
-    //
-    //    int TilePositionY() const;
-    //
-    //    int TilePositionY(int y);
-    //
-    //    CPixelPosition Position() const{
-    //    return DPosition;
-    //    };
-    //
-    //    CPixelPosition Position(const CPixelPosition &pos);
-    //
+    func TilePosition(pos: CTilePosition) -> CTilePosition {
+        return CTilePosition()
+    }
+
+    func TilePositionX() -> Int {
+        return 0
+    }
+    
+    func TilePositionX(x: Int) -> Int {
+        return 0
+    }
+    
+    func TilePositionY() -> Int {
+        return 0
+    }
+    
+    func TilePositionY(y: Int) -> Int {
+        return 0
+    }
+
+
+    func TileAligned() -> Bool {
+        return DPosition.TileAligned()
+    }
+    
     //    bool TileAligned() const{
     //    return DPosition.TileAligned();
     //    };
