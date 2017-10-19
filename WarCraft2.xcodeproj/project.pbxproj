@@ -61,6 +61,7 @@
 		6BC677471F8C186D00953C3A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlingMouseClicks.swift; sourceTree = "<group>"; };
 		6BD98D371F9010EE00EDC2ED /* HandlingMouseClicks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandlingMouseClicks.xib; sourceTree = "<group>"; };
+		88318E661F9826EA00939B48 /* FileDataSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataSink.swift; sourceTree = "<group>"; };
 		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
@@ -146,6 +147,7 @@
 				E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */,
 				E10BA0911F8A13D70097867A /* VisibilityMap.swift */,
 				E1F589981F8A01C80072BE93 /* GraphicSurface.swift */,
+				88318E661F9826EA00939B48 /* FileDataSink.swift */,
 				E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */,
 				E1EEAEDD1F908172001001B9 /* Scene.sks */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
