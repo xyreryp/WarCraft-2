@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="EH6-fz-lbD">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
@@ -684,12 +684,14 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="MainWindowController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="800" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="800" height="600"/>
+                        <value key="maxSize" type="size" width="800" height="600"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -700,30 +702,566 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="85" y="429"/>
         </scene>
-        <!--View Controller-->
+        <!--Handling Mouse Clicks-->
+        <scene sceneID="7Ed-b4-1Y8">
+            <objects>
+                <viewController id="03q-YW-0MF" customClass="HandlingMouseClicks" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="KVB-7c-R9o">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="OfE-mu-ubp" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="873" y="403"/>
+        </scene>
+        <!--Splash View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="splashViewControllerID" id="XfG-lQ-9wD" customClass="SplashViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ttu-CD-yFy">
-                                <rect key="frame" x="20" y="-570" width="800" height="1200"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" imageFrameStyle="groove" image="Splash" id="aXb-Nx-fxD"/>
+                            <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Ttu-CD-yFy">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" imageFrameStyle="groove" image="Splash800x600" id="aXb-Nx-fxD"/>
                             </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ISg-aT-Aol">
+                                <rect key="frame" x="570" y="460" width="107" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="00j-v4-N2t"/>
+                                    <constraint firstAttribute="width" constant="95" id="a1p-B2-YG3"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="main menu" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lgW-ub-iAx">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="mainMenuBtnClicked:" target="XfG-lQ-9wD" id="Sqj-43-ABL"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="ISg-aT-Aol" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="112" id="14e-zM-Abn"/>
+                            <constraint firstAttribute="bottom" secondItem="Ttu-CD-yFy" secondAttribute="bottom" constant="3" id="W75-Dy-thG"/>
+                            <constraint firstAttribute="trailing" secondItem="Ttu-CD-yFy" secondAttribute="trailing" constant="3" id="YGe-j0-tdY"/>
+                            <constraint firstAttribute="trailing" secondItem="ISg-aT-Aol" secondAttribute="trailing" constant="129" id="bjO-pE-nzv"/>
+                            <constraint firstItem="Ttu-CD-yFy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="3" id="d5d-l3-bj4"/>
+                            <constraint firstItem="Ttu-CD-yFy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="3" id="vfg-eS-JZ8"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="85" y="1198"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="AwV-cD-Elv">
+            <objects>
+                <viewController storyboardIdentifier="gameViewControllerId" id="EH6-fz-lbD" customClass="GameViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="EAU-1i-QCI">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="oFS-va-uGF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-658" y="1356"/>
+        </scene>
+        <!--Main Menu View Controller-->
+        <scene sceneID="tR0-hr-J4W">
+            <objects>
+                <viewController storyboardIdentifier="mainMenuID" id="Rwh-cE-fUM" customClass="MainMenuViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="A7M-Sp-4ti">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CBg-k9-hK6">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="FaW-ow-Btf"/>
+                                    <constraint firstAttribute="width" constant="800" id="WSx-G9-IFl"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="pGL-q2-LFk"/>
+                            </imageView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="o6h-hf-jms">
+                                <rect key="frame" x="303" y="421" width="194" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ik6-E0-ixa"/>
+                                    <constraint firstAttribute="width" constant="194" id="UkL-U4-PFU"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_single_player_game" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="fSf-mP-TJd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="tXx-Th-ba8">
+                                <rect key="frame" x="303" y="290" width="194" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="A4Y-wq-Bxw"/>
+                                    <constraint firstAttribute="width" constant="194" id="ofq-IE-5a9"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_options" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iSO-4S-9Ed">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="optionsBtnClicked:" target="Rwh-cE-fUM" id="gQw-bF-ssE"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="xs5-1j-bax">
+                                <rect key="frame" x="303" y="163" width="194" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fZp-jB-HuQ"/>
+                                    <constraint firstAttribute="width" constant="194" id="nXX-Lk-qzb"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_exit_game" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="QOc-cd-pnO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="4aF-S9-rvW">
+                                <rect key="frame" x="303" y="355" width="194" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="HwT-YT-CmH"/>
+                                    <constraint firstAttribute="width" constant="194" id="jk6-JV-ArI"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_multi_player_game" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tUY-Z6-9Xh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="multiPlayerGameBtnClicked:" target="Rwh-cE-fUM" id="MXg-L4-7Gp"/>
+                                </connections>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qdj-xe-Pil">
+                                <rect key="frame" x="344" y="567" width="113" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="OH9-q7-kt0"/>
+                                    <constraint firstAttribute="width" constant="113" id="w2J-MQ-Ika"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_the_game" id="2re-QT-4e6"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xs5-1j-bax" firstAttribute="centerX" secondItem="CBg-k9-hK6" secondAttribute="centerX" id="3JI-BS-09G"/>
+                            <constraint firstItem="tXx-Th-ba8" firstAttribute="centerX" secondItem="CBg-k9-hK6" secondAttribute="centerX" id="7OU-mz-mRp"/>
+                            <constraint firstItem="4aF-S9-rvW" firstAttribute="centerX" secondItem="CBg-k9-hK6" secondAttribute="centerX" id="FXi-1t-dRk"/>
+                            <constraint firstAttribute="trailing" secondItem="CBg-k9-hK6" secondAttribute="trailing" id="MMu-jF-lic"/>
+                            <constraint firstAttribute="bottom" secondItem="CBg-k9-hK6" secondAttribute="bottom" id="Nri-ca-hrE"/>
+                            <constraint firstItem="CBg-k9-hK6" firstAttribute="top" secondItem="A7M-Sp-4ti" secondAttribute="top" id="Uu1-kc-pvC"/>
+                            <constraint firstItem="tXx-Th-ba8" firstAttribute="top" secondItem="4aF-S9-rvW" secondAttribute="bottom" constant="21" id="b4X-SO-c1r"/>
+                            <constraint firstItem="4aF-S9-rvW" firstAttribute="top" secondItem="o6h-hf-jms" secondAttribute="bottom" constant="22" id="deI-na-Vjb"/>
+                            <constraint firstItem="xs5-1j-bax" firstAttribute="top" secondItem="tXx-Th-ba8" secondAttribute="bottom" constant="83" id="iNj-TH-VaH"/>
+                            <constraint firstItem="Qdj-xe-Pil" firstAttribute="top" secondItem="A7M-Sp-4ti" secondAttribute="top" constant="8" id="iVY-Tf-TGQ"/>
+                            <constraint firstItem="o6h-hf-jms" firstAttribute="centerX" secondItem="CBg-k9-hK6" secondAttribute="centerX" id="mqs-uq-dM7"/>
+                            <constraint firstItem="CBg-k9-hK6" firstAttribute="leading" secondItem="A7M-Sp-4ti" secondAttribute="leading" id="rjs-fo-inJ"/>
+                            <constraint firstItem="o6h-hf-jms" firstAttribute="top" secondItem="A7M-Sp-4ti" secondAttribute="top" constant="135" id="scW-JX-0t7"/>
+                            <constraint firstItem="Qdj-xe-Pil" firstAttribute="centerX" secondItem="CBg-k9-hK6" secondAttribute="centerX" id="tzn-o6-ICN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="FPz-Vb-p9D" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976" y="1198"/>
+        </scene>
+        <!--Options Menu View Controller-->
+        <scene sceneID="TsR-0R-fCT">
+            <objects>
+                <viewController storyboardIdentifier="optionsMenuID" id="bDR-UW-Qj6" customClass="OptionsMenuViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Unw-wI-xyK">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jdy-2u-KkZ">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="qhU-my-KkG"/>
+                            </imageView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="irA-GN-Raa">
+                                <rect key="frame" x="314" y="317" width="173" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="8Cg-uf-3FK"/>
+                                    <constraint firstAttribute="width" constant="173" id="BQX-l3-yym"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_network_options" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Nxk-mb-3Xx">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="networkOptionsBtnClicked:" target="bDR-UW-Qj6" id="btW-zo-uBm"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="DSe-Rg-37p">
+                                <rect key="frame" x="314" y="388" width="173" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="173" id="1Uh-OF-sNB"/>
+                                    <constraint firstAttribute="height" constant="46" id="mj3-iy-UpQ"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_sound_options" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jDJ-f7-KBh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="soundOptionsBtnClicked:" target="bDR-UW-Qj6" id="B2K-Xz-nnT"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="iZE-GJ-23e">
+                                <rect key="frame" x="314" y="190" width="173" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="Ns2-rg-gyL"/>
+                                    <constraint firstAttribute="width" constant="173" id="QPX-b7-yjh"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_back" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4fY-9c-gpl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="backBtnClicked:" target="bDR-UW-Qj6" id="Wdu-01-dHH"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NQH-ec-epM">
+                                <rect key="frame" x="351" y="553" width="98" height="39"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="SKr-5N-mGb"/>
+                                    <constraint firstAttribute="width" constant="98" id="cvI-Al-rCz"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_options" id="bsa-CY-by4"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="DSe-Rg-37p" firstAttribute="top" secondItem="Unw-wI-xyK" secondAttribute="top" constant="166" id="0Cn-8h-S8x"/>
+                            <constraint firstAttribute="trailing" secondItem="jdy-2u-KkZ" secondAttribute="trailing" id="1b2-d8-9QT"/>
+                            <constraint firstItem="irA-GN-Raa" firstAttribute="centerX" secondItem="jdy-2u-KkZ" secondAttribute="centerX" id="AWa-Lv-S0L"/>
+                            <constraint firstItem="jdy-2u-KkZ" firstAttribute="top" secondItem="Unw-wI-xyK" secondAttribute="top" id="AcP-mb-lD7"/>
+                            <constraint firstItem="NQH-ec-epM" firstAttribute="centerX" secondItem="jdy-2u-KkZ" secondAttribute="centerX" id="B1N-Cs-53B"/>
+                            <constraint firstItem="NQH-ec-epM" firstAttribute="top" secondItem="Unw-wI-xyK" secondAttribute="top" constant="8" id="E8I-dc-al7"/>
+                            <constraint firstItem="jdy-2u-KkZ" firstAttribute="leading" secondItem="Unw-wI-xyK" secondAttribute="leading" id="GhV-U9-dZj"/>
+                            <constraint firstAttribute="bottom" secondItem="jdy-2u-KkZ" secondAttribute="bottom" id="IHg-sY-GiA"/>
+                            <constraint firstItem="iZE-GJ-23e" firstAttribute="top" secondItem="irA-GN-Raa" secondAttribute="bottom" constant="81" id="NYt-7B-7DU"/>
+                            <constraint firstItem="irA-GN-Raa" firstAttribute="top" secondItem="DSe-Rg-37p" secondAttribute="bottom" constant="25" id="Tg6-Xi-F8P"/>
+                            <constraint firstItem="iZE-GJ-23e" firstAttribute="centerX" secondItem="jdy-2u-KkZ" secondAttribute="centerX" id="UeU-Ja-zCg"/>
+                            <constraint firstItem="DSe-Rg-37p" firstAttribute="centerX" secondItem="jdy-2u-KkZ" secondAttribute="centerX" id="YN3-0e-VqY"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="bq7-uU-niK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1790" y="1198"/>
+        </scene>
+        <!--Sound Options Menu View Controller-->
+        <scene sceneID="BUb-Pv-TV3">
+            <objects>
+                <viewController storyboardIdentifier="soundOptionsMenuID" id="eAs-vL-5hC" customClass="SoundOptionsMenuViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="RlO-kD-9ht">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ehc-jt-8S6">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="JST-fw-QBV"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gm2-cC-v3e">
+                                <rect key="frame" x="311" y="552" width="178" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="0Ll-Fd-EV4"/>
+                                    <constraint firstAttribute="width" constant="178" id="zCc-Q2-7km"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_sound_options" id="yTQ-Za-8xa"/>
+                            </imageView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="vYc-gq-7gZ">
+                                <rect key="frame" x="311" y="303" width="80" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="cka-KV-WGP"/>
+                                    <constraint firstAttribute="height" constant="14" id="npb-mn-ZoT"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="label_fx_volume" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Uxh-dp-ygO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lDT-Vc-3pd">
+                                <rect key="frame" x="288" y="252" width="103" height="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="Ege-e8-lQ5"/>
+                                    <constraint firstAttribute="height" constant="14" id="xl9-Fe-An7"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_music_volume" id="JL7-kZ-Tfe"/>
+                            </imageView>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fy4-3e-mO8">
+                                <rect key="frame" x="399" y="291" width="199" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100" drawsBackground="YES" id="kgs-T6-JvC">
+                                    <font key="font" metaFont="systemBold" size="20"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="01u-1z-S2N">
+                                <rect key="frame" x="399" y="240" width="199" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="50" drawsBackground="YES" id="3Y0-cr-zY9">
+                                    <font key="font" metaFont="systemBold" size="20"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="W27-1R-o8O">
+                                <rect key="frame" x="670" y="92" width="96" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="Mkg-03-WFT"/>
+                                    <constraint firstAttribute="width" constant="96" id="gra-zK-593"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_ok" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="oYN-Y5-VFI">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okBtnClicked:" target="eAs-vL-5hC" id="ykX-r6-Pyz"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="ysF-8V-3yl">
+                                <rect key="frame" x="670" y="35" width="96" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="QiI-pf-4XK"/>
+                                    <constraint firstAttribute="width" constant="96" id="yqX-LT-8xu"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_cancel" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="1Mn-uA-jIl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelBtnClicked:" target="eAs-vL-5hC" id="0hC-os-aAX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="lDT-Vc-3pd" secondAttribute="bottom" constant="252" id="1Yl-0J-rSL"/>
+                            <constraint firstItem="vYc-gq-7gZ" firstAttribute="top" secondItem="Gm2-cC-v3e" secondAttribute="bottom" constant="235" id="3Xp-Lp-zfz"/>
+                            <constraint firstItem="vYc-gq-7gZ" firstAttribute="leading" secondItem="RlO-kD-9ht" secondAttribute="leading" constant="311" id="77g-uG-H8m"/>
+                            <constraint firstAttribute="trailing" secondItem="vYc-gq-7gZ" secondAttribute="trailing" constant="409" id="9ak-32-QrT"/>
+                            <constraint firstAttribute="bottom" secondItem="ysF-8V-3yl" secondAttribute="bottom" constant="35" id="9u5-MK-deA"/>
+                            <constraint firstItem="Gm2-cC-v3e" firstAttribute="top" secondItem="RlO-kD-9ht" secondAttribute="top" constant="8" id="QHu-ok-miM"/>
+                            <constraint firstAttribute="bottom" secondItem="vYc-gq-7gZ" secondAttribute="bottom" constant="303" id="UCE-oT-apP"/>
+                            <constraint firstItem="Ehc-jt-8S6" firstAttribute="leading" secondItem="RlO-kD-9ht" secondAttribute="leading" id="UvZ-1p-dEp"/>
+                            <constraint firstAttribute="bottom" secondItem="Ehc-jt-8S6" secondAttribute="bottom" id="YfB-Ra-Ztf"/>
+                            <constraint firstItem="Ehc-jt-8S6" firstAttribute="top" secondItem="RlO-kD-9ht" secondAttribute="top" id="beD-p5-Pav"/>
+                            <constraint firstAttribute="trailing" secondItem="ysF-8V-3yl" secondAttribute="trailing" constant="34" id="dfo-77-WEn"/>
+                            <constraint firstItem="W27-1R-o8O" firstAttribute="top" secondItem="RlO-kD-9ht" secondAttribute="top" constant="471" id="fKY-B1-qbA"/>
+                            <constraint firstItem="lDT-Vc-3pd" firstAttribute="leading" secondItem="RlO-kD-9ht" secondAttribute="leading" constant="288" id="gtm-eC-NSN"/>
+                            <constraint firstItem="Gm2-cC-v3e" firstAttribute="centerX" secondItem="Ehc-jt-8S6" secondAttribute="centerX" id="kLR-Cy-giJ"/>
+                            <constraint firstAttribute="trailing" secondItem="lDT-Vc-3pd" secondAttribute="trailing" constant="409" id="mlZ-pZ-OCO"/>
+                            <constraint firstAttribute="trailing" secondItem="W27-1R-o8O" secondAttribute="trailing" constant="34" id="mrU-qb-SX8"/>
+                            <constraint firstItem="lDT-Vc-3pd" firstAttribute="top" secondItem="vYc-gq-7gZ" secondAttribute="bottom" constant="37" id="orb-PL-mOC"/>
+                            <constraint firstAttribute="trailing" secondItem="Ehc-jt-8S6" secondAttribute="trailing" id="rU5-RA-894"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="vqi-We-vtr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2601" y="1198"/>
+        </scene>
+        <!--Network Options Menu View Controller-->
+        <scene sceneID="W4q-Lf-gCH">
+            <objects>
+                <viewController storyboardIdentifier="networkOptionsMenuID" id="btc-WF-ANt" customClass="NetworkOptionsMenuViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="bHR-8V-gjv">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rhb-oi-EIa">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="ag4-Ph-A7Y"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d0h-Yv-EJG">
+                                <rect key="frame" x="304" y="563" width="193" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="GSF-z8-pSv"/>
+                                    <constraint firstAttribute="width" constant="193" id="Nug-4a-ypC"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_network_options" id="XIz-UM-KbM"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ms-9U-QLI">
+                                <rect key="frame" x="261" y="225" width="133" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_user_name_and_remote_hostname_and_remote_hostname" id="vfo-FO-v4G"/>
+                            </imageView>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t00-wu-5AK">
+                                <rect key="frame" x="402" y="323" width="199" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="user" drawsBackground="YES" id="6uy-Jw-xi5">
+                                    <font key="font" metaFont="systemBold" size="20"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2j-d7-v8Y">
+                                <rect key="frame" x="402" y="269" width="199" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="localhost" drawsBackground="YES" id="0za-gm-oVD">
+                                    <font key="font" metaFont="systemBold" size="20"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m77-Xz-iWj">
+                                <rect key="frame" x="402" y="212" width="199" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="55107" drawsBackground="YES" id="IAx-J3-bG2">
+                                    <font key="font" metaFont="systemBold" size="20"/>
+                                    <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="0mS-oi-L3D">
+                                <rect key="frame" x="670" y="92" width="96" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="XT4-pG-YB0"/>
+                                    <constraint firstAttribute="height" constant="37" id="Z66-vw-XAc"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_ok" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zqb-fb-REX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="okBtnClicked:" target="btc-WF-ANt" id="W7C-8h-18D"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="RRO-1K-0pX">
+                                <rect key="frame" x="670" y="35" width="96" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="R0I-t3-zEy"/>
+                                    <constraint firstAttribute="width" constant="96" id="mlG-hY-Xvk"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_cancel" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lSI-Gg-sIe">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="cancelBtnClicked:" target="btc-WF-ANt" id="89W-mV-fFk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="rhb-oi-EIa" firstAttribute="leading" secondItem="bHR-8V-gjv" secondAttribute="leading" id="10F-TR-P8S"/>
+                            <constraint firstItem="0mS-oi-L3D" firstAttribute="top" secondItem="bHR-8V-gjv" secondAttribute="top" constant="471" id="126-hB-aKW"/>
+                            <constraint firstItem="d0h-Yv-EJG" firstAttribute="top" secondItem="bHR-8V-gjv" secondAttribute="top" constant="8" id="346-7n-cyf"/>
+                            <constraint firstAttribute="trailing" secondItem="RRO-1K-0pX" secondAttribute="trailing" constant="34" id="5Mo-Km-iQg"/>
+                            <constraint firstAttribute="trailing" secondItem="rhb-oi-EIa" secondAttribute="trailing" id="6ZP-db-YBv"/>
+                            <constraint firstAttribute="trailing" secondItem="0mS-oi-L3D" secondAttribute="trailing" constant="34" id="6wd-d8-2NK"/>
+                            <constraint firstItem="d0h-Yv-EJG" firstAttribute="centerX" secondItem="rhb-oi-EIa" secondAttribute="centerX" id="XMj-aT-dTC"/>
+                            <constraint firstItem="rhb-oi-EIa" firstAttribute="top" secondItem="bHR-8V-gjv" secondAttribute="top" id="cYf-0J-sDn"/>
+                            <constraint firstAttribute="bottom" secondItem="rhb-oi-EIa" secondAttribute="bottom" id="oNX-2n-DKt"/>
+                            <constraint firstAttribute="bottom" secondItem="RRO-1K-0pX" secondAttribute="bottom" constant="35" id="t0o-XC-QWr"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="Dx7-FG-ljz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3417" y="1198"/>
+        </scene>
+        <!--Multi Player Game Options View Controller-->
+        <scene sceneID="K96-bT-C9F">
+            <objects>
+                <viewController storyboardIdentifier="multiPlayerGameOptionsMenuID" id="CaG-wt-YRP" customClass="MultiPlayerGameOptionsViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="lbK-81-NaX">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MpP-a1-i8y">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="zPk-LL-fny"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-2R-XNk">
+                                <rect key="frame" x="249" y="564" width="303" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="303" id="Q9I-hP-UGl"/>
+                                    <constraint firstAttribute="height" constant="28" id="t0e-4h-ZwV"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_multi_player_game_options" id="jzn-rX-DfH"/>
+                            </imageView>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="99f-07-m1K">
+                                <rect key="frame" x="281" y="387" width="238" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="238" id="C3p-NP-mXe"/>
+                                    <constraint firstAttribute="height" constant="42" id="eY4-ba-8Oi"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_host_multi_player_game" imagePosition="overlaps" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="coO-8c-bma">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="qHD-Fy-mkC">
+                                <rect key="frame" x="281" y="327" width="238" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="1bF-2r-Toh"/>
+                                    <constraint firstAttribute="width" constant="238" id="DCw-CV-k78"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_join_multi_player_game" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="cB6-Xk-3r3">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="pKW-TN-3kG">
+                                <rect key="frame" x="281" y="197" width="238" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="TK1-Y1-ft9"/>
+                                    <constraint firstAttribute="width" constant="238" id="sRQ-JP-hrc"/>
+                                </constraints>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_back_(multi_player_game_options)" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="pRH-wm-MgO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="backBtnClicked:" target="CaG-wt-YRP" id="DAE-Jd-N1k"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="pKW-TN-3kG" firstAttribute="top" secondItem="qHD-Fy-mkC" secondAttribute="bottom" constant="88" id="2Zw-P0-4fr"/>
+                            <constraint firstItem="qHD-Fy-mkC" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="E4M-mI-sGc"/>
+                            <constraint firstAttribute="trailing" secondItem="MpP-a1-i8y" secondAttribute="trailing" id="FKe-vj-Aod"/>
+                            <constraint firstItem="MpP-a1-i8y" firstAttribute="leading" secondItem="lbK-81-NaX" secondAttribute="leading" id="GJw-Zi-tO6"/>
+                            <constraint firstItem="99f-07-m1K" firstAttribute="top" secondItem="zhX-2R-XNk" secondAttribute="bottom" constant="135" id="I6N-PB-z3R"/>
+                            <constraint firstAttribute="bottom" secondItem="MpP-a1-i8y" secondAttribute="bottom" id="KWN-V5-tOi"/>
+                            <constraint firstItem="zhX-2R-XNk" firstAttribute="top" secondItem="lbK-81-NaX" secondAttribute="top" constant="8" id="MFG-3S-JJT"/>
+                            <constraint firstItem="99f-07-m1K" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="V1a-Ub-9Th"/>
+                            <constraint firstItem="qHD-Fy-mkC" firstAttribute="top" secondItem="99f-07-m1K" secondAttribute="bottom" constant="18" id="dLx-YO-4PX"/>
+                            <constraint firstItem="MpP-a1-i8y" firstAttribute="top" secondItem="lbK-81-NaX" secondAttribute="top" id="quR-nj-yp1"/>
+                            <constraint firstItem="pKW-TN-3kG" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="wQB-7d-Nh4"/>
+                            <constraint firstItem="zhX-2R-XNk" firstAttribute="centerX" secondItem="MpP-a1-i8y" secondAttribute="centerX" id="zso-oX-rr7"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="nAb-4H-gsz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4239" y="1198"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Splash" width="800" height="1200"/>
+        <image name="Splash800x600" width="800" height="600"/>
+        <image name="Texture800x600" width="800" height="600"/>
+        <image name="btn_up_back" width="173" height="46"/>
+        <image name="btn_up_back_(multi_player_game_options)" width="238" height="42"/>
+        <image name="btn_up_cancel" width="96" height="37"/>
+        <image name="btn_up_exit_game" width="194" height="44"/>
+        <image name="btn_up_host_multi_player_game" width="238" height="42"/>
+        <image name="btn_up_join_multi_player_game" width="238" height="42"/>
+        <image name="btn_up_multi_player_game" width="194" height="44"/>
+        <image name="btn_up_network_options" width="173" height="46"/>
+        <image name="btn_up_ok" width="96" height="37"/>
+        <image name="btn_up_options" width="194" height="44"/>
+        <image name="btn_up_single_player_game" width="194" height="44"/>
+        <image name="btn_up_sound_options" width="173" height="46"/>
+        <image name="label_fx_volume" width="80" height="14"/>
+        <image name="label_multi_player_game_options" width="303" height="28"/>
+        <image name="label_music_volume" width="103" height="14"/>
+        <image name="label_network_options" width="193" height="29"/>
+        <image name="label_options" width="87" height="28"/>
+        <image name="label_sound_options" width="163" height="29"/>
+        <image name="label_the_game" width="111" height="22"/>
+        <image name="label_user_name_and_remote_hostname_and_remote_hostname" width="133" height="125"/>
     </resources>
 </document>
