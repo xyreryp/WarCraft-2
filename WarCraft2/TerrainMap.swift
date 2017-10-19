@@ -101,6 +101,25 @@ class CTerrainMap {
     }
 
     // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(xindex: Int, yindex: Int) -> ETileType {
+        if((-1 > xindex)||(-1 > yindex)){
+            return ETileType.None
+        }
+        if(DMap.count <= yindex+1){
+            return ETileType.None
+        }
+        if(DMap.count <= xindex+1){
+            return ETileType.None
+        }
+        return DMap[yindex+1][xindex+1]
+    }
+    
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(pos: CTilePosition) -> ETileType {
+        return TileType(xindex: pos.X(), yindex: pos.Y())
+    }
+    
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
     func TileTypeIndex(xindex: Int, yindex: Int) -> Int {
         if (-1 > xindex) || (-1 > yindex) {
             return -1
