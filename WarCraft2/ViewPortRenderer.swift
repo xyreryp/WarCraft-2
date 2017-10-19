@@ -44,6 +44,10 @@ class CViewportRenderer {
         DLastViewportHeight = height
     }
     
+    func ViewPortX() -> Int { // if function has no arguments
+        return DViewportX
+    }
+    
     func ViewPortX(x: Int) -> Int { // NOTE: unsure if there's a Swift API for this, SKView?
         DViewportX = x
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
@@ -55,15 +59,38 @@ class CViewportRenderer {
         return DViewportX
     }
     
+    func ViewPortY() -> Int { // if function has no arguments
+        return DViewportY
+    }
+    
     func ViewPortY(y: Int) -> Int {
         DViewportY = y
-        if DViewporty + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
-            DViewporty = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
+        if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
+            DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
         }
         if (0 > DViewportY) {
             DViewportY = 0
         }
         return DViewportY
     }
+    
+    func LastViewportWidth() -> Int {
+        return DLastViewportWidth
+    }
+    
+    func LastViewportHeight() -> Int {
+        return DLastViewportHeight
+    }
+    
+    func CenterViewport( pos: inout CPixelPosition) {
+        ViewPortX(x: pos.X() - DLastViewportWidth/2)
+        ViewPortY(y: pos.Y() - DLastViewportHeight/2)
+    }
+    
+    func DetailedPosition(pos: inout CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(pos.X() + DViewportX, pos.Y() + DViewportY)
+    }
+    
+    
     
 }
