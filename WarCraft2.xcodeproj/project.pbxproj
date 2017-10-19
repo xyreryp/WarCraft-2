@@ -33,6 +33,7 @@
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
 		DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3F34021F8C13D3006A805B /* PlayerCommand.swift */; };
 		DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC677471F8C186D00953C3A /* Rectangle.swift */; };
+		DD6C183E1F982F6400EDDDE6 /* GraphicMulticolorTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6C183D1F982F6400EDDDE6 /* GraphicMulticolorTileset.swift */; };
 		DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */; };
 		DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */; };
 		E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BA0911F8A13D70097867A /* VisibilityMap.swift */; };
@@ -78,6 +79,7 @@
 		CE4F77FE1F85DF8F004379F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WarCraft2.entitlements; sourceTree = "<group>"; };
 		DD3F34021F8C13D3006A805B /* PlayerCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCommand.swift; sourceTree = "<group>"; };
+		DD6C183D1F982F6400EDDDE6 /* GraphicMulticolorTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicMulticolorTileset.swift; sourceTree = "<group>"; };
 		DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactory.swift; sourceTree = "<group>"; };
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
+				DD6C183D1F982F6400EDDDE6 /* GraphicMulticolorTileset.swift */,
 				939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */,
 				0FDDEE831F8C29B90012A79D /* DataSink.swift */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -295,6 +298,7 @@
 				0FDDEE841F8C29B90012A79D /* DataSink.swift in Sources */,
 				E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */,
 				A1AAF5D01F8C6001005007C4 /* LineDataSource.swift in Sources */,
+				DD6C183E1F982F6400EDDDE6 /* GraphicMulticolorTileset.swift in Sources */,
 				6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
