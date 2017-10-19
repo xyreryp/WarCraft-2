@@ -40,53 +40,99 @@ class CPlayerAssetType {
     //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
     //    ~CPlayerAssetType();
     //
+    
+    func ArmorUpgrade() -> Int {
+        return 1
+    }
+    
+    func SightUpgrade() -> Int {
+        return 1
+    }
+
+    func SpeedUpgrade() -> Int {
+        
+    }
+    
+    func BasicDamageUpgrade() -> Int {
+        
+    }
+
+    func PiercingDamageUpgrade() -> Int {
+        
+    }
+
+    func RangeUpgrade() -> Int {
+        
+    }
+
+    func HasCapability(capability: EAssetCapabilityType) -> Bool {
+        if capability.rawValue || DCapabilities.size() <= capability.rawValue {
+            return false
+        }
+        
+        return DCapabilities[capacity.rawValue]
+    }
+    
+    func Capabilities() -> EAssetCapabilityType {
+        
+    }
+    
+    func AddCapability(capability: EAssetCapabilityType) {
+        if capability.rawValue || DCapabilities.size() <= capability.rawValue {
+            return
+        }
+        
+        DCapabilities[capacity.rawValue] = true
+    }
+
+    func RemoveCapability(capability:EAssetCapabilityType ) {
+        if capability.rawValue || DCapabilities.size() <= capability.rawValue {
+            return
+        }
+        DCapabilities[capacity.rawValue] = false
+        
+    }
+    
+    func AddUpgrade(upgrade: CPlayerUpgrade) {
+        DAssetUpgrades.push_back(upgrade)
+    }
+
+    func AssetRequirements() -> [EAssetType]  {
+        return DAssetRequirements
+    }
+
+    func NameToType(name: String) -> EAssetType {
+        
+    }
+    func TypeToName(type: EAssetType) -> String {
+        
+    }
    
-    //    int ArmorUpgrade() const;
-    //    int SightUpgrade() const;
-    //    int SpeedUpgrade() const;
-    //    int BasicDamageUpgrade() const;
-    //    int PiercingDamageUpgrade() const;
-    //    int RangeUpgrade() const;
-    //
-    //    bool HasCapability(EAssetCapabilityType capability) const{
-    //    if((0 > to_underlying(capability))||(DCapabilities.size() <= to_underlying(capability))){
-    //    return false;
-    //    }
-    //    return DCapabilities[to_underlying(capability)];
-    //    };
-    //
-    //    std::vector< EAssetCapabilityType > Capabilities() const;
-    //
-    //    void AddCapability(EAssetCapabilityType capability){
-    //    if((0 > to_underlying(capability))||(DCapabilities.size() <= to_underlying(capability))){
-    //    return;
-    //    }
-    //    DCapabilities[to_underlying(capability)] = true;
-    //    };
-    //
-    //    void RemoveCapability(EAssetCapabilityType capability){
-    //    if((0 > to_underlying(capability))||(DCapabilities.size() <= to_underlying(capability))){
-    //    return;
-    //    }
-    //    DCapabilities[to_underlying(capability)] = false;
-    //    };
-    //
-    //    void AddUpgrade(std::shared_ptr< CPlayerUpgrade > upgrade){
-    //    DAssetUpgrades.push_back(upgrade);
-    //    };
-    //
-    //    std::vector< EAssetType > AssetRequirements() const{
-    //    return DAssetRequirements;
-    //    };
-    //
-    //    static EAssetType NameToType(const std::string &name);
-    //    static std::string TypeToName(EAssetType type);
-    //    static int MaxSight();
-    //    static bool LoadTypes(std::shared_ptr< CDataContainer > container);
-    //    static bool Load(std::shared_ptr< CDataSource > source);
-    //    static std::shared_ptr< CPlayerAssetType > FindDefaultFromName(const std::string &name);
-    //    static std::shared_ptr< CPlayerAssetType > FindDefaultFromType(EAssetType type);
-    //    static std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > DuplicateRegistry(EPlayerColor color);
-    //
-    //    std::shared_ptr< CPlayerAsset > Construct();
+    func MaxSight() -> Int {
+        
+    }
+    
+    func LoadTypes(container: CDataContainer) -> Bool {
+        
+    }
+
+    func Load(source: CDataSource) -> Bool {
+        
+    }
+
+    func FindDefaultFromName(name: String) -> CPlayerAssetType {
+        
+    }
+    
+    func FindDefaultFromType(type: EAssetType) -> CPlayerAssetType {
+        
+    }
+    
+    func DuplicateRegistry(color: EPlayerColor) -> [String:CPlayerAssetType] {
+        
+    }
+
+    func Construct() -> CPlayerAsset{
+        
+    }
 }
