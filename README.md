@@ -22,7 +22,7 @@
 |              |        | EditRenderer.h                                             | EditRenderer.cpp                |                                                          |
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
 | :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
-| :red_circle: |        | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
+| :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
 | :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
 |              |        | FontTileset.h                                              | FontTileset.cpp                 |                                                          |
@@ -89,6 +89,6 @@
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
 |              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
 |              |        |                                                            | UnitUpgradeCapabilities.cpp     |                                                          |
-|              |        | ViewportRenderer.h                                         | ViewportRenderer.cpp            |                                                          |
+| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            |                                                          |
 |              |        | VisibilityMap.h                                            | VisibilityMap.cpp               | VisibilityMap.swift                                      |
 |              |        |                                                            | Main.cpp                        |                                                          |

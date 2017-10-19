@@ -302,23 +302,24 @@ class CGraphicTileset {
 
     // TODO: TESTING FUNCTIONS
     func DrawTest(skscene: SKScene, xpos: Int, ypos: Int) {
-        var col: Int = (-xpos * 2) / DTileWidth
-        var row: Int = (ypos * 2) / DTileHeight
-        var rowNum: Int = 0
-        var colNum: Int = 0
-        for i in 0 ..< DTileCount {
-            var xposSize: Int = xpos + colNum * DTileWidth
-            var yposSize: Int = ypos - rowNum * DTileHeight
-
-            if colNum < col {
-                colNum += 1
-                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-            } else if rowNum < col {
-                rowNum += 1
-                colNum = 0
-                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-            }
-        }
+        //        var col: Int = (-xpos * 2) / DTileWidth
+        //        var row: Int = (ypos * 2) / DTileHeight
+        //        var rowNum: Int = 0
+        //        var colNum: Int = 0
+        //        for i in 0 ..< DTileCount {
+        //            var xposSize: Int = xpos + colNum * DTileWidth
+        //            var yposSize: Int = ypos - rowNum * DTileHeight
+        //
+        //            if colNum < col {
+        //                colNum += 1
+        //                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
+        //            } else if rowNum < col {
+        //                rowNum += 1
+        //                colNum = 0
+        //                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
+        //            }
+        //        }
+        DrawTile(skscene: skscene, xpos: xpos + 200, ypos: ypos - 100, tileindex: 130)
     }
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
         //        if 0 > tileindex || tileindex >= DTileCount {
