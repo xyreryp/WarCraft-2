@@ -30,5 +30,5 @@ protocol CGraphicSurface {
     func Copy(srcsurface: CGraphicSurface, dxpos: Int, dypos: Int, width: Int, height: Int, sxpos: Int, sypos: Int)
     func CopyMaskSurface(srcsurface: CGraphicSurface, dxpos: Int, dypos: Int, masksurface: CGraphicSurface, sxpos: Int, sypos: Int)
 
-    //    func Transform(srcsurface: CGraphicSurface,dxpos: Int, dypos: Int, width: Int, height: Int,  sxpos: Int, sypos: Int, *calldata: Optional, callback: TGraphicSurfaceTransformCallback)
+    // func Transform(srcsurface: CGraphicSurface,dxpos: Int, dypos: Int, width: Int, height: Int,  sxpos: Int, sypos: Int, *calldata: Optional, callback: TGraphicSurfaceTransformCallback)
 }
