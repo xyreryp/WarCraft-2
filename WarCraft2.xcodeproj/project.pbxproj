@@ -44,6 +44,7 @@
 		E14136BD1F98283D0086A0A6 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136BC1F98283D0086A0A6 /* PlayerCapability.swift */; };
 		E14136BF1F98287F0086A0A6 /* PlayerUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136BE1F98287F0086A0A6 /* PlayerUpgrade.swift */; };
 		E14136C11F982F870086A0A6 /* PlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136C01F982F870086A0A6 /* PlayData.swift */; };
+		E14136C51F9865920086A0A6 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136C41F9865920086A0A6 /* PlayerAssetType.swift */; };
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
@@ -91,6 +92,7 @@
 		E14136BC1F98283D0086A0A6 /* PlayerCapability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCapability.swift; sourceTree = "<group>"; };
 		E14136BE1F98287F0086A0A6 /* PlayerUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUpgrade.swift; sourceTree = "<group>"; };
 		E14136C01F982F870086A0A6 /* PlayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayData.swift; sourceTree = "<group>"; };
+		E14136C41F9865920086A0A6 /* PlayerAssetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAssetType.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19A0AD21F959094001B569C /* TerrainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMap.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				E14136C01F982F870086A0A6 /* PlayData.swift */,
 				E14136BE1F98287F0086A0A6 /* PlayerUpgrade.swift */,
 				E14136B81F98263F0086A0A6 /* PlayerAsset.swift */,
+				E14136C41F9865920086A0A6 /* PlayerAssetType.swift */,
 				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
 				A1AAF5CF1F8C6001005007C4 /* LineDataSource.swift */,
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
@@ -288,6 +291,7 @@
 				E14136BD1F98283D0086A0A6 /* PlayerCapability.swift in Sources */,
 				4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
+				E14136C51F9865920086A0A6 /* PlayerAssetType.swift in Sources */,
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				E1EEAEE01F909B5D001001B9 /* GameViewController.swift in Sources */,
