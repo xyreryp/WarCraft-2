@@ -275,14 +275,16 @@ class CTerrainMap {
         //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
         if let filepath = Bundle.main.url(forResource: "mountain", withExtension: "map") {
             do {
-                let contents = try String(contentsOfFile: filepath)
-                print(contents)
+                print("I'M HERE JUST TESTING")
+                // let contents = try String(contentsOfFile: filepath)
+                // print(contents)
             } catch {
                 // contents could not be loaded
                 print("content!!!!")
             }
         } else {
             print("example.txt not found!")
+            return true
         }
         //        var TempString = String()
         //        var Tokens: [String] = [String]()
@@ -398,5 +400,6 @@ class CTerrainMap {
         //        //  catch {
         //        //      print("LoadMap function Error (TerrainMap.swift)")
         //        // }
+        return false
     }
 }
