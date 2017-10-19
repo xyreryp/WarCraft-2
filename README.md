@@ -23,7 +23,7 @@
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
 | :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |   May not be necessary because it deals with reading from a directory but we already have access to everything in our project folder without using this class |
 | :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
-| :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
+| :red_circle: | [.]    | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
 |              |        | FontTileset.h                                              | FontTileset.cpp                 |                                                          |
 |              |        | GUIApplication.h                                           | GUIFactoryGTK3.cpp              |                                                          |
