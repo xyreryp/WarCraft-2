@@ -18,8 +18,8 @@ class CPlayerCapability {
     }
 
     init(name: String, targettype: ETargetType) {
-        self.DName = name
-        self.DTargetType = targettype
+        DName = name
+        DTargetType = targettype
     }
 
     deinit {
