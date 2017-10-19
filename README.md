@@ -84,7 +84,7 @@
 |              |        | SoundOptionsMode.h                                         | SoundOptionsMode.cpp            | SplashViewController.swift                               |
 |              |        |                                                            | TrainCapabilities.cpp           | TilePosition.swift                                       |
 | :red_circle: | [⋅]    | TerrainMap.h                                               | TerrainMap.cpp                  | TerrainMap.swift                                         |
-|              |        | TextFormatter.h                                            | TextFormatter.cpp               |                                                          |
+|              | [.]    | TextFormatter.h                                            | TextFormatter.cpp               |                                                          |
 |              |        | Tokenizer.h                                                | Tokenizer.cpp                   | Tokenizer.swift                                          |
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
 |              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
