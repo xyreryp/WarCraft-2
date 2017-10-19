@@ -21,9 +21,9 @@
 |              |        | EditOptionsMode.h                                          | EditOptionsMode.cpp             |                                                          |
 |              |        | EditRenderer.h                                             | EditRenderer.cpp                |                                                          |
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
-| :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
+| :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |   May not be necessary because it deals with reading from a directory but we already have access to everything in our project folder without using this class |
 | :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
-| :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
+| :red_circle: | [.]    | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
 |              |        | FontTileset.h                                              | FontTileset.cpp                 |                                                          |
 |              |        | GUIApplication.h                                           | GUIFactoryGTK3.cpp              |                                                          |
@@ -47,7 +47,7 @@
 |              |        | GameModel.h                                                | GameModel.cpp                   |                                                          |
 | :red_circle: | [⋅]    | GraphicFactory.h                                           |                                 | GraphicFactory.swift                                     |
 | :red_circle: | [⋅]    | GraphicFactoryCairo.h                                      | GraphicFactoryCairo.cpp         | GraphicFactoryCoreGraphics.swift                         |
-| :red_circle: |        | GraphicMulticolorTileset.h                                 | GraphicMulticolorTileset.cpp    |                                                          |
+| :red_circle: | [⋅]    | GraphicMulticolorTileset.h                                 | GraphicMulticolorTileset.cpp    |                                                          |
 | :red_circle: |  [.]      | GraphicRecolorMap.h                                        | GraphicRecolorMap.cpp           |                                                          |
 |              |        | GraphicResourceContext.h                                   |                                 | GraphicResourceContext.swift                             |
 | :red_circle: | [⋅]    | GraphicSurface.h                                           |                                 | GraphicSurface.swift                                     |
@@ -76,7 +76,7 @@
 |              |        | Position.h                                                 | ResourceRenderer.cpp            | RandomNumberGenerator.swift                              |
 |              |        | RandomNumberGenerator.h                                    | RouterMap.cpp                   |                                                          |
 |              |        | Rectangle.h                                                |                                 | Rectangle.swift                                          |
-| :red_circle: |        | ResourceRenderer.h                                         |                                 |                                                          |
+| :red_circle: | [⋅]    | ResourceRenderer.h                                         |                                 |                                                          |
 |              |        | RouterMap.h                                                |                                 |                                                          |
 |              |        | SoundClip.h                                                | SoundClip.cpp                   |                                                          |
 |              |        | SoundEventRenderer.h                                       | SoundEventRenderer.cpp          | SoundManager.swift                                       |
@@ -84,11 +84,11 @@
 |              |        | SoundOptionsMode.h                                         | SoundOptionsMode.cpp            | SplashViewController.swift                               |
 |              |        |                                                            | TrainCapabilities.cpp           | TilePosition.swift                                       |
 | :red_circle: | [⋅]    | TerrainMap.h                                               | TerrainMap.cpp                  | TerrainMap.swift                                         |
-|              |        | TextFormatter.h                                            | TextFormatter.cpp               |                                                          |
+|              | [.]    | TextFormatter.h                                            | TextFormatter.cpp               |                                                          |
 |              |        | Tokenizer.h                                                | Tokenizer.cpp                   | Tokenizer.swift                                          |
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
 |              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
 |              |        |                                                            | UnitUpgradeCapabilities.cpp     |                                                          |
-| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            |                                                          |
+| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            | ViewportRenderer.swift                                                         |
 |              |        | VisibilityMap.h                                            | VisibilityMap.cpp               | VisibilityMap.swift                                      |
 |              |        |                                                            | Main.cpp                        |                                                          |
