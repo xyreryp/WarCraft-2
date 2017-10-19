@@ -7,50 +7,60 @@
 //
 
 import Foundation
-//class CPlayerCapability{
-//    public:
-//    enum class ETargetType{
-//        None = 0,
-//        Asset,
-//        Terrain,
-//        TerrainOrAsset,
-//        Player
-//    };
-//
-//    protected:
-//    std::string DName;
-//    EAssetCapabilityType DAssetCapabilityType;
-//    ETargetType DTargetType;
-//
-//    CPlayerCapability(const std::string &name, ETargetType targettype);
-//
-//    static std::unordered_map< std::string, std::shared_ptr< CPlayerCapability > > &NameRegistry();
-//    static std::unordered_map< int, std::shared_ptr< CPlayerCapability > > &TypeRegistry();
-//    static bool Register(std::shared_ptr< CPlayerCapability > capability);
-//
-//    public:
-//    virtual ~CPlayerCapability(){};
-//
-//    std::string Name() const{
-//    return DName;
-//    };
-//
-//    EAssetCapabilityType AssetCapabilityType() const{
-//    return DAssetCapabilityType;
-//    };
-//
-//    ETargetType TargetType() const{
-//    return DTargetType;
-//    };
-//
-//    static std::shared_ptr< CPlayerCapability > FindCapability(EAssetCapabilityType type);
-//    static std::shared_ptr< CPlayerCapability > FindCapability(const std::string &name);
-//
-//    static EAssetCapabilityType NameToType(const std::string &name);
-//    static std::string TypeToName(EAssetCapabilityType type);
-//
-//    virtual bool CanInitiate(std::shared_ptr< CPlayerAsset > actor, std::shared_ptr< CPlayerData > playerdata) = 0;
-//    virtual bool CanApply(std::shared_ptr< CPlayerAsset > actor, std::shared_ptr< CPlayerData > playerdata, std::shared_ptr< CPlayerAsset > target) = 0;
-//    virtual bool ApplyCapability(std::shared_ptr< CPlayerAsset > actor, std::shared_ptr< CPlayerData > playerdata, std::shared_ptr< CPlayerAsset > target) = 0;
-//};
+class CPlayerCapability {
 
+    enum ETargetType: Int {
+        case None = 0
+        case Asset
+        case Terrain
+        case TerrainOrAsset
+        case Player
+    }
+
+    init(name: String, targettype: ETargetType) {
+        self.DName = name
+        self.DTargetType = targettype
+    }
+
+    deinit {
+    }
+
+    var DName: String
+    var DAssetCapabilityType: EAssetCapabilityType
+    var DTargetType: ETargetType
+
+    // FIXME:
+    //    static std::unordered_map< std::string, std::shared_ptr< CPlayerCapability > > &NameRegistry();
+    //    static std::unordered_map< int, std::shared_ptr< CPlayerCapability > > &TypeRegistry();
+    var NameRegistry = [String: CPlayerCapability]()
+    var TypeRegistry = [Int: CPlayerCapability]()
+
+    // FIXME:
+    func Register(capability _: CPlayerCapability) -> Bool { return true }
+
+    func Name() -> String {
+        return DName
+    }
+
+    func AssetCapabilityType() -> EAssetCapabilityType {
+        return DAssetCapabilityType
+    }
+
+    func TargetType() -> ETargetType {
+        return DTargetType
+    }
+
+    func FindCapability(type _: EAssetCapabilityType) -> CPlayerCapability? { return nil }
+
+    func FindCapability(name _: inout String) -> CPlayerCapability? { return nil }
+
+    func NameToType(name _: inout String) -> EAssetCapabilityType? { return nil }
+
+    func TypeToName(type _: EAssetCapabilityType) {}
+
+    func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool? { return nil }
+
+    // FIXME:
+    func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
+    func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
+}
