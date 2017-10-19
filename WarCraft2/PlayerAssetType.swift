@@ -8,7 +8,7 @@
 
 import Foundation
 class CPlayerAssetType {
-    
+
     var DThis: CPlayerAssetType
     var DName: String
     var DType: EAssetType
@@ -22,7 +22,7 @@ class CPlayerAssetType {
     var DSize: Int
     var DSpeed: Int
     var DGoldCost: Int
-    var  DLumberCost: Int
+    var DLumberCost: Int
     var DFoodConsumption: Int
     var DBuildTime: Int
     var DAttackSteps: Int
@@ -30,109 +30,95 @@ class CPlayerAssetType {
     var DBasicDamage: Int
     var DPiercingDamage: Int
     var DRange: Int
-    var DRegistry: [String:CPlayerAssetType]
+    var DRegistry: [String: CPlayerAssetType]
     var DTypeStrings: [String]
     var DNameTypeTranslation: [String: EAssetType]
-    
+
     //
     //    public:
     //    CPlayerAssetType();
     //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
     //    ~CPlayerAssetType();
     //
-    
+
     func ArmorUpgrade() -> Int {
         return 1
     }
-    
+
     func SightUpgrade() -> Int {
         return 1
     }
 
     func SpeedUpgrade() -> Int {
-        
     }
-    
+
     func BasicDamageUpgrade() -> Int {
-        
     }
 
     func PiercingDamageUpgrade() -> Int {
-        
     }
 
     func RangeUpgrade() -> Int {
-        
     }
 
     func HasCapability(capability: EAssetCapabilityType) -> Bool {
         if capability.rawValue || DCapabilities.size() <= capability.rawValue {
             return false
         }
-        
+
         return DCapabilities[capacity.rawValue]
     }
-    
+
     func Capabilities() -> EAssetCapabilityType {
-        
     }
-    
+
     func AddCapability(capability: EAssetCapabilityType) {
         if capability.rawValue || DCapabilities.size() <= capability.rawValue {
             return
         }
-        
+
         DCapabilities[capacity.rawValue] = true
     }
 
-    func RemoveCapability(capability:EAssetCapabilityType ) {
+    func RemoveCapability(capability: EAssetCapabilityType) {
         if capability.rawValue || DCapabilities.size() <= capability.rawValue {
             return
         }
         DCapabilities[capacity.rawValue] = false
-        
     }
-    
+
     func AddUpgrade(upgrade: CPlayerUpgrade) {
         DAssetUpgrades.push_back(upgrade)
     }
 
-    func AssetRequirements() -> [EAssetType]  {
+    func AssetRequirements() -> [EAssetType] {
         return DAssetRequirements
     }
 
-    func NameToType(name: String) -> EAssetType {
-        
+    func NameToType(name _: String) -> EAssetType {
     }
-    func TypeToName(type: EAssetType) -> String {
-        
+
+    func TypeToName(type _: EAssetType) -> String {
     }
-   
+
     func MaxSight() -> Int {
-        
-    }
-    
-    func LoadTypes(container: CDataContainer) -> Bool {
-        
     }
 
-    func Load(source: CDataSource) -> Bool {
-        
+    func LoadTypes(container _: CDataContainer) -> Bool {
     }
 
-    func FindDefaultFromName(name: String) -> CPlayerAssetType {
-        
-    }
-    
-    func FindDefaultFromType(type: EAssetType) -> CPlayerAssetType {
-        
-    }
-    
-    func DuplicateRegistry(color: EPlayerColor) -> [String:CPlayerAssetType] {
-        
+    func Load(source _: CDataSource) -> Bool {
     }
 
-    func Construct() -> CPlayerAsset{
-        
+    func FindDefaultFromName(name _: String) -> CPlayerAssetType {
+    }
+
+    func FindDefaultFromType(type _: EAssetType) -> CPlayerAssetType {
+    }
+
+    func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+    }
+
+    func Construct() -> CPlayerAsset {
     }
 }

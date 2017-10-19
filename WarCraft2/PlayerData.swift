@@ -9,115 +9,131 @@
 import Foundation
 
 class CPlayerData {
-    //    protected:
-    //    bool DIsAI;
-    //    EPlayerColor DColor;
-    //    std::shared_ptr< CVisibilityMap > DVisibilityMap;
-    //    std::shared_ptr< CAssetDecoratedMap > DActualMap;
-    //    std::shared_ptr< CAssetDecoratedMap > DPlayerMap;
-    //    std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > DAssetTypes;
-    //    std::list< std::weak_ptr< CPlayerAsset > > DAssets;
-    //    std::vector< bool > DUpgrades;
-    //    std::vector< SGameEvent > DGameEvents;
-    //    int DGold;
-    //    int DLumber;
-    //    int DGameCycle;
-    //
+
+    var DIsAI: Bool
+    var DColor: EPlayerColor
+    var DVisibilityMap: CVisibilityMap
+    var DActualMap: CAssetDecoratedMap
+    var DPlayerMap: CAssetDecoratedMap
+    var DAssetTypes: [String: CPlayerAssetType]
+    var DAssets: [CPlayerAsset]
+    var DUpgrades: [Bool]
+    var DGameEvents = [SGameEvent]
+    var DGold: Int
+    var DLumber: Int
+    var DGameCycle: Int
+
     //    public:
     //    CPlayerData(std::shared_ptr< CAssetDecoratedMap > map, EPlayerColor color);
     //
-    //    int GameCycle() const{
-    //    return DGameCycle;
-    //    };
-    //
-    //    void IncrementCycle(){
-    //    DGameCycle++;
-    //    };
-    //
-    //    EPlayerColor Color() const{
-    //    return DColor;
-    //    };
-    //
-    //    bool IsAI() const{
-    //    return DIsAI;
-    //    };
-    //
-    //    bool IsAI(bool isai){
-    //    return DIsAI = isai;
-    //    };
-    //
-    //    bool IsAlive() const{
-    //    return DAssets.size();
-    //    };
-    //    int Gold() const{
-    //    return DGold;
-    //    };
-    //    int Lumber() const{
-    //    return DLumber;
-    //    };
-    //    int IncrementGold(int gold){
-    //    DGold += gold;
-    //    return DGold;
-    //    };
-    //    int DecrementGold(int gold){
-    //    DGold -= gold;
-    //    return DGold;
-    //    };
-    //    int IncrementLumber(int lumber){
-    //    DLumber += lumber;
-    //    return DLumber;
-    //    };
-    //    int DecrementLumber(int lumber){
-    //    DLumber -= lumber;
-    //    return DLumber;
-    //    };
-    //    int FoodConsumption() const;
-    //    int FoodProduction() const;
-    //
-    //    std::shared_ptr< CVisibilityMap > VisibilityMap() const{
-    //    return DVisibilityMap;
-    //    };
-    //    std::shared_ptr< CAssetDecoratedMap > PlayerMap() const{
-    //    return DPlayerMap;
-    //    };
-    //    std::list< std::weak_ptr< CPlayerAsset > > Assets() const{
-    //    return DAssets;
-    //    };
-    //    std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > &AssetTypes(){
-    //    return DAssetTypes;
-    //    };
-    //    std::shared_ptr< CPlayerAsset > CreateMarker(const CPixelPosition &pos, bool addtomap);
-    //    std::shared_ptr< CPlayerAsset > CreateAsset(const std::string &assettypename);
-    //    void DeleteAsset(std::shared_ptr< CPlayerAsset > asset);
-    //    bool AssetRequirementsMet(const std::string &assettypename);
-    //    void UpdateVisibility();
-    //    std::list< std::weak_ptr< CPlayerAsset > > SelectAssets(const SRectangle &selectarea, EAssetType assettype, bool selectidentical = false);
-    //    std::weak_ptr< CPlayerAsset > SelectAsset(const CPixelPosition &pos, EAssetType assettype);
-    //    std::weak_ptr< CPlayerAsset > FindNearestOwnedAsset(const CPixelPosition &pos, const std::vector< EAssetType > assettypes);
-    //    std::shared_ptr< CPlayerAsset > FindNearestAsset(const CPixelPosition &pos, EAssetType assettype);
-    //    std::weak_ptr< CPlayerAsset > FindNearestEnemy(const CPixelPosition &pos, int range);
-    //    CTilePosition FindBestAssetPlacement(const CTilePosition &pos, std::shared_ptr< CPlayerAsset > builder, EAssetType assettype, int buffer);
-    //    std::list< std::weak_ptr< CPlayerAsset > > IdleAssets() const;
-    //    int PlayerAssetCount(EAssetType type);
-    //    int FoundAssetCount(EAssetType type);
-    //    void AddUpgrade(const std::string &upgradename);
+
+    func IsAlive() -> Bool {
+        return DAssets.size()
+    }
+
+    func IncrementGold(gold: Int) -> Int {
+        DGold += gold
+        return DGold
+    }
+
+    func DecrementGold(gold: Int) -> Int {
+        DGold -= gold
+        return DGold
+    }
+
+    func IncrementLumber(lumber: Int) -> Int {
+        DLumber += lumber
+        return DLumber
+    }
+
+    func DecrementLumber(lumber: Int) -> Int {
+        DLumber -= lumber
+        return DLumber
+    }
+
+    func FoodConsumption() -> Int {
+    }
+
+    func FoodProduction() -> Int {
+    }
+
+    func CreateMarker(pos _: CPixelPosition, addtomap _: Bool) -> CPlayerAsset {
+    }
+
+    func CreateAsset(assettypename _: String) -> CPlayerAsset {
+    }
+
+    func DeleteAsset(asset _: CPlayerAsset) -> {
+    }
+
+    func AssetRequirementsMet(assettypename _: String) -> Bool {
+    }
+
+    func UpdateVisibility() {
+    }
+
+    func SelectAssets(selectarea _: SRectangle, assettype _: EAssetType, selectidentical _: Bool = false) -> [CPlayerAsset] {
+    }
+
+    func SelectAsset(pos _: CPixelPosition, assettype _: EAssetType) -> CPlayerAsset {
+    }
+
+    func FindNearestOwnedAsset(pos _: CPixelPosition, assettypes _: [EAssetType]) -> CPlayerAsset {
+    }
+    
+    func FindNearestAsset(pos: CPixelPosition) -> CPlayerAsset {
+        
+    }
+    
+    func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset {
+        
+    }
+
+    func FindBestAssetPlacement(pos: CPixelPosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
+        
+    }
+  
+    func IdleAssets() -> [CPlayerAsset] {
+        
+    }
+    
+    func PlayerAssetCount(type:EAssetType ) -> Int {
+        
+    }
+    
+    func FoundAssetCount(type:EAssetType ) -> Int {
+        
+    }
+    
+    func AddUpgrade(upgradename: String) {
+        
+    }
     //    bool HasUpgrade(EAssetCapabilityType upgrade) const{
     //    if((0 > to_underlying(upgrade))||(DUpgrades.size() <= static_cast<decltype(DUpgrades.size())>(upgrade))){
     //    return false;
     //    }
     //    return DUpgrades[static_cast<decltype(DUpgrades.size())>(upgrade)];
     //    };
-    //
-    //    const std::vector< SGameEvent > &GameEvents() const{
-    //    return DGameEvents;
-    //    };
-    //    void ClearGameEvents(){
-    //    DGameEvents.clear();
-    //    };
-    //    void AddGameEvent(const SGameEvent &event){
-    //    DGameEvents.push_back(event);
-    //    };
-    //    void AppendGameEvents(const std::vector< SGameEvent > &events){
-    //    DGameEvents.insert(DGameEvents.end(), events.begin(), events.end());
-    //    };
+    //FIXME:
+    func HasUpgrade(upgrade: EAssetCapabilityType) -> Bool {
+        if 0 > upgrade.rawValue || DUpgrades.size)() <=  {
+            
+        }
+    }
+    
+    func GameEvents() -> [SGameEvent] {
+        return DGameEvents
+    }
+
+    func ClearGameEvents() {
+        DGameEvents.clear()
+    }
+
+    func AddGameEvent(event: SGameEvent) {
+        DGameEvents.push_back(event)
+    }
+
+    func AppendGameEvents(events: [SGameEvent]) {
+        DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
+    }
 }
