@@ -89,6 +89,6 @@
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
 |              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
 |              |        |                                                            | UnitUpgradeCapabilities.cpp     |                                                          |
-| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            |                                                          |
+| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            | ViewportRenderer.swift                                                         |
 |              |        | VisibilityMap.h                                            | VisibilityMap.cpp               | VisibilityMap.swift                                      |
 |              |        |                                                            | Main.cpp                        |                                                          |
