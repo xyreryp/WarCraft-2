@@ -21,7 +21,7 @@
 |              |        | EditOptionsMode.h                                          | EditOptionsMode.cpp             |                                                          |
 |              |        | EditRenderer.h                                             | EditRenderer.cpp                |                                                          |
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
-| :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
+| :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |   May not be necessary because it deals with reading from a directory but we already have access to everything in our project folder without using this class |
 | :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
 | :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
@@ -76,7 +76,7 @@
 |              |        | Position.h                                                 | ResourceRenderer.cpp            | RandomNumberGenerator.swift                              |
 |              |        | RandomNumberGenerator.h                                    | RouterMap.cpp                   |                                                          |
 |              |        | Rectangle.h                                                |                                 | Rectangle.swift                                          |
-| :red_circle: |        | ResourceRenderer.h                                         |                                 |                                                          |
+| :red_circle: | [⋅]    | ResourceRenderer.h                                         |                                 |                                                          |
 |              |        | RouterMap.h                                                |                                 |                                                          |
 |              |        | SoundClip.h                                                | SoundClip.cpp                   |                                                          |
 |              |        | SoundEventRenderer.h                                       | SoundEventRenderer.cpp          | SoundManager.swift                                       |
@@ -89,6 +89,6 @@
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
 |              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
 |              |        |                                                            | UnitUpgradeCapabilities.cpp     |                                                          |
-| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            |                                                          |
+| :red_circle:            | [.]       | ViewportRenderer.h                                         | ViewportRenderer.cpp            | ViewportRenderer.swift                                                         |
 |              |        | VisibilityMap.h                                            | VisibilityMap.cpp               | VisibilityMap.swift                                      |
 |              |        |                                                            | Main.cpp                        |                                                          |
