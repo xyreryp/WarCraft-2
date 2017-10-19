@@ -67,7 +67,7 @@
 |              |        | MultiPlayerOptionsMenuMode.h                               | MultiPlayerOptionsMenuMode.cpp  | MultiPlayerGameOptionsViewController.swift               |
 |              |        | NetworkOptionsMode.h                                       | NetworkOptionsMode.cpp          | NetworkOptionsMenuViewController.swift                   |
 |              |        | OptionsMenuMode.h                                          | OptionsMenuMode.cpp             | OptionsMenuViewController.swift                          |
-|              |        | Path.h                                                     | Path.cpp                        |                                                          |
+|              |    [.]    | Path.h                                                     | Path.cpp                        |                                                          |
 |              |        | PeriodicTimeout.h                                          | PeriodicTimeout.cpp             |                                                          |
 |              |        | PixelType.h                                                | PixelType.cpp                   | PixelPosition.swift                                      |
 |              |        | PlayerAIColorSelectMode.h                                  | PlayerAIColorSelectMode.cpp     | PlayerCommand.swift                                      |
