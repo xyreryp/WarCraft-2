@@ -93,8 +93,8 @@ class CGraphicRecolorMap {
         }
     }
 
-    func Load(source: CDataSource) -> Bool {
-        var LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
+    func Load(source: CDataSource?) -> Bool {
+        var LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
         var PNGPath = String()
         var TempString = String()
         var Tokens: [String]
@@ -106,7 +106,7 @@ class CGraphicRecolorMap {
             return false
         }
         // TODO: Uncomment once GraphicFactory has been written
-        var ColorSurface = CGraphicFactory.LoadSurface(source: source.Container().DataSource(name: PNGPath))
+        var ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
         if nil == ColorSurface {
             return false
         }
