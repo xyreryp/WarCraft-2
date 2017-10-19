@@ -155,7 +155,8 @@ final class CMapRenderer : PMapRenderer{
         repeat {
             repeat {
                 var PixelType: CPixelType = CPixelType(DMap.TileType(XIndex, YIndex))
-                
+                var ThisTileType:ETileType = DMap.TileType(XIndex, YIndex)
+                var TileIndex: Int = self.DMap.TileType
                 
                 
                 
