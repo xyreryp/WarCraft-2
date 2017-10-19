@@ -9,39 +9,31 @@
 import Foundation
 
 class CTextFormatter {
-    
-    
-    //function to convert integer to a string with commas
+
+    // function to convert integer to a string with commas
     public static func IntegerToPrettyString(val: Int) -> String {
-        
+
         let SimpleString: String = String(val)
-        var ReturnString: String = "" //can't use uninitialzed variables, and can't append to optional
-        
+        var ReturnString: String = "" // can't use uninitialzed variables, and can't append to optional
+
         var CharUntilComma: Int = SimpleString.count % 3
         var CharactersLeft = SimpleString.count
-        
-        
-        if 0 == CharUntilComma
-        {
+
+        if 0 == CharUntilComma {
             CharUntilComma = 3
         }
-        
-        for char in SimpleString
-        {
+
+        for char in SimpleString {
             ReturnString += String(char)
             CharUntilComma -= 1
             CharactersLeft -= 1
-            if 0 == CharUntilComma
-            {
+            if 0 == CharUntilComma {
                 CharUntilComma = 3
-                if(1 <= CharactersLeft)
-                {
+                if 1 <= CharactersLeft {
                     ReturnString += ","
                 }
             }
         }
         return ReturnString
     }
-
 }
-
