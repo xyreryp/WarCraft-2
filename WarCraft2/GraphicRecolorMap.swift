@@ -94,10 +94,10 @@ class CGraphicRecolorMap {
     }
 
     func Load(source: CDataSource?) -> Bool {
-        var LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
+        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
         var PNGPath = String()
         var TempString = String()
-        var Tokens: [String]
+        var _: [String]
 
         if nil == source {
             return false
@@ -106,7 +106,7 @@ class CGraphicRecolorMap {
             return false
         }
         // TODO: Uncomment once GraphicFactory has been written
-        var ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
+        let ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
         if nil == ColorSurface {
             return false
         }
@@ -127,8 +127,8 @@ class CGraphicRecolorMap {
         if !LineSource.Read(line: &TempString) {
             return false
         }
-        do {
-            var ColorCount = Int(TempString)
+//        do {
+            let ColorCount = Int(TempString)
             if ColorCount! != DColors.count {
                 return false
             }
@@ -140,10 +140,10 @@ class CGraphicRecolorMap {
                 DMapping[TempString] = Index
                 DColorNames[Index] = TempString
             }
-        } catch {
-            print("Exception in Load function (GraphicRecolorMap.swift)")
-            return false
-        }
+//        } catch {
+//            print("Exception in Load function (GraphicRecolorMap.swift)")
+//            return false
+//        }
         return true
     }
 
@@ -153,7 +153,7 @@ class CGraphicRecolorMap {
         }
         DState = index
         //    TODO: Uncomment when CGraphicFactory has been written
-        var RecoloredSurface = CGraphicFactory.CreateSurface(width: srcsurface.Width(), height: srcsurface.Height(), format: srcsurface.Format())
+        let RecoloredSurface = CGraphicFactory.CreateSurface(width: srcsurface.Width(), height: srcsurface.Height(), format: srcsurface.Format())
         //    TODO: Update this when CGraphicSurface::Transform has been written
         //        RecoloredSurface.Transform(srcsurface, 0, 0, -1, -1, 0, 0, self, RecolorPixels)
         return RecoloredSurface
