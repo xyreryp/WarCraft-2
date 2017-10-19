@@ -8,110 +8,39 @@
 
 import Foundation
 class CPlayerAssetType {
-    //    protected:
-    //    std::weak_ptr< CPlayerAssetType > DThis;
-    //    std::string DName;
-    //    EAssetType DType;
-    //    EPlayerColor DColor;
-    //    std::vector< bool > DCapabilities;
-    //    std::vector< EAssetType > DAssetRequirements;
-    //    std::vector< std::shared_ptr< CPlayerUpgrade > > DAssetUpgrades;
-    //    int DHitPoints;
-    //    int DArmor;
-    //    int DSight;
-    //    int DConstructionSight;
-    //    int DSize;
-    //    int DSpeed;
-    //    int DGoldCost;
-    //    int DLumberCost;
-    //    int DFoodConsumption;
-    //    int DBuildTime;
-    //    int DAttackSteps;
-    //    int DReloadSteps;
-    //    int DBasicDamage;
-    //    int DPiercingDamage;
-    //    int DRange;
-    //    static std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > DRegistry;
-    //    static std::vector< std::string > DTypeStrings;
-    //    static std::unordered_map< std::string, EAssetType > DNameTypeTranslation;
+    
+    var DThis: CPlayerAssetType
+    var DName: String
+    var DType: EAssetType
+    var DColor: EPlayerColor
+    var DCapabilities: [Bool]
+    var DAssetRequirements: [EAssetType]
+    var DAssetUpgrades = [CPlayerUpgrade]()
+    var DHitPoints: Int
+    var DSight: Int
+    var DConstructionSight: Int
+    var DSize: Int
+    var DSpeed: Int
+    var DGoldCost: Int
+    var  DLumberCost: Int
+    var DFoodConsumption: Int
+    var DBuildTime: Int
+    var DAttackSteps: Int
+    var DReloadSteps: Int
+    var DBasicDamage: Int
+    var DPiercingDamage: Int
+    var DRange: Int
+    var DRegistry: [String:CPlayerAssetType]
+    var DTypeStrings: [String]
+    var DNameTypeTranslation: [String: EAssetType]
+    
     //
     //    public:
     //    CPlayerAssetType();
     //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
     //    ~CPlayerAssetType();
     //
-    //    std::string Name() const{
-    //    return DName;
-    //    };
-    //
-    //    EAssetType Type() const{
-    //    return DType;
-    //    };
-    //
-    //    EPlayerColor Color() const{
-    //    return DColor;
-    //    };
-    //
-    //    int HitPoints() const{
-    //    return DHitPoints;
-    //    };
-    //
-    //    int Armor() const{
-    //    return DArmor;
-    //    };
-    //
-    //    int Sight() const{
-    //    return DSight;
-    //    };
-    //
-    //    int ConstructionSight() const{
-    //    return DConstructionSight;
-    //    };
-    //
-    //    int Size() const{
-    //    return DSize;
-    //    };
-    //
-    //    int Speed() const{
-    //    return DSpeed;
-    //    };
-    //
-    //    int GoldCost() const{
-    //    return DGoldCost;
-    //    };
-    //
-    //    int LumberCost() const{
-    //    return DLumberCost;
-    //    };
-    //
-    //    int FoodConsumption() const{
-    //    return DFoodConsumption;
-    //    };
-    //
-    //    int BuildTime() const{
-    //    return DBuildTime;
-    //    };
-    //
-    //    int AttackSteps() const{
-    //    return DAttackSteps;
-    //    };
-    //
-    //    int ReloadSteps() const{
-    //    return DReloadSteps;
-    //    };
-    //
-    //    int BasicDamage() const{
-    //    return DBasicDamage;
-    //    };
-    //
-    //    int PiercingDamage() const{
-    //    return DPiercingDamage;
-    //    };
-    //
-    //    int Range() const{
-    //    return DRange;
-    //    };
-    //
+   
     //    int ArmorUpgrade() const;
     //    int SightUpgrade() const;
     //    int SpeedUpgrade() const;
