@@ -10,6 +10,8 @@ import Foundation
 
 class CTextFormatter {
     
+    
+    //function to convert integer to a string with commas
     public static func IntegerToPrettyString(val: Int) -> String {
         
         let SimpleString: String = String(val)
