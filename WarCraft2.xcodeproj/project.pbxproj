@@ -39,6 +39,9 @@
 		E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0AD21F959094001B569C /* TerrainMap.swift */; };
 		E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
 		E14136B71F97F8530086A0A6 /* Scene.sks in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
+		E14136B91F98263F0086A0A6 /* PlayerAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136B81F98263F0086A0A6 /* PlayerAsset.swift */; };
+		E14136BB1F9828280086A0A6 /* ActivatedPlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136BA1F9828280086A0A6 /* ActivatedPlayerCapability.swift */; };
+		E14136BD1F98283D0086A0A6 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136BC1F98283D0086A0A6 /* PlayerCapability.swift */; };
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
@@ -81,6 +84,9 @@
 		DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactory.swift; sourceTree = "<group>"; };
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
+		E14136B81F98263F0086A0A6 /* PlayerAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAsset.swift; sourceTree = "<group>"; };
+		E14136BA1F9828280086A0A6 /* ActivatedPlayerCapability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivatedPlayerCapability.swift; sourceTree = "<group>"; };
+		E14136BC1F98283D0086A0A6 /* PlayerCapability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCapability.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19A0AD21F959094001B569C /* TerrainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMap.swift; sourceTree = "<group>"; };
@@ -150,8 +156,11 @@
 				E1EEAEDD1F908172001001B9 /* Scene.sks */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
 				6BC677471F8C186D00953C3A /* Rectangle.swift */,
+				E14136BA1F9828280086A0A6 /* ActivatedPlayerCapability.swift */,
+				E14136BC1F98283D0086A0A6 /* PlayerCapability.swift */,
 				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
 				A1AAF5CF1F8C6001005007C4 /* LineDataSource.swift */,
+				E14136B81F98263F0086A0A6 /* PlayerAsset.swift */,
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
 				93A955BC1F8D312100226455 /* GraphicsTileset.swift */,
 				A1AAF5D11F8CA0C5005007C4 /* CommentSkipLineDataSource.swift */,
@@ -270,15 +279,18 @@
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
+				E14136BD1F98283D0086A0A6 /* PlayerCapability.swift in Sources */,
 				4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				E1EEAEE01F909B5D001001B9 /* GameViewController.swift in Sources */,
 				DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */,
+				E14136BB1F9828280086A0A6 /* ActivatedPlayerCapability.swift in Sources */,
 				A1AAF5D21F8CA0C5005007C4 /* CommentSkipLineDataSource.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
+				E14136B91F98263F0086A0A6 /* PlayerAsset.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				A1AAF5CE1F8C5874005007C4 /* MapRenderer.swift in Sources */,
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
