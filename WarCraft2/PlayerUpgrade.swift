@@ -9,70 +9,22 @@
 import Foundation
 
 class CPlayerUpgrade {
-    //    protected:
-    //    std::string DName;
-    //    int DArmor;
-    //    int DSight;
-    //    int DSpeed;
-    //    int DBasicDamage;
-    //    int DPiercingDamage;
-    //    int DRange;
-    //    int DGoldCost;
-    //    int DLumberCost;
-    //    int DResearchTime;
-    //    std::vector< EAssetType > DAffectedAssets;
-    //    static std::unordered_map< std::string, std::shared_ptr< CPlayerUpgrade > > DRegistryByName;
-    //    static std::unordered_map< int, std::shared_ptr< CPlayerUpgrade > > DRegistryByType;
-    //
-    //    public:
-    //    CPlayerUpgrade();
-    //
-    //    std::string Name() const{
-    //    return DName;
-    //    };
-    //
-    //    int Armor() const{
-    //    return DArmor;
-    //    };
-    //
-    //    int Sight() const{
-    //    return DSight;
-    //    };
-    //
-    //    int Speed() const{
-    //    return DSpeed;
-    //    };
-    //
-    //    int BasicDamage() const{
-    //    return DBasicDamage;
-    //    };
-    //
-    //    int PiercingDamage() const{
-    //    return DPiercingDamage;
-    //    };
-    //
-    //    int Range() const{
-    //    return DRange;
-    //    };
-    //
-    //    int GoldCost() const{
-    //    return DGoldCost;
-    //    };
-    //
-    //    int LumberCost() const{
-    //    return DLumberCost;
-    //    };
-    //
-    //    int ResearchTime() const{
-    //    return DResearchTime;
-    //    };
-    //
-    //    const std::vector< EAssetType > &AffectedAssets() const{
-    //    return DAffectedAssets;
-    //    };
-    //
-    //    static bool LoadUpgrades(std::shared_ptr< CDataContainer > container);
-    //    static bool Load(std::shared_ptr< CDataSource > source);
-    //    static std::shared_ptr< CPlayerUpgrade > FindUpgradeFromType(EAssetCapabilityType type);
-    //    static std::shared_ptr< CPlayerUpgrade > FindUpgradeFromName(const std::string &name);
+    private(set) var DArmor: Int = 0
+    private(set) var DSight: Int = 0
+    private(set) var DSpeed: Int = 0
+    private(set) var DBasicDamage: Int = 0
+    private(set) var DPiercingDamage: Int = 0
+    private(set) var DRange: Int = 0
+    private(set) var DGoldCost: Int = 0
+    private(set) var DLumberCost: Int = 0
+    private(set) var DResearchTime: Int = 0
+    private(set) var DName: String = ""
+    private(set) var DAffectedAssets: [EAssetType] = []
+    private(set) var DRegistryByName: [String: CPlayerUpgrade] = [:]
+    private(set) var DRegistryByType: [Int: CPlayerUpgrade] = [:]
+
+    func LoadUpgrades(container _: CDataContainer) -> Bool { return false }
+    func Load(source _: CDataSource) -> Bool { return false }
+    func FindUpgradeFromType(type _: EAssetCapabilityType) -> CPlayerUpgrade { return CPlayerUpgrade() }
+    func FindUpgradeFromName(name _: String) -> CPlayerUpgrade { return CPlayerUpgrade() }
 }

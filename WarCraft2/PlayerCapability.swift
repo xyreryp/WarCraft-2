@@ -20,47 +20,31 @@ class CPlayerCapability {
     init(name: String, targettype: ETargetType) {
         DName = name
         DTargetType = targettype
+        DAssetCapabilityType = NameToType(name: name)
     }
-
     deinit {
+        
     }
+    private(set) var DName: String
+    private(set) var DAssetCapabilityType: EAssetCapabilityType
+    private(set) var DTargetType: ETargetType
+    var NameRegistry: [String: CPlayerCapability] = [:]
+    var TypeRegistry: [Int: CPlayerCapability] = [:]
 
-    var DName: String
-    var DAssetCapabilityType: EAssetCapabilityType
-    var DTargetType: ETargetType
 
+    func Register(capability : CPlayerCapability) -> Bool { return true }
+    
     // FIXME:
-    //    static std::unordered_map< std::string, std::shared_ptr< CPlayerCapability > > &NameRegistry();
-    //    static std::unordered_map< int, std::shared_ptr< CPlayerCapability > > &TypeRegistry();
-    var NameRegistry = [String: CPlayerCapability]()
-    var TypeRegistry = [Int: CPlayerCapability]()
+    func FindCapability(type _: EAssetCapabilityType) -> CPlayerCapability { return CPlayerCapability(name: name) }
 
-    // FIXME:
-    func Register(capability _: CPlayerCapability) -> Bool { return true }
+    func FindCapability(name: String) -> CPlayerCapability { return CPlayerCapability(name: name) }
 
-    func Name() -> String {
-        return DName
-    }
-
-    func AssetCapabilityType() -> EAssetCapabilityType {
-        return DAssetCapabilityType
-    }
-
-    func TargetType() -> ETargetType {
-        return DTargetType
-    }
-
-    func FindCapability(type _: EAssetCapabilityType) -> CPlayerCapability? { return nil }
-
-    func FindCapability(name _: inout String) -> CPlayerCapability? { return nil }
-
-    func NameToType(name _: inout String) -> EAssetCapabilityType? { return nil }
+    func NameToType(name: String) -> EAssetCapabilityType { return CPlayerCapability(name: name) }
 
     func TypeToName(type _: EAssetCapabilityType) {}
 
-    func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool? { return nil }
+    func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
 
-    // FIXME:
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
     func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
 }
