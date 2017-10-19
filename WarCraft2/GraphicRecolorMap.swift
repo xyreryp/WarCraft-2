@@ -127,23 +127,23 @@ class CGraphicRecolorMap {
         if !LineSource.Read(line: &TempString) {
             return false
         }
-//        do {
-            let ColorCount = Int(TempString)
-            if ColorCount! != DColors.count {
+        //        do {
+        let ColorCount = Int(TempString)
+        if ColorCount! != DColors.count {
+            return false
+        }
+        resize(array: &DColorNames, size: ColorCount!, defaultValue: "")
+        for Index in 0 ..< ColorCount! {
+            if !LineSource.Read(line: &TempString) {
                 return false
             }
-            resize(array: &DColorNames, size: ColorCount!, defaultValue: "")
-            for Index in 0 ..< ColorCount! {
-                if !LineSource.Read(line: &TempString) {
-                    return false
-                }
-                DMapping[TempString] = Index
-                DColorNames[Index] = TempString
-            }
-//        } catch {
-//            print("Exception in Load function (GraphicRecolorMap.swift)")
-//            return false
-//        }
+            DMapping[TempString] = Index
+            DColorNames[Index] = TempString
+        }
+        //        } catch {
+        //            print("Exception in Load function (GraphicRecolorMap.swift)")
+        //            return false
+        //        }
         return true
     }
 
