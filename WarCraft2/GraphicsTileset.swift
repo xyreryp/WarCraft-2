@@ -213,7 +213,8 @@ class CGraphicTileset {
         return true
     } // end DuplicateClippedTile()
 
-    func FindTile(tilename: inout String) -> Int {
+    func FindTile(tilename: inout String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
+
         let findTile = DMapping[tilename]
         if findTile != nil { // if findTile exists
             return findTile!

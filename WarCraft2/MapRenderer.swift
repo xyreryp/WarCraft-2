@@ -13,10 +13,10 @@ import Foundation
 protocol PMapRenderer {
 
     // TODO: uncomment after CGraphicTileset is implemented
-    var DTileset: CGraphicTileset {get set}
+    var DTileset: CGraphicTileset { get set }
 
     // TODO: uncomment after CTerrainMap is implemented
-    var DDMap: CTerrainMap {get set}
+    var DDMap: CTerrainMap { get set }
     var DTileIndices: [[[Int]]] { get set }
     var DPixelIndices: [Int] { get set }
 
@@ -35,13 +35,13 @@ protocol PMapRenderer {
     func DrawMiniMap(surface: CGraphicSurface)
 }
 
+final class CMapRenderer: PMapRenderer {
 
-final class CMapRenderer : PMapRenderer{
+    // inherited from Protocol
     var DDMap: CTerrainMap
-    
     var DTileset: CGraphicTileset
     var DMap: CTerrainMap = CTerrainMap()
-    var DTileIndices: [[[Int]]] = [[[Int]]()]
+    var DTileIndices: [[[Int]]] = [[[Int]]]()
     var DPixelIndices: [Int] = [Int]()
 
     func resize<T>(array: inout [T], size: Int, defaultValue: T) {
@@ -53,18 +53,17 @@ final class CMapRenderer : PMapRenderer{
         }
     }
 
-//    // huge constructor
-    init(config: CDataSource, tileset: CGraphicTileset, map: CTerrainMap) {
-        var LineSource:CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
+    //    // huge constructor
+    init(config: CDataSource, tileset _: CGraphicTileset, map _: CTerrainMap) {
+        var LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
         var TempString: String = String()
         var ItemCount: Int = Int()
 
         var tileset: CGraphicTileset = CGraphicTileset()
 
-        var DDmap: CTerrainMap = CTerrainMap()
+        var Dmap: CTerrainMap = CTerrainMap()
 
-        var resizeSize: Int = Int(CTerrainMap.ETileType.Max.rawValue)
-        resize(array: &DPixelIndices, size: 1, defaultValue: CTerrainMap.ETileType.Max)
+        resize(array: &DPixelIndices, size: CTerrainMap.ETileType.None.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
         if !LineSource.Read(line: &TempString) {
             return
         }
@@ -78,106 +77,104 @@ final class CMapRenderer : PMapRenderer{
             }
             let tokenizer: CTokenizer
             var tokens: [String]
-            tokenizer.Tokenize(tokens: &tokens, data: TempString)//, delimiters: TempString)
-            
-//            Richard, I’m assuming you already tried `var uint = char as! UInt8` (edited)
-//            var ColorValue: uint32 = tokens.first as! uint32
+            tokenizer.Tokenize(tokens: &tokens, data: TempString) // , delimiters: TempString)
+
+            //            Richard, I’m assuming you already tried `var uint = char as! UInt8` (edited)
+            //            var ColorValue: uint32 = tokens.first as! uint32
             var ColorValue: uint32 = uint32(tokens.first!)!
             var PixelIndex: Int = 0
-            
-            if(tokens.first == "light-grass"){
+
+            if tokens.first == "light-grass" {
                 PixelIndex = CTerrainMap.ETileType.LightGrass.rawValue
-            }
-            else if(tokens.first == "dark-grass"){
+            } else if tokens.first == "dark-grass" {
                 PixelIndex = CTerrainMap.ETileType.DarkGrass.rawValue
-            }
-            else if(tokens.first == "light-dirt"){
+            } else if tokens.first == "light-dirt" {
                 PixelIndex = CTerrainMap.ETileType.LightDirt.rawValue
-            }
-            else if(tokens.first == "dark-dirt"){
+            } else if tokens.first == "dark-dirt" {
                 PixelIndex = CTerrainMap.ETileType.DarkDirt.rawValue
-            }
-            else if(tokens.first == "rock"){
+            } else if tokens.first == "rock" {
                 PixelIndex = CTerrainMap.ETileType.Rock.rawValue
-            }
-            else if(tokens.first == "forest"){
+            } else if tokens.first == "forest" {
                 PixelIndex = CTerrainMap.ETileType.Forest.rawValue
-            }
-            else if(tokens.first == "stump"){
+            } else if tokens.first == "stump" {
                 PixelIndex = CTerrainMap.ETileType.Stump.rawValue
-            }
-            else if(tokens.first == "shallow-water"){
+            } else if tokens.first == "shallow-water" {
                 PixelIndex = CTerrainMap.ETileType.ShallowWater.rawValue
-            }
-            else if(tokens.first == "deep-water"){
+            } else if tokens.first == "deep-water" {
                 PixelIndex = CTerrainMap.ETileType.DeepWater.rawValue
-            }
-            else{
+            } else {
                 PixelIndex = CTerrainMap.ETileType.Rubble.rawValue
             }
             DPixelIndices[PixelIndex] = Int(ColorValue)
-            
-            
-            
             Index += 1
         } while Index < ItemCount
 
+        resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
+        for (i, _) in DTileIndices.enumerated() {
+            resize(array: &DTileIndices[i], size: 16, defaultValue: [Int()])
+        }
 
+        var Index2: Int = 0
+        repeat {
+            var AltTileIndex: Int = 0
+            while true {
+                // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
+                let Value: Int = DTileset.FindTile(tilename: "light-grass-")
+            }
+
+            Index2 += 1
+        } while Index < 16
     }
 
-
     func MapWidth() -> Int {
-        return DDMap.Width()
+        return DMap.Width()
     }
 
     func MapHeight() -> Int {
-        return DDMap.Height()
+        return DMap.Height()
     }
 
     func DetailedMapWidth() -> Int {
-        return DDMap.Width() * DTileset.TileWidth()
+        return DMap.Width() * DTileset.TileWidth()
     }
 
     func DetailedMapHeight() -> Int {
-        return DDMap.Height() * DTileset.TileHeight()
+        return DMap.Height() * DTileset.TileHeight()
     }
 
-    func DrawMap(surface: CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
-        var TileWidth: Int = Int()
-        var TileHeight: Int = Int()
-        
-        TileWidth = DTileset.TileWidth()
-        TileHeight = DTileset.TileHeight()
-        
-        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
-
-        var YIndex: Int = rect.DYPosition / TileHeight
-        var YPos: Int = -(rect.DYPosition % TileHeight)
-        var XIndex: Int = rect.DXPosition / TileWidth
-        var XPos: Int = -(rect.DXPosition % TileWidth)
-        repeat {
-            repeat {
-                var PixelType: CPixelType = CPixelType(DDMap.TileType(XIndex, YIndex))
-                var ThisTileType:CTerrainMap.ETileType = DDMap.TileType(XIndex, YIndex)
-                var TileIndex: Int = DDMap.TileType
-                
-                
-                
-                
-                XIndex += 1
-                YPos += TileWidth
-            } while XPos < rect.DWidth
-            
-            YIndex += 1
-            YPos += TileHeight
-        } while YPos < rect.DHeight
-        
-
+    func DrawMap(surface _: CGraphicSurface, typesurface _: CGraphicSurface, rect _: SRectangle) {
+        //        var TileWidth: Int = Int()
+        //        var TileHeight: Int = Int()
+        //
+        //        TileWidth = DTileset.TileWidth()
+        //        TileHeight = DTileset.TileHeight()
+        //
+        //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+        //
+        //        var YIndex: Int = rect.DYPosition / TileHeight
+        //        var YPos: Int = -(rect.DYPosition % TileHeight)
+        //        var XIndex: Int = rect.DXPosition / TileWidth
+        //        var XPos: Int = -(rect.DXPosition % TileWidth)
+        //        repeat {
+        //            repeat {
+        //                var PixelType: CPixelType = CPixelType(DDMap.TileType(xindex: XIndex, yindex: YIndex))
+        //                var ThisTileType:CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+        //                var TileIndex: Int = DDMap.TileType
+        //
+        //
+        //
+        //
+        //                XIndex += 1
+        //                YPos += TileWidth
+        //            } while XPos < rect.DWidth
+        //
+        //            YIndex += 1
+        //            YPos += TileHeight
+        //        } while YPos < rect.DHeight
+        //
+        //
     }
 
-    func DrawMiniMap(surface: CGraphicSurface) {
-        <#code#>
+    func DrawMiniMap(surface _: CGraphicSurface) {
     }
-
- }
-
+}
