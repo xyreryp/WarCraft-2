@@ -19,22 +19,25 @@ class CTextFormatter {
         var CharactersLeft = SimpleString.count
         
         
-        if 0 == CharUntilComma {
+        if 0 == CharUntilComma
+        {
             CharUntilComma = 3
         }
         
-        for char in SimpleString {
+        for char in SimpleString
+        {
             ReturnString += String(char)
             CharUntilComma -= 1
             CharactersLeft -= 1
-            if 0 == CharUntilComma {
+            if 0 == CharUntilComma
+            {
                 CharUntilComma = 3
-                if(1 <= CharactersLeft) {
+                if(1 <= CharactersLeft)
+                {
                     ReturnString += ","
                 }
             }
         }
-        
         return ReturnString
     }
 
