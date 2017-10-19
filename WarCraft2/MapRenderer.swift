@@ -16,7 +16,7 @@ protocol PMapRenderer {
     var DTileset: CGraphicTileset {get set}
 
     // TODO: uncomment after CTerrainMap is implemented
-    var DMap: CTerrainMap {get set}
+    var DDMap: CTerrainMap {get set}
     var DTileIndices: [[[Int]]] { get set }
     var DPixelIndices: [Int] { get set }
 
@@ -37,6 +37,8 @@ protocol PMapRenderer {
 
 
 final class CMapRenderer : PMapRenderer{
+    var DDMap: CTerrainMap
+    
     var DTileset: CGraphicTileset
     var DMap: CTerrainMap = CTerrainMap()
     var DTileIndices: [[[Int]]] = [[[Int]]()]
@@ -59,9 +61,10 @@ final class CMapRenderer : PMapRenderer{
 
         var tileset: CGraphicTileset = CGraphicTileset()
 
-        var map: CTerrainMap = CTerrainMap()
+        var DDmap: CTerrainMap = CTerrainMap()
 
-        resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max, defaultValue: ETileType.None)
+        var resizeSize: Int = Int(CTerrainMap.ETileType.Max.rawValue)
+        resize(array: &DPixelIndices, size: 1, defaultValue: CTerrainMap.ETileType.Max)
         if !LineSource.Read(line: &TempString) {
             return
         }
@@ -124,19 +127,19 @@ final class CMapRenderer : PMapRenderer{
 
 
     func MapWidth() -> Int {
-        return DMap.Width()
+        return DDMap.Width()
     }
 
     func MapHeight() -> Int {
-        return DMap.Height()
+        return DDMap.Height()
     }
 
     func DetailedMapWidth() -> Int {
-        return DMap.Width() * DTileset.TileWidth()
+        return DDMap.Width() * DTileset.TileWidth()
     }
 
     func DetailedMapHeight() -> Int {
-        return DMap.Height() * DTileset.TileHeight()
+        return DDMap.Height() * DTileset.TileHeight()
     }
 
     func DrawMap(surface: CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
@@ -146,17 +149,17 @@ final class CMapRenderer : PMapRenderer{
         TileWidth = DTileset.TileWidth()
         TileHeight = DTileset.TileHeight()
         
-        typesurface.Clear(xpos: Int(nil), ypos: Int(nil), width: Int(nil), height: Int(nil))
-        
+        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+
         var YIndex: Int = rect.DYPosition / TileHeight
         var YPos: Int = -(rect.DYPosition % TileHeight)
         var XIndex: Int = rect.DXPosition / TileWidth
         var XPos: Int = -(rect.DXPosition % TileWidth)
         repeat {
             repeat {
-                var PixelType: CPixelType = CPixelType(DMap.TileType(XIndex, YIndex))
-                var ThisTileType:ETileType = DMap.TileType(XIndex, YIndex)
-                var TileIndex: Int = self.DMap.TileType
+                var PixelType: CPixelType = CPixelType(DDMap.TileType(XIndex, YIndex))
+                var ThisTileType:CTerrainMap.ETileType = DDMap.TileType(XIndex, YIndex)
+                var TileIndex: Int = DDMap.TileType
                 
                 
                 
