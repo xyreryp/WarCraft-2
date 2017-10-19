@@ -57,14 +57,11 @@ final class CMapRenderer : PMapRenderer{
         var TempString: String = String()
         var ItemCount: Int = Int()
 
-        // TODO: uncomment after DTileset is implemented
-         var tileset: CGraphicTileset = CGraphicTileset()
+        var tileset: CGraphicTileset = CGraphicTileset()
 
-        // TODO: uncomment after DTileset is implemented
-         var map: CTerrainMap = CTerrainMap()
+        var map: CTerrainMap = CTerrainMap()
 
-        // TODO: COME BACK AFTER I DO CTERRAINMAP
-        resize(array: &DPixelIndices, size: ETileType.Max, defaultValue: ETileType.None)
+        resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max, defaultValue: ETileType.None)
         if !LineSource.Read(line: &TempString) {
             return
         }
