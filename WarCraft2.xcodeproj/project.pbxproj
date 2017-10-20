@@ -47,6 +47,7 @@
 		E14136BF1F98287F0086A0A6 /* PlayerUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136BE1F98287F0086A0A6 /* PlayerUpgrade.swift */; };
 		E14136C11F982F870086A0A6 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136C01F982F870086A0A6 /* PlayerData.swift */; };
 		E14136C51F9865920086A0A6 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136C41F9865920086A0A6 /* PlayerAssetType.swift */; };
+		E14136C71F99A5D80086A0A6 /* SAssetCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14136C61F99A5D80086A0A6 /* SAssetCommand.swift */; };
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
@@ -97,6 +98,7 @@
 		E14136BE1F98287F0086A0A6 /* PlayerUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUpgrade.swift; sourceTree = "<group>"; };
 		E14136C01F982F870086A0A6 /* PlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerData.swift; sourceTree = "<group>"; };
 		E14136C41F9865920086A0A6 /* PlayerAssetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAssetType.swift; sourceTree = "<group>"; };
+		E14136C61F99A5D80086A0A6 /* SAssetCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAssetCommand.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19A0AD21F959094001B569C /* TerrainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMap.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
 				6BC677471F8C186D00953C3A /* Rectangle.swift */,
 				E14136BA1F9828280086A0A6 /* ActivatedPlayerCapability.swift */,
+				E14136C61F99A5D80086A0A6 /* SAssetCommand.swift */,
 				E14136BC1F98283D0086A0A6 /* PlayerCapability.swift */,
 				E14136C01F982F870086A0A6 /* PlayerData.swift */,
 				E14136BE1F98287F0086A0A6 /* PlayerUpgrade.swift */,
@@ -308,6 +311,7 @@
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				E14136B91F98263F0086A0A6 /* PlayerAsset.swift in Sources */,
+				E14136C71F99A5D80086A0A6 /* SAssetCommand.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				E14136BF1F98287F0086A0A6 /* PlayerUpgrade.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
