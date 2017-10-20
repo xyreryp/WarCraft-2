@@ -9,7 +9,7 @@
 // This file contains the class and member functions required for
 // the AI player
 //
-// NOTE:
+// NOTE: will comment anything from GameModel out at end because file not written yet
 
 
 //uses files: GameModel.h, PlayerCommand.h
@@ -21,27 +21,58 @@ class CAIPlayer {
     var DCycle: Int
     var DDownSample: Int
     
-    //all commands are passed by reference
-    func SearchMap(command: SPlayerCommandRequest) -> Bool
+    public init(playerdata: CPlayerData, downsample: Int){
+        DPlayerData = playerdata
+        DCycle = 0
+        DDownSample = downsample
+    }
     
-    func FindEnemies(command: SPlayerCommandRequest) -> Bool
+    //Currently working on SearchMap
+    func SearchMap(command: inout SPlayerCommandRequest) -> Bool {
+        var IdleAssets = DPlayerData.IdleAssets()
+        var MovableAsset: CPlayerAsset
+        
+        for()
+        {
+            
+        }
+    }
     
-    func AttackEnemies(command: SPlayerCommandRequest) -> Bool
+    func FindEnemies(command: inout SPlayerCommandRequest) -> Bool {
+        
+    }
     
-    func BuildTownHall(command: SPlayerCommandRequest) -> Bool
+    func AttackEnemies(command: inout SPlayerCommandRequest) -> Bool {
+        
+    }
     
-    func BuildBuilding(command: SPlayerCommandRequest, buildingtype: EAssetType, neartype:EAssetType) -> Bool
+    func BuildTownHall(command: inout SPlayerCommandRequest) -> Bool {
+        
+    }
     
-    func ActivatePeasants(command: SPlayerCommandRequest, trainmore: Bool) -> Bool
+    func BuildBuilding(command: inout SPlayerCommandRequest, buildingtype: EAssetType, neartype:EAssetType) -> Bool {
+        
+    }
     
-    func ActivateFighters(command: SPlayerCommandRequest) -> Bool
+    func ActivatePeasants(command: inout SPlayerCommandRequest, trainmore: Bool) -> Bool {
+        
+    }
     
-    func TrainFootman(command: SPlayerCommandRequest) -> Bool
+    func ActivateFighters(command: inout SPlayerCommandRequest) -> Bool {
+        
+    }
     
-    func TrainArcher(command: SPlayerCommandRequest) -> Bool
+    func TrainFootman(command: inout SPlayerCommandRequest) -> Bool {
+        
+    }
     
-    public init(playerdata: CPlayerData, downsample: Int)
-    public func CalculateCommand(SPlayerCommandRequest &command)
+    func TrainArcher(command: inout SPlayerCommandRequest) -> Bool {
+        
+    }
+    
+    public func CalculateCommand(command: SPlayerCommandRequest) {
+        
+    }
     
     
 }
