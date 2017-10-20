@@ -285,9 +285,12 @@ final class CMapRenderer: PMapRenderer {
                     }
                     
                     if (-1 != DisplayIndex) {
-//                        DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
+                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
 //                        DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }
+                }
+                else {
+                    return 
                 }
                 
                 XIndex += 1
