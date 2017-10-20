@@ -57,12 +57,12 @@ class CTerrainMap {
             [true, false, false, false, true, false, false, false, false, true, true],
         ]
 
-    internal var DTerrainMap = [[ETerrainTileType]]() // initialized variables
-    internal var DPartials = [[UInt8]]()
-    internal var DMap = [[ETileType]]()
-    internal var DMapIndices = [[Int]]()
-    internal var DMapName: String
-    internal var DRendered: Bool
+    var DTerrainMap = [[ETerrainTileType]]() // initialized variables
+    var DPartials = [[UInt8]]()
+    var DMap = [[ETileType]]()
+    var DMapIndices = [[Int]]()
+    var DMapName: String
+    var DRendered: Bool
 
     init() {
         DMapName = "not rendered"
@@ -302,8 +302,8 @@ class CTerrainMap {
 
         var TempString = String()
         var Tokens: [String] = [String]()
-        var MapWidth: Int
-        var MapHeight: Int
+        //    var MapWidth: Int
+        //  var MapHeight: Int
         var ReturnStatus: Bool = false
 
         DTerrainMap.removeAll()
@@ -324,12 +324,12 @@ class CTerrainMap {
         StringMap = text.components(separatedBy: "\n")
         let StringMapCount: Int = StringMap.count
         print(StringMap.first)
+        let MapWidth = 64
+        let MapHeight = 64
 
-        do { // not too sure how to catch errors
+        do {
             //            MapWidth = Int(Tokens[0])!
             //            MapHeight = Int(Tokens[1])!
-            let MapWidth = 64
-            let MapHeight = 64
             if (8 > MapWidth) || (8 > MapHeight) {
                 return ReturnStatus
             }
@@ -401,24 +401,24 @@ class CTerrainMap {
             // if MapHeight + 1 > StringMap.count {
             //     return ReturnStatus
             // }
+
             resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
+            let valueStringValues: [Character] = ["0", "A"]
+            var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
             for Index in 0 ..< DTerrainMap.count {
-                resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
+                resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
                 for Inner in 0 ..< MapWidth + 1 {
-                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
-                    let valueStringValues: [Character] = ["0", "A"]
-                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
-                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
+                    let index: String.Index = StringMap[Index + 71].index(StringMap[Index + 71].startIndex, offsetBy: Inner)
+                    let intValue: UInt8 = String(StringMap[Index + 71][index]).utf8.map { UInt8($0) }[0]
+                    if ("0" <= StringMap[Index + 71][index]) && ("9" >= StringMap[Index + 71][index]) {
                         DPartials[Index][Inner] = intValue - asciiValues[0]
-                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
+                    } else if ("A" <= StringMap[Index + 71][index]) && ("F" >= StringMap[Index + 71][index]) {
                         DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
                     } else {
                         return ReturnStatus
                     }
                 }
             }
-            print(DPartials)
             ReturnStatus = true
             return ReturnStatus
             //  catch {
