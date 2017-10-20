@@ -43,7 +43,7 @@ class CPixelType {
     // TODO: Uncomment from PlayerAsset
     //    var EPlayerColor: DColor
 
-    init(red : Int, green: Int, blue : Int) {
+    init(red _: Int, green: Int, blue _: Int) {
         //        DColor = EPlayerColor(rawValue: red)!
         DType = EAssetTerrainType(rawValue: green)!
     }

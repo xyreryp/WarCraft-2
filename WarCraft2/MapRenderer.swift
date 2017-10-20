@@ -49,13 +49,13 @@ final class CMapRenderer: PMapRenderer {
     //    // huge constructor
     init(config: CDataSource, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
-        var LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
+        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
         var TempString: String = String()
         var ItemCount: Int = Int()
 
         // data members
-        var DTileSet: CGraphicTileset = tileset
-        var DDmap: CTerrainMap = map
+        let DTileSet: CGraphicTileset = tileset
+        let DDmap: CTerrainMap = map    // changed to DDMap because DMap kept referencing visibilityMap.Dmap
         var DTileIndices: [[[Int]]] = [[[Int]]]()
         var DPixelIndices: [Int] = [Int]()
 
@@ -256,43 +256,44 @@ final class CMapRenderer: PMapRenderer {
         return DDMap.Height() * DTileset.TileHeight()
     }
 
-    func DrawMap(surface : SKScene, typesurface: SKScene, rect: SRectangle) {
+    func DrawMap(surface: SKScene, typesurface _: SKScene, rect: SRectangle) {
         var TileWidth: Int = Int()
         var TileHeight: Int = Int()
 
         TileWidth = DTileset.TileWidth()
         TileHeight = DTileset.TileHeight()
 
-        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+        //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
 
         var YIndex: Int = rect.DYPosition / TileHeight
         var YPos: Int = -(rect.DYPosition % TileHeight)
         var XIndex: Int = rect.DXPosition / TileWidth
-        var XPos: Int = -(rect.DXPosition % TileWidth)
+        let XPos: Int = -(rect.DXPosition % TileWidth)
         repeat {
             repeat {
-//                let type: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
-                var PixelType: CPixelType = CPixelType(type: DDMap.TileType(xindex: XIndex, yindex: YIndex))
-                var ThisTileType: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
-                var TileIndex: Int = DDMap.TileType(xindex: XIndex, yindex: YIndex).rawValue
-                
-                if ((0 <= TileIndex) && (16 > TileIndex)) {
+                // let type: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+                // PixelType used in DrawClipped
+                let PixelType: CPixelType = CPixelType(type: DDMap.TileType(xindex: XIndex, yindex: YIndex))
+                let ThisTileType: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+                let TileIndex: Int = DDMap.TileType(xindex: XIndex, yindex: YIndex).rawValue
+
+                if (0 <= TileIndex) && (16 > TileIndex) {
                     var DisplayIndex: Int = -1
-                    var AltTileCount: Int = DTileIndices[ThisTileType.rawValue][TileIndex].count
-                    if (AltTileCount > 0) {
-                        var AltIndex: Int = (XIndex + YIndex) % AltTileCount
+                    let AltTileCount: Int = DTileIndices[ThisTileType.rawValue][TileIndex].count
+                    if AltTileCount > 0 {
+                        let AltIndex: Int = (XIndex + YIndex) % AltTileCount
                         DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
                     }
-                    
-                    if (-1 != DisplayIndex) {
+
+                    if -1 != DisplayIndex {
                         DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
-//                        DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
+                        // TODO: Uncomment after uncommeting CGraphicSurface.DrawClipped
+                        // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }
+                } else {
+                    return
                 }
-                else {
-                    return 
-                }
-                
+
                 XIndex += 1
                 YPos += TileWidth
             } while XPos < rect.DWidth
