@@ -356,9 +356,18 @@ class CTerrainMap {
                         break
                     default: return ReturnStatus
                     }
+                    if Inner != 0 {
+                        if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
+                            return ReturnStatus
+                        }
+                    }
+                    if Index != 0 {
+                        if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
+                            return ReturnStatus
+                        }
+                    }
                 }
             }
-            print(DTerrainMap)
             //                    //  if(Inner) { to do confused on this part?
             //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
             //                        return ReturnStatus
