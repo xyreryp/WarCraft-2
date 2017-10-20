@@ -273,16 +273,7 @@ class CTerrainMap {
 
     func LoadMap() throws -> Bool { // source _: CDataSource
 
-        // let file = "Users/richardgao/ECS160OSX/WarCraft2/mountain.map"
-
         let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
-        //   let toURL: URL = URL(string: filepath!)
-        //        try print(String(contentOf: filepath))
-
-        let file = "mountain.txt" //this is the file. we will write to and read from it
-
-        // writing
-        // reading
 
         let text = try String(contentsOf: filepath!, encoding: .utf8)
         // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
@@ -305,6 +296,7 @@ class CTerrainMap {
         //        if 2 != Tokens.count {
         //            return ReturnStatus
         //        }
+
         do { // not too sure how to catch errors
             var StringMap = [String]()
             //            MapWidth = Int(Tokens[0])!
@@ -368,20 +360,9 @@ class CTerrainMap {
                     }
                 }
             }
-            //                    //  if(Inner) { to do confused on this part?
-            //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
-            //                        return ReturnStatus
-            //                    }
-            //                    //  }
-            //                    //  if(Index) { to do confused on this part?
-            //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
-            //                        return ReturnStatus
-            //                    }
-            //                    // }
-            //                }
-            //            }
-            //            StringMap.removeAll()
-            //            while StringMap.count < MapHeight + 1 {
+     
+            StringMap.removeAll()
+            while StringMap.count < MapHeight + 1 {
             //                if !LineSource.Read(line: &TempString) {
             //                    return ReturnStatus
             //                }
