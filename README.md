@@ -71,9 +71,9 @@
 |              | [⋅]    | Path.h                                                     | Path.cpp                        |                                                          |
 |              |        | PeriodicTimeout.h                                          | PeriodicTimeout.cpp             |                                                          |
 |              |        | PixelType.h                                                | PixelType.cpp                   | PixelPosition.swift                                      |
-|              |        | PlayerAIColorSelectMode.h                                  | PlayerAIColorSelectMode.cpp     | PlayerCommand.swift                                      |
+|              |        | PlayerAIColorSelectMode.h                                  | PlayerAIColorSelectMode.cpp     |                                                          |
 |              |        | PlayerAsset.h                                              | PlayerAsset.cpp                 |                                                          |
-|              |        | PlayerCommand.h                                            |                                 |                                                          |
+|              |        | PlayerCommand.h                                            |                                 | PlayerCommand.swift                                      |
 |              |        | Position.h                                                 | Position.cpp                    | Position.swift                                           |
 |              |        | RandomNumberGenerator.h                                    |                                 | RandomNumberGenerator.swift                              |
 |              |        | Rectangle.h                                                |                                 | Rectangle.swift                                          |
