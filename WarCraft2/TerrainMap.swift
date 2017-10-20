@@ -270,8 +270,7 @@ class CTerrainMap {
         }
         DRendered = true
     }
-    
-    
+
     // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
     // parse a string into array on specific delim
     func SplitStringWithDelim(input: String, delim: String) -> [String] {
@@ -279,7 +278,7 @@ class CTerrainMap {
         let StringOfWordsArray = stringOfWords.components(separatedBy: delim)
         return StringOfWordsArray
     }
-    
+
     // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
     // parse a string to string array on spaces
     func StringToArray(input: String) -> [String] {
@@ -290,7 +289,6 @@ class CTerrainMap {
 
     func LoadMap() throws -> Bool { // source _: CDataSource
 
-
         // reading in file path
         let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
         //   let toURL: URL = URL(string: filepath!)
@@ -298,7 +296,7 @@ class CTerrainMap {
 
         // read it into string
         let text = try String(contentsOf: filepath!, encoding: .utf8)
-        print ("START DEBUG")
+        print("START DEBUG")
         //        print(text)
         // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
 
@@ -388,9 +386,10 @@ class CTerrainMap {
                     }
                 }
             }
-     
-            StringMap.removeAll()
-            while StringMap.count < MapHeight + 1 {
+            // only need below code if we continue to use Nitta's code/functions
+
+            // StringMap.removeAll()
+            // while StringMap.count < MapHeight + 1 {
             //                if !LineSource.Read(line: &TempString) {
             //                    return ReturnStatus
             //                }
@@ -399,33 +398,32 @@ class CTerrainMap {
             //                    return ReturnStatus
             //                }
             //            }
-            //            if MapHeight + 1 > StringMap.count {
-            //                return ReturnStatus
-            //            }
-            //            resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
-            //            for Index in 0 ..< DTerrainMap.count {
-            //                resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
-            //                for Inner in 0 ..< MapWidth + 1 {
-            //                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
-            //                    let valueStringValues: [Character] = ["0", "A"]
-            //                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-            //                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
-            //                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
-            //                        DPartials[Index][Inner] = intValue - asciiValues[0]
-            //                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
-            //                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
-            //                    } else {
-            //                        return ReturnStatus
-            //                    }
-            //                }
-            //            }
-            //            ReturnStatus = true
-            //        }
-            //        return ReturnStatus
-            //        //  catch {
+            // if MapHeight + 1 > StringMap.count {
+            //     return ReturnStatus
+            // }
+            resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
+            for Index in 0 ..< DTerrainMap.count {
+                resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
+                for Inner in 0 ..< MapWidth + 1 {
+                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
+                    let valueStringValues: [Character] = ["0", "A"]
+                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
+                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
+                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
+                        DPartials[Index][Inner] = intValue - asciiValues[0]
+                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
+                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
+                    } else {
+                        return ReturnStatus
+                    }
+                }
+            }
+            print(DPartials)
+            ReturnStatus = true
+            return ReturnStatus
+            //  catch {
             //        //      print("LoadMap function Error (TerrainMap.swift)")
             //        // }
         }
-        return false
     }
 }
