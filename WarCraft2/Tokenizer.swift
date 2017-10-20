@@ -23,12 +23,12 @@ protocol PTokenizer {
     //    func Tokenize(data: String, delimiters: String) -> [String]
 }
 
-class CTokenizer: PTokenizer {
+final class CTokenizer: PTokenizer {
     var DDataSource: CDataSource
 
     var DDelimiters: String = String()
 
-    required init(source: CDataSource, delimiters: String) {
+    init(source: CDataSource, delimiters: String) {
         DDataSource = source
         if delimiters.count > 0 {
             DDelimiters = delimiters
