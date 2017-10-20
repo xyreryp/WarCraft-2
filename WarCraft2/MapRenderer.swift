@@ -12,7 +12,7 @@ import Foundation
 // TODO: implement MapRenderer
 protocol PMapRenderer {
     var DTileset: CGraphicTileset { get set }
-    var DMap: CTerrainMap { get set }
+    var DDMap: CTerrainMap { get set }
     var DTileIndices: [[[Int]]] { get set }
     var DPixelIndices: [Int] { get set }
 
@@ -31,10 +31,10 @@ protocol PMapRenderer {
 }
 
 final class CMapRenderer: PMapRenderer {
-    var DTileset: CGraphicTileset
-    var DMap: CTerrainMap
-    var DTileIndices: [[[Int]]]
-    var DPixelIndices: [Int]
+    var DTileset: CGraphicTileset = CGraphicTileset()
+    var DDMap: CTerrainMap = CTerrainMap()
+    var DTileIndices: [[[Int]]] = [[[Int]]]()
+    var DPixelIndices: [Int] = [Int]()
 
     static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
         while array.count < size {
@@ -51,11 +51,10 @@ final class CMapRenderer: PMapRenderer {
         var LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
         var TempString: String = String()
         var ItemCount: Int = Int()
-        var config: CDataSource = config
 
         // data members
         var DTileSet: CGraphicTileset = tileset
-        var Dmap: CTerrainMap = map
+        var DDmap: CTerrainMap = map
         var DTileIndices: [[[Int]]] = [[[Int]]]()
         var DPixelIndices: [Int] = [Int]()
 
@@ -234,56 +233,70 @@ final class CMapRenderer: PMapRenderer {
         var Idx: Int = 0
         repeat {
             DTileIndices[CTerrainMap.ETileType.Rubble.rawValue][Idx].append(DTileIndices[CTerrainMap.ETileType.Rock.rawValue][0][0])
+            Idx += 1
         } while Idx < 16
-    } // end of init()
+    }
+
+    // end of init()
 
     func MapWidth() -> Int {
-        return DMap.Width()
+        return DDMap.Width()
     }
 
     func MapHeight() -> Int {
-        return DMap.Height()
+        return DDMap.Height()
     }
 
     func DetailedMapWidth() -> Int {
-        return DMap.Width() * DTileset.TileWidth()
+        return DDMap.Width() * DTileset.TileWidth()
     }
 
     func DetailedMapHeight() -> Int {
-        return DMap.Height() * DTileset.TileHeight()
+        return DDMap.Height() * DTileset.TileHeight()
     }
 
-    func DrawMap(surface _: CGraphicSurface, typesurface _: CGraphicSurface, rect _: SRectangle) {
-        //        var TileWidth: Int = Int()
-        //        var TileHeight: Int = Int()
-        //
-        //        TileWidth = DTileset.TileWidth()
-        //        TileHeight = DTileset.TileHeight()
-        //
-        //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
-        //
-        //        var YIndex: Int = rect.DYPosition / TileHeight
-        //        var YPos: Int = -(rect.DYPosition % TileHeight)
-        //        var XIndex: Int = rect.DXPosition / TileWidth
-        //        var XPos: Int = -(rect.DXPosition % TileWidth)
-        //        repeat {
-        //            repeat {
-        //                var PixelType: CPixelType = CPixelType(DDMap.TileType(xindex: XIndex, yindex: YIndex))
-        //                var ThisTileType:CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
-        //                var TileIndex: Int = DDMap.TileType
-        //
-        //
-        //
-        //
-        //                XIndex += 1
-        //                YPos += TileWidth
-        //            } while XPos < rect.DWidth
-        //
-        //            YIndex += 1
-        //            YPos += TileHeight
-        //        } while YPos < rect.DHeight
-        //
-        //
+    func DrawMap(surface : CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
+        var TileWidth: Int = Int()
+        var TileHeight: Int = Int()
+
+        TileWidth = DTileset.TileWidth()
+        TileHeight = DTileset.TileHeight()
+
+        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+
+        var YIndex: Int = rect.DYPosition / TileHeight
+        var YPos: Int = -(rect.DYPosition % TileHeight)
+        var XIndex: Int = rect.DXPosition / TileWidth
+        var XPos: Int = -(rect.DXPosition % TileWidth)
+        repeat {
+            repeat {
+//                let type: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+                var PixelType: CPixelType = CPixelType(type: DDMap.TileType(xindex: XIndex, yindex: YIndex))
+                var ThisTileType: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+                var TileIndex: Int = DDMap.TileType(xindex: XIndex, yindex: YIndex).rawValue
+                
+                if ((0 <= TileIndex) && (16 > TileIndex)) {
+                    var DisplayIndex: Int = -1
+                    var AltTileCount: Int = DTileIndices[ThisTileType.rawValue][TileIndex].count
+                    if (AltTileCount > 0) {
+                        var AltIndex: Int = (XIndex + YIndex) % AltTileCount
+                        DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
+                    }
+                    
+                    if (-1 != DisplayIndex) {
+                        DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
+                        DTileset.DrawTile(skscene: <#T##SKScene#>, xpos: <#T##Int#>, ypos: <#T##Int#>, tileindex: <#T##Int#>)
+                        // DTileset.DrawClipped()
+                    }
+                }
+                
+                XIndex += 1
+                YPos += TileWidth
+            } while XPos < rect.DWidth
+
+            YIndex += 1
+            YPos += TileHeight
+        } while YPos < rect.DHeight
     }
 
     func DrawMiniMap(surface _: CGraphicSurface) {
