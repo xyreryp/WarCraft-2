@@ -272,8 +272,7 @@ class CTerrainMap {
     }
 
     func LoadMap() throws -> Bool { // source _: CDataSource
-        //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
-        print("here")
+
         // let file = "Users/richardgao/ECS160OSX/WarCraft2/mountain.map"
 
         let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
@@ -281,136 +280,135 @@ class CTerrainMap {
         //        try print(String(contentOf: filepath))
 
         let file = "mountain.txt" //this is the file. we will write to and read from it
-        let text = "some text" // just a text
 
         // writing
         // reading
-        do {
-            let text = try String(contentsOf: filepath!, encoding: .utf8)
-            print(text)
-        } catch { /* error handling here */ }
 
-        do {
-            print("I'M HERE JUST TESTING")
-            // let contents = try String(contentsOfFile: filepath)
-            // print(contents)
-        }
-        print("example.txt not found!")
-        return true
+        let text = try String(contentsOf: filepath!, encoding: .utf8)
+        // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
+        var TempString = String()
+        var Tokens: [String] = [String]()
+        var MapWidth: Int
+        var MapHeight: Int
+        var ReturnStatus: Bool = false
 
-        //        var TempString = String()
-        //        var Tokens: [String] = [String]()
-        //        var MapWidth: Int
-        //        var MapHeight: Int
-        //        var ReturnStatus: Bool = false
-        //
-        //        DTerrainMap.removeAll()
-        //
-        //        if !LineSource.Read(line: &DMapName) {
-        //            return ReturnStatus
-        //        }
-        //        if !LineSource.Read(line: &TempString) {
-        //            return ReturnStatus
-        //        }
-        //        // TODO: Uncomment when CTokenizer has been written
-        //        // CTokenizer.Tokenize(Tokens, TempString)
+        DTerrainMap.removeAll()
+
+        // if !LineSource.Read(line: &DMapName) {
+        //      return ReturnStatus
+        // }
+        // if !LineSource.Read(line: &TempString) {
+        //      return ReturnStatus
+        // }
+        //   TempString =
+        //  CTokenizer.Tokenize(tokens: &Tokens, data: TempString)
         //        if 2 != Tokens.count {
         //            return ReturnStatus
         //        }
-        //        do { // not too sure how to catch errors
-        //            var StringMap = [String]()
-        //            MapWidth = Int(Tokens[0])!
-        //            MapHeight = Int(Tokens[1])!
-        //            if (8 > MapWidth) || (8 > MapHeight) {
-        //                return ReturnStatus
-        //            }
-        //            while StringMap.count < MapHeight + 1 {
-        //                if !LineSource.Read(line: &TempString) {
-        //                    return ReturnStatus
-        //                }
-        //                StringMap.append(TempString)
-        //                if MapWidth + 1 > StringMap.last!.count {
-        //                    return ReturnStatus
-        //                }
-        //            }
-        //            if MapHeight + 1 > StringMap.count {
-        //                return ReturnStatus
-        //            }
-        //            resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [ETerrainTileType.None])
-        //
-        //            for Index in 0 ..< DTerrainMap.count {
-        //                resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
-        //                for Inner in 0 ..< MapWidth + 1 {
-        //                    switch StringMap[Index] {
-        //                    case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
-        //                        break
-        //                    case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
-        //                        break
-        //                    case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
-        //                        break
-        //                    case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
-        //                        break
-        //                    case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
-        //                        break
-        //                    case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
-        //                        break
-        //                    case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
-        //                        break
-        //                    case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
-        //                        break
-        //                    case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
-        //                        break
-        //                    case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
-        //                        break
-        //                    default: return ReturnStatus
-        //                    }
-        //                    //  if(Inner) { to do confused on this part?
-        //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
-        //                        return ReturnStatus
-        //                    }
-        //                    //  }
-        //                    //  if(Index) { to do confused on this part?
-        //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
-        //                        return ReturnStatus
-        //                    }
-        //                    // }
-        //                }
-        //            }
-        //            StringMap.removeAll()
-        //            while StringMap.count < MapHeight + 1 {
-        //                if !LineSource.Read(line: &TempString) {
-        //                    return ReturnStatus
-        //                }
-        //                StringMap.append(TempString)
-        //                if MapWidth + 1 > StringMap.last!.count {
-        //                    return ReturnStatus
-        //                }
-        //            }
-        //            if MapHeight + 1 > StringMap.count {
-        //                return ReturnStatus
-        //            }
-        //            resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
-        //            for Index in 0 ..< DTerrainMap.count {
-        //                resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
-        //                for Inner in 0 ..< MapWidth + 1 {
-        //                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
-        //                    let valueStringValues: [Character] = ["0", "A"]
-        //                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-        //                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
-        //                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
-        //                        DPartials[Index][Inner] = intValue - asciiValues[0]
-        //                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
-        //                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
-        //                    } else {
-        //                        return ReturnStatus
-        //                    }
-        //                }
-        //            }
-        //            ReturnStatus = true
-        //        }
-        //        return ReturnStatus
-        //        //  catch {
-        //        //      print("LoadMap function Error (TerrainMap.swift)")
-        //        // }
+        do { // not too sure how to catch errors
+            var StringMap = [String]()
+            //            MapWidth = Int(Tokens[0])!
+            //            MapHeight = Int(Tokens[1])!
+            let MapWidth = 64
+            let MapHeight = 64
+            StringMap = text.components(separatedBy: "\n")
+            if (8 > MapWidth) || (8 > MapHeight) {
+                return ReturnStatus
+            }
+
+            //                while StringMap.count < MapHeight + 1 {
+            //                    if !LineSource.Read(line: &TempString) {
+            //                    return ReturnStatus
+            //                }
+            //                StringMap.append(TempString)
+            //                if MapWidth + 1 > StringMap.last!.count {
+            //                    return ReturnStatus
+            //                }
+            // }
+            //            if MapHeight + 1 > StringMap.count {
+            //                return ReturnStatus
+            //            }
+            resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [ETerrainTileType.None])
+            for Index in 0 ..< DTerrainMap.count {
+                resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
+                for Inner in 0 ..< MapWidth + 1 {
+                    let index1: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
+                    print(StringMap[Index + 5][index1])
+                    switch StringMap[Index + 5][index1] {
+                    case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
+                        break
+                    case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
+                        break
+                    case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
+                        break
+                    case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
+                        break
+                    case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
+                        break
+                    case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
+                        break
+                    case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
+                        break
+                    case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
+                        break
+                    case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
+                        break
+                    case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
+                        break
+                    default: return ReturnStatus
+                    }
+                }
+            }
+            print(DTerrainMap)
+            //                    //  if(Inner) { to do confused on this part?
+            //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
+            //                        return ReturnStatus
+            //                    }
+            //                    //  }
+            //                    //  if(Index) { to do confused on this part?
+            //                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
+            //                        return ReturnStatus
+            //                    }
+            //                    // }
+            //                }
+            //            }
+            //            StringMap.removeAll()
+            //            while StringMap.count < MapHeight + 1 {
+            //                if !LineSource.Read(line: &TempString) {
+            //                    return ReturnStatus
+            //                }
+            //                StringMap.append(TempString)
+            //                if MapWidth + 1 > StringMap.last!.count {
+            //                    return ReturnStatus
+            //                }
+            //            }
+            //            if MapHeight + 1 > StringMap.count {
+            //                return ReturnStatus
+            //            }
+            //            resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
+            //            for Index in 0 ..< DTerrainMap.count {
+            //                resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
+            //                for Inner in 0 ..< MapWidth + 1 {
+            //                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
+            //                    let valueStringValues: [Character] = ["0", "A"]
+            //                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
+            //                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
+            //                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
+            //                        DPartials[Index][Inner] = intValue - asciiValues[0]
+            //                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
+            //                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
+            //                    } else {
+            //                        return ReturnStatus
+            //                    }
+            //                }
+            //            }
+            //            ReturnStatus = true
+            //        }
+            //        return ReturnStatus
+            //        //  catch {
+            //        //      print("LoadMap function Error (TerrainMap.swift)")
+            //        // }
+        }
+        return false
     }
 }
