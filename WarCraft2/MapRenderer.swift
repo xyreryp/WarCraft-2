@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 // TODO: COME BACK AFTER I DO CTERRAINMAP
 
 // TODO: implement MapRenderer
@@ -26,8 +27,8 @@ protocol PMapRenderer {
     func DetailedMapHeight() -> Int
 
     // functions to be implemented in CMapRenderer
-    func DrawMap(surface: CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle)
-    func DrawMiniMap(surface: CGraphicSurface)
+    func DrawMap(surface: SKScene, typesurface: SKScene, rect: SRectangle)
+    func DrawMiniMap(surface: SKScene)
 }
 
 final class CMapRenderer: PMapRenderer {
@@ -255,7 +256,7 @@ final class CMapRenderer: PMapRenderer {
         return DDMap.Height() * DTileset.TileHeight()
     }
 
-    func DrawMap(surface : CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
+    func DrawMap(surface : SKScene, typesurface: SKScene, rect: SRectangle) {
         var TileWidth: Int = Int()
         var TileHeight: Int = Int()
 
@@ -284,9 +285,8 @@ final class CMapRenderer: PMapRenderer {
                     }
                     
                     if (-1 != DisplayIndex) {
-                        DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
-                        DTileset.DrawTile(skscene: <#T##SKScene#>, xpos: <#T##Int#>, ypos: <#T##Int#>, tileindex: <#T##Int#>)
-                        // DTileset.DrawClipped()
+//                        DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
+//                        DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }
                 }
                 
@@ -299,6 +299,6 @@ final class CMapRenderer: PMapRenderer {
         } while YPos < rect.DHeight
     }
 
-    func DrawMiniMap(surface _: CGraphicSurface) {
+    func DrawMiniMap(surface _: SKScene) {
     }
 }
