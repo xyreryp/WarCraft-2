@@ -271,21 +271,33 @@ class CTerrainMap {
         DRendered = true
     }
 
-    func LoadMap(source _: CDataSource) throws -> Bool {
+    func LoadMap() throws -> Bool { // source _: CDataSource
         //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
-        if let filepath = Bundle.main.url(forResource: "mountain", withExtension: "map") {
-            do {
-                print("I'M HERE JUST TESTING")
-                // let contents = try String(contentsOfFile: filepath)
-                // print(contents)
-            } catch {
-                // contents could not be loaded
-                print("content!!!!")
-            }
-        } else {
-            print("example.txt not found!")
-            return true
+        print("here")
+        // let file = "Users/richardgao/ECS160OSX/WarCraft2/mountain.map"
+
+        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
+        //   let toURL: URL = URL(string: filepath!)
+        //        try print(String(contentOf: filepath))
+
+        let file = "mountain.txt" //this is the file. we will write to and read from it
+        let text = "some text" // just a text
+
+        // writing
+        // reading
+        do {
+            let text = try String(contentsOf: filepath!, encoding: .utf8)
+            print(text)
+        } catch { /* error handling here */ }
+
+        do {
+            print("I'M HERE JUST TESTING")
+            // let contents = try String(contentsOfFile: filepath)
+            // print(contents)
         }
+        print("example.txt not found!")
+        return true
+
         //        var TempString = String()
         //        var Tokens: [String] = [String]()
         //        var MapWidth: Int
@@ -400,6 +412,5 @@ class CTerrainMap {
         //        //  catch {
         //        //      print("LoadMap function Error (TerrainMap.swift)")
         //        // }
-        return false
     }
 }

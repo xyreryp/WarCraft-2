@@ -19,6 +19,7 @@
 		6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */; };
 		6BD98D381F9010EE00EDC2ED /* HandlingMouseClicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */; };
 		6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BD98D371F9010EE00EDC2ED /* HandlingMouseClicks.xib */; };
+		883BFF0F1F99E255005239AA /* mountain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 883BFF0E1F99E255005239AA /* mountain.txt */; };
 		939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
@@ -62,6 +63,7 @@
 		6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlingMouseClicks.swift; sourceTree = "<group>"; };
 		6BD98D371F9010EE00EDC2ED /* HandlingMouseClicks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandlingMouseClicks.xib; sourceTree = "<group>"; };
 		88318E661F9826EA00939B48 /* FileDataSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataSink.swift; sourceTree = "<group>"; };
+		883BFF0E1F99E255005239AA /* mountain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mountain.txt; sourceTree = "<group>"; };
 		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */,
 				CE4F77F91F85DF8F004379F5 /* Assets.xcassets */,
 				DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */,
+				883BFF0E1F99E255005239AA /* mountain.txt */,
 				CE4F77FE1F85DF8F004379F5 /* Info.plist */,
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
 				E18B68901F8B3DCF00962891 /* DataSource.swift */,
@@ -237,6 +240,7 @@
 				CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */,
 				E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,
+				883BFF0F1F99E255005239AA /* mountain.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
