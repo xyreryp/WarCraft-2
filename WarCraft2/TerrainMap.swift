@@ -270,22 +270,37 @@ class CTerrainMap {
         }
         DRendered = true
     }
+    
+    
+    // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
+    // parse a string into array on specific delim
+    func SplitStringWithDelim(input: String, delim: String) -> [String] {
+        let stringOfWords = input
+        let StringOfWordsArray = stringOfWords.components(separatedBy: delim)
+        return StringOfWordsArray
+    }
+    
+    // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
+    // parse a string to string array on spaces
+    func StringToArray(input: String) -> [String] {
+        let stringOfWords = input
+        let StringOfWordsArray = stringOfWords.components(separatedBy: " ")
+        return StringOfWordsArray
+    }
 
     func LoadMap() throws -> Bool { // source _: CDataSource
 
-        // let file = "Users/richardgao/ECS160OSX/WarCraft2/mountain.map"
-
+        // reading in file path
         let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
         //   let toURL: URL = URL(string: filepath!)
         //        try print(String(contentOf: filepath))
 
-        let file = "mountain.txt" //this is the file. we will write to and read from it
-
-        // writing
-        // reading
-
+        // read it into string
         let text = try String(contentsOf: filepath!, encoding: .utf8)
+        print ("START DEBUG")
+        //        print(text)
         // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
+
         var TempString = String()
         var Tokens: [String] = [String]()
         var MapWidth: Int
@@ -307,7 +322,8 @@ class CTerrainMap {
         //        }
         var StringMap = [String]()
         StringMap = text.components(separatedBy: "\n")
-        
+        let StringMapCount: Int = StringMap.count
+        print(StringMap.first)
 
         do { // not too sure how to catch errors
             //            MapWidth = Int(Tokens[0])!
