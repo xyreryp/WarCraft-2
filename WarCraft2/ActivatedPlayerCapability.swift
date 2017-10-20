@@ -17,6 +17,13 @@ protocol CActivatedPlayerCapability {
     //    init(actor:CPlayerAsset, playerdata: CPlayerData, target: CPlayerData) {
     //    }
 
+    //
+    //    CActivatedPlayerCapability::CActivatedPlayerCapability(std::shared_ptr< CPlayerAsset > actor, std::shared_ptr< CPlayerData > playerdata, std::shared_ptr< CPlayerAsset > target){
+    //    DActor = actor;
+    //    DPlayerData = playerdata;
+    //    DTarget = target;
+    //    }
+    //
     func PercentComplete(max: Int) -> Int
     func IncrementStep() -> Bool
     func Cancel()

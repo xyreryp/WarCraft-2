@@ -32,13 +32,147 @@ class CPlayerCapability {
     var NameRegistry: [String: CPlayerCapability] = [:]
     var TypeRegistry: [Int: CPlayerCapability] = [:]
 
-    func Register(capability _: CPlayerCapability) -> Bool { return true }
+    func Register(capability: CPlayerCapability) -> Bool {
+        if FindCapability(name: capability.DName) != nil {
+            return false
+        }
+
+        NameRegistry[capability.DName] = capability
+        TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
+
+        return true
+    }
 
     // FIXME:
-    func FindCapability(type _: EAssetCapabilityType) -> CPlayerCapability { return CPlayerCapability(name: name) }
-    func FindCapability(name: String) -> CPlayerCapability { return CPlayerCapability(name: name) }
-    func NameToType(name: String) -> EAssetCapabilityType { return CPlayerCapability(name: name) }
-    func TypeToName(type _: EAssetCapabilityType) {}
+    //    std::shared_ptr< CPlayerCapability > CPlayerCapability::FindCapability(EAssetCapabilityType type){
+    //    auto Iterator = TypeRegistry().find(to_underlying(type));
+    //
+    //    if(Iterator != TypeRegistry().end()){
+    //    return Iterator->second;
+    //    }
+    //    return std::shared_ptr< CPlayerCapability >();
+    // }
+    //
+    func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
+        if let Iterator = TypeRegistry[type.rawValue] {
+            return Iterator
+        }
+        return CPlayerCapability()
+    }
+
+    //    std::shared_ptr< CPlayerCapability > CPlayerCapability::FindCapability(const std::string &name){
+    //    auto Iterator = NameRegistry().find(name);
+    //
+    //    if(Iterator != NameRegistry().end()){
+    //    return Iterator->second;
+    //    }
+    //    return std::shared_ptr< CPlayerCapability >();
+    //    }
+    func FindCapability(name: String) -> CPlayerCapability {
+        if let Iterator = NameRegistry[name] {
+            return Iterator
+        }
+
+        return CPlayerCapabilit
+    }
+
+    func NameToType(name: String) -> EAssetCapabilityType {
+        var NameTypeTranslation: [String: EAssetCapabilityType] = [
+            "None": EAssetCapabilityType.None,
+            "BuildPeasant": EAssetCapabilityType.BuildPeasant,
+            "BuildFootman": EAssetCapabilityType.BuildFootman,
+            "BuildArcher": EAssetCapabilityType.BuildArcher,
+            "BuildRanger": EAssetCapabilityType.BuildRanger,
+            "BuildFarm": EAssetCapabilityType.BuildFarm,
+            "BuildTownHall": EAssetCapabilityType.BuildTownHall,
+            "BuildBarracks": EAssetCapabilityType.BuildBarracks,
+            "BuildLumberMill": EAssetCapabilityType.BuildLumberMill,
+            "BuildBlacksmith": EAssetCapabilityType.BuildBlacksmith,
+            "BuildKeep": EAssetCapabilityType.BuildKeep,
+            "BuildCastle": EAssetCapabilityType.BuildCastle,
+            "BuildScoutTower": EAssetCapabilityType.BuildScoutTower,
+            "BuildGuardTower": EAssetCapabilityType.BuildGuardTower,
+            "BuildCannonTower": EAssetCapabilityType.BuildCannonTower,
+            "Move": EAssetCapabilityType.Move,
+            "Repair": EAssetCapabilityType.Repair,
+            "Mine": EAssetCapabilityType.Mine,
+            "BuildSimple": EAssetCapabilityType.BuildSimple,
+            "BuildAdvanced": EAssetCapabilityType.BuildAdvanced,
+            "Convey": EAssetCapabilityType.Convey,
+            "Cancel": EAssetCapabilityType.Cancel,
+            "BuildWall": EAssetCapabilityType.BuildWall,
+            "Attack": EAssetCapabilityType.Attack,
+            "StandGround": EAssetCapabilityType.StandGround,
+            "Patrol": EAssetCapabilityType.Patrol,
+            "WeaponUpgrade1": EAssetCapabilityType.WeaponUpgrade1,
+            "WeaponUpgrade2": EAssetCapabilityType.WeaponUpgrade2,
+            "WeaponUpgrade3": EAssetCapabilityType.WeaponUpgrade3,
+            "ArrowUpgrade1": EAssetCapabilityType.ArrowUpgrade1,
+            "ArrowUpgrade2": EAssetCapabilityType.ArrowUpgrade2,
+            "ArrowUpgrade3": EAssetCapabilityType.ArrowUpgrade3,
+            "ArmorUpgrade1": EAssetCapabilityType.ArmorUpgrade1,
+            "ArmorUpgrade2": EAssetCapabilityType.ArmorUpgrade2,
+            "ArmorUpgrade3": EAssetCapabilityType.ArmorUpgrade3,
+            "Longbow": EAssetCapabilityType.Longbow,
+            "RangerScouting": EAssetCapabilityType.RangerScouting,
+            "Marksmanship": EAssetCapabilityType.Marksmanship,
+        ]
+
+        if let Iterator = NameTypeTranslation[name] {
+            return Iterator
+        }
+        print("Unknown capability name " + name)
+        return EAssetCapabilityType.None
+    }
+
+    func TypeToName(type: EAssetCapabilityType) {
+        var TypeStrings: [String] = [
+            "None",
+            "BuildPeasant",
+            "BuildFootman",
+            "BuildArcher",
+            "BuildRanger",
+            "BuildFarm",
+            "BuildTownHall",
+            "BuildBarracks",
+            "BuildLumberMill",
+            "BuildBlacksmith",
+            "BuildKeep",
+            "BuildCastle",
+            "BuildScoutTower",
+            "BuildGuardTower",
+            "BuildCannonTower",
+            "Move",
+            "Repair",
+            "Mine",
+            "BuildSimple",
+            "BuildAdvanced",
+            "Convey",
+            "Cancel",
+            "BuildWall",
+            "Attack",
+            "StandGround",
+            "Patrol",
+            "WeaponUpgrade1",
+            "WeaponUpgrade2",
+            "WeaponUpgrade3",
+            "ArrowUpgrade1",
+            "ArrowUpgrade2",
+            "ArrowUpgrade3",
+            "ArmorUpgrade1",
+            "ArmorUpgrade2",
+            "ArmorUpgrade3",
+            "Longbow",
+            "RangerScouting",
+            "Marksmanship",
+        ]
+
+        if 0 > type.rawValue || type.rawValue >= TypeStrings.count {
+            return ""
+        }
+        return TypeStrings[type.rawValue]
+    }
+
     func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
     func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }

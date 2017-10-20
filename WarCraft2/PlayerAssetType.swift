@@ -31,7 +31,7 @@ class CPlayerAssetType {
     var DPiercingDamage: Int
     var DRange: Int
     var DRegistry: [String: CPlayerAssetType]
-    var DTypeStrings: [String] = = [
+    var DTypeStrings: [String] = [
         "None",
         "Peasant",
         "Footman",
@@ -47,9 +47,9 @@ class CPlayerAssetType {
         "Blacksmith",
         "ScoutTower",
         "GuardTower",
-        "CannonTower"
+        "CannonTower",
     ]
-    
+
     var DNameTypeTranslation: [String: EAssetType] = [
         "None": EAssetType.None,
         "Peasant": EAssetType.Peasant,
@@ -66,7 +66,7 @@ class CPlayerAssetType {
         "Blacksmith": EAssetType.Blacksmith,
         "ScoutTower": EAssetType.ScoutTower,
         "GuardTower": EAssetType.GuardTower,
-        "CannonTower": EAssetType.CannonTower
+        "CannonTower": EAssetType.CannonTower,
     ]
     //
     //    public:
@@ -158,5 +158,4 @@ class CPlayerAssetType {
 
     //
     //    std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > CPlayerAssetType::DRegistry;
-
 }
