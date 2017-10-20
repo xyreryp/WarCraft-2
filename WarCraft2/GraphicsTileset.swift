@@ -12,16 +12,16 @@ import Cocoa
 
 class CGraphicTileset {
     // C++ protected functions
-    internal var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
+    var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
     private var DClippingMasks = [CGraphicSurface]()
     // vector of shared pointers in C++
     private var DMapping = [String: Int]()
     private var DTileNames = [String]()
     private var DGroupNames = [String]()
     private var DGroupSteps = [String: Int]()
-    internal var DTileCount: Int
-    internal var DTileWidth: Int
-    internal var DTileHeight: Int
+    var DTileCount: Int
+    var DTileWidth: Int
+    var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
     private var DTileSet: [SKNode] = []
