@@ -10,6 +10,7 @@
 		0FDDEE841F8C29B90012A79D /* DataSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDDEE831F8C29B90012A79D /* DataSink.swift */; };
 		4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B12BCC71F8C376100F1E62D /* SoundManager.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
+		4B7655771F997EF20072103F /* AssetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7655761F997EF20072103F /* AssetRenderer.swift */; };
 		4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */; };
 		4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */; };
 		4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */; };
@@ -54,6 +55,7 @@
 		0FDDEE831F8C29B90012A79D /* DataSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSink.swift; sourceTree = "<group>"; };
 		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		4B7655761F997EF20072103F /* AssetRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetRenderer.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
+				4B7655761F997EF20072103F /* AssetRenderer.swift */,
 				939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */,
 				0FDDEE831F8C29B90012A79D /* DataSink.swift */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */,
+				4B7655771F997EF20072103F /* AssetRenderer.swift in Sources */,
 				E14136B71F97F8530086A0A6 /* Scene.sks in Sources */,
 				E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */,
 				52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */,
