@@ -270,13 +270,38 @@ class CTerrainMap {
         }
         DRendered = true
     }
+    
+    
+    // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
+    // parse a string into array on specific delim
+    func SplitStringWithDelim(input: String, delim: String) -> [String] {
+        let stringOfWords = input
+        let StringOfWordsArray = stringOfWords.components(separatedBy: delim)
+        return StringOfWordsArray
+    }
+    
+    // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
+    // parse a string to string array on spaces
+    func StringToArray(input: String) -> [String] {
+        let stringOfWords = input
+        let StringOfWordsArray = stringOfWords.components(separatedBy: " ")
+        return StringOfWordsArray
+    }
 
     func LoadMap() throws -> Bool { // source _: CDataSource
 
-        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
 
+        // reading in file path
+        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
+        //   let toURL: URL = URL(string: filepath!)
+        //        try print(String(contentOf: filepath))
+
+        // read it into string
         let text = try String(contentsOf: filepath!, encoding: .utf8)
+        print ("START DEBUG")
+        //        print(text)
         // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
+
         var TempString = String()
         var Tokens: [String] = [String]()
         var MapWidth: Int
@@ -297,13 +322,16 @@ class CTerrainMap {
         //            return ReturnStatus
         //        }
 
+        var StringMap = [String]()
+        StringMap = text.components(separatedBy: "\n")
+        let StringMapCount: Int = StringMap.count
+        print(StringMap.first)
+
         do { // not too sure how to catch errors
-            var StringMap = [String]()
             //            MapWidth = Int(Tokens[0])!
             //            MapHeight = Int(Tokens[1])!
             let MapWidth = 64
             let MapHeight = 64
-            StringMap = text.components(separatedBy: "\n")
             if (8 > MapWidth) || (8 > MapHeight) {
                 return ReturnStatus
             }
