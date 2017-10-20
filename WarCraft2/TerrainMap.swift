@@ -332,8 +332,7 @@ class CTerrainMap {
             for Index in 0 ..< DTerrainMap.count {
                 resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
                 for Inner in 0 ..< MapWidth + 1 {
-                    let index1: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
-                    print(StringMap[Index + 5][index1])
+                    let index1: String.Index = StringMap[Index + 5].index(StringMap[Index + 5].startIndex, offsetBy: Inner)
                     switch StringMap[Index + 5][index1] {
                     case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
                         break
