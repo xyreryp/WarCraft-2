@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// Graphic factory protocol
-protocol CGraphicFactory {
-    static func CreateSurface(width: Int, height: Int, format: ESurfaceFormat) -> CGraphicSurface
-    static func LoadSurface(source: CDataSource) -> CGraphicSurface
-    static func StoreSurface(sink: CDataSink, surface: CGraphicSurface) -> Bool
+/// Graphic factory class: Changed to class to resolve errors in RecolorMap
+class CGraphicFactory {
+    static func CreateSurface(width _: Int, height _: Int, format _: ESurfaceFormat) -> CGraphicSurface? { return nil }
+    static func LoadSurface(source _: CDataSource) -> CGraphicSurface? { return nil }
+    static func StoreSurface(sink _: CDataSink, surface _: CGraphicSurface) -> Bool? { return nil }
 }
