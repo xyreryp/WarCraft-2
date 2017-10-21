@@ -19,15 +19,16 @@ protocol PTokenizer {
     func Read(token: inout String) -> Bool
 
     // Tokenize()
+
     static func Tokenize(tokens: inout [String], data: String, delimiters: String)
 }
 
-class CTokenizer: PTokenizer {
+final class CTokenizer: PTokenizer {
     var DDataSource: CDataSource
 
     var DDelimiters: String = String()
 
-    required init(source: CDataSource, delimiters: String) {
+    init(source: CDataSource, delimiters: String) {
         DDataSource = source
         if delimiters.count > 0 {
             DDelimiters = delimiters
@@ -56,7 +57,9 @@ class CTokenizer: PTokenizer {
     }
 
     // reads in delimiters and writes back to token String
+
     static func Tokenize(tokens: inout [String], data: String, delimiters: String = "\t\r\n") {
+
         var TempString: String = String()
         var Delimiters: String = String()
         let data: String = String(data)
