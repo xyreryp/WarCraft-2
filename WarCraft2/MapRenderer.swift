@@ -269,7 +269,7 @@ final class CMapRenderer: PMapRenderer {
         var YIndex: Int = rect.DYPosition / TileHeight
         var YPos: Int = -(rect.DYPosition % TileHeight)
         var XIndex: Int = rect.DXPosition / TileWidth
-        let XPos: Int = -(rect.DXPosition % TileWidth)
+        var XPos: Int = -(rect.DXPosition % TileWidth)
         repeat {
             repeat {
                 // let type: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
@@ -296,7 +296,7 @@ final class CMapRenderer: PMapRenderer {
                 }
 
                 XIndex += 1
-                YPos += TileWidth
+                XPos += TileWidth
             } while XPos < rect.DWidth
 
             YIndex += 1
