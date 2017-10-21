@@ -55,7 +55,7 @@ final class CMapRenderer: PMapRenderer {
 
         // data members
         let DTileSet: CGraphicTileset = tileset
-        let DDmap: CTerrainMap = map    // changed to DDMap because DMap kept referencing visibilityMap.Dmap
+        let DDmap: CTerrainMap = map // changed to DDMap because DMap kept referencing visibilityMap.Dmap
         var DTileIndices: [[[Int]]] = [[[Int]]]()
         var DPixelIndices: [Int] = [Int]()
 
