@@ -25,6 +25,6 @@ class GameViewController: NSViewController {
         let graphicTileSet = CGraphicTileset()
         // TODO:
         graphicTileSet.LoadTileset(source: nil)
-        //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
+        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
     }
 }
