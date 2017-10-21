@@ -259,21 +259,32 @@ class CGraphicTileset {
     } // end CreateCLippingMasks()
 
     func LoadTileset(source _: CDataSource!) -> Bool {
-        let Tileset = #imageLiteral(resourceName: "Terrain")
-        DTileWidth = Int(Tileset.size.width)
-        DTileHeight = Int(Tileset.size.height)
-        DTileCount = 293
-        DTileHeight /= DTileCount
-        DTileHalfWidth = DTileWidth / 2
-        DTileHalfHeight = DTileHeight / 2
-        for i in 1 ... DTileCount {
-            let newSize: NSSize
-            newSize = NSSize(width: DTileWidth, height: DTileHeight)
-            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
-            let tempTexture = SKTexture(image: temp)
-            let tempNode = SKSpriteNode(texture: tempTexture)
-            DTileSet.append(tempNode)
+        //        let Tileset = #imageLiteral(resourceName: "Terrain")
+        //        DTileWidth = Int(Tileset.size.width)
+        //        DTileHeight = Int(Tileset.size.height)
+        //        DTileCount = 293
+        //        DTileHeight /= DTileCount
+        //        DTileHalfWidth = DTileWidth / 2
+        //        DTileHalfHeight = DTileHeight / 2
+        //        //        for i in 1 ... DTileCount {
+        //        //            let newSize: NSSize
+        //        //            newSize = NSSize(width: DTileWidth, height: DTileHeight)
+        //        //            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+        //        //            let tempTexture = SKTexture(image: temp)
+        //        //            let tempNode = SKSpriteNode(texture: tempTexture)
+        //        //            DTileSet.append(tempNode)
+        //        //        }
+
+        if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
+            do {
+                let TempString = try String(contentsOfFile: filepath, encoding: .utf8)
+                let Tokens = TempString.components(separatedBy: .newlines)
+                print(Tokens)
+            } catch {
+                print(error)
+            }
         }
+
         return true
     }
     //    func LoadTileset(source: CDataSource) -> Bool {

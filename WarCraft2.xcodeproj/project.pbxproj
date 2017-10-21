@@ -40,6 +40,7 @@
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
+		E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */ = {isa = PBXBuildFile; fileRef = E199367D1F9BEE7F0064CA77 /* Terrain.dat */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E1EEAEE01F909B5D001001B9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
@@ -81,6 +82,7 @@
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		E199367D1F9BEE7F0064CA77 /* Terrain.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Terrain.dat; sourceTree = "<group>"; };
 		E19A0AD21F959094001B569C /* TerrainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMap.swift; sourceTree = "<group>"; };
 		E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactoryCoreGraphics.swift; sourceTree = "<group>"; };
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */,
 				E1EEAEDD1F908172001001B9 /* Scene.sks */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
+				E199367D1F9BEE7F0064CA77 /* Terrain.dat */,
 				6BC677471F8C186D00953C3A /* Rectangle.swift */,
 				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
 				A1AAF5CF1F8C6001005007C4 /* LineDataSource.swift */,
@@ -232,6 +235,7 @@
 				CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */,
 				CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */,
 				E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */,
+				E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
