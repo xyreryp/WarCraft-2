@@ -290,7 +290,7 @@ class CGraphicTileset {
             let tempNode = SKSpriteNode(texture: tempTexture)
             DTileSet.append(tempNode)
         }
-        
+
         UpdateGroupName()
         return true
     }
