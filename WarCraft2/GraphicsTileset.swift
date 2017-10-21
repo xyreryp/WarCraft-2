@@ -278,13 +278,16 @@ class CGraphicTileset {
         if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
             do {
                 let TempString = try String(contentsOfFile: filepath, encoding: .utf8)
-                let Tokens = TempString.components(separatedBy: .newlines)
+                let TempTokens = TempString.components(separatedBy: .newlines)
+                var Tokens = [String]()
+                for i in 5 ..< TempTokens.count {
+                    Tokens.append(TempTokens[i])
+                }
                 print(Tokens)
             } catch {
                 print(error)
             }
         }
-
         return true
     }
     //    func LoadTileset(source: CDataSource) -> Bool {
