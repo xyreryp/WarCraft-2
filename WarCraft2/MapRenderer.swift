@@ -32,10 +32,10 @@ protocol PMapRenderer {
 }
 
 final class CMapRenderer: PMapRenderer {
-    var DTileset: CGraphicTileset = CGraphicTileset()
-    var DDMap: CTerrainMap = CTerrainMap()
-    var DTileIndices: [[[Int]]] = [[[Int]]]()
-    var DPixelIndices: [Int] = [Int]()
+    var DTileset: CGraphicTileset
+    var DDMap: CTerrainMap
+    var DTileIndices: [[[Int]]]
+    var DPixelIndices: [Int]
 
     static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
         while array.count < size {
@@ -55,10 +55,10 @@ final class CMapRenderer: PMapRenderer {
         //        var ItemCount: Int = Int()
 
         // data members
-        let DTileSet: CGraphicTileset = tileset
-        let DDmap: CTerrainMap = map // changed to DDMap because DMap kept referencing visibilityMap.Dmap
-        var DTileIndices: [[[Int]]] = [[[Int]]]()
-        var DPixelIndices: [Int] = [Int]()
+        DTileset = tileset
+        DDMap = map // changed to DDMap because DMap kept referencing visibilityMap.Dmap
+        DTileIndices = [[[Int]]]()
+        DPixelIndices = [Int]()
 
         CMapRenderer.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.None.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
 
@@ -118,7 +118,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "light-grass-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -131,7 +131,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "dark-grass-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -144,7 +144,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "light-dirt-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -157,7 +157,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "dark-dirt-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -170,7 +170,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "rock-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -183,7 +183,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "forest-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -196,7 +196,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "shallow-water-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -209,7 +209,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "deep-water-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }
@@ -222,7 +222,7 @@ final class CMapRenderer: PMapRenderer {
             while true {
                 var Value: Int
                 var FindThisTile: String = "stump-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileSet.FindTile(tilename: &FindThisTile)
+                Value = DTileset.FindTile(tilename: &FindThisTile)
                 if 0 > Value {
                     break
                 }

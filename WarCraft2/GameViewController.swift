@@ -14,6 +14,7 @@ class GameViewController: NSViewController {
 
     var skview = SKView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900))
     var skscene = SKScene(fileNamed: "Scene")
+    var rect: SRectangle = SRectangle()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +24,11 @@ class GameViewController: NSViewController {
         // skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
         let graphicTileSet = CGraphicTileset()
+        graphicTileSet.LoadTileset(source: nil)
         let map = CTerrainMap()
         let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
+        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: rect)
         // TODO:
-        graphicTileSet.LoadTileset(source: nil)
         //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
     }
 }

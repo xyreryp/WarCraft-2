@@ -89,21 +89,21 @@ class CGraphicTileset {
         DGroupNames.removeAll()
 
         for i in 0 ... DTileCount {
-            var GroupName: String?
-            var GroupStep: Int?
+            var GroupName: String = ""
+            var GroupStep: Int = 0
             var tileIndex: String = String(DTileNames.index(DTileNames.startIndex, offsetBy: i))
 
             // ParseGroupName returns a bool
             let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex,
-                                                        aniname: &GroupName!, anistep: &GroupStep!)
+                                                        aniname: &GroupName, anistep: &GroupStep)
             if parseGroupReturn {
-                if DGroupSteps[GroupName!] != nil {
-                    if DGroupSteps[GroupName!]! <= GroupStep! {
-                        DGroupSteps[GroupName!] = GroupStep! + 1
+                if DGroupSteps[GroupName] != nil {
+                    if DGroupSteps[GroupName]! <= GroupStep {
+                        DGroupSteps[GroupName] = GroupStep + 1
                     }
                 } else {
-                    DGroupSteps[GroupName!] = GroupStep! + 1
-                    DGroupNames.append(GroupName!)
+                    DGroupSteps[GroupName] = GroupStep + 1
+                    DGroupNames.append(GroupName)
                 }
             }
         }
