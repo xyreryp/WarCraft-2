@@ -57,12 +57,12 @@ class CTerrainMap {
             [true, false, false, false, true, false, false, false, false, true, true],
         ]
 
-    internal var DTerrainMap = [[ETerrainTileType]]() // initialized variables
-    internal var DPartials = [[UInt8]]()
-    internal var DMap = [[ETileType]]()
-    internal var DMapIndices = [[Int]]()
-    internal var DMapName: String
-    internal var DRendered: Bool
+    var DTerrainMap = [[ETerrainTileType]]() // initialized variables
+    var DPartials = [[UInt8]]()
+    var DMap = [[ETileType]]()
+    var DMapIndices = [[Int]]()
+    var DMapName: String
+    var DRendered: Bool
 
     init() {
         DMapName = "not rendered"
@@ -98,6 +98,82 @@ class CTerrainMap {
 
     func Height() -> Int {
         return DTerrainMap.count - 1
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(xindex: Int, yindex: Int) -> ETileType {
+        if (-1 > xindex) || (-1 > yindex) {
+            return ETileType.None
+        }
+        if DMap.count <= yindex + 1 {
+            return ETileType.None
+        }
+        if DMap.count <= xindex + 1 {
+            return ETileType.None
+        }
+        return DMap[yindex + 1][xindex + 1]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(pos: CTilePosition) -> ETileType {
+        return TileType(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileTypeIndex(xindex: Int, yindex: Int) -> Int {
+        if (-1 > xindex) || (-1 > yindex) {
+            return -1
+        }
+        if DMapIndices.count <= yindex + 1 {
+            return -1
+        }
+        if DMapIndices[yindex + 1].count <= xindex + 1 {
+            return -1
+        }
+        return DMapIndices[yindex + 1][xindex + 1]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileTypeIndex(pos: CTilePosition) -> Int {
+        return TileTypeIndex(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TerrainTileType(xindex: Int, yindex: Int) -> ETerrainTileType {
+        if (0 > xindex) || (0 > yindex) {
+            return ETerrainTileType.None
+        }
+        if DTerrainMap.count <= yindex {
+            return ETerrainTileType.None
+        }
+        if DTerrainMap[yindex].count <= xindex {
+            return ETerrainTileType.None
+        }
+        return DTerrainMap[yindex][xindex]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TerrainTileType(pos: CTilePosition) -> ETerrainTileType {
+        return TerrainTileType(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TilePartial(xindex: Int, yindex: Int) -> uint8 {
+        if (0 > xindex) || (0 > yindex) {
+            return CTerrainMap.DInvalidPartial
+        }
+        if DPartials.count <= yindex {
+            return CTerrainMap.DInvalidPartial
+        }
+        if DPartials[yindex].count <= xindex {
+            return CTerrainMap.DInvalidPartial
+        }
+        return DPartials[yindex][xindex]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TilePartial(pos: CTilePosition) -> uint8 {
+        return TilePartial(xindex: pos.X(), yindex: pos.Y())
     }
 
     func ChangeTerrainTilePartial(xindex: Int, yindex: Int, val: UInt8) {

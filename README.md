@@ -1,18 +1,19 @@
 | Priority     | Status | FileName (.h)                                              | FileName (.cpp)                 | FileName  (Swift)                                        |
 |--------------|--------|------------------------------------------------------------|---------------------------------|----------------------------------------------------------|
-|              |        | AIPlayer.h                                                 | AIPlayer.cpp                    |                                                          |
+|              | [.]    | AIPlayer.h                                                 | AIPlayer.cpp                    |                                                          |
 |              |        | ApplicationData.h                                          | ApplicationData.cpp             |                                                          |
-|              |        | ApplicationMode.h                                          | ApplicationPath.cpp             |                                                          |
-|              |        | ApplicationPath.h                                          | AssetDecoratedMap.cpp           |                                                          |
-|              |        | AssetDecoratedMap.h                                        | AssetRenderer.cpp               |                                                          |
-|              |        | AssetRenderer.h                                            | BasicCapabilities.cpp           |                                                          |
+|              |        | ApplicationMode.h                                          |                                 |                                                          |
+|              |        | ApplicationPath.h                                          | ApplicationPath.cpp             |                                                          |
+| :red_circle: | [⋅]    | AssetDecoratedMap.h                                        | AssetDecoratedMap.cpp           |                                                          |
+| :red_circle: | [⋅]    | AssetRenderer.h                                            | AssetRenderer.cpp               |                                                          |
+|              |        |                                                            | BasicCapabilities.cpp           |                                                          |
 |              |        | BattleMode.h                                               | BattleMode.cpp                  |                                                          |
 |              |        | Bevel.h                                                    | Bevel.cpp                       |                                                          |
-|              |        | ButtonMenuMode.h                                           | BuildCapabilities.cpp           |                                                          |
+|              |        |                                                            | BuildCapabilities.cpp           |                                                          |
 |              |        |                                                            | BuildingUpgradeCapabilities.cpp |                                                          |
 |              |        | ButtonRenderer.h                                           | ButtonRenderer.cpp              |                                                          |
-|              |        |                                                            | ButtonMenuMode.cpp              |                                                          |
-|              |        | CommentSkipLineDataSource.h, CommentSkipLineDataSource.cpp |                                 | CommentSkipLineDataSource.swift                          |
+|              |        | ButtonMenuMode.h                                           | ButtonMenuMode.cpp              |                                                          |
+|              |        | CommentSkipLineDataSource.h                                | CommentSkipLineDataSource.cpp   | CommentSkipLineDataSource.swift                          |
 |              |        | CursorSet.h                                                | CursorSet.cpp                   |                                                          |
 |              |        | DataContainer.h                                            |                                 | DataContainer.swift                                      |
 |              |        | DataSink.h                                                 |                                 | DataSink.swift                                           |
@@ -21,9 +22,9 @@
 |              |        | EditOptionsMode.h                                          | EditOptionsMode.cpp             |                                                          |
 |              |        | EditRenderer.h                                             | EditRenderer.cpp                |                                                          |
 |              |        | EndOfBattleMode.h                                          | EndOfBattleMode.cpp             |                                                          |
-| :red_circle: |        | FileDataContainer.h                                        | FileDataContainer.cpp           |                                                          |
-| :red_circle: |        | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
-| :red_circle: |        | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
+| :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |   May not be necessary because it deals with reading from a directory but we already have access to everything in our project folder without using this class |
+| :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
+| :red_circle: | [.]    | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
 |              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
 |              |        | FontTileset.h                                              | FontTileset.cpp                 |                                                          |
 |              |        | GUIApplication.h                                           | GUIFactoryGTK3.cpp              |                                                          |
@@ -47,8 +48,8 @@
 |              |        | GameModel.h                                                | GameModel.cpp                   |                                                          |
 | :red_circle: | [⋅]    | GraphicFactory.h                                           |                                 | GraphicFactory.swift                                     |
 | :red_circle: | [⋅]    | GraphicFactoryCairo.h                                      | GraphicFactoryCairo.cpp         | GraphicFactoryCoreGraphics.swift                         |
-| :red_circle: |        | GraphicMulticolorTileset.h                                 | GraphicMulticolorTileset.cpp    |                                                          |
-| :red_circle: |        | GraphicRecolorMap.h                                        | GraphicRecolorMap.cpp           |                                                          |
+| :red_circle: | [⋅]    | GraphicMulticolorTileset.h                                 | GraphicMulticolorTileset.cpp    |                                                          |
+| :red_circle: | [⋅]    | GraphicRecolorMap.h                                        | GraphicRecolorMap.cpp           |                                                          |
 |              |        | GraphicResourceContext.h                                   |                                 | GraphicResourceContext.swift                             |
 | :red_circle: | [⋅]    | GraphicSurface.h                                           |                                 | GraphicSurface.swift                                     |
 | :red_circle: | [⋅]    | GraphicTileset.h                                           | GraphicTileset.cpp              |                                                          |
@@ -67,28 +68,28 @@
 |              |        | MultiPlayerOptionsMenuMode.h                               | MultiPlayerOptionsMenuMode.cpp  | MultiPlayerGameOptionsViewController.swift               |
 |              |        | NetworkOptionsMode.h                                       | NetworkOptionsMode.cpp          | NetworkOptionsMenuViewController.swift                   |
 |              |        | OptionsMenuMode.h                                          | OptionsMenuMode.cpp             | OptionsMenuViewController.swift                          |
-|              |        | Path.h                                                     | Path.cpp                        |                                                          |
+|              | [⋅]    | Path.h                                                     | Path.cpp                        |                                                          |
 |              |        | PeriodicTimeout.h                                          | PeriodicTimeout.cpp             |                                                          |
 |              |        | PixelType.h                                                | PixelType.cpp                   | PixelPosition.swift                                      |
-|              |        | PlayerAIColorSelectMode.h                                  | PlayerAIColorSelectMode.cpp     | PlayerCommand.swift                                      |
+|              |        | PlayerAIColorSelectMode.h                                  | PlayerAIColorSelectMode.cpp     |                                                          |
 |              |        | PlayerAsset.h                                              | PlayerAsset.cpp                 |                                                          |
-|              |        | PlayerCommand.h                                            | Position.cpp                    | Position.swift                                           |
-|              |        | Position.h                                                 | ResourceRenderer.cpp            | RandomNumberGenerator.swift                              |
-|              |        | RandomNumberGenerator.h                                    | RouterMap.cpp                   |                                                          |
+|              |        | PlayerCommand.h                                            |                                 | PlayerCommand.swift                                      |
+|              |        | Position.h                                                 | Position.cpp                    | Position.swift                                           |
+|              |        | RandomNumberGenerator.h                                    |                                 | RandomNumberGenerator.swift                              |
 |              |        | Rectangle.h                                                |                                 | Rectangle.swift                                          |
-| :red_circle: |        | ResourceRenderer.h                                         |                                 |                                                          |
-|              |        | RouterMap.h                                                |                                 |                                                          |
+| :red_circle: | [⋅]    | ResourceRenderer.h                                         | ResourceRenderer.cpp            |                                                          |
+|              | [⋅]    | RouterMap.h                                                | RouterMap.cpp                   | RouterMap.swift                                          |
 |              |        | SoundClip.h                                                | SoundClip.cpp                   |                                                          |
 |              |        | SoundEventRenderer.h                                       | SoundEventRenderer.cpp          | SoundManager.swift                                       |
 |              |        | SoundLibraryMixer.h                                        | SoundLibraryMixer.cpp           | SoundOptionsMenuViewController.swift                     |
 |              |        | SoundOptionsMode.h                                         | SoundOptionsMode.cpp            | SplashViewController.swift                               |
 |              |        |                                                            | TrainCapabilities.cpp           | TilePosition.swift                                       |
 | :red_circle: | [⋅]    | TerrainMap.h                                               | TerrainMap.cpp                  | TerrainMap.swift                                         |
-|              |        | TextFormatter.h                                            | TextFormatter.cpp               |                                                          |
+|              |        | TextFormatter.h                                            | TextFormatter.cpp               | TextFormatter.swift                                                               |
 |              |        | Tokenizer.h                                                | Tokenizer.cpp                   | Tokenizer.swift                                          |
 |              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
 |              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
 |              |        |                                                            | UnitUpgradeCapabilities.cpp     |                                                          |
-|              |        | ViewportRenderer.h                                         | ViewportRenderer.cpp            |                                                          |
+| :red_circle: | [.]    | ViewportRenderer.h                                         | ViewportRenderer.cpp            | ViewportRenderer.swift                                                         |
 |              |        | VisibilityMap.h                                            | VisibilityMap.cpp               | VisibilityMap.swift                                      |
 |              |        |                                                            | Main.cpp                        |                                                          |
