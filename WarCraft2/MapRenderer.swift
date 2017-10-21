@@ -55,7 +55,7 @@ final class CMapRenderer: PMapRenderer {
 
         // data members
         let DTileSet: CGraphicTileset = tileset
-        let DDmap: CTerrainMap = map    // changed to DDMap because DMap kept referencing visibilityMap.Dmap
+        let DDmap: CTerrainMap = map // changed to DDMap because DMap kept referencing visibilityMap.Dmap
         var DTileIndices: [[[Int]]] = [[[Int]]]()
         var DPixelIndices: [Int] = [Int]()
 
@@ -73,7 +73,7 @@ final class CMapRenderer: PMapRenderer {
                 return
             }
             let tokenizer = CTokenizer(source: config, delimiters: TempString)
-            tokenizer.Tokenize(tokens: &tokens, data: TempString) // , delimiters: TempString)
+            //            tokenizer.Tokenize(tokens: &tokens, data: TempString) // , delimiters: TempString)
 
             var ColorValue: uint32 = uint32(tokens.first!)!
             var PixelIndex: Int = 0
