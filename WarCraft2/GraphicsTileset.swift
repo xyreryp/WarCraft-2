@@ -24,7 +24,7 @@ class CGraphicTileset {
     var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
-    private var DTileSet: [SKNode] = []
+    private var DTileSet: [SKTexture] = []
 
     init() {
         DSurfaceTileset = nil
@@ -287,8 +287,7 @@ class CGraphicTileset {
             newSize = NSSize(width: DTileWidth, height: DTileHeight)
             let temp: NSImage = Tileset.crop(size: newSize, index: i)!
             let tempTexture = SKTexture(image: temp)
-            let tempNode = SKSpriteNode(texture: tempTexture)
-            DTileSet.append(tempNode)
+            DTileSet.append(tempTexture)
         }
 
         UpdateGroupName()
@@ -342,8 +341,9 @@ class CGraphicTileset {
         //        if 0 > tileindex || tileindex >= DTileCount {
         //            return
         //        }
-        DTileSet[tileindex].position = CGPoint(x: xpos, y: ypos)
-        skscene.addChild(DTileSet[tileindex])
+        let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+        tempNode.position = CGPoint(x: xpos, y: ypos)
+        skscene.addChild(tempNode)
     }
     //
     //    func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int) {
