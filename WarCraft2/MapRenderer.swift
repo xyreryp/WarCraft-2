@@ -18,7 +18,7 @@ protocol PMapRenderer {
     var DPixelIndices: [Int] { get set }
 
     // initializer
-    init(config: CDataSource, tileset: CGraphicTileset, map: CTerrainMap)
+    init(config: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap)
 
     // functions to be implemented in CMapRenderer
     func MapWidth() -> Int
@@ -47,11 +47,12 @@ final class CMapRenderer: PMapRenderer {
     }
 
     //    // huge constructor
-    init(config: CDataSource, tileset: CGraphicTileset, map: CTerrainMap) {
+    init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
-        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
-        var TempString: String = String()
-        var ItemCount: Int = Int()
+        // For the mini map rendering: @source
+        //        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
+        //        var TempString: String = String()
+        //        var ItemCount: Int = Int()
 
         // data members
         let DTileSet: CGraphicTileset = tileset
@@ -61,47 +62,47 @@ final class CMapRenderer: PMapRenderer {
 
         CMapRenderer.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.None.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
 
-        if !LineSource.Read(line: &TempString) {
-            return
-        }
-        ItemCount = Int(TempString)!
+        //        if !LineSource.Read(line: &TempString) {
+        //            return
+        //        }
+        //        ItemCount = Int(TempString)!
 
-        var Index: Int = 0
-        repeat {
-            var tokens: [String] = [String]()
-            if !LineSource.Read(line: &TempString) {
-                return
-            }
-            let tokenizer = CTokenizer(source: config, delimiters: TempString)
-            tokenizer.Tokenize(tokens: &tokens, data: TempString) // , delimiters: TempString)
+        //        var Index: Int = 0
+        //        repeat {
+        //            var tokens: [String] = [String]()
+        //            if !LineSource.Read(line: &TempString) {
+        //                return
+        //            }
+        //            let tokenizer = CTokenizer(source: config, delimiters: TempString)
+        //            tokenizer.Tokenize(tokens: &tokens, data: TempString) // , delimiters: TempString)
 
-            var ColorValue: uint32 = uint32(tokens.first!)!
-            var PixelIndex: Int = 0
+        //            var ColorValue: uint32 = uint32(tokens.first!)!
+        //            var PixelIndex: Int = 0
 
-            if tokens.first == "light-grass" {
-                PixelIndex = CTerrainMap.ETileType.LightGrass.rawValue
-            } else if tokens.first == "dark-grass" {
-                PixelIndex = CTerrainMap.ETileType.DarkGrass.rawValue
-            } else if tokens.first == "light-dirt" {
-                PixelIndex = CTerrainMap.ETileType.LightDirt.rawValue
-            } else if tokens.first == "dark-dirt" {
-                PixelIndex = CTerrainMap.ETileType.DarkDirt.rawValue
-            } else if tokens.first == "rock" {
-                PixelIndex = CTerrainMap.ETileType.Rock.rawValue
-            } else if tokens.first == "forest" {
-                PixelIndex = CTerrainMap.ETileType.Forest.rawValue
-            } else if tokens.first == "stump" {
-                PixelIndex = CTerrainMap.ETileType.Stump.rawValue
-            } else if tokens.first == "shallow-water" {
-                PixelIndex = CTerrainMap.ETileType.ShallowWater.rawValue
-            } else if tokens.first == "deep-water" {
-                PixelIndex = CTerrainMap.ETileType.DeepWater.rawValue
-            } else {
-                PixelIndex = CTerrainMap.ETileType.Rubble.rawValue
-            }
-            DPixelIndices[PixelIndex] = Int(ColorValue)
-            Index += 1
-        } while Index < ItemCount
+        //            if tokens.first == "light-grass" {
+        //                PixelIndex = CTerrainMap.ETileType.LightGrass.rawValue
+        //            } else if tokens.first == "dark-grass" {
+        //                PixelIndex = CTerrainMap.ETileType.DarkGrass.rawValue
+        //            } else if tokens.first == "light-dirt" {
+        //                PixelIndex = CTerrainMap.ETileType.LightDirt.rawValue
+        //            } else if tokens.first == "dark-dirt" {
+        //                PixelIndex = CTerrainMap.ETileType.DarkDirt.rawValue
+        //            } else if tokens.first == "rock" {
+        //                PixelIndex = CTerrainMap.ETileType.Rock.rawValue
+        //            } else if tokens.first == "forest" {
+        //                PixelIndex = CTerrainMap.ETileType.Forest.rawValue
+        //            } else if tokens.first == "stump" {
+        //                PixelIndex = CTerrainMap.ETileType.Stump.rawValue
+        //            } else if tokens.first == "shallow-water" {
+        //                PixelIndex = CTerrainMap.ETileType.ShallowWater.rawValue
+        //            } else if tokens.first == "deep-water" {
+        //                PixelIndex = CTerrainMap.ETileType.DeepWater.rawValue
+        //            } else {
+        //                PixelIndex = CTerrainMap.ETileType.Rubble.rawValue
+        //            }
+        //            DPixelIndices[PixelIndex] = Int(ColorValue)
+        //            Index += 1
+        //        } while Index < ItemCount
 
         CMapRenderer.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
         for (i, _) in DTileIndices.enumerated() {
@@ -229,7 +230,7 @@ final class CMapRenderer: PMapRenderer {
                 AltTileIndex += 1
             }
             Index2 += 1
-        } while Index < 16
+        } while Index2 < 16
 
         var Idx: Int = 0
         repeat {
