@@ -12,16 +12,16 @@ import Cocoa
 
 class CGraphicTileset {
     // C++ protected functions
-    private var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
+    var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
     private var DClippingMasks = [CGraphicSurface]()
     // vector of shared pointers in C++
     private var DMapping = [String: Int]()
     private var DTileNames = [String]()
     private var DGroupNames = [String]()
     private var DGroupSteps = [String: Int]()
-    private var DTileCount: Int
-    private var DTileWidth: Int
-    private var DTileHeight: Int
+    var DTileCount: Int
+    var DTileWidth: Int
+    var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
     private var DTileSet: [SKNode] = []
@@ -213,7 +213,8 @@ class CGraphicTileset {
         return true
     } // end DuplicateClippedTile()
 
-    func FindTile(tilename: inout String) -> Int {
+    func FindTile(tilename: inout String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
+
         let findTile = DMapping[tilename]
         if findTile != nil { // if findTile exists
             return findTile!
@@ -315,23 +316,24 @@ class CGraphicTileset {
 
     // TODO: TESTING FUNCTIONS
     func DrawTest(skscene: SKScene, xpos: Int, ypos: Int) {
-        var col: Int = (-xpos * 2) / DTileWidth
-        var row: Int = (ypos * 2) / DTileHeight
-        var rowNum: Int = 0
-        var colNum: Int = 0
-        for i in 0 ..< DTileCount {
-            var xposSize: Int = xpos + colNum * DTileWidth
-            var yposSize: Int = ypos - rowNum * DTileHeight
-
-            if colNum < col {
-                colNum += 1
-                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-            } else if rowNum < col {
-                rowNum += 1
-                colNum = 0
-                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-            }
-        }
+        //        var col: Int = (-xpos * 2) / DTileWidth
+        //        var row: Int = (ypos * 2) / DTileHeight
+        //        var rowNum: Int = 0
+        //        var colNum: Int = 0
+        //        for i in 0 ..< DTileCount {
+        //            var xposSize: Int = xpos + colNum * DTileWidth
+        //            var yposSize: Int = ypos - rowNum * DTileHeight
+        //
+        //            if colNum < col {
+        //                colNum += 1
+        //                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
+        //            } else if rowNum < col {
+        //                rowNum += 1
+        //                colNum = 0
+        //                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
+        //            }
+        //        }
+        DrawTile(skscene: skscene, xpos: xpos + 200, ypos: ypos - 100, tileindex: 130)
     }
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
         //        if 0 > tileindex || tileindex >= DTileCount {
