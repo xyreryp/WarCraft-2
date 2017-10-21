@@ -270,8 +270,7 @@ class CTerrainMap {
         }
         DRendered = true
     }
-    
-    
+
     // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
     // parse a string into array on specific delim
     func SplitStringWithDelim(input: String, delim: String) -> [String] {
@@ -279,7 +278,7 @@ class CTerrainMap {
         let StringOfWordsArray = stringOfWords.components(separatedBy: delim)
         return StringOfWordsArray
     }
-    
+
     // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
     // parse a string to string array on spaces
     func StringToArray(input: String) -> [String] {
@@ -288,6 +287,14 @@ class CTerrainMap {
         return StringOfWordsArray
     }
 
+    func FirstCharHash(input: String) -> Bool {
+        if StringToArray(input: input).first == "#" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func LoadMap() throws -> Bool { // source _: CDataSource
 
         // reading in file path
@@ -297,7 +304,7 @@ class CTerrainMap {
 
         // read it into string
         let text = try String(contentsOf: filepath!, encoding: .utf8)
-        print ("START DEBUG")
+        print("START DEBUG")
         //        print(text)
         // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
 
@@ -321,10 +328,16 @@ class CTerrainMap {
         //            return ReturnStatus
         //        }
         var StringMap = [String]()
+        var MapName: String = String()
+        var MapSizeString:String = String()
         StringMap = text.components(separatedBy: "\n")
         let StringMapCount: Int = StringMap.count
-        print(StringMap.first)
 
+        for s in StringMap {
+            if !FirstCharHash(input: s){
+                print(s)
+            }
+        }
         do { // not too sure how to catch errors
             //            MapWidth = Int(Tokens[0])!
             //            MapHeight = Int(Tokens[1])!
