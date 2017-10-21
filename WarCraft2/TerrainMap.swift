@@ -290,7 +290,7 @@ class CTerrainMap {
     func LoadMap() throws -> Bool { // source _: CDataSource
 
         // reading in file path
-        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "txt")
+        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "map")
         //   let toURL: URL = URL(string: filepath!)
         //        try print(String(contentOf: filepath))
 
