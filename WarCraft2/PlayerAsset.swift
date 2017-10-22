@@ -125,20 +125,21 @@ class CPlayerAsset {
     }
 
     func CommandCount() -> Int {
-        return DCommands.size()
+        return DCommands.count
     }
 
     func ClearCommand() {
-        DCommands.clear()
+        DCommands = [SAssetCommand]()
     }
 
     func PushCommand(command: SAssetCommand) {
-        DCommands.push_back(command)
+        DCommands.append(command)
     }
 
-    func EnqueueCommand(command: EnqueueCommand) {
-        DCommands.insert(DCommands.begin(), command)
-    }
+    // TODO: figure out how to enqueue
+//    func EnqueueCommand(command: SAssetCommand) {
+//        DCommands.insert(DCommands., at: command)
+//    }
 
     func PopCommand() {
         if !DCommands.empty() {
