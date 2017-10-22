@@ -79,8 +79,7 @@ class AssetRenderer {
         
         
         var LastDirectionName: String = "decay-nw-"
-        var decayDirections: [String] = ["decay-n-","decay-ne-","decay-e-","decay-se-","decay-s-","decay-sw-","decay-w-","decay-nw-"]
-        for var DirectionName in decayDirections {
+        for var DirectionName in ["decay-n-","decay-ne-","decay-e-","decay-se-","decay-s-","decay-sw-","decay-w-","decay-nw-"] {
             var StepIndex: Int = 0
             var TileIndex: Int
             while (true) {
@@ -101,70 +100,78 @@ class AssetRenderer {
             }
             LastDirectionName = DirectionName
         }
-    }
+        
+        for var DirectionName in ["attack-n-","attack-ne-","attack-e-","attack-se-","attack-s-","attack-sw-","attack-w-","atack-nw-"] {
+            var StepIndex: Int = 0
+            var TileIndex: Int
+            while(true){
+                var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                TileIndex = DArrowTileset.FindTile(tilename: &DirectionNameStepIndex)
+                if (0 <= TileIndex){
+                    DArrowIndices.append(TileIndex)
+                }
+                else{
+                    break
+                }
+                StepIndex = StepIndex + 1
+            }
+        }
+        
+        //DConstructIndices.resize(DTilesets.size());
+        //DBuildIndices.resize(DTilesets.size());
+        //DWalkIndices.resize(DTilesets.size());
+        //DNoneIndices.resize(DTilesets.size());
+        //DCarryGoldIndices.resize(DTilesets.size());
+        //DCarryLumberIndices.resize(DTilesets.size());
+        //DAttackIndices.resize(DTilesets.size());
+        //DDeathIndices.resize(DTilesets.size());
+        //DPlaceIndices.resize(DTilesets.size());
+    
+        for var Tileset in DTilesets {
+            if (Tileset?) {
+                //PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
+                
+                for DirectionName in ["walk-n-","walk-ne-","walk-e-","walk-se-","walk-s-","walk-sw-","walk-w-","walk-nw-"] {
+                    var StepIndex: Int = 0
+                    var TileIndex
+                    while(true){
+                        var directionNameStepIndex: String = DirectionName + String(StepIndex)
+                        TileIndex = Tileset.FindTile(directionNameStepIndex)
+                        
+                        if(0 <= TileIndex){
+                            //DWalkIndices[TypeIndex].push_back(TileIndex);
+                            DWalkIndices[TypeIndex].append(TileIndex)
+                        }
+                        else{
+                            break
+                        }
+                        StepIndex = StepIndex + 1
+                    }
+                }
+                //PrintDebug(DEBUG_LOW,"Checking Construct on %d\n",TypeIndex);
+            
+                {
+                    var StepIndex: Int = 0
+                    var TileIndex: Int
+                    while(true){
+                        var constructStepIndex: Int = "construct-" + String(StepIndex)
+                        TileIndex = Tileset.FindTile(constructStepIndex)
+                        if(0 <= TileIndex){
+                            //DConstructIndices[TypeIndex].push_back(TileIndex);
+                            DConstructIndices[TypeIndex].append(TileIndex)
+                        }
+                        else{
+                        if(!StepIndex){
+                            DConstructIndices[TypeIndex].push_back(-1)
+                        }
+                            break
+                        }
+                        StepIndex = StepIndex + 1
+                    }
+                }
+            }
+        }
 
-
-
-    //
-
-    //
-    //    for(auto &DirectionName : {"attack-n-","attack-ne-","attack-e-","attack-se-","attack-s-","attack-sw-","attack-w-","attack-nw-"}){
-    //    int StepIndex = 0, TileIndex;
-    //    while(true){
-    //    TileIndex = DArrowTileset->FindTile(std::string(DirectionName) + std::to_string(StepIndex));
-    //    if(0 <= TileIndex){
-    //    DArrowIndices.push_back(TileIndex);
-    //    }
-    //    else{
-    //    break;
-    //    }
-    //    StepIndex++;
-    //    }
-    //    }
-    //
-    //
-    //    DConstructIndices.resize(DTilesets.size());
-    //    DBuildIndices.resize(DTilesets.size());
-    //    DWalkIndices.resize(DTilesets.size());
-    //    DNoneIndices.resize(DTilesets.size());
-    //    DCarryGoldIndices.resize(DTilesets.size());
-    //    DCarryLumberIndices.resize(DTilesets.size());
-    //    DAttackIndices.resize(DTilesets.size());
-    //    DDeathIndices.resize(DTilesets.size());
-    //    DPlaceIndices.resize(DTilesets.size());
-    //    for(auto &Tileset : DTilesets){
-    //    if(Tileset){
-    //    PrintDebug(DEBUG_LOW,"Checking Walk on %d\n",TypeIndex);
-    //    for(auto &DirectionName : {"walk-n-","walk-ne-","walk-e-","walk-se-","walk-s-","walk-sw-","walk-w-","walk-nw-"}){
-    //    int StepIndex = 0, TileIndex;
-    //    while(true){
-    //    TileIndex = Tileset->FindTile(std::string(DirectionName) + std::to_string(StepIndex));
-    //    if(0 <= TileIndex){
-    //    DWalkIndices[TypeIndex].push_back(TileIndex);
-    //    }
-    //    else{
-    //    break;
-    //    }
-    //    StepIndex++;
-    //    }
-    //    }
-    //    PrintDebug(DEBUG_LOW,"Checking Construct on %d\n",TypeIndex);
-    //    {
-    //    int StepIndex = 0, TileIndex;
-    //    while(true){
-    //    TileIndex = Tileset->FindTile(std::string("construct-") + std::to_string(StepIndex));
-    //    if(0 <= TileIndex){
-    //    DConstructIndices[TypeIndex].push_back(TileIndex);
-    //    }
-    //    else{
-    //    if(!StepIndex){
-    //    DConstructIndices[TypeIndex].push_back(-1);
-    //    }
-    //    break;
-    //    }
-    //    StepIndex++;
-    //    }
-    //    }
     //    PrintDebug(DEBUG_LOW,"Checking Gold on %d\n",TypeIndex);
     //    for(auto &DirectionName : {"gold-n-","gold-ne-","gold-e-","gold-se-","gold-s-","gold-sw-","gold-w-","gold-nw-"}){
     //    int StepIndex = 0, TileIndex;
@@ -288,4 +295,6 @@ class AssetRenderer {
     //    TypeIndex++;
     //    }
     //    }
+        
+    }
 }
