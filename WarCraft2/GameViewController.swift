@@ -27,6 +27,7 @@ class GameViewController: NSViewController {
         graphicTileSet.LoadTileset(source: nil)
         let map = CTerrainMap()
         try! map.LoadMap()
+        map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: rect)
         // TODO:

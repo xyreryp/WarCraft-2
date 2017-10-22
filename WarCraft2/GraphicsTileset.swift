@@ -270,7 +270,7 @@ class CGraphicTileset {
                     DMapping[TempTokens[i]] = i - 5
                     DTileNames.append(TempTokens[i])
                 }
-                print(Tokens)
+                //                print(Tokens)
                 DTileCount = Tokens.count
             } catch {
                 print(error)
