@@ -60,7 +60,7 @@ final class CMapRenderer: PMapRenderer {
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 
-        CMapRenderer.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.None.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
+        //        CMapRenderer.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.None.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
 
         //        if !LineSource.Read(line: &TempString) {
         //            return
@@ -287,8 +287,8 @@ final class CMapRenderer: PMapRenderer {
                     }
 
                     if -1 != DisplayIndex {
-                        print("xpos : \(XPos) ypos: \(YPos) display: \(DisplayIndex)")
-                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
+                        //                        print("xpos : \(XPos) ypos: \(YPos) display: \(DisplayIndex)")
+                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
                         // TODO: Uncomment after uncommeting CGraphicSurface.DrawClipped
                         // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }

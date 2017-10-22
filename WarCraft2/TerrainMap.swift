@@ -420,7 +420,7 @@ class CTerrainMap {
             //            if MapHeight + 1 > StringMap.count {
             //                return ReturnStatus
             //            }
-            resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [ETerrainTileType.None])
+            resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
             for Index in 0 ..< DTerrainMap.count {
                 resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
                 for Inner in 0 ..< MapWidth + 1 {
