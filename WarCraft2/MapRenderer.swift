@@ -276,7 +276,7 @@ final class CMapRenderer: PMapRenderer {
                 // PixelType used in DrawClipped
                 let PixelType: CPixelType = CPixelType(type: DDMap.TileType(xindex: XIndex, yindex: YIndex))
                 let ThisTileType: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
-                let TileIndex: Int = DDMap.TileType(xindex: XIndex, yindex: YIndex).rawValue
+                let TileIndex: Int = DDMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
 
                 if (0 <= TileIndex) && (16 > TileIndex) {
                     var DisplayIndex: Int = -1
