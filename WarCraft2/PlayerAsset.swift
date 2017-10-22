@@ -335,14 +335,7 @@ class CPlayerAsset {
     }
 
     func Capabilities() -> [EAssetCapabilityType] {
-        var ReturnVector: [EAssetCapabilityType]
-        var Index: Int = 0
-        repeat {
-            if DType.DCapabilities[Index] {
-                ReturnVector.append(EAssetCapabilityType(rawValue: Index)!)
-            }
-            Index += 1
-        } while Index < EAssetCapabilityType.Max.rawValue
+        return DType.Capabilities()
     }
 
     func MoveStep(occupancymap _: [[CPlayerAsset]], diagonals _: [[Bool]]) -> Bool {
