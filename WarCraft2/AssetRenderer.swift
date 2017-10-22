@@ -453,4 +453,239 @@ class AssetRenderer {
             }
         }
     }
+
+    func DrawSelections(surface: CGraphicSurface, rect: SRectangle, selectionlist: [CPlayerAsset], selectrect: SRectangle, highlightbuilding: Bool) {
+        var ResourceContext = surface.CreateResourceContext()
+        var RectangleColor: UInt32 = DPixelColors[EPlayerColor.Max.rawValue]
+        var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
+        var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
+        var SelectionX, SelectionY: Int
+
+        if highlightbuilding {
+            RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 2]
+
+            ResourceContext.SetSourceRGB(RectangleColor)
+            for AssetIterator in DPlayerMap.Assets {
+                var TempRenderData: SAssetRenderData
+                TempRenderData.DType = AssetIterator.Type()
+                if EAssetType.None == TempRenderData.DType {
+                    continue
+                }
+                if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.size()) {
+                    if 0 == AssetIterator.Speed() {
+                        var RightX: Int
+                        var Offset: Int = EAssetType.GoldMine == TempRenderData.DType ? 1 : 0
+
+                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
+                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
+                        TempRenderData.DX = TempRenderData.DX - Offset * CPosition.TileWidth()
+                        TempRenderData.DY = TempRenderData.DY - Offset * CPosition.TileHeight()
+
+                        RightX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * CPosition.TileWidth()) - 1
+                        TempRenderData.DBottomY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * CPosition.TileHeight()) - 1
+                        var OnScreen: Bool = true
+                        if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
+                            OnScreen = false
+                        } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                            OnScreen = false
+                        }
+                        TempRenderData.DX = TempRenderData.DX - rect.DXPosition
+                        TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+                        if OnScreen {
+                            ResourceContext.Rectangle(TempRenderData.DX, TempRenderData.DY, DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * CPosition.TileWidth()), DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * CPosition.TileHeight()))
+                            ResourceContext.Stroke()
+                        }
+                    }
+                }
+            }
+
+            RectangleColor = DPixelColors[EPlayerColor.Max.rawValue]
+        }
+
+        ResourceContext.SetSourceRGB(rgb: RectangleColor)
+
+        if selectrect.DWidth && selectrect.DHeight {
+            SelectionX = selectrect.DXPosition - rect.DXPosition
+            SelectionY = selectrect.DYPosition - rect.DYPosition
+
+            ResourceContext.Rectangle(xpos: SelectionX, ypos: SelectionY, width: selectrect.DWidth, height: selectrect.DHeight)
+            ResourceContext.Stroke()
+        }
+
+        if selectionlist.size() {
+            if var Asset = selectionlist.front().lock() {
+                if EPlayerColor.None == Asset.Color() {
+                    RectangleColor = DPixelColors[EPlayerColor.None.rawValue]
+                } else if DPlayerData.Color() != Asset.Color() {
+                    RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 1]
+                }
+                ResourceContext.SetSourceRGB(rgb: RectangleColor)
+            }
+        }
+
+        for var AssetIterator in selectionlist {
+            if var LockedAsset = AssetIterator.lock() {
+                var TempRenderData: SAssetRenderData
+                TempRenderData.DType = LockedAsset.Type()
+                if EAssetType.None == TempRenderData.DType {
+                    if EAssetAction.Decay == LockedAsset.Action() {
+                        var RightX: Int
+                        var OnScreen: Bool = true
+
+                        TempRenderData.DX = LockedAsset.PositionX() - DCorpseTileset.TileWidth() / 2
+                        TempRenderData.DY = LockedAsset.PositionY() - DCorpseTileset.TileHeight() / 2
+                        RightX = TempRenderData.DX + DCorpseTileset.TileWidth()
+                        TempRenderData.DBottomY = TempRenderData.DY + DCorpseTileset.TileHeight()
+
+                        if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
+                            OnScreen = false
+                        } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                            OnScreen = false
+                        }
+                        TempRenderData.DX = TempRenderData.DX - rect.DXPosition
+                        TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+                        if OnScreen {
+                            var ActionSteps: Int = DCorpseIndices.size()
+                            ActionSteps = ActionSteps / EDirection.Max.rawValue
+                            if ActionSteps {
+                                var CurrentStep: Int = LockedAsset.Step() / (DAnimationDownsample * TARGET_FREQUENCY)
+                                if CurrentStep >= ActionSteps {
+                                    CurrentStep = ActionSteps - 1
+                                }
+                                TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.Direction().rawValue * ActionSteps + CurrentStep]
+                            }
+
+                            DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                        }
+                    } else if EAssetAction.Attack != LockedAsset.Action() {
+                        var RightX: Int
+                        var OnScreen: Bool = true
+
+                        TempRenderData.DX = LockedAsset.PositionX() - DMarkerTileset.TileWidth() / 2
+                        TempRenderData.DY = LockedAsset.PositionY() - DMarkerTileset.TileHeight() / 2
+                        RightX = TempRenderData.DX + DMarkerTileset.TileWidth()
+                        TempRenderData.DBottomY = TempRenderData.DY + DMarkerTileset.TileHeight()
+
+                        if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
+                            OnScreen = false
+                        } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                            OnScreen = false
+                        }
+                        TempRenderData.DX = TempRenderData.DX - rect.DXPosition
+                        TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+                        if OnScreen {
+                            var MarkerIndex: Int = LockedAsset.Step() / DAnimationDownsample
+                            if MarkerIndex < DMarkerIndices.size() {
+                                DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerTileset[MarkerIndex])
+                            }
+                        }
+                    }
+                } else if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.size()) {
+                    var RightX, RectWidth, RectHeight: Int
+                    var OnScreen: Bool = true
+
+                    TempRenderData.DX = LockedAsset.PositionX() - CPosition.HalfTileWidth()
+                    TempRenderData.DY = LockedAsset.PositionY() - CPosition.HalfTileHeight()
+                    RectWidth = CPosition.TileWidth() * LockedAsset.Size()
+                    RectHeight = CPosition.TileHeight() * LockedAsset.Size()
+                    RightX = TempRenderData.DX + RectWidth
+                    TempRenderData.DBottomY = TempRenderData.DY + RectHeight
+                    if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
+                        OnScreen = false
+                    } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                        OnScreen = false
+                    } else if (EAssetAction.MineGold == LockedAsset.Action()) || (EAssetAction.ConveyLumber == LockedAsset.Action()) || (EAssetAction.ConveyGold == LockedAsset.Action()) {
+                        OnScreen = false
+                    }
+                    TempRenderData.DX = TempRenderData.DX - rect.DXPosition
+                    TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+                    if OnScreen {
+                        ResourceContext.Rectangle(xpos: TempRenderData.DX, ypos: TempRenderData.DY, width: RectWidth, height: RectHeight)
+                        ResourceContext.Stroke()
+                    }
+                }
+            }
+        }
+    }
+
+    func DrawOverlays(surface: CGraphicSurface, rect: SRectangle) {
+        var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
+        var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
+
+        for var AssetIterator in DPlayerMap.Assets() {
+            var TempRenderData: SAssetRenderData
+            TempRenderData.DType = AssetIterator.Type()
+            if EAssetType.None == TempRenderData.DType {
+                if EAssetAction.Attack == AssetIterator.Action() {
+                    var RightX: Int
+                    var OnScreen: Bool = true
+
+                    TempRenderData.DX = AssetIterator.PositionX() - DArrowTileset.TileWidth() / 2
+                    TempRenderData.DY = AssetIterator.PositionY() - DArrowTileset.TileHeight() / 2
+                    RightX = TempRenderData.DX + DArrowTileset.TileWidth()
+                    TempRenderData.DBottomY = TempRenderData.DY + DArrowTileset.TileHeight()
+
+                    if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
+                        OnScreen = false
+                    } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                        OnScreen = false
+                    }
+                    TempRenderData.DX = TempRenderData.DX - rect.DXPosition
+                    TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+                    if OnScreen {
+                        var ActionSteps: Int = DArrowIndices.size()
+                        ActionSteps = ActionSteps / EDirection.Max.rawValue
+
+                        DArrowTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.Direction().rawValue * ActionSteps + ((DPlayerData.GameCycle() - AssetIterator.CreationCycle()) % ActionSteps)])
+                    }
+                }
+            } else if 0 == AssetIterator.Speed() {
+                var CurrentAction: EAssetAction = AssetIterator.Action()
+
+                if EAssetAction.Death != CurrentAction {
+                    var HitRange: Int = AssetIterator.HitPoints() * DFireTilesets.size() * 2 / AssetIterator.MaxHitPoints()
+
+                    if EAssetAction.Construct == CurrentAction {
+                        var Command = AssetIterator.CurrentCommand()
+
+                        if Command.DAssetTarget {
+                            Command = Command.DAssetTarget.CurrentCommand()
+                            if Command.DActivatedCapability {
+                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
+                                Divisor = Divisor ? Divisor : 1
+                                HitRange = AssetIterator.HitPoints() * DFireTilesets.size() * 2 / Divisor
+                            }
+                        } else if Command.DActivatedCapability {
+                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
+                            Divisor = Divisor ? Divisor : 1
+                            HitRange = AssetIterator.HitPoints() * DFireTilesets.size() * 2 / Divisor
+                        }
+                    }
+
+                    if HitRange < DFireTilesets.size() {
+                        var TilesetIndex: Int = DFireTilesets.size() - 1 - HitRange
+                        var RightX: Int
+
+                        TempRenderData.DTileIndex = (DPlayerData.GameCycle() - AssetIterator.CreationCycle()) % DFireTilesets[TilesetIndex].TileCount()
+                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DFireTilesets[TilesetIndex].TileHalfWidth()
+                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() - DFireTilesets[TilesetIndex].TileHeight()
+
+                        RightX = TempRenderData.DX + DFireTilesets[TilesetIndex].TileWidth() - 1
+                        TempRenderData.DBottomY = TempRenderData.DY + DFireTilesets[TilesetIndex].TileHeight() - 1
+                        bool OnScreen = true
+                        if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
+                            OnScreen = false
+                        } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                            OnScreen = false
+                        }
+                        TempRenderData.DX = TempRenderData.DX - rect.DXPosition
+                        TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+                        if OnScreen {
+                            DFireTilesets[TilesetIndex].DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
