@@ -464,7 +464,7 @@ class AssetRenderer {
         if highlightbuilding {
             RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 2]
 
-            ResourceContext.SetSourceRGB(RectangleColor)
+            ResourceContext.SetSourceRGB(rgb: RectangleColor)
             for AssetIterator in DPlayerMap.Assets {
                 var TempRenderData: SAssetRenderData
                 TempRenderData.DType = AssetIterator.Type()
@@ -684,6 +684,105 @@ class AssetRenderer {
                             DFireTilesets[TilesetIndex].DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     }
+                }
+            }
+        }
+    }
+
+    func DrawPlacement(surface: CGraphicSurface, rect: SRectangle, pos: CPixelPosition, type: EAssetType, builder: CPlayerAsset) {
+        var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
+        var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
+
+        if EAssetType.None != type {
+            var TempPosition: CPixelPosition
+            var TempTilePosition: CTilePosition
+            var PlacementRightX, PlacementBottomY: Int
+            var OnScreen: Bool = true
+            var AssetType = CPlayerAssetType.FindDefaultFromType(type)
+            var PlacementTiles: [[Int]] = [[]]
+            var XOff, YOff: Int
+
+            TempTilePosition.SetFromPixel(pos)
+            TempPosition.SetFromTile(TempTilePosition)
+
+            TempPosition.IncrementX((AssetType.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[type.rawValue].TileHalfWidth())
+            TempPosition.IncrementY((AssetType.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[type.rawValue].TileHalfHeight())
+            PlacementRightX = TempPosition.X() + DTilesets[type.rawValue].TileWidth()
+            PlacementBottomY = TempPosition.Y() + DTilesets[type.rawValue].TileHeight()
+
+            TempTilePosition.SetFromPixel(pos: TempPosition)
+            XOff = 0
+            YOff = 0
+            PlacementTiles.resize(AssetType.Size())
+            for Row in PlacementTiles {
+                Row.resize(AssetType.Size())
+                for var Cell in Row {
+                    var TileType = DPlayerMap.TileType(TempTilePosition.X() + XOff, TempTilePosition.Y() + YOff)
+                    if CTerrainMap.CanPlaceOn(TileType) {
+                        Cell = 1
+                    } else {
+                        Cell = 0
+                    }
+                    XOff = XOff + 1
+                }
+                XOff = 0
+                YOff = YOff + 1
+            }
+            XOff = TempTilePosition.X() + AssetType.Size()
+            YOff = TempTilePosition.Y() + AssetType.Size()
+            for PlayerAsset in DPlayerMap.Assets {
+                var MinX, MaxX, MinY, MaxY: Int
+                var Offset: Int = EAssetType.GoldMine == PlayerAsset.Type() ? 1 : 0
+
+                if builder == PlayerAsset {
+                    continue
+                }
+                if XOff <= PlayerAsset.TilePositionX() - Offset {
+                    continue
+                }
+                if TempTilePosition.X() >= (PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset) {
+                    continue
+                }
+                if YOff <= PlayerAsset.TilePositionY() - Offset {
+                    continue
+                }
+                if TempTilePosition.Y() >= (PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset) {
+                    continue
+                }
+                MinX = max(TempTilePosition.X(), PlayerAsset.TilePositionX() - Offset)
+                MaxX = min(XOff, PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset)
+                MinY = max(TempTilePosition.Y(), PlayerAsset.TilePositionY() - Offset)
+                MaxY = min(YOff, PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset)
+                for var Y = MinY; Y < MaxY; Y = Y + 1 {
+                    for var X = MinX; X < MaxX; X = X + 1 {
+                        PlacementTiles[Y - TempTilePosition.Y()][X - TempTilePosition.X()] = 0
+                    }
+                }
+            }
+
+            if PlacementRightX <= rect.DXPosition {
+                OnScreen = false
+            } else if PlacementBottomY <= rect.DYPosition {
+                OnScreen = false
+            } else if TempPosition.X() >= ScreenRightX {
+                OnScreen = false
+            } else if TempPosition.Y() >= ScreenBottomY {
+                OnScreen = false
+            }
+            if OnScreen {
+                var XPos, YPos: Int
+                TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                DTilesets[type.rawValue].DrawTile(surface, TempPosition.X(), TempPosition.Y(), DPlaceIndices[type.rawValue][0], DPlayerData.Color().rawValue - 1)
+                XPos = TempPosition.X()
+                YPos = TempPosition.Y()
+                for Row in PlacementTiles {
+                    for Cell in Row {
+                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: Cell ? DPlaceGoodIndex : DPlaceBadIndex)
+                        XPos = XPos + DMarkerTileset!.TileWidth()
+                    }
+                    YPos = YPos + DMarkerTileset!.TileHeight()
+                    XPos = TempPosition.X()
                 }
             }
         }
