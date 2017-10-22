@@ -304,30 +304,15 @@ class CPlayerAssetType {
         return FindDefaultFromName( name: TypeToName(type: type) )
     }
 
-//    std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > CPlayerAssetType::DuplicateRegistry(EPlayerColor color){
-//    std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > ReturnRegistry( new std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > );
-//
-//    for(auto &It : DRegistry){
-//    std::shared_ptr< CPlayerAssetType > NewAssetType(new CPlayerAssetType(It.second));
-//    NewAssetType->DThis = NewAssetType;
-//    NewAssetType->DColor = color;
-//    (*ReturnRegistry)[It.first] = NewAssetType;
-//    }
-//
-//    return ReturnRegistry;
-//    }
-//
+
     func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
-        var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
-        for It in DRegistry {
-            var NewAssetType = CPlayerAssetType()
-        }
-        
+        var ReturnRegistry:[String:CPlayerAssetType] = [String:CPlayerAssetType]()
+        ReturnRegistry = DRegistry
+        return ReturnRegistry
     }
 
     func Construct() -> CPlayerAsset {
+        let ThisShared = DThis
+        return CPlayerAsset(type: ThisShared)
     }
-
-    //
-    //    std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > CPlayerAssetType::DRegistry;
 }
