@@ -12,7 +12,7 @@ import SpriteKit
 
 class GameViewController: NSViewController {
 
-    var skview = SKView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900))
+    var skview = GameView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
 
@@ -34,5 +34,15 @@ class GameViewController: NSViewController {
         // TODO:
         //        graphicTileSet.LoadTileset(source: nil)
         //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
+    }
+}
+
+class GameView: SKView {
+
+    override func mouseDragged(with event: NSEvent) {
+        let x = event.deltaX
+        let y = event.deltaY
+        frame.origin.x += x
+        frame.origin.y -= y
     }
 }

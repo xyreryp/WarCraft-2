@@ -399,8 +399,8 @@ class CTerrainMap {
         var StringMap = [String]()
         StringMap = text.components(separatedBy: "\n")
         let StringMapCount: Int = StringMap.count
-        
-        //FIXME: CHANGE HARDCODE
+
+        // FIXME: CHANGE HARDCODE
         let MapWidth = 64
         let MapHeight = 64
         do {
