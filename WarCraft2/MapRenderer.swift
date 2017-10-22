@@ -106,7 +106,7 @@ final class CMapRenderer: PMapRenderer {
 
         CMapRenderer.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
         for (i, _) in DTileIndices.enumerated() {
-            CMapRenderer.resize(array: &DTileIndices[i], size: 16, defaultValue: [Int()])
+            CMapRenderer.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
         }
 
         var Index2: Int = 0
