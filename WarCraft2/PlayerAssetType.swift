@@ -224,114 +224,15 @@ class CPlayerAssetType {
         return DAssetRequirements
     }
 
-    func NameToType(name: String) -> EAssetCapabilityType {
-        var NameTypeTranslation: [String: EAssetCapabilityType] = [
-            "None": EAssetCapabilityType.None,
-            "BuildPeasant": EAssetCapabilityType.BuildPeasant,
-            "BuildFootman": EAssetCapabilityType.BuildFootman,
-            "BuildArcher": EAssetCapabilityType.BuildArcher,
-            "BuildRanger": EAssetCapabilityType.BuildRanger,
-            "BuildFarm": EAssetCapabilityType.BuildFarm,
-            "BuildTownHall": EAssetCapabilityType.BuildTownHall,
-            "BuildBarracks": EAssetCapabilityType.BuildBarracks,
-            "BuildLumberMill": EAssetCapabilityType.BuildLumberMill,
-            "BuildBlacksmith": EAssetCapabilityType.BuildBlacksmith,
-            "BuildKeep": EAssetCapabilityType.BuildKeep,
-            "BuildCastle": EAssetCapabilityType.BuildCastle,
-            "BuildScoutTower": EAssetCapabilityType.BuildScoutTower,
-            "BuildGuardTower": EAssetCapabilityType.BuildGuardTower,
-            "BuildCannonTower": EAssetCapabilityType.BuildCannonTower,
-            "Move": EAssetCapabilityType.Move,
-            "Repair": EAssetCapabilityType.Repair,
-            "Mine": EAssetCapabilityType.Mine,
-            "BuildSimple": EAssetCapabilityType.BuildSimple,
-            "BuildAdvanced": EAssetCapabilityType.BuildAdvanced,
-            "Convey": EAssetCapabilityType.Convey,
-            "Cancel": EAssetCapabilityType.Cancel,
-            "BuildWall": EAssetCapabilityType.BuildWall,
-            "Attack": EAssetCapabilityType.Attack,
-            "StandGround": EAssetCapabilityType.StandGround,
-            "Patrol": EAssetCapabilityType.Patrol,
-            "WeaponUpgrade1": EAssetCapabilityType.WeaponUpgrade1,
-            "WeaponUpgrade2": EAssetCapabilityType.WeaponUpgrade2,
-            "WeaponUpgrade3": EAssetCapabilityType.WeaponUpgrade3,
-            "ArrowUpgrade1": EAssetCapabilityType.ArrowUpgrade1,
-            "ArrowUpgrade2": EAssetCapabilityType.ArrowUpgrade2,
-            "ArrowUpgrade3": EAssetCapabilityType.ArrowUpgrade3,
-            "ArmorUpgrade1": EAssetCapabilityType.ArmorUpgrade1,
-            "ArmorUpgrade2": EAssetCapabilityType.ArmorUpgrade2,
-            "ArmorUpgrade3": EAssetCapabilityType.ArmorUpgrade3,
-            "Longbow": EAssetCapabilityType.Longbow,
-            "RangerScouting": EAssetCapabilityType.RangerScouting,
-            "Marksmanship": EAssetCapabilityType.Marksmanship,
-        ]
-        var retVal: EAssetCapabilityType
-        if nil != NameTypeTranslation[name] {
-            retVal = NameTypeTranslation[name]!
-        } else {
-            retVal = EAssetCapabilityType.None
-        }
-        return retVal
-    }
-
-    func TypeToName(type: EAssetType) -> String {
-        let TypeStrings: [String] = [
-            "None",
-            "BuildPeasant",
-            "BuildFootman",
-            "BuildArcher",
-            "BuildRanger",
-            "BuildFarm",
-            "BuildTownHall",
-            "BuildBarracks",
-            "BuildLumberMill",
-            "BuildBlacksmith",
-            "BuildKeep",
-            "BuildCastle",
-            "BuildScoutTower",
-            "BuildGuardTower",
-            "BuildCannonTower",
-            "Move",
-            "Repair",
-            "Mine",
-            "BuildSimple",
-            "BuildAdvanced",
-            "Convey",
-            "Cancel",
-            "BuildWall",
-            "Attack",
-            "StandGround",
-            "Patrol",
-            "WeaponUpgrade1",
-            "WeaponUpgrade2",
-            "WeaponUpgrade3",
-            "ArrowUpgrade1",
-            "ArrowUpgrade2",
-            "ArrowUpgrade3",
-            "ArmorUpgrade1",
-            "ArmorUpgrade2",
-            "ArmorUpgrade3",
-            "Longbow",
-            "RangerScouting",
-            "Marksmanship",
-        ]
-        if (type.rawValue < 0 || type.rawValue >= TypeStrings.count) {
-            return ""
-        }
-        return TypeStrings[type.rawValue]
-    }
-    
-    
-
     func MaxSight() -> Int {
     }
 
     func LoadTypes(container _: CDataContainer) -> Bool {
     }
 
-    // TODO: After we for sure know how to read stuff in
-    // func Load(source _: CDataSource) -> Bool {
-    // }
+    //     TODO: After we for sure know how to read stuff in
+    //     func Load(source _: CDataSource) -> Bool {
+    //     }
 
     func FindDefaultFromName(name _: String) -> CPlayerAssetType {
     }

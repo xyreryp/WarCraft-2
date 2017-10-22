@@ -44,15 +44,6 @@ class CPlayerCapability {
     }
 
     // FIXME:
-    //    std::shared_ptr< CPlayerCapability > CPlayerCapability::FindCapability(EAssetCapabilityType type){
-    //    auto Iterator = TypeRegistry().find(to_underlying(type));
-    //
-    //    if(Iterator != TypeRegistry().end()){
-    //    return Iterator->second;
-    //    }
-    //    return std::shared_ptr< CPlayerCapability >();
-    // }
-    //
     func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
@@ -60,20 +51,13 @@ class CPlayerCapability {
         return CPlayerCapability()
     }
 
-    //    std::shared_ptr< CPlayerCapability > CPlayerCapability::FindCapability(const std::string &name){
-    //    auto Iterator = NameRegistry().find(name);
-    //
-    //    if(Iterator != NameRegistry().end()){
-    //    return Iterator->second;
-    //    }
-    //    return std::shared_ptr< CPlayerCapability >();
-    //    }
+    // TODO:
     func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
 
-        return CPlayerCapabilit
+        return CPlayerCapability(name: <#String#>)
     }
 
     func NameToType(name: String) -> EAssetCapabilityType {
@@ -125,7 +109,7 @@ class CPlayerCapability {
         return EAssetCapabilityType.None
     }
 
-    func TypeToName(type: EAssetCapabilityType) {
+    func TypeToName(type: EAssetCapabilityType) -> String {
         var TypeStrings: [String] = [
             "None",
             "BuildPeasant",

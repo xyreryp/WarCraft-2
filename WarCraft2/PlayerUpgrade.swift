@@ -38,39 +38,71 @@ class CPlayerUpgrade {
         return false
     }
 
+    // TODO: how are we gonna do lineSource
     func Load(source: CDataSource) -> Bool {
-//        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
-//        var Name: String
-//        var TempString: String
-//        var PlayerUpgrade: CPlayerUpgrade
-//        var UpgradeType: EAssetCapabilityType
-//        var AffectedAssetCount: Int
-//        var ReturnStatus: Bool = false
+        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
+        var Name: String
+        var TempString: String
+        var PlayerUpgrade: CPlayerUpgrade
+        var UpgradeType: EAssetCapabilityType
+        var AffectedAssetCount: Int
+        var ReturnStatus: Bool = false
+
+        if source == nil {
+            return false
+        }
+
+        if !LineSource.Read(line: &Name) {
+            print("Failed to get player upgrade name.\n")
+            return false
+        }
+
+        // declare instance to use UpgradeType
+        let playerCapability = CPlayerCapability(name: Name, targettype: CPlayerCapability.ETargetType.None)
+        UpgradeType = playerCapability.NameToType(name: Name)
+        
+        if EAssetCapabilityType.None == UpgradeType && Name != playerCapability.TypeToName(type: EAssetCapabilityType.None) {
+            print("Unknown upgrade type " + Name + ".\n")
+            return false
+        }
+
+        if let upgrade = DRegistryByName[Name] {
+            PlayerUpgrade = upgrade
+        } else {
+            PlayerUpgrade = CPlayerUpgrade()
+            PlayerUpgrade.DName = Name
+            DRegistryByName[Name] = PlayerUpgrade
+            DRegistryByType[UpgradeType.rawValue] = PlayerUpgrade
+        }
+        
+//        do {
+//            if !LineSource.Read(line: &Name) {
+//                 print("Failed to get player upgrade name.\n")
+//                goto
+//            }
+//            PlayerUpgrade.DArmor = Int(TempString)!
 //
-//        if source == nil {
-//            return false
+//        } catch let e as Error {
+//            print ("Other error: \(e)")
 //        }
-//
-//        if !LineSource.Read(Name) {
-//            print("Failed to get player upgrade name.\n")
-//            return false
-//        }
-//
-//        UpgradeType = CPlayerCapability.NameToType(Name)
-//        if EAssetCapabilityType.None == UpgradeType && Name != CPlayerCapability.TypeToName(EAssetCapabilityType.None) {
-//            print("Unknown upgrade type " + Name + ".\n")
-//            return false
-//        }
-//
-//        if let Iterator = DRegistryByName[Name] {
-//        } else {
-//            PlayerUpgrade: CPlayerUpgrade
-//        }
+        
         return false
     }
-
-    func FindUpgradeFromType(type _: EAssetCapabilityType) -> CPlayerUpgrade { return CPlayerUpgrade() }
-    func FindUpgradeFromName(name _: String) -> CPlayerUpgrade { return CPlayerUpgrade() }
+  
+    func FindUpgradeFromType(type: EAssetCapabilityType) -> CPlayerUpgrade {
+        if let upgrade = DRegistryByType[type.rawValue] {
+            return upgrade
+        }
+            return CPlayerUpgrade()
+    }
+    
+    
+    func FindUpgradeFromName(name: String) -> CPlayerUpgrade {
+        if let upgrade = DRegistryByName[name] {
+            return upgrade
+        }
+        return CPlayerUpgrade()
+    }
 
     //
     //    bool CPlayerUpgrade::Load(std::shared_ptr< CDataSource > source){
