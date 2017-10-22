@@ -320,6 +320,8 @@ class CPlayerAssetType {
         }
         return TypeStrings[type.rawValue]
     }
+    
+    
 
     func MaxSight() -> Int {
     }
@@ -327,8 +329,9 @@ class CPlayerAssetType {
     func LoadTypes(container _: CDataContainer) -> Bool {
     }
 
-    func Load(source _: CDataSource) -> Bool {
-    }
+    // TODO: After we for sure know how to read stuff in
+    // func Load(source _: CDataSource) -> Bool {
+    // }
 
     func FindDefaultFromName(name _: String) -> CPlayerAssetType {
     }

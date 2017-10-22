@@ -22,70 +22,51 @@ class CPlayerUpgrade {
     private(set) var DAffectedAssets: [EAssetType] = []
     private(set) var DRegistryByName: [String: CPlayerUpgrade] = [:]
     private(set) var DRegistryByType: [Int: CPlayerUpgrade] = [:]
-    //    bool CPlayerUpgrade::LoadUpgrades(std::shared_ptr< CDataContainer > container){
-    //    auto FileIterator = container->First();
-    //    if(FileIterator == nullptr){
-    //    PrintError("FileIterator == nullptr\n");
-    //    return false;
-    //    }
-    //
-    //    while((FileIterator != nullptr)&&(FileIterator->IsValid())){
-    //    std::string Filename = FileIterator->Name();
-    //    FileIterator->Next();
-    //    if(Filename.rfind(".dat") == (Filename.length() - 4)){
-    //    if(!CPlayerUpgrade::Load(container->DataSource(Filename))){
-    //    PrintError("Failed to load upgrade \"%s\".\n",Filename.c_str());
-    //    continue;
-    //    }
-    //    else{
-    //    PrintDebug(DEBUG_LOW,"Loaded upgrade \"%s\".\n",Filename.c_str());
-    //    }
-    //    }
-    //    }
-    //
-    //    return true;
-    //    }
-    func LoadUpgrades(container: CDataContainer) -> Bool {
-        var FileIterator = container.First()
-        if FileIterator == nil {
-            // FIXME:
-            print("FileIterator == Nil \n")
-            return false
-        }
 
-        while FileIterator?.IsValid() == true {
-            var Filename = FileIterator.Name()
-        }
+    
+    func LoadUpgrades(container: CDataContainer) -> Bool {
+//        var FileIterator = container.First()
+//        if FileIterator == nil {
+//            // FIXME:
+//            print("FileIterator == Nil \n")
+//            return false
+//        }
+//
+//        while FileIterator?.IsValid() == true {
+//            var Filename = FileIterator?.Name()
+//        }
+        return false
     }
 
     func Load(source: CDataSource) -> Bool {
-        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
-        var Name: String
-        var TempString: String
-        var PlayerUpgrade: CPlayerUpgrade
-        var UpgradeType: EAssetCapabilityType
-        var AffectedAssetCount: Int
-        var ReturnStatus: Bool = false
-
-        if source == nil {
-            return false
-        }
-
-        if !LineSource.Read(Name) {
-            print("Failed to get player upgrade name.\n")
-            return false
-        }
-
-        UpgradeType = CPlayerCapability.NameToType(Name)
-        if EAssetCapabilityType.None == UpgradeType && Name != CPlayerCapability.TypeToName(EAssetCapabilityType.None) {
-            print("Unknown upgrade type " + Name + ".\n")
-            return false
-        }
-
-        if let Iterator = DRegistryByName[Name] {
-        } else {
-            PlayerUpgrade: CPlayerUpgrade
-        }
+//        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
+//        var Name: String
+//        var TempString: String
+//        var PlayerUpgrade: CPlayerUpgrade
+//        var UpgradeType: EAssetCapabilityType
+//        var AffectedAssetCount: Int
+//        var ReturnStatus: Bool = false
+//
+//        if source == nil {
+//            return false
+//        }
+//
+//        if !LineSource.Read(Name) {
+//            print("Failed to get player upgrade name.\n")
+//            return false
+//        }
+//
+//        UpgradeType = CPlayerCapability.NameToType(Name)
+//        if EAssetCapabilityType.None == UpgradeType && Name != CPlayerCapability.TypeToName(EAssetCapabilityType.None) {
+//            print("Unknown upgrade type " + Name + ".\n")
+//            return false
+//        }
+//
+//        if let Iterator = DRegistryByName[Name] {
+//        } else {
+//            PlayerUpgrade: CPlayerUpgrade
+//        }
+        return false
     }
 
     func FindUpgradeFromType(type _: EAssetCapabilityType) -> CPlayerUpgrade { return CPlayerUpgrade() }
