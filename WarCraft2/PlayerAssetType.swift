@@ -130,7 +130,12 @@ class CPlayerAssetType {
             DRange = asset.DRange
         }
     }
+    
+    deinit {
+        
+    }
 
+    // TODO: Where does this go?
     func HitPoints() -> Int {
     }
 
@@ -181,6 +186,7 @@ class CPlayerAssetType {
         return RetVal
     }
 
+    // TODO: Where does this go?
     func HasCapability(capability: EAssetCapabilityType) -> Bool {
         if capability.rawValue < 0 || DCapabilities.count <= capability.rawValue {
             return false
@@ -201,6 +207,20 @@ class CPlayerAssetType {
         return ReturnVector
     }
 
+    func NametoType(name: String) -> EAssetType {
+        if let retVal = DNameTypeTranslation[name] {
+            return retVal
+        }
+        return EAssetType.None
+    }
+    
+    func TypeToName(type: EAssetType) -> String {
+        if type.rawValue < 0 || type.rawValue >= DTypeStrings.count {
+            return ""
+        }
+        return DTypeStrings[type.rawValue]
+    }
+    
     func AddCapability(capability: EAssetCapabilityType) {
         if capability.rawValue < 0 || DCapabilities.count <= capability.rawValue {
             return
@@ -224,15 +244,83 @@ class CPlayerAssetType {
         return DAssetRequirements
     }
 
+//    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     func MaxSight() -> Int {
+        if let MaxSightFound = DRegistry.max(by: {a, b in a.value.DSight > b.value.DSight}) {
+            return MaxSightFound.value.DSight
+        }
     }
 
-    func LoadTypes(container _: CDataContainer) -> Bool {
+    
+//    bool CPlayerAssetType::LoadTypes(std::shared_ptr< CDataContainer > container){
+//    auto FileIterator = container->First();
+//    if(FileIterator == nullptr){
+//    PrintError("FileIterator == nullptr\n");
+//    return false;
+//    }
+//
+//    while((FileIterator != nullptr)&&(FileIterator->IsValid())){
+//    std::string Filename = FileIterator->Name();
+//    FileIterator->Next();
+//    if(Filename.rfind(".dat") == (Filename.length() - 4)){
+//    if(!CPlayerAssetType::Load(container->DataSource(Filename))){
+//    PrintError("Failed to load resource \"%s\".\n",Filename.c_str());
+//    continue;
+//    }
+//    else{
+//    PrintDebug(DEBUG_LOW,"Loaded resource \"%s\".\n",Filename.c_str());
+//    }
+//    }
+//    }
+//    std::shared_ptr< CPlayerAssetType >  PlayerAssetType = std::make_shared< CPlayerAssetType >();
+//    PlayerAssetType->DThis = PlayerAssetType;
+//    PlayerAssetType->DName = "None";
+//    PlayerAssetType->DType = EAssetType::None;
+//    PlayerAssetType->DColor = EPlayerColor::None;
+//    PlayerAssetType->DHitPoints = 256;
+//    DRegistry["None"] = PlayerAssetType;
+//
+//    return true;
+//    }
+    func LoadTypes(container : CDataContainer) -> Bool {
+        let fileItr = container.First()
+        if fileItr == nil {
+            print("fileItr is nil")
+            return false
+        }
+//
+//        if let range = str.range(of: "cd") {
+//            let substring = str[..<range.lowerBound]
+//            print(substring)  // Prints ab
+//        }
+//        let startPos = mystring.distance(from: mystring.startIndex, to: range.lowerBound)
+//
+//
+//        let mystring = "hi this is my name"
+//        if let range = mystring.range(of: "this") {
+//            let startPos = mystring.distance(from: mystring.startIndex, to: range.lowerBound)
+//            let endPos = mystring.distance(from: mystring.startIndex, to: range.upperBound)
+//            print(startPos, endPos) // 3 7
+//        }
+//
+        while (fileItr != nil && (fileItr?.IsValid())!) {
+            var FileName:String = fileItr!.Name()
+            let dat: String = ".dat"
+            fileItr?.Next()
+//            if FileName.range(of: dat) != nil { // if '.dat' exists in FileName
+//                let substring = FileName[..<range.lowerBound]
+//            }
+            if let range = FileName.range(of: dat) {
+                if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
+                    
+                }
+            }
+        }
     }
 
-    //     TODO: After we for sure know how to read stuff in
-    //     func Load(source _: CDataSource) -> Bool {
-    //     }
+//     TODO: After we for sure know how to read stuff in
+//     func Load(source _: CDataSource) -> Bool {
+//     }
 
     func FindDefaultFromName(name _: String) -> CPlayerAssetType {
     }

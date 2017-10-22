@@ -93,7 +93,7 @@ class CPlayerUpgrade {
         if let upgrade = DRegistryByType[type.rawValue] {
             return upgrade
         }
-            return CPlayerUpgrade()
+        return CPlayerUpgrade()
     }
     
     
