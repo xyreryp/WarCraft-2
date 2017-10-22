@@ -51,4 +51,11 @@ class GameView: SKView {
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
     }
+    
+    override func scrollWheel(with event: NSEvent) {
+        let x = event.scrollingDeltaX
+        let y = event.scrollingDeltaY
+        frame.origin.x += x
+        frame.origin.y -= y
+    }
 }
