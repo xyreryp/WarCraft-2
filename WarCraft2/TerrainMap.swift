@@ -281,7 +281,7 @@ class CTerrainMap {
             TypeIndex &= (ETerrainTileType.Rock == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.Rock == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.Rock == LR) ? 0xF : 0x7
-            type = ETileType.Rock
+            type = (TypeIndex != 0) ? .Rock : .Rubble
             index = TypeIndex
         } else if (ETerrainTileType.Forest == UL) || (ETerrainTileType.Forest == UR) || (ETerrainTileType.Forest == LL) || (ETerrainTileType.Forest == LR) {
             TypeIndex &= (ETerrainTileType.Forest == UL) ? 0xF : 0xE
@@ -321,8 +321,8 @@ class CTerrainMap {
     }
     //terain being rendered
     func RenderTerrain() {
-        resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [ETileType.None])
-        resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [0])
+        resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [])
+        resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [])
         for YPos in 0 ..< DMap.count {
             if (0 == YPos) || (DMap.count - 1 == YPos) {
                 for _ in 0 ..< DTerrainMap[0].count + 1 {
@@ -399,10 +399,8 @@ class CTerrainMap {
         var StringMap = [String]()
         StringMap = text.components(separatedBy: "\n")
         let StringMapCount: Int = StringMap.count
-        //        print(StringMap.first)
         let MapWidth = 64
         let MapHeight = 64
-
         do {
             //            MapWidth = Int(Tokens[0])!
             //            MapHeight = Int(Tokens[1])!
@@ -478,6 +476,7 @@ class CTerrainMap {
             //     return ReturnStatus
             // }
 
+            // FIXME: below is wrong. StringMap should only contain partialmap below.
             resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
             let valueStringValues: [Character] = ["0", "A"]
             var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
