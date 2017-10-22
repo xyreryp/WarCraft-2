@@ -41,14 +41,14 @@ class GameViewController: NSViewController {
 
 class GameView: SKView {
     var sound = SoundManager()
-    override func mouseDragged(with event: NSEvent) {
-        let x = event.deltaX
-        let y = event.deltaY
-        frame.origin.x += x
-        frame.origin.y -= y
-    }
-
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
+    }
+
+    override func scrollWheel(with event: NSEvent) {
+        let x = event.scrollingDeltaX
+        let y = event.scrollingDeltaY
+        frame.origin.x += x
+        frame.origin.y -= y
     }
 }
