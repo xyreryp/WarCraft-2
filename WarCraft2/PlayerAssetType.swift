@@ -101,33 +101,33 @@ class CPlayerAssetType {
     }
 
     func HasCapability(capability: EAssetCapabilityType) -> Bool {
-        if capability.rawValue || DCapabilities.size() <= capability.rawValue {
+        if capability.rawValue < 0 || DCapabilities.count <= capability.rawValue {
             return false
         }
 
-        return DCapabilities[capacity.rawValue]
+        return DCapabilities[capability.rawValue]
     }
 
     func Capabilities() -> EAssetCapabilityType {
     }
 
     func AddCapability(capability: EAssetCapabilityType) {
-        if capability.rawValue || DCapabilities.size() <= capability.rawValue {
+        if capability.rawValue < 0 || DCapabilities.count <= capability.rawValue {
             return
         }
 
-        DCapabilities[capacity.rawValue] = true
+        DCapabilities[capability.rawValue] = true
     }
 
     func RemoveCapability(capability: EAssetCapabilityType) {
-        if capability.rawValue || DCapabilities.size() <= capability.rawValue {
+        if capability.rawValue < 0 || DCapabilities.count <= capability.rawValue {
             return
         }
-        DCapabilities[capacity.rawValue] = false
+        DCapabilities[capability.rawValue] = false
     }
 
     func AddUpgrade(upgrade: CPlayerUpgrade) {
-        DAssetUpgrades.push_back(upgrade)
+        DAssetUpgrades.append(upgrade)
     }
 
     func AssetRequirements() -> [EAssetType] {

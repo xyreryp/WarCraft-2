@@ -343,7 +343,6 @@ class CPlayerAsset {
             }
             Index += 1
         } while Index < EAssetCapabilityType.Max.rawValue
-   
     }
 
     func MoveStep(occupancymap _: [[CPlayerAsset]], diagonals _: [[Bool]]) -> Bool {
