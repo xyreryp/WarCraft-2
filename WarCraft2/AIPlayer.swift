@@ -12,7 +12,7 @@
 // NOTE: will comment anything from GameModel out at end because file not written yet
 
 
-//uses files: GameModel.h, PlayerCommand.h
+//uses files: GameModel.h, PlayerCommand.h, Debug.h
 import Foundation
 
 class CAIPlayer {
@@ -27,21 +27,37 @@ class CAIPlayer {
         DDownSample = downsample
     }
     
-    //Currently working on SearchMap
     func SearchMap(command: inout SPlayerCommandRequest) -> Bool {
-        var IdleAssets = DPlayerData.IdleAssets()
+        var IdleAssets = DPlayerData.IdleAssets()               //IdleAssets list of weak_ptrs of type CPlayerAsset
         var MovableAsset: CPlayerAsset
         
-        for()
+        for WeakAsset in IdleAssets
         {
-            
+            if (WeakAsset.Speed())                              //check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
+            {
+                MovableAsset = WeakAsset
+                break
+            }
         }
+        
+        if(MovableAsset) {
+            var UnknownPosition: CTilePosition = DPlayerData.PlayerMap().FindNearestReachableTileType(MovableAsset.TilePosition(), CTerrainMap.ETileType.None)
+            if(0 <= UnknownPosition.X()){
+                command.DAction = EAssetCapabilityType.Move
+                command.DActors.push_back(MovableAsset)
+                command.DTargetLocation.SetFromTile(pos: UnknownPosition)
+                return true
+            }
+        }
+        return false
+        
     }
-    
+
     func FindEnemies(command: inout SPlayerCommandRequest) -> Bool {
         
     }
-    
+
+/*
     func AttackEnemies(command: inout SPlayerCommandRequest) -> Bool {
         
     }
@@ -75,4 +91,4 @@ class CAIPlayer {
     }
     
     
-}
+}*/
