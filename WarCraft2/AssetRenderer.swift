@@ -22,21 +22,22 @@ class AssetRenderer {
     var DArrowIndices = [Int]()
     var DPlaceGoodIndex: Int?
     var DPlaceBadIndex: Int?
-    var DNoneIndices = [Int]()
-    var DConstructIndices = [Int]()
-    var DBuildIndices = [Int]()
-    var DWalkIndices = [Int]()
-    var DAttackIndices = [Int]()
-    var DCarryGoldIndices = [Int]()
-    var DCarryLumberIndices = [Int]()
-    var DDeathIndices = [Int]()
-    var DPlaceIndices = [Int]()
+    var DNoneIndices = [[Int]]()
+    var DConstructIndices = [[Int]]()
+    var DBuildIndices = [[Int]]()
+    var DWalkIndices = [[Int]]()
+    var DAttackIndices = [[Int]]()
+    var DCarryGoldIndices = [[Int]]()
+    var DCarryLumberIndices = [[Int]]()
+    var DDeathIndices = [[Int]]()
+    var DPlaceIndices = [[Int]]()
 
     var DPixelColors = [uint32]()
     static var DAnimationDownsample: Int = 1
 
     init(colors: CGraphicRecolorMap, tilesets: [CGraphicMulticolorTileset], markertileset: CGraphicTileset, corpsetileset: CGraphicTileset, firetileset: [CGraphicTileset], buildingdeath: CGraphicTileset, arrowtileset: CGraphicTileset, player: CPlayerData, map: CAssetDecoratedMap) {
-        var TypeIndex, MarkerIndex: Int = 0
+        var TypeIndex: Int
+        var MarkerIndex: Int = 0
         DTilesets = tilesets
         DMarkerTileset = markertileset
         DFireTilesets = firetileset
@@ -62,7 +63,7 @@ class AssetRenderer {
 
         while true {
             var markerMarkerIndex: String = "marker-" + String(MarkerIndex)
-            var Index: Int = DMarkerTileset!.FindTile(tilename: &markerMarkerIndex)
+            var Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
             if 0 > Index {
                 break
             }
@@ -71,8 +72,8 @@ class AssetRenderer {
         }
         var placegood: String = "place-good"
         var placebad: String = "place-bad"
-        DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: &placegood)
-        DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: &placebad)
+        DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: placegood)
+        DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: placebad)
 
         var LastDirectionName: String = "decay-nw-"
         for var DirectionName in ["decay-n-", "decay-ne-", "decay-e-", "decay-se-", "decay-s-", "decay-sw-", "decay-w-", "decay-nw-"] {
@@ -80,12 +81,12 @@ class AssetRenderer {
             var TileIndex: Int
             while true {
                 var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                TileIndex = DCorpseTileset!.FindTile(tilename: &DirectionNameStepIndex)
+                TileIndex = DCorpseTileset!.FindTile(tilename: DirectionNameStepIndex)
                 if 0 <= TileIndex {
                     DCorpseIndices.append(TileIndex)
                 } else {
                     var lastDirectionNameStepIndex = LastDirectionName + String(StepIndex)
-                    TileIndex = DCorpseTileset!.FindTile(tilename: &lastDirectionNameStepIndex)
+                    TileIndex = DCorpseTileset!.FindTile(tilename: lastDirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DCorpseIndices.append(TileIndex)
                     } else {
@@ -102,7 +103,7 @@ class AssetRenderer {
             var TileIndex: Int
             while true {
                 var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                TileIndex = DArrowTileset!.FindTile(tilename: &DirectionNameStepIndex)
+                TileIndex = DArrowTileset!.FindTile(tilename: DirectionNameStepIndex)
                 if 0 <= TileIndex {
                     DArrowIndices.append(TileIndex)
                 } else {
@@ -123,15 +124,16 @@ class AssetRenderer {
         // DPlaceIndices.resize(DTilesets.size());
 
         for var Tileset in DTilesets {
-            if Tileset? {
+            
+            if Tileset != nil {
                 // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
 
                 for DirectionName in ["walk-n-", "walk-ne-", "walk-e-", "walk-se-", "walk-s-", "walk-sw-", "walk-w-", "walk-nw-"] {
                     var StepIndex: Int = 0
-                    var TileIndex
+                    var TileIndex: Int
                     while true {
                         var directionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(directionNameStepIndex)
+                        TileIndex = Tileset.FindTile(tilename: directionNameStepIndex)
 
                         if 0 <= TileIndex {
                             DWalkIndices[TypeIndex].append(TileIndex)
@@ -144,13 +146,13 @@ class AssetRenderer {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var constructStepIndex: Int = "construct-" + String(StepIndex)
-                    TileIndex = Tileset.FindTile(constructStepIndex)
+                    var constructStepIndex: String = "construct-" + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: constructStepIndex)
                     if 0 <= TileIndex {
                         DConstructIndices[TypeIndex].append(TileIndex)
                     } else {
-                        if !StepIndex {
-                            DConstructIndices[TypeIndex].push_back(-1)
+                        if 0 == StepIndex {
+                            DConstructIndices[TypeIndex].append(-1)
                         }
                         break
                     }
@@ -162,7 +164,7 @@ class AssetRenderer {
                     var TileIndex: Int
                     while true {
                         var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(DirectionNameStepIndex)
+                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                         if 0 <= TileIndex {
                             DCarryGoldIndices[TypeIndex].append(TileIndex)
                         } else {
@@ -174,10 +176,10 @@ class AssetRenderer {
                 // PrintDebug(DEBUG_LOW,"Checking Lumber on %d\n",TypeIndex);
                 for DirectionName in ["lumber-n-", "lumber-ne-", "lumber-e-", "lumber-se-", "lumber-s-", "lumber-sw-", "lumber-w-", "lumber-nw-"] {
                     var StepIndex: Int = 0
-                    var TileIndex
+                    var TileIndex: Int
                     while true {
                         var DirectionNameStepIndex = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(DirectionNameStepIndex)
+                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                         if 0 <= TileIndex {
                             DCarryLumberIndices[TypeIndex].append(TileIndex)
                         } else {
@@ -189,10 +191,10 @@ class AssetRenderer {
                 // PrintDebug(DEBUG_LOW,"Checking Attack on %d\n",TypeIndex);
                 for DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "attack-nw-"] {
                     var StepIndex: Int = 0
-                    var TileIndex
+                    var TileIndex: Int
                     while true {
                         var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(DirectionNameStepIndex)
+                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                         if 0 <= TileIndex {
                             DAttackIndices[TypeIndex].append(TileIndex)
                         } else {
@@ -201,13 +203,17 @@ class AssetRenderer {
                         StepIndex = StepIndex + 1
                     }
                 }
-                if 0 == DAttackIndices[TypeIndex].size() {
+                if 0 == DAttackIndices[TypeIndex].count {
                     var TileIndex: Int
-                    for var Index: Int = 0; Index < EDirection.Max.rawValue; Index = Index + 1 {
-                        if 0 <= (TileIndex = Tileset.FindTile("active")) {
+                    for Index in 0 ..< EDirection.Max.rawValue {
+                        TileIndex = Tileset.FindTile(tilename: "active")
+                        if 0 <= TileIndex {
                             DAttackIndices[TypeIndex].append(TileIndex)
-                        } else if 0 <= (TileIndex = Tileset.FindTile("inactive")) {
-                            DAttackIndices[TypeIndex].push_back(TileIndex)
+                        } else {
+                            TileIndex = Tileset.FindTile(tilename: "inactive")
+                            if 0 <= TileIndex {
+                                DAttackIndices[TypeIndex].append(TileIndex)
+                            }
                         }
                     }
                 }
@@ -218,12 +224,12 @@ class AssetRenderer {
                     var TileIndex: Int
                     while true {
                         var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(DirectionNameStepIndex)
+                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                         if 0 <= TileIndex {
                             DDeathIndices[TypeIndex].append(TileIndex)
                         } else {
                             var LastDirectionNameStepIndex: String = LastDirectionName + String(StepIndex)
-                            TileIndex = Tileset.FindTile(LastDirectionNameStepIndex)
+                            TileIndex = Tileset.FindTile(tilename: LastDirectionNameStepIndex)
                             if 0 <= TileIndex {
                                 DDeathIndices[TypeIndex].append(TileIndex)
                             } else {
@@ -234,17 +240,20 @@ class AssetRenderer {
                     }
                     LastDirectionName = DirectionName
                 }
-                if DDeathIndices[TypeIndex].size() {
-                }
+                // if DDeathIndices[TypeIndex].count {
+                // }
                 // PrintDebug(DEBUG_LOW,"Checking None on %d\n",TypeIndex);
                 for DirectionName in ["none-n-", "none-ne-", "none-e-", "none-se-", "none-s-", "none-sw-", "none-w-", "none-nw-"] {
-                    var TileIndex: Int = Tileset.FindTile(String(DirectionName))
+                    var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
                     if 0 <= TileIndex {
                         DNoneIndices[TypeIndex].append(TileIndex)
-                    } else if DWalkIndices[TypeIndex].size() {
-                        DNoneIndices[TypeIndex].append(DWalkIndices[TypeIndex][DNoneIndices[TypeIndex].size() * (DWalkIndices[TypeIndex].size() / EDirection.Max.rawValue)])
-                    } else if 0 <= (TileIndex = Tileset.FindTile("inactive")) {
-                        DNoneIndices[TypeIndex].append(TileIndex)
+                    } else if DWalkIndices[TypeIndex].count != 0 {
+                        DNoneIndices[TypeIndex].append(DWalkIndices[TypeIndex][DNoneIndices[TypeIndex].count * (DWalkIndices[TypeIndex].count / EDirection.Max.rawValue)])
+                    } else {
+                        TileIndex = Tileset.FindTile(tilename: "inactive")
+                        if 0 <= TileIndex {
+                            DNoneIndices[TypeIndex].append(TileIndex)
+                        }
                     }
                 }
                 // PrintDebug(DEBUG_LOW,"Checking Build on %d\n",TypeIndex);
@@ -253,15 +262,19 @@ class AssetRenderer {
                     var TileIndex: Int
                     while true {
                         var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(DirectionNameStepIndex)
+                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                         if 0 <= TileIndex {
                             DBuildIndices[TypeIndex].append(TileIndex)
                         } else {
-                            if !StepIndex {
-                                if 0 <= (TileIndex = Tileset.FindTile("active")) {
+                            if 0 == StepIndex {
+                                TileIndex = Tileset.FindTile(tilename: "active")
+                                if 0 <= TileIndex {
                                     DBuildIndices[TypeIndex].append(TileIndex)
-                                } else if 0 <= (TileIndex = Tileset.FindTile("inactive")) {
-                                    DBuildIndices[TypeIndex].append(TileIndex)
+                                } else {
+                                    TileIndex = Tileset.FindTile(tilename: "inactive")
+                                    if 0 <= TileIndex {
+                                        DBuildIndices[TypeIndex].append(TileIndex)
+                                    }
                                 }
                             }
                             break
@@ -270,7 +283,7 @@ class AssetRenderer {
                     }
                 }
                 // PrintDebug(DEBUG_LOW,"Checking Place on %d\n",TypeIndex);
-                DPlaceIndices[TypeIndex].append(Tileset.FindTile("place"))
+                DPlaceIndices[TypeIndex].append(Tileset.FindTile(tilename: "place"))
 
                 // PrintDebug(DEBUG_LOW,"Done checking type %d\n",TypeIndex);
             }
@@ -344,35 +357,35 @@ class AssetRenderer {
 
                     switch AssetIterator.Action() {
                     case EAssetAction.Build:
-                        ActionSteps = DBuildIndices[TempRenderData.DType.rawValue].size()
+                        ActionSteps = DBuildIndices[TempRenderData.DType.rawValue].count
                         ActionSteps /= EDirection.Max.rawValue
                         if ActionSteps {
                             TileIndex = to_underlying(AssetIterator.Direction()) * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DBuildIndices[TempRenderData.DType.rawValue][TileIndex]
                         }
                     case EAssetAction.Construct:
-                        ActionSteps = DConstructIndices[TempRenderData.DType.rawValue].size()
+                        ActionSteps = DConstructIndices[TempRenderData.DType.rawValue].count
                         if ActionSteps {
                             var TotalSteps: Int = AssetIterator.BuildTime() * CPlayerAsset.UpdateFrequency()
                             var CurrentStep: Int = AssetIterator.Step() * ActionSteps / TotalSteps
-                            if CurrentStep == DConstructIndices[TempRenderData.DType.rawValue].size() {
+                            if CurrentStep == DConstructIndices[TempRenderData.DType.rawValue].count {
                                 CurrentStep = CurrentStep - 1
                             }
                             TempRenderData.DTileIndex = DConstructIndices[TempRenderData.DType.rawValue][CurrentStep]
                         }
                     case EAssetAction.Walk:
                         if AssetIterator.Lumber() {
-                            ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].size()
+                            ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
                             TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DCarryLumberIndices[TempRenderData.DType.rawValue][TileIndex]
                         } else if AssetIterator.Gold() {
-                            ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].size()
+                            ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
                             TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DCarryGoldIndices[TempRenderData.DType.rawValue][TileIndex]
                         } else {
-                            ActionSteps = DWalkIndices[TempRenderData.DType.rawValue].size()
+                            ActionSteps = DWalkIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
                             TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DWalkIndices[TempRenderData.DType.rawValue][TileIndex]
@@ -380,7 +393,7 @@ class AssetRenderer {
                     case EAssetAction.Attack:
                         CurrentStep = AssetIterator.Step() % (AssetIterator.AttackSteps() + AssetIterator.ReloadSteps())
                         if CurrentStep < AssetIterator.AttackSteps() {
-                            ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].size()
+                            ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
                             TileIndex = AssetIterator.Direction().rawValue * ActionSteps + (CurrentStep * ActionSteps / AssetIterator.AttackSteps())
                             TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
@@ -389,7 +402,7 @@ class AssetRenderer {
                         }
                     case EAssetAction.Repair,
                          EAssetAction.HarvestLumber:
-                        ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].size()
+                        ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].count
                         ActionSteps /= EDirection.Max.rawValue
                         TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
                         TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
@@ -398,11 +411,11 @@ class AssetRenderer {
                          EAssetAction.None: TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
                         if AssetIterator.Speed() {
                             if AssetIterator.Lumber() {
-                                ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].size()
+                                ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].count
                                 ActionSteps /= EDirection.Max.rawValue
                                 TempRenderData.DTileIndex = DCarryLumberIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue * ActionSteps]
                             } else if AssetIterator.Gold() {
-                                ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].size()
+                                ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].count
                                 ActionSteps /= EDirection.Max.rawValue
                                 TempRenderData.DTileIndex = DCarryGoldIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue * ActionSteps]
                             }
@@ -417,7 +430,7 @@ class AssetRenderer {
                             TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
                         }
                     case EAssetAction.Death:
-                        ActionSteps = DDeathIndices[TempRenderData.DType.rawValue].size()
+                        ActionSteps = DDeathIndices[TempRenderData.DType.rawValue].count
                         if AssetIterator.Speed() {
                             ActionSteps /= EDirection.Max.rawValue
                             if ActionSteps {
@@ -504,7 +517,7 @@ class AssetRenderer {
 
         ResourceContext.SetSourceRGB(rgb: RectangleColor)
 
-        if selectrect.DWidth && selectrect.DHeight {
+        if selectrect.DWidth != 0 && selectrect.DHeight != 0 {
             SelectionX = selectrect.DXPosition - rect.DXPosition
             SelectionY = selectrect.DYPosition - rect.DYPosition
 
@@ -672,7 +685,7 @@ class AssetRenderer {
 
                         RightX = TempRenderData.DX + DFireTilesets[TilesetIndex].TileWidth() - 1
                         TempRenderData.DBottomY = TempRenderData.DY + DFireTilesets[TilesetIndex].TileHeight() - 1
-                        bool OnScreen = true
+                        var OnScreen: Bool = true
                         if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
                             OnScreen = false
                         } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
@@ -702,8 +715,8 @@ class AssetRenderer {
             var PlacementTiles: [[Int]] = [[]]
             var XOff, YOff: Int
 
-            TempTilePosition.SetFromPixel(pos)
-            TempPosition.SetFromTile(TempTilePosition)
+            TempTilePosition.SetFromPixel(pos: pos)
+            TempPosition.SetFromTile(pos: TempTilePosition)
 
             TempPosition.IncrementX((AssetType.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[type.rawValue].TileHalfWidth())
             TempPosition.IncrementY((AssetType.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[type.rawValue].TileHalfHeight())
@@ -802,13 +815,13 @@ class AssetRenderer {
                 ResourceContext.Fill()
             }
         } else {
-            for auto &AssetIterator: DPlayerMap -> AssetInitializationList {
-                EPlayerColor AssetColor = AssetIterator.DColor
-                int Size = CPlayerAssetType:: FindDefaultFromName(AssetIterator.DType) -> Size()
+            for var AssetIterator in DPlayerMap.AssetInitializationList {
+                var AssetColor: EPlayerColor = AssetIterator.DColor
+                var Size: Int = CPlayerAssetType.FindDefaultFromName(AssetIterator.DType).Size()
 
-                ResourceContext -> SetSourceRGB(DPixelColors[to_underlying(AssetColor)])
-                ResourceContext -> Rectangle(AssetIterator.DTilePosition.X(), AssetIterator.DTilePosition.Y(), Size, Size)
-                ResourceContext -> Fill()
+                ResourceContext.SetSourceRGB(DPixelColors[AssetColor.rawValue])
+                ResourceContext.Rectangle(AssetIterator.DTilePosition.X(), AssetIterator.DTilePosition.Y(), Size, Size)
+                ResourceContext.Fill()
             }
         }
     }
