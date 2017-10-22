@@ -76,8 +76,69 @@ class CPlayerAssetType {
     //    ~CPlayerAssetType();
     //
 
+    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+        while array.count < size {
+            array.append(defaultValue)
+        }
+        while array.count > size {
+            array.removeLast()
+        }
+    }
+    
+    // default constructor
+    init() {
+        CPlayerAssetType.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+        DHitPoints = 0
+        DArmor = 0
+        DSight = 0
+        DConstructionSight = 0
+        DSize = 1
+        DSpeed = 0
+        DGoldCost = 0
+        DLumberCost = 0
+        DFoodConsumption = 0
+        DBuildTime = 0
+        DAttackSteps = 0
+        DReloadSteps = 0
+        DBasicDamage = 0
+        DPiercingDamage = 0
+        DRange = 0
+        
+    }
+    
+    // constructor
+    init(asset: CPlayerAssetType) {
+        if (asset != nil) {
+            DName = asset.DName;
+            DType = asset.DType;
+            DColor = asset.DColor;
+            DCapabilities = asset.DCapabilities;
+            DAssetRequirements = asset.DAssetRequirements;
+            DHitPoints = asset.DHitPoints;
+            DArmor = asset.DArmor;
+            DSight = asset.DSight;
+            DConstructionSight = asset.DConstructionSight;
+            DSize = asset.DSize;
+            DSpeed = asset.DSpeed;
+            DGoldCost = asset.DGoldCost;
+            DLumberCost = asset.DLumberCost;
+            DFoodConsumption = asset.DFoodConsumption;
+            DBuildTime = asset.DBuildTime;
+            DAttackSteps = asset.DAttackSteps;
+            DReloadSteps = asset.DReloadSteps;
+            DBasicDamage = asset.DBasicDamage;
+            DPiercingDamage = asset.DPiercingDamage;
+            DRange = asset.DRange;
+        }
+    }
+    
+    
     func HitPoints() -> Int {
-        return DHitPoints
+        var RetVal: Int = 0
+        for upgrade in DAssetUpgrades  {
+            RetVal += upgrade.DArmor
+        }
+        return RetVal
     }
 
     func ArmorUpgrade() -> Int {
