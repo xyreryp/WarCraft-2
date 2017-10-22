@@ -50,7 +50,6 @@
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
 		E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */ = {isa = PBXBuildFile; fileRef = E199367D1F9BEE7F0064CA77 /* Terrain.dat */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
-		E1EEAEE01F909B5D001001B9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
 /* End PBXBuildFile section */
 

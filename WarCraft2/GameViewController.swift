@@ -15,6 +15,7 @@ class GameViewController: NSViewController {
     var skview = GameView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+    var sound = SoundManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class GameViewController: NSViewController {
         map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
+        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
         // TODO:
         //        graphicTileSet.LoadTileset(source: nil)
         //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
@@ -38,11 +40,15 @@ class GameViewController: NSViewController {
 }
 
 class GameView: SKView {
-
+    var sound = SoundManager()
     override func mouseDragged(with event: NSEvent) {
         let x = event.deltaX
         let y = event.deltaY
         frame.origin.x += x
         frame.origin.y -= y
+    }
+
+    override func mouseDown(with _: NSEvent) {
+        sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
     }
 }
