@@ -370,18 +370,38 @@ class CTerrainMap {
             return false
         }
     }
-    
+
+    //    func readBundle(path: String) -> String {
+    //        var res: String = ""
+    //        if let file = Bundle.main.url(forResource: path, withExtension: "map", subdirectory: "Assets.xcassets") {
+    //            // you should be able to get the path
+    //            // other code as you has written in the question
+    //            res = try String(contentsOf: file, )
+    //            print("YAAAAAA")
+    //        }
+    //        print("NOOOOOO")
+    //
+    //        return res
+    //    }
+
     func LoadMap() throws -> Bool { // source _: CDataSource
 
         // reading in file path
-        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "map")
+        let filepath = Bundle.main.url(forResource: "m", withExtension: "map")
+
         //   let toURL: URL = URL(string: filepath!)
         //        try print(String(contentOf: filepath))
 
         // read it into string
         let text = try String(contentsOf: filepath!, encoding: .utf8)
+        //        let text = try String(contentsOf: filepath!, encoding: .utf8)
+        //        let mountainPath: String = Bundle.main.path(forResource: "./MOUNTAIN", ofType: "map")!
+
+        //        textView.text = String(contentsOfFile: path,
+        //                               encoding: NSUTF8StringEncoding,
+        //                        /Users/asoong/Desktop/ECS/ECS160/Mac/ECS160OSX/WarCraft2/Assets.xcassets       error: nil)
+
         print("START DEBUG")
-        //        print(text)
         // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
 
         var TempString = String()
@@ -404,12 +424,13 @@ class CTerrainMap {
         //            return ReturnStatus
         //        }
 
+        // FROM HEREEEEEE
         var StringMap = [String]()
         var MapName: String = String()
-        var MapSizeString:String = String()
+        var MapSizeString: String = String()
         StringMap = text.components(separatedBy: "\n")
         let StringMapCount: Int = StringMap.count
-        
+
         print(StringMap.first)
         let MapWidth = 64
         let MapHeight = 64
@@ -506,6 +527,7 @@ class CTerrainMap {
                     }
                 }
             }
+            //            print(DTerrainMap)
             ReturnStatus = true
             return ReturnStatus
             //  catch {
