@@ -9,6 +9,7 @@
 import Foundation
 
 class AssetRenderer {
+    static let TARGET_FREQUENCY = 10
     var DPlayerData: CPlayerData?
     var DPlayerMap: CAssetDecoratedMap?
     var DTilesets: [CGraphicMulticolorTileset] = []
@@ -62,22 +63,20 @@ class AssetRenderer {
         DPixelColors[EPlayerColor.Max.rawValue + 2] = colors.ColorValue(gindex: colors.FindColor(colorname: "building"), cindex: 0)
 
         while true {
-            var markerMarkerIndex: String = "marker-" + String(MarkerIndex)
+            var markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
             var Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
             if 0 > Index {
                 break
             }
             DMarkerIndices.append(Index)
-            MarkerIndex = MarkerIndex + 1
+            MarkerIndex += 1
         }
-        var placegood: String = "place-good"
-        var placebad: String = "place-bad"
-        DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: placegood)
-        DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: placebad)
+        DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: "place-good")
+        DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: "place-bad")
 
         var LastDirectionName: String = "decay-nw-"
         for var DirectionName in ["decay-n-", "decay-ne-", "decay-e-", "decay-se-", "decay-s-", "decay-sw-", "decay-w-", "decay-nw-"] {
-            var StepIndex: Int = 0
+            var StepIndex = 0
             var TileIndex: Int
             while true {
                 var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
@@ -123,170 +122,168 @@ class AssetRenderer {
         // DDeathIndices.resize(DTilesets.size());
         // DPlaceIndices.resize(DTilesets.size());
 
-        for var Tileset in DTilesets {
-            
-            if Tileset != nil {
-                // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
+        for Tileset in DTilesets {
+            // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
 
-                for DirectionName in ["walk-n-", "walk-ne-", "walk-e-", "walk-se-", "walk-s-", "walk-sw-", "walk-w-", "walk-nw-"] {
-                    var StepIndex: Int = 0
-                    var TileIndex: Int
-                    while true {
-                        var directionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(tilename: directionNameStepIndex)
-
-                        if 0 <= TileIndex {
-                            DWalkIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            break
-                        }
-                        StepIndex = StepIndex + 1
-                    }
-                }
+            for DirectionName in ["walk-n-", "walk-ne-", "walk-e-", "walk-se-", "walk-s-", "walk-sw-", "walk-w-", "walk-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var constructStepIndex: String = "construct-" + String(StepIndex)
-                    TileIndex = Tileset.FindTile(tilename: constructStepIndex)
+                    var directionNameStepIndex: String = DirectionName + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: directionNameStepIndex)
+
                     if 0 <= TileIndex {
-                        DConstructIndices[TypeIndex].append(TileIndex)
+                        DWalkIndices[TypeIndex].append(TileIndex)
+                    } else {
+                        break
+                    }
+                    StepIndex = StepIndex + 1
+                }
+            }
+            var StepIndex: Int = 0
+            var TileIndex: Int
+            while true {
+                var constructStepIndex: String = "construct-" + String(StepIndex)
+                TileIndex = Tileset.FindTile(tilename: constructStepIndex)
+                if 0 <= TileIndex {
+                    DConstructIndices[TypeIndex].append(TileIndex)
+                } else {
+                    if 0 == StepIndex {
+                        DConstructIndices[TypeIndex].append(-1)
+                    }
+                    break
+                }
+                StepIndex = StepIndex + 1
+            }
+            // PrintDebug(DEBUG_LOW,"Checking Gold on %d\n",TypeIndex);
+            for var DirectionName in ["gold-n-", "gold-ne-", "gold-e-", "gold-se-", "gold-s-", "gold-sw-", "gold-w-", "gold-nw-"] {
+                var StepIndex: Int = 0
+                var TileIndex: Int
+                while true {
+                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
+                    if 0 <= TileIndex {
+                        DCarryGoldIndices[TypeIndex].append(TileIndex)
+                    } else {
+                        break
+                    }
+                    StepIndex = StepIndex + 1
+                }
+            }
+            // PrintDebug(DEBUG_LOW,"Checking Lumber on %d\n",TypeIndex);
+            for DirectionName in ["lumber-n-", "lumber-ne-", "lumber-e-", "lumber-se-", "lumber-s-", "lumber-sw-", "lumber-w-", "lumber-nw-"] {
+                var StepIndex: Int = 0
+                var TileIndex: Int
+                while true {
+                    var DirectionNameStepIndex = DirectionName + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
+                    if 0 <= TileIndex {
+                        DCarryLumberIndices[TypeIndex].append(TileIndex)
+                    } else {
+                        break
+                    }
+                    StepIndex = StepIndex + 1
+                }
+            }
+            // PrintDebug(DEBUG_LOW,"Checking Attack on %d\n",TypeIndex);
+            for DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "attack-nw-"] {
+                var StepIndex: Int = 0
+                var TileIndex: Int
+                while true {
+                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
+                    if 0 <= TileIndex {
+                        DAttackIndices[TypeIndex].append(TileIndex)
+                    } else {
+                        break
+                    }
+                    StepIndex = StepIndex + 1
+                }
+            }
+            if 0 == DAttackIndices[TypeIndex].count {
+                var TileIndex: Int
+                for Index in 0 ..< EDirection.Max.rawValue {
+                    TileIndex = Tileset.FindTile(tilename: "active")
+                    if 0 <= TileIndex {
+                        DAttackIndices[TypeIndex].append(TileIndex)
+                    } else {
+                        TileIndex = Tileset.FindTile(tilename: "inactive")
+                        if 0 <= TileIndex {
+                            DAttackIndices[TypeIndex].append(TileIndex)
+                        }
+                    }
+                }
+            }
+            // PrintDebug(DEBUG_LOW,"Checking Death on %d\n",TypeIndex);
+            var LastDirectionName: String = "death-nw"
+            for DirectionName in ["death-n-", "death-ne-", "death-e-", "death-se-", "death-s-", "death-sw-", "death-w-", "death-nw-"] {
+                var StepIndex: Int = 0
+                var TileIndex: Int
+                while true {
+                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
+                    if 0 <= TileIndex {
+                        DDeathIndices[TypeIndex].append(TileIndex)
+                    } else {
+                        var LastDirectionNameStepIndex: String = LastDirectionName + String(StepIndex)
+                        TileIndex = Tileset.FindTile(tilename: LastDirectionNameStepIndex)
+                        if 0 <= TileIndex {
+                            DDeathIndices[TypeIndex].append(TileIndex)
+                        } else {
+                            break
+                        }
+                    }
+                    StepIndex = StepIndex + 1
+                }
+                LastDirectionName = DirectionName
+            }
+            // if DDeathIndices[TypeIndex].count {
+            // }
+            // PrintDebug(DEBUG_LOW,"Checking None on %d\n",TypeIndex);
+            for DirectionName in ["none-n-", "none-ne-", "none-e-", "none-se-", "none-s-", "none-sw-", "none-w-", "none-nw-"] {
+                var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
+                if 0 <= TileIndex {
+                    DNoneIndices[TypeIndex].append(TileIndex)
+                } else if DWalkIndices[TypeIndex].count != 0 {
+                    DNoneIndices[TypeIndex].append(DWalkIndices[TypeIndex][DNoneIndices[TypeIndex].count * (DWalkIndices[TypeIndex].count / EDirection.Max.rawValue)])
+                } else {
+                    TileIndex = Tileset.FindTile(tilename: "inactive")
+                    if 0 <= TileIndex {
+                        DNoneIndices[TypeIndex].append(TileIndex)
+                    }
+                }
+            }
+            // PrintDebug(DEBUG_LOW,"Checking Build on %d\n",TypeIndex);
+            for DirectionName in ["build-n-", "build-ne-", "build-e-", "build-se-", "build-s-", "build-sw-", "build-w-", "build-nw-"] {
+                var StepIndex: Int = 0
+                var TileIndex: Int
+                while true {
+                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
+                    if 0 <= TileIndex {
+                        DBuildIndices[TypeIndex].append(TileIndex)
                     } else {
                         if 0 == StepIndex {
-                            DConstructIndices[TypeIndex].append(-1)
+                            TileIndex = Tileset.FindTile(tilename: "active")
+                            if 0 <= TileIndex {
+                                DBuildIndices[TypeIndex].append(TileIndex)
+                            } else {
+                                TileIndex = Tileset.FindTile(tilename: "inactive")
+                                if 0 <= TileIndex {
+                                    DBuildIndices[TypeIndex].append(TileIndex)
+                                }
+                            }
                         }
                         break
                     }
                     StepIndex = StepIndex + 1
                 }
-                // PrintDebug(DEBUG_LOW,"Checking Gold on %d\n",TypeIndex);
-                for var DirectionName in ["gold-n-", "gold-ne-", "gold-e-", "gold-se-", "gold-s-", "gold-sw-", "gold-w-", "gold-nw-"] {
-                    var StepIndex: Int = 0
-                    var TileIndex: Int
-                    while true {
-                        var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
-                        if 0 <= TileIndex {
-                            DCarryGoldIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            break
-                        }
-                        StepIndex = StepIndex + 1
-                    }
-                }
-                // PrintDebug(DEBUG_LOW,"Checking Lumber on %d\n",TypeIndex);
-                for DirectionName in ["lumber-n-", "lumber-ne-", "lumber-e-", "lumber-se-", "lumber-s-", "lumber-sw-", "lumber-w-", "lumber-nw-"] {
-                    var StepIndex: Int = 0
-                    var TileIndex: Int
-                    while true {
-                        var DirectionNameStepIndex = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
-                        if 0 <= TileIndex {
-                            DCarryLumberIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            break
-                        }
-                        StepIndex = StepIndex + 1
-                    }
-                }
-                // PrintDebug(DEBUG_LOW,"Checking Attack on %d\n",TypeIndex);
-                for DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "attack-nw-"] {
-                    var StepIndex: Int = 0
-                    var TileIndex: Int
-                    while true {
-                        var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
-                        if 0 <= TileIndex {
-                            DAttackIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            break
-                        }
-                        StepIndex = StepIndex + 1
-                    }
-                }
-                if 0 == DAttackIndices[TypeIndex].count {
-                    var TileIndex: Int
-                    for Index in 0 ..< EDirection.Max.rawValue {
-                        TileIndex = Tileset.FindTile(tilename: "active")
-                        if 0 <= TileIndex {
-                            DAttackIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            TileIndex = Tileset.FindTile(tilename: "inactive")
-                            if 0 <= TileIndex {
-                                DAttackIndices[TypeIndex].append(TileIndex)
-                            }
-                        }
-                    }
-                }
-                // PrintDebug(DEBUG_LOW,"Checking Death on %d\n",TypeIndex);
-                var LastDirectionName: String = "death-nw"
-                for DirectionName in ["death-n-", "death-ne-", "death-e-", "death-se-", "death-s-", "death-sw-", "death-w-", "death-nw-"] {
-                    var StepIndex: Int = 0
-                    var TileIndex: Int
-                    while true {
-                        var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
-                        if 0 <= TileIndex {
-                            DDeathIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            var LastDirectionNameStepIndex: String = LastDirectionName + String(StepIndex)
-                            TileIndex = Tileset.FindTile(tilename: LastDirectionNameStepIndex)
-                            if 0 <= TileIndex {
-                                DDeathIndices[TypeIndex].append(TileIndex)
-                            } else {
-                                break
-                            }
-                        }
-                        StepIndex = StepIndex + 1
-                    }
-                    LastDirectionName = DirectionName
-                }
-                // if DDeathIndices[TypeIndex].count {
-                // }
-                // PrintDebug(DEBUG_LOW,"Checking None on %d\n",TypeIndex);
-                for DirectionName in ["none-n-", "none-ne-", "none-e-", "none-se-", "none-s-", "none-sw-", "none-w-", "none-nw-"] {
-                    var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
-                    if 0 <= TileIndex {
-                        DNoneIndices[TypeIndex].append(TileIndex)
-                    } else if DWalkIndices[TypeIndex].count != 0 {
-                        DNoneIndices[TypeIndex].append(DWalkIndices[TypeIndex][DNoneIndices[TypeIndex].count * (DWalkIndices[TypeIndex].count / EDirection.Max.rawValue)])
-                    } else {
-                        TileIndex = Tileset.FindTile(tilename: "inactive")
-                        if 0 <= TileIndex {
-                            DNoneIndices[TypeIndex].append(TileIndex)
-                        }
-                    }
-                }
-                // PrintDebug(DEBUG_LOW,"Checking Build on %d\n",TypeIndex);
-                for DirectionName in ["build-n-", "build-ne-", "build-e-", "build-se-", "build-s-", "build-sw-", "build-w-", "build-nw-"] {
-                    var StepIndex: Int = 0
-                    var TileIndex: Int
-                    while true {
-                        var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
-                        TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
-                        if 0 <= TileIndex {
-                            DBuildIndices[TypeIndex].append(TileIndex)
-                        } else {
-                            if 0 == StepIndex {
-                                TileIndex = Tileset.FindTile(tilename: "active")
-                                if 0 <= TileIndex {
-                                    DBuildIndices[TypeIndex].append(TileIndex)
-                                } else {
-                                    TileIndex = Tileset.FindTile(tilename: "inactive")
-                                    if 0 <= TileIndex {
-                                        DBuildIndices[TypeIndex].append(TileIndex)
-                                    }
-                                }
-                            }
-                            break
-                        }
-                        StepIndex = StepIndex + 1
-                    }
-                }
-                // PrintDebug(DEBUG_LOW,"Checking Place on %d\n",TypeIndex);
-                DPlaceIndices[TypeIndex].append(Tileset.FindTile(tilename: "place"))
-
-                // PrintDebug(DEBUG_LOW,"Done checking type %d\n",TypeIndex);
             }
+            // PrintDebug(DEBUG_LOW,"Checking Place on %d\n",TypeIndex);
+            DPlaceIndices[TypeIndex].append(Tileset.FindTile(tilename: "place"))
+
+            // PrintDebug(DEBUG_LOW,"Done checking type %d\n",TypeIndex);
+
             TypeIndex = TypeIndex + 1
         }
     }
@@ -333,7 +330,7 @@ class AssetRenderer {
                 continue
             }
             if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < Int(DTilesets.size())) {
-                var PixelType(AssetIterator): CPixelType
+                var PixelType = CPixelType(AssetIterator)
                 var RightX: Int
 
                 TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
@@ -406,7 +403,7 @@ class AssetRenderer {
                         ActionSteps /= EDirection.Max.rawValue
                         TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
                         TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
-                        // case EAssetAction.MineGold:
+                    case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
                          EAssetAction.None: TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
                         if AssetIterator.Speed() {
@@ -784,8 +781,8 @@ class AssetRenderer {
             }
             if OnScreen {
                 var XPos, YPos: Int
-                TempPosition.X(x: TempPosition.X() - rect.DXPosition)
-                TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                let _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                let _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
                 DTilesets[type.rawValue].DrawTile(surface, TempPosition.X(), TempPosition.Y(), DPlaceIndices[type.rawValue][0], DPlayerData.Color().rawValue - 1)
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()
