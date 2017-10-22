@@ -787,4 +787,29 @@ class AssetRenderer {
             }
         }
     }
+
+    func DrawMiniAssets(surface: CGraphicSurface) {
+        var ResourceContext = surface.CreateResourceContext()
+        if nil == DPlayerData {
+            for var AssetIterator in DPlayerMap.Assets {
+                var AssetColor: EPlayerColor = AssetIterator.Color()
+                var Size: Int = AssetIterator.Size()
+                if AssetColor == DPlayerData.Color() {
+                    AssetColor = EPlayerColor.Max
+                }
+                ResourceContext.SetSourceRGB(DPixelColors[AssetColor.rawValue])
+                ResourceContext.Rectangle(AssetIterator.TilePositionX(), AssetIterator.TilePositionY(), Size, Size)
+                ResourceContext.Fill()
+            }
+        } else {
+            for auto &AssetIterator: DPlayerMap -> AssetInitializationList {
+                EPlayerColor AssetColor = AssetIterator.DColor
+                int Size = CPlayerAssetType:: FindDefaultFromName(AssetIterator.DType) -> Size()
+
+                ResourceContext -> SetSourceRGB(DPixelColors[to_underlying(AssetColor)])
+                ResourceContext -> Rectangle(AssetIterator.DTilePosition.X(), AssetIterator.DTilePosition.Y(), Size, Size)
+                ResourceContext -> Fill()
+            }
+        }
+    }
 }
