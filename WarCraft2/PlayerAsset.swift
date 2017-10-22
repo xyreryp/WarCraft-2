@@ -28,18 +28,19 @@ class CPlayerAsset {
 
     //    static int UpdateFrequency(int freq);
 
-    init (type: CPlayerAssetType) {
+    init(type: CPlayerAssetType) {
         var DCreationCycle: Int = 0
-        var DType = type;
+        var DType = type
         var DHitPoints = type.DHitPoints
-        var DGold = 0;
-        var DLumber = 0;
-        var DStep = 0;
-        var DMoveRemainderX = 0;
-        var DMoveRemainderY = 0;
-        var DDirection = EDirection.South;
-        TilePosition(pos: CTilePosition());
+        var DGold = 0
+        var DLumber = 0
+        var DStep = 0
+        var DMoveRemainderX = 0
+        var DMoveRemainderY = 0
+        var DDirection = EDirection.South
+        TilePosition(pos: CTilePosition())
     }
+
     func Alive() -> Bool {
         return 0 < DHitPoints
     }
@@ -149,9 +150,9 @@ class CPlayerAsset {
     }
 
     // TODO: figure out how to enqueue
-//    func EnqueueCommand(command: SAssetCommand) {
-//        DCommands.insert(DCommands., at: command)
-//    }
+    //    func EnqueueCommand(command: SAssetCommand) {
+    //        DCommands.insert(DCommands., at: command)
+    //    }
 
     func PopCommand() {
         if !DCommands.isEmpty {
@@ -230,55 +231,55 @@ class CPlayerAsset {
     }
 
     func Armor() -> Int {
-        return 0
+        return DType.DArmor
     }
 
     func Sight() -> Int {
-        return EAssetAction.Construct == Action() ? DType.ConstructionSight() : DType.Sight()
+        return EAssetAction.Construct == Action() ? DType.DConstructionSight : DType.DSight
     }
 
     func Size() -> Int {
-        return DType.Size()
+        return DType.DSize
     }
 
     func Speed() -> Int {
-        return DType.Speed()
+        return DType.DSpeed
     }
 
     func GoldCost() -> Int {
-        return DType -> GoldCost()
+        return DType.DGoldCost
     }
 
     func LumberCost() -> Int {
-        return DType.LumberCost()
+        return DType.DLumberCost
     }
 
     func FoodConsumption() -> Int {
-        return DType.FoodConsumption()
+        return DType.DFoodConsumption
     }
 
     func BuildTime() -> Int {
-        return DType.BuildTime()
+        return DType.DBuildTime
     }
 
     func AttackSteps() -> Int {
-        return DType.AttackSteps()
+        return DType.DAttackSteps
     }
 
     func ReloadSteps() -> Int {
-        return DType.ReloadSteps()
+        return DType.DReloadSteps
     }
 
     func BasicDamage() -> Int {
-        return DType.BasicDamage()
+        return DType.DBasicDamage
     }
 
     func PiercingDamage() -> Int {
-        return DType.PiercingDamage()
+        return DType.DPiercingDamage
     }
 
     func Range() -> Int {
-        return DType.Range()
+        return DType.DRange
     }
 
     func ArmorUpgrade() -> Int {
@@ -330,11 +331,19 @@ class CPlayerAsset {
     }
 
     func HasCapability(capability: EAssetCapabilityType) -> Bool {
-        return DType.HasCapability(capability)
+        return DType.HasCapability(capability: capability)
     }
 
     func Capabilities() -> [EAssetCapabilityType] {
-        return DType.Capabilities()
+        var ReturnVector: [EAssetCapabilityType]
+        var Index: Int = 0
+        repeat {
+            if DType.DCapabilities[Index] {
+                ReturnVector.append(EAssetCapabilityType(rawValue: Index)!)
+            }
+            Index += 1
+        } while Index < EAssetCapabilityType.Max.rawValue
+   
     }
 
     func MoveStep(occupancymap _: [[CPlayerAsset]], diagonals _: [[Bool]]) -> Bool {

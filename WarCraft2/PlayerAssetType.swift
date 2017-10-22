@@ -75,7 +75,7 @@ class CPlayerAssetType {
     //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
     //    ~CPlayerAssetType();
     //
-    
+
     func HitPoints() -> Int {
         return DHitPoints
     }
