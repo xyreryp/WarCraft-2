@@ -23,18 +23,17 @@ class CPlayerUpgrade {
     private(set) var DRegistryByName: [String: CPlayerUpgrade] = [:]
     private(set) var DRegistryByType: [Int: CPlayerUpgrade] = [:]
 
-    
-    func LoadUpgrades(container: CDataContainer) -> Bool {
-//        var FileIterator = container.First()
-//        if FileIterator == nil {
-//            // FIXME:
-//            print("FileIterator == Nil \n")
-//            return false
-//        }
-//
-//        while FileIterator?.IsValid() == true {
-//            var Filename = FileIterator?.Name()
-//        }
+    func LoadUpgrades(container _: CDataContainer) -> Bool {
+        //        var FileIterator = container.First()
+        //        if FileIterator == nil {
+        //            // FIXME:
+        //            print("FileIterator == Nil \n")
+        //            return false
+        //        }
+        //
+        //        while FileIterator?.IsValid() == true {
+        //            var Filename = FileIterator?.Name()
+        //        }
         return false
     }
 
@@ -60,7 +59,7 @@ class CPlayerUpgrade {
         // declare instance to use UpgradeType
         let playerCapability = CPlayerCapability(name: Name, targettype: CPlayerCapability.ETargetType.None)
         UpgradeType = playerCapability.NameToType(name: Name)
-        
+
         if EAssetCapabilityType.None == UpgradeType && Name != playerCapability.TypeToName(type: EAssetCapabilityType.None) {
             print("Unknown upgrade type " + Name + ".\n")
             return false
@@ -74,29 +73,28 @@ class CPlayerUpgrade {
             DRegistryByName[Name] = PlayerUpgrade
             DRegistryByType[UpgradeType.rawValue] = PlayerUpgrade
         }
-        
-//        do {
-//            if !LineSource.Read(line: &Name) {
-//                 print("Failed to get player upgrade name.\n")
-//                goto
-//            }
-//            PlayerUpgrade.DArmor = Int(TempString)!
-//
-//        } catch let e as Error {
-//            print ("Other error: \(e)")
-//        }
-        
+
+        //        do {
+        //            if !LineSource.Read(line: &Name) {
+        //                 print("Failed to get player upgrade name.\n")
+        //                goto
+        //            }
+        //            PlayerUpgrade.DArmor = Int(TempString)!
+        //
+        //        } catch let e as Error {
+        //            print ("Other error: \(e)")
+        //        }
+
         return false
     }
-  
+
     func FindUpgradeFromType(type: EAssetCapabilityType) -> CPlayerUpgrade {
         if let upgrade = DRegistryByType[type.rawValue] {
             return upgrade
         }
         return CPlayerUpgrade()
     }
-    
-    
+
     func FindUpgradeFromName(name: String) -> CPlayerUpgrade {
         if let upgrade = DRegistryByName[name] {
             return upgrade

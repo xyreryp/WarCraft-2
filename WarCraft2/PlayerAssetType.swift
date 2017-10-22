@@ -130,9 +130,8 @@ class CPlayerAssetType {
             DRange = asset.DRange
         }
     }
-    
+
     deinit {
-        
     }
 
     // TODO: Where does this go?
@@ -213,14 +212,14 @@ class CPlayerAssetType {
         }
         return EAssetType.None
     }
-    
+
     func TypeToName(type: EAssetType) -> String {
         if type.rawValue < 0 || type.rawValue >= DTypeStrings.count {
             return ""
         }
         return DTypeStrings[type.rawValue]
     }
-    
+
     func AddCapability(capability: EAssetCapabilityType) {
         if capability.rawValue < 0 || DCapabilities.count <= capability.rawValue {
             return
@@ -244,91 +243,86 @@ class CPlayerAssetType {
         return DAssetRequirements
     }
 
-//    https://developer.apple.com/documentation/swift/dictionary/2296181-max
+    //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     func MaxSight() -> Int {
-        if let MaxSightFound = DRegistry.max(by: {a, b in a.value.DSight > b.value.DSight}) {
+        if let MaxSightFound = DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight }) {
             return MaxSightFound.value.DSight
         }
     }
 
-    
-//    bool CPlayerAssetType::LoadTypes(std::shared_ptr< CDataContainer > container){
-//    auto FileIterator = container->First();
-//    if(FileIterator == nullptr){
-//    PrintError("FileIterator == nullptr\n");
-//    return false;
-//    }
-//
-//    while((FileIterator != nullptr)&&(FileIterator->IsValid())){
-//    std::string Filename = FileIterator->Name();
-//    FileIterator->Next();
-//    if(Filename.rfind(".dat") == (Filename.length() - 4)){
-//    if(!CPlayerAssetType::Load(container->DataSource(Filename))){
-//    PrintError("Failed to load resource \"%s\".\n",Filename.c_str());
-//    continue;
-//    }
-//    else{
-//    PrintDebug(DEBUG_LOW,"Loaded resource \"%s\".\n",Filename.c_str());
-//    }
-//    }
-//    }
-//    std::shared_ptr< CPlayerAssetType >  PlayerAssetType = std::make_shared< CPlayerAssetType >();
-//    PlayerAssetType->DThis = PlayerAssetType;
-//    PlayerAssetType->DName = "None";
-//    PlayerAssetType->DType = EAssetType::None;
-//    PlayerAssetType->DColor = EPlayerColor::None;
-//    PlayerAssetType->DHitPoints = 256;
-//    DRegistry["None"] = PlayerAssetType;
-//
-//    return true;
-//    }
-    func LoadTypes(container : CDataContainer) -> Bool {
+    func LoadTypes(container: CDataContainer) -> Bool {
         let fileItr = container.First()
         if fileItr == nil {
             print("fileItr is nil")
             return false
         }
-//
-//        if let range = str.range(of: "cd") {
-//            let substring = str[..<range.lowerBound]
-//            print(substring)  // Prints ab
-//        }
-//        let startPos = mystring.distance(from: mystring.startIndex, to: range.lowerBound)
-//
-//
-//        let mystring = "hi this is my name"
-//        if let range = mystring.range(of: "this") {
-//            let startPos = mystring.distance(from: mystring.startIndex, to: range.lowerBound)
-//            let endPos = mystring.distance(from: mystring.startIndex, to: range.upperBound)
-//            print(startPos, endPos) // 3 7
-//        }
-//
-        while (fileItr != nil && (fileItr?.IsValid())!) {
-            var FileName:String = fileItr!.Name()
+
+        while fileItr != nil && (fileItr?.IsValid())! {
+            var FileName: String = fileItr!.Name()
             let dat: String = ".dat"
             fileItr?.Next()
-//            if FileName.range(of: dat) != nil { // if '.dat' exists in FileName
-//                let substring = FileName[..<range.lowerBound]
-//            }
+
             if let range = FileName.range(of: dat) {
                 if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
+                    let assetType = CPlayerAssetType()
+                    if !assetType.Load(source: container.DataSource(name: FileName)) {
+                        print("Failed to load source \(FileName)")
+                        continue
+                    }
+                    else {
+                        // Debug stuff
+                        print("Loaded source \(FileName)")
+                    }
                     
                 }
             }
         }
+
+        let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
+        PlayerAssetType.DThis = PlayerAssetType
+        PlayerAssetType.DName = "None"
+        PlayerAssetType.DType = EAssetType.None
+        PlayerAssetType.DColor = EPlayerColor.None
+        PlayerAssetType.DHitPoints = 256
+        DRegistry["None"] = PlayerAssetType
+        return true
     }
 
-//     TODO: After we for sure know how to read stuff in
-//     func Load(source _: CDataSource) -> Bool {
-//     }
-
-    func FindDefaultFromName(name _: String) -> CPlayerAssetType {
+    //     TODO: After we for sure know how to read stuff in
+    func Load(source: CDataSource) -> Bool {
+        // gonna re impleiment using string name of the files
     }
 
-    func FindDefaultFromType(type _: EAssetType) -> CPlayerAssetType {
+    func FindDefaultFromName(name: String) -> CPlayerAssetType {
+        if let itr = DRegistry[name] {
+            return itr
+        }
+        return CPlayerAssetType()
     }
 
-    func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+    func FindDefaultFromType(type : EAssetType) -> CPlayerAssetType {
+        return FindDefaultFromName( name: TypeToName(type: type) )
+    }
+
+//    std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > CPlayerAssetType::DuplicateRegistry(EPlayerColor color){
+//    std::shared_ptr< std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > > ReturnRegistry( new std::unordered_map< std::string, std::shared_ptr< CPlayerAssetType > > );
+//
+//    for(auto &It : DRegistry){
+//    std::shared_ptr< CPlayerAssetType > NewAssetType(new CPlayerAssetType(It.second));
+//    NewAssetType->DThis = NewAssetType;
+//    NewAssetType->DColor = color;
+//    (*ReturnRegistry)[It.first] = NewAssetType;
+//    }
+//
+//    return ReturnRegistry;
+//    }
+//
+    func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
+        var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
+        for It in DRegistry {
+            var NewAssetType = CPlayerAssetType()
+        }
+        
     }
 
     func Construct() -> CPlayerAsset {
