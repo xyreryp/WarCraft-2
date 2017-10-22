@@ -142,14 +142,14 @@ class CPlayerAsset {
 //    }
 
     func PopCommand() {
-        if !DCommands.empty() {
-            DCommands.pop_back()
+        if !DCommands.isEmpty {
+            DCommands.removeLast()
         }
     }
 
     func CurrentCommand() -> SAssetCommand {
-        if !DCommands.empty() {
-            DCommands.pop_back()
+        if !DCommands.isEmpty {
+            DCommands.removeLast()
         }
         var RetVal: SAssetCommand
         RetVal.DAction = EAssetAction.None
@@ -158,8 +158,8 @@ class CPlayerAsset {
     }
 
     func NextCommand() -> SAssetCommand {
-        if 1 < DCommands.size() {
-            return DCommands[DCommands.size() - 2]
+        if 1 < DCommands.count {
+            return DCommands[DCommands.count - 2]
         }
 
         var RetVal: SAssetCommand
@@ -167,12 +167,12 @@ class CPlayerAsset {
         return RetVal
     }
 
-    func Action() -> SAssetCommand {
-        if !DCommands.empty() {
-            return DCommands.back().DAction
+    func Action() -> EAssetAction {
+        if !DCommands.isEmpty {
+            return (DCommands.last?.DAction)!
         }
 
-        return EAssetType.None
+        return EAssetAction.None
     }
 
     func HasAction(action: EAssetAction) -> Bool {
