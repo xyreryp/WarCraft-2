@@ -28,6 +28,18 @@ class CPlayerAsset {
 
     //    static int UpdateFrequency(int freq);
 
+    init (type: CPlayerAssetType) {
+        var DCreationCycle: Int = 0
+        var DType = type;
+        var DHitPoints = type.DHitPoints
+        var DGold = 0;
+        var DLumber = 0;
+        var DStep = 0;
+        var DMoveRemainderX = 0;
+        var DMoveRemainderY = 0;
+        var DDirection = EDirection.South;
+        TilePosition(pos: CTilePosition());
+    }
     func Alive() -> Bool {
         return 0 < DHitPoints
     }
@@ -202,11 +214,11 @@ class CPlayerAsset {
     }
 
     func MaxHitPoints() -> Int {
-        return DType.HitPoints()
+        return DType.DHitPoints
     }
 
     func Type() -> EAssetType {
-        return DType.Type()
+        return DType.DType
     }
 
     func ChangeType(type: CPlayerAssetType) {
@@ -214,11 +226,11 @@ class CPlayerAsset {
     }
 
     func Color() -> EPlayerColor {
-        return DType.Type()
+        return DType.DColor
     }
 
     func Armor() -> Int {
-        return DType.Armor()
+        return 0
     }
 
     func Sight() -> Int {

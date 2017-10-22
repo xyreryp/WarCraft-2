@@ -17,6 +17,7 @@ class CPlayerAssetType {
     var DAssetRequirements: [EAssetType]
     var DAssetUpgrades = [CPlayerUpgrade]()
     var DHitPoints: Int
+    var DArmor: Int
     var DSight: Int
     var DConstructionSight: Int
     var DSize: Int
@@ -74,6 +75,10 @@ class CPlayerAssetType {
     //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
     //    ~CPlayerAssetType();
     //
+    
+    func HitPoints() -> Int {
+        return DHitPoints
+    }
 
     func ArmorUpgrade() -> Int {
         return 1
