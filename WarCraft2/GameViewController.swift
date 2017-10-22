@@ -25,7 +25,7 @@ class GameViewController: NSViewController {
         let graphicTileSet = CGraphicTileset()
         var terrainMap = CTerrainMap()
         do {
-            try terrainMap.LoadMap()
+            try terrainMap.LoadMap(fileToRead: "hedges")
         } catch {
             print("failed")
         }
