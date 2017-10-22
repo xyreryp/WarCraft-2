@@ -8,16 +8,21 @@
 
 import Foundation
 
-struct RECTANGLE_TAG {
+struct SRectangle {
 
-    var DXPosition: Int
-    var DYPosition: Int
-    var DWidth: Int
-    var DHeight: Int
+    var DXPosition: Int = 0
+    var DYPosition: Int = 0
+    var DWidth: Int = 0
+    var DHeight: Int = 0
+
+    init(DXPosition: Int, DYPosition: Int, DWidth: Int, DHeight: Int) {
+        self.DXPosition = DXPosition
+        self.DYPosition = DYPosition
+        self.DWidth = DWidth
+        self.DHeight = DHeight
+    }
 
     func PointInside(x: Int, y: Int) -> Bool {
         return (x >= DXPosition) && (x < DXPosition + DWidth) && (y >= DYPosition) && (y < DYPosition + DHeight)
     }
 }
-
-typealias SRectangle = RECTANGLE_TAG
