@@ -102,7 +102,6 @@ class CTerrainMap {
 
     // NOTE: Added by Alex Soong, if mistaken pls let me know
     func TileType(xindex: Int, yindex: Int) -> ETileType {
-        print(DMap.count)
         if (-1 > xindex) || (-1 > yindex) {
             return ETileType.None
         }
@@ -400,7 +399,7 @@ class CTerrainMap {
         var StringMap = [String]()
         StringMap = text.components(separatedBy: "\n")
         let StringMapCount: Int = StringMap.count
-        print(StringMap.first)
+        //        print(StringMap.first)
         let MapWidth = 64
         let MapHeight = 64
 

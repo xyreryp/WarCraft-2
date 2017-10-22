@@ -287,7 +287,7 @@ final class CMapRenderer: PMapRenderer {
                     }
 
                     if -1 != DisplayIndex {
-                        //                        print("xpos : \(XPos) ypos: \(YPos) display: \(DisplayIndex)")
+                        print("xpos : \(XPos) ypos: \(YPos) display: \(DisplayIndex)")
                         DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DisplayIndex)
                         // TODO: Uncomment after uncommeting CGraphicSurface.DrawClipped
                         // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
