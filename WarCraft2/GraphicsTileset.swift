@@ -24,7 +24,7 @@ class CGraphicTileset {
     var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
-    private var DTileSet: [SKNode] = []
+    private var DTileSet: [SKTexture] = []
 
     init() {
         DSurfaceTileset = nil
@@ -89,21 +89,21 @@ class CGraphicTileset {
         DGroupNames.removeAll()
 
         for i in 0 ... DTileCount {
-            var GroupName: String?
-            var GroupStep: Int?
+            var GroupName: String = ""
+            var GroupStep: Int = 0
             var tileIndex: String = String(DTileNames.index(DTileNames.startIndex, offsetBy: i))
 
             // ParseGroupName returns a bool
             let parseGroupReturn: Bool = ParseGroupName(tilename: &tileIndex,
-                                                        aniname: &GroupName!, anistep: &GroupStep!)
+                                                        aniname: &GroupName, anistep: &GroupStep)
             if parseGroupReturn {
-                if DGroupSteps[GroupName!] != nil {
-                    if DGroupSteps[GroupName!]! <= GroupStep! {
-                        DGroupSteps[GroupName!] = GroupStep! + 1
+                if DGroupSteps[GroupName] != nil {
+                    if DGroupSteps[GroupName]! <= GroupStep {
+                        DGroupSteps[GroupName] = GroupStep + 1
                     }
                 } else {
-                    DGroupSteps[GroupName!] = GroupStep! + 1
-                    DGroupNames.append(GroupName!)
+                    DGroupSteps[GroupName] = GroupStep + 1
+                    DGroupNames.append(GroupName)
                 }
             }
         }
@@ -213,9 +213,9 @@ class CGraphicTileset {
         return true
     } // end DuplicateClippedTile()
 
-    func FindTile(tilename: inout String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
-
+    func FindTile(tilename: String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
         let findTile = DMapping[tilename]
+
         if findTile != nil { // if findTile exists
             return findTile!
         }
@@ -260,10 +260,24 @@ class CGraphicTileset {
     } // end CreateCLippingMasks()
 
     func LoadTileset(source _: CDataSource!) -> Bool {
+        if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
+            do {
+                let TempString = try String(contentsOfFile: filepath, encoding: .utf8)
+                let TempTokens = TempString.components(separatedBy: .newlines)
+                var Tokens = [String]()
+                for i in 5 ..< TempTokens.count {
+                    Tokens.append(TempTokens[i])
+                    DMapping[TempTokens[i]] = i - 5
+                    DTileNames.append(TempTokens[i])
+                }
+                DTileCount = Tokens.count
+            } catch {
+                print(error)
+            }
+        }
         let Tileset = #imageLiteral(resourceName: "Terrain")
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)
-        DTileCount = 293
         DTileHeight /= DTileCount
         DTileHalfWidth = DTileWidth / 2
         DTileHalfHeight = DTileHeight / 2
@@ -272,9 +286,10 @@ class CGraphicTileset {
             newSize = NSSize(width: DTileWidth, height: DTileHeight)
             let temp: NSImage = Tileset.crop(size: newSize, index: i)!
             let tempTexture = SKTexture(image: temp)
-            let tempNode = SKSpriteNode(texture: tempTexture)
-            DTileSet.append(tempNode)
+            DTileSet.append(tempTexture)
         }
+
+        UpdateGroupName()
         return true
     }
     //    func LoadTileset(source: CDataSource) -> Bool {
@@ -303,31 +318,32 @@ class CGraphicTileset {
 
     // TODO: TESTING FUNCTIONS
     func DrawTest(skscene: SKScene, xpos: Int, ypos: Int) {
-        //        var col: Int = (-xpos * 2) / DTileWidth
-        //        var row: Int = (ypos * 2) / DTileHeight
-        //        var rowNum: Int = 0
-        //        var colNum: Int = 0
-        //        for i in 0 ..< DTileCount {
-        //            var xposSize: Int = xpos + colNum * DTileWidth
-        //            var yposSize: Int = ypos - rowNum * DTileHeight
-        //
-        //            if colNum < col {
-        //                colNum += 1
-        //                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-        //            } else if rowNum < col {
-        //                rowNum += 1
-        //                colNum = 0
-        //                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-        //            }
-        //        }
-        DrawTile(skscene: skscene, xpos: xpos + 200, ypos: ypos - 100, tileindex: 130)
+        var col: Int = (-xpos * 2) / DTileWidth
+        var row: Int = (ypos * 2) / DTileHeight
+        var rowNum: Int = 0
+        var colNum: Int = 0
+        for i in 0 ..< DTileCount {
+            var xposSize: Int = xpos + colNum * DTileWidth
+            var yposSize: Int = ypos - rowNum * DTileHeight
+
+            if colNum < col {
+                colNum += 1
+                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
+            } else if rowNum < col {
+                rowNum += 1
+                colNum = 0
+                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
+            }
+        }
     }
+
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
         //        if 0 > tileindex || tileindex >= DTileCount {
         //            return
         //        }
-        DTileSet[tileindex].position = CGPoint(x: xpos, y: ypos)
-        skscene.addChild(DTileSet[tileindex])
+        let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+        tempNode.position = CGPoint(x: xpos, y: ypos)
+        skscene.addChild(tempNode)
     }
     //
     //    func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int) {
