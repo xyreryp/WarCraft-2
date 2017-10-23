@@ -364,15 +364,6 @@ class CTerrainMap {
         return StringOfWordsArray
     }
 
-<<<<<<< HEAD
-    func FirstCharHash(input: String) -> Bool {
-        if StringToArray(input: input).first == "#" {
-            return true
-        } else {
-            return false
-        }
-    }
-
     //    func readBundle(path: String) -> String {
     //        var res: String = ""
     //        if let file = Bundle.main.url(forResource: path, withExtension: "map", subdirectory: "Assets.xcassets") {
@@ -487,7 +478,6 @@ class CTerrainMap {
                     if Inner != 0 {
                         if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
                             return ReturnStatus
-=======
     func getMapName(fileText: [String]) -> String {
         return fileText[1]
     }
@@ -538,7 +528,6 @@ class CTerrainMap {
                         case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
                             break
                         default: return ReturnStatus
->>>>>>> 1bdd9af41a3ac09825d15c09ea729fbfa1cdc50a
                         }
                         if Inner != 0 {
                             if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
@@ -574,17 +563,14 @@ class CTerrainMap {
             } catch {
                 return ReturnStatus
             }
-<<<<<<< HEAD
             //            print(DTerrainMap)
             ReturnStatus = true
             return ReturnStatus
             //  catch {
             //        //      print("LoadMap function Error (TerrainMap.swift)")
             //        // }
-=======
         } else {
             return false
->>>>>>> 1bdd9af41a3ac09825d15c09ea729fbfa1cdc50a
         }
     }
 }
