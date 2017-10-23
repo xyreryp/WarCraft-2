@@ -152,7 +152,10 @@ class CPlayerData {
         
     }
 
-    func DeleteAsset(asset _: CPlayerAsset) -> {
+    func DeleteAsset(asset: CPlayerAsset){
+        if let a = DAssets.index {
+            DAssets.remove(at: DAssets.index(of: a))
+        }
     }
 
     func AssetRequirementsMet(assettypename _: String) -> Bool {
