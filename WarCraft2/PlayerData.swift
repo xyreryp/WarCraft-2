@@ -132,10 +132,24 @@ class CPlayerData {
 //    AssetTypes() return DAssetTypes
    
 
-    func CreateMarker(pos _: CPixelPosition, addtomap _: Bool) -> CPlayerAsset {
+    func CreateMarker(pos : CPixelPosition, addtomap _: Bool) -> CPlayerAsset {
+        var NewMarker:CPlayerAsset = (DAssetTypes["None"]?.Construct())!
+        var TilePosition: CTilePosition = CTilePosition()
+        TilePosition.SetFromPixel(pos: pos)
+        NewMarker.TilePosition(pos: TilePosition)
+        if(addtomap) {
+            DPlayerMap.AddAsset(NewMarker)
+        }
+        return NewMarker
     }
 
-    func CreateAsset(assettypename _: String) -> CPlayerAsset {
+    func CreateAsset(assettypename: String) -> CPlayerAsset {
+        var CreatedAsset:CPlayerAsset = DAssetTypes[assettypename]?.Construct()
+        CreatedAsset.DCreationCycle(DGameCycle)
+        DAssets.append(CreatedAsset)
+        DActualMap.AddAsset(CreatedAsset)
+        return CreatedAsset)
+        
     }
 
     func DeleteAsset(asset _: CPlayerAsset) -> {
