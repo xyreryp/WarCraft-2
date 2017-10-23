@@ -28,11 +28,31 @@ class CPlayerData {
         var DGameCycle = 0
         var DColor = color
         var DActualMap = map
-        var DAssetTypes = CPlayerAssetType.DuplicateRegistry(color)
+        var asset = CPlayerAssetType()
+        var DAssetTypes = asset.DuplicateRegistry(color: color)
         var DPlayerMap = DActualMap.CreateInitializeMap()
         var DVisibilityMap = DActualMap.CreateVisibilityMap()
         var DGold = 0
         var DLumber = 0
+        
+        // resize
+        for i in 0..<DUpgrades.count {
+            DUpgrades[i]  = false
+        }
+        var i = DUpgrades.count
+        while i < EAssetCapabilityType.Max {
+            DUpgrades.append(false)
+        }
+        
+        for (ResourceInit in DActualMap.ResourceInitializationList) {
+            if ResourceInit.DColor == color {
+                DGold = ResourceInit.DGold
+                DLumber = ResourceInit.DLumber
+            }
+        }
+        
+        
+        
     }
 
     func IncrementGameCycle() {
