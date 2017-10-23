@@ -48,6 +48,9 @@ class CPlayerAsset {
         return 0 < DHitPoints
     }
 
+    func CreationCycle(cycle: Int) {
+        return DCreationCycle = cycle
+    }
     func IncrementHitPoints(hitpts: Int) -> Int {
         DHitPoints += hitpts
         if MaxHitPoints() < DHitPoints {

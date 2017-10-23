@@ -144,11 +144,11 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        var CreatedAsset:CPlayerAsset = DAssetTypes[assettypename]?.Construct()
-        CreatedAsset.DCreationCycle(DGameCycle)
+        var CreatedAsset:CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
+        CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
         DActualMap.AddAsset(CreatedAsset)
-        return CreatedAsset)
+        return CreatedAsset
         
     }
 
