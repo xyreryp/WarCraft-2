@@ -43,21 +43,21 @@ class CPlayerCapability {
         return true
     }
 
-    // FIXME:
+    // FIXME: Not sure about return type
     func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
-        return CPlayerCapability()
+        return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
     }
 
-    // TODO:
+    // FIXME: Not sure about return type
     func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
 
-        return CPlayerCapability(name: <#String#>)
+        return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
     }
 
     func NameToType(name: String) -> EAssetCapabilityType {

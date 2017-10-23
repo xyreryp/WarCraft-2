@@ -245,7 +245,7 @@ class CPlayerAsset {
         }
     }
 
-    func MoveStep( occupancymap: inout [[CPlayerAsset?]], diagonals: inout [[Bool]]) -> Bool {
+    func MoveStep(occupancymap: inout [[CPlayerAsset?]], diagonals: inout [[Bool]]) -> Bool {
         let CurrentOctant: EDirection = DPosition.TileOctant()
         let DeltaX: [Int] = [0, 5, 7, 5, 0, -5, -7, -5]
         let DeltaY: [Int] = [-7, -5, 0, 5, 7, 5, 0, -5]
