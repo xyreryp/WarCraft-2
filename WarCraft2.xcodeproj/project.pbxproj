@@ -157,11 +157,7 @@
 				4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */,
 				CE4F77F91F85DF8F004379F5 /* Assets.xcassets */,
 				DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */,
-<<<<<<< HEAD
-				883BFF0E1F99E255005239AA /* m.map */,
-=======
 				88CE06D31F9D4C6D001E4642 /* Testing */,
->>>>>>> 1bdd9af41a3ac09825d15c09ea729fbfa1cdc50a
 				CE4F77FE1F85DF8F004379F5 /* Info.plist */,
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
 				52F39C321F995A0B0099329A /* TextFormatter.swift */,
