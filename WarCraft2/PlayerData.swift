@@ -23,7 +23,17 @@ class CPlayerData {
     var DLumber: Int
     var DGameCycle: Int
 
-    init(map: CAssetDecoratedMap, color: EPlayerColor) {}
+    init(map: CAssetDecoratedMap, color: EPlayerColor) {
+        var DIsAI = true
+        var DGameCycle = 0
+        var DColor = color
+        var DActualMap = map
+        var DAssetTypes = CPlayerAssetType.DuplicateRegistry(color)
+        var DPlayerMap = DActualMap.CreateInitializeMap()
+        var DVisibilityMap = DActualMap.CreateVisibilityMap()
+        var DGold = 0
+        var DLumber = 0
+    }
 
     func IncrementGameCycle() {
         DGameCycle += 1
