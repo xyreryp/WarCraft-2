@@ -35,6 +35,10 @@ class CPixelPosition: CPosition {
     static func !=(lhs: CPixelPosition, rhs: CPixelPosition) -> Bool {
         return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
     }
+    
+    func TileAligned() -> Bool {
+        return ((DX % DTileWidth) == DHalfTileWidth && ((DY % DTileHeight) == DHalfTileHeight))
+    }
 
     // call CPositions.Direction()
     func DirectionTo(pos: CPixelPosition) -> EDirection {

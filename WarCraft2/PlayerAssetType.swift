@@ -258,7 +258,7 @@ class CPlayerAssetType {
         }
 
         while fileItr != nil && (fileItr?.IsValid())! {
-            var FileName: String = fileItr!.Name()
+            let FileName: String = fileItr!.Name()
             let dat: String = ".dat"
             fileItr?.Next()
 
