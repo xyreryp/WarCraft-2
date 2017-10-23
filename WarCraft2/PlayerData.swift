@@ -40,7 +40,7 @@ class CPlayerData {
             DUpgrades[i]  = false
         }
         var i = DUpgrades.count
-        while i < EAssetCapabilityType.Max {
+        while i < EAssetCapabilityType.Max.rawValue {
             DUpgrades.append(false)
         }
         
@@ -50,9 +50,16 @@ class CPlayerData {
                 DLumber = ResourceInit.DLumber
             }
         }
-        
-        
-        
+        for (AssetInit in DActualMap.AssetInitializationList) {
+            if AssetInit.DColor == color {
+                // print debug stuff???
+                var InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
+                InitAsset.TilePosition(pos: AssetInit.DTilePosition)
+                if EAssetType.GoldMine == CPlayerAssetType.NametoType(AssetInit.DType) {
+                    InitAsset.Gold(DGold)
+                }
+            }
+        }
     }
 
     func IncrementGameCycle() {
@@ -68,8 +75,9 @@ class CPlayerData {
         return DIsAI == isai
     }
 
+    // NOTE: Not sure, if assets.count means alive
     func IsAlive() -> Bool {
-        return DAssets.count
+        return DAssets.count > 0
     }
 
     func IncrementGold(gold: Int) -> Int {
@@ -93,9 +101,29 @@ class CPlayerData {
     }
 
     func FoodConsumption() -> Int {
+        var TotalConsumption: Int = 0
+        for WeakAsset in DAssets {
+            if let Asset = WeakAsset {
+                var AssetConsumption:Int = Asset.FoodConsumption()
+                if 0 < AssetConsumption {
+                    TotalConsumption += AssetConsumption
+                }
+            }
+        }
+        return TotalConsumption
     }
 
     func FoodProduction() -> Int {
+        var TotalProduction:Int = 0
+        for (WeakAsset = DAssets) {
+            if let Asset = WeakAsset {
+                var AssetConsumption: Int = Asset.FoodConsumption()
+                if 0 < AssetConsumption {
+                    TotalProduction += AssetConsumption
+                }
+            }
+        }
+        return TotalProduction
     }
 
 //    VisibilityMap() return DVisibilityMap
