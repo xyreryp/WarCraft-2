@@ -40,9 +40,8 @@ class CPlayerAsset {
         var DDirection = EDirection.South
         TilePosition(pos: CTilePosition())
     }
-    
+
     deinit {
-        
     }
 
     func Alive() -> Bool {
@@ -94,40 +93,40 @@ class CPlayerAsset {
     }
 
     func TilePosition() -> CTilePosition {
-        var ReturnPos:CTilePosition = CTilePosition()
+        let ReturnPos: CTilePosition = CTilePosition()
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos
     }
 
-    func TilePosition(pos : CTilePosition) -> CTilePosition {
+    func TilePosition(pos: CTilePosition) -> CTilePosition {
         DPosition.SetFromTile(pos: pos)
         return pos
     }
 
     func TilePositionX() -> Int {
-        var ReturnPos: CTilePosition
+        let ReturnPos: CTilePosition
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos.X()
     }
 
-    func TilePositionX(x : Int) -> Int {
+    func TilePositionX(x: Int) -> Int {
         DPosition.SetXFromTile(x: x)
         return x
     }
 
     func TilePositionY() -> Int {
-        var ReturnPos: CTilePosition
+        let ReturnPos: CTilePosition
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos.Y()
     }
 
-    func TilePositionY(y : Int) -> Int {
+    func TilePositionY(y: Int) -> Int {
         DPosition.SetYFromTile(y: y)
         return y
     }
 
     func TileAligned() -> Bool {
-        return DPosition.TileAligned
+        return DPosition.TileAligned()
     }
 
     func PositionX() -> Int {
@@ -146,8 +145,8 @@ class CPlayerAsset {
         return DPosition.Y(y: y)
     }
 
-    func ClosestPosition(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ClosestPosition(pos: CPixelPosition) -> CPixelPosition {
+        return pos.ClosestPosition(objpos: DPosition, objsize: Size())
     }
 
     func CommandCount() -> Int {
@@ -162,10 +161,9 @@ class CPlayerAsset {
         DCommands.append(command)
     }
 
-    // TODO: figure out how to enqueue
-    //    func EnqueueCommand(command: SAssetCommand) {
-    //        DCommands.insert(DCommands., at: command)
-    //    }
+    func EnqueueCommand(command: SAssetCommand) {
+        DCommands.insert(command, at: DCommands.startIndex)
+    }
 
     func PopCommand() {
         if !DCommands.isEmpty {
@@ -224,6 +222,87 @@ class CPlayerAsset {
     }
 
     func Interruptible() -> Bool {
+        let Command: SAssetCommand = CurrentCommand()
+        switch Command.DAction {
+        case EAssetAction.Construct:
+            return false
+        case EAssetAction.Build:
+            return false
+        case EAssetAction.MineGold:
+            return false
+        case EAssetAction.ConveyLumber:
+            return false
+        case EAssetAction.ConveyGold:
+            return false
+        case EAssetAction.Death:
+            return false
+        case EAssetAction.Decay:
+            return false
+        case EAssetAction.Capability:
+            return EAssetAction.Construct != Command.DAssetTarget.Action()
+        default:
+            return true
+        }
+    }
+
+    func MoveStep( occupancymap: inout [[CPlayerAsset?]], diagonals: inout [[Bool]]) -> Bool {
+        let CurrentOctant: EDirection = DPosition.TileOctant()
+        let DeltaX: [Int] = [0, 5, 7, 5, 0, -5, -7, -5]
+        let DeltaY: [Int] = [-7, -5, 0, 5, 7, 5, 0, -5]
+        let CurrentTile: CTilePosition
+        var NewTilePosition: CTilePosition
+        let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
+
+        CurrentTile.SetFromPixel(pos: DPosition)
+        let cPos = CPosition()
+        if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
+            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
+            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
+            DMoveRemainderX = NewX % DUpdateDivisor
+            DMoveRemainderY = NewY % DUpdateDivisor
+            DPosition.IncrementX(x: NewX / DUpdateDivisor)
+            DPosition.IncrementY(y: NewY / DUpdateDivisor)
+        } else { // Entering
+            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
+            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
+            var TempMoveRemainderX: Int = NewX % DUpdateDivisor
+            var TempMoveRemainderY: Int = NewY % DUpdateDivisor
+            let NewPosition: CPixelPosition = CPixelPosition(x: DPosition.X() + NewX / DUpdateDivisor, y: DPosition.Y() + NewY / DUpdateDivisor)
+
+            if NewPosition.TileOctant() == DDirection {
+                // Center in tile
+                NewTilePosition.SetFromPixel(pos: NewPosition)
+                NewPosition.SetFromTile(pos: NewTilePosition)
+                TempMoveRemainderX = 0
+                TempMoveRemainderY = 0
+            }
+            DPosition = NewPosition
+            DMoveRemainderX = TempMoveRemainderX
+            DMoveRemainderY = TempMoveRemainderY
+        }
+        NewTilePosition.SetFromPixel(pos: DPosition)
+
+        if CurrentTile != NewTilePosition {
+            let Diagonal: Bool = (CurrentTile.X() != NewTilePosition.X()) && (CurrentTile.Y() != NewTilePosition.Y())
+            let DiagonalX: Int = min(CurrentTile.X(), NewTilePosition.X())
+            let DiagonalY: Int = min(CurrentTile.Y(), NewTilePosition.Y())
+
+            if (occupancymap[NewTilePosition.Y()][NewTilePosition.X()] != nil) || (Diagonal && diagonals[DiagonalY][DiagonalX]) {
+                var ReturnValue: Bool = false
+                if EAssetAction.Walk == occupancymap[NewTilePosition.Y()][NewTilePosition.X()]?.Action() {
+                    ReturnValue = (occupancymap[NewTilePosition.Y()][NewTilePosition.X()]?.DDirection == CurrentPosition.TileOctant())
+                }
+                NewTilePosition = CurrentTile
+                DPosition = CurrentPosition
+                return ReturnValue
+            }
+            if Diagonal {
+                diagonals[DiagonalY][DiagonalX] = true
+            }
+            occupancymap[NewTilePosition.Y()][NewTilePosition.X()] = occupancymap[CurrentTile.Y()][CurrentTile.X()]
+            occupancymap[CurrentTile.Y()][CurrentTile.X()] = nil
+        }
+
         return false
     }
 
@@ -349,9 +428,5 @@ class CPlayerAsset {
 
     func Capabilities() -> [EAssetCapabilityType] {
         return DType.Capabilities()
-    }
-
-    func MoveStep(occupancymap _: [[CPlayerAsset]], diagonals _: [[Bool]]) -> Bool {
-        return false
     }
 }

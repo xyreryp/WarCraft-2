@@ -268,12 +268,10 @@ class CPlayerAssetType {
                     if !assetType.Load(source: container.DataSource(name: FileName)) {
                         print("Failed to load source \(FileName)")
                         continue
-                    }
-                    else {
+                    } else {
                         // Debug stuff
                         print("Loaded source \(FileName)")
                     }
-                    
                 }
             }
         }
@@ -289,7 +287,7 @@ class CPlayerAssetType {
     }
 
     //     TODO: After we for sure know how to read stuff in
-    func Load(source: CDataSource) -> Bool {
+    func Load(source _: CDataSource) -> Bool {
         // gonna re impleiment using string name of the files
     }
 
@@ -300,13 +298,12 @@ class CPlayerAssetType {
         return CPlayerAssetType()
     }
 
-    func FindDefaultFromType(type : EAssetType) -> CPlayerAssetType {
-        return FindDefaultFromName( name: TypeToName(type: type) )
+    func FindDefaultFromType(type: EAssetType) -> CPlayerAssetType {
+        return FindDefaultFromName(name: TypeToName(type: type))
     }
 
-
-    func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
-        var ReturnRegistry:[String:CPlayerAssetType] = [String:CPlayerAssetType]()
+    func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+        var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
         ReturnRegistry = DRegistry
         return ReturnRegistry
     }
