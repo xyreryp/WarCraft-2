@@ -23,12 +23,23 @@ class CPlayerData {
     var DLumber: Int
     var DGameCycle: Int
 
-    //    public:
-    //    CPlayerData(std::shared_ptr< CAssetDecoratedMap > map, EPlayerColor color);
-    //
+    init(map: CAssetDecoratedMap, color: EPlayerColor) {}
+
+    func IncrementGameCycle() {
+        DGameCycle += 1
+    }
+
+    func IsAI() -> Bool {
+        return DIsAI
+    }
+    
+    // NOTE: Not sure, C++ code is assigment operator instead of comparison
+    func IsAI(isai: Bool) -> Bool {
+        return DIsAI == isai
+    }
 
     func IsAlive() -> Bool {
-        return DAssets.size()
+        return DAssets.count
     }
 
     func IncrementGold(gold: Int) -> Int {
@@ -56,6 +67,12 @@ class CPlayerData {
 
     func FoodProduction() -> Int {
     }
+
+//    VisibilityMap() return DVisibilityMap
+//    PlayerMap() return DPlayerMap
+//    Assets() return DAssets
+//    AssetTypes() return DAssetTypes
+   
 
     func CreateMarker(pos _: CPixelPosition, addtomap _: Bool) -> CPlayerAsset {
     }
