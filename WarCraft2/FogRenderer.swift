@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+import CoreGraphics
 
 class CFogRenderer {
     
@@ -26,7 +27,7 @@ class CFogRenderer {
         //var s: String = "partial"
         //DPartialIndex = DTileset.FindTile(tilename: &s)
         var selectIndex: Int = 0
-        for i in 0...DTileset.TileCount()-1 {
+        for i in 0..<DTileset.TileCount() {
             //in CGraphicTileset, make DTilenames protected instead of private?
             if(DTileset.DTileNames[i] == "Partial") {
                 selectIndex = i
@@ -144,7 +145,7 @@ class CFogRenderer {
         ResourceContext.SetLineCap(cap: CGLineCap.square)
         
         
-        for YPos in 0...DDMap.Height()-1 {
+        for YPos in 0..<DDMap.Height() {
             var XPos: Int = 0
             while(XPos < DDMap.Width()) {
                 var TileType = DDMap.TileType(xindex: XPos, yindex: YPos)
