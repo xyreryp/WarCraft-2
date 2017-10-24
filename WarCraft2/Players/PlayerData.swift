@@ -61,6 +61,15 @@ class CPlayerData {
             }
         }
     }
+    
+    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+        while array.count < size {
+            array.append(defaultValue)
+        }
+        while array.count > size {
+            array.removeLast()
+        }
+    }
 
     func IncrementGameCycle() {
         DGameCycle += 1
@@ -156,7 +165,30 @@ class CPlayerData {
 //        }
 //    }
 
-    func AssetRequirementsMet(assettypename _: String) -> Bool {
+    func AssetRequirementsMet(assettypename: String) -> Bool {
+        var AssetCount: [Int]
+        CPlayerData.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
+        
+        for WeakAsset in DAssets {
+            if EAssetAction.Construct != WeakAsset.Action() {
+                AssetCount[WeakAsset.Type().rawValue] += 1
+            }
+        }
+        for Requirement in (DAssetTypes[assettypename]?.AssetRequirements())! {
+            if 0 == AssetCount[Requirement.rawValue] {
+                let CastleAssetCount:Int? = AssetCount[EAssetType.Castle.rawValue]
+                if EAssetType.Keep == Requirement && CastleAssetCount != nil {
+                    continue
+                }
+                let KeepAssetCount: Int? = AssetCount[EAssetType.Keep.rawValue]
+                let CastleAssetCount2: Int? = AssetCount[EAssetType.Castle.rawValue]
+                if EAssetType.TownHall == Requirement && KeepAssetCount != nil || CastleAssetCount2 != nil {
+                    continue
+                }
+                return false
+            }
+        }
+        return true
     }
 
     func UpdateVisibility() {
