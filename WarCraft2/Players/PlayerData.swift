@@ -193,7 +193,15 @@ class CPlayerData {
 
     func UpdateVisibility() {
         var RemoveList: [CPlayerAsset]
-        DVisibilityMap.Update
+        DVisibilityMap.Update(assets: DAssets)
+        DPlayerMap.UpdateMap(DVisibilityMap, DActualMap)
+        
+        for Asset in DPlayerMap.Assets() {
+            if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
+                Asset.IncrementStep()
+                if CPlayerAsset.UpdateFrequency
+            }
+        }
     }
 
     func SelectAssets(selectarea _: SRectangle, assettype _: EAssetType, selectidentical _: Bool = false) -> [CPlayerAsset] {

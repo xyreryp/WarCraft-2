@@ -44,6 +44,14 @@ class CPlayerAsset {
     deinit {
     }
 
+    func UpdateFrequency(freq: Int) -> Int {
+        if 0 < freq {
+            DUpdateFrequency = freq
+            DUpdateDivisor = 32 * DUpdateFrequency
+        }
+        return DUpdateFrequency
+    }
+    
     func Alive() -> Bool {
         return 0 < DHitPoints
     }
