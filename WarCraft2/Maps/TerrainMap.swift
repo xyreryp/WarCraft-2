@@ -282,7 +282,7 @@ class CTerrainMap {
             TypeIndex &= (ETerrainTileType.Rock == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.Rock == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.Rock == LR) ? 0xF : 0x7
-            type = ETileType.Rock
+            type = (TypeIndex != 0) ? .Rock : .Rubble
             index = TypeIndex
         } else if (ETerrainTileType.Forest == UL) || (ETerrainTileType.Forest == UR) || (ETerrainTileType.Forest == LL) || (ETerrainTileType.Forest == LR) {
             TypeIndex &= (ETerrainTileType.Forest == UL) ? 0xF : 0xE
@@ -427,7 +427,6 @@ class CTerrainMap {
                         }
                     }
                 }
-                print(DTerrainMap)
                 resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
                 let valueStringValues: [Character] = ["0", "A"]
                 var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
@@ -450,9 +449,6 @@ class CTerrainMap {
             } catch {
                 return ReturnStatus
             }
-            //  catch {
-            //        //      print("LoadMap function Error (TerrainMap.swift)")
-            //        // }
         } else {
             return ReturnStatus
         }
