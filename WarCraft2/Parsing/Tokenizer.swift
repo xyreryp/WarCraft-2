@@ -19,8 +19,8 @@ protocol PTokenizer {
     func Read(token: inout String) -> Bool
 
     // Tokenize()
-    func Tokenize(tokens: inout [String], data: String, delimiters: String)
-    //    func Tokenize(data: String, delimiters: String) -> [String]
+
+    static func Tokenize(tokens: inout [String], data: String, delimiters: String)
 }
 
 final class CTokenizer: PTokenizer {
@@ -57,7 +57,9 @@ final class CTokenizer: PTokenizer {
     }
 
     // reads in delimiters and writes back to token String
-    func Tokenize(tokens: inout [String], data: String, delimiters: String = "") {
+
+    static func Tokenize(tokens: inout [String], data: String, delimiters: String = "\t\r\n") {
+
         var TempString: String = String()
         var Delimiters: String = String()
         let data: String = String(data)
@@ -65,7 +67,7 @@ final class CTokenizer: PTokenizer {
         if delimiters.count > 0 {
             Delimiters = delimiters
         } else {
-            DDelimiters = "\t\r\n"
+            Delimiters = "\t\r\n"
         }
 
         // tokens.clear()
