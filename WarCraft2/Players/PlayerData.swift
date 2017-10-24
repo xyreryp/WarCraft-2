@@ -192,6 +192,8 @@ class CPlayerData {
     }
 
     func UpdateVisibility() {
+        var RemoveList: [CPlayerAsset]
+        DVisibilityMap.Update
     }
 
     func SelectAssets(selectarea _: SRectangle, assettype _: EAssetType, selectidentical _: Bool = false) -> [CPlayerAsset] {
