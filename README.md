@@ -1,6 +1,6 @@
 | Priority     | Status | FileName (.h)                                              | FileName (.cpp)                 | FileName  (Swift)                                        |
 |--------------|--------|------------------------------------------------------------|---------------------------------|----------------------------------------------------------|
-|              |        | AIPlayer.h                                                 | AIPlayer.cpp                    |                                                          |
+|              | [.]    | AIPlayer.h                                                 | AIPlayer.cpp                    |                                                          |
 |              |        | ApplicationData.h                                          | ApplicationData.cpp             |                                                          |
 |              |        | ApplicationMode.h                                          |                                 |                                                          |
 |              |        | ApplicationPath.h                                          | ApplicationPath.cpp             |                                                          |
@@ -25,7 +25,7 @@
 | :red_circle: | [⋅]    | FileDataContainer.h                                        | FileDataContainer.cpp           |   May not be necessary because it deals with reading from a directory but we already have access to everything in our project folder without using this class |
 | :red_circle: | [⋅]    | FileDataSink.h                                             | FileDataSink.cpp                |                                                          |
 | :red_circle: | [.]    | FileDataSource.h                                           | FileDataSource.cpp              |                                                          |
-|              |        | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
+|              |   [.]    | FogRenderer.h                                              | FogRenderer.cpp                 |                                                          |
 |              |        | FontTileset.h                                              | FontTileset.cpp                 |                                                          |
 |              |        | GUIApplication.h                                           | GUIFactoryGTK3.cpp              |                                                          |
 |              |        | GUIBox.h                                                   |                                 |                                                          |
@@ -78,7 +78,7 @@
 |              |        | RandomNumberGenerator.h                                    |                                 | RandomNumberGenerator.swift                              |
 |              |        | Rectangle.h                                                |                                 | Rectangle.swift                                          |
 | :red_circle: | [⋅]    | ResourceRenderer.h                                         | ResourceRenderer.cpp            |                                                          |
-|              |        | RouterMap.h                                                | RouterMap.cpp                   |                                                          |
+|              | [⋅]    | RouterMap.h                                                | RouterMap.cpp                   | RouterMap.swift                                          |
 |              |        | SoundClip.h                                                | SoundClip.cpp                   |                                                          |
 |              |        | SoundEventRenderer.h                                       | SoundEventRenderer.cpp          | SoundManager.swift                                       |
 |              |        | SoundLibraryMixer.h                                        | SoundLibraryMixer.cpp           | SoundOptionsMenuViewController.swift                     |
