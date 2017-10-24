@@ -243,7 +243,6 @@
 				A1AAF57E1F87E650005007C4 /* Position.swift */,
 				A1AAF5891F8AD924005007C4 /* PixelPosition.swift */,
 				6BC677471F8C186D00953C3A /* Rectangle.swift */,
-<<<<<<< HEAD
 				A1AAF5CF1F8C6001005007C4 /* LineDataSource.swift */,
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
 				93A955BC1F8D312100226455 /* GraphicsTileset.swift */,

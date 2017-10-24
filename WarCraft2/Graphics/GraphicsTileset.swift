@@ -24,11 +24,7 @@ class CGraphicTileset {
     var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
-<<<<<<< HEAD:WarCraft2/GraphicsTileset.swift
     var DTileSet: [SKNode] = []
-=======
-    private var DTileSet: [SKTexture] = []
->>>>>>> a925b5257d5021947c7d368ccd3bddf87997fba0:WarCraft2/Graphics/GraphicsTileset.swift
 
     init() {
         DSurfaceTileset = nil
