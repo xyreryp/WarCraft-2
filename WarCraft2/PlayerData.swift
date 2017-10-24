@@ -103,11 +103,9 @@ class CPlayerData {
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
         for WeakAsset in DAssets {
-            if let Asset = WeakAsset {
-                var AssetConsumption:Int = Asset.FoodConsumption()
-                if 0 < AssetConsumption {
-                    TotalConsumption += AssetConsumption
-                }
+            var AssetConsumption:Int = WeakAsset.FoodConsumption()
+            if 0 < AssetConsumption {
+                TotalConsumption += AssetConsumption
             }
         }
         return TotalConsumption
@@ -115,12 +113,10 @@ class CPlayerData {
 
     func FoodProduction() -> Int {
         var TotalProduction:Int = 0
-        for (WeakAsset = DAssets) {
-            if let Asset = WeakAsset {
-                var AssetConsumption: Int = Asset.FoodConsumption()
-                if 0 < AssetConsumption {
-                    TotalProduction += AssetConsumption
-                }
+        for WeakAsset in DAssets {
+            var AssetConsumption: Int = WeakAsset.FoodConsumption()
+            if 0 < AssetConsumption {
+                TotalProduction += AssetConsumption
             }
         }
         return TotalProduction
@@ -152,11 +148,13 @@ class CPlayerData {
         
     }
 
-    func DeleteAsset(asset: CPlayerAsset){
-        if let a = DAssets.index {
-            DAssets.remove(at: DAssets.index(of: a))
-        }
-    }
+    // TODO : DeleteAsset()
+//    func DeleteAsset(asset: CPlayerAsset){
+//        var arr:[CPlayerAsset] = DAssets
+//        if let a = arr.index(of: asset) {
+//            DAssets.remove(at: a)
+//        }
+//    }
 
     func AssetRequirementsMet(assettypename _: String) -> Bool {
     }
