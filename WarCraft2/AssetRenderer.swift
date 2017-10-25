@@ -781,8 +781,8 @@ class AssetRenderer {
             }
             if OnScreen {
                 var XPos, YPos: Int
-                let _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
-                let _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
                 DTilesets[type.rawValue].DrawTile(surface, TempPosition.X(), TempPosition.Y(), DPlaceIndices[type.rawValue][0], DPlayerData.Color().rawValue - 1)
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()
