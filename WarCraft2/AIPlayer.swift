@@ -85,9 +85,9 @@ class CAIPlayer {
             }
         }
         
-        if(command.DActors.size()){                                          //DActors not written yet for SPlayerCommandRequest
-            AverageLocation.X(x: AverageLocation.X() / command.DActors.size())
-            AverageLocation.Y(y: AverageLocation.Y() / command.DActors.size())
+        if(command.DActors.count){                                          //DActors not written yet for SPlayerCommandRequest
+            AverageLocation.X(x: AverageLocation.X() / command.DActors.count)
+            AverageLocation.Y(y: AverageLocation.Y() / command.DActors.count)
             
             var TargetEnemy = DPlayerData.FindNearestEnemy(AverageLocation, -1).lock()
             if(!TargetEnemy) {
@@ -308,22 +308,137 @@ class CAIPlayer {
         }
         return false
     }
-/*
+
     func ActivateFighters(command: inout SPlayerCommandRequest) -> Bool {
+        var IdleAssets = DPlayerData.IdleAssets()
         
+        for Asset in IdleAssets {
+            if(Asset.Speed() && (EAssetType.Peasant != Asset.Type())){
+                if(!Asset.HasAction(EAssetAction.StandGround) && !Asset.HasActiveCapability(EAssetCapabilityType.StandGround)){
+                    command.DActors.append(Asset)
+                }
+            }
+        }
+        if(command.DActors.count){
+            command.DAction = EAssetCapabilityType.StandGround
+            return true
+        }
+        return false
     }
-    
+
+
     func TrainFootman(command: inout SPlayerCommandRequest) -> Bool {
         
+        var IdleAssets = DPlayerData.IdleAssets()
+        var TrainingAsset: CPlayerAsset
+        
+        for Asset in IdleAssets {
+            if(Asset.HasCapability(EAssetCapabilityType.BuildFootman)) {
+                TrainingAsset = Asset
+                break
+            }
+        }
+        if(TrainingAsset) {
+            var PlayerCapability = CPlayerCapability.FindCapability(EAssetCapabilityType.BuildFootman)
+            
+            if(PlayerCapability) {
+                if(PlayerCapability.CanApply(TrainingAsset, DPlayerData, TrainingAsset)) {
+                    command.DAction = EAssetCapabilityType.BuildFootman
+                    command.DActors.append(TrainingAsset)
+                    command.DTargetLocation = TrainingAsset.Position()
+                    return true
+                }
+            }
+        }
+        return false
     }
-    
+
     func TrainArcher(command: inout SPlayerCommandRequest) -> Bool {
+        var IdleAssets = DPlayerData.IdleAssets()
+        var TrainingAsset: CPlayerAsset
+        var BuildType: EAssetCapabilityType = EAssetCapabilityType.BuildArcher
         
+        for Asset in IdleAssets {
+            if(Asset.HasCapability(EAssetCapabilityType.BuildArcher)) {
+                TrainingAsset = Asset
+                BuildType = EAssetCapabilityType.BuildArcher
+                break
+            }
+            if(Asset.HasCapability(EAssetCapabilityType.BuildRanger)) {
+                TrainingAsset = Asset
+                BuildType = EAssetCapabilityType.BuildRanger
+                break
+            }
+        }
+        if(TrainingAsset){
+            var PlayerCapability = CPlayerCapability.FindCapability(BuildType)
+            if(PlayerCapability){
+                if(PlayerCapability.CanApply(TrainingAsset,DPlayerData,TrainingAsset)) {
+                    command.DAction = BuildType
+                    command.DActors.append(TrainingAsset)
+                    command.DTargetLocation = TrainingAsset.Position()
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    public func CalculateCommand(command: inout SPlayerCommandRequest) {
+        
+        command.DAction = EAssetCapabilityType.None
+        command.DActors.clear()
+        command.DTargetColor = EPlayerColor.None
+        command.DTargetType = EAssetType.None
+        
+        if((DCycle % DDownSample) == 0) {           //Do Decision
+            
+            if(0 == DPlayerData.FoundAssetCount(EAssetType.GoldMine)) {     //Search for gold mine
+                SearchMap(command: &command)
+            }
+            else if( (0 == DPlayerData.PlayerAssetCount(EAssetType.TownHall)) && (0 == DPlayerData.PlayerAssetCount(EAssetType.Keep)) && (0 == DPlayerData.PlayerAssetCount(EAssetType.Castle))) {
+                BuildTownHall(command: &command)
+            }
+            else if( 5 > DPlayerData.PlayerAssetCount(EAssetType.Peasant)) {
+                ActivatePeasants(command: &command, trainmore: true)
+            }
+            else if( 12 > DPlayerData.VisibilityMap().SeenPercent(100)){
+                SearchMap(command: &command)
+            }
+            else{
+                var CompletedAction : Bool = false
+                var BarracksCount: Int = 0
+                var FootmanCount = DPlayerData.PlayerAssetCount(EAssetType.Footman)
+                var ArcherCount = DPlayerData.PlayerAssetCount(EAssetType.Archer) + DPlayerData.PlayerAssetCount(EAssetType.Ranger)
+            
+                if(!CompletedAction && (DPlayerData.FoodConsumption() >= DPlayerData.FoodProduction())){
+                    CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Farm, neartype: EAssetType.Farm)
+                }
+                if(!CompletedAction){
+                    CompletedAction = ActivatePeasants(command: &command, trainmore: false)
+                }
+                if(!CompletedAction && (0 == (BarracksCount = DPlayerData.PlayerAssetCount(EAssetType.Barracks)))){
+                    CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Barracks, neartype: EAssetType.Farm)
+                }
+                if(!CompletedAction && (5 > FootmanCount)){
+                    CompletedAction = TrainFootman(command: &command)
+                }
+                if(!CompletedAction && (0 == DPlayerData.PlayerAssetCount(EAssetType.LumberMill))){
+                    CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.LumberMill, neartype: EAssetType.Barracks)
+                }
+                if(!CompletedAction && DPlayerData.PlayerAssetCount(EAssetType.Footman)){
+                    CompletedAction = FindEnemies(command: &command)
+                }
+                if(!CompletedAction){
+                    CompletedAction = ActivateFighters(command: &command)
+                }
+                if(!CompletedAction && ((5 <= FootmanCount) && (5 <= ArcherCount))) {
+                    CompletedAction = AttackEnemies(command: &command)
+                }
+            }
+        }
+        DCycle+=1
     }
     
-    public func CalculateCommand(command: SPlayerCommandRequest) {
-        
-    }
     
-    
-}*/
+}
