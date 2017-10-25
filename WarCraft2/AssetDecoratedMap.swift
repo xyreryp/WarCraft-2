@@ -28,10 +28,14 @@ class CAssetDecoratedMap: CTerrainMap {
     private var DLumberAvailable: [[Int]]
 
     var DMapNameTranslation: [String: Int]
-    var DAllMaps: [CAssetDecorateMap] // originally a vector, might need different implementation.
+    var DAllMaps: [CAssetDecoratedMap] // originally a vector, might need different implementation.
 
     // start of functions
-    
+
+    override init() {
+        DAssets = []
+    }
+
     init(map: CAssetDecoratedMap) {
         DAssets = map.DAssets
         DLumberAvailable = map.DLumberAvailable
@@ -39,23 +43,23 @@ class CAssetDecoratedMap: CTerrainMap {
         DResourceInitializationList = map.DResourceInitializationList
     }
 
-    init(map: CAssetDecoratedMap, newcolors: [[Int]]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
+    init(map: CAssetDecoratedMap, newcolors: [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
 
         DAssets = map.DAssets
         DLumberAvailable = map.DLumberAvailable
         for InitVal in map.DAssetInitializationList {
             var NewInitVal = InitVal
-            if newcolors.size() > NewInitval.DColor.rawValue {
-                NewInitVal.DColor = newcolors[NewInitVal.rawValue]
+            if newcolors.count > NewInitVal.DColor.rawValue {
+                NewInitVal.DColor = newcolors[NewInitVal.DColor.rawValue]
             }
-            DAssetInitializationList += NewInitVal
+            DAssetInitializationList.append(NewInitVal)
         }
         for InitVal in map.DResourceInitializationList {
             var NewInitVal = InitVal
-            if newcolors.size() > NewInitval.DColor.rawValue {
-                NewInitVal.DColor = newcolors[NewInitVal.rawValue]
+            if newcolors.count > NewInitVal.DColor.rawValue {
+                NewInitVal.DColor = newcolors[NewInitVal.DColor.rawValue]
             }
-            DResourceInitializationList += NewInitVal
+            DResourceInitializationList.append(NewInitVal)
         }
     }
 
@@ -64,73 +68,77 @@ class CAssetDecoratedMap: CTerrainMap {
 
     // constructors and destructors end
 
-    func LoadMaps(container: CDataContainer) -> bool {
-        // var FileIterator = container.first() TODO: not sure how this works
+    func LoadMaps(container: CDataContainer) -> Bool {
+        var FileIterator: CDataContainerIterator! = container.First()
         if FileIterator == nil {
-            PrintError("FileIterator == nullptr\n")
+            print("FileIterator == nullptr\n")
             return false
         }
-        while ((FileIterator != nil)) && (FileIterator.isValid()) {
+        while ((FileIterator != nil)) && (FileIterator.IsValid()) {
             var Filename: String = FileIterator.Name()
             FileIterator.Next()
-            if Filename.rfind(".map") == (Filename.length() - 4) {
+            if Filename.range(of: ".map") != nil {
                 var TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
 
                 if !TempMap.LoadMap(container.DataSource(Filename)) {
-                    PrintError("Failed to load map \"%s\".\n", Filename.c_str())
+                    print("Failed to load map \"%s\".\n", Filename)
                     continue
                 } else {
-                    PrintDebug(DEBUG_LOW, "Loaded map \"%s\".\n", Filename.c_str())
+                    print("Loaded map \"%s\".\n", Filename)
                 }
-                TempMap -> RenderTerrain()
-                DMapNameTranslation[TempMap -> MapName()] = DAllMaps.size()
-                DAllMaps.push_back(TempMap)
+                TempMap.RenderTerrain()
+                DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
+                DAllMaps.append(TempMap)
             }
         }
-        PrintDebug(DEBUG_LOW, "Maps loaded\n")
+        print("Maps loaded\n")
         return true
     }
 
-    func FindMapIndex(name: String) -> int {
-        var Iterator = DMapNameTranslation.find(name)
-        if Iterator != DMapNameTranslation.end() {
-            return Iterator.second
+    func FindMapIndex(name: String) -> Int {
+        let Iterator: Int! = DMapNameTranslation[name]
+        if Iterator != nil{
+            return Iterator
         }
         return -1
     }
 
-    func GetMap(index: int) -> CAssetDecoratedMap {
-        if (0 > index) || (DAllMaps.size() <= index) {
+    func GetMap(index: Int) -> CAssetDecoratedMap {
+        if (0 > index) || (DAllMaps.count <= index) {
             return CAssetDecoratedMap()
         }
-        return CAssetDecoratedMap(DAllMaps[index])
+        return CAssetDecoratedMap(map: DAllMaps[index])
     }
 
-    func DuplicateMap(index: int, newcolors: [[int]]) -> CAssetDecoratedMap { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
-        if (0 > index) || (DAllMaps.size() <= index) {
-            return CAssetDecorateMap()
+    func DuplicateMap(index: Int, newcolors: [EPlayerColor]) -> CAssetDecoratedMap {
+        if (0 > index) || (DAllMaps.count <= index) {
+            return CAssetDecoratedMap()
         }
-        return CAssetDecorateMap(DallMaps[index], newcolors)
+        return CAssetDecoratedMap(map: DAllMaps[index], newcolors: newcolors)
     }
 
-    func AddAsset(asset: CPlayerAsset) -> bool {
-        DAssets.puch_back(asset)
+    func AddAsset(asset: CPlayerAsset) -> Bool {
+        DAssets.append(asset)
         return true
     }
 
-    func RemoveAsset(asset: CPlayerAsset) -> bool {
-        DAssets.remove(asset)
-        return true
+    func RemoveAsset(asset: CPlayerAsset) -> Bool {
+        for var index: Int in 0...DAssets.count{
+            if DAssets[index] === asset{ //not certain if this will work, if not we need to make CPlayerAsset equatable
+                DAssets.remove(at: index)
+                return true
+            }
+        }
+        return false
     }
 
-    func CanPlaceAsset(pos: CTilePosition, size: int, ignoreasset: CPlayerAsset) -> bool {
-        var RightX: int
-        var BottomY: int
+    func CanPlaceAsset(pos: CTilePosition, size: Int, ignoreasset: CPlayerAsset) -> Bool {
+        var RightX: Int
+        var BottomY: Int
 
-        for var YOff: int = 0; YOff < size; YOff++ {
-            for var XOff: int = 0; XOff < size; XOff++ {
+        for var YOff: Int in stride(from: 0, to: size, by: 1) {
+            for var XOff: Int in stride(from: 0, to: size, by: 1) {
                 var TileTerrainType = TileType(pos.X() + XOff, pos.Y() + YOff)
-                // if((ETileType::Grass != TileTerrainType)&&(ETileType::Dirt != TileTerrainType)&&(ETileType::Stump != TileTerrainType)&&(ETileType::Rubble != TileTerrainType)){
                 if !CanPlaceOn(TileTerrainType) {
                     return false
                 }
@@ -425,7 +433,7 @@ class CAssetDecoratedMap: CTerrainMap {
                     }
                 }
 
-                ReturnStatus = true;
+                ReturnStatus = true
             } catch {
                 print("\(error)\n")
             }
