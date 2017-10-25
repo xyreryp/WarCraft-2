@@ -295,21 +295,7 @@ class CPlayerData {
         return BestAsset
     }
     
-    std::shared_ptr< CPlayerAsset > BestAsset;
-    int BestDistanceSquared = -1;
-    
-    for(auto &Asset : DPlayerMap->Assets()){
-    if(Asset->Type() == assettype){
-    int CurrentDistance = Asset->Position().DistanceSquared(pos);
-    
-    if((-1 == BestDistanceSquared)||(CurrentDistance < BestDistanceSquared)){
-    BestDistanceSquared = CurrentDistance;
-    BestAsset = Asset;
-    }
-    }
-    }
-    return BestAsset;
-    
+
     func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
         var BestAsset:CPlayerAsset
         var BestDistanceSquared = -1
@@ -317,13 +303,46 @@ class CPlayerData {
         for Asset in DPlayerMap.Assets() {
             if Asset.Type() == assettype {
                 let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
-                
+                if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {
+                    BestDistanceSquared = CurrentDistance
+                    BestAsset = Asset
+                }
             }
         }
+        return BestAsset
     }
     
+    
+    // TODO: Need AssetDecoratedMap
     func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset {
+        var BestAsset:CPlayerAsset
+//        var BestDistanceSquared = -1
+//        var r = range
+//        if 0 < r {
+//            r = RangeToDistanceSquared(range: r)
+//        }
+//        for Asset in DPlayerMap.Assets() {
+//            if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset-IsAlive() {
+//                var Command = Asset->Command()
+//                if EAssetAction.Capability == Command.DAction {
+//                    if Command.DAssetTarget && EAssetAction.Construct == Command.DAssetTarget.Action {
+//                        continue
+//                    }
+//                }
+//                if EAssetAction.ConveyGold != Command.DAction && EAssetAction.ConveyLumber != Command.DAction && EAssetAction.MineGold != Command.DAction {
+//                    var CurrentDistance = Asset.ClosestPosition(pos).DistanceSquared(pos)
+//
+//                    if 0 > r || CurrentDistance <= r {
+//                        if -1 == BestDistanceSquared || Currentdistance < BestDistanceSquared {
+//                            BestDistanceSquared = CurrentDistance
+//                            BestAsset = Asset
+//                        }
+//                    }
+//                }
+//            }
+//        }
         
+        return BestAsset
     }
 
     func FindBestAssetPlacement(pos: CPixelPosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
@@ -373,4 +392,11 @@ class CPlayerData {
     func AppendGameEvents(events: [SGameEvent]) {
         DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
     }
+}
+
+func RangeToDistanceSquared(range: Int) -> Int {
+    range *= CPosition.TileWidth()
+    range *= range
+    range += CPositionTileWidth() * CPosition.TileWidth()
+    return range
 }
