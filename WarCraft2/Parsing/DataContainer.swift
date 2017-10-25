@@ -28,10 +28,8 @@ protocol CDataContainerIterator {
 
 protocol CDataContainer {
     func First() -> CDataContainerIterator
-    // TODO: Uncomment When CDataSource has been written
-    func DataSource(name: String) // -> CDataSource
-    // TODO: Uncomment when CDataSink has been written
-    func DataSink(name: String) // -> CDataSink
+    func DataSource(name: String) -> CDataSource
+    func DataSink(name: String) -> CDataSink
     func Container() -> CDataContainer
     func DataContainer(name: String) -> CDataContainer
 }
