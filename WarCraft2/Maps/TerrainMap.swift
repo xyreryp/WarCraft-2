@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 class CTerrainMap {
 
@@ -57,12 +58,12 @@ class CTerrainMap {
             [true, false, false, false, true, false, false, false, false, true, true],
         ]
 
-    internal var DTerrainMap = [[ETerrainTileType]]() // initialized variables
-    internal var DPartials = [[UInt8]]()
-    internal var DMap = [[ETileType]]()
-    internal var DMapIndices = [[Int]]()
-    internal var DMapName: String
-    internal var DRendered: Bool
+    var DTerrainMap = [[ETerrainTileType]]() // initialized variables
+    var DPartials = [[UInt8]]()
+    var DMap = [[ETileType]]()
+    var DMapIndices = [[Int]]()
+    var DMapName: String
+    var DRendered: Bool
 
     init() {
         DMapName = "not rendered"
@@ -85,6 +86,82 @@ class CTerrainMap {
     //        return (lhs.DX == rhs.DX && lhs.DX == rhs.DX)
     //    }
 
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(xindex: Int, yindex: Int) -> ETileType {
+        if -1 > xindex || -1 > yindex {
+            return ETileType.None
+        }
+        if DMap.count <= yindex + 1 {
+            return ETileType.None
+        }
+        if DMap[yindex + 1].count <= xindex + 1 {
+            return ETileType.None
+        }
+        return DMap[yindex + 1][xindex + 1]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(pos: CTilePosition) -> ETileType {
+        return TileType(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileTypeIndex(xindex: Int, yindex: Int) -> Int {
+        if (-1 > xindex) || (-1 > yindex) {
+            return -1
+        }
+        if DMapIndices.count <= yindex + 1 {
+            return -1
+        }
+        if DMapIndices[yindex + 1].count <= xindex + 1 {
+            return -1
+        }
+        return DMapIndices[yindex + 1][xindex + 1]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileTypeIndex(pos: CTilePosition) -> Int {
+        return TileTypeIndex(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TerrainTileType(xindex: Int, yindex: Int) -> ETerrainTileType {
+        if (0 > xindex) || (0 > yindex) {
+            return ETerrainTileType.None
+        }
+        if DTerrainMap.count <= yindex {
+            return ETerrainTileType.None
+        }
+        if DTerrainMap[yindex].count <= xindex {
+            return ETerrainTileType.None
+        }
+        return DTerrainMap[yindex][xindex]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TerrainTileType(pos: CTilePosition) -> ETerrainTileType {
+        return TerrainTileType(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TilePartial(xindex: Int, yindex: Int) -> uint8 {
+        if (0 > xindex) || (0 > yindex) {
+            return CTerrainMap.DInvalidPartial
+        }
+        if DPartials.count <= yindex {
+            return CTerrainMap.DInvalidPartial
+        }
+        if DPartials[yindex].count <= xindex {
+            return CTerrainMap.DInvalidPartial
+        }
+        return DPartials[yindex][xindex]
+    }
+
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TilePartial(pos: CTilePosition) -> uint8 {
+        return TilePartial(xindex: pos.X(), yindex: pos.Y())
+    }
+
     func MapName() -> String {
         return DMapName
     }
@@ -100,64 +177,6 @@ class CTerrainMap {
         return DTerrainMap.count - 1
     }
 
-    
-    // NOTE: Added by Alex Soong, if mistaken pls let me know
-    func TileTypeIndex(xindex: Int, yindex: Int) -> Int {
-        if (-1 > xindex) || (-1 > yindex) {
-            return -1
-        }
-        if DMapIndices.count <= yindex + 1 {
-            return -1
-        }
-        if DMapIndices[yindex + 1].count <= xindex + 1 {
-            return -1
-        }
-        return DMapIndices[yindex + 1][xindex + 1]
-    }
-    
-    // NOTE: Added by Alex Soong, if mistaken pls let me know
-    func TileTypeIndex(pos: CTilePosition) -> Int {
-        return TileTypeIndex(xindex: pos.X(), yindex: pos.Y())
-    }
-    
-    // NOTE: Added by Alex Soong, if mistaken pls let me know
-    func TerrainTileType(xindex: Int, yindex: Int) -> ETerrainTileType {
-        if (0 > xindex) || (0 > yindex) {
-            return ETerrainTileType.None
-        }
-        if DTerrainMap.count <= yindex {
-            return ETerrainTileType.None
-        }
-        if DTerrainMap[yindex].count <= xindex {
-            return ETerrainTileType.None
-        }
-        return DTerrainMap[yindex][xindex]
-    }
-    
-    // NOTE: Added by Alex Soong, if mistaken pls let me know
-    func TerrainTileType(pos: CTilePosition) -> ETerrainTileType {
-        return TerrainTileType(xindex: pos.X(), yindex: pos.Y())
-    }
-    
-    // NOTE: Added by Alex Soong, if mistaken pls let me know
-    func TilePartial(xindex: Int, yindex: Int) -> uint8 {
-        if (0 > xindex) || (0 > yindex) {
-            return CTerrainMap.DInvalidPartial
-        }
-        if DPartials.count <= yindex {
-            return CTerrainMap.DInvalidPartial
-        }
-        if DPartials[yindex].count <= xindex {
-            return CTerrainMap.DInvalidPartial
-        }
-        return DPartials[yindex][xindex]
-    }
-    
-    // NOTE: Added by Alex Soong, if mistaken pls let me know
-    func TilePartial(pos: CTilePosition) -> uint8 {
-        return TilePartial(xindex: pos.X(), yindex: pos.Y())
-    }
-    
     func ChangeTerrainTilePartial(xindex: Int, yindex: Int, val: UInt8) {
         if (0 > yindex) || (0 > xindex) {
             return
@@ -263,7 +282,7 @@ class CTerrainMap {
             TypeIndex &= (ETerrainTileType.Rock == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.Rock == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.Rock == LR) ? 0xF : 0x7
-            type = ETileType.Rock
+            type = (TypeIndex != 0) ? .Rock : .Rubble
             index = TypeIndex
         } else if (ETerrainTileType.Forest == UL) || (ETerrainTileType.Forest == UR) || (ETerrainTileType.Forest == LL) || (ETerrainTileType.Forest == LR) {
             TypeIndex &= (ETerrainTileType.Forest == UL) ? 0xF : 0xE
@@ -303,8 +322,8 @@ class CTerrainMap {
     }
     //terain being rendered
     func RenderTerrain() {
-        resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [ETileType.None])
-        resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [0])
+        resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [])
+        resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [])
         for YPos in 0 ..< DMap.count {
             if (0 == YPos) || (DMap.count - 1 == YPos) {
                 for _ in 0 ..< DTerrainMap[0].count + 1 {
@@ -329,121 +348,109 @@ class CTerrainMap {
         DRendered = true
     }
 
-    func LoadMap(source: CDataSource) throws -> Bool {
-        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
-        var TempString = String()
-        var Tokens: [String] = [String]()
-        var MapWidth: Int
-        var MapHeight: Int
+    // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
+    // parse a string into array on specific delim
+    func SplitStringWithDelim(input: String, delim: String) -> [String] {
+        let stringOfWords = input
+        let StringOfWordsArray = stringOfWords.components(separatedBy: delim)
+        return StringOfWordsArray
+    }
+
+    // https://medium.com/@felicity.johnson.mail/how-to-split-a-string-swift-3-0-e9b757445064
+    // parse a string to string array on spaces
+    func StringToArray(input: String) -> [String] {
+        let stringOfWords = input
+        let StringOfWordsArray = stringOfWords.components(separatedBy: " ")
+        return StringOfWordsArray
+    }
+
+    func getMapName(fileText: [String]) -> String {
+        return fileText[1]
+    }
+    func getMapWidthandHeight(fileText: [String]) -> (width: Int, height: Int) {
+        let dimensions = fileText[3].components(separatedBy: " ")
+        return (Int(dimensions[0])!, Int(dimensions[1])!)
+    }
+    func LoadMap(fileToRead: String) throws -> Bool { // source _: CDataSource
+
+        // reading in file path
         var ReturnStatus: Bool = false
-
-        DTerrainMap.removeAll()
-
-        if !LineSource.Read(line: &DMapName) {
-            return ReturnStatus
-        }
-        if !LineSource.Read(line: &TempString) {
-            return ReturnStatus
-        }
-        // TODO: Uncomment when CTokenizer has been written
-        // CTokenizer.Tokenize(Tokens, TempString)
-        if 2 != Tokens.count {
-            return ReturnStatus
-        }
-        do { // not too sure how to catch errors
-            var StringMap = [String]()
-            MapWidth = Int(Tokens[0])!
-            MapHeight = Int(Tokens[1])!
-            if (8 > MapWidth) || (8 > MapHeight) {
+        if let filepath = try Bundle.main.url(forResource: fileToRead, withExtension: "map") {
+            do {
+                let text = try String(contentsOf: filepath, encoding: .utf8)
+                var StringMap = [String]()
+                StringMap = text.components(separatedBy: "\n")
+                DMapName = getMapName(fileText: StringMap)
+                let dimensions: (Int, Int) = getMapWidthandHeight(fileText: StringMap)
+                let MapWidth = dimensions.0
+                let MapHeight = dimensions.1
+                if (8 > MapWidth) || (8 > MapHeight) {
+                    return ReturnStatus
+                }
+                resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
+                for Index in 0 ..< DTerrainMap.count {
+                    resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
+                    for Inner in 0 ..< MapWidth + 1 {
+                        let index1: String.Index = StringMap[Index + 5].index(StringMap[Index + 5].startIndex, offsetBy: Inner)
+                        switch StringMap[Index + 5][index1] {
+                        case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
+                            break
+                        case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
+                            break
+                        case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
+                            break
+                        case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
+                            break
+                        case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
+                            break
+                        case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
+                            break
+                        case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
+                            break
+                        case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
+                            break
+                        case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
+                            break
+                        case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
+                            break
+                        default: return ReturnStatus
+                        }
+                        if Inner != 0 {
+                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
+                                return ReturnStatus
+                            }
+                        }
+                        if Index != 0 {
+                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
+                                return ReturnStatus
+                            }
+                        }
+                    }
+                }
+                resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
+                let valueStringValues: [Character] = ["0", "A"]
+                var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
+                for Index in 0 ..< DTerrainMap.count {
+                    resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
+                    for Inner in 0 ..< MapWidth + 1 {
+                        let index: String.Index = StringMap[Index + MapWidth + 7].index(StringMap[Index + MapWidth + 7].startIndex, offsetBy: Inner)
+                        let intValue: UInt8 = String(StringMap[Index + MapWidth + 7][index]).utf8.map { UInt8($0) }[0]
+                        if ("0" <= StringMap[Index + MapWidth + 7][index]) && ("9" >= StringMap[Index + MapWidth + 7][index]) {
+                            DPartials[Index][Inner] = intValue - asciiValues[0]
+                        } else if ("A" <= StringMap[Index + MapWidth + 7][index]) && ("F" >= StringMap[Index + MapWidth + 7][index]) {
+                            DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
+                        } else {
+                            return ReturnStatus
+                        }
+                    }
+                }
+                ReturnStatus = true
+                return ReturnStatus
+            } catch {
                 return ReturnStatus
             }
-            while StringMap.count < MapHeight + 1 {
-                if !LineSource.Read(line: &TempString) {
-                    return ReturnStatus
-                }
-                StringMap.append(TempString)
-                if MapWidth + 1 > StringMap.last!.count {
-                    return ReturnStatus
-                }
-            }
-            if MapHeight + 1 > StringMap.count {
-                return ReturnStatus
-            }
-            resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [ETerrainTileType.None])
-
-            for Index in 0 ..< DTerrainMap.count {
-                resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
-                for Inner in 0 ..< MapWidth + 1 {
-                    switch StringMap[Index] {
-                    case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
-                        break
-                    case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
-                        break
-                    case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
-                        break
-                    case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
-                        break
-                    case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
-                        break
-                    case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
-                        break
-                    case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
-                        break
-                    case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
-                        break
-                    case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
-                        break
-                    case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
-                        break
-                    default: return ReturnStatus
-                    }
-                    //  if(Inner) { to do confused on this part?
-                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
-                        return ReturnStatus
-                    }
-                    //  }
-                    //  if(Index) { to do confused on this part?
-                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
-                        return ReturnStatus
-                    }
-                    // }
-                }
-            }
-            StringMap.removeAll()
-            while StringMap.count < MapHeight + 1 {
-                if !LineSource.Read(line: &TempString) {
-                    return ReturnStatus
-                }
-                StringMap.append(TempString)
-                if MapWidth + 1 > StringMap.last!.count {
-                    return ReturnStatus
-                }
-            }
-            if MapHeight + 1 > StringMap.count {
-                return ReturnStatus
-            }
-            resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
-            for Index in 0 ..< DTerrainMap.count {
-                resize(array: &DPartials, size: MapWidth + 1, defaultValue: [0x0])
-                for Inner in 0 ..< MapWidth + 1 {
-                    let index: String.Index = StringMap[Index].index(StringMap[Index].startIndex, offsetBy: Inner)
-                    let valueStringValues: [Character] = ["0", "A"]
-                    var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-                    let intValue: UInt8 = String(StringMap[Index][index]).utf8.map { UInt8($0) }[0]
-                    if ("0" <= StringMap[Index][index]) && ("9" >= StringMap[Index][index]) {
-                        DPartials[Index][Inner] = intValue - asciiValues[0]
-                    } else if ("A" <= StringMap[Index][index]) && ("F" >= StringMap[Index][index]) {
-                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
-                    } else {
-                        return ReturnStatus
-                    }
-                }
-            }
-            ReturnStatus = true
+        } else {
+            return ReturnStatus
         }
-        return ReturnStatus
-        //  catch {
-        //      print("LoadMap function Error (TerrainMap.swift)")
-        // }
     }
 }
