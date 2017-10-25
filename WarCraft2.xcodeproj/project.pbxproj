@@ -71,6 +71,7 @@
 		6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlingMouseClicks.swift; sourceTree = "<group>"; };
 		6BD98D371F9010EE00EDC2ED /* HandlingMouseClicks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HandlingMouseClicks.xib; sourceTree = "<group>"; };
 		883BFF0E1F99E255005239AA /* mountain.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = mountain.map; sourceTree = "<group>"; };
+		88CE06D41F9D4C86001E4642 /* hedges.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = hedges.map; sourceTree = "<group>"; };
 		939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
@@ -159,6 +160,7 @@
 		E18B688D1F8B3C8700962891 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				88CE06D41F9D4C86001E4642 /* hedges.map */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";

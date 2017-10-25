@@ -45,7 +45,7 @@ class CPosition {
 
     // overloaded operators to compare Positions
     static func ==(lhs: CPosition, rhs: CPosition) -> Bool {
-        return (lhs.DX == rhs.DX && lhs.DX == rhs.DX)
+        return (lhs.DX == rhs.DX && lhs.DY == rhs.DY)
     }
 
     // overloaded operators to compare Positions
