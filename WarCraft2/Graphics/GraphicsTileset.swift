@@ -24,7 +24,7 @@ class CGraphicTileset {
     var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
-    var DTileSet: [SKNode] = []
+    var DTileSet: [SKTexture] = []
 
     init() {
         DSurfaceTileset = nil
