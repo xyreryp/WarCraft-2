@@ -87,8 +87,8 @@
 | :red_circle: | [⋅]    | TerrainMap.h                                               | TerrainMap.cpp                  | TerrainMap.swift                                         |
 |              |        | TextFormatter.h                                            | TextFormatter.cpp               | TextFormatter.swift                                                               |
 |              |        | Tokenizer.h                                                | Tokenizer.cpp                   | Tokenizer.swift                                          |
-|              |        | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
-|              |        | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
+|              |  [.]      | UnitActionRenderer.h                                       | UnitActionRenderer.cpp          |                                                          |
+|              |   [.]     | UnitDescriptionRenderer.h                                  | UnitDescriptionRenderer.cpp     |                                                          |
 |              |        |                                                            | UnitUpgradeCapabilities.cpp     |                                                          |
 | :red_circle: | [.]    | ViewportRenderer.h                                         | ViewportRenderer.cpp            | ViewportRenderer.swift                                                         |
 |              |        | VisibilityMap.h                                            | VisibilityMap.cpp               | VisibilityMap.swift                                      |
