@@ -346,7 +346,99 @@ class CPlayerData {
     }
 
     func FindBestAssetPlacement(pos: CPixelPosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
+        var AssetType = DAssetTypes[CPlayerAssetType.TypeToName(assettype)]
+        var PlacementSize: Int = AssetType.count + 2 * buffer
+        var MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
         
+        var Distance = 0
+        for Distance in Distance..<MaxDistance {
+            var BestPosition: CTilePosition
+            var BestDistance: Int = -1
+            var LeftX: Int = pos.X() - Distance
+            var TopY = pos.Y() - Distance
+            var RightX = pos.X() + Distance
+            var BottomY = pos.Y() + Distance
+            var LeftValid: Bool = true
+            var RightValid: Bool = true
+            var TopValid: Bool = true
+            var BottomValid:Bool = true
+            
+            if(0 > LeftX){
+                LeftValid = false;
+                LeftX = 0;
+            }
+            if (0 > TopY){
+                TopValid = false;
+                TopY = 0;
+            }
+            if (DPlayerMap.Width() <= RightX){
+                RightValid = false
+                RightX = DPlayerMap.Width() - 1
+            }
+            if (DPlayerMap.Height() <= BottomY){
+                BottomValid = false
+                BottomY = DPlayerMap.Height() - 1
+            }
+            
+            if(TopValid){
+                var Index = LeftX
+                for Index in Index..<RightX {
+                    var TempPosition: CTilePosition = CTilePosition(x: Index, y: TopY)
+                    if(DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder)){
+                        var CurrentDistance:Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        if((-1 == BestDistance)||(CurrentDistance < BestDistance)){
+                            BestDistance = CurrentDistance
+                            BestPosition = TempPosition
+                        }
+                    }
+                }
+            }
+            if(RightValid){
+                var Index = TopY
+                for Index in Index..<BottomY {
+                    var TempPosition:CTilePosition = CTilePosition(x: RightX, y: Index)
+                    if(DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder)){
+                        var CurrentDistance:Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        if((-1 == BestDistance)||(CurrentDistance < BestDistance)){
+                            BestDistance = CurrentDistance
+                            BestPosition = TempPosition
+                        }
+                    }
+                }
+            }
+            if(BottomValid){
+                var Index = LeftX
+                for Index in Index..<RightX {
+                    var TempPosition:CTilePosition = CTilePosition(x: Index, y: BottomY)
+                    if(DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder)){
+                        var CurrentDistance:Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        if((-1 == BestDistance)||(CurrentDistance < BestDistance)){
+                            BestDistance = CurrentDistance
+                            BestPosition = TempPosition
+                        }
+                    }
+                }
+            }
+            if(LeftValid){
+                var Index = LeftX
+                for Index in Index..<BottomY {
+                    var TempPosition:CTilePosition = CTilePosition(x: LeftX, y: Index)
+                    if(DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder)){
+                        var CurrentDistance:Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        if((-1 == BestDistance)||(CurrentDistance < BestDistance)){
+                            BestDistance = CurrentDistance
+                            BestPosition = TempPosition
+                        }
+                    }
+                }
+            }
+            if(-1 != BestDistance){
+                return CTilePosition(x: BestPosition.X() + buffer, y: BestPosition.Y() + buffer)
+            }
+            
+        }
+        return CTilePosition(x: -1, y: -1)
+
     }
   
     func IdleAssets() -> [CPlayerAsset] {
