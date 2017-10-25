@@ -240,8 +240,7 @@ class CPlayerData {
                             ReturnList = [CPlayerAsset]()
                             ReturnList.append(Asset)
                             AnyMovable = true
-                        }
-                        else {
+                        } else {
                             if ReturnList.count == 0 {
                                 ReturnList.append(Asset)
                             }
@@ -273,12 +272,54 @@ class CPlayerData {
         }
         return BestAsset
     }
+    
 
-    func FindNearestOwnedAsset(pos _: CPixelPosition, assettypes _: [EAssetType]) -> CPlayerAsset {
+    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
+        var BestAsset:CPlayerAsset
+        var BestDistanceSquared = -1
+        
+        for WeakAsset in DAssets {
+            let Asset = WeakAsset
+            for AssetType in assettypes {
+                if Asset.Type() == AssetType && EAssetAction.Construct != Asset.Action() || EAssetType.Keep == AssetType || EAssetType.Castle == AssetType {
+                    let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
+                    
+                    if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {
+                        BestDistanceSquared = CurrentDistance
+                        BestAsset = Asset
+                    }
+                    break
+                }
+            }
+        }
+        return BestAsset
     }
     
-    func FindNearestAsset(pos: CPixelPosition) -> CPlayerAsset {
+    std::shared_ptr< CPlayerAsset > BestAsset;
+    int BestDistanceSquared = -1;
+    
+    for(auto &Asset : DPlayerMap->Assets()){
+    if(Asset->Type() == assettype){
+    int CurrentDistance = Asset->Position().DistanceSquared(pos);
+    
+    if((-1 == BestDistanceSquared)||(CurrentDistance < BestDistanceSquared)){
+    BestDistanceSquared = CurrentDistance;
+    BestAsset = Asset;
+    }
+    }
+    }
+    return BestAsset;
+    
+    func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
+        var BestAsset:CPlayerAsset
+        var BestDistanceSquared = -1
         
+        for Asset in DPlayerMap.Assets() {
+            if Asset.Type() == assettype {
+                let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
+                
+            }
+        }
     }
     
     func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset {
