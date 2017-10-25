@@ -48,14 +48,14 @@ class CPlayerAsset {
     static func !=(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
         return (
             lhs.DCreationCycle != rhs.DCreationCycle ||
-            lhs.DType != rhs.DType ||
-            lhs.DHitPoints != rhs.DHitPoints ||
-            lhs.DGold != rhs.DGold ||
-            lhs.DLumber != rhs.DLumber ||
-            lhs.DStep != rhs.DStep ||
-            lhs.DMoveRemainderX != rhs.DMoveRemainderX ||
-            lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
-            lhs.DDirection != rhs.DDirection
+                lhs.DType != rhs.DType ||
+                lhs.DHitPoints != rhs.DHitPoints ||
+                lhs.DGold != rhs.DGold ||
+                lhs.DLumber != rhs.DLumber ||
+                lhs.DStep != rhs.DStep ||
+                lhs.DMoveRemainderX != rhs.DMoveRemainderX ||
+                lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
+                lhs.DDirection != rhs.DDirection
         )
     }
 
