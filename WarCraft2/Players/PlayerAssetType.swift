@@ -133,6 +133,26 @@ class CPlayerAssetType {
 
     deinit {
     }
+    
+    static func !=(rhs: CPlayerAssetType, lhs: CPlayerAssetType) -> Bool {
+        return (
+            lhs.DHitPoints !=  rhs.DHitPoints ||
+            lhs.DArmor !=  rhs.DArmor ||
+            lhs.DSight != rhs.DSight ||
+            lhs.DConstructionSight !=  rhs.DConstructionSight ||
+            lhs.DSize !=  rhs.DSize ||
+            lhs.DSpeed != rhs.DSpeed ||
+            lhs.DGoldCost != rhs.DGoldCost ||
+            lhs.DLumberCost != rhs.DLumberCost ||
+            lhs.DFoodConsumption != rhs.DFoodConsumption ||
+            lhs.DBuildTime != rhs.DBuildTime ||
+            lhs.DAttackSteps != rhs.DAttackSteps ||
+            lhs.DReloadSteps != rhs.DReloadSteps ||
+            lhs.DBasicDamage != rhs.DBasicDamage ||
+            lhs.DPiercingDamage != rhs.DPiercingDamage ||
+            lhs.DRange != rhs.DRange
+        )
+    }
 
     // TODO: Where does this go?
     func HitPoints() -> Int {
