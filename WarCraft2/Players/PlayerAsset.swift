@@ -46,14 +46,16 @@ class CPlayerAsset {
 
     // overloaded operators to compare Positions
     static func !=(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
-        return (lhs.DCreationCycle != rhs.DCreationCycle ||lhs.DType != rhs.DType ||
-            //                lhs.DHitPoints != rhs.DHitPoints ||
-            //                lhs.DGold != rhs.DGold ||
-            //                lhs.DLumber != rhs.DLumber ||
-            //                lhs.DStep != rhs.DStep ||
-            //                lhs.DMoveRemainderX != rhs.DMoveRemainderX ||
-            //                lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
-            //                lhs.DDirection != rhs.DDirection
+        return (
+            lhs.DCreationCycle != rhs.DCreationCycle ||
+            lhs.DType != rhs.DType ||
+            lhs.DHitPoints != rhs.DHitPoints ||
+            lhs.DGold != rhs.DGold ||
+            lhs.DLumber != rhs.DLumber ||
+            lhs.DStep != rhs.DStep ||
+            lhs.DMoveRemainderX != rhs.DMoveRemainderX ||
+            lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
+            lhs.DDirection != rhs.DDirection
         )
     }
 
