@@ -22,5 +22,56 @@ class CBattleMode : CApplicationMode {
 //    return !t.expired() && t.lock() <= u.lock();
 //    }
     
+    var DBattleModePointer: CBattleMode
+    
+//    CBattleMode::CBattleMode(const SPrivateConstructorType & key){
+//
+//    }
+    
+    func InitializeChange(context: CApplicationData) -> Void {
+        context.LoadGameMap(context.DSelectedMapIndex);
+        context.DSoundLibraryMixer.PlaySong(context.DSoundLibraryMixer.FindSong("game1"), context.DMusicVolume);
+    }
+    
+    func Input(context: CApplicationData) -> Void {
+        var CurrentX: Int
+        var CurrentY: Int
+        var Panning: Bool = false
+        var ShiftPressed: Bool = false
+        var PanningDirection: EDirection = EDirection.Max
+        
+        CurrentX = context.DCurrentX
+        CurrentY = context.DCurrentY
+        
+        context.DGameModel.ClearGameEvents()
+        for Key in context.DPressedKeys {
+            if(SGUIKeyType.UpArrow == Key){
+                PanningDirection = EDirection.North
+                Panning = true
+            }
+            else if(SGUIKeyType.DownArrow == Key){
+                PanningDirection = EDirection.South
+                Panning = true
+            }
+            else if(SGUIKeyType.LeftArrow == Key){
+                PanningDirection = EDirection.West
+                Panning = true
+            }
+            else if(SGUIKeyType.RightArrow == Key){
+                PanningDirection = EDirection.East
+                Panning = true
+            }
+            else if((SGUIKeyType.LeftShift == Key)||(SGUIKeyType.RightShift == Key)){
+                ShiftPressed = true
+            }
+            
+        }
+        
+        
+        
+        
+    
+    }
+    
     
 }
