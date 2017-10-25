@@ -44,6 +44,15 @@ class CPlayerAsset {
     deinit {
     }
 
+    // overloaded operators to compare Positions
+    static func !=(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return (lhs.DCreationCycle != rhs.DCreationCycle ||
+                lhs.DHitPoints != lhs.DHitPoints)
+            
+                    
+    }
+    
+    
     func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
             DUpdateFrequency = freq

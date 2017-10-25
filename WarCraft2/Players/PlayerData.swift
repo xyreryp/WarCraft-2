@@ -199,15 +199,79 @@ class CPlayerData {
         for Asset in DPlayerMap.Assets() {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
-                if CPlayerAsset.UpdateFrequency
+                if CPlayerAsset.UpdateFrequency() < Asset.Step * 2 {
+                    RemoveList.append(Asset)
+                }
             }
         }
+        for Asset in RemoveList {
+            DPlayerMap.RemoveAsset(Asset)
+        }
+    }
+   
+    
+    func SelectAssets(selectarea : SRectangle, assettype : EAssetType, selectidentical : Bool = false) -> [CPlayerAsset] {
+        var ReturnList:[CPlayerAsset] = [CPlayerAsset]()
+        if selectarea.DWidth < 0 || selectarea.DHeight < 0 {
+            var BestAsset:CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
+            let LockedAsset = BestAsset
+            ReturnList.append(BestAsset)
+            if selectidentical && LockedAsset.Speed() > 0 {
+                for WeakAsset in DAssets {
+                    let Asset = WeakAsset
+                    if LockedAsset != Asset && Asset.Type() == assettype {
+                        ReturnList.append(Asset)
+                    }
+                }
+            }
+        }
+        else {
+            var AnyMovable: Bool = false
+            for WeakAsset in DAssets {
+                let Asset = WeakAsset
+                if selectarea.DXPosition <= Asset.PositionX() && Asset.PositionX() < selectarea.DXPosition + selectarea.DWidth && selectarea.DYPosition <= Asset.PositionY() && Asset.PositionY() < selectarea.DYPosition + selectarea.DHeight {
+                    if AnyMovable {
+                        if Asset.Speed() > 0 {
+                            ReturnList.append(Asset)
+                        }
+                    }
+                    else {
+                        if Asset.Speed() > 0 {
+                            ReturnList = [CPlayerAsset]()
+                            ReturnList.append(Asset)
+                            AnyMovable = true
+                        }
+                        else {
+                            if ReturnList.count == 0 {
+                                ReturnList.append(Asset)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ReturnList
     }
 
-    func SelectAssets(selectarea _: SRectangle, assettype _: EAssetType, selectidentical _: Bool = false) -> [CPlayerAsset] {
-    }
-
-    func SelectAsset(pos _: CPixelPosition, assettype _: EAssetType) -> CPlayerAsset {
+    
+    func SelectAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
+        var BestAsset:CPlayerAsset
+        var BestDistanceSquared:Int = -1
+        
+        if EAssetType.None != assettype {
+            for WeakAsset in DAssets {
+                let Asset = WeakAsset
+                if Asset.Type() == assettype {
+                    let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
+                    
+                    if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {
+                        BestDistanceSquared = CurrentDistance
+                        BestAsset = Asset
+                    }
+                }
+            }
+        }
+        return BestAsset
     }
 
     func FindNearestOwnedAsset(pos _: CPixelPosition, assettypes _: [EAssetType]) -> CPlayerAsset {
