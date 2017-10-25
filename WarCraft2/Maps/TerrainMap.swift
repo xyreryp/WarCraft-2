@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 class CTerrainMap {
 
@@ -85,30 +86,15 @@ class CTerrainMap {
     //        return (lhs.DX == rhs.DX && lhs.DX == rhs.DX)
     //    }
 
-    func MapName() -> String {
-        return DMapName
-    }
-
-    func Width() -> Int {
-        if !DTerrainMap.isEmpty {
-            return DTerrainMap[0].count - 1
-        }
-        return 0
-    }
-
-    func Height() -> Int {
-        return DTerrainMap.count - 1
-    }
-
     // NOTE: Added by Alex Soong, if mistaken pls let me know
     func TileType(xindex: Int, yindex: Int) -> ETileType {
-        if (-1 > xindex) || (-1 > yindex) {
+        if -1 > xindex || -1 > yindex {
             return ETileType.None
         }
         if DMap.count <= yindex + 1 {
             return ETileType.None
         }
-        if DMap.count <= xindex + 1 {
+        if DMap[yindex + 1].count <= xindex + 1 {
             return ETileType.None
         }
         return DMap[yindex + 1][xindex + 1]
@@ -174,6 +160,21 @@ class CTerrainMap {
     // NOTE: Added by Alex Soong, if mistaken pls let me know
     func TilePartial(pos: CTilePosition) -> uint8 {
         return TilePartial(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    func MapName() -> String {
+        return DMapName
+    }
+
+    func Width() -> Int {
+        if !DTerrainMap.isEmpty {
+            return DTerrainMap[0].count - 1
+        }
+        return 0
+    }
+
+    func Height() -> Int {
+        return DTerrainMap.count - 1
     }
 
     func ChangeTerrainTilePartial(xindex: Int, yindex: Int, val: UInt8) {
@@ -363,144 +364,93 @@ class CTerrainMap {
         return StringOfWordsArray
     }
 
-    func LoadMap() throws -> Bool { // source _: CDataSource
+    func getMapName(fileText: [String]) -> String {
+        return fileText[1]
+    }
+    func getMapWidthandHeight(fileText: [String]) -> (width: Int, height: Int) {
+        let dimensions = fileText[3].components(separatedBy: " ")
+        return (Int(dimensions[0])!, Int(dimensions[1])!)
+    }
+    func LoadMap(fileToRead: String) throws -> Bool { // source _: CDataSource
 
         // reading in file path
-        let filepath = Bundle.main.url(forResource: "mountain", withExtension: "map")
-        //   let toURL: URL = URL(string: filepath!)
-        //        try print(String(contentOf: filepath))
-
-        // read it into string
-        let text = try String(contentsOf: filepath!, encoding: .utf8)
-        print("START DEBUG")
-        //        print(text)
-        // let LineSource = CCommentSkipLineDataSource(source: text, commentchar: "#")
-
-        var TempString = String()
-        var Tokens: [String] = [String]()
-        //    var MapWidth: Int
-        //  var MapHeight: Int
         var ReturnStatus: Bool = false
-
-        DTerrainMap.removeAll()
-
-        // if !LineSource.Read(line: &DMapName) {
-        //      return ReturnStatus
-        // }
-        // if !LineSource.Read(line: &TempString) {
-        //      return ReturnStatus
-        // }
-        //   TempString =
-        //  CTokenizer.Tokenize(tokens: &Tokens, data: TempString)
-        //        if 2 != Tokens.count {
-        //            return ReturnStatus
-        //        }
-
-        var StringMap = [String]()
-        StringMap = text.components(separatedBy: "\n")
-        let StringMapCount: Int = StringMap.count
-
-        // FIXME: CHANGE HARDCODE
-        let MapWidth = 64
-        let MapHeight = 64
-        do {
-            //            MapWidth = Int(Tokens[0])!
-            //            MapHeight = Int(Tokens[1])!
-            if (8 > MapWidth) || (8 > MapHeight) {
+        if let filepath = try Bundle.main.url(forResource: fileToRead, withExtension: "map") {
+            do {
+                let text = try String(contentsOf: filepath, encoding: .utf8)
+                var StringMap = [String]()
+                StringMap = text.components(separatedBy: "\n")
+                DMapName = getMapName(fileText: StringMap)
+                let dimensions: (Int, Int) = getMapWidthandHeight(fileText: StringMap)
+                let MapWidth = dimensions.0
+                let MapHeight = dimensions.1
+                if (8 > MapWidth) || (8 > MapHeight) {
+                    return ReturnStatus
+                }
+                resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
+                for Index in 0 ..< DTerrainMap.count {
+                    resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
+                    for Inner in 0 ..< MapWidth + 1 {
+                        let index1: String.Index = StringMap[Index + 5].index(StringMap[Index + 5].startIndex, offsetBy: Inner)
+                        switch StringMap[Index + 5][index1] {
+                        case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
+                            break
+                        case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
+                            break
+                        case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
+                            break
+                        case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
+                            break
+                        case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
+                            break
+                        case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
+                            break
+                        case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
+                            break
+                        case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
+                            break
+                        case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
+                            break
+                        case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
+                            break
+                        default: return ReturnStatus
+                        }
+                        if Inner != 0 {
+                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
+                                return ReturnStatus
+                            }
+                        }
+                        if Index != 0 {
+                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
+                                return ReturnStatus
+                            }
+                        }
+                    }
+                }
+                resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
+                let valueStringValues: [Character] = ["0", "A"]
+                var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
+                for Index in 0 ..< DTerrainMap.count {
+                    resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
+                    for Inner in 0 ..< MapWidth + 1 {
+                        let index: String.Index = StringMap[Index + MapWidth + 7].index(StringMap[Index + MapWidth + 7].startIndex, offsetBy: Inner)
+                        let intValue: UInt8 = String(StringMap[Index + MapWidth + 7][index]).utf8.map { UInt8($0) }[0]
+                        if ("0" <= StringMap[Index + MapWidth + 7][index]) && ("9" >= StringMap[Index + MapWidth + 7][index]) {
+                            DPartials[Index][Inner] = intValue - asciiValues[0]
+                        } else if ("A" <= StringMap[Index + MapWidth + 7][index]) && ("F" >= StringMap[Index + MapWidth + 7][index]) {
+                            DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
+                        } else {
+                            return ReturnStatus
+                        }
+                    }
+                }
+                ReturnStatus = true
+                return ReturnStatus
+            } catch {
                 return ReturnStatus
             }
-
-            //                while StringMap.count < MapHeight + 1 {
-            //                    if !LineSource.Read(line: &TempString) {
-            //                    return ReturnStatus
-            //                }
-            //                StringMap.append(TempString)
-            //                if MapWidth + 1 > StringMap.last!.count {
-            //                    return ReturnStatus
-            //                }
-            // }
-            //            if MapHeight + 1 > StringMap.count {
-            //                return ReturnStatus
-            //            }
-            resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
-            for Index in 0 ..< DTerrainMap.count {
-                resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
-                for Inner in 0 ..< MapWidth + 1 {
-                    let index1: String.Index = StringMap[Index + 5].index(StringMap[Index + 5].startIndex, offsetBy: Inner)
-                    switch StringMap[Index + 5][index1] {
-                    case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
-                        break
-                    case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
-                        break
-                    case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
-                        break
-                    case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
-                        break
-                    case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
-                        break
-                    case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
-                        break
-                    case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
-                        break
-                    case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
-                        break
-                    case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
-                        break
-                    case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
-                        break
-                    default: return ReturnStatus
-                    }
-                    if Inner != 0 {
-                        if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
-                            return ReturnStatus
-                        }
-                    }
-                    if Index != 0 {
-                        if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
-                            return ReturnStatus
-                        }
-                    }
-                }
-            }
-            // only need below code if we continue to use Nitta's code/functions
-
-            // StringMap.removeAll()
-            // while StringMap.count < MapHeight + 1 {
-            //                if !LineSource.Read(line: &TempString) {
-            //                    return ReturnStatus
-            //                }
-            //                StringMap.append(TempString)
-            //                if MapWidth + 1 > StringMap.last!.count {
-            //                    return ReturnStatus
-            //                }
-            //            }
-            // if MapHeight + 1 > StringMap.count {
-            //     return ReturnStatus
-            // }
-
-            // FIXME: below is wrong. StringMap should only contain partialmap below.
-            resize(array: &DPartials, size: MapHeight + 1, defaultValue: [0x0])
-            let valueStringValues: [Character] = ["0", "A"]
-            var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-            for Index in 0 ..< DTerrainMap.count {
-                resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
-                for Inner in 0 ..< MapWidth + 1 {
-                    let index: String.Index = StringMap[Index + 71].index(StringMap[Index + 71].startIndex, offsetBy: Inner)
-                    let intValue: UInt8 = String(StringMap[Index + 71][index]).utf8.map { UInt8($0) }[0]
-                    if ("0" <= StringMap[Index + 71][index]) && ("9" >= StringMap[Index + 71][index]) {
-                        DPartials[Index][Inner] = intValue - asciiValues[0]
-                    } else if ("A" <= StringMap[Index + 71][index]) && ("F" >= StringMap[Index + 71][index]) {
-                        DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
-                    } else {
-                        return ReturnStatus
-                    }
-                }
-            }
-            ReturnStatus = true
+        } else {
             return ReturnStatus
-            //  catch {
-            //        //      print("LoadMap function Error (TerrainMap.swift)")
-            //        // }
         }
     }
 }

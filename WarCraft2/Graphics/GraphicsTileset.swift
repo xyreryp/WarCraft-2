@@ -16,7 +16,7 @@ class CGraphicTileset {
     private var DClippingMasks = [CGraphicSurface]()
     // vector of shared pointers in C++
     private var DMapping = [String: Int]()
-    private var DTileNames = [String]()
+    var DTileNames = [String]()
     private var DGroupNames = [String]()
     private var DGroupSteps = [String: Int]()
     var DTileCount: Int
@@ -24,7 +24,7 @@ class CGraphicTileset {
     var DTileHeight: Int
     private var DTileHalfWidth: Int
     private var DTileHalfHeight: Int
-    private var DTileSet: [SKTexture] = []
+    var DTileSet: [SKTexture] = []
 
     init() {
         DSurfaceTileset = nil
