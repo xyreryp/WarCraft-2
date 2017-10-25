@@ -440,20 +440,43 @@ class CPlayerData {
         return CTilePosition(x: -1, y: -1)
 
     }
-  
-    func IdleAssets() -> [CPlayerAsset] {
-        
-    }
     
+    func IdleAssets() -> [CPlayerAsset] {
+        var AssetList: [CPlayerAsset] = [CPlayerAsset]()
+        for WeakAsset in DAssets {
+            let Asset = WeakAsset {
+                if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
+                    AssetList.append(Asset)
+                }
+            }
+        }
+        return AssetList
+    }
+
     func PlayerAssetCount(type:EAssetType ) -> Int {
-        
+        var Count: Int = 0
+        for Asset in DPlayerMap.Assets() {
+            if Asset.Color() == Color && type == Asset.Type() {
+                Count += 1
+            }
+        }
+        return Count
     }
     
     func FoundAssetCount(type:EAssetType ) -> Int {
-        
+        var Count: Int = 0
+        for Asset in DPlayerMap.Assets() {
+            if type == Asset.Type() {
+                Count += 1
+            }
+        }
+        return Count
     }
     
+    // TODO: start from here 
     func AddUpgrade(upgradename: String) {
+        var Upgrade = CPlayerUpgrade.FindUpgradeFromName(upgradename)
+        
         
     }
     //    bool HasUpgrade(EAssetCapabilityType upgrade) const{
