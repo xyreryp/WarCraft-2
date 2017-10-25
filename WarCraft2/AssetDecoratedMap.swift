@@ -138,7 +138,7 @@ class CAssetDecoratedMap: CTerrainMap {
 
         for var YOff: Int in stride(from: 0, to: size, by: 1) {
             for var XOff: Int in stride(from: 0, to: size, by: 1) {
-                var TileTerrainType = TileType(pos.X() + XOff, pos.Y() + YOff)
+                var TileTerrainType //= TileType(pos.X() + XOff, pos.Y() + YOff)
                 if !CanPlaceOn(TileTerrainType) {
                     return false
                 }
@@ -153,15 +153,15 @@ class CAssetDecoratedMap: CTerrainMap {
             return false
         }
         for Asset in DAssets {
-            var Offset: Int = GoldMine == Asset -> Type() ? 1 : 0
+            var Offset: Int = (EAssetType.GoldMine == Asset.Type() ? 1:0)
 
-            if None == Asset -> Type() {
+            if EAssetType.None == Asset.Type() {
                 continue
             }
             if ignoreasset == Asset {
                 continue
             }
-            if RightX <= Asset -> TilePositionX() - Offset {
+            if RightX <= Asset.TilePositionX() - Offset {
                 continue
             }
             if pos.X() >= (Asset -> TilePositionX() + Asset -> Size() + Offset) {
