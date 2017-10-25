@@ -222,13 +222,93 @@ class CAIPlayer {
         return false
     }
 
-
-//Start HERE
-/*
     func ActivatePeasants(command: inout SPlayerCommandRequest, trainmore: Bool) -> Bool {
         
+        var MiningAsset: CPlayerAsset
+        var InterruptibleAsset: CPlayerAsset
+        var TownHallAsset: CPlayerAsset
+        var GoldMiners: Int = 0
+        var LumberHarvesters: Int = 0
+        var SwitchToGold: Bool = false
+        var SwitchToLumber: Bool = false
+        
+        for Asset in DPlayerData.Assets() {
+            
+            if(Asset.HasCapability(EAssetCapabilityType.Mine)) {
+                if(!MiningAsset && (EAssetAction.None == Asset.Action())){
+                    MiningAsset = Asset
+                }
+            }
+            if(Asset.HasAction(EAssetAction.MineGold)) {
+                GoldMiners++
+                if( Asset.Interruptible() && (EAssetAction.None != Asset.Action())) {
+                    InterruptibleAsset = Asset
+                }
+            }
+            else if(Asset.HasAction(EAssetAction.HarvestLumber)) {
+                LumberHarvesters++
+                if(Asset.Interruptible() && (EAssetAction.None != Asset.Action())) {
+                    InterruptibleAsset = Asset
+                }
+            }
+        }
+        
+        if((2 <= GoldMiners) && (0 == LumberHarvesters)) {
+            SwitchToLumber = true
+        }
+        else if( (2 <= LumberHarvesters) && (0 == GoldMiners) ) {
+            SwitchToGold = true
+        }
+        if(MiningAsset || (InterruptibleAsset && (SwitchToLumber || SwitchToGold))) {
+            if(MiningAsset && (MiningAsset.Lumber() || MiningAsset.Gold())) {
+                command.DAction = EAssetCapabilityType.Convey
+                command.DTargetColor = TownHallAsset.Color()
+                command.DActors.append(MiningAsset)
+                command.DTargetType = TownHallAsset.Type()
+                command.DTargetLocation = TownHallAsset.Position()
+            }
+            else{
+                if(!MiningAsset) {
+                    MiningAsset = InterruptibleAsset
+                }
+                var GoldMineAsset = DPlayerData.FindNearestAsset(MiningAsset.Position(), EAssetType.GoldMine)
+                if( (GoldMiners != 0) && ((DPlayerData.Gold() > DPlayerData.Lumber() * 3) || SwitchToLumber) ){
+                    var LumberLocation: CTilePosition = DPlayerData.PlayerMap().FindNearestReachableTileType(MiningAsset.TilePosition(),CTerrainMap.ETileType.Forest)
+                    
+                    if(0 <= LumberLocation.X()) {
+                        command.DAction = EAssetCapabilityType.Mine
+                        command.DActors.append(MiningAsset)
+                        command.DTargetLocation.SetFromTile(pos: LumberLocation)
+                    }
+                    else {
+                        return SearchMap(command: &command)
+                    }
+                    
+                }
+                else{
+                    command.DAction = EAssetCapabilityType.Mine
+                    command.DActors.append(MiningAsset)
+                    command.DTargetType = EAssetType.GoldMine
+                    command.DTargetLocation = GoldMineAsset.Position()
+                }
+            }
+            return true
+        }
+        else if(TownHallAsset && trainmore){
+            var PlayerCapability = CPlayerCapability.FindCapability(EAssetCapabilityType.BuildPeasant)
+            
+            if(PlayerCapability){
+                if(PlayerCapability.CanApply(TownHallAsset, DPlayerData, TownHallAsset)){
+                    command.DAction = EAssetCapabilityType.BuildPeasant
+                    command.DActors.append(TownHallAsset)
+                    command.DTargetLocation = TownHallAsset.Position()
+                    return true
+                }
+            }
+        }
+        return false
     }
- 
+/*
     func ActivateFighters(command: inout SPlayerCommandRequest) -> Bool {
         
     }
