@@ -27,7 +27,7 @@ protocol CDataContainerIterator {
 }
 
 protocol CDataContainer {
-    func First() -> CDataContainerIterator
+    func First() -> CDataContainerIterator?
     func DataSource(name: String) -> CDataSource
     func DataSink(name: String) -> CDataSink
     func Container() -> CDataContainer
