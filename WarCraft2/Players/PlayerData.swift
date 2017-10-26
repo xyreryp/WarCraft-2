@@ -461,20 +461,6 @@ class CPlayerData {
         return Count
     }
 
-    auto Upgrade = CPlayerUpgrade:: FindUpgradeFromName(upgradename)
-
-    if Upgrade {
-        for auto AssetType: Upgrade -> AffectedAssets {
-            std:: string AssetName = CPlayerAssetType:: TypeToName(AssetType)
-            auto AssetIterator = DAssetTypes -> find(AssetName)
-
-            if AssetIterator != DAssetTypes -> end() {
-                AssetIterator -> second -> AddUpgrade(Upgrade)
-            }
-        }
-        DUpgrades[to_underlying(CPlayerCapability:: NameToType(upgradename))] = true
-    }
-
     // TODO: start from here
     func AddUpgrade(upgradename _: String) {
         //        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
@@ -489,19 +475,12 @@ class CPlayerData {
         //        }
     }
 
-    //    bool HasUpgrade(EAssetCapabilityType upgrade) const{
-    //    if((0 > to_underlying(upgrade))||(DUpgrades.size() <= static_cast<decltype(DUpgrades.size())>(upgrade))){
-    //    return false;
-    //    }
-    //    return DUpgrades[static_cast<decltype(DUpgrades.size())>(upgrade)];
-    //    };
-
     // FIXME:
     func HasUpgrade(upgrade: EAssetCapabilityType) -> Bool {
         if 0 > upgrade.rawValue || DUpgrades.count <= upgrade.rawValue {
             return false
         }
-        return DUpgrades[upgrade.rawValue] 
+        return DUpgrades[upgrade.rawValue]
     }
 
     func GameEvents() -> [SGameEvent] {
