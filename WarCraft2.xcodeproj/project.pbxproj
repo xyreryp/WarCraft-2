@@ -146,7 +146,6 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
-				9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */,
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -233,6 +232,7 @@
 		E1B45E311F9D4FF6009D9BF1 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */,
 				A1AAF57C1F872930005007C4 /* GameDataTypes.swift */,
 				E10BA0911F8A13D70097867A /* VisibilityMap.swift */,
 				E19A0AD21F959094001B569C /* TerrainMap.swift */,
