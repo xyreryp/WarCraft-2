@@ -182,18 +182,18 @@ class CRouterMap {
     //
     //        for var Res in resmap.Assets() {
     //            if(&asset != Res.get()){
-    //                if(EAssetType.None != Res->Type()){
-    //                    if((EAssetAction.Walk != Res->Action())||(asset.Color() != Res->Color())){
-    //                        if((asset.Color() != Res->Color())||((EAssetAction.ConveyGold != Res->Action())&&(EAssetAction.ConveyLumber != Res->Action())&&(EAssetAction.MineGold != Res->Action()))){
+    //                if(EAssetType.None != Res.Type()){
+    //                    if((EAssetAction.Walk != Res.Action())||(asset.Color() != Res.Color())){
+    //                        if((asset.Color() != Res.Color())||((EAssetAction.ConveyGold != Res.Action())&&(EAssetAction.ConveyLumber != Res.Action())&&(EAssetAction.MineGold != Res.Action()))){
     //                            for YOff in 0..<Res.count {
     //                                for XOff in 0..<Res.count {
-    //                                    DMap[Res->TilePositionY() + YOff + 1][Res.TilePositionX() + XOff + 1] = SEARCH_STATUS_VISITED
+    //                                    DMap[Res.TilePositionY() + YOff + 1][Res.TilePositionX() + XOff + 1] = SEARCH_STATUS_VISITED
     //                                }
     //                            }
     //                        }
     //                    }
     //                    else{
-    //                        DMap[Res->TilePositionY() + 1][Res->TilePositionX() + 1] = SEARCH_STATUS_OCCUPIED - to_underlying(Res->Direction());
+    //                        DMap[Res.TilePositionY() + 1][Res.TilePositionX() + 1] = SEARCH_STATUS_OCCUPIED - (Res.Direction().rawValue)
     //                    }
     //                }
     //            }
@@ -202,73 +202,73 @@ class CRouterMap {
     //        var DIdealSearchDirection = asset.Direction()
     //        var CurrentTile = asset.TilePosition()
     //        var CurrentSearch.DX = BestSearch.DX = CurrentTile.X()
-    //        CurrentSearch.DY = BestSearch.DY = CurrentTile.Y();
-    //        CurrentSearch.DSteps = 0;
-    //        CurrentSearch.DTargetDistanceSquared = BestSearch.DTargetDistanceSquared = CurrentTile.DistanceSquared(TargetTile);
-    //        CurrentSearch.DInDirection = BestSearch.DInDirection = EDirection::Max;
+    //        CurrentSearch.DY = BestSearch.DY = CurrentTile.Y()
+    //        CurrentSearch.DSteps = 0
+    //        CurrentSearch.DTargetDistanceSquared = BestSearch.DTargetDistanceSquared = CurrentTile.DistanceSquared(TargetTile)
+    //        CurrentSearch.DInDirection = BestSearch.DInDirection = EDirection.Max
     //        DMap[StartY+1][StartX+1] = SEARCH_STATUS_VISITED;
     //    while(true){
     //        if(CurrentTile == TargetTile){
-    //            BestSearch = CurrentSearch;
-    //            break;
+    //            BestSearch = CurrentSearch
+    //            break
     //        }
     //        if(CurrentSearch.DTargetDistanceSquared < BestSearch.DTargetDistanceSquared){
-    //            BestSearch = CurrentSearch;
+    //            BestSearch = CurrentSearch
     //        }
-    //        for(int Index = 0; Index < SearchDirectionCount; Index++){
-    //            TempTile.X(CurrentSearch.DX + ResMapXOffsets[Index]);
-    //            TempTile.Y(CurrentSearch.DY + ResMapYOffsets[Index]);
+    //        for Index in 0..< SearchDirectionCount {
+    //            TempTile.X(CurrentSearch.DX + ResMapXOffsets[Index])
+    //            TempTile.Y(CurrentSearch.DY + ResMapYOffsets[Index])
     //            if((SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1])||MovingAway(SearchDirecitons[Index], (EDirection)(SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1]))){
-    //                DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index;
-    //                CTerrainMap::ETileType CurTileType = resmap.TileType(TempTile.X(), TempTile.Y());
+    //                DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
+    //                CTerrainMap::ETileType CurTileType = resmap.TileType(TempTile.X(), TempTile.Y())
     //                //if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
     //                if(CTerrainMap::IsTraversable(CurTileType)){
-    //                    TempSearch.DX = TempTile.X();
-    //                    TempSearch.DY = TempTile.Y();
-    //                    TempSearch.DSteps = CurrentSearch.DSteps + 1;
-    //                    TempSearch.DTileType = CurTileType;
-    //                    TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(TargetTile);
-    //                    TempSearch.DInDirection = SearchDirecitons[Index];
-    //                    SearchQueue.push(TempSearch);
+    //                    TempSearch.DX = TempTile.X()
+    //                    TempSearch.DY = TempTile.Y()
+    //                    TempSearch.DSteps = CurrentSearch.DSteps + 1
+    //                    TempSearch.DTileType = CurTileType
+    //                    TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(TargetTile)
+    //                    TempSearch.DInDirection = SearchDirecitons[Index]
+    //                    SearchQueue.push(TempSearch)
     //                }
     //            }
     //        }
-    //        if(SearchQueue.empty()){
-    //            break;
+    //        if(SearchQueue.isEmpty){
+    //            break
     //        }
-    //        CurrentSearch = SearchQueue.front();
-    //        SearchQueue.pop();
-    //        CurrentTile.X(CurrentSearch.DX);
-    //        CurrentTile.Y(CurrentSearch.DY);
+    //        CurrentSearch = SearchQueue.front()
+    //        SearchQueue.pop()
+    //        CurrentTile.X(CurrentSearch.DX)
+    //        CurrentTile.Y(CurrentSearch.DY)
     //    }
-    //    DirectionBeforeLast = LastInDirection = BestSearch.DInDirection;
-    //    CurrentTile.X(BestSearch.DX);
-    //    CurrentTile.Y(BestSearch.DY);
+    //    DirectionBeforeLast = LastInDirection = BestSearch.DInDirection
+    //    CurrentTile.X(BestSearch.DX)
+    //    CurrentTile.Y(BestSearch.DY)
     //    while((CurrentTile.X() != StartX)||(CurrentTile.Y() != StartY)){
-    //        int Index = DMap[CurrentTile.Y()+1][CurrentTile.X()+1];
+    //        int Index = DMap[CurrentTile.Y()+1][CurrentTile.X()+1]
     //
     //        if((0 > Index)||(SearchDirectionCount <= Index)){
     //            exit(0);
     //        }
-    //        DirectionBeforeLast = LastInDirection;
-    //        LastInDirection = SearchDirecitons[Index];
-    //        CurrentTile.DecrementX(ResMapXOffsets[Index]);
-    //        CurrentTile.DecrementY(ResMapYOffsets[Index]);
+    //        DirectionBeforeLast = LastInDirection
+    //        LastInDirection = SearchDirecitons[Index]
+    //        CurrentTile.DecrementX(ResMapXOffsets[Index])
+    //        CurrentTile.DecrementY(ResMapYOffsets[Index])
     //    }
     //    if(DirectionBeforeLast != LastInDirection){
-    //        CTerrainMap::ETileType CurTileType = resmap.TileType(StartX + DiagCheckXOffset[to_underlying(DirectionBeforeLast)], StartY + DiagCheckYOffset[to_underlying(DirectionBeforeLast)]);
+    //        CTerrainMap.ETileType CurTileType = resmap.TileType(StartX + DiagCheckXOffset[to_underlying(DirectionBeforeLast)], StartY + DiagCheckYOffset[to_underlying(DirectionBeforeLast)])
     //        //if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
-    //        if(CTerrainMap::IsTraversable(CurTileType)){
+    //        if(CTerrainMap.IsTraversable(CurTileType)){
     //            int Sum = to_underlying(LastInDirection) + to_underlying(DirectionBeforeLast);
     //            if((6 == Sum)&&((EDirection::North == LastInDirection) || (EDirection::North == DirectionBeforeLast))){ // NW wrap around
-    //                Sum += 8;
+    //                Sum += 8
     //            }
-    //            Sum /= 2;
-    //            LastInDirection = static_cast<EDirection>(Sum);
+    //            Sum /= 2
+    //            LastInDirection = static_cast<EDirection>(Sum)
     //        }
     //    }
     //
-    //    return LastInDirection;
+    //    return LastInDirection
     // }
 
     //    }
