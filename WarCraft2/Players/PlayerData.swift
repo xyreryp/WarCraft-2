@@ -488,16 +488,16 @@ class CPlayerData {
     }
     // TODO: start from here 
     func AddUpgrade(upgradename: String) {
-        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
-        let Upgrade = playerUpgrade.FindUpgradeFromName(name:upgradename)
-        for AssetType in Upgrade.DAffectedAssets {
-            let playerAssetType: CPlayerAssetType = CPlayerAssetType()
-            var AssetName:String = playerAssetType.TypeToName(type: AssetType)
-            
-            let AssetIterator = DAssetTypes[AssetName]
-            var AssetIndex = DAssetTypes.index(of: AssetIterator)
-            
-        }
+//        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
+//        let Upgrade = playerUpgrade.FindUpgradeFromName(name:upgradename)
+//        for AssetType in Upgrade.DAffectedAssets {
+//            let playerAssetType: CPlayerAssetType = CPlayerAssetType()
+//            var AssetName:String = playerAssetType.TypeToName(type: AssetType)
+//
+//            let AssetIterator = DAssetTypes[AssetName]
+//            var AssetIndex = DAssetTypes.index(of: AssetIterator)
+//
+//        }
         
         
     }
@@ -509,9 +509,10 @@ class CPlayerData {
     //    };
     //FIXME:
     func HasUpgrade(upgrade: EAssetCapabilityType) -> Bool {
-        if 0 > upgrade.rawValue || DUpgrades.size)() <=  {
-            
-        }
+//        if 0 > upgrade.rawValue || DUpgrades.counnt <= DUpgrades.count  {
+//
+//        }
+        return false
     }
     
     func GameEvents() -> [SGameEvent] {
@@ -532,8 +533,10 @@ class CPlayerData {
 }
 
 func RangeToDistanceSquared(range: Int) -> Int {
-    range *= CPosition.TileWidth()
-    range *= range
-    range += CPositionTileWidth() * CPosition.TileWidth()
-    return range
+    let cpos = CPosition()
+    var r = range
+    r *= cpos.TileWidth()
+    r *= range
+    r += cpos.TileWidth() * cpos.TileWidth()
+    return r
 }
