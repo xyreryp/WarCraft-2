@@ -44,20 +44,20 @@ class CPlayerData {
             DUpgrades.append(false)
         }
 
-        for ResourceInit in DActualMap.ResourceInitializationList {
+        for ResourceInit in DActualMap.DResourceInitializationList {
 
             if ResourceInit.DColor == color {
                 DGold = ResourceInit.DGold
                 DLumber = ResourceInit.DLumber
             }
         }
-        for AssetInit in DActualMap.AssetInitializationList {
+        for AssetInit in DActualMap.DAssetInitializationList {
 
             if AssetInit.DColor == color {
                 // print debug stuff???
                 var InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
-                if EAssetType.GoldMine == CPlayerAssetType.NametoType(AssetInit.DType) {
+                if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: AssetInit.DType) {
                     InitAsset.Gold(DGold)
                 }
             }

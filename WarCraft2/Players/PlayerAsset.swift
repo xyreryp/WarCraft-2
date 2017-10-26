@@ -62,7 +62,7 @@ class CPlayerAsset {
     func UpdateFrequency() -> Int {
         return DUpdateFrequency
     }
-    
+
     func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
             DUpdateFrequency = freq
@@ -95,6 +95,10 @@ class CPlayerAsset {
         return DHitPoints
     }
 
+    func Gold(gold: Int) -> Int {
+        return DGold = gold
+    }
+    
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
         return DGold
