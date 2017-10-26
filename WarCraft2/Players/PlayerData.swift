@@ -29,15 +29,15 @@ class CPlayerData {
         var DColor = color
         var DActualMap = map
         var asset = CPlayerAssetType()
-        var DAssetTypes = asset.DuplicateRegistry(color: color) // returns [String: CPlayerAssetType]
+        var DAssetTypes = asset.DuplicateRegistry(color: color)
         var DPlayerMap = DActualMap.CreateInitializeMap()
         var DVisibilityMap = DActualMap.CreateVisibilityMap()
         var DGold = 0
         var DLumber = 0
 
         // resize
-        for i in 0 ..< DUpgrades.count {
-            DUpgrades[i] = false
+        for i in 0..<DUpgrades.count {
+            DUpgrades[i]  = false
         }
         var i = DUpgrades.count
         while i < EAssetCapabilityType.Max.rawValue {
@@ -45,12 +45,14 @@ class CPlayerData {
         }
 
         for ResourceInit in DActualMap.ResourceInitializationList {
+
             if ResourceInit.DColor == color {
                 DGold = ResourceInit.DGold
                 DLumber = ResourceInit.DLumber
             }
         }
         for AssetInit in DActualMap.AssetInitializationList {
+
             if AssetInit.DColor == color {
                 // print debug stuff???
                 var InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
@@ -112,7 +114,7 @@ class CPlayerData {
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
         for WeakAsset in DAssets {
-            let AssetConsumption: Int = WeakAsset.FoodConsumption()
+            var AssetConsumption:Int = WeakAsset.FoodConsumption()
             if 0 < AssetConsumption {
                 TotalConsumption += AssetConsumption
             }
@@ -121,9 +123,9 @@ class CPlayerData {
     }
 
     func FoodProduction() -> Int {
-        var TotalProduction: Int = 0
+        var TotalProduction:Int = 0
         for WeakAsset in DAssets {
-            let AssetConsumption: Int = WeakAsset.FoodConsumption()
+            var AssetConsumption: Int = WeakAsset.FoodConsumption()
             if 0 < AssetConsumption {
                 TotalProduction += AssetConsumption
             }
@@ -131,37 +133,38 @@ class CPlayerData {
         return TotalProduction
     }
 
-    //    VisibilityMap() return DVisibilityMap
-    //    PlayerMap() return DPlayerMap
-    //    Assets() return DAssets
-    //    AssetTypes() return DAssetTypes
 
-    func CreateMarker(pos: CPixelPosition, addtomap: Bool) -> CPlayerAsset {
-        var NewMarker: CPlayerAsset = (DAssetTypes["None"]?.Construct())!
+//    VisibilityMap() return DVisibilityMap
+//    PlayerMap() return DPlayerMap
+//    Assets() return DAssets
+//    AssetTypes() return DAssetTypes
+   
+
+    func CreateMarker(pos : CPixelPosition, addtomap _: Bool) -> CPlayerAsset {
+        var NewMarker:CPlayerAsset = (DAssetTypes["None"]?.Construct())!
         var TilePosition: CTilePosition = CTilePosition()
         TilePosition.SetFromPixel(pos: pos)
         NewMarker.TilePosition(pos: TilePosition)
-        if addtomap {
+        if(addtomap) {
             DPlayerMap.AddAsset(NewMarker)
         }
         return NewMarker
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
+        var CreatedAsset:CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
         CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
         DActualMap.AddAsset(CreatedAsset)
         return CreatedAsset
-    }
 
-    // TODO: DeleteAsset()
-    //    func DeleteAsset(asset: CPlayerAsset){
-    //        var arr:[CPlayerAsset] = DAssets
-    //        if let a = arr.index(of: asset) {
-    //            DAssets.remove(at: a)
-    //        }
-    //    }
+    // TODO : DeleteAsset()
+//    func DeleteAsset(asset: CPlayerAsset){
+//        var arr:[CPlayerAsset] = DAssets
+//        if let a = arr.index(of: asset) {
+//            DAssets.remove(at: a)
+//        }
+//    }
 
     func AssetRequirementsMet(assettypename: String) -> Bool {
         var AssetCount: [Int]
@@ -174,7 +177,7 @@ class CPlayerData {
         }
         for Requirement in (DAssetTypes[assettypename]?.AssetRequirements())! {
             if 0 == AssetCount[Requirement.rawValue] {
-                let CastleAssetCount: Int? = AssetCount[EAssetType.Castle.rawValue]
+                let CastleAssetCount:Int? = AssetCount[EAssetType.Castle.rawValue]
                 if EAssetType.Keep == Requirement && CastleAssetCount != nil {
                     continue
                 }
@@ -193,7 +196,6 @@ class CPlayerData {
         var RemoveList: [CPlayerAsset]
         DVisibilityMap.Update(assets: DAssets)
         DPlayerMap.UpdateMap(DVisibilityMap, DActualMap)
-
         for Asset in DPlayerMap.Assets() {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
@@ -206,11 +208,11 @@ class CPlayerData {
             DPlayerMap.RemoveAsset(Asset)
         }
     }
-
-    func SelectAssets(selectarea: SRectangle, assettype: EAssetType, selectidentical: Bool = false) -> [CPlayerAsset] {
-        var ReturnList: [CPlayerAsset] = [CPlayerAsset]()
+ 
+    func SelectAssets(selectarea : SRectangle, assettype : EAssetType, selectidentical : Bool = false) -> [CPlayerAsset] {
+        var ReturnList:[CPlayerAsset] = [CPlayerAsset]()
         if selectarea.DWidth < 0 || selectarea.DHeight < 0 {
-            var BestAsset: CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
+            var BestAsset:CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
             let LockedAsset = BestAsset
             ReturnList.append(BestAsset)
             if selectidentical && LockedAsset.Speed() > 0 {
@@ -221,7 +223,8 @@ class CPlayerData {
                     }
                 }
             }
-        } else {
+        }
+        else {
             var AnyMovable: Bool = false
             for WeakAsset in DAssets {
                 let Asset = WeakAsset
@@ -230,7 +233,8 @@ class CPlayerData {
                         if Asset.Speed() > 0 {
                             ReturnList.append(Asset)
                         }
-                    } else {
+                    }
+                    else {
                         if Asset.Speed() > 0 {
                             ReturnList = [CPlayerAsset]()
                             ReturnList.append(Asset)
@@ -248,9 +252,9 @@ class CPlayerData {
     }
 
     func SelectAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
-        var BestAsset: CPlayerAsset
-        var BestDistanceSquared: Int = -1
-
+        var BestAsset:CPlayerAsset
+        var BestDistanceSquared:Int = -1
+        
         if EAssetType.None != assettype {
             for WeakAsset in DAssets {
                 let Asset = WeakAsset
@@ -268,9 +272,9 @@ class CPlayerData {
     }
 
     func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
-        var BestAsset: CPlayerAsset
+        var BestAsset:CPlayerAsset
         var BestDistanceSquared = -1
-
+        
         for WeakAsset in DAssets {
             let Asset = WeakAsset
             for AssetType in assettypes {
@@ -287,6 +291,7 @@ class CPlayerData {
         }
         return BestAsset
     }
+<<<<<<< HEAD
 
     func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
         var BestAsset: CPlayerAsset
@@ -506,3 +511,4 @@ func RangeToDistanceSquared(range: Int) -> Int {
     r += cpos.TileWidth() * cpos.TileWidth()
     return r
 }
+
