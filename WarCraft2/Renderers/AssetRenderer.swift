@@ -788,7 +788,7 @@ class AssetRenderer {
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
-//                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: Cell ? DPlaceGoodIndex : DPlaceBadIndex)
+                        //                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: Cell ? DPlaceGoodIndex : DPlaceBadIndex)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }
                     YPos = YPos + DMarkerTileset!.TileHeight()
