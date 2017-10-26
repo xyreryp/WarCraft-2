@@ -469,7 +469,7 @@ class CAssetDecoratedMap: CTerrainMap {
     //        return PVisibilityMap(width: Width(),height: Height(),maxvisibility: CPlayerAssetType.MaxSight());
     //    }
 
-    func UpdateMap(vismap: PVisibilityMap, resmap: CAssetDecoratedMap) {
+    func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {
         var Iterator = DAssets[0]
 
         if DMap.count != resmap.DMap.count {
@@ -499,8 +499,9 @@ class CAssetDecoratedMap: CTerrainMap {
                 for var itemToRemoveIndex: Int in stride(from: 0, to: DAssets.count, by: 1) {
                     if !(DAssets[itemToRemoveIndex] != Iterator) {
                         DAssets.remove(at: itemToRemoveIndex)
+                        Iterator = DAssets[itemToRemoveIndex + 1]
                     }
-                }//FIXME: this is essentially array.erase(object).
+                } // FIXME: this is essentially array.erase(object).
                 continue
             }
             for var YOff: Int in stride(from: 0, to: AssetSize, by: 1) {
@@ -508,9 +509,9 @@ class CAssetDecoratedMap: CTerrainMap {
                 for var XOff: Int in stride(from: 0, to: AssetSize, by: 1) {
                     var XPos: Int = CurPosition.X() + XOff
 
-                    var VisType: ETileVisibility //= vismap.TileType(XPos, YPos) missing func from VisibilityMap
-                    if (CVisibilityMap: :ETileVisibility:: Partial == VisType) || (CVisibilityMap: :ETileVisibility:: PartialPartial == VisType) || (CVisibilityMap: :ETileVisibility:: Visible == VisType) { // Remove visible so they can be updated
-                        RemoveAsset = EAssetType:: None != (*Iterator) -> Type()
+                    var VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
+                    if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) { // Remove visible so they can be updated
+                        RemoveAsset = EAssetType.None != Iterator.Type()
                         break
                     }
                 }
@@ -519,43 +520,130 @@ class CAssetDecoratedMap: CTerrainMap {
                 }
             }
             if RemoveAsset {
-                Iterator = DAssets.erase(Iterator)
+                for var itemToRemoveIndex: Int in stride(from: 0, to: DAssets.count, by: 1) {
+                    if !(DAssets[itemToRemoveIndex] != Iterator) {
+                        DAssets.remove(at: itemToRemoveIndex)
+                        Iterator = DAssets[itemToRemoveIndex + 1]
+                    }
+                }
                 continue
             }
-            Iterator++
+            // Iterator ++ FIXME
+            for var itemToRemoveIndex: Int in stride(from: 0, to: DAssets.count, by: 1) {
+                if !(DAssets[itemToRemoveIndex] != Iterator) {
+                    Iterator = DAssets[itemToRemoveIndex + 1]
+                }
+            }
         }
-        for int YPos = 0; YPos < DMap.size(); YPos++ {
-            for int XPos = 0; XPos < DMap[YPos].size(); XPos++ {
-                CVisibilityMap:: ETileVisibility VisType = vismap.TileType(XPos - 1, YPos - 1)
-                if (CVisibilityMap: :ETileVisibility:: Partial == VisType) || (CVisibilityMap: :ETileVisibility:: PartialPartial == VisType) || (CVisibilityMap: :ETileVisibility:: Visible == VisType) {
+        for var YPos: Int in stride(from: 0, to: DMap.count, by: 1) {
+            for var XPos: Int in stride(from: 0, to: DMap[YPos].count, by: 1) {
+                var VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
+                if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
                     DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
                 }
             }
         }
-        for auto &Asset: resmap.DAssets {
-            CTilePosition CurPosition = Asset -> TilePosition()
-            int AssetSize = Asset -> Size()
-            bool AddAsset = false
+        for var Asset in resmap.DAssets {
+            var CurPosition: CTilePosition = Asset.TilePosition()
+            var AssetSize: Int = Asset.Size()
+            var AddAsset: Bool = false
 
-            for int YOff = 0; YOff < AssetSize; YOff++ {
-                int YPos = CurPosition.Y() + YOff
-                for int XOff = 0; XOff < AssetSize; XOff++ {
-                    int XPos = CurPosition.X() + XOff
-
-                    CVisibilityMap:: ETileVisibility VisType = vismap.TileType(XPos, YPos)
-                    if (CVisibilityMap: :ETileVisibility:: Partial == VisType) || (CVisibilityMap: :ETileVisibility:: PartialPartial == VisType) || (CVisibilityMap: :ETileVisibility:: Visible == VisType) { // Add visible resources
+            for var YOff: Int in stride(from: 0, to: AssetSize, by: 1) {
+                var YPos: Int = CurPosition.Y() + YOff
+                for var XOff: Int in stride(from: 0, to: AssetSize, by: 1) {
+                    var XPos: Int = CurPosition.X() + XOff
+                    var VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
+                    if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) { // Add visible resources
                         AddAsset = true
                         break
                     }
                 }
                 if AddAsset {
-                    DAssets.push_back(Asset)
+                    DAssets.append(Asset)
                     break
                 }
             }
         }
 
         return true
+    }
+
+    let SEARCH_STATUS_UNVISITED = 0
+    let SEARCH_STATUS_QUEUED = 1
+    let SEARCH_STATUS_VISITED = 2
+
+    struct SSearchTile {
+        var DX: Int
+        var DY: Int
+    }
+
+    func FindNearestReachableTileType(pos: CTilePosition, type: ETileType) -> CTilePosition {
+        var SearchQueue: [SSearchTile]
+        var CurrentSearch: SSearchTile, TempSearch: SSearchTile
+        var MapWidth: Int = Width()
+        var MapHeight: Int = Height()
+        var SearchXOffsets: [Int] = [0, 1, 0, -1]
+        var SearchYOffsets: [Int] = [-1, 0, 1, 0]
+
+        if DSearchMap.count != DMap.count {
+            resize(array: &DSearchMap, size: DMap.count, defaultValue: [])
+            for var Row in DSearchMap {
+                resize(array: &Row, size: DMap[0].count, defaultValue: Int())
+                for var Cell in Row {
+                    Cell = 0
+                }
+            }
+            var LastYIndex: Int = DMap.count - 1
+            var LastXIndex: Int = DMap[0].count - 1
+            for var Index: Int in stride(from: 0, to: DMap.count, by: 1) {
+                DSearchMap[Index][0] = SEARCH_STATUS_VISITED
+                DSearchMap[Index][LastXIndex] = SEARCH_STATUS_VISITED
+            }
+            for var Index: Int in stride(from: 1, to: LastXIndex, by: 1) {
+                DSearchMap[0][Index] = SEARCH_STATUS_VISITED
+                DSearchMap[LastYIndex][Index] = SEARCH_STATUS_VISITED
+            }
+        }
+        for var Y: Int in stride(from: 0, to: MapHeight, by: 1) {
+            for var X: Int in stride(from: 0, to: MapWidth, by: 1) {
+                DSearchMap[Y + 1][X + 1] = SEARCH_STATUS_UNVISITED
+            }
+        }
+        for var Asset in DAssets {
+            if Asset.TilePosition() != pos {
+                for var Y: Int in stride(from: 0, to: Asset.Size(), by: 1) {
+                    for var X: Int in stride(from: 0, to: Asset.Size(), by: 1) {
+                        DSearchMap[Asset.TilePositionY() + Y + 1][Asset.TilePositionX() + X + 1] = SEARCH_STATUS_VISITED
+                    }
+                }
+            }
+        }
+
+        CurrentSearch.DX = pos.X() + 1
+        CurrentSearch.DY = pos.Y() + 1
+        SearchQueue.append(CurrentSearch)
+        while SearchQueue.count != 0 {
+            CurrentSearch = SearchQueue.first!
+            SearchQueue.removeFirst()
+            DSearchMap[CurrentSearch.DY][CurrentSearch.DX] = SEARCH_STATUS_VISITED
+            for var Index: Int in stride(from: 0, to: SearchXOffsets.count, by: 1) {
+                TempSearch.DX = CurrentSearch.DX + SearchXOffsets[Index]
+                TempSearch.DY = CurrentSearch.DY + SearchYOffsets[Index]
+                if SEARCH_STATUS_UNVISITED == DSearchMap[TempSearch.DY][TempSearch.DX] {
+                    var CurTileType: ETileType = DMap[TempSearch.DY][TempSearch.DX]
+
+                    DSearchMap[TempSearch.DY][TempSearch.DX] = SEARCH_STATUS_QUEUED
+                    if type == CurTileType {
+                        return CTilePosition(x: TempSearch.DX - 1, y: TempSearch.DY - 1)
+                    }
+                    // if((ETileType::Grass == CurTileType)||(ETileType::Dirt == CurTileType)||(ETileType::Stump == CurTileType)||(ETileType::Rubble == CurTileType)||(ETileType::None == CurTileType)){
+                    if IsTraversable(type: CurTileType) {
+                        SearchQueue.append(TempSearch)
+                    }
+                }
+            }
+        }
+        return CTilePosition(x: -1, y: -1)
     }
 }
