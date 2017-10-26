@@ -58,58 +58,57 @@ class CResourceRenderer {
         DIconIndices[EMiniIconTypes.Food.rawValue] = DIconTileset.FindTile(tilename: "food")
         DFont.MeasureText("0123456789", Width, DTextHeight)
     }
-    
-    func DrawResources(surface: CGraphicSurface) -> Void {
+
+    func DrawResources(surface: CGraphicSurface) {
         var Width: Int
         var Height: Int
         var TextYOffset: Int
         var ImageYOffset: Int
         var WidthSeparation: Int
         var XOffset: Int
-        int DeltaGold = DPlayer->Gold() - DLastGoldDisplay
-        int DeltaLumber = DPlayer->Lumber() - DLastLumberDisplay
-    
+        var DeltaGold: Int = DPlayer.Gold() - DLastGoldDisplay
+        var DeltaLumber: Int = DPlayer.Lumber() - DLastLumberDisplay
+
         DeltaGold /= 5
-        if((-3 < DeltaGold) && (3 > DeltaGold)){
-            DLastGoldDisplay = DPlayer->Gold()
-        }
-        else{
+        if (-3 < DeltaGold) && (3 > DeltaGold) {
+            DLastGoldDisplay = DPlayer.Gold()
+        } else {
             DLastGoldDisplay += DeltaGold
         }
         DeltaLumber /= 5
-        if((-3 < DeltaLumber) && (3 > DeltaLumber)){
-            DLastLumberDisplay = DPlayer->Lumber()
+        if (-3 < DeltaLumber) && (3 > DeltaLumber) {
+            DLastLumberDisplay = DPlayer.Lumber()
+        } else {
+            DLastLumberDisplay = DLastLumberDisplay + DeltaLumber
         }
-        else{
-            DLastLumberDisplay += DeltaLumber
-        }
-        Width = surface->Width()
-        Height = surface->Height()
-        TextYOffset = Height/2 - DTextHeight/2
-        ImageYOffset = Height/2 - DIconTileset->TileHeight()/2
-        WidthSeparation = Width/4
+        Width = surface.Width()
+        Height = surface.Height()
+        TextYOffset = Height / 2 - DTextHeight / 2
+        ImageYOffset = Height / 2 - DIconTileset.TileHeight() / 2
+        WidthSeparation = Width / 4
         XOffset = Width / 8
-    
-        DIconTileset->DrawTile(surface, XOffset, ImageYOffset, DIconIndices[to_underlying(EMiniIconTypes.Gold)])
-        DFont->DrawTextWithShadow(surface, XOffset +  DIconTileset->TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, std.string(" ") + CTextFormatter.IntegerToPrettyString(DLastGoldDisplay))
-        XOffset += WidthSeparation
-    
-        DIconTileset->DrawTile(surface, XOffset, ImageYOffset, DIconIndices[to_underlying(EMiniIconTypes.Lumber)])
-        DFont->DrawTextWithShadow(surface, XOffset +  DIconTileset->TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, std.string(" ") + CTextFormatter.IntegerToPrettyString(DLastLumberDisplay))
-        XOffset += WidthSeparation
-    
-        DIconTileset->DrawTile(surface, XOffset, ImageYOffset, DIconIndices[to_underlying(EMiniIconTypes.Food)])
-    
-        if(DPlayer->FoodConsumption() > DPlayer->FoodProduction()){
-            int SecondTextWidth, TotalTextWidth, TextHeight
-            //DFont->MeasureText( std.string(" ") + std.to_string(DPlayer->FoodConsumption()), FirstTextWidth, TextHeight)
-            DFont->MeasureText( std.string(" / ") + std.to_string(DPlayer->FoodProduction()), SecondTextWidth, TextHeight)
-            DFont->MeasureText( std.string(" ") + std.to_string(DPlayer->FoodConsumption()) + std.string(" / ") + std.to_string(DPlayer->FoodProduction()), TotalTextWidth, TextHeight)
-            DFont->DrawTextWithShadow(surface, XOffset +  DIconTileset->TileWidth(), TextYOffset, DInsufficientColor, DBackgroundColor, 1, std.string(" ") + std.to_string(DPlayer->FoodConsumption()))
-            DFont->DrawTextWithShadow(surface, XOffset +  DIconTileset->TileWidth() + TotalTextWidth - SecondTextWidth, TextYOffset, DForegroundColor, DBackgroundColor, 1, std.string(" / ") + std.to_string(DPlayer->FoodProduction()))
-        }
-        else{
-            DFont->DrawTextWithShadow(surface, XOffset +  DIconTileset->TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, std.string(" ") + std.to_string(DPlayer->FoodConsumption()) + std.string(" / ") + std.to_string(DPlayer->FoodProduction()))
+
+        DIconTileset.DrawTile(skscene: surface, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Gold.rawValue])
+        DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, String(" ") + CTextFormatter.IntegerToPrettyString(DLastGoldDisplay))
+        XOffset = XOffset + WidthSeparation
+
+        DIconTileset.DrawTile(skscene: surface, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Lumber.rawValue])
+        DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, String(" ") + CTextFormatter.IntegerToPrettyString(DLastLumberDisplay))
+        XOffset = XOffset + WidthSeparation
+
+        DIconTileset.DrawTile(skscene: surface, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Food.rawValue])
+
+        if DPlayer.FoodConsumption() > DPlayer.FoodProduction() {
+            var SecondTextWidth: Int
+            var TotalTextWidth: Int
+            var TextHeight: Int
+            // DFont.MeasureText( std.string(" ") + std.to_string(DPlayer.FoodConsumption()), FirstTextWidth, TextHeight)
+            DFont.MeasureText(String(" / ") + String(DPlayer.FoodProduction()) + String(SecondTextWidth) + String(TextHeight))
+            DFont.MeasureText(String(" ") + String(DPlayer.FoodConsumption()) + String(" / ") + String(DPlayer.FoodProduction()) + String(TotalTextWidth) + String(TextHeight))
+            DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth(), TextYOffset, DInsufficientColor, DBackgroundColor, 1, String(" ") + String(DPlayer.FoodConsumption()))
+            DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth() + TotalTextWidth - SecondTextWidth, TextYOffset, DForegroundColor, DBackgroundColor, 1, String(" / ") + String(DPlayer.FoodProduction()))
+        } else {
+            DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, String(" ") + String(DPlayer.FoodConsumption()) + String(" / ") + String(DPlayer.FoodProduction()))
         }
     }
 }
