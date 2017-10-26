@@ -59,7 +59,7 @@ class CPlayerAsset {
         )
     }
 
-    func UpdateFrequency(freq: Int) -> Int {
+    func UpdateFrequency() -> Int {
         return DUpdateFrequency
     }
     
