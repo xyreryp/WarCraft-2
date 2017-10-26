@@ -86,19 +86,24 @@ class CTerrainMap {
     //        return (lhs.DX == rhs.DX && lhs.DX == rhs.DX)
     //    }
 
-    func MapName() -> String {
-        return DMapName
-    }
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
 
-    func Width() -> Int {
-        if !DTerrainMap.isEmpty {
-            return DTerrainMap[0].count - 1
+    func TileType(xindex: Int, yindex: Int) -> ETileType {
+        if -1 > xindex || -1 > yindex {
+            return ETileType.None
         }
-        return 0
+        if DMap.count <= yindex + 1 {
+            return ETileType.None
+        }
+        if DMap[yindex + 1].count <= xindex + 1 {
+            return ETileType.None
+        }
+        return DMap[yindex + 1][xindex + 1]
     }
 
-    func Height() -> Int {
-        return DTerrainMap.count - 1
+    // NOTE: Added by Alex Soong, if mistaken pls let me know
+    func TileType(pos: CTilePosition) -> ETileType {
+        return TileType(xindex: pos.X(), yindex: pos.Y())
     }
 
     // NOTE: Added by Alex Soong, if mistaken pls let me know
@@ -156,6 +161,21 @@ class CTerrainMap {
     // NOTE: Added by Alex Soong, if mistaken pls let me know
     func TilePartial(pos: CTilePosition) -> uint8 {
         return TilePartial(xindex: pos.X(), yindex: pos.Y())
+    }
+
+    func MapName() -> String {
+        return DMapName
+    }
+
+    func Width() -> Int {
+        if !DTerrainMap.isEmpty {
+            return DTerrainMap[0].count - 1
+        }
+        return 0
+    }
+
+    func Height() -> Int {
+        return DTerrainMap.count - 1
     }
 
     func ChangeTerrainTilePartial(xindex: Int, yindex: Int, val: UInt8) {

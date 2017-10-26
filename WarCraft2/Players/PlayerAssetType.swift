@@ -322,7 +322,7 @@ class CPlayerAssetType {
         return FindDefaultFromName(name: TypeToName(type: type))
     }
 
-    func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+    func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
         var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
         ReturnRegistry = DRegistry
         return ReturnRegistry

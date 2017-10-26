@@ -29,7 +29,7 @@ class CPlayerData {
         var DColor = color
         var DActualMap = map
         var asset = CPlayerAssetType()
-        var DAssetTypes = asset.DuplicateRegistry(color: color)
+        var DAssetTypes = asset.DuplicateRegistry(color: color) // returns [String: CPlayerAssetType]
         var DPlayerMap = DActualMap.CreateInitializeMap()
         var DVisibilityMap = DActualMap.CreateVisibilityMap()
         var DGold = 0
@@ -444,11 +444,11 @@ class CPlayerData {
     func IdleAssets() -> [CPlayerAsset] {
         var AssetList: [CPlayerAsset] = [CPlayerAsset]()
         for WeakAsset in DAssets {
-            let Asset = WeakAsset {
-                if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
-                    AssetList.append(Asset)
-                }
+            let Asset = WeakAsset
+            if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
+                AssetList.append(Asset)
             }
+            
         }
         return AssetList
     }
@@ -472,10 +472,32 @@ class CPlayerData {
         }
         return Count
     }
+    auto Upgrade = CPlayerUpgrade::FindUpgradeFromName(upgradename);
     
+    if(Upgrade){
+    for(auto AssetType : Upgrade->AffectedAssets()){
+    std::string AssetName = CPlayerAssetType::TypeToName(AssetType);
+    auto AssetIterator = DAssetTypes->find(AssetName);
+    
+    if(AssetIterator != DAssetTypes->end()){
+    AssetIterator->second->AddUpgrade(Upgrade);
+    }
+    
+    }
+    DUpgrades[to_underlying(CPlayerCapability::NameToType(upgradename))] = true;
+    }
     // TODO: start from here 
     func AddUpgrade(upgradename: String) {
-        var Upgrade = CPlayerUpgrade.FindUpgradeFromName(upgradename)
+        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
+        let Upgrade = playerUpgrade.FindUpgradeFromName(name:upgradename)
+        for AssetType in Upgrade.DAffectedAssets {
+            let playerAssetType: CPlayerAssetType = CPlayerAssetType()
+            var AssetName:String = playerAssetType.TypeToName(type: AssetType)
+            
+            let AssetIterator = DAssetTypes[AssetName]
+            var AssetIndex = DAssetTypes.index(of: AssetIterator)
+            
+        }
         
         
     }
