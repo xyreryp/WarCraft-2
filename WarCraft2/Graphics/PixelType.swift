@@ -41,7 +41,7 @@ class CPixelType {
     var DType: EAssetTerrainType
 
     // TODO: Uncomment from PlayerAsset
-    //    var EPlayerColor: DColor
+    //var EPlayerColor: DColor
 
     init(red _: Int, green: Int, blue _: Int) {
         //        DColor = EPlayerColor(rawValue: red)!
@@ -153,9 +153,9 @@ class CPixelType {
     }
 
     // TODO: Uncomment from PlayerAsset
-    //    func Color() -> EPlayerColor {
-    //        return DColor
-    //    }
+    //func Color() -> EPlayerColor {
+    //    return DColor
+    //}
 
     func toPixelColor() -> uint32 {
         // TODO: Uncomment from PlayerAsset
