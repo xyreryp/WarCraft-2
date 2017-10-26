@@ -114,7 +114,7 @@ class CPlayerData {
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
         for WeakAsset in DAssets {
-            var AssetConsumption:Int = WeakAsset.FoodConsumption()
+            let AssetConsumption:Int = WeakAsset.FoodConsumption()
             if 0 < AssetConsumption {
                 TotalConsumption += AssetConsumption
             }
@@ -125,7 +125,7 @@ class CPlayerData {
     func FoodProduction() -> Int {
         var TotalProduction:Int = 0
         for WeakAsset in DAssets {
-            var AssetConsumption: Int = WeakAsset.FoodConsumption()
+            let AssetConsumption: Int = WeakAsset.FoodConsumption()
             if 0 < AssetConsumption {
                 TotalProduction += AssetConsumption
             }
@@ -140,13 +140,13 @@ class CPlayerData {
 //    AssetTypes() return DAssetTypes
    
 
-    func CreateMarker(pos : CPixelPosition, addtomap _: Bool) -> CPlayerAsset {
-        var NewMarker:CPlayerAsset = (DAssetTypes["None"]?.Construct())!
-        var TilePosition: CTilePosition = CTilePosition()
+    func CreateMarker(pos : CPixelPosition, addtomap: Bool) -> CPlayerAsset {
+        let NewMarker:CPlayerAsset = (DAssetTypes["None"]?.Construct())!
+        let TilePosition: CTilePosition = CTilePosition()
         TilePosition.SetFromPixel(pos: pos)
         NewMarker.TilePosition(pos: TilePosition)
         if(addtomap) {
-            DPlayerMap.AddAsset(NewMarker)
+            DPlayerMap.AddAsset(asset: NewMarker)
         }
         return NewMarker
     }
@@ -155,7 +155,7 @@ class CPlayerData {
         var CreatedAsset:CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
         CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
-        DActualMap.AddAsset(CreatedAsset)
+        DActualMap.AddAsset(asset: CreatedAsset)
         return CreatedAsset
 
     // TODO : DeleteAsset()
@@ -195,24 +195,25 @@ class CPlayerData {
     func UpdateVisibility() {
         var RemoveList: [CPlayerAsset]
         DVisibilityMap.Update(assets: DAssets)
-        DPlayerMap.UpdateMap(DVisibilityMap, DActualMap)
-        for Asset in DPlayerMap.Assets() {
+        DPlayerMap.UpdateMap(vismap: DVisibilityMap, resmap: DActualMap)
+        for Asset in DPlayerMap.DAssets {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
-                if CPlayerAsset.UpdateFrequency() < Asset.Step * 2 {
+                let cplayerasset:CPlayerAsset
+                if cplayerasset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
                 }
             }
         }
         for Asset in RemoveList {
-            DPlayerMap.RemoveAsset(Asset)
+            DPlayerMap.RemoveAsset(asset: Asset)
         }
     }
  
     func SelectAssets(selectarea : SRectangle, assettype : EAssetType, selectidentical : Bool = false) -> [CPlayerAsset] {
         var ReturnList:[CPlayerAsset] = [CPlayerAsset]()
         if selectarea.DWidth < 0 || selectarea.DHeight < 0 {
-            var BestAsset:CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
+            let BestAsset:CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
             let LockedAsset = BestAsset
             ReturnList.append(BestAsset)
             if selectidentical && LockedAsset.Speed() > 0 {
@@ -291,13 +292,12 @@ class CPlayerData {
         }
         return BestAsset
     }
-<<<<<<< HEAD
 
     func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
         var BestAsset: CPlayerAsset
         var BestDistanceSquared = -1
 
-        for Asset in DPlayerMap.Assets() {
+        for Asset in DPlayerMap.DAssets {
             if Asset.Type() == assettype {
                 let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
                 if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {
@@ -316,19 +316,19 @@ class CPlayerData {
         if 0 < r {
             r = RangeToDistanceSquared(range: r)
         }
-        for Asset in DPlayerMap.Assets() {
-            if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset - IsAlive() {
-                var Command = Asset.Command()
+        for Asset in DPlayerMap.DAssets {
+            if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
+                var Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
                     if Command.DAssetTarget && EAssetAction.Construct == Command.DAssetTarget.Action {
                         continue
                     }
                 }
                 if EAssetAction.ConveyGold != Command.DAction && EAssetAction.ConveyLumber != Command.DAction && EAssetAction.MineGold != Command.DAction {
-                    var CurrentDistance = Asset.ClosestPosition(pos).DistanceSquared(pos)
+                    var CurrentDistance = Asset.ClosestPosition(pos: pos).DistanceSquared(pos: pos)
 
                     if 0 > r || CurrentDistance <= r {
-                        if -1 == BestDistanceSquared || Currentdistance < BestDistanceSquared {
+                        if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {
                             BestDistanceSquared = CurrentDistance
                             BestAsset = Asset
                         }
@@ -379,7 +379,7 @@ class CPlayerData {
                 var Index = LeftX
                 for Index in Index ..< RightX {
                     var TempPosition: CTilePosition = CTilePosition(x: Index, y: TopY)
-                    if DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder) {
+                    if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
@@ -392,7 +392,7 @@ class CPlayerData {
                 var Index = TopY
                 for Index in Index ..< BottomY {
                     var TempPosition: CTilePosition = CTilePosition(x: RightX, y: Index)
-                    if DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder) {
+                    if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
@@ -405,7 +405,7 @@ class CPlayerData {
                 var Index = LeftX
                 for Index in Index ..< RightX {
                     var TempPosition: CTilePosition = CTilePosition(x: Index, y: BottomY)
-                    if DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder) {
+                    if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
@@ -418,7 +418,7 @@ class CPlayerData {
                 var Index = LeftX
                 for Index in Index ..< BottomY {
                     var TempPosition: CTilePosition = CTilePosition(x: LeftX, y: Index)
-                    if DPlayerMap.CanPlaceAsset(TempPosition, PlacementSize, builder) {
+                    if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
@@ -447,8 +447,8 @@ class CPlayerData {
 
     func PlayerAssetCount(type: EAssetType) -> Int {
         var Count: Int = 0
-        for Asset in DPlayerMap.Assets() {
-            if Asset.Color() == Color && type == Asset.Type() {
+        for Asset in DPlayerMap.DAssets {
+            if Asset.Color() == DColor && type == Asset.Type() {
                 Count += 1
             }
         }
@@ -457,7 +457,7 @@ class CPlayerData {
 
     func FoundAssetCount(type: EAssetType) -> Int {
         var Count: Int = 0
-        for Asset in DPlayerMap.Assets() {
+        for Asset in DPlayerMap.DAssets {
             if type == Asset.Type() {
                 Count += 1
             }
@@ -466,7 +466,7 @@ class CPlayerData {
     }
 
     // TODO: start from here
-    func AddUpgrade(upgradename _: String) {
+    func AddUpgrade(upgradename: String) {
         //        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
         //        let Upgrade = playerUpgrade.FindUpgradeFromName(name:upgradename)
         //        for AssetType in Upgrade.DAffectedAssets {
@@ -512,3 +512,4 @@ func RangeToDistanceSquared(range: Int) -> Int {
     return r
 }
 
+}

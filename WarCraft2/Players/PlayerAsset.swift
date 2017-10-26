@@ -60,6 +60,10 @@ class CPlayerAsset {
     }
 
     func UpdateFrequency(freq: Int) -> Int {
+        return DUpdateFrequency
+    }
+    
+    func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
             DUpdateFrequency = freq
             DUpdateDivisor = 32 * DUpdateFrequency
