@@ -28,7 +28,6 @@
 		883BFF0F1F99E255005239AA /* mountain.map in Resources */ = {isa = PBXBuildFile; fileRef = 883BFF0E1F99E255005239AA /* mountain.map */; };
 		939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
-<<<<<<< HEAD
 		93E9E58F1F98201900C044C3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E9E58E1F98201900C044C3 /* ViewPortRenderer.swift */; };
 		A10F1C361F987ACA001C8D98 /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */; };
 		A10F1C881F9F1870001C8D98 /* PlayerAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F1C831F9F186F001C8D98 /* PlayerAsset.swift */; };
@@ -36,7 +35,6 @@
 		A10F1C8A1F9F1870001C8D98 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F1C851F9F186F001C8D98 /* PlayerData.swift */; };
 		A10F1C8B1F9F1870001C8D98 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F1C861F9F186F001C8D98 /* PlayerCapability.swift */; };
 		A10F1C8C1F9F1870001C8D98 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10F1C871F9F186F001C8D98 /* PlayerAssetType.swift */; };
-=======
 		9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */; };
 		9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */; };
 		9B64D6211FA05AEB00C39977 /* PlayerUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */; };
@@ -44,7 +42,6 @@
 		9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */; };
 		9B64D6241FA05AEB00C39977 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */; };
 		A10F1C361F987ACA001C8D98 /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */; };
->>>>>>> ed4c7950b40bf0410c03286f0bbad99dac63f46e
 		A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
@@ -278,12 +275,9 @@
 		E1B45E321F9D500E009D9BF1 /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				8812C1FE1FA1C5D700C9B73A /* FogRenderer.swift */,
-=======
 				939B087C1F89922F0077D9C7 /* ListViewRenderer.swift */,
 				A1AAF5CD1F8C5874005007C4 /* MapRenderer.swift */,
->>>>>>> ed4c7950b40bf0410c03286f0bbad99dac63f46e
 				E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */,
 				E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
@@ -310,19 +304,11 @@
 		E1B45E341F9D513D009D9BF1 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				A10F1C831F9F186F001C8D98 /* PlayerAsset.swift */,
-				A10F1C871F9F186F001C8D98 /* PlayerAssetType.swift */,
-				A10F1C861F9F186F001C8D98 /* PlayerCapability.swift */,
-				A10F1C851F9F186F001C8D98 /* PlayerData.swift */,
-				A10F1C841F9F186F001C8D98 /* PlayerUpgrade.swift */,
-=======
 				9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */,
 				9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */,
 				9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */,
 				9B64D61D1FA05AEB00C39977 /* PlayerData.swift */,
 				9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */,
->>>>>>> ed4c7950b40bf0410c03286f0bbad99dac63f46e
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
 			);
 			path = Players;
@@ -452,16 +438,13 @@
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 				4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */,
-<<<<<<< HEAD
 				A10F1C8C1F9F1870001C8D98 /* PlayerAssetType.swift in Sources */,
 				A10F1C361F987ACA001C8D98 /* MapRenderer.swift in Sources */,
-=======
 				939B087D1F8992300077D9C7 /* ListViewRenderer.swift in Sources */,
 				A10F1C361F987ACA001C8D98 /* MapRenderer.swift in Sources */,
 				DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */,
 				9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */,
 				9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */,
->>>>>>> ed4c7950b40bf0410c03286f0bbad99dac63f46e
 				DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */,
 				DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */,
 				8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */,
