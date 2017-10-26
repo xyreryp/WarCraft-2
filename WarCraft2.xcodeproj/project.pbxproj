@@ -15,7 +15,6 @@
 		4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */; };
 		4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA30961F888C28006C46D5 /* MainWindowController.swift */; };
 		4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */; };
-		52DB596B1F9A923100BA1183 /* AIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DB596A1F9A923100BA1183 /* AIPlayer.swift */; };
 		52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F39C321F995A0B0099329A /* TextFormatter.swift */; };
 		6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */; };
 		6BD98D381F9010EE00EDC2ED /* HandlingMouseClicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */; };
@@ -32,7 +31,6 @@
 		9B64D6221FA05AEB00C39977 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61D1FA05AEB00C39977 /* PlayerData.swift */; };
 		9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */; };
 		9B64D6241FA05AEB00C39977 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */; };
-		A10F1C361F987ACA001C8D98 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
@@ -387,7 +385,6 @@
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */,
-				52DB596B1F9A923100BA1183 /* AIPlayer.swift in Sources */,
 				DDBAC41C1F987E2B0075BB57 /* GraphicMulticolorTileset.swift in Sources */,
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
