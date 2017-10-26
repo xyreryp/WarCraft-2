@@ -96,7 +96,8 @@ class CPlayerAsset {
     }
 
     func Gold(gold: Int) -> Int {
-        return DGold = gold
+        DGold = gold
+        return DGold
     }
     
     func IncrementGold(gold: Int) -> Int {
