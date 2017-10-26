@@ -107,6 +107,7 @@ class CTerrainMap {
     }
 
     // NOTE: Added by Alex Soong, if mistaken pls let me know
+
     func TileTypeIndex(xindex: Int, yindex: Int) -> Int {
         if (-1 > xindex) || (-1 > yindex) {
             return -1
