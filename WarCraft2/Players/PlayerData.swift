@@ -18,7 +18,7 @@ class CPlayerData {
     var DAssetTypes: [String: CPlayerAssetType]
     var DAssets: [CPlayerAsset]
     var DUpgrades: [Bool]
-    var DGameEvents = [SGameEvent]
+    //    var DGameEvents = [SGameEvent]    // TODO: Where is SGameEvent
     var DGold: Int
     var DLumber: Int
     var DGameCycle: Int
@@ -57,8 +57,10 @@ class CPlayerData {
                 // print debug stuff???
                 var InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
-                if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: AssetInit.DType) {
-                    InitAsset.Gold(DGold)
+                let assetInitType:String = AssetInit.DType
+                let cplayerassettype:CPlayerAssetType
+                if EAssetType.GoldMine == cplayerassettype.NameToType(name: assetInitType) {
+                    InitAsset.Gold(gold: DGold)
                 }
             }
         }
@@ -341,9 +343,10 @@ class CPlayerData {
     }
 
     func FindBestAssetPlacement(pos: CPixelPosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
-        var AssetType = DAssetTypes[CPlayerAssetType.TypeToName(assettype)]
-        var PlacementSize: Int = AssetType.count + 2 * buffer
-        var MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
+        let cplayerassettype: CPlayerAssetType
+        let AssetType = DAssetTypes[cplayerassettype.TypeToName(type: assettype)]
+        let PlacementSize: Int = AssetType!.DSize + 2 * buffer
+        let MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
 
         var Distance = 0
         for Distance in Distance ..< MaxDistance {
@@ -376,11 +379,11 @@ class CPlayerData {
             }
 
             if TopValid {
-                var Index = LeftX
+                let Index = LeftX
                 for Index in Index ..< RightX {
-                    var TempPosition: CTilePosition = CTilePosition(x: Index, y: TopY)
+                    let TempPosition: CTilePosition = CTilePosition(x: Index, y: TopY)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
-                        var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
                             BestPosition = TempPosition
@@ -389,11 +392,11 @@ class CPlayerData {
                 }
             }
             if RightValid {
-                var Index = TopY
+                let Index = TopY
                 for Index in Index ..< BottomY {
-                    var TempPosition: CTilePosition = CTilePosition(x: RightX, y: Index)
+                    let TempPosition: CTilePosition = CTilePosition(x: RightX, y: Index)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
-                        var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
                             BestPosition = TempPosition
@@ -402,11 +405,11 @@ class CPlayerData {
                 }
             }
             if BottomValid {
-                var Index = LeftX
+                let Index = LeftX
                 for Index in Index ..< RightX {
-                    var TempPosition: CTilePosition = CTilePosition(x: Index, y: BottomY)
+                    let TempPosition: CTilePosition = CTilePosition(x: Index, y: BottomY)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
-                        var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
                             BestPosition = TempPosition
@@ -415,11 +418,11 @@ class CPlayerData {
                 }
             }
             if LeftValid {
-                var Index = LeftX
+                let Index = LeftX
                 for Index in Index ..< BottomY {
-                    var TempPosition: CTilePosition = CTilePosition(x: LeftX, y: Index)
+                    let TempPosition: CTilePosition = CTilePosition(x: LeftX, y: Index)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
-                        var CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
+                        let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
                         if (-1 == BestDistance) || (CurrentDistance < BestDistance) {
                             BestDistance = CurrentDistance
                             BestPosition = TempPosition
@@ -486,21 +489,22 @@ class CPlayerData {
         return DUpgrades[upgrade.rawValue]
     }
 
-    func GameEvents() -> [SGameEvent] {
-        return DGameEvents
-    }
-
-    func ClearGameEvents() {
-        DGameEvents.clear()
-    }
-
-    func AddGameEvent(event: SGameEvent) {
-        DGameEvents.push_back(event)
-    }
-
-    func AppendGameEvents(events: [SGameEvent]) {
-        DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
-    }
+        //TODO: What is SGameEvent
+//    func GameEvents() -> [SGameEvent] {
+//        return DGameEvents
+//    }
+//
+//    func ClearGameEvents() {
+//        DGameEvents.clear()
+//    }
+//
+//    func AddGameEvent(event: SGameEvent) {
+//        DGameEvents.push_back(event)
+//    }
+//
+//    func AppendGameEvents(events: [SGameEvent]) {
+//        DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
+//    }
 }
 
 func RangeToDistanceSquared(range: Int) -> Int {

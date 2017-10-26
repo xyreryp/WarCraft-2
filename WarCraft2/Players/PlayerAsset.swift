@@ -6,6 +6,13 @@
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
+struct SAssetCommand {
+    var DAction: EAssetAction
+    var DCapability: EAssetCapabilityType
+    var DAssetTarget: CPlayerAsset
+    //    var DActivatedCapability: CActivatedPlayerCapability TODO: What is CActivatedPlayerCapability
+}
+
 // TODO: PlayerAsset C++
 class CPlayerAsset {
     var DCreationCycle: Int
@@ -99,7 +106,7 @@ class CPlayerAsset {
         DGold = gold
         return DGold
     }
-    
+
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
         return DGold

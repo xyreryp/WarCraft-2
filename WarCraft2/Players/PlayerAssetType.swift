@@ -226,7 +226,7 @@ class CPlayerAssetType {
         return ReturnVector
     }
 
-    func NametoType(name: String) -> EAssetType {
+    func NameToType(name: String) -> EAssetType {
         if let retVal = DNameTypeTranslation[name] {
             return retVal
         }
