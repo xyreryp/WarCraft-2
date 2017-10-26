@@ -34,7 +34,7 @@ class CFogRenderer {
             }
         }
 
-        DPartialIndex = DTileset.FindTile(tilename: &DTileset.DTileNames[selectIndex])
+        DPartialIndex = DTileset.FindTile(tilename: DTileset.DTileNames[selectIndex])
 
         //
         for Index in 0 ... 255 {
