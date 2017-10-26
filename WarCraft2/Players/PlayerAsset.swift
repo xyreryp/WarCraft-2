@@ -7,6 +7,14 @@
 //
 
 // TODO: PlayerAsset C++
+
+struct SAssetCommand {
+    var DAction: EAssetAction
+    var DCapability: EAssetCapabilityType
+    var DAssetTarget: CPlayerAsset
+    var DActivatedCapability: CActivatedPlayerCapability
+}
+
 class CPlayerAsset {
     var DCreationCycle: Int
     var DHitPoints: Int
