@@ -21,11 +21,11 @@ class CAssetDecoratedMap: CTerrainMap {
         var DLumber: Int
     }
 
-    private var DAssets: [CPlayerAsset]
-    private var DAssetInitializationList: [SAssetInitialization]
-    private var DResourceInitializationList: [SResourceInitialization]
-    private var DSearchMap: [[Int]]
-    private var DLumberAvailable: [[Int]]
+    var DAssets: [CPlayerAsset]
+    var DAssetInitializationList: [SAssetInitialization]
+    var DResourceInitializationList: [SResourceInitialization]
+    var DSearchMap: [[Int]]
+    var DLumberAvailable: [[Int]]
 
     var DMapNameTranslation: [String: Int]
     var DAllMaps: [CAssetDecoratedMap] // originally a vector, might need different implementation.
