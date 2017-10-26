@@ -781,14 +781,14 @@ class AssetRenderer {
             }
             if OnScreen {
                 var XPos, YPos: Int
-                let _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
-                let _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
                 DTilesets[type.rawValue].DrawTile(surface, TempPosition.X(), TempPosition.Y(), DPlaceIndices[type.rawValue][0], DPlayerData.Color().rawValue - 1)
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
-                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: Cell ? DPlaceGoodIndex : DPlaceBadIndex)
+                        //                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: Cell ? DPlaceGoodIndex : DPlaceBadIndex)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }
                     YPos = YPos + DMarkerTileset!.TileHeight()
