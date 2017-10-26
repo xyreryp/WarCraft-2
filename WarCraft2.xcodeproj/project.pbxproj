@@ -52,8 +52,6 @@
 		E1CB36B21FA19CFC00B18D06 /* ListViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */; };
 		E1CB36B31FA19CFC00B18D06 /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */; };
 		E1CB36B41FA19CFC00B18D06 /* FogRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36AF1FA19CFC00B18D06 /* FogRenderer.swift */; };
-		E1CB36B51FA19CFC00B18D06 /* AssetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B01FA19CFC00B18D06 /* AssetRenderer.swift */; };
-		E1CB36B61FA19CFC00B18D06 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B11FA19CFC00B18D06 /* ViewPortRenderer.swift */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
 /* End PBXBuildFile section */
@@ -106,8 +104,6 @@
 		E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRenderer.swift; sourceTree = "<group>"; };
 		E1CB36AF1FA19CFC00B18D06 /* FogRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogRenderer.swift; sourceTree = "<group>"; };
-		E1CB36B01FA19CFC00B18D06 /* AssetRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetRenderer.swift; sourceTree = "<group>"; };
-		E1CB36B11FA19CFC00B18D06 /* ViewPortRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPortRenderer.swift; sourceTree = "<group>"; };
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E1F589981F8A01C80072BE93 /* GraphicSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicSurface.swift; sourceTree = "<group>"; };
@@ -237,11 +233,9 @@
 		E1B45E321F9D500E009D9BF1 /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
-				E1CB36B01FA19CFC00B18D06 /* AssetRenderer.swift */,
 				E1CB36AF1FA19CFC00B18D06 /* FogRenderer.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
-				E1CB36B11FA19CFC00B18D06 /* ViewPortRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -370,9 +364,7 @@
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				A1AE6E5F1F90B78F00D40A86 /* Tokenizer.swift in Sources */,
 				A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */,
-				E1CB36B51FA19CFC00B18D06 /* AssetRenderer.swift in Sources */,
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
-				E1CB36B61FA19CFC00B18D06 /* ViewPortRenderer.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				E1CB36B31FA19CFC00B18D06 /* MapRenderer.swift in Sources */,
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
