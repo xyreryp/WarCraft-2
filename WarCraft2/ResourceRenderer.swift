@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CResourceRenderer {
     enum EMiniIconTypes: Int {
@@ -88,15 +89,15 @@ class CResourceRenderer {
         WidthSeparation = Width / 4
         XOffset = Width / 8
 
-        DIconTileset.DrawTile(skscene: surface, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Gold.rawValue])
+        DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Gold.rawValue])
         DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, String(" ") + CTextFormatter.IntegerToPrettyString(DLastGoldDisplay))
         XOffset = XOffset + WidthSeparation
 
-        DIconTileset.DrawTile(skscene: surface, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Lumber.rawValue])
+        DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Lumber.rawValue])
         DFont.DrawTextWithShadow(surface, XOffset + DIconTileset.TileWidth(), TextYOffset, DForegroundColor, DBackgroundColor, 1, String(" ") + CTextFormatter.IntegerToPrettyString(DLastLumberDisplay))
         XOffset = XOffset + WidthSeparation
 
-        DIconTileset.DrawTile(skscene: surface, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Food.rawValue])
+        DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: ImageYOffset, tileindex: DIconIndices[EMiniIconTypes.Food.rawValue])
 
         if DPlayer.FoodConsumption() > DPlayer.FoodProduction() {
             var SecondTextWidth: Int
