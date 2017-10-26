@@ -9,29 +9,29 @@
 import Foundation
 class CPlayerAssetType {
 
-    var DThis: CPlayerAssetType
-    var DName: String
-    var DType: EAssetType
-    var DColor: EPlayerColor
-    var DCapabilities: [Bool]
-    var DAssetRequirements: [EAssetType]
+    var DThis: CPlayerAssetType = CPlayerAssetType()
+    var DName: String = String()
+    var DType: EAssetType = EAssetType.None
+    var DColor: EPlayerColor = EPlayerColor.None
+    var DCapabilities: [Bool] = [Bool]()
+    var DAssetRequirements: [EAssetType] = [EAssetType]()
     var DAssetUpgrades = [CPlayerUpgrade]()
-    var DHitPoints: Int
-    var DArmor: Int
-    var DSight: Int
-    var DConstructionSight: Int
-    var DSize: Int
-    var DSpeed: Int
-    var DGoldCost: Int
-    var DLumberCost: Int
-    var DFoodConsumption: Int
-    var DBuildTime: Int
-    var DAttackSteps: Int
-    var DReloadSteps: Int
-    var DBasicDamage: Int
-    var DPiercingDamage: Int
-    var DRange: Int
-    var DRegistry: [String: CPlayerAssetType]
+    var DHitPoints: Int = Int()
+    var DArmor: Int = Int()
+    var DSight: Int = Int()
+    var DConstructionSight: Int = Int()
+    var DSize: Int = Int()
+    var DSpeed: Int = Int()
+    var DGoldCost: Int = Int()
+    var DLumberCost: Int = Int()
+    var DFoodConsumption: Int = Int()
+    var DBuildTime: Int = Int()
+    var DAttackSteps: Int = Int()
+    var DReloadSteps: Int = Int()
+    var DBasicDamage: Int = Int()
+    var DPiercingDamage: Int = Int()
+    var DRange: Int = Int()
+    var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DTypeStrings: [String] = [
         "None",
         "Peasant",
@@ -154,9 +154,6 @@ class CPlayerAssetType {
         )
     }
 
-    // TODO: Where does this go?
-    func HitPoints() -> Int {
-    }
 
     func ArmorUpgrade() -> Int {
         var RetVal: Int = 0
@@ -215,7 +212,7 @@ class CPlayerAssetType {
     }
 
     func Capabilities() -> [EAssetCapabilityType] {
-        var ReturnVector: [EAssetCapabilityType]
+        var ReturnVector: [EAssetCapabilityType] = [EAssetCapabilityType]()
         var Index: Int = 0
         repeat {
             if DCapabilities[Index] {
@@ -265,9 +262,8 @@ class CPlayerAssetType {
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     func MaxSight() -> Int {
-        if let MaxSightFound = DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight }) {
-            return MaxSightFound.value.DSight
-        }
+        let MaxSightFound = DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
+        return MaxSightFound!.value.DSight
     }
 
     func LoadTypes(container: CDataContainer) -> Bool {
@@ -309,6 +305,7 @@ class CPlayerAssetType {
     //     TODO: After we for sure know how to read stuff in
     func Load(source _: CDataSource) -> Bool {
         // gonna re impleiment using string name of the files
+        return false
     }
 
     func FindDefaultFromName(name: String) -> CPlayerAssetType {
