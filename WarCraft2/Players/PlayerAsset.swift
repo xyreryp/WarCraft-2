@@ -6,12 +6,11 @@
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
-
 struct SAssetCommand {
     var DAction: EAssetAction
     var DCapability: EAssetCapabilityType
     var DAssetTarget: CPlayerAsset
-//    var DActivatedCapability: CActivatedPlayerCapability TODO
+    //    var DActivatedCapability: CActivatedPlayerCapability TODO
 }
 
 class CPlayerAsset {
@@ -29,7 +28,7 @@ class CPlayerAsset {
     var DUpdateFrequency: Int = 1
     var DUpdateDivisor: Int = 32
 
-    init(type: CPlayerAssetType) {
+    init(type _: CPlayerAssetType) {
         var DCreationCycle: Int = 0
         var DHitPoints: Int = 0
         var DGold = 0
@@ -44,7 +43,6 @@ class CPlayerAsset {
         var DUpdateFrequency: Int = 1
         var DUpdateDivisor: Int = 32
     }
-    
 
     deinit {
     }
@@ -212,7 +210,7 @@ class CPlayerAsset {
         }
     }
 
-    //FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
+    // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
             DCommands.removeLast()
@@ -222,7 +220,8 @@ class CPlayerAsset {
 
         return RetVal
     }
-    //FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
+
+    // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func NextCommand() -> SAssetCommand {
         if 1 < DCommands.count {
             return DCommands[DCommands.count - 2]

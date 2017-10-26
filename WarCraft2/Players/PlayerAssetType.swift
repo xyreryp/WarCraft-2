@@ -154,7 +154,6 @@ class CPlayerAssetType {
         )
     }
 
-
     func ArmorUpgrade() -> Int {
         var RetVal: Int = 0
         for upgrade in DAssetUpgrades {
