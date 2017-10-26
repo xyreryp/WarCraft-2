@@ -10,18 +10,18 @@ import Foundation
 
 class CPlayerData {
 
-    var DIsAI: Bool
-    var DColor: EPlayerColor
-    var DVisibilityMap: CVisibilityMap
-    var DActualMap: CAssetDecoratedMap
-    var DPlayerMap: CAssetDecoratedMap
-    var DAssetTypes: [String: CPlayerAssetType]
-    var DAssets: [CPlayerAsset]
-    var DUpgrades: [Bool]
+    var DIsAI: Bool = Bool()
+    var DColor: EPlayerColor = EPlayerColor.None
+    var DVisibilityMap: CVisibilityMap?
+    var DActualMap: CAssetDecoratedMap = CAssetDecoratedMap()
+    var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
+    var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
+    var DAssets: [CPlayerAsset] = [CPlayerAsset]()
+    var DUpgrades: [Bool] = [Bool]()
     //        var DGameEvents = [SGameEvent]    // TODO: Where
-    var DGold: Int
-    var DLumber: Int
-    var DGameCycle: Int
+    var DGold: Int = Int()
+    var DLumber: Int = Int()
+    var DGameCycle: Int = Int()
 
     init(map: CAssetDecoratedMap, color: EPlayerColor) {
         var DIsAI = true
@@ -55,10 +55,10 @@ class CPlayerData {
 
             if AssetInit.DColor == color {
                 // print debug stuff???
-                var InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
+                let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
                 let assetInitType: String = AssetInit.DType
-                let cplayerassettype: CPlayerAssetType
+                let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
                 if EAssetType.GoldMine == cplayerassettype.NameToType(name: assetInitType) {
                     InitAsset.Gold(gold: DGold)
                 }
@@ -194,8 +194,8 @@ class CPlayerData {
 
         func UpdateVisibility() {
             var RemoveList: [CPlayerAsset]
-            DVisibilityMap.Update(assets: DAssets)
-            DPlayerMap.UpdateMap(vismap: DVisibilityMap, resmap: DActualMap)
+            DVisibilityMap?.Update(assets: DAssets)
+            DPlayerMap.UpdateMap(vismap: DVisibilityMap!, resmap: DActualMap)
             for Asset in DPlayerMap.DAssets {
                 if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                     Asset.IncrementStep()
