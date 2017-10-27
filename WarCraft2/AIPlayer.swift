@@ -33,7 +33,7 @@ class CAIPlayer {
         var MovableAsset: CPlayerAsset
         
         for Asset in IdleAssets {
-            if (Asset.Speed()){                             //check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
+            if (Asset.Speed() != 0){                             //check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
 
                 MovableAsset = Asset
                 break
@@ -64,7 +64,7 @@ class CAIPlayer {
             }
         }
         
-        if(DPlayerData.FindNearestEnemy(TownHallAsset.Position(), -1).expired()) {
+        if(DPlayerData.FindNearestEnemy(pos: TownHallAsset.Position(), range: -1).expired()) {
             return SearchMap(command: &command)
         }
         return false
