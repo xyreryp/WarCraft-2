@@ -111,7 +111,7 @@ class AssetRenderer {
                 StepIndex = StepIndex + 1
             }
         }
-        
+
         func resize<T>(array: inout [T], size: Int, defaultValue: T) {
             while array.count < size {
                 array.append(defaultValue)
@@ -329,7 +329,7 @@ class AssetRenderer {
         return first.DX <= second.DX
     }
 
-    func DrawAssets(surface: CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
+    func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
@@ -470,7 +470,7 @@ class AssetRenderer {
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 DTilesets[RenderIterator.DType.rawValue].DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex, colorindex: RenderIterator.DColorIndex)
-                //DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
+                // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
             } else {
                 DBuildingDeathTileset?.DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex)
             }
@@ -584,7 +584,6 @@ class AssetRenderer {
                             }
 
                             DCorpseTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
-                            
                         }
                     } else if EAssetAction.Attack != LockedAsset.Action() {
                         var RightX: Int
@@ -681,14 +680,14 @@ class AssetRenderer {
                         // ***
                         if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
                             Command = commandDAssetTarget.CurrentCommand()
-                            if Command.DActivatedCapability {                                                                   //TODO: Not implemented in PLAYERASSET.SWIFT
-                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())   //TODO: Not implemented in PLAYERASSET.SWIFT
-                                
+                            if Command.DActivatedCapability { // TODO: Not implemented in PLAYERASSET.SWIFT
+                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints()) // TODO: Not implemented in PLAYERASSET.SWIFT
+
                                 Divisor = (0 != Divisor) ? Divisor : 1
                                 HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                             }
-                        } else if Command.DActivatedCapability {                                                                //TODO: Not implemented in PLAYERASSET.SWIFT
-                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())       //TODO: Not implemented in PLAYERASSET.SWIFT
+                        } else if Command.DActivatedCapability { // TODO: Not implemented in PLAYERASSET.SWIFT
+                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints()) // TODO: Not implemented in PLAYERASSET.SWIFT
                             Divisor = (0 != Divisor) ? Divisor : 1
                             HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                         }
