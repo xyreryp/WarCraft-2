@@ -30,7 +30,7 @@ class CAIPlayer {
 
     func SearchMap(command: inout SPlayerCommandRequest) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets() // IdleAssets list of weak_ptrs of type CPlayerAsset
-        var MovableAsset: CPlayerAsset
+        var MovableAsset: CPlayerAsset?
 
         for Asset in IdleAssets {
             if (Asset.Speed() != 0){                             //check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
@@ -39,7 +39,7 @@ class CAIPlayer {
             }
         }
 
-        if MovableAsset {
+        if MovableAsset != Nill {
             var UnknownPosition: CTilePosition = DPlayerData.PlayerMap().FindNearestReachableTileType(MovableAsset.TilePosition(), CTerrainMap.ETileType.None)
             if 0 <= UnknownPosition.X() {
                 command.DAction = EAssetCapabilityType.Move
