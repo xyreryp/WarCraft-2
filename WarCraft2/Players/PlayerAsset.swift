@@ -6,39 +6,42 @@
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
-// TODO: PlayerAsset C++
+struct SAssetCommand {
+    var DAction: EAssetAction
+    var DCapability: EAssetCapabilityType
+    var DAssetTarget: CPlayerAsset
+    //    var DActivatedCapability: CActivatedPlayerCapability TODO
+}
+
 class CPlayerAsset {
-    var DCreationCycle: Int
-    var DHitPoints: Int
-    var DGold: Int
-    var DLumber: Int
-    var DStep: Int
-    var DMoveRemainderX: Int
-    var DMoveRemainderY: Int
-    var DPosition: CPixelPosition
-    var DDirection: EDirection
-    var DCommands: [SAssetCommand]
-    var DType: CPlayerAssetType
-    private(set) var DUpdateFrequency: Int = 1
+    var DCreationCycle: Int = 0
+    var DHitPoints: Int = 0
+    var DGold: Int = 0
+    var DLumber: Int = 0
+    var DStep: Int = 0
+    var DMoveRemainderX: Int = 0
+    var DMoveRemainderY: Int = 0
+    var DPosition: CPixelPosition = CPixelPosition()
+    var DDirection: EDirection = EDirection.Max
+    var DCommands: [SAssetCommand] = [SAssetCommand]()
+    var DType: CPlayerAssetType = CPlayerAssetType()
+    var DUpdateFrequency: Int = 1
     var DUpdateDivisor: Int = 32
-    //    public:
-    // TODO:
-    //    CPlayerAsset(std::shared_ptr< CPlayerAssetType > type);
-    //    ~CPlayerAsset();
 
-    //    static int UpdateFrequency(int freq);
-
-    init(type: CPlayerAssetType) {
+    init(type _: CPlayerAssetType) {
         var DCreationCycle: Int = 0
-        var DType = type
-        var DHitPoints = type.DHitPoints
+        var DHitPoints: Int = 0
         var DGold = 0
         var DLumber = 0
         var DStep = 0
         var DMoveRemainderX = 0
         var DMoveRemainderY = 0
-        var DDirection = EDirection.South
-        TilePosition(pos: CTilePosition())
+        var DPosition: CPixelPosition = CPixelPosition()
+        var DDirection: EDirection = EDirection.Max
+        var DCommands: [SAssetCommand] = [SAssetCommand]()
+        var DType: CPlayerAssetType = CPlayerAssetType()
+        var DUpdateFrequency: Int = 1
+        var DUpdateDivisor: Int = 32
     }
 
     deinit {
@@ -57,6 +60,10 @@ class CPlayerAsset {
                 lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
                 lhs.DDirection != rhs.DDirection
         )
+    }
+
+    func UpdateFrequency() -> Int {
+        return DUpdateFrequency
     }
 
     func UpdateFrequency(freq: Int) -> Int {
@@ -89,6 +96,11 @@ class CPlayerAsset {
             DHitPoints = 0
         }
         return DHitPoints
+    }
+
+    func Gold(gold: Int) -> Int {
+        DGold = gold
+        return DGold
     }
 
     func IncrementGold(gold: Int) -> Int {
@@ -131,7 +143,7 @@ class CPlayerAsset {
     }
 
     func TilePositionX() -> Int {
-        let ReturnPos: CTilePosition
+        let ReturnPos: CTilePosition = CTilePosition()
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos.X()
     }
@@ -142,7 +154,7 @@ class CPlayerAsset {
     }
 
     func TilePositionY() -> Int {
-        let ReturnPos: CTilePosition
+        let ReturnPos: CTilePosition = CTilePosition()
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos.Y()
     }
@@ -198,22 +210,24 @@ class CPlayerAsset {
         }
     }
 
+    // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
             DCommands.removeLast()
         }
-        var RetVal: SAssetCommand
+        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()))
         RetVal.DAction = EAssetAction.None
 
         return RetVal
     }
 
+    // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func NextCommand() -> SAssetCommand {
         if 1 < DCommands.count {
             return DCommands[DCommands.count - 2]
         }
 
-        var RetVal: SAssetCommand
+        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()))
         RetVal.DAction = EAssetAction.None
         return RetVal
     }
@@ -276,8 +290,8 @@ class CPlayerAsset {
         let CurrentOctant: EDirection = DPosition.TileOctant()
         let DeltaX: [Int] = [0, 5, 7, 5, 0, -5, -7, -5]
         let DeltaY: [Int] = [-7, -5, 0, 5, 7, 5, 0, -5]
-        let CurrentTile: CTilePosition
-        var NewTilePosition: CTilePosition
+        let CurrentTile: CTilePosition = CTilePosition()
+        var NewTilePosition: CTilePosition = CTilePosition()
         let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
 
         CurrentTile.SetFromPixel(pos: DPosition)

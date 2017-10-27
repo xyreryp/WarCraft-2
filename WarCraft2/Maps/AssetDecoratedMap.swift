@@ -465,9 +465,11 @@ class CAssetDecoratedMap: CTerrainMap {
         return ReturnMap
     }
 
-    //    func CreateVisibilityMap() -> PVisibilityMap{ TODO: something wrong with MaxSight.
-    //        return PVisibilityMap(width: Width(),height: Height(),maxvisibility: CPlayerAssetType.MaxSight());
-    //    }
+    //    TODO: something wrong with MaxSight.
+    func CreateVisibilityMap() -> PVisibilityMap {
+        let cplayerassettype: CPlayerAssetType = CPlayerAssetType(asset: CPlayerAssetType())
+        return CVisibilityMap(width: Width(), height: Height(), maxvisibility: cplayerassettype.MaxSight())
+    }
 
     func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {
         var Iterator = DAssets[0]
@@ -520,7 +522,7 @@ class CAssetDecoratedMap: CTerrainMap {
                 }
             }
             if RemoveAsset {
-                for var itemToRemoveIndex: Int in stride(from: 0, to: DAssets.count, by: 1) {
+                for itemToRemoveIndex: Int in stride(from: 0, to: DAssets.count, by: 1) {
                     if !(DAssets[itemToRemoveIndex] != Iterator) {
                         DAssets.remove(at: itemToRemoveIndex)
                         Iterator = DAssets[itemToRemoveIndex + 1]
@@ -535,8 +537,8 @@ class CAssetDecoratedMap: CTerrainMap {
                 }
             }
         }
-        for var YPos: Int in stride(from: 0, to: DMap.count, by: 1) {
-            for var XPos: Int in stride(from: 0, to: DMap[YPos].count, by: 1) {
+        for YPos: Int in stride(from: 0, to: DMap.count, by: 1) {
+            for XPos: Int in stride(from: 0, to: DMap[YPos].count, by: 1) {
                 var VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
                 if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
@@ -544,16 +546,16 @@ class CAssetDecoratedMap: CTerrainMap {
                 }
             }
         }
-        for var Asset in resmap.DAssets {
-            var CurPosition: CTilePosition = Asset.TilePosition()
-            var AssetSize: Int = Asset.Size()
+        for Asset in resmap.DAssets {
+            let CurPosition: CTilePosition = Asset.TilePosition()
+            let AssetSize: Int = Asset.Size()
             var AddAsset: Bool = false
 
-            for var YOff: Int in stride(from: 0, to: AssetSize, by: 1) {
-                var YPos: Int = CurPosition.Y() + YOff
-                for var XOff: Int in stride(from: 0, to: AssetSize, by: 1) {
-                    var XPos: Int = CurPosition.X() + XOff
-                    var VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
+            for YOff: Int in stride(from: 0, to: AssetSize, by: 1) {
+                let YPos: Int = CurPosition.Y() + YOff
+                for XOff: Int in stride(from: 0, to: AssetSize, by: 1) {
+                    let XPos: Int = CurPosition.X() + XOff
+                    let VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
                     if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) { // Add visible resources
                         AddAsset = true
                         break
@@ -581,8 +583,8 @@ class CAssetDecoratedMap: CTerrainMap {
     func FindNearestReachableTileType(pos: CTilePosition, type: ETileType) -> CTilePosition {
         var SearchQueue: [SSearchTile]
         var CurrentSearch: SSearchTile, TempSearch: SSearchTile
-        var MapWidth: Int = Width()
-        var MapHeight: Int = Height()
+        let MapWidth: Int = Width()
+        let MapHeight: Int = Height()
         var SearchXOffsets: [Int] = [0, 1, 0, -1]
         var SearchYOffsets: [Int] = [-1, 0, 1, 0]
 
@@ -594,8 +596,8 @@ class CAssetDecoratedMap: CTerrainMap {
                     Cell = 0
                 }
             }
-            var LastYIndex: Int = DMap.count - 1
-            var LastXIndex: Int = DMap[0].count - 1
+            let LastYIndex: Int = DMap.count - 1
+            let LastXIndex: Int = DMap[0].count - 1
             for var Index: Int in stride(from: 0, to: DMap.count, by: 1) {
                 DSearchMap[Index][0] = SEARCH_STATUS_VISITED
                 DSearchMap[Index][LastXIndex] = SEARCH_STATUS_VISITED
