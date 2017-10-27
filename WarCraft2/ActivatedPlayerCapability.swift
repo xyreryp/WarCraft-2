@@ -21,27 +21,28 @@ protocol PActivatedPlayerCapability {
 }
 
 class CActivatedPlayerCapability: PActivatedPlayerCapability {
-    
+
     var DActor: CPlayerAsset
     var DPlayerData: CPlayerData
     var DTarget: CPlayerAsset
 
     required init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
-       DActor = actor
+        DActor = actor
         DPlayerData = playerdata
         DTarget = target
     }
 
-    func PercentComplete(max: Int) -> Int {
-        
+    func PercentComplete(max _: Int) -> Int {
         return 0
     }
+
+    // TODO: need implementation in children classes?
     func IncrementStep() -> Bool {
-        
+
         return false
     }
+
     func Cancel() {
-        
+        return
     }
-        
 }

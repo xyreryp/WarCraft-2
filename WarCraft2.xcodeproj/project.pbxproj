@@ -32,6 +32,7 @@
 		9B64D6221FA05AEB00C39977 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61D1FA05AEB00C39977 /* PlayerData.swift */; };
 		9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */; };
 		9B64D6241FA05AEB00C39977 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */; };
+		A10B58D81FA3AA6C0035C1EB /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */; };
 		A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
@@ -408,6 +409,7 @@
 				DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */,
 				8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
+				A10B58D81FA3AA6C0035C1EB /* MapRenderer.swift in Sources */,
 				8834FBD11FA1BE46003E81E5 /* CommentSkipLineDataSource.swift in Sources */,
 				8834FBD01FA1BE46003E81E5 /* LineDataSource.swift in Sources */,
 				DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */,

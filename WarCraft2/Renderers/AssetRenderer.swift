@@ -297,6 +297,15 @@ class AssetRenderer {
         }
     }
 
+    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+        while array.count < size {
+            array.append(defaultValue)
+        }
+        while array.count > size {
+            array.removeLast()
+        }
+    }
+
     static func UpdateFrequency(freq: Int) -> Int {
         if TARGET_FREQUENCY >= freq {
             DAnimationDownsample = 1
@@ -737,20 +746,23 @@ class AssetRenderer {
             TempTilePosition.SetFromPixel(pos: pos)
             TempPosition.SetFromTile(pos: TempTilePosition)
 
-            TempPosition.IncrementX((AssetType.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[type.rawValue].TileHalfWidth())
-            TempPosition.IncrementY((AssetType.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[type.rawValue].TileHalfHeight())
+            let cpos = CPosition()
+            TempPosition.IncrementX(x: (AssetType.DSize - 1) * cpos.DHalfTileWidth - DTilesets[type.rawValue].TileHalfWidth())
+            TempPosition.IncrementY(y: (AssetType.DSize - 1) * cpos.DHalfTileHeight - DTilesets[type.rawValue].TileHalfHeight())
             PlacementRightX = TempPosition.X() + DTilesets[type.rawValue].TileWidth()
             PlacementBottomY = TempPosition.Y() + DTilesets[type.rawValue].TileHeight()
 
             TempTilePosition.SetFromPixel(pos: TempPosition)
             XOff = 0
             YOff = 0
-            PlacementTiles.resize(AssetType.Size())
+            AssetRenderer.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
             for Row in PlacementTiles {
-                Row.resize(AssetType.Size())
-                for var Cell in Row {
+                var row = Row
+                AssetRenderer.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
+                for var Cell in row {
                     var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
-                    if CTerrainMap.CanPlaceOn(TileType) {
+                    let cterrainmap = CTerrainMap()
+                    if cterrainmap.CanPlaceOn(type: TileType) {
                         Cell = 1
                     } else {
                         Cell = 0
@@ -760,8 +772,8 @@ class AssetRenderer {
                 XOff = 0
                 YOff = YOff + 1
             }
-            XOff = TempTilePosition.X() + AssetType.Size()
-            YOff = TempTilePosition.Y() + AssetType.Size()
+            XOff = TempTilePosition.X() + AssetType.DSize
+            YOff = TempTilePosition.Y() + AssetType.DSize
             for PlayerAsset in DPlayerMap.DAssets {
                 var MinX, MaxX, MinY, MaxY: Int
                 var Offset: Int = EAssetType.GoldMine == PlayerAsset.Type() ? 1 : 0
@@ -836,7 +848,8 @@ class AssetRenderer {
         } else {
             for AssetIterator in DPlayerMap.DAssetInitializationList {
                 var AssetColor: EPlayerColor = AssetIterator.DColor
-                var Size: Int = CPlayerAssetType.FindDefaultFromName(AssetIterator.DType).Size()
+                let cplayerassettype = CPlayerAssetType()
+                var Size: Int = cplayerassettype.FindDefaultFromName(name: AssetIterator.DType).DSize
 
                 ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
                 ResourceContext.Rectangle(xpos: AssetIterator.DTilePosition.X(), ypos: AssetIterator.DTilePosition.Y(), width: Size, height: Size)
