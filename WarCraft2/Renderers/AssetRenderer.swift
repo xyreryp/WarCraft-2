@@ -681,14 +681,14 @@ class AssetRenderer {
                         // ***
                         if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
                             Command = commandDAssetTarget.CurrentCommand()
-                            if Command.DActivatedCapability {
-                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
+                            if Command.DActivatedCapability {                                                                   //TODO: Not implemented in PLAYERASSET.SWIFT
+                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())   //TODO: Not implemented in PLAYERASSET.SWIFT
                                 
                                 Divisor = (0 != Divisor) ? Divisor : 1
                                 HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                             }
-                        } else if Command.DActivatedCapability {
-                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
+                        } else if Command.DActivatedCapability {                                                                //TODO: Not implemented in PLAYERASSET.SWIFT
+                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())       //TODO: Not implemented in PLAYERASSET.SWIFT
                             Divisor = (0 != Divisor) ? Divisor : 1
                             HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                         }
