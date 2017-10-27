@@ -690,12 +690,12 @@ class AssetRenderer {
                             Command = commandDAssetTarget.CurrentCommand()
 
                             if Command.DActivatedCapability { // TODO: wait for iOS
-                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
+                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(max: AssetIterator.MaxHitPoints())
                                 Divisor = (0 != Divisor) ? Divisor : 1
                                 HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                             }
                         } else if Command.DActivatedCapability { // TODO: wait for iOS
-                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints()) // TODO: wait for iOS
+                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(max: AssetIterator.MaxHitPoints()) // TODO: wait for iOS
                             Divisor = (0 != Divisor) ? Divisor : 1
                             HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                         }

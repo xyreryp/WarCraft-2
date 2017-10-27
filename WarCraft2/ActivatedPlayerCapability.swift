@@ -13,6 +13,7 @@ protocol PActivatedPlayerCapability {
     var DPlayerData: CPlayerData { get set }
     var DTarget: CPlayerAsset { get set }
 
+    init()
     init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset)
 
     func PercentComplete(max: Int) -> Int
@@ -22,10 +23,13 @@ protocol PActivatedPlayerCapability {
 
 class CActivatedPlayerCapability: PActivatedPlayerCapability {
 
-    var DActor: CPlayerAsset
-    var DPlayerData: CPlayerData
-    var DTarget: CPlayerAsset
+    var DActor: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+    var DPlayerData: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
+    var DTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
+    required init () {
+        
+    }
     required init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
         DActor = actor
         DPlayerData = playerdata
