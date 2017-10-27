@@ -10,7 +10,7 @@ struct SAssetCommand {
     var DAction: EAssetAction
     var DCapability: EAssetCapabilityType
     var DAssetTarget: CPlayerAsset
-    //    var DActivatedCapability: CActivatedPlayerCapability TODO
+    //    var DActivatedCapability: CActivatedPlayerCapability TODO: iOS
 }
 
 class CPlayerAsset {

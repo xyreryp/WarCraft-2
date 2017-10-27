@@ -677,7 +677,6 @@ class AssetRenderer {
                     if EAssetAction.Construct == CurrentAction {
                         var Command = AssetIterator.CurrentCommand()
 
-                        // ***
                         if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
                             Command = commandDAssetTarget.CurrentCommand()
                             if Command.DActivatedCapability { // TODO: Not implemented in PLAYERASSET.SWIFT
