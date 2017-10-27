@@ -25,6 +25,7 @@
 		8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCE1FA1BE46003E81E5 /* DataSink.swift */; };
 		8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */; };
 		883BFF0F1F99E255005239AA /* mountain.map in Resources */ = {isa = PBXBuildFile; fileRef = 883BFF0E1F99E255005239AA /* mountain.map */; };
+		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
 		9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */; };
 		9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */; };
@@ -376,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */,
 				E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */,
 				E14136B71F97F8530086A0A6 /* Scene.sks in Sources */,
 				E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */,
