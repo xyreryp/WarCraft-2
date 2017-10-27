@@ -62,16 +62,16 @@ public struct Queue<T> {
 
 class CRouterMap {
 
-    struct SEARCHTAEGET_TAG {
-        var DX: Int
-        var DY: Int
-        var DSteps: Int
-        var DTileType: CTerrainMap.ETileType
-        var DTargetDistanceSquared: Int
-        var DInDirection: EDirection
+    struct SEARCHTARGET_TAG {
+        var DX: Int = Int()
+        var DY: Int = Int()
+        var DSteps: Int = Int()
+        var DTileType: CTerrainMap.ETileType = CTerrainMap.ETileType.None
+        var DTargetDistanceSquared: Int = Int()
+        var DInDirection: EDirection = EDirection(rawValue: Int())!
     }
 
-    typealias SSearchTarget = SEARCHTAEGET_TAG
+    typealias SSearchTarget = SEARCHTARGET_TAG
 
     var DMap = [[Int]]()
     var DSearchTargets = [SSearchTarget]()
@@ -102,174 +102,178 @@ class CRouterMap {
         return false
     }
 
-    //    public func FindRoute(resmap: CAssetDecoratedMap, asset: CPlayerAsset, target: CPixelPosition) -> EDirection {
-    //        var MapWidth: Int = resmap.Width()
-    //        var MapHeight: Int = resmap.Height()
-    //        var StartX: Int = asset.TilePositionX()
-    //        var StartY: Int = asset.TilePositionY()
-    //        var CurrentSearch: SSearchTarget
-    //        var BestSearch: SSearchTarget
-    //        var TempSearch: SSearchTarget
-    //        var CurrentTile: CTilePosition
-    //        var TargetTile: CTilePosition
-    //        var TempTile: CTilePosition
-    //        var SearchDirections: [EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
-    //        var ResMapXOffsets: [Int] = [0,1,0,-1]
-    //        var ResMapYOffsets: [Int] = [-1,0,1,0]
-    //        var DiagCheckXOffset: [Int] = [0,1,1,1,0,-1,-1,-1]
-    //        var DiagCheckYOffset: [Int] = [-1,-1,0,1,1,1,0,-1]
-    //        var SearchDirectionCount: Int = SearchDirections.count
-    //        var LastInDirection: EDirection
-    //        var DirectionBeforeLast: EDirection
-    //        var SearchQueue = Queue<SSearchTarget>()
-    //
-    //        TargetTile.SetFromPixel(pos: target)
-    //        if((DMap.count != MapHeight + 2)||(DMap[0].count != MapWidth + 2)){
-    //            var LastYIndex: Int = MapHeight + 1
-    //            var LastXIndex: Int = MapWidth + 1
-    //            resize(array: &DMap, size: MapHeight + 2, defaultValue: [0])
-    //            for var Row in DMap {
-    //                resize(array: &Row, size: MapWidth + 2, defaultValue: 0)
-    //            }
-    //            for Index in 0..<DMap.count {
-    //                DMap[Index][0] = SEARCH_STATUS_VISITED
-    //                DMap[Index][LastXIndex] = SEARCH_STATUS_VISITED
-    //            }
-    //            for Index in 0..<MapWidth {
-    //                DMap[0][Index+1] = SEARCH_STATUS_VISITED
-    //                DMap[LastYIndex][Index+1] = SEARCH_STATUS_VISITED
-    //            }
-    //            CRouterMap.DMapWidth = MapWidth + 2;
-    //        }
-    //
-    //        if(asset.TilePosition() == TargetTile){
-    //            var DeltaX: Int = target.X() - asset.PositionX()
-    //            var DeltaY: Int = target.Y() - asset.PositionY()
-    //
-    //            if(0 < DeltaX){
-    //                if(0 < DeltaY){
-    //                    return EDirection.NorthEast
-    //                }
-    //                else if(0 > DeltaY){
-    //                    return EDirection.SouthEast
-    //                }
-    //                return EDirection.East
-    //            }
-    //            else if(0 > DeltaX){
-    //                if(0 < DeltaY){
-    //                    return EDirection.NorthWest
-    //                }
-    //                else if(0 > DeltaY){
-    //                    return EDirection.SouthWest
-    //                }
-    //                return EDirection.West
-    //            }
-    //            if(0 < DeltaY){
-    //                return EDirection.North
-    //            }
-    //            else if(0 > DeltaY){
-    //                return EDirection.South
-    //            }
-    //
-    //            return EDirection.Max
-    //        }
-    //
-    //        for Y in 0..<MapHeight {
-    //            for X in 0..<MapWidth {
-    //                DMap[Y+1][X+1] = SEARCH_STATUS_UNVISITED
-    //            }
-    //        }
-    //
-    //        for var Res in resmap.Assets() {
-    //            if(&asset != Res.get()){
-    //                if(EAssetType.None != Res.Type()){
-    //                    if((EAssetAction.Walk != Res.Action())||(asset.Color() != Res.Color())){
-    //                        if((asset.Color() != Res.Color())||((EAssetAction.ConveyGold != Res.Action())&&(EAssetAction.ConveyLumber != Res.Action())&&(EAssetAction.MineGold != Res.Action()))){
-    //                            for YOff in 0..<Res.count {
-    //                                for XOff in 0..<Res.count {
-    //                                    DMap[Res.TilePositionY() + YOff + 1][Res.TilePositionX() + XOff + 1] = SEARCH_STATUS_VISITED
-    //                                }
-    //                            }
-    //                        }
-    //                    }
-    //                    else{
-    //                        DMap[Res.TilePositionY() + 1][Res.TilePositionX() + 1] = SEARCH_STATUS_OCCUPIED - (Res.Direction().rawValue)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //
-    //        var DIdealSearchDirection = asset.Direction()
-    //        var CurrentTile = asset.TilePosition()
-    //        var CurrentSearch.DX = BestSearch.DX = CurrentTile.X()
-    //        CurrentSearch.DY = BestSearch.DY = CurrentTile.Y()
-    //        CurrentSearch.DSteps = 0
-    //        CurrentSearch.DTargetDistanceSquared = BestSearch.DTargetDistanceSquared = CurrentTile.DistanceSquared(TargetTile)
-    //        CurrentSearch.DInDirection = BestSearch.DInDirection = EDirection.Max
-    //        DMap[StartY+1][StartX+1] = SEARCH_STATUS_VISITED;
-    //    while(true){
-    //        if(CurrentTile == TargetTile){
-    //            BestSearch = CurrentSearch
-    //            break
-    //        }
-    //        if(CurrentSearch.DTargetDistanceSquared < BestSearch.DTargetDistanceSquared){
-    //            BestSearch = CurrentSearch
-    //        }
-    //        for Index in 0..< SearchDirectionCount {
-    //            TempTile.X(CurrentSearch.DX + ResMapXOffsets[Index])
-    //            TempTile.Y(CurrentSearch.DY + ResMapYOffsets[Index])
-    //            if((SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1])||MovingAway(SearchDirecitons[Index], (EDirection)(SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1]))){
-    //                DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
-    //                CTerrainMap::ETileType CurTileType = resmap.TileType(TempTile.X(), TempTile.Y())
-    //                //if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
-    //                if(CTerrainMap::IsTraversable(CurTileType)){
-    //                    TempSearch.DX = TempTile.X()
-    //                    TempSearch.DY = TempTile.Y()
-    //                    TempSearch.DSteps = CurrentSearch.DSteps + 1
-    //                    TempSearch.DTileType = CurTileType
-    //                    TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(TargetTile)
-    //                    TempSearch.DInDirection = SearchDirecitons[Index]
-    //                    SearchQueue.push(TempSearch)
-    //                }
-    //            }
-    //        }
-    //        if(SearchQueue.isEmpty){
-    //            break
-    //        }
-    //        CurrentSearch = SearchQueue.front()
-    //        SearchQueue.pop()
-    //        CurrentTile.X(CurrentSearch.DX)
-    //        CurrentTile.Y(CurrentSearch.DY)
-    //    }
-    //    DirectionBeforeLast = LastInDirection = BestSearch.DInDirection
-    //    CurrentTile.X(BestSearch.DX)
-    //    CurrentTile.Y(BestSearch.DY)
-    //    while((CurrentTile.X() != StartX)||(CurrentTile.Y() != StartY)){
-    //        int Index = DMap[CurrentTile.Y()+1][CurrentTile.X()+1]
-    //
-    //        if((0 > Index)||(SearchDirectionCount <= Index)){
-    //            exit(0);
-    //        }
-    //        DirectionBeforeLast = LastInDirection
-    //        LastInDirection = SearchDirecitons[Index]
-    //        CurrentTile.DecrementX(ResMapXOffsets[Index])
-    //        CurrentTile.DecrementY(ResMapYOffsets[Index])
-    //    }
-    //    if(DirectionBeforeLast != LastInDirection){
-    //        CTerrainMap.ETileType CurTileType = resmap.TileType(StartX + DiagCheckXOffset[to_underlying(DirectionBeforeLast)], StartY + DiagCheckYOffset[to_underlying(DirectionBeforeLast)])
-    //        //if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
-    //        if(CTerrainMap.IsTraversable(CurTileType)){
-    //            int Sum = to_underlying(LastInDirection) + to_underlying(DirectionBeforeLast);
-    //            if((6 == Sum)&&((EDirection::North == LastInDirection) || (EDirection::North == DirectionBeforeLast))){ // NW wrap around
-    //                Sum += 8
-    //            }
-    //            Sum /= 2
-    //            LastInDirection = static_cast<EDirection>(Sum)
-    //        }
-    //    }
-    //
-    //    return LastInDirection
-    // }
+    public func FindRoute(resmap: CAssetDecoratedMap, asset: CPlayerAsset, target: CPixelPosition) -> EDirection {
+        var MapWidth: Int = resmap.Width()
+        var MapHeight: Int = resmap.Height()
+        var StartX: Int = asset.TilePositionX()
+        var StartY: Int = asset.TilePositionY()
+        var CurrentSearch: SSearchTarget =  SSearchTarget() //SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#Int#>)
+        var BestSearch: SSearchTarget =  SSearchTarget() //SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
+        var TempSearch: SSearchTarget = SSearchTarget() //SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
+        var CurrentTile: CTilePosition
+        var TargetTile: CTilePosition = CTilePosition()
+        var TempTile: CTilePosition = CTilePosition()
+        var SearchDirections: [EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
+        var ResMapXOffsets: [Int] = [0,1,0,-1]
+        var ResMapYOffsets: [Int] = [-1,0,1,0]
+        var DiagCheckXOffset: [Int] = [0,1,1,1,0,-1,-1,-1]
+        var DiagCheckYOffset: [Int] = [-1,-1,0,1,1,1,0,-1]
+        var SearchDirectionCount: Int = SearchDirections.count
+        var LastInDirection: EDirection
+        var DirectionBeforeLast: EDirection
+        var SearchQueue = Queue<SSearchTarget>()
 
-    //    }
+        TargetTile.SetFromPixel(pos: target)
+        if((DMap.count != MapHeight + 2)||(DMap[0].count != MapWidth + 2)){
+            var LastYIndex: Int = MapHeight + 1
+            var LastXIndex: Int = MapWidth + 1
+            resize(array: &DMap, size: MapHeight + 2, defaultValue: [Int()])
+            for var Row in DMap {
+                resize(array: &Row, size: MapWidth + 2, defaultValue: Int())
+            }
+            for Index in 0..<DMap.count {
+                DMap[Index][0] = SEARCH_STATUS_VISITED
+                DMap[Index][LastXIndex] = SEARCH_STATUS_VISITED
+            }
+            for Index in 0..<MapWidth {
+                DMap[0][Index+1] = SEARCH_STATUS_VISITED
+                DMap[LastYIndex][Index+1] = SEARCH_STATUS_VISITED
+            }
+            CRouterMap.DMapWidth = MapWidth + 2;
+        }
+
+        if(asset.TilePosition() == TargetTile){
+            var DeltaX: Int = target.X() - asset.PositionX()
+            var DeltaY: Int = target.Y() - asset.PositionY()
+
+            if(0 < DeltaX){
+                if(0 < DeltaY){
+                    return EDirection.NorthEast
+                }
+                else if(0 > DeltaY){
+                    return EDirection.SouthEast
+                }
+                return EDirection.East
+            }
+            else if(0 > DeltaX){
+                if(0 < DeltaY){
+                    return EDirection.NorthWest
+                }
+                else if(0 > DeltaY){
+                    return EDirection.SouthWest
+                }
+                return EDirection.West
+            }
+            if(0 < DeltaY){
+                return EDirection.North
+            }
+            else if(0 > DeltaY){
+                return EDirection.South
+            }
+
+            return EDirection.Max
+        }
+
+        for Y in 0..<MapHeight {
+            for X in 0..<MapWidth {
+                DMap[Y+1][X+1] = SEARCH_STATUS_UNVISITED
+            }
+        }
+
+        for var Res in resmap.DAssets {
+            if(asset != Res){
+                if(EAssetType.None != Res.Type()){
+                    if((EAssetAction.Walk != Res.Action())||(asset.Color() != Res.Color())){
+                        if((asset.Color() != Res.Color())||((EAssetAction.ConveyGold != Res.Action())&&(EAssetAction.ConveyLumber != Res.Action())&&(EAssetAction.MineGold != Res.Action()))){
+                            for YOff in 0..<Res.Size() {
+                                for XOff in 0..<Res.Size() {
+                                    DMap[Res.TilePositionY() + YOff + 1][Res.TilePositionX() + XOff + 1] = SEARCH_STATUS_VISITED
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        DMap[Res.TilePositionY() + 1][Res.TilePositionX() + 1] = SEARCH_STATUS_OCCUPIED - (Res.DDirection.rawValue)
+                    }
+                }
+            }
+        }
+
+        CRouterMap.DIdealSearchDirection = asset.DDirection
+        CurrentTile = asset.TilePosition()
+        CurrentSearch.DX = CurrentTile.X()
+        BestSearch.DX = CurrentTile.X()
+        CurrentSearch.DY = CurrentTile.Y()
+        BestSearch.DY = CurrentTile.Y()
+        CurrentSearch.DSteps = 0
+        CurrentSearch.DTargetDistanceSquared = CurrentTile.DistanceSquared(pos: TargetTile)
+        BestSearch.DTargetDistanceSquared = CurrentTile.DistanceSquared(pos: TargetTile)
+        CurrentSearch.DInDirection = EDirection.Max
+        BestSearch.DInDirection = EDirection.Max
+        DMap[StartY+1][StartX+1] = SEARCH_STATUS_VISITED;
+    while(true){
+        if(CurrentTile == TargetTile){
+            BestSearch = CurrentSearch
+            break
+        }
+        if(CurrentSearch.DTargetDistanceSquared < BestSearch.DTargetDistanceSquared){
+            BestSearch = CurrentSearch
+        }
+        for Index in 0..<SearchDirectionCount {
+            TempTile.X(x: CurrentSearch.DX + ResMapXOffsets[Index])
+            TempTile.Y(y: CurrentSearch.DY + ResMapYOffsets[Index])
+            if((SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1])||CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: (EDirection)(rawValue: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1])!)){
+                DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
+                var CurTileType: CTerrainMap.ETileType  = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
+                //if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
+                if(CTerrainMap.IsTraversable(type: CurTileType)){
+                    TempSearch.DX = TempTile.X()
+                    TempSearch.DY = TempTile.Y()
+                    TempSearch.DSteps = CurrentSearch.DSteps + 1
+                    TempSearch.DTileType = CurTileType
+                    TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(pos: TargetTile)
+                    TempSearch.DInDirection = SearchDirections[Index]
+                    SearchQueue.enqueue(TempSearch)
+                }
+            }
+        }
+        if(SearchQueue.isEmpty){
+            break
+        }
+        CurrentSearch = SearchQueue.front!
+        SearchQueue.dequeue()
+        CurrentTile.X(x: CurrentSearch.DX)
+        CurrentTile.Y(y: CurrentSearch.DY)
+    }
+    DirectionBeforeLast = BestSearch.DInDirection
+    LastInDirection = BestSearch.DInDirection
+        CurrentTile.X(x: BestSearch.DX)
+        CurrentTile.Y(y: BestSearch.DY)
+    while((CurrentTile.X() != StartX)||(CurrentTile.Y() != StartY)){
+        var Index: Int = DMap[CurrentTile.Y()+1][CurrentTile.X()+1]
+
+        if((0 > Index)||(SearchDirectionCount <= Index)){
+            exit(0);
+        }
+        DirectionBeforeLast = LastInDirection
+        LastInDirection = SearchDirections[Index]
+        CurrentTile.DecrementX(x: ResMapXOffsets[Index])
+        CurrentTile.DecrementY(y: ResMapYOffsets[Index])
+    }
+    if(DirectionBeforeLast != LastInDirection){
+        var CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: StartX + DiagCheckXOffset[(DirectionBeforeLast.rawValue)], yindex: StartY + DiagCheckYOffset[(DirectionBeforeLast.rawValue)])
+        //if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
+        if(CTerrainMap.IsTraversable(type: CurTileType)){
+            var Sum: Int = (LastInDirection.rawValue) + (DirectionBeforeLast.rawValue)
+            if((6 == Sum)&&((EDirection.North == LastInDirection) || (EDirection.North == DirectionBeforeLast))){ // NW wrap around
+                Sum += 8
+            }
+            Sum /= 2
+            
+            LastInDirection = EDirection(rawValue: Sum)!
+        }
+    }
+
+    return LastInDirection
+ }
 }
