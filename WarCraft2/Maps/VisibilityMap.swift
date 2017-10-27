@@ -56,18 +56,18 @@ class CVisibilityMap: PVisibilityMap {
         DTotalMapTiles = map.DTotalMapTiles
         DUnseenTiles = map.DUnseenTiles
     }
-    
+
     func TileType(xindex: Int, yindex: Int) -> ETileVisibility {
-        if((-DMaxVisibility > xindex) || (-DMaxVisibility > yindex)) {
+        if (-DMaxVisibility > xindex) || (-DMaxVisibility > yindex) {
             return ETileVisibility.None
         }
-        if(DMap.count <= yindex + DMaxVisibility) {
+        if DMap.count <= yindex + DMaxVisibility {
             return ETileVisibility.None
         }
-        if(DMap[yindex+DMaxVisibility].count <= xindex+DMaxVisibility) {
+        if DMap[yindex + DMaxVisibility].count <= xindex + DMaxVisibility {
             return ETileVisibility.None
         }
-        return DMap[yindex+DMaxVisibility][xindex+DMaxVisibility]
+        return DMap[yindex + DMaxVisibility][xindex + DMaxVisibility]
     }
 
     func SeenPercent(max: Int) -> Int {
