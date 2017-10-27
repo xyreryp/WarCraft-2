@@ -37,6 +37,7 @@
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
 		A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5891F8AD924005007C4 /* PixelPosition.swift */; };
 		A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AE6E601F92A95200D40A86 /* PixelType.swift */; };
+		A1B255841FA3A51000905A45 /* ActivatedPlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B255831FA3A51000905A45 /* ActivatedPlayerCapability.swift */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
@@ -91,6 +92,7 @@
 		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
 		A1AAF5891F8AD924005007C4 /* PixelPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPosition.swift; sourceTree = "<group>"; };
 		A1AE6E601F92A95200D40A86 /* PixelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelType.swift; sourceTree = "<group>"; };
+		A1B255831FA3A51000905A45 /* ActivatedPlayerCapability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivatedPlayerCapability.swift; path = WarCraft2/ActivatedPlayerCapability.swift; sourceTree = SOURCE_ROOT; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F91F85DF8F004379F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */,
+				A1B255831FA3A51000905A45 /* ActivatedPlayerCapability.swift */,
 				9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */,
 				9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */,
 				9B64D61D1FA05AEB00C39977 /* PlayerData.swift */,
@@ -393,6 +396,7 @@
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
+				A1B255841FA3A51000905A45 /* ActivatedPlayerCapability.swift in Sources */,
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,

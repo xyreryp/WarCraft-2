@@ -679,14 +679,14 @@ class AssetRenderer {
 
                         if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
                             Command = commandDAssetTarget.CurrentCommand()
-                            if Command.DActivatedCapability { // TODO: Not implemented in PLAYERASSET.SWIFT
-                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints()) // TODO: Not implemented in PLAYERASSET.SWIFT
 
+                            if Command.DActivatedCapability { // TODO: wait for iOS
+                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
                                 Divisor = (0 != Divisor) ? Divisor : 1
                                 HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                             }
-                        } else if Command.DActivatedCapability { // TODO: Not implemented in PLAYERASSET.SWIFT
-                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints()) // TODO: Not implemented in PLAYERASSET.SWIFT
+                        } else if Command.DActivatedCapability { // TODO: wait for iOS
+                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints()) // TODO: wait for iOS
                             Divisor = (0 != Divisor) ? Divisor : 1
                             HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                         }
@@ -729,7 +729,8 @@ class AssetRenderer {
             var TempTilePosition: CTilePosition
             var PlacementRightX, PlacementBottomY: Int
             var OnScreen: Bool = true
-            var AssetType = CPlayerAssetType.FindDefaultFromType(type)
+            var playerassettype = CPlayerAssetType()
+            var AssetType = playerassettype.FindDefaultFromType(type: type)
             var PlacementTiles: [[Int]] = [[]]
             var XOff, YOff: Int
 
