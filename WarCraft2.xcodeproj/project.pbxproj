@@ -16,6 +16,7 @@
 		4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */; };
 		4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA30961F888C28006C46D5 /* MainWindowController.swift */; };
 		4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */; };
+		52A54EDE1FA3D9AA00995FF5 /* AIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */; };
 		52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F39C321F995A0B0099329A /* TextFormatter.swift */; };
 		6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */; };
 		6BD98D381F9010EE00EDC2ED /* HandlingMouseClicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */; };
@@ -71,7 +72,7 @@
 		4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPlayerGameOptionsViewController.swift; sourceTree = "<group>"; };
 		4BBA30961F888C28006C46D5 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
-		52DB596A1F9A923100BA1183 /* AIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlayer.swift; sourceTree = "<group>"; };
+		52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlayer.swift; sourceTree = "<group>"; };
 		52F39C321F995A0B0099329A /* TextFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatter.swift; sourceTree = "<group>"; };
 		6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGenerator.swift; sourceTree = "<group>"; };
 		6BC677471F8C186D00953C3A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
-				52DB596A1F9A923100BA1183 /* AIPlayer.swift */,
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -273,6 +273,7 @@
 		E1B45E341F9D513D009D9BF1 /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */,
 				E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */,
 				9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */,
 				9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */,
@@ -393,6 +394,7 @@
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
+				52A54EDE1FA3D9AA00995FF5 /* AIPlayer.swift in Sources */,
 				DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */,
 				DDBAC41C1F987E2B0075BB57 /* GraphicMulticolorTileset.swift in Sources */,
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,

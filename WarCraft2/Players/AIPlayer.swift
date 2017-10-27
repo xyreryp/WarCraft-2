@@ -1,5 +1,5 @@
 //
-//  ListViewRenderer.swift
+//  AIPlayer.swift
 //  WarCraft2
 //
 //  Created by Sam Shahriary on 10/20/17.
