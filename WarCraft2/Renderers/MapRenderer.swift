@@ -31,7 +31,7 @@ protocol PMapRenderer {
     func DrawMiniMap(surface: SKScene)
 }
 
-final class CMapRenderer: PMapRenderer {
+class CMapRenderer: PMapRenderer {
     var DTileset: CGraphicTileset
     var DDMap: CTerrainMap
     var DTileIndices: [[[Int]]]
@@ -47,7 +47,7 @@ final class CMapRenderer: PMapRenderer {
     }
 
     //    // huge constructor
-    init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
+    required init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
         // For the mini map rendering: @source
         //        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
