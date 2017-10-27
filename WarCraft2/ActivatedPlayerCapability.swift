@@ -27,9 +27,9 @@ class CActivatedPlayerCapability: PActivatedPlayerCapability {
     var DPlayerData: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
     var DTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
-    required init () {
-        
+    required init() {
     }
+
     required init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
         DActor = actor
         DPlayerData = playerdata

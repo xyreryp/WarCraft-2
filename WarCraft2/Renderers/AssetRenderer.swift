@@ -37,7 +37,7 @@ class AssetRenderer {
     static var DAnimationDownsample: Int = 1
 
     init(colors: CGraphicRecolorMap, tilesets: [CGraphicMulticolorTileset], markertileset: CGraphicTileset, corpsetileset: CGraphicTileset, firetileset: [CGraphicTileset], buildingdeath: CGraphicTileset, arrowtileset: CGraphicTileset, player: CPlayerData, map: CAssetDecoratedMap) {
-        var TypeIndex: Int
+        var TypeIndex: Int = 0
         var MarkerIndex: Int = 0
         DTilesets = tilesets
         DMarkerTileset = markertileset
@@ -344,7 +344,7 @@ class AssetRenderer {
         var FinalRenderList = [SAssetRenderData]()
 
         for AssetIterator in DPlayerMap.DAssets {
-            var TempRenderData: SAssetRenderData
+            var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
             if EAssetType.None == TempRenderData.DType {
                 continue
@@ -353,7 +353,7 @@ class AssetRenderer {
                 let PixelType = CPixelType(asset: AssetIterator)
                 var RightX: Int
 
-                let cposition: CPosition
+                let cposition: CPosition = CPosition()
                 TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * cposition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
                 TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * cposition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
                 TempRenderData.DPixelColor = PixelType.toPixelColor()
@@ -498,7 +498,7 @@ class AssetRenderer {
 
             ResourceContext.SetSourceRGB(rgb: RectangleColor)
             for AssetIterator in DPlayerMap.DAssets {
-                var TempRenderData: SAssetRenderData
+                var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
                 TempRenderData.DType = AssetIterator.Type()
                 if EAssetType.None == TempRenderData.DType {
                     continue
@@ -508,7 +508,7 @@ class AssetRenderer {
                         var RightX: Int
                         let Offset: Int = EAssetType.GoldMine == TempRenderData.DType ? 1 : 0
 
-                        let cposition: CPosition
+                        let cposition: CPosition = CPosition()
                         TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * cposition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
                         TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * cposition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
                         TempRenderData.DX = TempRenderData.DX - Offset * cposition.TileWidth()
@@ -562,7 +562,7 @@ class AssetRenderer {
             // if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
 
             if let LockedAsset: CPlayerAsset = AssetIterator {
-                var TempRenderData: SAssetRenderData
+                var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
                 TempRenderData.DType = LockedAsset.Type()
                 if EAssetType.None == TempRenderData.DType {
                     if EAssetAction.Decay == LockedAsset.Action() {
@@ -621,7 +621,7 @@ class AssetRenderer {
                     var RightX, RectWidth, RectHeight: Int
                     var OnScreen: Bool = true
 
-                    let cposition: CPosition
+                    let cposition: CPosition = CPosition()
                     TempRenderData.DX = LockedAsset.PositionX() - cposition.HalfTileWidth()
                     TempRenderData.DY = LockedAsset.PositionY() - cposition.HalfTileHeight()
                     RectWidth = cposition.TileWidth() * LockedAsset.Size()
@@ -651,7 +651,7 @@ class AssetRenderer {
         var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
 
         for AssetIterator in DPlayerMap.DAssets {
-            var TempRenderData: SAssetRenderData
+            var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
             if EAssetType.None == TempRenderData.DType {
                 if EAssetAction.Attack == AssetIterator.Action() {
@@ -689,12 +689,12 @@ class AssetRenderer {
                         if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
                             Command = commandDAssetTarget.CurrentCommand()
 
-                            if let activeCapability:CActivatedPlayerCapability? = Command.DActivatedCapability {
+                            if let activeCapability: CActivatedPlayerCapability? = Command.DActivatedCapability {
                                 var Divisor: Int = activeCapability!.PercentComplete(max: AssetIterator.MaxHitPoints())
                                 Divisor = (0 != Divisor) ? Divisor : 1
                                 HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                             }
-                        } else if let activeCapability:CActivatedPlayerCapability? = Command.DActivatedCapability {
+                        } else if let activeCapability: CActivatedPlayerCapability? = Command.DActivatedCapability {
                             var Divisor: Int = activeCapability!.PercentComplete(max: AssetIterator.MaxHitPoints())
                             Divisor = (0 != Divisor) ? Divisor : 1
                             HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
@@ -705,7 +705,7 @@ class AssetRenderer {
                         var TilesetIndex: Int = DFireTilesets.count - 1 - HitRange
                         var RightX: Int
 
-                        let cposition: CPosition
+                        let cposition: CPosition = CPosition()
                         TempRenderData.DTileIndex = ((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % DFireTilesets[TilesetIndex].TileCount()
                         TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * cposition.HalfTileWidth() - DFireTilesets[TilesetIndex].TileHalfWidth()
                         TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * cposition.HalfTileHeight() - DFireTilesets[TilesetIndex].TileHeight()
@@ -734,8 +734,8 @@ class AssetRenderer {
         var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
 
         if EAssetType.None != type {
-            var TempPosition: CPixelPosition
-            var TempTilePosition: CTilePosition
+            var TempPosition: CPixelPosition = CPixelPosition()
+            var TempTilePosition: CTilePosition = CTilePosition()
             var PlacementRightX, PlacementBottomY: Int
             var OnScreen: Bool = true
             var playerassettype = CPlayerAssetType()
