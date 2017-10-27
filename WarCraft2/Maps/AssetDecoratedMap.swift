@@ -161,7 +161,7 @@ class CAssetDecoratedMap: CTerrainMap {
         for YOff in stride(from: 0, to: size, by: 1) {
             for XOff in stride(from: 0, to: size, by: 1) {
                 let TileTerrainType = TileType(xindex: pos.X() + XOff, yindex: pos.Y() + YOff)
-                if !CanPlaceOn(type: TileTerrainType) {
+                if !CTerrainMap.CanPlaceOn(type: TileTerrainType) {
                     return false
                 }
             }
@@ -664,7 +664,7 @@ class CAssetDecoratedMap: CTerrainMap {
                         return CTilePosition(x: TempSearch.DX - 1, y: TempSearch.DY - 1)
                     }
                     // if((ETileType::Grass == CurTileType)||(ETileType::Dirt == CurTileType)||(ETileType::Stump == CurTileType)||(ETileType::Rubble == CurTileType)||(ETileType::None == CurTileType)){
-                    if IsTraversable(type: CurTileType) {
+                    if CTerrainMap.IsTraversable(type: CurTileType) {
                         SearchQueue.append(TempSearch)
                     }
                 }
