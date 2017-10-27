@@ -40,7 +40,7 @@ class CPlayerUpgrade {
     // TODO: how are we gonna do lineSource
     func Load(source: CDataSource) -> Bool {
         let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
-        var Name: String
+        var Name: String = ""
         var TempString: String
         var PlayerUpgrade: CPlayerUpgrade
         var UpgradeType: EAssetCapabilityType

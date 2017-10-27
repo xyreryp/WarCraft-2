@@ -54,6 +54,7 @@
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
 		E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */ = {isa = PBXBuildFile; fileRef = E199367D1F9BEE7F0064CA77 /* Terrain.dat */; };
+		E1D47D981FA2DC4B00EFA5E4 /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
 /* End PBXBuildFile section */
@@ -384,6 +385,7 @@
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
 				4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
+				E1D47D981FA2DC4B00EFA5E4 /* MapRenderer.swift in Sources */,
 				8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */,
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
