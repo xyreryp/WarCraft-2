@@ -122,7 +122,7 @@ class CViewportRenderer {
         // initially all values are zero, values are assigned a few lines below
         var TempRectangle: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         var PlaceType: EAssetType = EAssetType.None
-        var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAsset)
+        var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
         DLastViewportWidth = surface.Width()
         DLastViewportHeight = surface.Height()
@@ -155,7 +155,7 @@ class CViewportRenderer {
         default:
             break // do nothing
         }
-
+        // FIXME:
         DMapRenderer.DrawMap(surface: surface as! SKScene, typesurface: typesurface as! SKScene, rect: TempRectangle)
         DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
                                       selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
