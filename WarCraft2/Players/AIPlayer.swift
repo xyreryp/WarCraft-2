@@ -33,17 +33,17 @@ class CAIPlayer {
         var MovableAsset: CPlayerAsset?
 
         for Asset in IdleAssets {
-            if (Asset.Speed() != 0){                             //check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
+            if Asset.Speed() != 0 { // check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
                 MovableAsset = Asset
                 break
             }
         }
 
-        if MovableAsset != Nill {
-            var UnknownPosition: CTilePosition = DPlayerData.PlayerMap().FindNearestReachableTileType(MovableAsset.TilePosition(), CTerrainMap.ETileType.None)
+        if MovableAsset != nil {
+            var UnknownPosition: CTilePosition = DPlayerData.DPlayerMap.FindNearestReachableTileType(pos: MovableAsset!.TilePosition(), type: CTerrainMap.ETileType.None)
             if 0 <= UnknownPosition.X() {
                 command.DAction = EAssetCapabilityType.Move
-                command.DActors.append(MovableAsset)
+                command.DActors.append(MovableAsset!)
                 command.DTargetLocation.SetFromTile(pos: UnknownPosition)
                 return true
             }
@@ -52,15 +52,15 @@ class CAIPlayer {
     }
 
     func FindEnemies(command: inout SPlayerCommandRequest) -> Bool {
-        var TownHallAsset: CPlayerAsset
+        var TownHallAsset: CPlayerAsset?
 
-        for Asset in DPlayerData.Assets() { // weak_ptr.lock() ignored again
-            if Asset.HasCapability(EAssetCapabilityType.BuildPeasant) {
+        for Asset in DPlayerData.DAssets { // weak_ptr.lock() ignored again
+            if Asset.HasCapability(capability: EAssetCapabilityType.BuildPeasant) {
                 TownHallAsset = Asset
                 break
             }
         }
-        if(DPlayerData.FindNearestEnemy(pos: TownHallAsset.Position(), range: -1).expired()) {
+        if DPlayerData.FindNearestEnemy(pos: TownHallAsset!.Position(), range: -1).expired() {
             return SearchMap(command: &command)
         }
         return false
@@ -69,9 +69,9 @@ class CAIPlayer {
     func AttackEnemies(command: inout SPlayerCommandRequest) -> Bool {
         var AverageLocation = CPixelPosition(x: 0, y: 0)
 
-        for Asset in DPlayerData.Assets() {
+        for Asset in DPlayerData.DAssets {
             if (EAssetType.Footman == Asset.Type()) || (EAssetType.Archer == Asset.Type()) || (EAssetType.Ranger == Asset.Type()) {
-                if !Asset.HasAction(EAssetAction.Attack) {
+                if !Asset.HasAction(action: EAssetAction.Attack) {
                     command.DActors.append(Asset)
                     AverageLocation.IncrementX(x: Asset.PositionX())
                     AverageLocation.IncrementY(y: Asset.PositionY())
@@ -79,13 +79,13 @@ class CAIPlayer {
             }
         }
 
-        if command.DActors.count { // DActors not written yet for SPlayerCommandRequest
+        if command.DActors.count != 0 {
             AverageLocation.X(x: AverageLocation.X() / command.DActors.count)
             AverageLocation.Y(y: AverageLocation.Y() / command.DActors.count)
 
             var TargetEnemy = DPlayerData.FindNearestEnemy(AverageLocation, -1).lock()
             if !TargetEnemy {
-                command.DActors.clear()
+                command.DActors.removeAll()
                 return SearchMap(command: &command)
             }
             command.DAction = EAssetCapabilityType.Attack
@@ -99,7 +99,7 @@ class CAIPlayer {
 
     func BuildTownHall(command: inout SPlayerCommandRequest) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
-        var BuilderAsset: CPlayerAsset
+        var BuilderAsset: CPlayerAsset?
 
         for Asset in IdleAssets {
             if Asset.HasCapability(EAssetCapabilityType.BuildTownHall) {
@@ -108,12 +108,12 @@ class CAIPlayer {
             }
         }
 
-        if BuilderAsset {
+        if BuilderAsset != nil {
             var GoldMineAsset = DPlayerData.FindNearestAsset(BuilderAsset.Position(), EAssetType.GoldMine)
             var Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(GoldMineAsset.TilePosition(), BuilderAsset, EAssetType.TownHall, 1)
             if 0 <= Placement.X() {
                 command.DAction = EAssetCapabilityType.BuildTownHall
-                command.DActors.append(BuilderAsset)
+                command.DActors.append(BuilderAsset!)
                 command.DTargetLocation.SetFromTile(pos: Placement)
                 return true
             } else {
@@ -125,10 +125,10 @@ class CAIPlayer {
 
     func BuildBuilding(command: inout SPlayerCommandRequest, buildingtype: EAssetType, neartype: EAssetType) -> Bool {
 
-        var BuilderAsset: CPlayerAsset
-        var TownHallAsset: CPlayerAsset
-        var NearAsset: CPlayerAsset
-        var BuildAction: EAssetCapabilityType
+        var BuilderAsset: CPlayerAsset?
+        var TownHallAsset: CPlayerAsset?
+        var NearAsset: CPlayerAsset?
+        var BuildAction: EAssetCapabilityType?
         var AssetIsIdle: Bool = false
 
         switch buildingtype {
@@ -146,17 +146,17 @@ class CAIPlayer {
             break
         }
 
-        for Asset in DPlayerData.Assets() {
-            if Asset.HasCapability(BuildAction) && Asset.Interruptible() {
-                if !BuilderAsset || (!AssetIsIdle && (EAssetAction.None == Asset.Action())) {
+        for Asset in DPlayerData.DAssets {
+            if Asset.HasCapability(capability: BuildAction!) && Asset.Interruptible() {
+                if BuilderAsset == nil || (!AssetIsIdle && (EAssetAction.None == Asset.Action())) {
                     BuilderAsset = Asset
                     AssetIsIdle = EAssetAction.None == Asset.Action()
                 }
             }
-            if Asset.HasActiveCapability(EAssetCapabilityType.BuildPeasant) {
+            if Asset.HasActiveCapability(capability: EAssetCapabilityType.BuildPeasant) {
                 TownHallAsset = Asset
             }
-            if Asset.HasActiveCapability(BuildAction) {
+            if Asset.HasActiveCapability(capability: BuildAction!) {
                 return false
             }
             if (neartype == Asset.Type()) && (EAssetAction.Construct != Asset.Action()) {
@@ -169,26 +169,26 @@ class CAIPlayer {
             }
         }
 
-        if (buildingtype != neartype) && !NearAsset {
+        if (buildingtype != neartype) && NearAsset == nil {
             return false
         }
-        if BuilderAsset {
+        if BuilderAsset != nil {
             var PlayerCapability = CPlayerCapability.FindCapability(BuildAction)
-            var SourcePosition: CTilePosition = TownHallAsset.TilePosition()
-            var MapCenter = CTilePosition(x: DPlayerData.PlayerMap().Width / 2, y: DPlayerData.PlayerMap().Height() / 2)
+            var SourcePosition: CTilePosition = TownHallAsset!.TilePosition()
+            var MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width()/2, y: DPlayerData.DPlayerMap.Height()/2)
 
-            if NearAsset {
-                SourcePosition = NearAsset.TilePosition()
+            if NearAsset != nil {
+                SourcePosition = NearAsset!.TilePosition()
             }
             if MapCenter.X() < SourcePosition.X() {
-                SourcePosition.DecrementX(x: TownHallAsset.Size() / 2)
+                SourcePosition.DecrementX(x: TownHallAsset!.Size() / 2)
             } else if MapCenter.X() > SourcePosition.X() {
-                SourcePosition.IncrementX(x: TownHallAsset.Size() / 2)
+                SourcePosition.IncrementX(x: TownHallAsset!.Size() / 2)
             }
             if MapCenter.Y() < SourcePosition.Y() {
-                SourcePosition.DecrementY(y: TownHallAsset.Size() / 2)
+                SourcePosition.DecrementY(y: TownHallAsset!.Size() / 2)
             } else if MapCenter.Y() > SourcePosition.Y() {
-                SourcePosition.IncrementY(y: TownHallAsset.Size() / 2)
+                SourcePosition.IncrementY(y: TownHallAsset!.Size() / 2)
             }
 
             var Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(SourcePosition, BuilderAsset, buildingtype, 1)
@@ -198,8 +198,8 @@ class CAIPlayer {
             if PlayerCapability {
                 if PlayerCapability.CanInitiate(BuilderAsset, DPlayerData) {
                     if 0 <= Placement.X() {
-                        command.DAction = BuildAction
-                        command.DActors.push_back(BuilderAsset)
+                        command.DAction = BuildAction!
+                        command.DActors.append(BuilderAsset!)
                         command.DTargetLocation.SetFromTile(pos: Placement)
                         return true
                     }
@@ -212,31 +212,34 @@ class CAIPlayer {
 
     func ActivatePeasants(command: inout SPlayerCommandRequest, trainmore: Bool) -> Bool {
 
-        var MiningAsset: CPlayerAsset
-        var InterruptibleAsset: CPlayerAsset
-        var TownHallAsset: CPlayerAsset
+        var MiningAsset: CPlayerAsset?
+        var InterruptibleAsset: CPlayerAsset?
+        var TownHallAsset: CPlayerAsset?
         var GoldMiners: Int = 0
         var LumberHarvesters: Int = 0
         var SwitchToGold: Bool = false
         var SwitchToLumber: Bool = false
 
-        for Asset in DPlayerData.Assets() {
+        for Asset in DPlayerData.DAssets {
 
-            if Asset.HasCapability(EAssetCapabilityType.Mine) {
-                if !MiningAsset && (EAssetAction.None == Asset.Action()) {
+            if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
+                if MiningAsset == nil && (EAssetAction.None == Asset.Action()) {
                     MiningAsset = Asset
                 }
+                if Asset.HasAction(action: EAssetAction.MineGold) {
+                    GoldMiners += 1
+                    if Asset.Interruptible() && (EAssetAction.None != Asset.Action()) {
+                        InterruptibleAsset = Asset
+                    }
+                } else if Asset.HasAction(action: EAssetAction.HarvestLumber) {
+                    LumberHarvesters += 1
+                    if Asset.Interruptible() && (EAssetAction.None != Asset.Action()) {
+                        InterruptibleAsset = Asset
+                    }
+                }
             }
-            if Asset.HasAction(EAssetAction.MineGold) {
-                GoldMiners++
-                if Asset.Interruptible() && (EAssetAction.None != Asset.Action()) {
-                    InterruptibleAsset = Asset
-                }
-            } else if Asset.HasAction(EAssetAction.HarvestLumber) {
-                LumberHarvesters++
-                if Asset.Interruptible() && (EAssetAction.None != Asset.Action()) {
-                    InterruptibleAsset = Asset
-                }
+            if Asset.HasCapability(capability: EAssetCapabilityType.BuildPeasant) && (EAssetAction.None == Asset.Action()) {
+                TownHallAsset = Asset
             }
         }
 
@@ -245,24 +248,24 @@ class CAIPlayer {
         } else if (2 <= LumberHarvesters) && (0 == GoldMiners) {
             SwitchToGold = true
         }
-        if MiningAsset || (InterruptibleAsset && (SwitchToLumber || SwitchToGold)) {
-            if MiningAsset && (MiningAsset.Lumber() || MiningAsset.Gold()) {
+        if (MiningAsset != nil) || (InterruptibleAsset != nil && (SwitchToLumber || SwitchToGold)) {
+            if (MiningAsset != nil) && (MiningAsset!.DLumber != 0 || MiningAsset!.DGold != 0) {
                 command.DAction = EAssetCapabilityType.Convey
-                command.DTargetColor = TownHallAsset.Color()
-                command.DActors.append(MiningAsset)
-                command.DTargetType = TownHallAsset.Type()
-                command.DTargetLocation = TownHallAsset.Position()
+                command.DTargetColor = TownHallAsset!.Color()
+                command.DActors.append(MiningAsset!)
+                command.DTargetType = TownHallAsset!.Type()
+                command.DTargetLocation = TownHallAsset!.DPosition
             } else {
-                if !MiningAsset {
+                if MiningAsset == nil {
                     MiningAsset = InterruptibleAsset
                 }
-                var GoldMineAsset = DPlayerData.FindNearestAsset(MiningAsset.Position(), EAssetType.GoldMine)
-                if (GoldMiners != 0) && ((DPlayerData.Gold() > DPlayerData.Lumber() * 3) || SwitchToLumber) {
-                    var LumberLocation: CTilePosition = DPlayerData.PlayerMap().FindNearestReachableTileType(MiningAsset.TilePosition(), CTerrainMap.ETileType.Forest)
+                var GoldMineAsset = DPlayerData.FindNearestAsset(MiningAsset!.DPosition, EAssetType.GoldMine)
+                if (GoldMiners != 0) && ((DPlayerData.DGold > DPlayerData.DLumber * 3) || SwitchToLumber) {
+                    var LumberLocation: CTilePosition = DPlayerData.DPlayerMap.FindNearestReachableTileType(pos: MiningAsset!.TilePosition(), type: CTerrainMap.ETileType.Forest)
 
                     if 0 <= LumberLocation.X() {
                         command.DAction = EAssetCapabilityType.Mine
-                        command.DActors.append(MiningAsset)
+                        command.DActors.append(MiningAsset!)
                         command.DTargetLocation.SetFromTile(pos: LumberLocation)
                     } else {
                         return SearchMap(command: &command)
@@ -270,20 +273,20 @@ class CAIPlayer {
 
                 } else {
                     command.DAction = EAssetCapabilityType.Mine
-                    command.DActors.append(MiningAsset)
+                    command.DActors.append(MiningAsset!)
                     command.DTargetType = EAssetType.GoldMine
                     command.DTargetLocation = GoldMineAsset.Position()
                 }
             }
             return true
-        } else if TownHallAsset && trainmore {
+        } else if (TownHallAsset != nil) && trainmore {
             var PlayerCapability = CPlayerCapability.FindCapability(EAssetCapabilityType.BuildPeasant)
 
             if PlayerCapability {
                 if PlayerCapability.CanApply(TownHallAsset, DPlayerData, TownHallAsset) {
                     command.DAction = EAssetCapabilityType.BuildPeasant
-                    command.DActors.append(TownHallAsset)
-                    command.DTargetLocation = TownHallAsset.Position()
+                    command.DActors.append(TownHallAsset!)
+                    command.DTargetLocation = TownHallAsset!.DPosition
                     return true
                 }
             }
@@ -301,7 +304,7 @@ class CAIPlayer {
                 }
             }
         }
-        if command.DActors.count {
+        if command.DActors.count != 0 {
             command.DAction = EAssetCapabilityType.StandGround
             return true
         }
@@ -311,7 +314,7 @@ class CAIPlayer {
     func TrainFootman(command: inout SPlayerCommandRequest) -> Bool {
 
         var IdleAssets = DPlayerData.IdleAssets()
-        var TrainingAsset: CPlayerAsset
+        var TrainingAsset: CPlayerAsset?
 
         for Asset in IdleAssets {
             if Asset.HasCapability(EAssetCapabilityType.BuildFootman) {
@@ -319,14 +322,14 @@ class CAIPlayer {
                 break
             }
         }
-        if TrainingAsset {
+        if TrainingAsset != nil {
             var PlayerCapability = CPlayerCapability.FindCapability(EAssetCapabilityType.BuildFootman)
 
             if PlayerCapability {
                 if PlayerCapability.CanApply(TrainingAsset, DPlayerData, TrainingAsset) {
                     command.DAction = EAssetCapabilityType.BuildFootman
-                    command.DActors.append(TrainingAsset)
-                    command.DTargetLocation = TrainingAsset.Position()
+                    command.DActors.append(TrainingAsset!)
+                    command.DTargetLocation = TrainingAsset!.DPosition
                     return true
                 }
             }
@@ -336,7 +339,7 @@ class CAIPlayer {
 
     func TrainArcher(command: inout SPlayerCommandRequest) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
-        var TrainingAsset: CPlayerAsset
+        var TrainingAsset: CPlayerAsset?
         var BuildType: EAssetCapabilityType = EAssetCapabilityType.BuildArcher
 
         for Asset in IdleAssets {
@@ -351,13 +354,13 @@ class CAIPlayer {
                 break
             }
         }
-        if TrainingAsset {
+        if TrainingAsset != nil {
             var PlayerCapability = CPlayerCapability.FindCapability(BuildType)
             if PlayerCapability {
                 if PlayerCapability.CanApply(TrainingAsset, DPlayerData, TrainingAsset) {
                     command.DAction = BuildType
-                    command.DActors.append(TrainingAsset)
-                    command.DTargetLocation = TrainingAsset.Position()
+                    command.DActors.append(TrainingAsset!)
+                    command.DTargetLocation = TrainingAsset!.DPosition
                     return true
                 }
             }
@@ -368,7 +371,7 @@ class CAIPlayer {
     public func CalculateCommand(command: inout SPlayerCommandRequest) {
 
         command.DAction = EAssetCapabilityType.None
-        command.DActors.clear()
+        command.DActors.removeAll()
         command.DTargetColor = EPlayerColor.None
         command.DTargetType = EAssetType.None
 
@@ -380,7 +383,7 @@ class CAIPlayer {
                 BuildTownHall(command: &command)
             } else if 5 > DPlayerData.PlayerAssetCount(EAssetType.Peasant) {
                 ActivatePeasants(command: &command, trainmore: true)
-            } else if 12 > DPlayerData.VisibilityMap().SeenPercent(100) {
+            } else if 12 > DPlayerData.DVisibilityMap!.SeenPercent(max: 100) {
                 SearchMap(command: &command)
             } else {
                 var CompletedAction: Bool = false
