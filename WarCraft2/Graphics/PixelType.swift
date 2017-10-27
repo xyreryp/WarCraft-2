@@ -38,8 +38,8 @@ class CPixelType {
         case Max
     }
 
-    var DColor: EPlayerColor
-    var DType: EAssetTerrainType
+    var DColor: EPlayerColor = EPlayerColor.None
+    var DType: EAssetTerrainType = EAssetTerrainType.None
 
     init(red: Int, green: Int, blue _: Int) {
         DColor = EPlayerColor(rawValue: red)!
@@ -84,6 +84,7 @@ class CPixelType {
             break
         case CTerrainMap.ETileType.Max:
             DType = EAssetTerrainType.Max
+            break
         }
     }
 
