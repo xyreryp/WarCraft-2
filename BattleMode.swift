@@ -193,8 +193,8 @@ class CBattleMode : CApplicationMode {
         context.DReleasedKeys.clear()
         
         context.DMenuButtonState = CButtonRenderer.EButtonState.None
-        var ComponentType: CApplicationData.EUIComponentType = context.FindUIComponentType(CPixelPosition(CurrentX, CurrentY))
-        if(CApplicationData.uictViewport == ComponentType){
+        var ComponentType: EUIComponentType = context.FindUIComponentType(CPixelPosition(CurrentX, CurrentY))
+        if(uictViewport == ComponentType){
             var TempPosition: CPixelPosition = context.ScreenToDetailedMap(CPixelPosition(CurrentX, CurrentY))
             var ViewPortPosition: CPixelPosition = context.ScreenToViewport(CPixelPosition(CurrentX, CurrentY))
             var PixelType: CPixelType = CPixelType.GetPixelType(context.DViewportTypeSurface, ViewPortPosition)
