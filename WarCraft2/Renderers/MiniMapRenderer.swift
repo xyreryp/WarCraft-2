@@ -11,182 +11,124 @@ import Foundation
 //
 //
 //
-//#ifndef MINIMAPRENDERER_H
-//#define MINIMAPRENDERER_H
-//#include "ViewportRenderer.h"
+// #ifndef MINIMAPRENDERER_H
+// #define MINIMAPRENDERER_H
+// #include "ViewportRenderer.h"
 
 class CMiniMapRenderer {
-    var CMiniMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer
     var DAssetRenderer: CAssetRenderer
     var DFogRenderer: CFogRenderer
-    
-    
-    
+    var DViewportRenderer: CViewportRenderer
+    var DWorkingSurface: CGraphicSurface
+    var DViewportColor: UInt32
+    var DVisibleWidth: Int
+    var DVisibleHeight: Int
+
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer, viewport: CViewportRenderer, format: ESurfaceFormat) {
+        DMapRenderer = maprender
+        DAssetRenderer = assetrender
+        DFogRenderer = fogrender
+        DViewportRenderer = viewport
+        DViewportColor = 0xFFFFFF
+        DVisibleWidth = DMapRenderer.MapWidth()
+        DVisibleHeight = DMapRenderer.MapHeight()
+        DWorkingSurface = CGraphicFactory.CreateSurface(width: DMapRenderer.MapWidth(), height: DMapRenderer.MapHeight(), format: format)!
+        var ResourceContext = DWorkingSurface.CreateResourceContext()
+        ResourceContext.SetSourceRGB(rgb: 0x000000)
+        ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DMapRenderer.MapWidth(), height: DMapRenderer.MapHeight())
+        ResourceContext.Fill()
+    }
+
+    deinit {
+    }
+
+    func ViewportColor() -> UInt32 {
+        return DViewportColor
+    }
+
+    func ViewportColor(color: UInt32) -> UInt32 {
+        DViewportColor = color
+        return DViewportColor
+    }
+
+    func VisibleWidth() -> Int {
+        return DVisibleWidth
+    }
+
+    func VisibleHeight() -> Int {
+        return DVisibleHeight
+    }
+
+    func DrawMiniMap(surface: CGraphicSurface) {
+        var ResourceContext = surface.CreateResourceContext()
+        var MiniMapViewportX = 0
+        var MiniMapViewportY = 0
+        var MiniMapViewportWidth = 0
+        var MiniMapViewportHeight = 0
+        var MiniMapWidth = 0
+        var MiniMapHeight = 0
+        var MMW_MH = 0
+        var MMH_MW = 0
+        var DrawWidth = 0
+        var DrawHeight = 0
+        var SX: CGFloat
+        var SY: CGFloat
+
+        MiniMapWidth = surface.Width()
+        MiniMapHeight = surface.Height()
+
+        SX = CGFloat(MiniMapWidth) / CGFloat(DMapRenderer.MapWidth())
+        SY = CGFloat(MiniMapHeight) / CGFloat(DMapRenderer.MapHeight())
+
+        if SX < SY {
+            DrawWidth = MiniMapWidth
+            DrawHeight = Int(SX) * DMapRenderer.MapHeight()
+            SY = SX
+        } else if SX > SY {
+            DrawWidth = Int(SY) * DMapRenderer.MapWidth()
+            DrawHeight = MiniMapHeight
+            SX = SY
+        } else {
+            DrawWidth = MiniMapWidth
+            DrawHeight = MiniMapHeight
+        }
+
+        MMH_MW = MiniMapWidth * DMapRenderer.MapHeight()
+        MMW_MH = MiniMapHeight * DMapRenderer.MapWidth()
+        if MMH_MW > MMW_MH {
+            DVisibleWidth = MiniMapWidth
+            DVisibleHeight = (DMapRenderer.MapHeight() * MiniMapWidth) / DMapRenderer.MapWidth()
+        } else if MMH_MW < MMW_MH {
+            DVisibleWidth = (DMapRenderer.MapWidth() * MiniMapHeight) / DMapRenderer.MapHeight()
+            DVisibleHeight = MiniMapHeight
+        } else {
+            DVisibleWidth = MiniMapWidth
+            DVisibleHeight = MiniMapHeight
+        }
+
+        DMapRenderer.DrawMiniMap(surface: DWorkingSurface)
+        DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
+
+        if DFogRenderer == nil {
+            DFogRenderer.DrawMiniMap(surface: DWorkingSurface)
+        }
+
+        ResourceContext.Save()
+        ResourceContext.Scale(sx: SX, sy: SY)
+        ResourceContext.SetSourceSurface(srcsurface: DWorkingSurface, xpos: 0, ypos: 0)
+        ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DrawWidth, height: DrawHeight)
+        ResourceContext.Fill()
+        ResourceContext.Restore()
+
+        if DViewportRenderer != nil {
+            ResourceContext.SetSourceRGB(rgb: DViewportColor)
+            MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+            MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+            MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+            MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+            ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
+            ResourceContext.Stroke()
+        }
+    }
 }
-//
-//class CMiniMapRenderer{
-//    protected:
-//    std::shared_ptr< CMapRenderer > CMiniMapRenderer;
-//    std::shared_ptr< CAssetRenderer > DAssetRenderer;
-//    std::shared_ptr< CFogRenderer > DFogRenderer;
-//    std::shared_ptr< CViewportRenderer > DViewportRenderer;
-//    std::shared_ptr< CGraphicSurface > DWorkingSurface;
-//    uint32_t DViewportColor;
-//    int DVisibleWidth;
-//    int DVisibleHeight;
-//
-//    public:
-//    CMiniMapRenderer(std::shared_ptr< CMapRenderer > maprender, std::shared_ptr< CAssetRenderer > assetrender, std::shared_ptr< CFogRenderer > fogrender, std::shared_ptr< CViewportRenderer > viewport, CGraphicSurface::ESurfaceFormat format);
-//    ~CMiniMapRenderer();
-//
-//    uint32_t ViewportColor() const;
-//    uint32_t ViewportColor(uint32_t color);
-//
-//    int VisibleWidth() const;
-//    int VisibleHeight() const;
-//
-//    void DrawMiniMap(std::shared_ptr< CGraphicSurface > surface);
-//};
-//
-//#endif
-//
-//
-//
-///*
-// Copyright (c) 2015, Christopher Nitta
-// All rights reserved.
-//
-// All source material (source code, images, sounds, etc.) have been provided to
-// University of California, Davis students of course ECS 160 for educational
-// purposes. It may not be distributed beyond those enrolled in the course without
-// prior permission from the copyright holder.
-//
-// All sound files, sound fonts, midi files, and images that have been included
-// that were extracted from original Warcraft II by Blizzard Entertainment
-// were found freely available via internet sources and have been labeld as
-// abandonware. They have been included in this distribution for educational
-// purposes only and this copyright notice does not attempt to claim any
-// ownership of this material.
-// */
-//#include "MiniMapRenderer.h"
-//#include "GraphicFactory.h"
-//
-//CMiniMapRenderer::CMiniMapRenderer(std::shared_ptr< CMapRenderer > maprender, std::shared_ptr< CAssetRenderer > assetrender, std::shared_ptr< CFogRenderer > fogrender, std::shared_ptr< CViewportRenderer > viewport, CGraphicSurface::ESurfaceFormat format){
-//    DMapRenderer = maprender;
-//    DAssetRenderer = assetrender;
-//    DFogRenderer = fogrender;
-//    DViewportRenderer = viewport;
-//    DViewportColor = 0xFFFFFF;
-//
-//    DVisibleWidth = DMapRenderer->MapWidth();
-//    DVisibleHeight = DMapRenderer->MapHeight();
-//
-//    DWorkingSurface = CGraphicFactory::CreateSurface(DMapRenderer->MapWidth(), DMapRenderer->MapHeight(), format);
-//
-//    auto ResourceContext = DWorkingSurface->CreateResourceContext();
-//    ResourceContext->SetSourceRGB(0x000000);
-//    ResourceContext->Rectangle(0, 0, DMapRenderer->MapWidth(), DMapRenderer->MapHeight());
-//    ResourceContext->Fill();
-//}
-//
-//CMiniMapRenderer::~CMiniMapRenderer(){
-//
-//}
-//
-//uint32_t CMiniMapRenderer::ViewportColor() const{
-//    return DViewportColor;
-//}
-//
-//uint32_t CMiniMapRenderer::ViewportColor(uint32_t color){
-//    return DViewportColor = color;
-//}
-//
-//int CMiniMapRenderer::VisibleWidth() const{
-//    return DVisibleWidth;
-//}
-//
-//int CMiniMapRenderer::VisibleHeight() const{
-//    return DVisibleHeight;
-//}
-//
-//void CMiniMapRenderer::DrawMiniMap(std::shared_ptr< CGraphicSurface > surface){
-//    auto ResourceContext = surface->CreateResourceContext();
-//    int MiniMapViewportX, MiniMapViewportY;
-//    int MiniMapViewportWidth, MiniMapViewportHeight;
-//    int MiniMapWidth, MiniMapHeight;
-//    int MMW_MH, MMH_MW;
-//    int DrawWidth, DrawHeight;
-//    double SX, SY;
-//
-//    MiniMapWidth = surface->Width();
-//    MiniMapHeight = surface->Height();
-//
-//    SX = (double)MiniMapWidth / (double)DMapRenderer->MapWidth();
-//    SY = (double)MiniMapHeight / (double)DMapRenderer->MapHeight();
-//
-//    if(SX < SY){
-//        DrawWidth = MiniMapWidth;
-//        DrawHeight = SX * DMapRenderer->MapHeight();
-//        SY = SX;
-//    }
-//    else if(SX > SY){
-//        DrawWidth = SY * DMapRenderer->MapWidth();
-//        DrawHeight = MiniMapHeight;
-//        SX = SY;
-//    }
-//    else{
-//        DrawWidth = MiniMapWidth;
-//        DrawHeight = MiniMapHeight;
-//    }
-//
-//    MMW_MH = MiniMapWidth * DMapRenderer->MapHeight();
-//    MMH_MW = MiniMapHeight * DMapRenderer->MapWidth();
-//
-//    if(MMH_MW > MMW_MH){
-//        DVisibleWidth = MiniMapWidth;
-//        DVisibleHeight = (DMapRenderer->MapHeight() * MiniMapWidth) / DMapRenderer->MapWidth();
-//    }
-//    else if(MMH_MW < MMW_MH){
-//        DVisibleWidth = (DMapRenderer->MapWidth() * MiniMapHeight) / DMapRenderer->MapHeight();
-//        DVisibleHeight = MiniMapHeight;
-//    }
-//    else{
-//        DVisibleWidth = MiniMapWidth;
-//        DVisibleHeight = MiniMapHeight;
-//    }
-//
-//    DMapRenderer->DrawMiniMap(DWorkingSurface);
-//    DAssetRenderer->DrawMiniAssets(DWorkingSurface);
-//    if(nullptr != DFogRenderer){
-//        DFogRenderer->DrawMiniMap(DWorkingSurface);
-//    }
-//
-//    ResourceContext->Save();
-//    ResourceContext->Scale(SX, SY);
-//    ResourceContext->SetSourceSurface(DWorkingSurface, 0, 0);
-//    ResourceContext->Rectangle(0, 0, DrawWidth, DrawHeight);
-//    ResourceContext->Fill();
-//    ResourceContext->Restore();
-//    /*
-//     DWorkingPixbuf = gdk_pixbuf_get_from_drawable(DWorkingPixbuf, DWorkingPixmap, nullptr, 0, 0, 0, 0, -1, -1);
-//
-//     ScaledPixbuf = gdk_pixbuf_scale_simple(DWorkingPixbuf, DVisibleWidth, DVisibleHeight, GDK_INTERP_BILINEAR);
-//     gdk_draw_pixbuf(drawable, TempGC, ScaledPixbuf, 0, 0, 0, 0, -1, -1, GDK_RGB_DITHER_NONE, 0, 0);
-//     g_object_unref(ScaledPixbuf);
-//     */
-//    if(nullptr != DViewportRenderer){
-//        ResourceContext->SetSourceRGB(DViewportColor);
-//        //gdk_gc_set_rgb_fg_color(TempGC, &DViewportColor);
-//        MiniMapViewportX = (DViewportRenderer->ViewportX() * DVisibleWidth) / DMapRenderer->DetailedMapWidth();
-//        MiniMapViewportY = (DViewportRenderer->ViewportY() * DVisibleHeight) / DMapRenderer->DetailedMapHeight();
-//        MiniMapViewportWidth = (DViewportRenderer->LastViewportWidth() * DVisibleWidth) / DMapRenderer->DetailedMapWidth();
-//        MiniMapViewportHeight = (DViewportRenderer->LastViewportHeight() * DVisibleHeight) / DMapRenderer->DetailedMapHeight();
-//        ResourceContext->Rectangle(MiniMapViewportX, MiniMapViewportY, MiniMapViewportWidth,  MiniMapViewportHeight);
-//        ResourceContext->Stroke();
-//        //gdk_draw_rectangle(drawable, TempGC, FALSE, MiniMapViewportX, MiniMapViewportY, MiniMapViewportWidth,  MiniMapViewportHeight);
-//    }
-//
-//
-//}
-
-

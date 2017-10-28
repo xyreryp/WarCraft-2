@@ -24,8 +24,7 @@ class CViewportRenderer {
     internal var DLastViewportHeight: Int
 
     // constructor
-    init(maprender: CMapRenderer, assetrender: CAssetRenderer,
-         fogrender: CFogRenderer) {
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
         DFogRenderer = fogrender
