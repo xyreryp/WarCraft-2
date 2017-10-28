@@ -209,7 +209,7 @@ class CTerrainMap {
         }
     }
 
-    func IsTraversable(type: ETileType) -> Bool {
+    static func IsTraversable(type: ETileType) -> Bool {
         switch type {
         case .None,
              .DarkGrass,
@@ -224,7 +224,7 @@ class CTerrainMap {
         }
     }
 
-    func CanPlaceOn(type: ETileType) -> Bool {
+    static func CanPlaceOn(type: ETileType) -> Bool {
         switch type {
         case .DarkGrass,
              .LightGrass,
