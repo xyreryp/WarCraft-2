@@ -8,13 +8,6 @@
 
 import Foundation
 
-//
-//
-//
-// #ifndef MINIMAPRENDERER_H
-// #define MINIMAPRENDERER_H
-// #include "ViewportRenderer.h"
-
 class CMiniMapRenderer {
     var DMapRenderer: CMapRenderer
     var DAssetRenderer: CAssetRenderer
