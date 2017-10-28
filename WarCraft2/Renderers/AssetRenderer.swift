@@ -762,7 +762,7 @@ class AssetRenderer {
                 for var Cell in row {
                     var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
                     let cterrainmap = CTerrainMap()
-                    if cterrainmap.CanPlaceOn(type: TileType) {
+                    if CTerrainMap.CanPlaceOn(type: TileType) {
                         Cell = 1
                     } else {
                         Cell = 0
