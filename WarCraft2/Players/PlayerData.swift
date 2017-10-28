@@ -157,6 +157,7 @@ class CPlayerData {
         DAssets.append(CreatedAsset)
         DActualMap.AddAsset(asset: CreatedAsset)
         return CreatedAsset
+    }
 
         // TODO: DeleteAsset()
         func DeleteAsset(asset: CPlayerAsset) {
@@ -509,7 +510,6 @@ class CPlayerData {
         //    func AppendGameEvents(events: [SGameEvent]) {
         //        DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
         //    }
-    }
 
     func RangeToDistanceSquared(range: Int) -> Int {
         let cpos = CPosition()
