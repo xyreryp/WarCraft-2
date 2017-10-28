@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CViewportRenderer {
     // protected variables
 
     // c++ shared_ptr
-    internal var DMapRenderer: CMapRenderer // TODO: MapRenderer.swift
-    internal var DAssetRenderer: CAssetRenderer // TODO: AssetRenderer.swift
-    internal var DFogRenderer: CFogRenderer // TODO: FogRenderer.swift
+    internal var DMapRenderer: CMapRenderer
+    internal var DAssetRenderer: AssetRenderer
+    internal var DFogRenderer: CFogRenderer
 
     // c++ protected variables
     internal var DViewportX: Int
@@ -23,7 +24,7 @@ class CViewportRenderer {
     internal var DLastViewportHeight: Int
 
     // constructor
-    init(maprender: CMapRenderer, assetrender: CAssetRenderer,
+    init(maprender: CMapRenderer, assetrender: AssetRenderer,
          fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
@@ -114,11 +115,14 @@ class CViewportRenderer {
     }
 
     func DrawViewport(surface: CGraphicSurface, typesurface: CGraphicSurface,
-                      selectionmarkerlist: inout [CPlayerAsset], // TODO: PlayerAsset.swift
+                      selectionmarkerlist: inout [CPlayerAsset],
                       selectrect: inout SRectangle, curcapability: EAssetCapabilityType) {
-        var TempRectangle: SRectangle
+
+        // need to initialize with parameters to avoid xcode error
+        // initially all values are zero, values are assigned a few lines below
+        var TempRectangle: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         var PlaceType: EAssetType = EAssetType.None
-        var Builder: CPlayerAsset // TODO: CPlayerAsset.swift
+        var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
         DLastViewportWidth = surface.Width()
         DLastViewportHeight = surface.Height()
@@ -127,7 +131,7 @@ class CViewportRenderer {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
         }
         if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
-            DViewportY = DMapRenderer.DetailedMapHeigth() - DLastViewportHeight
+            DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
         }
 
         TempRectangle.DXPosition = DViewportX
@@ -151,27 +155,30 @@ class CViewportRenderer {
         default:
             break // do nothing
         }
-
-        DMapRenderer.DrawMap(surface, typesurface, TempRectangle)
-        DAssetRenderer.DrawSelections(surface, TempRectangle, selectionmarkerlist,
-                                      selectrect, (EAssetType.None != PlaceType))
-        DAssetRenderer.DrawAssets(surface, typesurface, TempRectangle)
-        DAssetRenderer.DrawOverlays(surface, TempRectangle)
+        // FIXME:
+        DMapRenderer.DrawMap(surface: surface as! SKScene, typesurface: typesurface as! SKScene, rect: TempRectangle)
+        DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
+                                      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
+        DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
+        DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
 
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();
         if selectionmarkerlist.count != 0 { // if list is not empty
 
-            if let tempValue = selectionmarkerlist[0] {
-                Builder = tempValue
-            } else {
-                Builder = nil
-            }
+            // type of selectionmarkerlist guarantees it cannot be a non-optional
+            Builder = selectionmarkerlist[0]
+
+            //            if let tempValue = selectionmarkerlist[0] {
+            //                Builder = tempValue
+            //            } else {
+            //                Builder = nil // cannot Builder assign to nil
+            //            }
         }
 
-        DAssetRenderer.DrawPlacement(surface, TempRectangle,
-                                     CPixelPosition(selectrect.DXPosition,
-                                                    selectrect.DYPosition), PlaceType, Builder)
-        DFogRenderer.DrawMap(surface, TempRectangle)
+        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
+                                     pos: CPixelPosition(x: selectrect.DXPosition,
+                                                         y: selectrect.DYPosition), type: PlaceType, builder: Builder)
+        DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
     }
 }

@@ -38,13 +38,12 @@ class CPixelType {
         case Max
     }
 
-    var DType: EAssetTerrainType
+    var DColor: EPlayerColor = EPlayerColor.None
+    var DType: EAssetTerrainType = EAssetTerrainType.None
 
-    // TODO: Uncomment from PlayerAsset
-    //var EPlayerColor: DColor
+    init(red: Int, green: Int, blue _: Int) {
+        DColor = EPlayerColor(rawValue: red)!
 
-    init(red _: Int, green: Int, blue _: Int) {
-        //        DColor = EPlayerColor(rawValue: red)!
         DType = EAssetTerrainType(rawValue: green)!
     }
 
@@ -86,61 +85,64 @@ class CPixelType {
             break
         case CTerrainMap.ETileType.Max:
             DType = EAssetTerrainType.Max
+            break
         }
     }
 
-    //    init(asset: CPlayerAsset) {
-    //        switch asset.Type() {
-    //        case EAssetType.Peasant:
-    //            DType = EAssetTerrainType.Peasant
-    //            break
-    //        case EAssetType.Footman:
-    //            DType = EAssetTerrainType.Footman
-    //            break
-    //        case EAssetType.Archer:
-    //            DType = EAssetTerrainType.Archer
-    //            break
-    //        case EAssetType.Ranger:
-    //            DType = EAssetTerrainType.Ranger
-    //            break
-    //        case EAssetType.GoldMine:
-    //            DType = EAssetTerrainType.GoldMine
-    //            break
-    //        case EAssetType.TownHall:
-    //            DType = EAssetTerrainType.TownHall
-    //            break
-    //        case EAssetType.Keep:
-    //            DType = EAssetTerrainType.Keep
-    //            break
-    //        case EAssetType.Castle:
-    //            DType = EAssetTerrainType.Castle
-    //            break
-    //        case EAssetType.Farm:
-    //            DType = EAssetTerrainType.Farm
-    //            break
-    //        case EAssetType.Barracks:
-    //            DType = EAssetTerrainType.Barracks
-    //            break
-    //        case EAssetType.LumberMill:
-    //            DType = EAssetTerrainType.LumberMill
-    //            break
-    //        case EAssetType.Blacksmith:
-    //            DType = EAssetTerrainType.Blacksmith
-    //            break
-    //        case EAssetType.ScoutTower:
-    //            DType = EAssetTerrainType.ScoutTower
-    //            break
-    //        case EAssetType.GuardTower:
-    //            DType = EAssetTerrainType.GuardTower
-    //            break
-    //        case EAssetType.CannonTower:
-    //            DType = EAssetTerrainType.CannonTower
-    //            break
-    //        case EAssetType.None:
-    //            DType = EAssetTerrainType.None
-    //            break
-    //        }
-    //    }
+    init(asset: CPlayerAsset) {
+        switch asset.Type() {
+        case EAssetType.Peasant:
+            DType = EAssetTerrainType.Peasant
+            break
+        case EAssetType.Footman:
+            DType = EAssetTerrainType.Footman
+            break
+        case EAssetType.Archer:
+            DType = EAssetTerrainType.Archer
+            break
+        case EAssetType.Ranger:
+            DType = EAssetTerrainType.Ranger
+            break
+        case EAssetType.GoldMine:
+            DType = EAssetTerrainType.GoldMine
+            break
+        case EAssetType.TownHall:
+            DType = EAssetTerrainType.TownHall
+            break
+        case EAssetType.Keep:
+            DType = EAssetTerrainType.Keep
+            break
+        case EAssetType.Castle:
+            DType = EAssetTerrainType.Castle
+            break
+        case EAssetType.Farm:
+            DType = EAssetTerrainType.Farm
+            break
+        case EAssetType.Barracks:
+            DType = EAssetTerrainType.Barracks
+            break
+        case EAssetType.LumberMill:
+            DType = EAssetTerrainType.LumberMill
+            break
+        case EAssetType.Blacksmith:
+            DType = EAssetTerrainType.Blacksmith
+            break
+        case EAssetType.ScoutTower:
+            DType = EAssetTerrainType.ScoutTower
+            break
+        case EAssetType.GuardTower:
+            DType = EAssetTerrainType.GuardTower
+            break
+        case EAssetType.CannonTower:
+            DType = EAssetTerrainType.CannonTower
+            break
+        case EAssetType.None:
+            DType = EAssetTerrainType.None
+            break
+        default:
+            break
+        }
+    }
 
     init(pixeltype: CPixelType) {
         DType = pixeltype.DType
@@ -152,10 +154,9 @@ class CPixelType {
         return DType
     }
 
-    // TODO: Uncomment from PlayerAsset
-    //func Color() -> EPlayerColor {
-    //    return DColor
-    //}
+    func Color() -> EPlayerColor {
+        return DColor
+    }
 
     func toPixelColor() -> uint32 {
         // TODO: Uncomment from PlayerAsset
