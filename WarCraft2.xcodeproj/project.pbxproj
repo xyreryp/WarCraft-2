@@ -35,6 +35,12 @@
 		9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */; };
 		9B64D6241FA05AEB00C39977 /* PlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */; };
 		A10B58D81FA3AA6C0035C1EB /* MapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */; };
+		A10B58E21FA547F50035C1EB /* Archer.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DA1FA546100035C1EB /* Archer.dat */; };
+		A10B58E31FA547FE0035C1EB /* BuildingDeath.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DE1FA546520035C1EB /* BuildingDeath.dat */; };
+		A10B58E41FA548000035C1EB /* Corpse.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DD1FA546510035C1EB /* Corpse.dat */; };
+		A10B58E51FA548030035C1EB /* FireLarge.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DB1FA546510035C1EB /* FireLarge.dat */; };
+		A10B58E61FA548050035C1EB /* FireSmall.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DF1FA546520035C1EB /* FireSmall.dat */; };
+		A10B58E71FA548080035C1EB /* Marker.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DC1FA546510035C1EB /* Marker.dat */; };
 		A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
@@ -101,6 +107,7 @@
 		A10B58DE1FA546520035C1EB /* BuildingDeath.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = BuildingDeath.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/BuildingDeath.dat; sourceTree = "<group>"; };
 		A10B58DF1FA546520035C1EB /* FireSmall.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = FireSmall.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/FireSmall.dat; sourceTree = "<group>"; };
 		A10B58E01FA546520035C1EB /* Archer.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Archer.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Archer.dat; sourceTree = "<group>"; };
+		A10B58E11FA547D90035C1EB /* bay.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = bay.map; path = ../../../../Linux/ECS160Linux/bin/data/map/bay.map; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
@@ -246,6 +253,7 @@
 			children = (
 				A10B58DA1FA546100035C1EB /* Archer.dat */,
 				A10B58E01FA546520035C1EB /* Archer.dat */,
+				A10B58E11FA547D90035C1EB /* bay.map */,
 				A10B58DE1FA546520035C1EB /* BuildingDeath.dat */,
 				A10B58DD1FA546510035C1EB /* Corpse.dat */,
 				A10B58DB1FA546510035C1EB /* FireLarge.dat */,
@@ -368,8 +376,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */,
+				A10B58E51FA548030035C1EB /* FireLarge.dat in Resources */,
 				CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */,
+				A10B58E71FA548080035C1EB /* Marker.dat in Resources */,
+				A10B58E21FA547F50035C1EB /* Archer.dat in Resources */,
 				E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */,
+				A10B58E61FA548050035C1EB /* FireSmall.dat in Resources */,
+				A10B58E41FA548000035C1EB /* Corpse.dat in Resources */,
+				A10B58E31FA547FE0035C1EB /* BuildingDeath.dat in Resources */,
 				E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,
 				883BFF0F1F99E255005239AA /* mountain.map in Resources */,
