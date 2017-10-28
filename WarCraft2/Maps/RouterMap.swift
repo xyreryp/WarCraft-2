@@ -96,8 +96,8 @@ class CRouterMap {
         if (0 > dir2.rawValue) || (EDirection.Max.rawValue) <= dir2.rawValue {
             return false
         }
-        Value = ((EDirection.Max.rawValue) + dir2.rawValue) - (dir1.rawValue % EDirection.Max.rawValue)
-        if (1 >= Value) || (EDirection.Max.rawValue) - 1 <= Value {
+        Value = ((EDirection.Max.rawValue + dir2.rawValue - dir1.rawValue) % EDirection.Max.rawValue)
+        if (1 >= Value) || (EDirection.Max.rawValue - 1) <= Value {
             return true
         }
         return false
