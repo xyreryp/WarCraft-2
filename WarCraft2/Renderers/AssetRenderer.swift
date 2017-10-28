@@ -11,7 +11,7 @@ import Foundation
 class AssetRenderer {
     static let TARGET_FREQUENCY = 10
     var DPlayerData: CPlayerData?
-    var DPlayerMap: CAssetDecoratedMap?
+    var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DTilesets: [CGraphicMulticolorTileset] = []
     var DMarkerTileset: CGraphicTileset?
     var DFireTilesets = [CGraphicTileset]()
@@ -37,7 +37,7 @@ class AssetRenderer {
     static var DAnimationDownsample: Int = 1
 
     init(colors: CGraphicRecolorMap, tilesets: [CGraphicMulticolorTileset], markertileset: CGraphicTileset, corpsetileset: CGraphicTileset, firetileset: [CGraphicTileset], buildingdeath: CGraphicTileset, arrowtileset: CGraphicTileset, player: CPlayerData, map: CAssetDecoratedMap) {
-        var TypeIndex: Int
+        var TypeIndex: Int = 0
         var MarkerIndex: Int = 0
         DTilesets = tilesets
         DMarkerTileset = markertileset
@@ -63,8 +63,8 @@ class AssetRenderer {
         DPixelColors[EPlayerColor.Max.rawValue + 2] = colors.ColorValue(gindex: colors.FindColor(colorname: "building"), cindex: 0)
 
         while true {
-            var markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
-            var Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
+            let markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
+            let Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
             if 0 > Index {
                 break
             }
@@ -75,16 +75,16 @@ class AssetRenderer {
         DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: "place-bad")
 
         var LastDirectionName: String = "decay-nw-"
-        for var DirectionName in ["decay-n-", "decay-ne-", "decay-e-", "decay-se-", "decay-s-", "decay-sw-", "decay-w-", "decay-nw-"] {
+        for DirectionName in ["decay-n-", "decay-ne-", "decay-e-", "decay-se-", "decay-s-", "decay-sw-", "decay-w-", "decay-nw-"] {
             var StepIndex = 0
             var TileIndex: Int
             while true {
-                var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                let DirectionNameStepIndex: String = DirectionName + String(StepIndex)
                 TileIndex = DCorpseTileset!.FindTile(tilename: DirectionNameStepIndex)
                 if 0 <= TileIndex {
                     DCorpseIndices.append(TileIndex)
                 } else {
-                    var lastDirectionNameStepIndex = LastDirectionName + String(StepIndex)
+                    let lastDirectionNameStepIndex = LastDirectionName + String(StepIndex)
                     TileIndex = DCorpseTileset!.FindTile(tilename: lastDirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DCorpseIndices.append(TileIndex)
@@ -97,11 +97,11 @@ class AssetRenderer {
             LastDirectionName = DirectionName
         }
 
-        for var DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "atack-nw-"] {
+        for DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "atack-nw-"] {
             var StepIndex: Int = 0
             var TileIndex: Int
             while true {
-                var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                let DirectionNameStepIndex: String = DirectionName + String(StepIndex)
                 TileIndex = DArrowTileset!.FindTile(tilename: DirectionNameStepIndex)
                 if 0 <= TileIndex {
                     DArrowIndices.append(TileIndex)
@@ -112,15 +112,24 @@ class AssetRenderer {
             }
         }
 
-        // DConstructIndices.resize(DTilesets.size());
-        // DBuildIndices.resize(DTilesets.size());
-        // DWalkIndices.resize(DTilesets.size());
-        // DNoneIndices.resize(DTilesets.size());
-        // DCarryGoldIndices.resize(DTilesets.size());
-        // DCarryLumberIndices.resize(DTilesets.size());
-        // DAttackIndices.resize(DTilesets.size());
-        // DDeathIndices.resize(DTilesets.size());
-        // DPlaceIndices.resize(DTilesets.size());
+        func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+            while array.count < size {
+                array.append(defaultValue)
+            }
+            while array.count > size {
+                array.removeLast()
+            }
+        }
+
+        resize(array: &DConstructIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DBuildIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DWalkIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DNoneIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DCarryGoldIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DCarryLumberIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DAttackIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DDeathIndices, size: DTilesets.count, defaultValue: [Int()])
+        resize(array: &DPlaceIndices, size: DTilesets.count, defaultValue: [Int()])
 
         for Tileset in DTilesets {
             // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
@@ -129,7 +138,7 @@ class AssetRenderer {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var directionNameStepIndex: String = DirectionName + String(StepIndex)
+                    let directionNameStepIndex: String = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: directionNameStepIndex)
 
                     if 0 <= TileIndex {
@@ -143,7 +152,7 @@ class AssetRenderer {
             var StepIndex: Int = 0
             var TileIndex: Int
             while true {
-                var constructStepIndex: String = "construct-" + String(StepIndex)
+                let constructStepIndex: String = "construct-" + String(StepIndex)
                 TileIndex = Tileset.FindTile(tilename: constructStepIndex)
                 if 0 <= TileIndex {
                     DConstructIndices[TypeIndex].append(TileIndex)
@@ -156,11 +165,11 @@ class AssetRenderer {
                 StepIndex = StepIndex + 1
             }
             // PrintDebug(DEBUG_LOW,"Checking Gold on %d\n",TypeIndex);
-            for var DirectionName in ["gold-n-", "gold-ne-", "gold-e-", "gold-se-", "gold-s-", "gold-sw-", "gold-w-", "gold-nw-"] {
+            for DirectionName in ["gold-n-", "gold-ne-", "gold-e-", "gold-se-", "gold-s-", "gold-sw-", "gold-w-", "gold-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    let DirectionNameStepIndex: String = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DCarryGoldIndices[TypeIndex].append(TileIndex)
@@ -175,7 +184,7 @@ class AssetRenderer {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var DirectionNameStepIndex = DirectionName + String(StepIndex)
+                    let DirectionNameStepIndex = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DCarryLumberIndices[TypeIndex].append(TileIndex)
@@ -190,7 +199,7 @@ class AssetRenderer {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    let DirectionNameStepIndex: String = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DAttackIndices[TypeIndex].append(TileIndex)
@@ -202,7 +211,7 @@ class AssetRenderer {
             }
             if 0 == DAttackIndices[TypeIndex].count {
                 var TileIndex: Int
-                for Index in 0 ..< EDirection.Max.rawValue {
+                for _ in 0 ..< EDirection.Max.rawValue {
                     TileIndex = Tileset.FindTile(tilename: "active")
                     if 0 <= TileIndex {
                         DAttackIndices[TypeIndex].append(TileIndex)
@@ -220,12 +229,12 @@ class AssetRenderer {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    let DirectionNameStepIndex: String = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DDeathIndices[TypeIndex].append(TileIndex)
                     } else {
-                        var LastDirectionNameStepIndex: String = LastDirectionName + String(StepIndex)
+                        let LastDirectionNameStepIndex: String = LastDirectionName + String(StepIndex)
                         TileIndex = Tileset.FindTile(tilename: LastDirectionNameStepIndex)
                         if 0 <= TileIndex {
                             DDeathIndices[TypeIndex].append(TileIndex)
@@ -258,7 +267,7 @@ class AssetRenderer {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
-                    var DirectionNameStepIndex: String = DirectionName + String(StepIndex)
+                    let DirectionNameStepIndex: String = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: DirectionNameStepIndex)
                     if 0 <= TileIndex {
                         DBuildIndices[TypeIndex].append(TileIndex)
@@ -288,6 +297,15 @@ class AssetRenderer {
         }
     }
 
+    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
+        while array.count < size {
+            array.append(defaultValue)
+        }
+        while array.count > size {
+            array.removeLast()
+        }
+    }
+
     static func UpdateFrequency(freq: Int) -> Int {
         if TARGET_FREQUENCY >= freq {
             DAnimationDownsample = 1
@@ -307,7 +325,9 @@ class AssetRenderer {
         var DPixelColor: UInt32
     }
 
-    static func CompareRenderData(first: SAssetRenderData, second: SAssetRenderData) -> Bool {
+    typealias SAssetRenderData = ASSETRENDERERDATA_TAG
+
+    func CompareRenderData(first: SAssetRenderData, second: SAssetRenderData) -> Bool {
         if first.DBottomY < second.DBottomY {
             return true
         }
@@ -318,24 +338,25 @@ class AssetRenderer {
         return first.DX <= second.DX
     }
 
-    static func DrawAssets(surface: CGraphicSurface, typesurface: CGraphicSurface, rect: SRectangle) {
-        var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
-        var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
+    func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {
+        let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
+        let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
 
-        for var AssetIterator in DPlayerMap.Assets() {
-            var TempRenderData: SAssetRenderData
+        for AssetIterator in DPlayerMap.DAssets {
+            var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
             if EAssetType.None == TempRenderData.DType {
                 continue
             }
-            if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < Int(DTilesets.size())) {
-                var PixelType = CPixelType(AssetIterator)
+            if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < Int(DTilesets.count)) {
+                let PixelType = CPixelType(asset: AssetIterator)
                 var RightX: Int
 
-                TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
-                TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
-                TempRenderData.DPixelColor = PixelType.ToPixelColor()
+                let cposition: CPosition = CPosition()
+                TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * cposition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
+                TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * cposition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
+                TempRenderData.DPixelColor = PixelType.toPixelColor()
 
                 RightX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileWidth() - 1
                 TempRenderData.DBottomY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHeight() - 1
@@ -347,7 +368,7 @@ class AssetRenderer {
                 }
                 TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                 TempRenderData.DY = TempRenderData.DY - rect.DYPosition
-                TempRenderData.DColorIndex = AssetIterator.Color().rawValue ? AssetIterator.Color().rawValue - 1 : AssetIterator.Color().rawValue
+                TempRenderData.DColorIndex = (0 != AssetIterator.Color().rawValue) ? AssetIterator.Color().rawValue - 1 : AssetIterator.Color().rawValue
                 TempRenderData.DTileIndex = -1
                 if OnScreen {
                     var ActionSteps, CurrentStep, TileIndex: Int
@@ -356,143 +377,145 @@ class AssetRenderer {
                     case EAssetAction.Build:
                         ActionSteps = DBuildIndices[TempRenderData.DType.rawValue].count
                         ActionSteps /= EDirection.Max.rawValue
-                        if ActionSteps {
-                            TileIndex = to_underlying(AssetIterator.Direction()) * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
+                        if 0 != ActionSteps {
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DBuildIndices[TempRenderData.DType.rawValue][TileIndex]
                         }
                     case EAssetAction.Construct:
                         ActionSteps = DConstructIndices[TempRenderData.DType.rawValue].count
-                        if ActionSteps {
-                            var TotalSteps: Int = AssetIterator.BuildTime() * CPlayerAsset.UpdateFrequency()
-                            var CurrentStep: Int = AssetIterator.Step() * ActionSteps / TotalSteps
+                        if 0 != ActionSteps {
+                            let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
+                            let TotalSteps: Int = AssetIterator.BuildTime() * cplayerasset.DUpdateFrequency
+                            var CurrentStep: Int = AssetIterator.DStep * ActionSteps / TotalSteps
                             if CurrentStep == DConstructIndices[TempRenderData.DType.rawValue].count {
                                 CurrentStep = CurrentStep - 1
                             }
                             TempRenderData.DTileIndex = DConstructIndices[TempRenderData.DType.rawValue][CurrentStep]
                         }
                     case EAssetAction.Walk:
-                        if AssetIterator.Lumber() {
+                        if 0 != AssetIterator.DLumber {
                             ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DCarryLumberIndices[TempRenderData.DType.rawValue][TileIndex]
-                        } else if AssetIterator.Gold() {
+                        } else if 0 != AssetIterator.DGold {
                             ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DCarryGoldIndices[TempRenderData.DType.rawValue][TileIndex]
                         } else {
                             ActionSteps = DWalkIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DWalkIndices[TempRenderData.DType.rawValue][TileIndex]
                         }
                     case EAssetAction.Attack:
-                        CurrentStep = AssetIterator.Step() % (AssetIterator.AttackSteps() + AssetIterator.ReloadSteps())
+                        CurrentStep = AssetIterator.DStep % (AssetIterator.AttackSteps() + AssetIterator.ReloadSteps())
                         if CurrentStep < AssetIterator.AttackSteps() {
                             ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.Direction().rawValue * ActionSteps + (CurrentStep * ActionSteps / AssetIterator.AttackSteps())
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + (CurrentStep * ActionSteps / AssetIterator.AttackSteps())
                             TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
                         } else {
-                            TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
+                            TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         }
                     case EAssetAction.Repair,
                          EAssetAction.HarvestLumber:
                         ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].count
                         ActionSteps /= EDirection.Max.rawValue
-                        TileIndex = AssetIterator.Direction().rawValue * ActionSteps + ((AssetIterator.Step() / DAnimationDownsample) % ActionSteps)
+                        TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
                         TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
-                         EAssetAction.None: TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
-                        if AssetIterator.Speed() {
-                            if AssetIterator.Lumber() {
+                         EAssetAction.None: TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
+                        if 0 != AssetIterator.Speed() {
+                            if 0 != AssetIterator.DLumber {
                                 ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].count
                                 ActionSteps /= EDirection.Max.rawValue
-                                TempRenderData.DTileIndex = DCarryLumberIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue * ActionSteps]
-                            } else if AssetIterator.Gold() {
+                                TempRenderData.DTileIndex = DCarryLumberIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue * ActionSteps]
+                            } else if 0 != AssetIterator.DGold {
                                 ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].count
                                 ActionSteps /= EDirection.Max.rawValue
-                                TempRenderData.DTileIndex = DCarryGoldIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue * ActionSteps]
+                                TempRenderData.DTileIndex = DCarryGoldIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue * ActionSteps]
                             }
                         }
                     case EAssetAction.Capability:
-                        if AssetIterator.Speed() {
+                        if 0 != AssetIterator.Speed() {
                             if (EAssetCapabilityType.Patrol == AssetIterator.CurrentCommand().DCapability) || (EAssetCapabilityType.StandGround == AssetIterator.CurrentCommand().DCapability) {
-                                TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
+                                TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                             }
                         } else {
                             // Buildings
-                            TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue]
+                            TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         }
                     case EAssetAction.Death:
                         ActionSteps = DDeathIndices[TempRenderData.DType.rawValue].count
-                        if AssetIterator.Speed() {
+                        if 0 != AssetIterator.Speed() {
                             ActionSteps /= EDirection.Max.rawValue
-                            if ActionSteps {
-                                CurrentStep = AssetIterator.Step() / DAnimationDownsample
+                            if 0 != ActionSteps {
+                                CurrentStep = AssetIterator.DStep / AssetRenderer.DAnimationDownsample
                                 if CurrentStep >= ActionSteps {
                                     CurrentStep = ActionSteps - 1
                                 }
-                                TempRenderData.DTileIndex = DDeathIndices[TempRenderData.DType.rawValue][AssetIterator.Direction().rawValue * ActionSteps + CurrentStep]
+                                TempRenderData.DTileIndex = DDeathIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue * ActionSteps + CurrentStep]
                             }
                         } else {
-                            if AssetIterator.Step() < DBuildingDeathTileset.TileCount() {
-                                TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.Step()
-                                TempRenderData.DX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileHalfWidth() - DBuildingDeathTileset.TileHalfWidth()
-                                TempRenderData.DY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHalfHeight() - DBuildingDeathTileset.TileHalfHeight()
+                            if AssetIterator.DStep < (DBuildingDeathTileset?.TileCount())! {
+                                TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.DStep
+                                TempRenderData.DX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileHalfWidth() - (DBuildingDeathTileset?.TileHalfWidth())!
+                                TempRenderData.DY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHalfHeight() - (DBuildingDeathTileset?.TileHalfHeight())!
                             }
                         }
                     default:
                         break
                     }
                     if 0 <= TempRenderData.DTileIndex {
-                        FinalRenderList.push_back(TempRenderData)
+                        FinalRenderList.append(TempRenderData)
                     }
                 }
             }
         }
-        FinalRenderList.sort(CompareRenderData)
+        FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
-                DTilesets[RenderIterator.DType.rawValue].DrawTile(surface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DColorIndex)
-                DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
+                DTilesets[RenderIterator.DType.rawValue].DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex, colorindex: RenderIterator.DColorIndex)
+                // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
             } else {
-                DBuildingDeathTileset.DrawTile(surface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex)
+                DBuildingDeathTileset?.DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex)
             }
         }
     }
 
     func DrawSelections(surface: CGraphicSurface, rect: SRectangle, selectionlist: [CPlayerAsset], selectrect: SRectangle, highlightbuilding: Bool) {
-        var ResourceContext = surface.CreateResourceContext()
+        let ResourceContext = surface.CreateResourceContext()
         var RectangleColor: UInt32 = DPixelColors[EPlayerColor.Max.rawValue]
-        var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
-        var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
+        let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
+        let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var SelectionX, SelectionY: Int
 
         if highlightbuilding {
             RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 2]
 
             ResourceContext.SetSourceRGB(rgb: RectangleColor)
-            for AssetIterator in DPlayerMap.Assets {
-                var TempRenderData: SAssetRenderData
+            for AssetIterator in DPlayerMap.DAssets {
+                var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
                 TempRenderData.DType = AssetIterator.Type()
                 if EAssetType.None == TempRenderData.DType {
                     continue
                 }
-                if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.size()) {
+                if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.count) {
                     if 0 == AssetIterator.Speed() {
                         var RightX: Int
-                        var Offset: Int = EAssetType.GoldMine == TempRenderData.DType ? 1 : 0
+                        let Offset: Int = EAssetType.GoldMine == TempRenderData.DType ? 1 : 0
 
-                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
-                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
-                        TempRenderData.DX = TempRenderData.DX - Offset * CPosition.TileWidth()
-                        TempRenderData.DY = TempRenderData.DY - Offset * CPosition.TileHeight()
+                        let cposition: CPosition = CPosition()
+                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * cposition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
+                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * cposition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
+                        TempRenderData.DX = TempRenderData.DX - Offset * cposition.TileWidth()
+                        TempRenderData.DY = TempRenderData.DY - Offset * cposition.TileHeight()
 
-                        RightX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * CPosition.TileWidth()) - 1
-                        TempRenderData.DBottomY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * CPosition.TileHeight()) - 1
+                        RightX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * cposition.TileWidth()) - 1
+                        TempRenderData.DBottomY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * cposition.TileHeight()) - 1
                         var OnScreen: Bool = true
                         if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
                             OnScreen = false
@@ -502,7 +525,7 @@ class AssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            ResourceContext.Rectangle(TempRenderData.DX, TempRenderData.DY, DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * CPosition.TileWidth()), DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * CPosition.TileHeight()))
+                            ResourceContext.Rectangle(xpos: TempRenderData.DX, ypos: TempRenderData.DY, width: DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * cposition.TileWidth()), height: DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * cposition.TileHeight()))
                             ResourceContext.Stroke()
                         }
                     }
@@ -522,30 +545,34 @@ class AssetRenderer {
             ResourceContext.Stroke()
         }
 
-        if selectionlist.size() {
-            if var Asset = selectionlist.front().lock() {
+        if selectionlist.count > 0 {
+            // if var Asset = selectionlist.front().lock() {  ***Don't delete!  >:( David
+            if let Asset = selectionlist.first {
                 if EPlayerColor.None == Asset.Color() {
                     RectangleColor = DPixelColors[EPlayerColor.None.rawValue]
-                } else if DPlayerData.Color() != Asset.Color() {
+                } else if DPlayerData?.DColor != Asset.Color() {
                     RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 1]
                 }
                 ResourceContext.SetSourceRGB(rgb: RectangleColor)
             }
         }
 
-        for var AssetIterator in selectionlist {
-            if var LockedAsset = AssetIterator.lock() {
-                var TempRenderData: SAssetRenderData
+        for AssetIterator in selectionlist {
+            // if var LockedAsset = AssetIterator.lock() {
+            // if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
+
+            if let LockedAsset: CPlayerAsset = AssetIterator {
+                var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
                 TempRenderData.DType = LockedAsset.Type()
                 if EAssetType.None == TempRenderData.DType {
                     if EAssetAction.Decay == LockedAsset.Action() {
                         var RightX: Int
                         var OnScreen: Bool = true
 
-                        TempRenderData.DX = LockedAsset.PositionX() - DCorpseTileset.TileWidth() / 2
-                        TempRenderData.DY = LockedAsset.PositionY() - DCorpseTileset.TileHeight() / 2
-                        RightX = TempRenderData.DX + DCorpseTileset.TileWidth()
-                        TempRenderData.DBottomY = TempRenderData.DY + DCorpseTileset.TileHeight()
+                        TempRenderData.DX = LockedAsset.PositionX() - (DCorpseTileset?.TileWidth())! / 2
+                        TempRenderData.DY = LockedAsset.PositionY() - (DCorpseTileset?.TileHeight())! / 2
+                        RightX = TempRenderData.DX + (DCorpseTileset?.TileWidth())!
+                        TempRenderData.DBottomY = TempRenderData.DY + (DCorpseTileset?.TileHeight())!
 
                         if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
                             OnScreen = false
@@ -555,26 +582,26 @@ class AssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            var ActionSteps: Int = DCorpseIndices.size()
+                            var ActionSteps: Int = DCorpseIndices.count
                             ActionSteps = ActionSteps / EDirection.Max.rawValue
-                            if ActionSteps {
-                                var CurrentStep: Int = LockedAsset.Step() / (DAnimationDownsample * TARGET_FREQUENCY)
+                            if 0 != ActionSteps {
+                                var CurrentStep: Int = LockedAsset.DStep / (AssetRenderer.DAnimationDownsample * AssetRenderer.TARGET_FREQUENCY)
                                 if CurrentStep >= ActionSteps {
                                     CurrentStep = ActionSteps - 1
                                 }
-                                TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.Direction().rawValue * ActionSteps + CurrentStep]
+                                TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.DDirection.rawValue * ActionSteps + CurrentStep]
                             }
 
-                            DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                            DCorpseTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     } else if EAssetAction.Attack != LockedAsset.Action() {
                         var RightX: Int
                         var OnScreen: Bool = true
 
-                        TempRenderData.DX = LockedAsset.PositionX() - DMarkerTileset.TileWidth() / 2
-                        TempRenderData.DY = LockedAsset.PositionY() - DMarkerTileset.TileHeight() / 2
-                        RightX = TempRenderData.DX + DMarkerTileset.TileWidth()
-                        TempRenderData.DBottomY = TempRenderData.DY + DMarkerTileset.TileHeight()
+                        TempRenderData.DX = LockedAsset.PositionX() - (DMarkerTileset?.TileWidth())! / 2
+                        TempRenderData.DY = LockedAsset.PositionY() - (DMarkerTileset?.TileHeight())! / 2
+                        RightX = TempRenderData.DX + (DMarkerTileset?.TileWidth())!
+                        TempRenderData.DBottomY = TempRenderData.DY + (DMarkerTileset?.TileHeight())!
 
                         if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
                             OnScreen = false
@@ -584,20 +611,21 @@ class AssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            var MarkerIndex: Int = LockedAsset.Step() / DAnimationDownsample
-                            if MarkerIndex < DMarkerIndices.size() {
-                                DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerTileset[MarkerIndex])
+                            let MarkerIndex: Int = LockedAsset.DStep / AssetRenderer.DAnimationDownsample
+                            if MarkerIndex < DMarkerIndices.count {
+                                DMarkerTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
                             }
                         }
                     }
-                } else if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.size()) {
+                } else if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.count) {
                     var RightX, RectWidth, RectHeight: Int
                     var OnScreen: Bool = true
 
-                    TempRenderData.DX = LockedAsset.PositionX() - CPosition.HalfTileWidth()
-                    TempRenderData.DY = LockedAsset.PositionY() - CPosition.HalfTileHeight()
-                    RectWidth = CPosition.TileWidth() * LockedAsset.Size()
-                    RectHeight = CPosition.TileHeight() * LockedAsset.Size()
+                    let cposition: CPosition = CPosition()
+                    TempRenderData.DX = LockedAsset.PositionX() - cposition.HalfTileWidth()
+                    TempRenderData.DY = LockedAsset.PositionY() - cposition.HalfTileHeight()
+                    RectWidth = cposition.TileWidth() * LockedAsset.Size()
+                    RectHeight = cposition.TileHeight() * LockedAsset.Size()
                     RightX = TempRenderData.DX + RectWidth
                     TempRenderData.DBottomY = TempRenderData.DY + RectHeight
                     if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
@@ -622,18 +650,18 @@ class AssetRenderer {
         var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
 
-        for var AssetIterator in DPlayerMap.Assets() {
-            var TempRenderData: SAssetRenderData
+        for AssetIterator in DPlayerMap.DAssets {
+            var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
             if EAssetType.None == TempRenderData.DType {
                 if EAssetAction.Attack == AssetIterator.Action() {
                     var RightX: Int
                     var OnScreen: Bool = true
 
-                    TempRenderData.DX = AssetIterator.PositionX() - DArrowTileset.TileWidth() / 2
-                    TempRenderData.DY = AssetIterator.PositionY() - DArrowTileset.TileHeight() / 2
-                    RightX = TempRenderData.DX + DArrowTileset.TileWidth()
-                    TempRenderData.DBottomY = TempRenderData.DY + DArrowTileset.TileHeight()
+                    TempRenderData.DX = AssetIterator.PositionX() - (DArrowTileset?.TileWidth())! / 2
+                    TempRenderData.DY = AssetIterator.PositionY() - (DArrowTileset?.TileHeight())! / 2
+                    RightX = TempRenderData.DX + (DArrowTileset?.TileWidth())!
+                    TempRenderData.DBottomY = TempRenderData.DY + (DArrowTileset?.TileHeight())!
 
                     if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
                         OnScreen = false
@@ -643,42 +671,44 @@ class AssetRenderer {
                     TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                     TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                     if OnScreen {
-                        var ActionSteps: Int = DArrowIndices.size()
+                        var ActionSteps: Int = DArrowIndices.count
                         ActionSteps = ActionSteps / EDirection.Max.rawValue
 
-                        DArrowTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.Direction().rawValue * ActionSteps + ((DPlayerData.GameCycle() - AssetIterator.CreationCycle()) % ActionSteps)])
+                        DArrowTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.DDirection.rawValue * ActionSteps + (((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % ActionSteps)])
                     }
                 }
             } else if 0 == AssetIterator.Speed() {
                 var CurrentAction: EAssetAction = AssetIterator.Action()
 
                 if EAssetAction.Death != CurrentAction {
-                    var HitRange: Int = AssetIterator.HitPoints() * DFireTilesets.size() * 2 / AssetIterator.MaxHitPoints()
+                    var HitRange: Int = AssetIterator.DHitPoints * DFireTilesets.count * 2 / AssetIterator.MaxHitPoints()
 
                     if EAssetAction.Construct == CurrentAction {
                         var Command = AssetIterator.CurrentCommand()
 
-                        if Command.DAssetTarget {
-                            Command = Command.DAssetTarget.CurrentCommand()
-                            if Command.DActivatedCapability {
-                                var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
-                                Divisor = Divisor ? Divisor : 1
-                                HitRange = AssetIterator.HitPoints() * DFireTilesets.size() * 2 / Divisor
+                        if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
+                            Command = commandDAssetTarget.CurrentCommand()
+
+                            if let activeCapability: CActivatedPlayerCapability? = Command.DActivatedCapability {
+                                var Divisor: Int = activeCapability!.PercentComplete(max: AssetIterator.MaxHitPoints())
+                                Divisor = (0 != Divisor) ? Divisor : 1
+                                HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                             }
-                        } else if Command.DActivatedCapability {
-                            var Divisor: Int = Command.DActivatedCapability.PercentComplete(AssetIterator.MaxHitPoints())
-                            Divisor = Divisor ? Divisor : 1
-                            HitRange = AssetIterator.HitPoints() * DFireTilesets.size() * 2 / Divisor
+                        } else if let activeCapability: CActivatedPlayerCapability? = Command.DActivatedCapability {
+                            var Divisor: Int = activeCapability!.PercentComplete(max: AssetIterator.MaxHitPoints())
+                            Divisor = (0 != Divisor) ? Divisor : 1
+                            HitRange = AssetIterator.DHitPoints * DFireTilesets.count * 2 / Divisor
                         }
                     }
 
-                    if HitRange < DFireTilesets.size() {
-                        var TilesetIndex: Int = DFireTilesets.size() - 1 - HitRange
+                    if HitRange < DFireTilesets.count {
+                        var TilesetIndex: Int = DFireTilesets.count - 1 - HitRange
                         var RightX: Int
 
-                        TempRenderData.DTileIndex = (DPlayerData.GameCycle() - AssetIterator.CreationCycle()) % DFireTilesets[TilesetIndex].TileCount()
-                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DFireTilesets[TilesetIndex].TileHalfWidth()
-                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() - DFireTilesets[TilesetIndex].TileHeight()
+                        let cposition: CPosition = CPosition()
+                        TempRenderData.DTileIndex = ((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % DFireTilesets[TilesetIndex].TileCount()
+                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * cposition.HalfTileWidth() - DFireTilesets[TilesetIndex].TileHalfWidth()
+                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * cposition.HalfTileHeight() - DFireTilesets[TilesetIndex].TileHeight()
 
                         RightX = TempRenderData.DX + DFireTilesets[TilesetIndex].TileWidth() - 1
                         TempRenderData.DBottomY = TempRenderData.DY + DFireTilesets[TilesetIndex].TileHeight() - 1
@@ -691,7 +721,7 @@ class AssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            DFireTilesets[TilesetIndex].DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                            DFireTilesets[TilesetIndex].DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     }
                 }
@@ -704,31 +734,35 @@ class AssetRenderer {
         var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
 
         if EAssetType.None != type {
-            var TempPosition: CPixelPosition
-            var TempTilePosition: CTilePosition
+            var TempPosition: CPixelPosition = CPixelPosition()
+            var TempTilePosition: CTilePosition = CTilePosition()
             var PlacementRightX, PlacementBottomY: Int
             var OnScreen: Bool = true
-            var AssetType = CPlayerAssetType.FindDefaultFromType(type)
+            var playerassettype = CPlayerAssetType()
+            var AssetType = playerassettype.FindDefaultFromType(type: type)
             var PlacementTiles: [[Int]] = [[]]
             var XOff, YOff: Int
 
             TempTilePosition.SetFromPixel(pos: pos)
             TempPosition.SetFromTile(pos: TempTilePosition)
 
-            TempPosition.IncrementX((AssetType.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[type.rawValue].TileHalfWidth())
-            TempPosition.IncrementY((AssetType.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[type.rawValue].TileHalfHeight())
+            let cpos = CPosition()
+            TempPosition.IncrementX(x: (AssetType.DSize - 1) * cpos.DHalfTileWidth - DTilesets[type.rawValue].TileHalfWidth())
+            TempPosition.IncrementY(y: (AssetType.DSize - 1) * cpos.DHalfTileHeight - DTilesets[type.rawValue].TileHalfHeight())
             PlacementRightX = TempPosition.X() + DTilesets[type.rawValue].TileWidth()
             PlacementBottomY = TempPosition.Y() + DTilesets[type.rawValue].TileHeight()
 
             TempTilePosition.SetFromPixel(pos: TempPosition)
             XOff = 0
             YOff = 0
-            PlacementTiles.resize(AssetType.Size())
+            AssetRenderer.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
             for Row in PlacementTiles {
-                Row.resize(AssetType.Size())
-                for var Cell in Row {
-                    var TileType = DPlayerMap.TileType(TempTilePosition.X() + XOff, TempTilePosition.Y() + YOff)
-                    if CTerrainMap.CanPlaceOn(TileType) {
+                var row = Row
+                AssetRenderer.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
+                for var Cell in row {
+                    var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
+                    let cterrainmap = CTerrainMap()
+                    if cterrainmap.CanPlaceOn(type: TileType) {
                         Cell = 1
                     } else {
                         Cell = 0
@@ -738,13 +772,13 @@ class AssetRenderer {
                 XOff = 0
                 YOff = YOff + 1
             }
-            XOff = TempTilePosition.X() + AssetType.Size()
-            YOff = TempTilePosition.Y() + AssetType.Size()
-            for PlayerAsset in DPlayerMap.Assets {
+            XOff = TempTilePosition.X() + AssetType.DSize
+            YOff = TempTilePosition.Y() + AssetType.DSize
+            for PlayerAsset in DPlayerMap.DAssets {
                 var MinX, MaxX, MinY, MaxY: Int
                 var Offset: Int = EAssetType.GoldMine == PlayerAsset.Type() ? 1 : 0
 
-                if builder == PlayerAsset {
+                if !(builder != PlayerAsset) {
                     continue
                 }
                 if XOff <= PlayerAsset.TilePositionX() - Offset {
@@ -763,8 +797,8 @@ class AssetRenderer {
                 MaxX = min(XOff, PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset)
                 MinY = max(TempTilePosition.Y(), PlayerAsset.TilePositionY() - Offset)
                 MaxY = min(YOff, PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset)
-                for var Y = MinY; Y < MaxY; Y = Y + 1 {
-                    for var X = MinX; X < MaxX; X = X + 1 {
+                for Y in MinY ..< MaxY {
+                    for X in MinX ..< MaxX {
                         PlacementTiles[Y - TempTilePosition.Y()][X - TempTilePosition.X()] = 0
                     }
                 }
@@ -783,12 +817,12 @@ class AssetRenderer {
                 var XPos, YPos: Int
                 _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
                 _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
-                DTilesets[type.rawValue].DrawTile(surface, TempPosition.X(), TempPosition.Y(), DPlaceIndices[type.rawValue][0], DPlayerData.Color().rawValue - 1)
+                DTilesets[type.rawValue].DrawTile(surface: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0], colorindex: (DPlayerData?.DColor.rawValue)! - 1)
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
-                        //                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: Cell ? DPlaceGoodIndex : DPlaceBadIndex)
+                        DMarkerTileset!.DrawTile(surface: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }
                     YPos = YPos + DMarkerTileset!.TileHeight()
@@ -801,23 +835,24 @@ class AssetRenderer {
     func DrawMiniAssets(surface: CGraphicSurface) {
         var ResourceContext = surface.CreateResourceContext()
         if nil == DPlayerData {
-            for var AssetIterator in DPlayerMap.Assets {
+            for AssetIterator in DPlayerMap.DAssets {
                 var AssetColor: EPlayerColor = AssetIterator.Color()
                 var Size: Int = AssetIterator.Size()
-                if AssetColor == DPlayerData.Color() {
+                if AssetColor == DPlayerData?.DColor {
                     AssetColor = EPlayerColor.Max
                 }
-                ResourceContext.SetSourceRGB(DPixelColors[AssetColor.rawValue])
-                ResourceContext.Rectangle(AssetIterator.TilePositionX(), AssetIterator.TilePositionY(), Size, Size)
+                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
+                ResourceContext.Rectangle(xpos: AssetIterator.TilePositionX(), ypos: AssetIterator.TilePositionY(), width: Size, height: Size)
                 ResourceContext.Fill()
             }
         } else {
-            for var AssetIterator in DPlayerMap.AssetInitializationList {
+            for AssetIterator in DPlayerMap.DAssetInitializationList {
                 var AssetColor: EPlayerColor = AssetIterator.DColor
-                var Size: Int = CPlayerAssetType.FindDefaultFromName(AssetIterator.DType).Size()
+                let cplayerassettype = CPlayerAssetType()
+                var Size: Int = cplayerassettype.FindDefaultFromName(name: AssetIterator.DType).DSize
 
-                ResourceContext.SetSourceRGB(DPixelColors[AssetColor.rawValue])
-                ResourceContext.Rectangle(AssetIterator.DTilePosition.X(), AssetIterator.DTilePosition.Y(), Size, Size)
+                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
+                ResourceContext.Rectangle(xpos: AssetIterator.DTilePosition.X(), ypos: AssetIterator.DTilePosition.Y(), width: Size, height: Size)
                 ResourceContext.Fill()
             }
         }
