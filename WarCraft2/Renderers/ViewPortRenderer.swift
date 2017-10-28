@@ -14,7 +14,7 @@ class CViewportRenderer {
 
     // c++ shared_ptr
     internal var DMapRenderer: CMapRenderer
-    internal var DAssetRenderer: AssetRenderer
+    internal var DAssetRenderer: CAssetRenderer
     internal var DFogRenderer: CFogRenderer
 
     // c++ protected variables
@@ -24,7 +24,7 @@ class CViewportRenderer {
     internal var DLastViewportHeight: Int
 
     // constructor
-    init(maprender: CMapRenderer, assetrender: AssetRenderer,
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer,
          fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender

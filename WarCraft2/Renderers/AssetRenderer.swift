@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AssetRenderer {
+class CAssetRenderer {
     static let TARGET_FREQUENCY = 10
     var DPlayerData: CPlayerData?
     var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
@@ -378,7 +378,7 @@ class AssetRenderer {
                         ActionSteps = DBuildIndices[TempRenderData.DType.rawValue].count
                         ActionSteps /= EDirection.Max.rawValue
                         if 0 != ActionSteps {
-                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / CAssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DBuildIndices[TempRenderData.DType.rawValue][TileIndex]
                         }
                     case EAssetAction.Construct:
@@ -396,17 +396,17 @@ class AssetRenderer {
                         if 0 != AssetIterator.DLumber {
                             ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / CAssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DCarryLumberIndices[TempRenderData.DType.rawValue][TileIndex]
                         } else if 0 != AssetIterator.DGold {
                             ActionSteps = DCarryGoldIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / CAssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DCarryGoldIndices[TempRenderData.DType.rawValue][TileIndex]
                         } else {
                             ActionSteps = DWalkIndices[TempRenderData.DType.rawValue].count
                             ActionSteps /= EDirection.Max.rawValue
-                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
+                            TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / CAssetRenderer.DAnimationDownsample) % ActionSteps)
                             TempRenderData.DTileIndex = DWalkIndices[TempRenderData.DType.rawValue][TileIndex]
                         }
                     case EAssetAction.Attack:
@@ -423,7 +423,7 @@ class AssetRenderer {
                          EAssetAction.HarvestLumber:
                         ActionSteps = DAttackIndices[TempRenderData.DType.rawValue].count
                         ActionSteps /= EDirection.Max.rawValue
-                        TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / AssetRenderer.DAnimationDownsample) % ActionSteps)
+                        TileIndex = AssetIterator.DDirection.rawValue * ActionSteps + ((AssetIterator.DStep / CAssetRenderer.DAnimationDownsample) % ActionSteps)
                         TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
@@ -453,7 +453,7 @@ class AssetRenderer {
                         if 0 != AssetIterator.Speed() {
                             ActionSteps /= EDirection.Max.rawValue
                             if 0 != ActionSteps {
-                                CurrentStep = AssetIterator.DStep / AssetRenderer.DAnimationDownsample
+                                CurrentStep = AssetIterator.DStep / CAssetRenderer.DAnimationDownsample
                                 if CurrentStep >= ActionSteps {
                                     CurrentStep = ActionSteps - 1
                                 }
@@ -585,7 +585,7 @@ class AssetRenderer {
                             var ActionSteps: Int = DCorpseIndices.count
                             ActionSteps = ActionSteps / EDirection.Max.rawValue
                             if 0 != ActionSteps {
-                                var CurrentStep: Int = LockedAsset.DStep / (AssetRenderer.DAnimationDownsample * AssetRenderer.TARGET_FREQUENCY)
+                                var CurrentStep: Int = LockedAsset.DStep / (CAssetRenderer.DAnimationDownsample * CAssetRenderer.TARGET_FREQUENCY)
                                 if CurrentStep >= ActionSteps {
                                     CurrentStep = ActionSteps - 1
                                 }
@@ -611,7 +611,7 @@ class AssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            let MarkerIndex: Int = LockedAsset.DStep / AssetRenderer.DAnimationDownsample
+                            let MarkerIndex: Int = LockedAsset.DStep / CAssetRenderer.DAnimationDownsample
                             if MarkerIndex < DMarkerIndices.count {
                                 DMarkerTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
                             }
@@ -755,10 +755,10 @@ class AssetRenderer {
             TempTilePosition.SetFromPixel(pos: TempPosition)
             XOff = 0
             YOff = 0
-            AssetRenderer.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
+            CAssetRenderer.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
             for Row in PlacementTiles {
                 var row = Row
-                AssetRenderer.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
+                CAssetRenderer.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
                 for var Cell in row {
                     var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
                     let cterrainmap = CTerrainMap()
