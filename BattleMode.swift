@@ -705,7 +705,7 @@ class CBattleMode: CApplicationMode {
         context.DWorkingBufferSurface.Draw(context.DMiniMapSurface, context.DMiniMapXOffset, context.DMiniMapYOffset, -1, -1, 0, 0)
         context.DWorkingBufferSurface.Draw(context.DViewportSurface, context.DViewportXOffset, context.DViewportYOffset, -1, -1, 0, 0)
         context.DMenuButtonRenderer.DrawButton(context.DWorkingBufferSurface, context.DMenuButtonXOffset, context.DMenuButtonYOffset, context.DMenuButtonState)
-
+        //FIXME: switch statement done wrong, can do with rawValues of the enum type
         switch context.FindUIComponentType(CPixelPosition(CurrentX, CurrentY)) {
         case CApplicationData.EUIComponentType.uictViewport:
             var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(CPixelPosition(CurrentX, CurrentY))
@@ -733,22 +733,27 @@ class CBattleMode: CApplicationMode {
                         }
                     }
 
-                    context.DCursorType = CanApply ? CApplicationData .ctTargetOn: CApplicationData.ctTargetOff
+                    context.DCursorType = CanApply ? CApplicationData.ctTargetOn: CApplicationData.ctTargetOff
                 }
             }
             break
-        case CApplicationData.EUIComponentTypeuictViewport.BevelN: context.DCursorType = CApplicationData.ctArrowN
+        case CApplicationData.EUIComponentTypeuictViewport.BevelN:
+            context.DCursorType = CApplicationData.ctArrowN
             break
-        case CApplicationData.EUIComponentType.uictViewportBevelE: context.DCursorType = CApplicationData.ctArrowE
+        case CApplicationData.EUIComponentType.uictViewportBevelE:
+            context.DCursorType = CApplicationData.ctArrowE
             break
-        case CApplicationData.EUIComponentType.uictViewportBevelS: context.DCursorType = CApplicationData.ctArrowS
+        case CApplicationData.EUIComponentType.uictViewportBevelS:
+            context.DCursorType = CApplicationData.ctArrowS
             break
-        case CApplicationData.EUIComponentType.uictViewportBevelW: context.DCursorType = CApplicationData.ctArrowW
+        case CApplicationData.EUIComponentType.uictViewportBevelW:
+            context.DCursorType = CApplicationData.ctArrowW
             break
-        default: context.DCursorType = CApplicationData.ctPointer
+        default:
+            context.DCursorType = CApplicationData.ctPointer
             break
     }
-    //FIXME: fix below
+    //FIXME: fix below, no type SRec
         var ViewportRectangle: SRectangle = SRectangle([context.DViewportRenderer.ViewportX(), context.DViewportRenderer.ViewportY(), context.DViewportRenderer.LastViewportWidth(), context.DViewportRenderer.LastViewportHeight()])
         context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
         // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Render\n")
