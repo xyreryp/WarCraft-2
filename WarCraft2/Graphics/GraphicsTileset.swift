@@ -259,17 +259,18 @@ class CGraphicTileset {
             }
         }
     } // end CreateCLippingMasks()
-    
-    func TestLoadTileset(source: CDataSource!, assetName: String ) -> Bool {
+
+    func TestLoadTileset(source: CDataSource!, assetName: String) -> Bool {
         // use DataSource to Read
-        var LinesFromDat = source.Read(fileName: assetName, extensionType: "dat")
+        var TempTokens = source.Read(fileName: assetName, extensionType: "dat")
         var Tokens = [String]()
-        for i in 5 ..< LinesFromDat.count {
-            Tokens.append(LinesFromDat[i])
-            DMapping[LinesFromDat[i]]! = i - 5
-            DTileNames.append(LinesFromDat[i])
+        for i in 5 ..< TempTokens.count {
+            Tokens.append(TempTokens[i])
+            DMapping[TempTokens[i]] = i - 5
+            DTileNames.append(TempTokens[i])
         }
-    
+        DTileCount = Tokens.count
+
         // load the actual image from Assets folder.
         let Tileset = NSImage(named: NSImage.Name(rawValue: assetName))!
         DTileWidth = Int(Tileset.size.width)
@@ -277,7 +278,7 @@ class CGraphicTileset {
         DTileHeight /= DTileCount
         DTileHalfWidth = DTileWidth / 2
         DTileHalfHeight = DTileHeight / 2
-        
+
         // crop the image into individual tiles
         for i in 1 ... DTileCount {
             let newSize: NSSize
@@ -286,11 +287,11 @@ class CGraphicTileset {
             let tempTexture = SKTexture(image: temp)
             DTileSet.append(tempTexture)
         }
-        
+
         UpdateGroupName()
         return true
     }
-    
+
     func LoadTileset(source _: CDataSource!) -> Bool {
         if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
             do {

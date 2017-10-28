@@ -26,7 +26,7 @@ class CDataSource {
         for line in Arr {
             let lineArr = line.split(separator: " ")
             var newLineArr: [String] = [String]()
-            var i: Int = 0
+            let i = 0
             for i in i ..< lineArr.count {
                 if lineArr[i] != "#" {
                     newLineArr.append(String(lineArr[i]))
@@ -61,7 +61,7 @@ class CDataSource {
             // separte wholeFile into lines, separated by new lines
             lines = wholeFile.components(separatedBy: .newlines)
             // remove hash if any
-            lines = removeComments(Arr: lines)
+            //            lines = removeComments(Arr: lines)
         } catch {
             print("Error")
         }

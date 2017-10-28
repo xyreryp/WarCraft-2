@@ -17,6 +17,26 @@ class GameViewController: NSViewController {
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
 
+    //    override func viewDidLoad() {
+    //        super.viewDidLoad()
+    //        // Do view setup here.
+    //        view.addSubview(skview)
+    //        //                skview.showsFPS = true
+    //        // skscene?.backgroundColor = NSColor.brown
+    //        skview.presentScene(skscene)
+    //        skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
+    //        let graphicTileSet = CGraphicTileset()
+    //        graphicTileSet.LoadTileset(source: nil)
+    //        let map = CTerrainMap()
+    //        try! map.LoadMap(fileToRead: "mountain")
+    //        map.RenderTerrain()
+    //        let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
+    //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
+    //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
+    //        // TODO:
+    //        //        graphicTileSet.LoadTileset(source: nil)
+    //        //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
+    //    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -25,17 +45,18 @@ class GameViewController: NSViewController {
         // skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
         skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
-        let graphicTileSet = CGraphicTileset()
-        graphicTileSet.LoadTileset(source: nil)
+
+        // entry point for program
+        var application = CApplicationData()
+        // load tile sets
+        application.Activate()
+        var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
         try! map.LoadMap(fileToRead: "mountain")
+
         map.RenderTerrain()
-        let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
-        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
-        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
-        // TODO:
-        //        graphicTileSet.LoadTileset(source: nil)
-        //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
+        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
+        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
     }
 }
 

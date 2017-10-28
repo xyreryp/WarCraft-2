@@ -57,6 +57,9 @@ class CApplicationData {
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource = CDataSource()
 
+    // tileset for the terrain
+    var DTerrainTileset = CGraphicTileset()
+
     // array of tilesets for all the assset
     var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
 
@@ -82,12 +85,15 @@ class CApplicationData {
         CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicMulticolorTileset())
 
         // load tileset for peasant
-        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
-        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(colormap: DPlayerRecolorMap, source: TempDataSource, assetName: "Peasant.dat") {
-            print("Failed to load peasant tileset")
+        //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
+        //        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(colormap: DPlayerRecolorMap, source: TempDataSource, assetName: "Peasant") {
+        //            print("Failed to load peasant tileset")
+        //        }
+
+        // load tileset for terrain.dat
+        DTerrainTileset = CGraphicTileset()
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Terrain") {
+            print("Failed to lead terrain tileset")
         }
-        
-        
-        
     }
 }
