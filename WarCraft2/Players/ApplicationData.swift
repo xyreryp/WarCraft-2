@@ -55,7 +55,7 @@ class CApplicationData {
     var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
 
     // Data Source, used for all reading of files
-    var DataSource: CDataSource = CDataSource()
+    var TempDataSource: CDataSource = CDataSource()
 
     // array of tilesets for all the assset
     var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
@@ -83,6 +83,11 @@ class CApplicationData {
 
         // load tileset for peasant
         DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
-        DAssetTilesets[EAssetType.Peasant.rawValue].LoadTileset(colormap: DPlayerRecolorMap, source: DataSource)
+        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(colormap: DPlayerRecolorMap, source: TempDataSource, assetName: "Peasant.dat") {
+            print("Failed to load peasant tileset")
+        }
+        
+        
+        
     }
 }
