@@ -94,6 +94,13 @@
 		9B64D61D1FA05AEB00C39977 /* PlayerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerData.swift; sourceTree = "<group>"; };
 		9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAssetType.swift; sourceTree = "<group>"; };
 		9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCapability.swift; sourceTree = "<group>"; };
+		A10B58DA1FA546100035C1EB /* Archer.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Archer.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Archer.dat; sourceTree = "<group>"; };
+		A10B58DB1FA546510035C1EB /* FireLarge.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = FireLarge.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/FireLarge.dat; sourceTree = "<group>"; };
+		A10B58DC1FA546510035C1EB /* Marker.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Marker.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Marker.dat; sourceTree = "<group>"; };
+		A10B58DD1FA546510035C1EB /* Corpse.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Corpse.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Corpse.dat; sourceTree = "<group>"; };
+		A10B58DE1FA546520035C1EB /* BuildingDeath.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = BuildingDeath.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/BuildingDeath.dat; sourceTree = "<group>"; };
+		A10B58DF1FA546520035C1EB /* FireSmall.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = FireSmall.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/FireSmall.dat; sourceTree = "<group>"; };
+		A10B58E01FA546520035C1EB /* Archer.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Archer.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Archer.dat; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
@@ -237,6 +244,13 @@
 		E1B45E301F9D4DF6009D9BF1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A10B58DA1FA546100035C1EB /* Archer.dat */,
+				A10B58E01FA546520035C1EB /* Archer.dat */,
+				A10B58DE1FA546520035C1EB /* BuildingDeath.dat */,
+				A10B58DD1FA546510035C1EB /* Corpse.dat */,
+				A10B58DB1FA546510035C1EB /* FireLarge.dat */,
+				A10B58DF1FA546520035C1EB /* FireSmall.dat */,
+				A10B58DC1FA546510035C1EB /* Marker.dat */,
 				883BFF0E1F99E255005239AA /* mountain.map */,
 				E199367D1F9BEE7F0064CA77 /* Terrain.dat */,
 			);
