@@ -32,7 +32,8 @@ class CAIPlayer {
         var IdleAssets = DPlayerData.IdleAssets() // IdleAssets list of weak_ptrs of type CPlayerAsset
         var MovableAsset: CPlayerAsset?
 
-        for Asset in IdleAssets {
+        for Weak_Asset in IdleAssets {
+            let Asset = Weak_Asset
             if Asset.Speed() != 0 { // check for weak_ptr lock here: STILL NEED TO KNOW HOW HANDLING weak_ptr
                 MovableAsset = Asset
                 break
@@ -54,7 +55,8 @@ class CAIPlayer {
     func FindEnemies(command: inout SPlayerCommandRequest) -> Bool {
         var TownHallAsset: CPlayerAsset?
 
-        for Asset in DPlayerData.DAssets { // weak_ptr.lock() ignored again
+        for Weak_Asset in DPlayerData.DAssets { // weak_ptr.lock() ignored again
+            let Asset = Weak_Asset
             if Asset.HasCapability(capability: EAssetCapabilityType.BuildPeasant) {
                 TownHallAsset = Asset
                 break
@@ -69,7 +71,8 @@ class CAIPlayer {
     func AttackEnemies(command: inout SPlayerCommandRequest) -> Bool {
         var AverageLocation = CPixelPosition(x: 0, y: 0)
 
-        for Asset in DPlayerData.DAssets {
+        for Weak_Asset in DPlayerData.DAssets {
+            let Asset = Weak_Asset
             if (EAssetType.Footman == Asset.Type()) || (EAssetType.Archer == Asset.Type()) || (EAssetType.Ranger == Asset.Type()) {
                 if !Asset.HasAction(action: EAssetAction.Attack) {
                     command.DActors.append(Asset)
@@ -98,10 +101,11 @@ class CAIPlayer {
     }
 
     func BuildTownHall(command: inout SPlayerCommandRequest) -> Bool {
-        var IdleAssets = DPlayerData.IdleAssets()
-        var BuilderAsset: CPlayerAsset?
+        var IdleAssets = DPlayerData.
+            var BuilderAsset: CPlayerAsset?
 
-        for Asset in IdleAssets {
+        for Weak_Asset in IdleAssets {
+            let Asset = Weak_Asset
             if Asset.HasCapability(EAssetCapabilityType.BuildTownHall) {
                 BuilderAsset = Asset
                 break
@@ -146,7 +150,8 @@ class CAIPlayer {
             break
         }
 
-        for Asset in DPlayerData.DAssets {
+        for Weak_Asset in DPlayerData.DAssets {
+            let Asset = Weak_Asset
             if Asset.HasCapability(capability: BuildAction!) && Asset.Interruptible() {
                 if BuilderAsset == nil || (!AssetIsIdle && (EAssetAction.None == Asset.Action())) {
                     BuilderAsset = Asset
@@ -175,7 +180,7 @@ class CAIPlayer {
         if BuilderAsset != nil {
             var PlayerCapability = CPlayerCapability.FindCapability(BuildAction)
             var SourcePosition: CTilePosition = TownHallAsset!.TilePosition()
-            var MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width()/2, y: DPlayerData.DPlayerMap.Height()/2)
+            var MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width() / 2, y: DPlayerData.DPlayerMap.Height() / 2)
 
             if NearAsset != nil {
                 SourcePosition = NearAsset!.TilePosition()
@@ -220,8 +225,8 @@ class CAIPlayer {
         var SwitchToGold: Bool = false
         var SwitchToLumber: Bool = false
 
-        for Asset in DPlayerData.DAssets {
-
+        for Weak_Asset in DPlayerData.DAssets {
+            let Asset = Weak_Asset
             if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
                 if MiningAsset == nil && (EAssetAction.None == Asset.Action()) {
                     MiningAsset = Asset
@@ -297,7 +302,8 @@ class CAIPlayer {
     func ActivateFighters(command: inout SPlayerCommandRequest) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
 
-        for Asset in IdleAssets {
+        for Weak_Asset in IdleAssets {
+            let Asset = Weak_Asset
             if Asset.Speed() && (EAssetType.Peasant != Asset.Type()) {
                 if !Asset.HasAction(EAssetAction.StandGround) && !Asset.HasActiveCapability(EAssetCapabilityType.StandGround) {
                     command.DActors.append(Asset)
@@ -316,7 +322,8 @@ class CAIPlayer {
         var IdleAssets = DPlayerData.IdleAssets()
         var TrainingAsset: CPlayerAsset?
 
-        for Asset in IdleAssets {
+        for Weak_Asset in IdleAssets {
+            let Asset = Weak_Asset
             if Asset.HasCapability(EAssetCapabilityType.BuildFootman) {
                 TrainingAsset = Asset
                 break
@@ -342,7 +349,8 @@ class CAIPlayer {
         var TrainingAsset: CPlayerAsset?
         var BuildType: EAssetCapabilityType = EAssetCapabilityType.BuildArcher
 
-        for Asset in IdleAssets {
+        for Weak_Asset in IdleAssets {
+            Asset = Weak_Asset
             if Asset.HasCapability(EAssetCapabilityType.BuildArcher) {
                 TrainingAsset = Asset
                 BuildType = EAssetCapabilityType.BuildArcher
