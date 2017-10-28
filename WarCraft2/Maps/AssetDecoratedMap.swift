@@ -41,6 +41,7 @@ class CAssetDecoratedMap: CTerrainMap {
 
         DMapNameTranslation = [String: Int]()
         DAllMaps = [CAssetDecoratedMap]()
+        fileLines = [String]()
         super.init()
     }
 
@@ -54,6 +55,7 @@ class CAssetDecoratedMap: CTerrainMap {
 
         DMapNameTranslation = [String: Int]()
         DAllMaps = [CAssetDecoratedMap]()
+        fileLines = [String]()
         super.init()
     }
 
@@ -82,7 +84,9 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             DResourceInitializationList.append(NewInitVal)
         }
+        fileLines = [String]()
         super.init()
+
     }
 
     deinit {
