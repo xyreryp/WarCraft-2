@@ -47,10 +47,11 @@ class CApplicationData {
         case ptAIMedium
         case ptAIHard
     }
-    var ECursorTypeRef: ECursorType
-    var EUIComponentTypeRef: EUIComponentType
-    var EGameSessionTypeRef: EGameSessionType
-    var EPlayerTypeRef: EPlayerType
+    var ECursorTypeRef: ECursorType = ECursorType.ctPointer
+    var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
+    var EGameSessionTypeRef: EGameSessionType = EGameSessionType.gstSinglePlayer
+    var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
+    
     init() {
         
     }
