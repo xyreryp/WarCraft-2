@@ -25,6 +25,7 @@
 		8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCE1FA1BE46003E81E5 /* DataSink.swift */; };
 		8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */; };
 		883BFF0F1F99E255005239AA /* mountain.map in Resources */ = {isa = PBXBuildFile; fileRef = 883BFF0E1F99E255005239AA /* mountain.map */; };
+		88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */; };
 		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
 		9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */; };
@@ -85,6 +86,7 @@
 		8834FBCE1FA1BE46003E81E5 /* DataSink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSink.swift; sourceTree = "<group>"; };
 		8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
 		883BFF0E1F99E255005239AA /* mountain.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = mountain.map; sourceTree = "<group>"; };
+		88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
 		9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDecoratedMap.swift; sourceTree = "<group>"; };
 		9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAsset.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				9B64D61D1FA05AEB00C39977 /* PlayerData.swift */,
 				9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */,
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
+				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */,
 				93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */,
 				E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */,
 				E14136B71F97F8530086A0A6 /* Scene.sks in Sources */,
