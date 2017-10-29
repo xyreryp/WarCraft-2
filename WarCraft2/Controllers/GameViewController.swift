@@ -66,9 +66,11 @@ class GameViewController: NSViewController {
         // declare asset renderer
         // draw assets
         let assetDecoratedMap = application.DAssetMap
-        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Red)
+        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
+
+        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
 }
 
