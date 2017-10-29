@@ -24,16 +24,15 @@ class CPlayerData {
     var DGameCycle: Int = Int()
 
     init(map: CAssetDecoratedMap, color: EPlayerColor) {
-        var DIsAI = true
-        var DGameCycle = 0
-        var DColor = color
-        var DActualMap = map
-        var asset = CPlayerAssetType()
-        var DAssetTypes = asset.DuplicateRegistry(color: color)
-        var DPlayerMap = DActualMap.CreateInitializeMap()
-        var DVisibilityMap = DActualMap.CreateVisibilityMap()
-        var DGold = 0
-        var DLumber = 0
+        DIsAI = true
+        DGameCycle = 0
+        DColor = color
+        DActualMap = map
+        DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
+        DPlayerMap = DActualMap.CreateInitializeMap()
+        DVisibilityMap = DActualMap.CreateVisibilityMap()
+        DGold = 0
+        DLumber = 0
 
         // resize
         for i in 0 ..< DUpgrades.count {
@@ -55,6 +54,7 @@ class CPlayerData {
 
             if AssetInit.DColor == color {
                 // print debug stuff???
+
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
                 let assetInitType: String = AssetInit.DType
@@ -152,7 +152,14 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
+        // TODO: Uncomment and use real DAssetType
+        //        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
+        var CreatedAssetType = CPlayerAssetType()
+        CreatedAssetType.DName = "GoldMine"
+        CreatedAssetType.DType = .GoldMine
+        var CreatedAsset = CreatedAssetType.Construct()
+        // hardcode end here
+
         CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
         DActualMap.AddAsset(asset: CreatedAsset)

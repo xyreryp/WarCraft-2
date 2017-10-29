@@ -27,6 +27,7 @@
 		883BFF0F1F99E255005239AA /* mountain.map in Resources */ = {isa = PBXBuildFile; fileRef = 883BFF0E1F99E255005239AA /* mountain.map */; };
 		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
+		9B2839251FA5AC7100CF7566 /* img in Resources */ = {isa = PBXBuildFile; fileRef = 9B2839241FA5AC7000CF7566 /* img */; };
 		9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */; };
 		9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */; };
 		9B64D6211FA05AEB00C39977 /* PlayerUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */; };
@@ -84,6 +85,7 @@
 		8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
 		883BFF0E1F99E255005239AA /* mountain.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = mountain.map; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
+		9B2839241FA5AC7000CF7566 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; path = img; sourceTree = "<group>"; };
 		9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDecoratedMap.swift; sourceTree = "<group>"; };
 		9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAsset.swift; sourceTree = "<group>"; };
 		9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerUpgrade.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
+				9B2839241FA5AC7000CF7566 /* img */,
 				52DB596A1F9A923100BA1183 /* AIPlayer.swift */,
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
@@ -346,6 +349,7 @@
 			files = (
 				CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */,
 				CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */,
+				9B2839251FA5AC7100CF7566 /* img in Resources */,
 				E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */,
 				E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,

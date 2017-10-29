@@ -41,7 +41,6 @@ class CAssetDecoratedMap: CTerrainMap {
 
         DMapNameTranslation = [String: Int]()
         DAllMaps = [CAssetDecoratedMap]()
-        fileLines = [String]()
         super.init()
     }
 
@@ -55,7 +54,6 @@ class CAssetDecoratedMap: CTerrainMap {
 
         DMapNameTranslation = [String: Int]()
         DAllMaps = [CAssetDecoratedMap]()
-        fileLines = [String]()
         super.init()
     }
 
@@ -84,7 +82,6 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             DResourceInitializationList.append(NewInitVal)
         }
-        fileLines = [String]()
         super.init()
     }
 
@@ -467,17 +464,24 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     // duplicated LoadMap for hardcoding map reading.
-    var fileLines: [String]
     func LoadMap(fileNameToRead: String) -> Bool {
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = dir.appendingPathComponent(fileNameToRead)
-            do {
-                let fileString = try String(contentsOf: fileURL)
-                fileLines = fileString.components(separatedBy: .newlines)
-            } catch {
-                print(error)
-            }
+        //        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+        //            let fileURL = dir.appendingPathComponent(fileNameToRead)
+        //            do {
+        //                let fileString = try String(contentsOf: fileURL)
+        //                fileLines = fileString.components(separatedBy: .newlines)
+        //            } catch {
+        //                print(error)
+        //            }
+        //        }
+        let filepath = Bundle.main.url(forResource: fileNameToRead, withExtension: "map")!
+        guard let text = try? String(contentsOf: filepath, encoding: .utf8) else {
+            print("error reading file from the filepath \(filepath)")
+            return false
         }
+        var fileLines = [String]()
+        fileLines = text.components(separatedBy: "\n")
+
         var TempString: String = ""
         var Tokens: [String] = [String]()
         var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
@@ -590,7 +594,7 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     //    TODO: something wrong with MaxSight.
-    func CreateVisibilityMap() -> PVisibilityMap {
+    func CreateVisibilityMap() -> CVisibilityMap {
         let cplayerassettype: CPlayerAssetType = CPlayerAssetType(asset: CPlayerAssetType())
         // return CVisibilityMap(width: Width(), height: Height(), maxvisibility: cplayerassettype.MaxSight())
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: 2)

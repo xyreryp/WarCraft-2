@@ -50,6 +50,7 @@ class AssetRenderer {
         DPlayerMap = map
 
         // DPixelColors.resize((rawValue: EPlayerColor.Max) + 3)
+        CMapRenderer.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
         DPixelColors[EPlayerColor.None.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "none"), cindex: 0)
         DPixelColors[EPlayerColor.Blue.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "blue"), cindex: 0)
         DPixelColors[EPlayerColor.Red.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "red"), cindex: 0)
@@ -480,7 +481,10 @@ class AssetRenderer {
         FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
-                DTilesets[RenderIterator.DType.rawValue].DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex, colorindex: RenderIterator.DColorIndex)
+                let goldMineTileSet = CGraphicTileset()
+                goldMineTileSet.LoadTileset_GoldMine(source: nil)
+                goldMineTileSet.DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex)
+                //                DTilesets[RenderIterator.DType.rawValue].DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex, colorindex: RenderIterator.DColorIndex)
                 // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
             } else {
                 // DBuildingDeathTileset?.DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex)
