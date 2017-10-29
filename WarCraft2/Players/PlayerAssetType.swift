@@ -262,9 +262,11 @@ class CPlayerAssetType {
     }
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
+    // TODO: fix
     func MaxSight() -> Int {
-        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
-        return MaxSightFound!.value.DSight
+        //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
+        //        return MaxSightFound!.value.DSight
+        return 3
     }
 
     func LoadTypes(container: CDataContainer) -> Bool {

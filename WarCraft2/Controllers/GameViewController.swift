@@ -57,6 +57,14 @@ class GameViewController: NSViewController {
         map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
+
+        // call asset renderer
+        // declare asset renderer
+        // draw assets
+        var assetDecoratedMap = application.DAssetMap
+        var playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Red)
+        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
     }
 }
 
