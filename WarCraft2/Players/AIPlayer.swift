@@ -87,7 +87,7 @@ class CAIPlayer {
             AverageLocation.Y(y: AverageLocation.Y() / command.DActors.count)
 
             let TargetEnemy = DPlayerData.FindNearestEnemy(pos: AverageLocation, range: -1)
-            if !TargetEnemy {
+            if TargetEnemy == nil {
                 command.DActors.removeAll()
                 return SearchMap(command: &command)
             }
@@ -102,7 +102,7 @@ class CAIPlayer {
 
     func BuildTownHall(command: inout SPlayerCommandRequest) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
-            var BuilderAsset: CPlayerAsset?
+        var BuilderAsset: CPlayerAsset?
 
         for Weak_Asset in IdleAssets {
             let Asset = Weak_Asset
@@ -114,7 +114,7 @@ class CAIPlayer {
 
         if BuilderAsset != nil {
             var GoldMineAsset = DPlayerData.FindNearestAsset(pos: BuilderAsset!.DPosition, assettype: EAssetType.GoldMine)
-            var Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(pos: GoldMineAsset.TilePosition(), builder: BuilderAsset, assettype: EAssetType.TownHall, buffer: 1)
+            var Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(pos: GoldMineAsset.TilePosition(), builder: BuilderAsset!, assettype: EAssetType.TownHall, buffer: 1)
             if 0 <= Placement.X() {
                 command.DAction = EAssetCapabilityType.BuildTownHall
                 command.DActors.append(BuilderAsset!)
