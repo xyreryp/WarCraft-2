@@ -9,7 +9,7 @@
 import Foundation
 class CPlayerAssetType {
 
-    var DThis: CPlayerAssetType = CPlayerAssetType()
+    //    var DThis: CPlayerAssetType =
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
@@ -292,7 +292,6 @@ class CPlayerAssetType {
         }
 
         let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
-        PlayerAssetType.DThis = PlayerAssetType
         PlayerAssetType.DName = "None"
         PlayerAssetType.DType = EAssetType.None
         PlayerAssetType.DColor = EPlayerColor.None
@@ -325,7 +324,7 @@ class CPlayerAssetType {
     }
 
     func Construct() -> CPlayerAsset {
-        let ThisShared = DThis
+        let ThisShared = self
         return CPlayerAsset(type: ThisShared)
     }
 }
