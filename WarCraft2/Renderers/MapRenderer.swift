@@ -28,7 +28,7 @@ protocol PMapRenderer {
 
     // functions to be implemented in CMapRenderer
     func DrawMap(surface: SKScene, typesurface: SKScene, rect: SRectangle)
-    func DrawMiniMap(surface: SKScene)
+    func DrawMiniMap(surface: CGraphicSurface)
 }
 
 class CMapRenderer: PMapRenderer {
@@ -307,6 +307,30 @@ class CMapRenderer: PMapRenderer {
         } while YPos < rect.DHeight
     }
 
-    func DrawMiniMap(surface _: SKScene) {
+    func DrawMiniMap(surface: CGraphicSurface) {
+
+        var ResourceContext = surface.CreateResourceContext()
+        ResourceContext.SetLineWidth(width: 1)
+        ResourceContext.SetLineCap(cap: CGLineCap.square)
+
+        for YPos in 0 ..< DDMap.Height() {
+            var XPos = 0
+
+            while XPos < DDMap.Width() {
+                var TileType = DDMap.TileType(xindex: XPos, yindex: YPos)
+                var XAnchor = XPos
+
+                while XPos < DDMap.Width() && DDMap.TileType(xindex: XPos, yindex: YPos) == TileType {
+                    XPos += 1
+                }
+
+                if CTerrainMap.ETileType.None != TileType {
+                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]))
+                    ResourceContext.MoveTo(xpos: XAnchor, ypos: YPos)
+                    ResourceContext.LineTo(xpos: XPos, ypos: YPos)
+                    ResourceContext.Stroke()
+                }
+            }
+        }
     }
 }
