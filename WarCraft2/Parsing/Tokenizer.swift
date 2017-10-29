@@ -74,8 +74,8 @@ final class CTokenizer: PTokenizer {
         tokens = []
         var Index: Int = 0
         repeat {
-
-            if nil != Delimiters.range(of: data) {
+            let index = data.index(data.startIndex, offsetBy: Index)
+            if !Delimiters.contains(data[index]) {
                 let index: String.Index = data.index(data.startIndex, offsetBy: Index)
                 TempString += String(data[index])
             } else if TempString.count > 0 {

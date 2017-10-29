@@ -86,7 +86,6 @@ class CAssetDecoratedMap: CTerrainMap {
         }
         fileLines = [String]()
         super.init()
-
     }
 
     deinit {
@@ -402,7 +401,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             CTokenizer.Tokenize(tokens: &Tokens, data: TempString, delimiters: "")
             if 3 > Tokens.count {
-                print("Too few tokens for resource %d.\n", Index)
+                print("Too few tokens for resource", Index, "\n")
                 return ReturnStatus
             }
             TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
@@ -466,16 +465,16 @@ class CAssetDecoratedMap: CTerrainMap {
         ReturnStatus = true
         return ReturnStatus // supposingly where try ends and where catch begins
     }
-    
-    //duplicated LoadMap for hardcoding map reading.
+
+    // duplicated LoadMap for hardcoding map reading.
     var fileLines: [String]
     func LoadMap(fileNameToRead: String) -> Bool {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileNameToRead)
-            do{
+            do {
                 let fileString = try String(contentsOf: fileURL)
                 fileLines = fileString.components(separatedBy: .newlines)
-            }catch{
+            } catch {
                 print(error)
             }
         }
@@ -490,7 +489,7 @@ class CAssetDecoratedMap: CTerrainMap {
         while fileLines[I] != "# Number of players" {
             I = I + 1
         }
-        if I == fileLines.count{
+        if I == fileLines.count {
             print("Reached EoF without Number of assets")
             return false
         }
@@ -499,9 +498,9 @@ class CAssetDecoratedMap: CTerrainMap {
         ResourceCount = Int(TempString)!
         DResourceInitializationList.removeAll()
         for Index in stride(from: I, to: I + ResourceCount, by: 1) {
-            CTokenizer.Tokenize(tokens: &Tokens, data: fileLines[Index], delimiters: "")
+            CTokenizer.Tokenize(tokens: &Tokens, data: fileLines[Index], delimiters: " ")
             if 3 > Tokens.count {
-                print("Too few tokens for resource %d.\n", Index)
+                print("Too few tokens for resource", Index, "\n")
                 return ReturnStatus
             }
             TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
@@ -514,22 +513,22 @@ class CAssetDecoratedMap: CTerrainMap {
             if EPlayerColor.None == TempResourceInit.DColor {
                 InitialLumber = TempResourceInit.DLumber
             }
-            
+
             DResourceInitializationList.append(TempResourceInit)
         }
         I = I + ResourceCount + 1
-        if fileLines[I] != "#Number of assets" {
+        if fileLines[I] != "# Number of assets" {
             print("Failed to read map asset count.\n")
             return ReturnStatus
         }
         TempString = fileLines[I + 1]
         AssetCount = Int(TempString)!
-        I = I + 2
+        I = I + 3
         DAssetInitializationList.removeAll()
-        for Index in stride(from: 0, to: AssetCount, by: 1) {
-            CTokenizer.Tokenize(tokens: &Tokens, data: fileLines[Index])
+        for Index in stride(from: I, to: I + AssetCount, by: 1) {
+            CTokenizer.Tokenize(tokens: &Tokens, data: fileLines[Index], delimiters: " ")
             if 4 > Tokens.count {
-                print("Too few tokens for asset %d.\n", Index)
+                print("Too few tokens for asset", Index, "\n")
                 return ReturnStatus
             }
             TempAssetInit.DType = Tokens[0]
@@ -537,18 +536,18 @@ class CAssetDecoratedMap: CTerrainMap {
             var StopGivingMeWarning = TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
             StopGivingMeWarning = TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
             StopGivingMeWarning = StopGivingMeWarning + 1
-            
+
             if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
-                print("Invalid resource position %d (%d, %d).\n", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y())
+                print("Invalid resource position ", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y(), "\n")
                 return ReturnStatus
             }
-            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
-                print("Invalid resource position %d (%d, %d).\n", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y())
-                return ReturnStatus
-            }
+            //            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
+            //                print("Invalid resource position", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y(), "\n")
+            //                return ReturnStatus
+            //            } problem with TerrainMap: Width() and Height(): Height() is returning -1
             DAssetInitializationList.append(TempAssetInit)
         }
-        
+
         resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
         for RowIndex in stride(from: 0, to: DLumberAvailable.count, by: 1) {
             resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
@@ -563,7 +562,6 @@ class CAssetDecoratedMap: CTerrainMap {
         ReturnStatus = true
         return ReturnStatus // supposingly where try ends and where catch begins
     }
-
 
     func CreateInitializeMap() -> CAssetDecoratedMap {
         let ReturnMap: CAssetDecoratedMap = CAssetDecoratedMap()

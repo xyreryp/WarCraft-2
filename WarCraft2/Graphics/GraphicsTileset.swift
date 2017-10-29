@@ -292,6 +292,40 @@ class CGraphicTileset {
         UpdateGroupName()
         return true
     }
+
+    func LoadTileset_GoldMine(source _: CDataSource!) -> Bool {
+        if let filepath = Bundle.main.path(forResource: "GGoldMine", ofType: "dat") {
+            do {
+                let TempString = try String(contentsOfFile: filepath, encoding: .utf8)
+                let TempTokens = TempString.components(separatedBy: .newlines)
+                var Tokens = [String]()
+                for i in 5 ..< TempTokens.count {
+                    Tokens.append(TempTokens[i])
+                    DMapping[TempTokens[i]] = i - 5
+                    DTileNames.append(TempTokens[i])
+                }
+                DTileCount = Tokens.count
+            } catch {
+                print(error)
+            }
+        }
+        let Tileset = #imageLiteral(resourceName: "Terrain")
+        DTileWidth = Int(Tileset.size.width)
+        DTileHeight = Int(Tileset.size.height)
+        DTileHeight /= DTileCount
+        DTileHalfWidth = DTileWidth / 2
+        DTileHalfHeight = DTileHeight / 2
+        for i in 1 ... DTileCount {
+            let newSize: NSSize
+            newSize = NSSize(width: DTileWidth, height: DTileHeight)
+            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+            let tempTexture = SKTexture(image: temp)
+            DTileSet.append(tempTexture)
+        }
+
+        UpdateGroupName()
+        return true
+    }
     //    func LoadTileset(source: CDataSource) -> Bool {
     //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
     //        let PNGpath: String?

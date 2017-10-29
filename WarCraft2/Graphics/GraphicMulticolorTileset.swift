@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CGraphicMulticolorTileset: CGraphicTileset {
     internal var DColoredTilesets = [CGraphicSurface]()
@@ -30,15 +31,19 @@ class CGraphicMulticolorTileset: CGraphicTileset {
         }
         return true
     }
-
-    func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, colorindex: Int) {
+    //  func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, colorindex: Int) {
+    func DrawTile(surface: SKScene, xpos: Int, ypos: Int, tileindex: Int, colorindex: Int) {
         if (0 > tileindex) || (tileindex >= DTileCount) {
             return
         }
         if (0 > colorindex) || (colorindex >= DColoredTilesets.count) {
             return
         }
+        // copied from GraphiscTileSet
+        let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+        tempNode.position = CGPoint(x: xpos, y: ypos)
+        surface.addChild(tempNode)
 
-        surface.Draw(srcsurface: DColoredTilesets[colorindex], dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: tileindex * DTileHeight)
+        //        surface.Draw(srcsurface: DColoredTilesets[colorindex], dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: tileindex * DTileHeight)
     }
 }

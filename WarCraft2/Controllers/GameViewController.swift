@@ -32,6 +32,11 @@ class GameViewController: NSViewController {
         map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
+        let Dmap = CAssetDecoratedMap()
+
+        Dmap.LoadMap(fileNameToRead: "mountain.map")
+        let MAssetRenderrer = AssetRenderer(colors: CGraphicRecolorMap(), tilesets: [], markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [], buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: Dmap, color: EPlayerColor.None), map: Dmap)
+        MAssetRenderrer.DrawAssets(surface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
         sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
         // TODO:
         //        graphicTileSet.LoadTileset(source: nil)
