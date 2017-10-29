@@ -11,7 +11,8 @@ import Cocoa
 import SpriteKit
 
 protocol viewToController {
-    func userClicked(x: Int, y: Int)
+    func leftDown(x: Int, y: Int)
+    func leftUp()
 }
 
 class GameViewController: NSViewController, viewToController {
@@ -80,11 +81,15 @@ class GameViewController: NSViewController, viewToController {
         sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
 
-    func userClicked(x: Int, y: Int) {
+    func leftDown(x: Int, y: Int) {
         // do whatever with x and y
         application.DLeftClicked = true
         application.X = x
         application.Y = y
+    }
+    
+    func leftUp() {
+        application.DLeftClicked = false
     }
 }
 
@@ -95,7 +100,10 @@ class GameView: SKView {
     var sound = SoundManager()
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
-        vc?.userClicked(x: Int(NSEvent.mouseLocation.x), y: Int(NSEvent.mouseLocation.y))
+        vc?.leftDown(x: Int(NSEvent.mouseLocation.x), y: Int(NSEvent.mouseLocation.y))
+    }
+    override func mouseUp(with event: NSEvent) {
+        vc?.leftUp()
     }
 
     override func scrollWheel(with event: NSEvent) {
