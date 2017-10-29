@@ -42,6 +42,24 @@
 		A10B58E71FA548080035C1EB /* Marker.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58DC1FA546510035C1EB /* Marker.dat */; };
 		A10B58EC1FA58C1A0035C1EB /* Peasant.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58EB1FA58C000035C1EB /* Peasant.dat */; };
 		A10B58ED1FA5A3E90035C1EB /* Arrow.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58EA1FA5809D0035C1EB /* Arrow.dat */; };
+		A10B58FD1FA5BF4A0035C1EB /* LumberMill.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F81FA5BEEA0035C1EB /* LumberMill.dat */; };
+		A10B59041FA5BF5C0035C1EB /* FireSmall.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58FE1FA5BF5A0035C1EB /* FireSmall.dat */; };
+		A10B59051FA5BF5C0035C1EB /* Corpse.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58FF1FA5BF5B0035C1EB /* Corpse.dat */; };
+		A10B59061FA5BF5C0035C1EB /* Marker.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B59001FA5BF5B0035C1EB /* Marker.dat */; };
+		A10B59071FA5BF5C0035C1EB /* Arrow.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B59011FA5BF5B0035C1EB /* Arrow.dat */; };
+		A10B59081FA5BF5C0035C1EB /* BuildingDeath.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B59021FA5BF5C0035C1EB /* BuildingDeath.dat */; };
+		A10B59091FA5BF5C0035C1EB /* FireLarge.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B59031FA5BF5C0035C1EB /* FireLarge.dat */; };
+		A10B590A1FA5BF860035C1EB /* Keep.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F31FA5BEAB0035C1EB /* Keep.dat */; };
+		A10B590B1FA5BF940035C1EB /* Blacksmith.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F91FA5BF020035C1EB /* Blacksmith.dat */; };
+		A10B590C1FA5BF990035C1EB /* TownHall.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F21FA5BEA40035C1EB /* TownHall.dat */; };
+		A10B590D1FA5BF9C0035C1EB /* Barracks.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F71FA5BEE20035C1EB /* Barracks.dat */; };
+		A10B590E1FA5BF9F0035C1EB /* CannonTower.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58FC1FA5BF3B0035C1EB /* CannonTower.dat */; };
+		A10B590F1FA5BFA10035C1EB /* ScoutTower.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58FA1FA5BF0C0035C1EB /* ScoutTower.dat */; };
+		A10B59101FA5BFA60035C1EB /* Farm.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F51FA5BEBD0035C1EB /* Farm.dat */; };
+		A10B59111FA5BFA80035C1EB /* GoldMine.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F11FA5BE9C0035C1EB /* GoldMine.dat */; };
+		A10B59121FA5BFAA0035C1EB /* GuardTower.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58FB1FA5BF2E0035C1EB /* GuardTower.dat */; };
+		A10B59131FA5BFB20035C1EB /* Ranger.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58F01FA5BE910035C1EB /* Ranger.dat */; };
+		A10B59141FA5BFB40035C1EB /* Footman.dat in Resources */ = {isa = PBXBuildFile; fileRef = A10B58EE1FA5BE7D0035C1EB /* Footman.dat */; };
 		A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */; };
 		A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57C1F872930005007C4 /* GameDataTypes.swift */; };
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
@@ -108,6 +126,25 @@
 		A10B58DF1FA546520035C1EB /* FireSmall.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = FireSmall.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/FireSmall.dat; sourceTree = "<group>"; };
 		A10B58EA1FA5809D0035C1EB /* Arrow.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Arrow.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Arrow.dat; sourceTree = "<group>"; };
 		A10B58EB1FA58C000035C1EB /* Peasant.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = Peasant.dat; sourceTree = "<group>"; };
+		A10B58EE1FA5BE7D0035C1EB /* Footman.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Footman.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Footman.dat; sourceTree = "<group>"; };
+		A10B58F01FA5BE910035C1EB /* Ranger.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Ranger.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Ranger.dat; sourceTree = "<group>"; };
+		A10B58F11FA5BE9C0035C1EB /* GoldMine.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = GoldMine.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/GoldMine.dat; sourceTree = "<group>"; };
+		A10B58F21FA5BEA40035C1EB /* TownHall.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = TownHall.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/TownHall.dat; sourceTree = "<group>"; };
+		A10B58F31FA5BEAB0035C1EB /* Keep.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Keep.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Keep.dat; sourceTree = "<group>"; };
+		A10B58F51FA5BEBD0035C1EB /* Farm.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Farm.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Farm.dat; sourceTree = "<group>"; };
+		A10B58F61FA5BED30035C1EB /* Castle.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Castle.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Castle.dat; sourceTree = "<group>"; };
+		A10B58F71FA5BEE20035C1EB /* Barracks.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Barracks.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Barracks.dat; sourceTree = "<group>"; };
+		A10B58F81FA5BEEA0035C1EB /* LumberMill.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = LumberMill.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/LumberMill.dat; sourceTree = "<group>"; };
+		A10B58F91FA5BF020035C1EB /* Blacksmith.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = Blacksmith.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/Blacksmith.dat; sourceTree = "<group>"; };
+		A10B58FA1FA5BF0C0035C1EB /* ScoutTower.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = ScoutTower.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/ScoutTower.dat; sourceTree = "<group>"; };
+		A10B58FB1FA5BF2E0035C1EB /* GuardTower.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = GuardTower.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/GuardTower.dat; sourceTree = "<group>"; };
+		A10B58FC1FA5BF3B0035C1EB /* CannonTower.dat */ = {isa = PBXFileReference; lastKnownFileType = text; name = CannonTower.dat; path = ../../../../Linux/ECS160Linux/bin/data/img/CannonTower.dat; sourceTree = "<group>"; };
+		A10B58FE1FA5BF5A0035C1EB /* FireSmall.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FireSmall.dat; sourceTree = "<group>"; };
+		A10B58FF1FA5BF5B0035C1EB /* Corpse.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Corpse.dat; sourceTree = "<group>"; };
+		A10B59001FA5BF5B0035C1EB /* Marker.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Marker.dat; sourceTree = "<group>"; };
+		A10B59011FA5BF5B0035C1EB /* Arrow.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Arrow.dat; sourceTree = "<group>"; };
+		A10B59021FA5BF5C0035C1EB /* BuildingDeath.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BuildingDeath.dat; sourceTree = "<group>"; };
+		A10B59031FA5BF5C0035C1EB /* FireLarge.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FireLarge.dat; sourceTree = "<group>"; };
 		A1AAF57C1F872930005007C4 /* GameDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDataTypes.swift; sourceTree = "<group>"; };
 		A1AAF57E1F87E650005007C4 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
@@ -252,11 +289,30 @@
 			isa = PBXGroup;
 			children = (
 				A10B58DE1FA546520035C1EB /* BuildingDeath.dat */,
+				A10B59011FA5BF5B0035C1EB /* Arrow.dat */,
+				A10B59021FA5BF5C0035C1EB /* BuildingDeath.dat */,
 				A10B58DD1FA546510035C1EB /* Corpse.dat */,
 				A10B58DB1FA546510035C1EB /* FireLarge.dat */,
+				A10B58FF1FA5BF5B0035C1EB /* Corpse.dat */,
+				A10B59031FA5BF5C0035C1EB /* FireLarge.dat */,
+				A10B58FE1FA5BF5A0035C1EB /* FireSmall.dat */,
+				A10B59001FA5BF5B0035C1EB /* Marker.dat */,
+				A10B58F81FA5BEEA0035C1EB /* LumberMill.dat */,
+				A10B58F31FA5BEAB0035C1EB /* Keep.dat */,
+				A10B58F91FA5BF020035C1EB /* Blacksmith.dat */,
 				A10B58DF1FA546520035C1EB /* FireSmall.dat */,
 				A10B58EA1FA5809D0035C1EB /* Arrow.dat */,
+				A10B58F21FA5BEA40035C1EB /* TownHall.dat */,
+				A10B58F71FA5BEE20035C1EB /* Barracks.dat */,
+				A10B58FC1FA5BF3B0035C1EB /* CannonTower.dat */,
+				A10B58FA1FA5BF0C0035C1EB /* ScoutTower.dat */,
+				A10B58F51FA5BEBD0035C1EB /* Farm.dat */,
+				A10B58F11FA5BE9C0035C1EB /* GoldMine.dat */,
+				A10B58FB1FA5BF2E0035C1EB /* GuardTower.dat */,
+				A10B58F61FA5BED30035C1EB /* Castle.dat */,
 				A10B58EB1FA58C000035C1EB /* Peasant.dat */,
+				A10B58F01FA5BE910035C1EB /* Ranger.dat */,
+				A10B58EE1FA5BE7D0035C1EB /* Footman.dat */,
 				A10B58DC1FA546510035C1EB /* Marker.dat */,
 				883BFF0E1F99E255005239AA /* mountain.map */,
 				E199367D1F9BEE7F0064CA77 /* Terrain.dat */,
@@ -374,19 +430,37 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10B59081FA5BF5C0035C1EB /* BuildingDeath.dat in Resources */,
+				A10B590B1FA5BF940035C1EB /* Blacksmith.dat in Resources */,
+				A10B59091FA5BF5C0035C1EB /* FireLarge.dat in Resources */,
 				CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */,
+				A10B59121FA5BFAA0035C1EB /* GuardTower.dat in Resources */,
+				A10B590D1FA5BF9C0035C1EB /* Barracks.dat in Resources */,
+				A10B59141FA5BFB40035C1EB /* Footman.dat in Resources */,
+				A10B59041FA5BF5C0035C1EB /* FireSmall.dat in Resources */,
 				A10B58E51FA548030035C1EB /* FireLarge.dat in Resources */,
 				CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */,
 				A10B58E71FA548080035C1EB /* Marker.dat in Resources */,
+				A10B59061FA5BF5C0035C1EB /* Marker.dat in Resources */,
 				E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */,
 				A10B58E61FA548050035C1EB /* FireSmall.dat in Resources */,
 				A10B58E41FA548000035C1EB /* Corpse.dat in Resources */,
 				A10B58E31FA547FE0035C1EB /* BuildingDeath.dat in Resources */,
+				A10B58FD1FA5BF4A0035C1EB /* LumberMill.dat in Resources */,
+				A10B59071FA5BF5C0035C1EB /* Arrow.dat in Resources */,
+				A10B590F1FA5BFA10035C1EB /* ScoutTower.dat in Resources */,
 				E199367E1F9BEE7F0064CA77 /* Terrain.dat in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,
+				A10B590C1FA5BF990035C1EB /* TownHall.dat in Resources */,
+				A10B590A1FA5BF860035C1EB /* Keep.dat in Resources */,
 				A10B58EC1FA58C1A0035C1EB /* Peasant.dat in Resources */,
+				A10B59101FA5BFA60035C1EB /* Farm.dat in Resources */,
+				A10B59051FA5BF5C0035C1EB /* Corpse.dat in Resources */,
 				A10B58ED1FA5A3E90035C1EB /* Arrow.dat in Resources */,
 				883BFF0F1F99E255005239AA /* mountain.map in Resources */,
+				A10B59111FA5BFA80035C1EB /* GoldMine.dat in Resources */,
+				A10B59131FA5BFB20035C1EB /* Ranger.dat in Resources */,
+				A10B590E1FA5BF9F0035C1EB /* CannonTower.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
