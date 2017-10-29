@@ -28,7 +28,7 @@ protocol PMapRenderer {
 
     // functions to be implemented in CMapRenderer
     func DrawMap(surface: SKScene, typesurface: SKScene, rect: SRectangle)
-    func DrawMiniMap(surface: CGraphicSurface)
+    func DrawMiniMap() -> [CMiniMapLine]
 }
 
 class CMapRenderer: PMapRenderer {
@@ -307,11 +307,13 @@ class CMapRenderer: PMapRenderer {
         } while YPos < rect.DHeight
     }
 
-    func DrawMiniMap(surface: CGraphicSurface) {
+    func DrawMiniMap() -> [CMiniMapLine] {
 
-        var ResourceContext = surface.CreateResourceContext()
-        ResourceContext.SetLineWidth(width: 1)
-        ResourceContext.SetLineCap(cap: CGLineCap.square)
+        var lines = [CMiniMapLine]()
+
+        //        var ResourceContext = surface.CreateResourceContext()
+        //        ResourceContext.SetLineWidth(width: 1)
+        //        ResourceContext.SetLineCap(cap: CGLineCap.square)
 
         for YPos in 0 ..< DDMap.Height() {
             var XPos = 0
@@ -325,12 +327,19 @@ class CMapRenderer: PMapRenderer {
                 }
 
                 if CTerrainMap.ETileType.None != TileType {
-                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]))
-                    ResourceContext.MoveTo(xpos: XAnchor, ypos: YPos)
-                    ResourceContext.LineTo(xpos: XPos, ypos: YPos)
-                    ResourceContext.Stroke()
+                    //                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]))
+                    //                    ResourceContext.MoveTo(xpos: XAnchor, ypos: YPos)
+                    //                    ResourceContext.LineTo(xpos: XPos, ypos: YPos)
+                    //                    ResourceContext.Stroke()
+                    let line = CMiniMapLine()
+                    line.startPoint = NSPoint(x: XAnchor, y: YPos)
+                    line.endPoint = NSPoint(x: XPos, y: YPos)
+                    line.type = TileType
+                    lines.append(line)
                 }
             }
         }
+
+        return lines
     }
 }

@@ -20,7 +20,10 @@ class GameViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        view.addSubview(skview)
+
+        let gameViewContainer = NSView(frame: NSRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        view.addSubview(gameViewContainer)
+        gameViewContainer.addSubview(skview)
         //                skview.showsFPS = true
         // skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
@@ -32,6 +35,13 @@ class GameViewController: NSViewController {
         map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
+
+        let miniMapFrame = NSRect(x: 0, y: view.frame.size.height - 50, width: 50, height: 50)
+        let miniMap = CMiniMapView(frame: miniMapFrame)
+        view.addSubview(miniMap)
+
+        miniMap.lines = mapRenderer.DrawMiniMap()
+
         sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
         // TODO:
         //        graphicTileSet.LoadTileset(source: nil)
