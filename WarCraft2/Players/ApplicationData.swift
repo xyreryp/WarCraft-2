@@ -125,7 +125,56 @@ class CApplicationData {
         if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Peasant") {
             print("Failed to load peasant tileset")
         }
+        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Peasant") {
+            print("Failed to load peasant tileset")
+        }
+        if !DAssetTilesets[EAssetType.Footman.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Footman") {
+            print("Failed to load Footman tileset")
+        }
+        if !DAssetTilesets[EAssetType.Archer.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Archer") {
+            print("Failed to load Archer tileset")
+        }
+        if !DAssetTilesets[EAssetType.Ranger.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Ranger") {
+            print("Failed to load Ranger tileset")
+        }
+        if !DAssetTilesets[EAssetType.GoldMine.rawValue].TestLoadTileset(source: TempDataSource, assetName: "GoldMine") {
+            print("Failed to load GoldMine tileset")
+        }
+        if !DAssetTilesets[EAssetType.TownHall.rawValue].TestLoadTileset(source: TempDataSource, assetName: "TownHall") {
+            print("Failed to load TownHall tileset")
+        }
+        if !DAssetTilesets[EAssetType.Keep.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Keep") {
+            print("Failed to load Keep tileset")
+        }
+        if !DAssetTilesets[EAssetType.Castle.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Castle") {
+            print("Failed to load Castle tileset")
+        }
+        if !DAssetTilesets[EAssetType.Farm.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Farm") {
+            print("Failed to load Farm tileset")
+        }
+        if !DAssetTilesets[EAssetType.Barracks.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Barracks") {
+            print("Failed to load Barracks tileset")
+        }
+        if !DAssetTilesets[EAssetType.LumberMill.rawValue].TestLoadTileset(source: TempDataSource, assetName: "LumberMill") {
+            print("Failed to load LumberMill tileset")
+        }
+        if !DAssetTilesets[EAssetType.Blacksmith.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Blacksmith") {
+            print("Failed to load Blacksmith tileset")
+        }
+        if !DAssetTilesets[EAssetType.ScoutTower.rawValue].TestLoadTileset(source: TempDataSource, assetName: "ScoutTower") {
+            print("Failed to load ScoutTower tileset")
+        }
+        if !DAssetTilesets[EAssetType.GuardTower.rawValue].TestLoadTileset(source: TempDataSource, assetName: "GuardTower") {
+            print("Failed to load GuardTower tileset")
+        }
+        if !DAssetTilesets[EAssetType.CannonTower.rawValue].TestLoadTileset(source: TempDataSource, assetName: "CannonTower") {
+            print("Failed to load CannonTower tileset")
+        }
+      
+        
 
+        
+        
         // load tileset for terrain.dat
         DTerrainTileset = CGraphicTileset()
         if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Terrain") {
