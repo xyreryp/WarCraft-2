@@ -375,6 +375,7 @@ class CGraphicTileset {
         //        if 0 > tileindex || tileindex >= DTileCount {
         //            return
         //        }
+
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)

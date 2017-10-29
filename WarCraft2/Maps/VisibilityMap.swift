@@ -39,7 +39,7 @@ class CVisibilityMap: PVisibilityMap {
     // required initializer
     required init(width: Int, height: Int, maxvisibility: Int) {
         DMaxVisibility = maxvisibility
-        resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [ETileVisibility]())
+        resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [])
         for (i, _) in DMap.enumerated() {
             resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
             _ = ETileVisibility.None

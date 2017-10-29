@@ -31,7 +31,7 @@ class CPlayerData {
         var asset = CPlayerAssetType()
         var DAssetTypes = asset.DuplicateRegistry(color: color)
         var DPlayerMap = DActualMap.CreateInitializeMap()
-        var DVisibilityMap = DActualMap.CreateVisibilityMap()
+        //        var DVisibilityMap = DActualMap.CreateVisibilityMap()
         var DGold = 0
         var DLumber = 0
 
@@ -40,7 +40,7 @@ class CPlayerData {
             DUpgrades[i] = false
         }
         var i = DUpgrades.count
-        while i < EAssetCapabilityType.Max.rawValue {
+        while i > EAssetCapabilityType.Max.rawValue {
             DUpgrades.append(false)
         }
 

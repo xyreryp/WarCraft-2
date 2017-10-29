@@ -341,9 +341,13 @@ class CAssetRenderer {
 
     func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
         // call DrawTile
-        for tileset in DTilesets {
-            tileset.DrawTile(skscene: surface, xpos: 50, ypos: 50, tileindex: 5)
-        }
+        print(tileset.count)
+        tileset[1].DrawTile(skscene: surface, xpos: 50, ypos: 50, tileindex: 0)
+        //        for tileset in DTilesets {
+        //            print("HIIIII RICHARD")
+        //
+        //            tileset.DrawTile(skscene: surface, xpos: 50, ypos: 50, tileindex: 0)
+        //        }
     }
 
     //    func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {
