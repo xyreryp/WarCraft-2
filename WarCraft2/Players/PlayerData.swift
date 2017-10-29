@@ -40,7 +40,7 @@ class CPlayerData {
             DUpgrades[i] = false
         }
         var i = DUpgrades.count
-        while i < EAssetCapabilityType.Max.rawValue {
+        while i > EAssetCapabilityType.Max.rawValue { // changed the < to >
             DUpgrades.append(false)
         }
 
