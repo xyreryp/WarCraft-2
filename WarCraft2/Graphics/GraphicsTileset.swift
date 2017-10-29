@@ -274,7 +274,7 @@ class CGraphicTileset {
 
         // load the actual image from Assets folder.
 
-        let Tileset = NSImage(named: NSImage.Name(assetName))!
+        let Tileset = NSImage(named: NSImage.Name(rawValue: assetName))!
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)
         DTileHeight /= DTileCount
