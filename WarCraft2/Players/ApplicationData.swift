@@ -48,6 +48,11 @@ class CApplicationData {
         case ptAIMedium
         case ptAIHard
     }
+    
+    var DLeftClicked: Bool = false
+    var DRightClicked: Bool = false
+    var X: Int = Int()
+    var Y: Int = Int()
 
     var ECursorTypeRef: ECursorType = ECursorType.ctPointer
     var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
