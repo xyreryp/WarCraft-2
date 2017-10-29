@@ -339,16 +339,25 @@ class CAssetRenderer {
         return first.DX <= second.DX
     }
 
+    // hard code locations, and which tile in tileset
     func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
-        // call DrawTile
-        //        print(tileset.count)
-        //        tileset[1].DrawTile(skscene: surface, xpos: 50, ypos: 50, tileindex: 0)
         let index = tileset.count - 1
-        var i: Int = 7
-        for i in i ..< index {
-            print(i)
-            tileset[i].DrawTile(skscene: surface, xpos: 100 * (i - 6), ypos: 10, tileindex: 1)
-        }
+       
+        tileset[1].DrawTile(skscene: surface, xpos: 100, ypos: -50, tileindex: 0) // peasant
+        tileset[2].DrawTile(skscene: surface, xpos: 200, ypos: -50, tileindex: 0) // Footman
+        tileset[3].DrawTile(skscene: surface, xpos: 300, ypos: -50, tileindex: 0) // Archer
+        tileset[4].DrawTile(skscene: surface, xpos: 400, ypos: -50, tileindex: 0) // Ranger
+        tileset[5].DrawTile(skscene: surface, xpos: 500, ypos: -50, tileindex: 1) // Goldmine
+        tileset[6].DrawTile(skscene: surface, xpos: 600, ypos: -50, tileindex: 3) // Townhall
+        tileset[7].DrawTile(skscene: surface, xpos: 700, ypos: -50, tileindex: 1) // keep
+        tileset[8].DrawTile(skscene: surface, xpos: 100, ypos: -200, tileindex: 1) // castle
+        tileset[9].DrawTile(skscene: surface, xpos: 200, ypos: -200, tileindex: 3) // Farm
+        tileset[10].DrawTile(skscene: surface, xpos: 300, ypos: -200, tileindex: 3) // Barracks
+        tileset[11].DrawTile(skscene: surface, xpos: 400, ypos: -200, tileindex: 3) // lumberMill
+        tileset[12].DrawTile(skscene: surface, xpos: 500, ypos: -200, tileindex: 2) // Blacksmith
+        tileset[13].DrawTile(skscene: surface, xpos: 600, ypos: -200, tileindex: 2) // ScoutTower
+        tileset[14].DrawTile(skscene: surface, xpos: 700, ypos: -200, tileindex: 0) // GuardTower
+        tileset[15].DrawTile(skscene: surface, xpos: 800, ypos: -200, tileindex: 0) // Cannon Tower
     }
 
     //    func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {

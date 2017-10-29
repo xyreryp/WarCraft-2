@@ -269,7 +269,7 @@ class CGraphicTileset {
             DMapping[TempTokens[i]] = i - 5
             DTileNames.append(TempTokens[i])
         }
-        DTileCount = Tokens.count
+        DTileCount = Tokens.count - 1
 
         // load the actual image from Assets folder.
 
