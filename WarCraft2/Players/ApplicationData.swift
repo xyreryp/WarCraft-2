@@ -67,19 +67,36 @@ class CApplicationData {
     var DBuildingDeathTileset = CGraphicTileset()
     var DArrowTileset = CGraphicTileset()
 
-    //    var DAssetMap = CAssetDecoratedMap()
-    //    // playerData needed for assetRenderer
-    //    var DPlayer:CPlayerData
-    //    // array of tilesets for all the assset
-    var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
-    //
-    //    // map for drawing player
+    var DAssetMap = CAssetDecoratedMap()
+    // playerData needed for assetRenderer
+    //    var DPlayer: CPlayerData
+    // array of tilesets for all the assset
+    //    var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
+    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]()
+
+    // map for drawing player
     var DPlayerRecolorMap: CGraphicRecolorMap = CGraphicRecolorMap()
-    //
+
     //    var DAssetRenderer: CAssetRenderer
 
-    //    init(colors: CGraphicRecolorMap, tilesets: [CGraphicMulticolorTileset], markertileset: CGraphicTileset, corpsetileset: CGraphicTileset, firetileset: [CGraphicTileset], buildingdeath: CGraphicTileset, arrowtileset: CGraphicTileset, player: CPlayerData, map: CAssetDecoratedMap)
     init() {
+        //        DMarkerTileset = CGraphicTileset()
+        //        DCorpseTileset = CGraphicTileset()
+        //        DFireTileset = [CGraphicTileset]()
+        //        DBuildingDeathTileset = CGraphicTileset()
+        //        DArrowTileset = CGraphicTileset()
+        //
+        //        DAssetMap = CAssetDecoratedMap()
+        //        // playerData needed for assetRenderer
+        //        DPlayer = CPlayerData(map: DAssetMap, color: EPlayerColor.Red)
+        //        // array of tilesets for all the assset
+        //        DAssetTilesets = [CGraphicMulticolorTileset]()
+        //
+        //        // map for drawing player
+        //        DPlayerRecolorMap = CGraphicRecolorMap()
+        //
+        //
+        //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
     static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
@@ -94,18 +111,18 @@ class CApplicationData {
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicMulticolorTileset())
+        CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
 
         //        DPlayer = CPlayerData(map: DAssetMap, color: EPlayerColor.Red)
-        //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
-        //
 
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
         CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicMulticolorTileset())
 
         //         load tileset for peasant
-        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
-        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(colormap: DPlayerRecolorMap, source: TempDataSource, assetName: "Peasant") {
+        //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
+        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicTileset()
+
+        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Peasant") {
             print("Failed to load peasant tileset")
         }
 
@@ -152,5 +169,7 @@ class CApplicationData {
         if !DArrowTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow") {
             print("Failed to lead Arrow tileset")
         }
+
+        //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 }

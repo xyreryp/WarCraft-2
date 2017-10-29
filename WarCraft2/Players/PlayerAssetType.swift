@@ -9,7 +9,7 @@
 import Foundation
 class CPlayerAssetType {
 
-    var DThis: CPlayerAssetType = CPlayerAssetType()
+    //    var DThis: CPlayerAssetType = CPlayerAssetType()
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
@@ -87,7 +87,7 @@ class CPlayerAssetType {
 
     // default constructor
     init() {
-        DThis = CPlayerAssetType()
+        //        DThis = CPlayerAssetType()
         CPlayerAssetType.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
         DHitPoints = 0
         DArmor = 0
@@ -109,7 +109,7 @@ class CPlayerAssetType {
     // constructor
     init(asset: CPlayerAssetType) {
         if asset != nil {
-            DThis = CPlayerAssetType()
+            //            DThis = CPlayerAssetType()
             DName = asset.DName
             DType = asset.DType
             DColor = asset.DColor
@@ -263,7 +263,7 @@ class CPlayerAssetType {
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     func MaxSight() -> Int {
-        let MaxSightFound = DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
+        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
         return MaxSightFound!.value.DSight
     }
 
@@ -294,7 +294,7 @@ class CPlayerAssetType {
         }
 
         let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
-        PlayerAssetType.DThis = PlayerAssetType
+        //        PlayerAssetType.DThis = PlayerAssetType
         PlayerAssetType.DName = "None"
         PlayerAssetType.DType = EAssetType.None
         PlayerAssetType.DColor = EPlayerColor.None
@@ -327,7 +327,7 @@ class CPlayerAssetType {
     }
 
     func Construct() -> CPlayerAsset {
-        let ThisShared = DThis
-        return CPlayerAsset(type: ThisShared)
+        //        let ThisShared = DThis
+        return CPlayerAsset(type: self)
     }
 }
