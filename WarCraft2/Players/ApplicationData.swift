@@ -99,46 +99,46 @@ class CApplicationData {
 
         // load tileset for terrain.dat
         DTerrainTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Terrain.dat") {
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Terrain") {
             print("Failed to lead terrain tileset")
         }
 
         // marker tileset needed for asset renderer
         DMarkerTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Marker.png") {
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Marker") {
             print("Failed to lead Marker tileset")
         }
 
         // corpose tileset needed for asset renderer
         DCorpseTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Corpse.png") {
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Corpse") {
             print("Failed to lead Corpse tileset")
         }
 
         // fireSmall tileset needed for asset renderer
         let fireSmallTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "FireSmall.png") {
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "FireSmall") {
             print("Failed to lead FireSmall tileset")
         }
         DFireTileset.append(fireSmallTileset)
 
         // fireLarge tileset needed for asset renderer
         let fireLargeTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "FireLarge.png") {
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "FireLarge") {
             print("Failed to lead FireLarge tileset")
         }
         DFireTileset.append(fireLargeTileset)
 
         // BuildingDeath tileset needed for asset renderer
         DBuildingDeathTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath.png") {
+        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
             print("Failed to lead BuildingDeath tileset")
         }
 
         // Arrow tileset needed for asset renderer
-        DArrowTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow.png") {
-            print("Failed to lead Arrow tileset")
-        }
+        //        DArrowTileset = CGraphicTileset()
+        //        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow") {
+        //            print("Failed to lead Arrow tileset")
+        //        }
     }
 }

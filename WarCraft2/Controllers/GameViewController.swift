@@ -52,7 +52,7 @@ class GameViewController: NSViewController {
         application.Activate()
         var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
-        try! map.LoadMap(fileToRead: "bay")
+        try! map.LoadMap(fileToRead: "mountain")
 
         map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
