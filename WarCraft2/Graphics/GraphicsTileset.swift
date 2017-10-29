@@ -262,7 +262,7 @@ class CGraphicTileset {
 
     func TestLoadTileset(source: CDataSource!, assetName: String) -> Bool {
         // use DataSource to Read
-        var TempTokens = source.Read(fileName: assetName, extensionType: "dat")
+        var TempTokens = source.Read(fileName: assetName, extensionType: "png")
         var Tokens = [String]()
         for i in 5 ..< TempTokens.count {
             Tokens.append(TempTokens[i])
