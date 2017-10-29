@@ -87,6 +87,7 @@ class CPlayerAssetType {
 
     // default constructor
     init() {
+        DThis = CPlayerAssetType()
         CPlayerAssetType.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
         DHitPoints = 0
         DArmor = 0
@@ -108,6 +109,7 @@ class CPlayerAssetType {
     // constructor
     init(asset: CPlayerAssetType) {
         if asset != nil {
+            DThis = CPlayerAssetType()
             DName = asset.DName
             DType = asset.DType
             DColor = asset.DColor
