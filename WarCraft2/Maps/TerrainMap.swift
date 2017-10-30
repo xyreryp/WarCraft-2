@@ -360,11 +360,12 @@ class CTerrainMap {
     func getMapName(fileText: [String]) -> String {
         return fileText[2]
     }
-    
+
     func getMapWidthandHeight(fileText: [String]) -> (width: Int, height: Int) {
         let dimensions = fileText[4].components(separatedBy: " ")
         return (Int(dimensions[0])!, Int(dimensions[1])!)
     }
+
     func LoadMap(fileToRead: String) throws -> Bool { // source _: CDataSource
 
         // reading in file path
@@ -386,7 +387,7 @@ class CTerrainMap {
                     CHelper.resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
                     for Inner in 0 ..< MapWidth + 1 {
                         let index1: String.Index = StringMap[Index + 10].index(StringMap[Index + 10].startIndex, offsetBy: Inner)
-                        switch StringMap[Index + 5][index1] {
+                        switch StringMap[Index + 10][index1] {
                         case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
                             break
                         case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
@@ -421,19 +422,21 @@ class CTerrainMap {
                         }
                     }
                 }
-                
+
                 CHelper.resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
                 let valueStringValues: [Character] = ["0", "A"]
                 var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
                 for Index in 0 ..< DTerrainMap.count {
                     CHelper.resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
                     for Inner in 0 ..< MapWidth + 1 {
-                        //FIXME: change 7 to somehting
-                        let index: String.Index = StringMap[Index + MapWidth + 7].index(StringMap[Index + MapWidth + 7].startIndex, offsetBy: Inner)
-                        let intValue: UInt8 = String(StringMap[Index + MapWidth + 7][index]).utf8.map { UInt8($0) }[0]
-                        if ("0" <= StringMap[Index + MapWidth + 7][index]) && ("9" >= StringMap[Index + MapWidth + 7][index]) {
+                        // FIXME: change 7 to somehting
+                        let index: String.Index = StringMap[Index + MapWidth + 12].index(StringMap[Index + MapWidth + 12].startIndex, offsetBy: Inner)
+
+                        let intValue: UInt8 = String(StringMap[Index + MapWidth + 12][index]).utf8.map { UInt8($0) }[0]
+
+                        if ("0" <= StringMap[Index + MapWidth + 12][index]) && ("9" >= StringMap[Index + MapWidth + 12][index]) {
                             DPartials[Index][Inner] = intValue - asciiValues[0]
-                        } else if ("A" <= StringMap[Index + MapWidth + 7][index]) && ("F" >= StringMap[Index + MapWidth + 7][index]) {
+                        } else if ("A" <= StringMap[Index + MapWidth + 12][index]) && ("F" >= StringMap[Index + MapWidth + 12][index]) {
                             DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
                         } else {
                             return ReturnStatus
