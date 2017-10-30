@@ -119,7 +119,7 @@ class GameView: SKView {
     var sound = SoundManager()
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
-        var sklocation = convert(NSEvent.mouseLocation, to: skscene!)
+        let sklocation = convert(NSEvent.mouseLocation, to: skscene!)
         print(NSEvent.mouseLocation.x)
         print(NSEvent.mouseLocation.y)
 

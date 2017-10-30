@@ -326,6 +326,7 @@ class CAssetRenderer {
     func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
         let index = tileset.count - 1
 
+        tileset[0].DrawTile(skscene: surface, xpos: -100, ypos: -50, tileindex: 0) // peasant
         tileset[1].DrawTile(skscene: surface, xpos: 100, ypos: -50, tileindex: 0) // peasant
         tileset[2].DrawTile(skscene: surface, xpos: 200, ypos: -50, tileindex: 0) // Footman
         tileset[3].DrawTile(skscene: surface, xpos: 300, ypos: -50, tileindex: 0) // Archer

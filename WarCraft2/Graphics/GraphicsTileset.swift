@@ -372,9 +372,9 @@ class CGraphicTileset {
     }
 
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
-        //        if 0 > tileindex || tileindex >= DTileCount {
-        //            return
-        //        }
+        if 0 > tileindex || tileindex >= DTileCount {
+            return
+        }
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
         tempNode.position = CGPoint(x: xpos, y: ypos)
