@@ -8,8 +8,6 @@
 
 import Foundation
 class CPlayerAssetType {
-
-    //    var DThis: CPlayerAssetType = CPlayerAssetType()
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
