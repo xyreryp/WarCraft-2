@@ -31,7 +31,7 @@ class CPlayerData {
         var asset = CPlayerAssetType()
         var DAssetTypes = asset.DuplicateRegistry(color: color)
         var DPlayerMap = DActualMap.CreateInitializeMap()
-        var DVisibilityMap = DActualMap.CreateVisibilityMap()
+        //        var DVisibilityMap = DActualMap.CreateVisibilityMap()
         var DGold = 0
         var DLumber = 0
 
@@ -40,7 +40,7 @@ class CPlayerData {
             DUpgrades[i] = false
         }
         var i = DUpgrades.count
-        while i < EAssetCapabilityType.Max.rawValue {
+        while i > EAssetCapabilityType.Max.rawValue {
             DUpgrades.append(false)
         }
 
@@ -176,7 +176,8 @@ class CPlayerData {
     }
 
     func AssetRequirementsMet(assettypename: String) -> Bool {
-        var AssetCount: [Int]
+
+        var AssetCount: [Int] = [Int]()
         CPlayerData.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
 
         for WeakAsset in DAssets {
@@ -202,13 +203,15 @@ class CPlayerData {
     }
 
     func UpdateVisibility() {
-        var RemoveList: [CPlayerAsset]
+
+        var RemoveList: [CPlayerAsset] = [CPlayerAsset]()
         DVisibilityMap?.Update(assets: DAssets)
         DPlayerMap.UpdateMap(vismap: DVisibilityMap!, resmap: DActualMap)
         for Asset in DPlayerMap.DAssets {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
-                let cplayerasset: CPlayerAsset
+
+                let cplayerasset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
                 if cplayerasset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
                 }
@@ -260,7 +263,8 @@ class CPlayerData {
     }
 
     func SelectAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
-        var BestAsset: CPlayerAsset
+
+        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared: Int = -1
 
         if EAssetType.None != assettype {
@@ -280,7 +284,8 @@ class CPlayerData {
     }
 
     func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
-        var BestAsset: CPlayerAsset
+
+        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
         for WeakAsset in DAssets {
@@ -301,7 +306,8 @@ class CPlayerData {
     }
 
     func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
-        var BestAsset: CPlayerAsset
+
+        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
         for Asset in DPlayerMap.DAssets {
@@ -317,7 +323,8 @@ class CPlayerData {
     }
 
     func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset {
-        var BestAsset: CPlayerAsset
+
+        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
         var r = range
         if 0 < r {
@@ -348,14 +355,16 @@ class CPlayerData {
     }
 
     func FindBestAssetPlacement(pos: CPixelPosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
-        let cplayerassettype: CPlayerAssetType
+
+        let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
         let AssetType = DAssetTypes[cplayerassettype.TypeToName(type: assettype)]
         let PlacementSize: Int = AssetType!.DSize + 2 * buffer
         let MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
 
         var Distance = 0
         for Distance in Distance ..< MaxDistance {
-            var BestPosition: CTilePosition
+
+            var BestPosition: CTilePosition = CTilePosition()
             var BestDistance: Int = -1
             var LeftX: Int = pos.X() - Distance
             var TopY = pos.Y() - Distance

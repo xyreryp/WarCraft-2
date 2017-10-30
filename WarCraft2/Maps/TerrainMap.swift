@@ -323,6 +323,7 @@ class CTerrainMap {
         }
     }
     //terain being rendered
+    // second for loop has index out of range
     func RenderTerrain() {
         resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [])
         resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [])
