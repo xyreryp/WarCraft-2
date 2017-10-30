@@ -366,7 +366,7 @@ class CTerrainMap {
         return (Int(dimensions[0])!, Int(dimensions[1])!)
     }
 
-    func TestLoadMap(fileToRead: String) throws -> Bool {
+    func LoadMap(fileToRead: String) throws -> Bool {
         var ReturnStatus: Bool = false
         let StringMap = CDataSource.ReadMap(fileName: fileToRead, extensionType: ".map")
         DMapName = getMapName(fileText: StringMap[1])
@@ -445,90 +445,90 @@ class CTerrainMap {
         return ReturnStatus
     }
 
-    func LoadMap(fileToRead: String) throws -> Bool { // source _: CDataSource
-
-        // reading in file path
-        var ReturnStatus: Bool = false
-        if let filepath = try Bundle.main.url(forResource: fileToRead, withExtension: "map") {
-            do {
-                let text = try String(contentsOf: filepath, encoding: .utf8)
-                var StringMap = [String]()
-                StringMap = text.components(separatedBy: "\n")
-                DMapName = getMapName(fileText: StringMap)
-                let dimensions: (Int, Int) = getMapWidthandHeight(fileText: StringMap)
-                let MapWidth = dimensions.0
-                let MapHeight = dimensions.1
-                if (8 > MapWidth) || (8 > MapHeight) {
-                    return ReturnStatus
-                }
-                CHelper.resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
-                for Index in 0 ..< DTerrainMap.count {
-                    CHelper.resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
-                    for Inner in 0 ..< MapWidth + 1 {
-                        let index1: String.Index = StringMap[Index + 10].index(StringMap[Index + 10].startIndex, offsetBy: Inner)
-                        switch StringMap[Index + 10][index1] {
-                        case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
-                            break
-                        case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
-                            break
-                        case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
-                            break
-                        case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
-                            break
-                        case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
-                            break
-                        case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
-                            break
-                        case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
-                            break
-                        case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
-                            break
-                        case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
-                            break
-                        case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
-                            break
-                        default: return ReturnStatus
-                        }
-                        if Inner != 0 {
-                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
-                                return ReturnStatus
-                            }
-                        }
-                        if Index != 0 {
-                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
-                                return ReturnStatus
-                            }
-                        }
-                    }
-                }
-
-                CHelper.resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
-                let valueStringValues: [Character] = ["0", "A"]
-                var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-                for Index in 0 ..< DTerrainMap.count {
-                    CHelper.resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
-                    for Inner in 0 ..< MapWidth + 1 {
-                        // FIXME: change 7 to somehting
-                        let index: String.Index = StringMap[Index + MapWidth + 12].index(StringMap[Index + MapWidth + 12].startIndex, offsetBy: Inner)
-
-                        let intValue: UInt8 = String(StringMap[Index + MapWidth + 12][index]).utf8.map { UInt8($0) }[0]
-
-                        if ("0" <= StringMap[Index + MapWidth + 12][index]) && ("9" >= StringMap[Index + MapWidth + 12][index]) {
-                            DPartials[Index][Inner] = intValue - asciiValues[0]
-                        } else if ("A" <= StringMap[Index + MapWidth + 12][index]) && ("F" >= StringMap[Index + MapWidth + 12][index]) {
-                            DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
-                        } else {
-                            return ReturnStatus
-                        }
-                    }
-                }
-                ReturnStatus = true
-                return ReturnStatus
-            } catch {
-                return ReturnStatus
-            }
-        } else {
-            return ReturnStatus
-        }
-    }
+    //    func LoadMap(fileToRead: String) throws -> Bool { // source _: CDataSource
+    //
+    //        // reading in file path
+    //        var ReturnStatus: Bool = false
+    //        if let filepath = try Bundle.main.url(forResource: fileToRead, withExtension: "map") {
+    //            do {
+    //                let text = try String(contentsOf: filepath, encoding: .utf8)
+    //                var StringMap = [String]()
+    //                StringMap = text.components(separatedBy: "\n")
+    //                DMapName = getMapName(fileText: StringMap)
+    //                let dimensions: (Int, Int) = getMapWidthandHeight(fileText: StringMap)
+    //                let MapWidth = dimensions.0
+    //                let MapHeight = dimensions.1
+    //                if (8 > MapWidth) || (8 > MapHeight) {
+    //                    return ReturnStatus
+    //                }
+    //                CHelper.resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
+    //                for Index in 0 ..< DTerrainMap.count {
+    //                    CHelper.resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
+    //                    for Inner in 0 ..< MapWidth + 1 {
+    //                        let index1: String.Index = StringMap[Index + 10].index(StringMap[Index + 10].startIndex, offsetBy: Inner)
+    //                        switch StringMap[Index + 10][index1] {
+    //                        case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
+    //                            break
+    //                        case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
+    //                            break
+    //                        case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
+    //                            break
+    //                        case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
+    //                            break
+    //                        case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
+    //                            break
+    //                        case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
+    //                            break
+    //                        case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
+    //                            break
+    //                        case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
+    //                            break
+    //                        case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
+    //                            break
+    //                        case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
+    //                            break
+    //                        default: return ReturnStatus
+    //                        }
+    //                        if Inner != 0 {
+    //                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
+    //                                return ReturnStatus
+    //                            }
+    //                        }
+    //                        if Index != 0 {
+    //                            if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
+    //                                return ReturnStatus
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //
+    //                CHelper.resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
+    //                let valueStringValues: [Character] = ["0", "A"]
+    //                var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
+    //                for Index in 0 ..< DTerrainMap.count {
+    //                    CHelper.resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
+    //                    for Inner in 0 ..< MapWidth + 1 {
+    //                        // FIXME: change 7 to somehting
+    //                        let index: String.Index = StringMap[Index + MapWidth + 12].index(StringMap[Index + MapWidth + 12].startIndex, offsetBy: Inner)
+    //
+    //                        let intValue: UInt8 = String(StringMap[Index + MapWidth + 12][index]).utf8.map { UInt8($0) }[0]
+    //
+    //                        if ("0" <= StringMap[Index + MapWidth + 12][index]) && ("9" >= StringMap[Index + MapWidth + 12][index]) {
+    //                            DPartials[Index][Inner] = intValue - asciiValues[0]
+    //                        } else if ("A" <= StringMap[Index + MapWidth + 12][index]) && ("F" >= StringMap[Index + MapWidth + 12][index]) {
+    //                            DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
+    //                        } else {
+    //                            return ReturnStatus
+    //                        }
+    //                    }
+    //                }
+    //                ReturnStatus = true
+    //                return ReturnStatus
+    //            } catch {
+    //                return ReturnStatus
+    //            }
+    //        } else {
+    //            return ReturnStatus
+    //        }
+    //    }
 }

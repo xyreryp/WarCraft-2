@@ -64,7 +64,7 @@ class GameViewController: NSViewController, viewToController {
         var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
         do {
-            try map.TestLoadMap(fileToRead: "bay")
+            try map.LoadMap(fileToRead: "bay")
         } catch {
             print("cant load map")
         }
