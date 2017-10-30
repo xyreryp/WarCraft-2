@@ -48,7 +48,7 @@ class CApplicationData {
         case ptAIMedium
         case ptAIHard
     }
-    
+
     var DLeftClicked: Bool = false
     var DRightClicked: Bool = false
     var X: Int = Int()

@@ -54,7 +54,7 @@ class GameViewController: NSViewController, viewToController {
         skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
 
         // entry point for program
-//        var application = CApplicationData()
+        //        var application = CApplicationData()
         // load tile sets
         application.Activate()
         var terrainTileset = application.DTerrainTileset
@@ -77,7 +77,6 @@ class GameViewController: NSViewController, viewToController {
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
-
         sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
 
@@ -87,7 +86,7 @@ class GameViewController: NSViewController, viewToController {
         application.X = x
         application.Y = y
     }
-    
+
     func leftUp() {
         application.DLeftClicked = false
     }
@@ -102,7 +101,8 @@ class GameView: SKView {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
         vc?.leftDown(x: Int(NSEvent.mouseLocation.x), y: Int(NSEvent.mouseLocation.y))
     }
-    override func mouseUp(with event: NSEvent) {
+
+    override func mouseUp(with _: NSEvent) {
         vc?.leftUp()
     }
 
