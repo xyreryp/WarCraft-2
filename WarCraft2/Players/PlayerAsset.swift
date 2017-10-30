@@ -21,12 +21,14 @@ class CPlayerAsset {
     var DStep: Int = 0
     var DMoveRemainderX: Int = 0
     var DMoveRemainderY: Int = 0
+    var DTurnOrder: UInt = UInt()
     var DPosition: CPixelPosition = CPixelPosition()
     var DDirection: EDirection = EDirection.Max
     var DCommands: [SAssetCommand] = [SAssetCommand]()
     var DType: CPlayerAssetType = CPlayerAssetType()
-    var DUpdateFrequency: Int = 1
-    var DUpdateDivisor: Int = 32
+    static var DUpdateFrequency: Int = 1
+    static var DUpdateDivisor: Int = 32
+    static var DGenerateRandomNum: RandomNumberGenerator = RandomNumberGenerator()
 
     init(type _: CPlayerAssetType) {
         DCreationCycle = 0
@@ -40,8 +42,6 @@ class CPlayerAsset {
         DDirection = EDirection.Max
         DCommands = [SAssetCommand]()
         DType = CPlayerAssetType()
-        DUpdateFrequency = 1
-        DUpdateDivisor = 32
     }
 
     deinit {
@@ -62,16 +62,37 @@ class CPlayerAsset {
         )
     }
 
-    func UpdateFrequency() -> Int {
+    static func ==(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return
+            !(lhs.DCreationCycle != rhs.DCreationCycle ||
+                lhs.DType != rhs.DType ||
+                lhs.DHitPoints != rhs.DHitPoints ||
+                lhs.DGold != rhs.DGold ||
+                lhs.DLumber != rhs.DLumber ||
+                lhs.DStep != rhs.DStep ||
+                lhs.DMoveRemainderX != rhs.DMoveRemainderX ||
+                lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
+                lhs.DDirection != rhs.DDirection)
+    }
+
+    static func UpdateFrequency() -> Int {
         return DUpdateFrequency
     }
 
-    func UpdateFrequency(freq: Int) -> Int {
+    static func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
             DUpdateFrequency = freq
             DUpdateDivisor = 32 * DUpdateFrequency
         }
         return DUpdateFrequency
+    }
+
+    func AssignTurnOrder() {
+        DTurnOrder = UInt(CPlayerAsset.DGenerateRandomNum.Random())
+    }
+
+    func getTurnOrder() -> UInt {
+        return DTurnOrder
     }
 
     func Alive() -> Bool {
@@ -299,16 +320,16 @@ class CPlayerAsset {
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
             let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
-            DMoveRemainderX = NewX % DUpdateDivisor
-            DMoveRemainderY = NewY % DUpdateDivisor
-            DPosition.IncrementX(x: NewX / DUpdateDivisor)
-            DPosition.IncrementY(y: NewY / DUpdateDivisor)
+            DMoveRemainderX = NewX % CPlayerAsset.DUpdateDivisor
+            DMoveRemainderY = NewY % CPlayerAsset.DUpdateDivisor
+            DPosition.IncrementX(x: NewX / CPlayerAsset.DUpdateDivisor)
+            DPosition.IncrementY(y: NewY / CPlayerAsset.DUpdateDivisor)
         } else { // Entering
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
             let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
-            var TempMoveRemainderX: Int = NewX % DUpdateDivisor
-            var TempMoveRemainderY: Int = NewY % DUpdateDivisor
-            let NewPosition: CPixelPosition = CPixelPosition(x: DPosition.X() + NewX / DUpdateDivisor, y: DPosition.Y() + NewY / DUpdateDivisor)
+            var TempMoveRemainderX: Int = NewX % CPlayerAsset.DUpdateDivisor
+            var TempMoveRemainderY: Int = NewY % CPlayerAsset.DUpdateDivisor
+            let NewPosition: CPixelPosition = CPixelPosition(x: DPosition.X() + NewX / CPlayerAsset.DUpdateDivisor, y: DPosition.Y() + NewY / CPlayerAsset.DUpdateDivisor)
 
             if NewPosition.TileOctant() == DDirection {
                 // Center in tile

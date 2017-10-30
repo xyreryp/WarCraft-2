@@ -199,7 +199,7 @@ class CPlayerData {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
                 let cplayerasset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-                if cplayerasset.UpdateFrequency() < Asset.DStep * 2 {
+                if CPlayerAsset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
                 }
             }

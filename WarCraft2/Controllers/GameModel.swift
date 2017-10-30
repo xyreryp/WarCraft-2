@@ -70,7 +70,7 @@ class CGameModel {
     // Protected
     var DRandomNumberGenerator: RandomNumberGenerator
     var DActualMap: CAssetDecoratedMap
-    var DAssetOccupancyMap: [[CPlayerAsset]]
+    var DAssetOccupancyMap: [[CPlayerAsset?]]
     var DDiagonalOccupancyMap: [[Bool]]
     var DRouterMap: CRouterMap
     var DPlayers = [CPlayerData](repeatElement(CPlayerData, count: EPlayerColor.Max.rawValue))
@@ -90,7 +90,7 @@ class CGameModel {
 
     // Public
     // TODO: newcolors is a fixed array of size EPlayer.Max.rawValue
-    init (mapindex: Int, seed: UInt64, newcolors: [EPlayerColor]) {
+    init(mapindex: Int, seed: UInt64, newcolors: [EPlayerColor]) {
         let DHarvestTime = 5
         let DHarvestSteps: Int = CPlayerAsset.UpdateFrequency() * DHarvestTime
         let DMineTime = 5
@@ -104,21 +104,21 @@ class CGameModel {
         let DLumberPerHarvest = 100
         let DGoldPerMining = 100
 
-        DRandomNumberGenerator.Seed(seed)
-        DActualMap = CAssetDecoratedMap.DuplicateMap(mapindex, newcolors)
+        DRandomNumberGenerator.Seed(seed: seed)
+        DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: newcolors)
 
         for PlayerIndex in 0 ..< EPlayerColor.Max.rawValue {
             DPlayers[PlayerIndex] = CPlayerData(map: DActualMap, color: EPlayerColor(rawValue: PlayerIndex))
         }
 
-        DAssetOccupancyMap.reserveCapacity(DActualMap.Height())
-        for Row in DAssetOccupancyMap {
-            DAssetOccupancy[Row].reserveCapacity(DActualMap.Width())
+        CHelper.resize(array: &DAssetOccupancyMap, size: DActualMap.Height(), defaultValue: [])
+        for Index in 0 ..< DAssetOccupancyMap.count {
+            CHelper.resize(array: &DAssetOccupancyMap[Index], size: DActualMap.Width(), defaultValue: CPlayerAsset(type: CPlayerAssetType()))
         }
 
-        DDiagonalOccupancyMap.reserveCapacity(DActualMap.Height())
-        for Row in 0 ..< DDiagonalOccupancyMap.count {
-            DDiagonalOccupancyMap[Row].reserveCapacity(DActualMap.Width())
+        CHelper.resize(array: &DDiagonalOccupancyMap, size: DActualMap.Height(), defaultValue: [])
+        for Index in 0 ..< DDiagonalOccupancyMap.count {
+            CHelper.resize(array: &DDiagonalOccupancyMap[Index], size: DActualMap.Width(), defaultValue: Bool())
         }
     }
 
@@ -139,8 +139,8 @@ class CGameModel {
         return DActualMap
     }
 
-    func Player(color: EPlayerColor) -> CPlayerData {
-        if (0 > color.rawValue) || (EPlayerColor.Max <= color) {
+    func Player(color: EPlayerColor) -> CPlayerData? {
+        if (0 > color.rawValue) || (EPlayerColor.Max.rawValue <= color.rawValue) {
             return nil
         }
         return DPlayers[color.rawValue]
@@ -151,8 +151,8 @@ class CGameModel {
         var TempEvent: SGameEvent
 
         for RowIndex in 0 ..< DAssetOccupancyMap.count {
-            for ColIndex in DAssetOccupancyMap[RowIndex].count {
-                AssetOccupancyMap[RowIndex][ColIndex] = nil
+            for ColIndex in 0 ..< DAssetOccupancyMap[RowIndex].count {
+                DAssetOccupancyMap[RowIndex][ColIndex] = nil
             }
         }
         for RowIndex in 0 ..< DDiagonalOccupancyMap.count {
@@ -160,9 +160,9 @@ class CGameModel {
                 DDiagonalOccupancyMap[RowIndex][ColIndex] = false
             }
         }
-        for Asset in DActualMap.Assetes() {
+        for Asset in DActualMap.Assets() {
             if (EAssetAction.ConveyGold != Asset.Action()) && (EAssetAction.ConveyLumber != Asset.Action()) && (EAssetAction.MineGold != Asset.Action()) {
-                DAssetOccupancyMap[Asset.TilePositionY()][Asset.TilePostionX()] = Asset
+                DAssetOccupancyMap[Asset.TilePositionY()][Asset.TilePositionX()] = Asset
             }
         }
         for PlayerIndex in 1 ..< EPlayerColor.Max.rawValue {
@@ -256,8 +256,7 @@ class CGameModel {
                     Asset.IncrementStep()
                     if DHarvestSteps <= Asset.Step() {
                         var NearestRepository: CPlayerAsset = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
-
-                        DActualMap.RemoveLumber(TilePosition, Asset.TilePosition(), DLumberPerHarvest)
+                        DActualMap.RemoveLumber(pos: TilePosition, from: Asset.TilePosition(), amount: DLumberPerHarvest)
 
                         if !NearestRepository.expired() {
                             Command.DAction = EAssetAction.ConveyLumber

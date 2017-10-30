@@ -8,6 +8,9 @@
 // Getters and setters all removed.
 import Foundation
 
+var DAllMaps: [CAssetDecoratedMap] = [CAssetDecoratedMap]()
+var DMapNameTranslation: [String: Int] = [String: Int]()
+
 class CAssetDecoratedMap: CTerrainMap {
     public struct SAssetInitialization {
         var DType: String
@@ -27,9 +30,6 @@ class CAssetDecoratedMap: CTerrainMap {
     var DSearchMap: [[Int]]
     var DLumberAvailable: [[Int]]
 
-    var DMapNameTranslation: [String: Int]
-    var DAllMaps: [CAssetDecoratedMap] // originally a vector, might need different implementation.
-
     // start of functions
 
     public override init() {
@@ -39,8 +39,6 @@ class CAssetDecoratedMap: CTerrainMap {
         DSearchMap = [[Int]]()
         DLumberAvailable = [[Int]]()
 
-        DMapNameTranslation = [String: Int]()
-        DAllMaps = [CAssetDecoratedMap]()
         super.init()
     }
 
@@ -51,9 +49,6 @@ class CAssetDecoratedMap: CTerrainMap {
         DResourceInitializationList = map.DResourceInitializationList
         DSearchMap = [[Int]]()
         DLumberAvailable = [[Int]]()
-
-        DMapNameTranslation = [String: Int]()
-        DAllMaps = [CAssetDecoratedMap]()
         super.init()
     }
 
@@ -117,6 +112,10 @@ class CAssetDecoratedMap: CTerrainMap {
         return true
     }
 
+    func Assets() -> [CPlayerAsset] {
+        return DAssets
+    }
+
     func FindMapIndex(name: String) -> Int {
         let Iterator: Int! = DMapNameTranslation[name]
         if Iterator != nil {
@@ -125,14 +124,14 @@ class CAssetDecoratedMap: CTerrainMap {
         return -1
     }
 
-    func GetMap(index: Int) -> CAssetDecoratedMap {
+    static func GetMap(index: Int) -> CAssetDecoratedMap {
         if (0 > index) || (DAllMaps.count <= index) {
             return CAssetDecoratedMap()
         }
         return CAssetDecoratedMap(map: DAllMaps[index])
     }
 
-    func DuplicateMap(index: Int, newcolors: [EPlayerColor]) -> CAssetDecoratedMap {
+    static func DuplicateMap(index: Int, newcolors: [EPlayerColor]) -> CAssetDecoratedMap {
         if (0 > index) || (DAllMaps.count <= index) {
             return CAssetDecoratedMap()
         }
