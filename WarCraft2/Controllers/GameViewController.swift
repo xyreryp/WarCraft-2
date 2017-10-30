@@ -10,6 +10,8 @@ import Foundation
 import Cocoa
 import SpriteKit
 
+var peasantSelected = false
+
 protocol viewToController {
     func leftDown(x: Int, y: Int)
     func leftUp()
@@ -80,11 +82,29 @@ class GameViewController: NSViewController, viewToController {
         sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
 
+    func movePeasant(x: Int, y: Int) {
+        let assetDecoratedMap = application.DAssetMap
+        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        //        let sklocation = convert(
+        assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
+    }
+
     func leftDown(x: Int, y: Int) {
         // do whatever with x and y
         application.DLeftClicked = true
         application.X = x
         application.Y = y
+        if peasantSelected {
+            print(x)
+            print(y)
+
+            movePeasant(x: x + 500, y: y - 400)
+            peasantSelected = false
+        }
+        if (x > 95 || x < 105) && (y > -55 || y < -45) {
+            peasantSelected = true
+        }
     }
 
     func leftUp() {
@@ -93,13 +113,17 @@ class GameViewController: NSViewController, viewToController {
 }
 
 class GameView: SKView {
-
+    var skscene = SKScene(fileNamed: "Scene")
     var vc: viewToController?
     //    \(NSEvent.mouseLocation)
     var sound = SoundManager()
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
-        vc?.leftDown(x: Int(NSEvent.mouseLocation.x), y: Int(NSEvent.mouseLocation.y))
+        var sklocation = convert(NSEvent.mouseLocation, to: skscene!)
+        print(NSEvent.mouseLocation.x)
+        print(NSEvent.mouseLocation.y)
+
+        vc?.leftDown(x: Int(sklocation.x), y: Int(sklocation.y))
     }
 
     override func mouseUp(with _: NSEvent) {

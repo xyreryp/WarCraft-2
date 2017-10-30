@@ -17,6 +17,7 @@
 		4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA30961F888C28006C46D5 /* MainWindowController.swift */; };
 		4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */; };
 		4BCEA21A1F9D587D0098A539 /* BattleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCEA2191F9D587D0098A539 /* BattleMode.swift */; };
+		52A54EDE1FA3D9AA00995FF5 /* AIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */; };
 		52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F39C321F995A0B0099329A /* TextFormatter.swift */; };
 		6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */; };
 		6BD98D381F9010EE00EDC2ED /* HandlingMouseClicks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD98D361F9010EE00EDC2ED /* HandlingMouseClicks.swift */; };
@@ -82,6 +83,7 @@
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
 		E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */; };
+		E1D2FD4E1FA6AE0E00093313 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */; };
 		E1D47D9A1FA2EC3700EFA5E4 /* FogRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8812C1FE1FA1C5D700C9B73A /* FogRenderer.swift */; };
 		E1D47D9F1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
@@ -98,7 +100,7 @@
 		4BBA30961F888C28006C46D5 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4BBA309A1F88BC33006C46D5 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		4BCEA2191F9D587D0098A539 /* BattleMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleMode.swift; sourceTree = "<group>"; };
-		52DB596A1F9A923100BA1183 /* AIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlayer.swift; sourceTree = "<group>"; };
+		52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPlayer.swift; sourceTree = "<group>"; };
 		52F39C321F995A0B0099329A /* TextFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormatter.swift; sourceTree = "<group>"; };
 		6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberGenerator.swift; sourceTree = "<group>"; };
 		6BC677471F8C186D00953C3A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 		E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRenderer.swift; sourceTree = "<group>"; };
 		E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPortRenderer.swift; sourceTree = "<group>"; };
 		E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetRenderer.swift; sourceTree = "<group>"; };
+		E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = WarCraft2/Data/Helpers.swift; sourceTree = SOURCE_ROOT; };
 		E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivatedPlayerCapability.swift; sourceTree = "<group>"; };
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -206,7 +209,6 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
-				52DB596A1F9A923100BA1183 /* AIPlayer.swift */,
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -329,6 +331,7 @@
 				8812C1FE1FA1C5D700C9B73A /* FogRenderer.swift */,
 				E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */,
 				E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */,
+				E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
 			);
@@ -349,6 +352,7 @@
 		E1B45E341F9D513D009D9BF1 /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */,
 				E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */,
 				9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */,
 				9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */,
@@ -488,6 +492,7 @@
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				A1B0E5321FA68DF6008959C9 /* ApplicationMode.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
+				E1D2FD4E1FA6AE0E00093313 /* Helpers.swift in Sources */,
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
 				4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
@@ -495,6 +500,7 @@
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
+				52A54EDE1FA3D9AA00995FF5 /* AIPlayer.swift in Sources */,
 				DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */,
 				DDBAC41C1F987E2B0075BB57 /* GraphicMulticolorTileset.swift in Sources */,
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,

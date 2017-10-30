@@ -48,39 +48,187 @@ class CApplicationData {
         case ptAIMedium
         case ptAIHard
     }
+    
+    // pretty sure this is a pointer to itself
+    var DApplicationPointer: CApplicationData = CApplicationData()
+    var DDeleted: Bool = Bool()
+    var DGameSessionType:EGameSessionType? = nil
+    var DSoundVolume: Float = Float()
+    var DMusicVolume: Float = Float()
+    var DUserName: String = String()
+    var DRemoteHostName: String = String()
+    
+    // pretty sure dont need these
+//    std::shared_ptr<CGUIApplication> DApplication;
+//    std::shared_ptr<CGUIWindow> DMainWindow;
+//    std::shared_ptr<CGUIDrawingArea> DDrawingArea;
+//    std::shared_ptr<CGUICursor> DBlankCursor;
+    
+    // different surfaces
+    var DDoubleBufferSurface: CGraphicSurface? = nil
+    var DWorkingBufferSurface: CGraphicSurface? = nil
+    var DMiniMapSurface: CGraphicSurface? = nil
+    var DViewportSurface: CGraphicSurface? = nil
+    var DViewportTypeSurface: CGraphicSurface? = nil
+    var DUnitDescriptionSurface: CGraphicSurface? = nil
+    var DUnitActionSurface: CGraphicSurface? = nil
+    var DResourceSurface: CGraphicSurface? = nil
+    var DMapSelectListViewSurface: CGraphicSurface? = nil
+    var DMiniMapViewportColor: uint32? = nil
 
+    // coordinate and map and options related things
+    var DBorderWidth: Int = Int()
+    var DPanningSpeed: Int = Int()
+    var DViewportXOffset : Int = Int()
+    var DViewportYOffset: Int = Int()
+    var DMiniMapXOffset: Int = Int()
+    var DMiniMapYOffset: Int = Int()
+    var DUnitDescriptionXOffset: Int = Int()
+    var DUnitDescriptionYOffset: Int = Int()
+    var DUnitActionXOffset: Int = Int()
+    var DUnitActionYOffset: Int = Int()
+    var DMenuButtonXOffset: Int = Int()
+    var DMenuButtonYOffset: Int = Int()
+    var DMapSelectListViewXOffset: Int = Int()
+    var DMapSelectListViewYOffset: Int = Int()
+    var DSelectedMapIndex: Int = Int()
+    var DSelectedMap: CAssetDecoratedMap? = nil
+    var DOptionsEditSelected: Int = Int()
+    var DPotionsEditSelectedCharacter: Int = Int()
+    var DOptionsEditLocations: [SRectangle] = [SRectangle]()
+    var DOptionsEditTitles: [String] = [String]()
+    var DOptionsEditText: [String] = [String]()
+    // TODO: uncomment later
+//    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
+    
+    // Map Renderer
+    var DMapRenderer: CMapRenderer? = nil
+    
+    // cursor things
+    // TODO: uncomment later
+    // var DCursorset: CCursorSet? = nil
+    var DCursorIndices: [Int] = [Int](repeating: Int(), count: ECursorType.ctMax.rawValue)
+    var DCursorType: ECursorType? = nil
+    
+    // sound things
+    // TODO: uncomment later
+    // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
+    // var DSoundEventRenderer: CSoundEventRenderer? = nil
+    
+    // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
+    
+    // loading steps things
+    var DTotalLoadingSteps: Int = Int()
+    var DCurrentLoadingStep: Int = Int()
+    
+    // tileset things
+    var DLoadingResourceContext: CGraphicResourceContext? = nil
+    var DSplashTileset = CGraphicTileset()
+    var DMarkerTileset = CGraphicTileset()                                  // needed for assetRenderer
+    var DBackgroundTileset = CGraphicTileset()
+    var DMiniBevelTileset = CGraphicTileset()
+    var DInnerBevelTileset = CGraphicTileset()
+    var DOuterVevelTileset = CGraphicTileset()
+    var DListViewIconTileset = CGraphicTileset()
+    
+    // TODO: Import bevel stuff and uncomment
+    // var DMiniBevel: CBevel? = nil
+    // var DInnerBevel: CBevel? = nil
+    // var DOuterBevel: CBevel? = nil
+    
+    // more tileset things
+    var DMapRendererConfigurationData: [Character] = [Character]()
+    var DTerrainTileset = CGraphicTileset()
+    var DFogTileset = CGraphicTileset()
+    
+    // recolor maps
+    var DAssetRecolorMap = CGraphicRecolorMap()
+    var DButtonRecolorMap = CGraphicRecolorMap()
+    var DFontRecolorMap = CGraphicRecolorMap()
+    var DPlayerRecolorMap = CGraphicRecolorMap()
+    
+    // more tileset things
+    var DIconTileset = CGraphicMulticolorTileset()
+    var DMiniIconTileset = CGraphicTileset()
+    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]()             // array of all asset tilesets
+    var DFireTileset = [CGraphicTileset]()                                  // needed for assetRenderer
+    var DCorpseTileset = CGraphicTileset()                                  // needed for assetRenderer
+    var DBuildingDeathTileset = CGraphicTileset()                           // needed for assetRenderer
+    var DArrowTileset = CGraphicTileset()                                   // needed for assetRenderer
+
+    // all renderer things
+    var DAssetRenderer: CAssetRenderer? = nil
+    var DFogRenderer: CFogRenderer? = nil
+    var DViewportRenderer: CViewportRenderer? = nil
+    var DMiniMapRenderer: CMiniMapRenderer? = nil
+    // TODO: finish these types of renderers
+    // var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
+    // var DUnitActionRenderer: CUnitActionRenderer? = nil
+    // var DResourceRenderer: CResourceRenderer? = nil
+    // var DMenuButtonRenderer: CButtonRenderer? = nil
+    // var DButtonRenderer: CButtonRenderer? = nil
+    // var DMapSelectListRenderer: CListViewRenderer? = nil
+    // var DOptionsEditRenderer: CEditRenderer? = nil
+    
+    // game model things
+    var DPlayerColor: EPlayerColor? = nil
+    //TODO: import CGameModel
+    // var DGameModel: CGameModel? = nil
+    // FIXME: type of expression is ambigous without more context?
+    // var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG, count: EPlayerColor.Max.rawValue)
+    // FIXME: DAIPlayer supposed to have size of EPlayerColor.Max.rawValue
+    // var DAIPlayers = [CAIPlayer]()
+    var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
+    var DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
+    
+    // application mode things
+    var DApplicationMode: CApplicationMode? = nil
+    var DNextApplicationMode: CApplicationMode? = nil
+    
+    // hotkeys unordererd maps --> dictionaries
+    var DUnitHotKeyMap: [uint32: EAssetCapabilityType]? = nil
+    var DBuildHotKeyMap: [uint32: EAssetCapabilityType]? = nil
+    var DTrainHotKeyMap: [uint32: EAssetCapabilityType]? = nil
+    
+    // asset capabilities things
+    var DSelectedPlayerAssets = [CPlayerAsset]()
+    var DCurrentAssetCapability: EAssetCapabilityType? = nil
+    
+    // keys related things
+    var DPressedKeys = [uint32]()
+    var DReleasedKeys = [uint32]()
+    
+    
+    // mouse things
+    // var DCurrentX: Int = Int()                               // to ignore becuase we used X in below
+    // var DCurrentY: Int = Int()                               // to ignore becuase we used Y in below
+    var DMouseDown: CPixelPosition = CPixelPosition()
+
+    // more mouse things
     var DLeftClicked: Bool = false
     var DRightClicked: Bool = false
     var X: Int = Int()
     var Y: Int = Int()
+    
+    // TODO: uncomment after Button Renderer
+    // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
 
+    // end of member variables from ApplicationData.h
+    
+    
     var ECursorTypeRef: ECursorType = ECursorType.ctPointer
     var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
     var EGameSessionTypeRef: EGameSessionType = EGameSessionType.gstSinglePlayer
     var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
 
     // Data Source, used for all reading of files
-    var TempDataSource: CDataSource = CDataSource()
-
-    // tileset for the terrain
-    var DTerrainTileset = CGraphicTileset()
-
-    // tilesets needed for assetRenderer's init()
-    var DMarkerTileset = CGraphicTileset()
-    var DCorpseTileset = CGraphicTileset()
-    var DFireTileset = [CGraphicTileset]()
-    var DBuildingDeathTileset = CGraphicTileset()
-    var DArrowTileset = CGraphicTileset()
+    var TempDataSource: CDataSource = CDataSource()    
 
     var DAssetMap = CAssetDecoratedMap()
     // playerData needed for assetRenderer
     //    var DPlayer: CPlayerData
     // array of tilesets for all the assset
     //    var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
-    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]()
-
-    // map for drawing player
-    var DPlayerRecolorMap: CGraphicRecolorMap = CGraphicRecolorMap()
 
     //    var DAssetRenderer: CAssetRenderer
 
@@ -104,21 +252,12 @@ class CApplicationData {
         //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
+        CHelper.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        //        CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: [CGraphicMulticolorTileset]())
+        //        resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: [CGraphicMulticolorTileset]())
 
         //         load tileset for peasant
         //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
