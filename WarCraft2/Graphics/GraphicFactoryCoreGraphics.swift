@@ -10,11 +10,10 @@ import Foundation
 import CoreGraphics
 
 class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
-    var myContext: CGContext!
+    var myContext: CGContext
 
-    // TODO: implement
-    override init() {
-        myContext = nil
+    init(context: CGContext) {
+        myContext = context
     }
 
     override func SetSourceRGB(rgb: UInt32) {
@@ -23,19 +22,22 @@ class CGraphicResourceContextCoreGraphics: CGraphicResourceContext {
 
     override func SetSourceRGB(r: CGFloat, g: CGFloat, b: CGFloat) {
         myContext.setFillColor(red: r, green: g, blue: b, alpha: 1)
+        myContext.setStrokeColor(red: r, green: g, blue: b, alpha: 1)
     }
 
     override func SetSourceRGBA(rgba: UInt32) {
-        let red = CGFloat(exactly: (rgba >> 16) & 0xFF)! / 255.0
-        let green = CGFloat(exactly: (rgba >> 8) & 0xFF)! / 255.0
-        let blue = CGFloat(exactly: (rgba >> 4 & 0xFF))! / 255.0
-        let alpha = CGFloat(exactly: (rgba >> 24) & 0xFF)! / 255.0
+        let red = CGFloat((rgba >> 16) & 0xFF) / 255.0
+        let green = CGFloat((rgba >> 8) & 0xFF) / 255.0
+        let blue = CGFloat((rgba >> 4) & 0xFF) / 255.0
+        let alpha = CGFloat((rgba >> 24) & 0xFF) / 255.0
 
         myContext.setFillColor(red: red, green: green, blue: blue, alpha: alpha)
+        myContext.setStrokeColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
     override func SetSourceRGBA(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
         myContext.setFillColor(red: r, green: g, blue: b, alpha: a)
+        myContext.setStrokeColor(red: r, green: g, blue: b, alpha: a)
     }
 
     // FIXME: implement
