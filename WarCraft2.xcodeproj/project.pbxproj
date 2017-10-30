@@ -168,6 +168,7 @@
 		E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetRenderer.swift; sourceTree = "<group>"; };
 		E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = WarCraft2/Data/Helpers.swift; sourceTree = SOURCE_ROOT; };
 		E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivatedPlayerCapability.swift; sourceTree = "<group>"; };
+		E1E55CA61FA7BC0D000B9E65 /* bay.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = bay.map; sourceTree = "<group>"; };
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E1F589981F8A01C80072BE93 /* GraphicSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicSurface.swift; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 				A10B59571FA650850035C1EB /* Marker.dat */,
 				A10B59631FA650870035C1EB /* Peasant.dat */,
 				A10B59501FA650850035C1EB /* Ranger.dat */,
+				E1E55CA61FA7BC0D000B9E65 /* bay.map */,
 				A10B59661FA650870035C1EB /* ScoutTower.dat */,
 				A10B59581FA650850035C1EB /* Terrain.dat */,
 				A10B595A1FA650860035C1EB /* TownHall.dat */,
