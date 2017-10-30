@@ -171,31 +171,31 @@ class CGameModel {
             }
         }
         var AllAssets = DActualMap.Assets()
-        var MobileAssets: [[CPlayerAsset]] = []
-        var ImmobileAssets: [[CPlayerAsset]] = []
+        var MobileAssets: [CPlayerAsset] = []
+        var ImmobileAssets: [CPlayerAsset] = []
 
         // FIX ME: I think this should be modifying asset, not sure if it does
         // assign each asset a pseudo-random turn order
         for Asset in AllAssets {
-            Asset.AssignTurnOrder
-            if Asset.Speed() {
+            Asset.AssignTurnOrder()
+            if Asset.Speed() != 0 {
                 MobileAssets.append(Asset)
             } else {
                 ImmobileAssets.append(Asset)
             }
         }
         // Sort array
-        MobileAssets.sort(by: (CompareTurnOrder()))
-        ImmobileAssets.sort(by: (CompareTurnOrder()))
+        MobileAssets.sort(by: >)
+        ImmobileAssets.sort(by: >)
         AllAssets = MobileAssets
         // Splice the Array?
         /// TODO: Check if the logic is corrrect
-        AllAssets.append(contentsof: ImmobileAssets)
+        AllAssets.append(ImmobileAssets)
 
         for Asset in AllAssets {
             // show that assets are ordered and sorted in Debug.out
             // PrintDebug(DEBUG_LOW, "%u\n", Asset->GetTurnOrder());
-            if Asset.Speed() {
+            if Asset.Speed() != 0 {
                 // PrintDebug(DEBUG_LOW, "asset is mobile\n");
             } else {
                 // PrintDebug(DEBUG_LOW, "asset is immobile\n");
@@ -223,8 +223,8 @@ class CGameModel {
             } else if EAssetAction.HarvestLumber == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
                 var TilePosition: CTilePosition = Command.DAssetTarget.TilePosition()
-                var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(TilePosition)
-                if CTerrainMap.ETileType.Forest != DActualMap.TileType(TilePosition) {
+                var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
+                if CTerrainMap.ETileType.Forest != DActualMap.TileType(pos: TilePosition) {
                     HarvestDirection = EDirection.Max
                     TilePosition = Asset.TilePosition()
                 }
@@ -235,17 +235,17 @@ class CGameModel {
                         Asset.PopCommand()
                         if 0 <= TilePosition.X() {
                             var NewPosition: CPixelPosition
-                            NewPosition.SetFromTile(TilePosition)
+                            NewPosition.SetFromTile(pos: TilePosition)
                             Command.DAssetTarget = DPlayers[Asset.Color.rawValue].CreateMarker(NewPosition, false)
                             Asset.PushCommand(c)
                             Command.DAction = EAssetAction.Walk
-                            Asset.PushCommand(Command)
+                            Asset.PushCommand(command: Command)
                             Asset.ResetStep()
                         }
                     } else {
                         var NewCommand: SAssetCommand = Command
                         NewCommand.DAction = EAssetAction.Walk
-                        Asset.PushCommand(NewCommand)
+                        Asset.PushCommand(command: NewCommand)
                         Asset.ResetStep()
                     }
                 } else {
@@ -258,17 +258,17 @@ class CGameModel {
                         var NearestRepository: CPlayerAsset = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
                         DActualMap.RemoveLumber(pos: TilePosition, from: Asset.TilePosition(), amount: DLumberPerHarvest)
 
-                        if !NearestRepository.expired() {
+                        if  NearestRepository != nil {
                             Command.DAction = EAssetAction.ConveyLumber
                             Command.DAssetTarget = NearestRepository.lock()
-                            Asset.PushCommand(Command)
+                            Asset.PushCommand(command: Command)
                             Command.DAction = EAssetAction.Walk
-                            Asset.PushCommand(Command)
-                            Asset.Lumber(DLumberPerHarvest)
+                            Asset.PushCommand(command: Command)
+                            Asset.DLumber(DLumberPerHarvest)
                             Asset.ResetStep()
                         } else {
                             Asset.PopCommand()
-                            Asset.Lumber(DLumberPerHarvest)
+                            Asset.DLumber(DLumberPerHarvest)
                             Asset.ResetStep()
                         }
                     }

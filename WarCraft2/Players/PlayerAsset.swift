@@ -75,6 +75,14 @@ class CPlayerAsset {
                 lhs.DDirection != rhs.DDirection)
     }
 
+    static func <(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return lhs.getTurnOrder() < rhs.getTurnOrder()
+    }
+
+    static func >(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return lhs.getTurnOrder() > rhs.getTurnOrder()
+    }
+
     static func UpdateFrequency() -> Int {
         return DUpdateFrequency
     }
@@ -123,6 +131,10 @@ class CPlayerAsset {
         DGold = gold
         return DGold
     }
+    
+    func Gold() -> Int {
+        return DGold
+    }
 
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
@@ -143,6 +155,15 @@ class CPlayerAsset {
         DLumber -= lumber
         return DLumber
     }
+    
+    func Lumber() -> Int {
+        return DLumber
+    }
+    
+    func Lumber(lumber: Int) -> Int {
+        DLumber = lumber
+        return DLumber
+    }
 
     func ResetStep() {
         DStep = 0
@@ -150,6 +171,10 @@ class CPlayerAsset {
 
     func IncrementStep() {
         DStep += 1
+    }
+    
+    func Step() -> Int{
+        return DStep
     }
 
     func TilePosition() -> CTilePosition {
