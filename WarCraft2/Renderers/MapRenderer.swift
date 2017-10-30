@@ -37,15 +37,6 @@ class CMapRenderer: PMapRenderer {
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     //    // huge constructor
     required init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
@@ -60,7 +51,7 @@ class CMapRenderer: PMapRenderer {
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 
-        CMapRenderer.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
+        CHelper.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
 
         //        if !LineSource.Read(line: &TempString) {
         //            return
@@ -116,9 +107,9 @@ class CMapRenderer: PMapRenderer {
         DPixelIndices[CTerrainMap.ETileType.DeepWater.rawValue] = Int(0xFF05_1015)
         DPixelIndices[CTerrainMap.ETileType.Rubble.rawValue] = Int(0xFF3A_512B)
 
-        CMapRenderer.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
+        CHelper.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
         for (i, _) in DTileIndices.enumerated() {
-            CMapRenderer.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
+            CHelper.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
         }
 
         var Index2: Int = 0

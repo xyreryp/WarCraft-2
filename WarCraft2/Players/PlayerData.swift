@@ -24,23 +24,22 @@ class CPlayerData {
     var DGameCycle: Int = Int()
 
     init(map: CAssetDecoratedMap, color: EPlayerColor) {
-        var DIsAI = true
-        var DGameCycle = 0
-        var DColor = color
-        var DActualMap = map
-        var asset = CPlayerAssetType()
-        var DAssetTypes = asset.DuplicateRegistry(color: color)
-        var DPlayerMap = DActualMap.CreateInitializeMap()
-        var DVisibilityMap = DActualMap.CreateVisibilityMap()
-        var DGold = 0
-        var DLumber = 0
+        DIsAI = true
+        DGameCycle = 0
+        DColor = color
+        DActualMap = map
+        DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
+        DPlayerMap = DActualMap.CreateInitializeMap()
+        DVisibilityMap = DActualMap.CreateVisibilityMap()
+        DGold = 0
+        DLumber = 0
 
         // resize
         for i in 0 ..< DUpgrades.count {
             DUpgrades[i] = false
         }
         var i = DUpgrades.count
-        while i < EAssetCapabilityType.Max.rawValue {
+        while i > EAssetCapabilityType.Max.rawValue {
             DUpgrades.append(false)
         }
 
@@ -63,15 +62,6 @@ class CPlayerData {
                     InitAsset.Gold(gold: DGold)
                 }
             }
-        }
-    }
-
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
         }
     }
 
@@ -177,7 +167,7 @@ class CPlayerData {
 
     func AssetRequirementsMet(assettypename: String) -> Bool {
         var AssetCount: [Int] = [Int]()
-        CPlayerData.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
+        CHelper.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
 
         for WeakAsset in DAssets {
             if EAssetAction.Construct != WeakAsset.Action() {

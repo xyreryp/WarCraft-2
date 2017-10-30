@@ -1,0 +1,21 @@
+# Path to frames
+./Arrow.png
+# Number of frames
+16
+# Frame names
+attack-n-0
+attack-ne-0
+attack-e-0
+attack-se-0
+attack-s-0
+attack-sw-0
+attack-w-0
+attack-nw-0
+attack-n-1
+attack-ne-1
+attack-e-1
+attack-se-1
+attack-s-1
+attack-sw-1
+attack-w-1
+attack-nw-1

@@ -1,0 +1,21 @@
+# Path to frames
+./Corpse.png
+# Number of frames
+16
+# Frame names
+decay-ne-0
+decay-ne-1
+decay-ne-2
+decay-ne-3
+decay-se-0
+decay-se-1
+decay-se-2
+decay-se-3
+decay-sw-0
+decay-sw-1
+decay-sw-2
+decay-sw-3
+decay-nw-0
+decay-nw-1
+decay-nw-2
+decay-nw-3

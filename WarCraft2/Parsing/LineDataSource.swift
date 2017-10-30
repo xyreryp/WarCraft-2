@@ -20,22 +20,23 @@ class CLineDataSource {
 
     // NOTE: not 100% sure
     // please notify Alex, Yepu or Aidan if this function causes issues
-    func Read(line: inout String) -> Bool {
-        let TempChar: String = ""
-
-        // line.clear()
-        line = ""
-
-        while true {
-            if 0 < DDataSource.Read(length: 1).1 {
-                if "\n" == TempChar {
-                    return true
-                } else if "\r" != TempChar {
-                    line += TempChar
-                }
-            } else {
-                return false
-            }
-        }
+    func Read(line _: inout String) -> Bool {
+        //        let TempChar: String = ""
+        //
+        //        // line.clear()
+        //        line = ""
+        //
+        //        while true {
+        //            if 0 < DDataSource.Read(length: 1).1 {
+        //                if "\n" == TempChar {
+        //                    return true
+        //                } else if "\r" != TempChar {
+        //                    line += TempChar
+        //                }
+        //            } else {
+        //                return false
+        //            }
+        //        }
+        return false
     }
 }
