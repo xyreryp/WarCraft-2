@@ -80,17 +80,6 @@ class CRouterMap {
     static var DIdealSearchDirection: EDirection = EDirection.North
     static var DMapWidth: Int = 1
 
-    // https://stackoverflow.com/questions/42821473/in-swift-can-i-write-a-generic-function-to-resize-an-array
-    // there is no default resize function in swift for lists
-    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     static func MovingAway(dir1: EDirection, dir2: EDirection) -> Bool {
         var Value: Int
         if (0 > dir2.rawValue) || (EDirection.Max.rawValue) <= dir2.rawValue {
@@ -128,9 +117,9 @@ class CRouterMap {
         if (DMap.count != MapHeight + 2) || (DMap[0].count != MapWidth + 2) {
             var LastYIndex: Int = MapHeight + 1
             var LastXIndex: Int = MapWidth + 1
-            resize(array: &DMap, size: MapHeight + 2, defaultValue: [Int()])
+            CHelper.resize(array: &DMap, size: MapHeight + 2, defaultValue: [Int()])
             for var Row in DMap {
-                resize(array: &Row, size: MapWidth + 2, defaultValue: Int())
+                CHelper.resize(array: &Row, size: MapWidth + 2, defaultValue: Int())
             }
             for Index in 0 ..< DMap.count {
                 DMap[Index][0] = SEARCH_STATUS_VISITED

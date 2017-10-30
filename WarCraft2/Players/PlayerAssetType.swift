@@ -8,8 +8,6 @@
 
 import Foundation
 class CPlayerAssetType {
-
-    var DThis: CPlayerAssetType = CPlayerAssetType()
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
@@ -31,7 +29,7 @@ class CPlayerAssetType {
     var DBasicDamage: Int = Int()
     var DPiercingDamage: Int = Int()
     var DRange: Int = Int()
-    var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
+    static var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DTypeStrings: [String] = [
         "None",
         "Peasant",
@@ -76,18 +74,10 @@ class CPlayerAssetType {
     //    ~CPlayerAssetType();
     //
 
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     // default constructor
     init() {
-        CPlayerAssetType.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+        //        DThis = CPlayerAssetType()
+        CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
         DHitPoints = 0
         DArmor = 0
         DSight = 0
@@ -108,6 +98,7 @@ class CPlayerAssetType {
     // constructor
     init(asset: CPlayerAssetType) {
         if asset != nil {
+            //            DThis = CPlayerAssetType()
             DName = asset.DName
             DType = asset.DType
             DColor = asset.DColor
@@ -260,9 +251,12 @@ class CPlayerAssetType {
     }
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
+    // FIXME: fix
     func MaxSight() -> Int {
-        let MaxSightFound = DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
-        return MaxSightFound!.value.DSight
+        //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
+        //        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
+        //        return MaxSightFound!.value.DSight
+        return 3
     }
 
     func LoadTypes(container: CDataContainer) -> Bool {
@@ -292,23 +286,23 @@ class CPlayerAssetType {
         }
 
         let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
-        PlayerAssetType.DThis = PlayerAssetType
+        //        PlayerAssetType.DThis = PlayerAssetType
         PlayerAssetType.DName = "None"
         PlayerAssetType.DType = EAssetType.None
         PlayerAssetType.DColor = EPlayerColor.None
         PlayerAssetType.DHitPoints = 256
-        DRegistry["None"] = PlayerAssetType
+        CPlayerAssetType.DRegistry["None"] = PlayerAssetType
         return true
     }
 
     //     TODO: After we for sure know how to read stuff in
-    func Load(source _: CDataSource) -> Bool {
+    func Load(source _: CDataSource!) -> Bool {
         // gonna re impleiment using string name of the files
         return false
     }
 
     func FindDefaultFromName(name: String) -> CPlayerAssetType {
-        if let itr = DRegistry[name] {
+        if let itr = CPlayerAssetType.DRegistry[name] {
             return itr
         }
         return CPlayerAssetType()
@@ -318,14 +312,14 @@ class CPlayerAssetType {
         return FindDefaultFromName(name: TypeToName(type: type))
     }
 
-    func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+    static func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
         var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
         ReturnRegistry = DRegistry
         return ReturnRegistry
     }
 
     func Construct() -> CPlayerAsset {
-        let ThisShared = DThis
+        let ThisShared = self
         return CPlayerAsset(type: ThisShared)
     }
 }

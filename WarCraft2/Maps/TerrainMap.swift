@@ -312,20 +312,11 @@ class CTerrainMap {
         }
     }
 
-    // https://stackoverflow.com/questions/42821473/in-swift-can-i-write-a-generic-function-to-resize-an-array
-    // there is no default resize function in swift for lists
-    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
     //terain being rendered
+    // second for loop has index out of range
     func RenderTerrain() {
-        resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [])
-        resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [])
+        CHelper.resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [])
+        CHelper.resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [])
         for YPos in 0 ..< DMap.count {
             if (0 == YPos) || (DMap.count - 1 == YPos) {
                 for _ in 0 ..< DTerrainMap[0].count + 1 {
@@ -389,9 +380,9 @@ class CTerrainMap {
                 if (8 > MapWidth) || (8 > MapHeight) {
                     return ReturnStatus
                 }
-                resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
+                CHelper.resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
                 for Index in 0 ..< DTerrainMap.count {
-                    resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
+                    CHelper.resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
                     for Inner in 0 ..< MapWidth + 1 {
                         let index1: String.Index = StringMap[Index + 5].index(StringMap[Index + 5].startIndex, offsetBy: Inner)
                         switch StringMap[Index + 5][index1] {
@@ -429,11 +420,11 @@ class CTerrainMap {
                         }
                     }
                 }
-                resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
+                CHelper.resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
                 let valueStringValues: [Character] = ["0", "A"]
                 var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
                 for Index in 0 ..< DTerrainMap.count {
-                    resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
+                    CHelper.resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
                     for Inner in 0 ..< MapWidth + 1 {
                         let index: String.Index = StringMap[Index + MapWidth + 7].index(StringMap[Index + MapWidth + 7].startIndex, offsetBy: Inner)
                         let intValue: UInt8 = String(StringMap[Index + MapWidth + 7][index]).utf8.map { UInt8($0) }[0]

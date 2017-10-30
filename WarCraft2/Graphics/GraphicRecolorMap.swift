@@ -82,68 +82,57 @@ class CGraphicRecolorMap {
         return DOriginalColors[gindex][cindex]
     }
 
-    // https://stackoverflow.com/questions/42821473/in-swift-can-i-write-a-generic-function-to-resize-an-array
-    // there is no default resize function in swift for lists
-    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
-    func Load(source: CDataSource?) -> Bool {
-        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
-        var PNGPath = String()
-        var TempString = String()
-        var _: [String]
-
-        if nil == source {
-            return false
-        }
-        if !LineSource.Read(line: &PNGPath) {
-            return false
-        }
-        // TODO: Uncomment once GraphicFactory has been written
-        let ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
-        if nil == ColorSurface {
-            return false
-        }
-
-        resize(array: &DColors, size: ColorSurface!.Height(), defaultValue: [0x0])
-        resize(array: &DOriginalColors, size: ColorSurface!.Height(), defaultValue: [0x0])
-        for var Row in DColors {
-            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
-        }
-        for var Row in DOriginalColors {
-            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
-        }
-
-        DState = 0
-        //        TODO: Uncomment when Transform in GraphicSurface.swift has been written
-        // ColorSurface.Transform(ColorSurface, 0, 0, -1, -1, 0, 0, self, ObservePixels)
-
-        if !LineSource.Read(line: &TempString) {
-            return false
-        }
-        //        do {
-        let ColorCount = Int(TempString)
-        if ColorCount! != DColors.count {
-            return false
-        }
-        resize(array: &DColorNames, size: ColorCount!, defaultValue: "")
-        for Index in 0 ..< ColorCount! {
-            if !LineSource.Read(line: &TempString) {
-                return false
-            }
-            DMapping[TempString] = Index
-            DColorNames[Index] = TempString
-        }
-        //        } catch {
-        //            print("Exception in Load function (GraphicRecolorMap.swift)")
+    func Load(source _: CDataSource?) -> Bool {
+        //        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
+        //        var PNGPath = String()
+        //        var TempString = String()
+        //        var _: [String]
+        //
+        //        if nil == source {
         //            return false
         //        }
+        //        if !LineSource.Read(line: &PNGPath) {
+        //            return false
+        //        }
+        //        // TODO: Uncomment once GraphicFactory has been written
+        //        let ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
+        //        if nil == ColorSurface {
+        //            return false
+        //        }
+        //
+        //        resize(array: &DColors, size: ColorSurface!.Height(), defaultValue: [0x0])
+        //        resize(array: &DOriginalColors, size: ColorSurface!.Height(), defaultValue: [0x0])
+        //        for var Row in DColors {
+        //            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
+        //        }
+        //        for var Row in DOriginalColors {
+        //            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
+        //        }
+        //
+        //        DState = 0
+        //        //        TODO: Uncomment when Transform in GraphicSurface.swift has been written
+        //        // ColorSurface.Transform(ColorSurface, 0, 0, -1, -1, 0, 0, self, ObservePixels)
+        //
+        //        if !LineSource.Read(line: &TempString) {
+        //            return false
+        //        }
+        //        //        do {
+        //        let ColorCount = Int(TempString)
+        //        if ColorCount! != DColors.count {
+        //            return false
+        //        }
+        //        resize(array: &DColorNames, size: ColorCount!, defaultValue: "")
+        //        for Index in 0 ..< ColorCount! {
+        //            if !LineSource.Read(line: &TempString) {
+        //                return false
+        //            }
+        //            DMapping[TempString] = Index
+        //            DColorNames[Index] = TempString
+        //        }
+        //        //        } catch {
+        //        //            print("Exception in Load function (GraphicRecolorMap.swift)")
+        //        //            return false
+        //        //        }
         return true
     }
 

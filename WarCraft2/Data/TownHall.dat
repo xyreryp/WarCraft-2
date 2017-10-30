@@ -1,0 +1,9 @@
+# Path to frames
+./TownHall.png
+# Number of frames
+4
+# Frame names
+construct-0
+construct-1
+inactive
+place
