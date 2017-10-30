@@ -100,7 +100,7 @@ class CMiniMapRenderer {
             DVisibleHeight = MiniMapHeight
         }
 
-        DMapRenderer.DrawMiniMap(surface: DWorkingSurface)
+        // DMapRenderer.DrawMiniMap(surface: DWorkingSurface)
         DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
 
         if DFogRenderer == nil {
