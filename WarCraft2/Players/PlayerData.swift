@@ -24,16 +24,15 @@ class CPlayerData {
     var DGameCycle: Int = Int()
 
     init(map: CAssetDecoratedMap, color: EPlayerColor) {
-        var DIsAI = true
-        var DGameCycle = 0
-        var DColor = color
-        var DActualMap = map
-        var asset = CPlayerAssetType()
-        var DAssetTypes = asset.DuplicateRegistry(color: color)
-        var DPlayerMap = DActualMap.CreateInitializeMap()
-        //        var DVisibilityMap = DActualMap.CreateVisibilityMap()
-        var DGold = 0
-        var DLumber = 0
+        DIsAI = true
+        DGameCycle = 0
+        DColor = color
+        DActualMap = map
+        DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
+        DPlayerMap = DActualMap.CreateInitializeMap()
+        DVisibilityMap = DActualMap.CreateVisibilityMap()
+        DGold = 0
+        DLumber = 0
 
         // resize
         for i in 0 ..< DUpgrades.count {
