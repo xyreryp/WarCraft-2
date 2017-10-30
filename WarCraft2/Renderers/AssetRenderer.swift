@@ -343,6 +343,11 @@ class CAssetRenderer {
         tileset[15].DrawTile(skscene: surface, xpos: 800, ypos: -200, tileindex: 0) // Cannon Tower
     }
 
+    func movePeasant(x: Int, y: Int, surface: SKScene, tileset: [CGraphicTileset]) {
+
+        tileset[1].DrawTile(skscene: surface, xpos: x, ypos: y, tileindex: 0)
+    }
+
     //    func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {
     //        let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
     //        let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
