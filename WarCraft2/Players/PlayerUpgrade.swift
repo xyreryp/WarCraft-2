@@ -23,7 +23,7 @@ class CPlayerUpgrade {
     static private(set) var DRegistryByName: [String: CPlayerUpgrade] = [:]
     static private(set) var DRegistryByType: [Int: CPlayerUpgrade] = [:]
 
-    func LoadUpgrades(container _: CDataContainer) -> Bool {
+    static func LoadUpgrades(container _: CDataContainer) -> Bool {
         //        var FileIterator = container.First()
         //        if FileIterator == nil {
         //            // FIXME:
@@ -38,7 +38,7 @@ class CPlayerUpgrade {
     }
 
     // TODO: how are we gonna do lineSource
-    func Load(source: CDataSource) -> Bool {
+    static func Load(source: CDataSource) -> Bool {
         //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
         var Name: String = String()
         var TempString: String
@@ -88,14 +88,14 @@ class CPlayerUpgrade {
         return false
     }
 
-    func FindUpgradeFromType(type: EAssetCapabilityType) -> CPlayerUpgrade {
+    static func FindUpgradeFromType(type: EAssetCapabilityType) -> CPlayerUpgrade {
         if let upgrade = DRegistryByType[type.rawValue] {
             return upgrade
         }
         return CPlayerUpgrade()
     }
 
-    func FindUpgradeFromName(name: String) -> CPlayerUpgrade {
+    static func FindUpgradeFromName(name: String) -> CPlayerUpgrade {
         if let upgrade = DRegistryByName[name] {
             return upgrade
         }

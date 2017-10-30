@@ -14,19 +14,19 @@ struct SAssetCommand {
 }
 
 class CPlayerAsset {
-    var DCreationCycle: Int = 0
-    var DHitPoints: Int = 0
-    var DGold: Int = 0
-    var DLumber: Int = 0
-    var DStep: Int = 0
-    var DMoveRemainderX: Int = 0
-    var DMoveRemainderY: Int = 0
-    var DPosition: CPixelPosition = CPixelPosition()
-    var DDirection: EDirection = EDirection.Max
-    var DCommands: [SAssetCommand] = [SAssetCommand]()
-    var DType: CPlayerAssetType = CPlayerAssetType()
-    var DUpdateFrequency: Int = 1
-    var DUpdateDivisor: Int = 32
+    var DCreationCycle: Int
+    var DHitPoints: Int
+    var DGold: Int
+    var DLumber: Int
+    var DStep: Int
+    var DMoveRemainderX: Int
+    var DMoveRemainderY: Int
+    var DPosition: CPixelPosition
+    var DDirection: EDirection
+    var DCommands: [SAssetCommand]
+    var DType: CPlayerAssetType
+    static var DUpdateFrequency: Int
+    static var DUpdateDivisor: Int
 
     init(type _: CPlayerAssetType) {
         DCreationCycle = 0
