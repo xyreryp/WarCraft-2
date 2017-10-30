@@ -63,6 +63,7 @@
 		A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5871F8A955D005007C4 /* TilePosition.swift */; };
 		A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5891F8AD924005007C4 /* PixelPosition.swift */; };
 		A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AE6E601F92A95200D40A86 /* PixelType.swift */; };
+		A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */ = {isa = PBXBuildFile; fileRef = E1E55CA61FA7BC0D000B9E65 /* bay.map */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
@@ -168,6 +169,7 @@
 		E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetRenderer.swift; sourceTree = "<group>"; };
 		E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = WarCraft2/Data/Helpers.swift; sourceTree = SOURCE_ROOT; };
 		E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivatedPlayerCapability.swift; sourceTree = "<group>"; };
+		E1E55CA61FA7BC0D000B9E65 /* bay.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = bay.map; sourceTree = "<group>"; };
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E1F589981F8A01C80072BE93 /* GraphicSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicSurface.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				A10B59571FA650850035C1EB /* Marker.dat */,
 				A10B59631FA650870035C1EB /* Peasant.dat */,
 				A10B59501FA650850035C1EB /* Ranger.dat */,
+				E1E55CA61FA7BC0D000B9E65 /* bay.map */,
 				A10B59661FA650870035C1EB /* ScoutTower.dat */,
 				A10B59581FA650850035C1EB /* Terrain.dat */,
 				A10B595A1FA650860035C1EB /* TownHall.dat */,
@@ -420,6 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */,
 				A13E1EA11FA65963001589CE /* mountain.map in Resources */,
 				A10B59751FA650880035C1EB /* BuildingDeath.dat in Resources */,
 				A10B59761FA650880035C1EB /* FireLarge.dat in Resources */,

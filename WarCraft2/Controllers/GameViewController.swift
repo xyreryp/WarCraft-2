@@ -20,7 +20,7 @@ protocol viewToController {
 
 class GameViewController: NSViewController, viewToController {
 
-    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 1400, height: 900))
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 2000, height: 2000))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
@@ -64,7 +64,7 @@ class GameViewController: NSViewController, viewToController {
         var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
         do {
-            try map.LoadMap(fileToRead: "mountain")
+            try map.TestLoadMap(fileToRead: "bay")
         } catch {
             print("cant load map")
         }
