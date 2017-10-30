@@ -222,7 +222,7 @@ class CApplicationData {
     var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
 
     // Data Source, used for all reading of files
-    var TempDataSource: CDataSource = CDataSource()    
+    var TempDataSource: CDataSource = CDataSource()
 
     var DAssetMap = CAssetDecoratedMap()
     // playerData needed for assetRenderer
@@ -252,6 +252,21 @@ class CApplicationData {
         //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
+    
+    
+    // func ActivateCallback(data: TGUICalldata ) {}
+    // func TimeoutCallback(data: TGUICalldata ) -> Bool {}
+    // func MainWindowDeleteEventCallback(widget: CGUIWidget, data: TGUICalldata) -> Bool {}
+    // func MainWindowDestroyCallback(widget: CGUIWidget, data: TGUICalldata )
+    // func MainWindowKeyPressEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
+    // func MainWindowKeyReleaseEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
+    // func MainWindowConfigureEventCallback(widget: CGUIWidget, event: SGUIConfigureEvent, data: TGUICalldata ) -> Bool {}
+    // func DrawingAreaDrawCallback(widget: CGUIWidget, rc: CGraphicResourceContext, data: TGUICalldata ) -> Bool {}
+    // func DrawingAreaButtonPressEventCallback(widget: CGUIWidget, event: SGUIConfigureEven, data: TGUICalldata ) -> Bool {}
+    // func DrawingAreaButtonReleaseEventCallback(widget: CGUIWidget, event: SGUIButtonEvent, data: TGUICalldata ) -> Bool {}
+    // func DrawingAreaMotionNotifyEventCallback(widget: CGUIWidget, event: SGUIMotionEvent , data: TGUICalldata ) -> Bool {}
+    
+    
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
@@ -380,4 +395,39 @@ class CApplicationData {
             print("Failed to lead Arrow tileset")
         }
     }
+    
+    
+    
+//    func Timeout() -> Bool {}
+//    func MainWindowDeleteEvent(std::shared_ptr<CGUIWidget> widget) -> Bool{}
+//    func MainWindowDestroy(std::shared_ptr<CGUIWidget> widget) {}
+//    func MainWindowKeyPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
+//    func MainWindowKeyReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
+//    func MainWindowConfigureEvent(std::shared_ptr<CGUIWidget> widget, SGUIConfigureEvent &event) -> Bool {}
+//    func DrawingAreaDraw(std::shared_ptr<CGUIWidget> widget, std::shared_ptr<CGraphicResourceContext> rc) -> Bool {}
+//    func DrawingAreaButtonPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
+//    func DrawingAreaButtonReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
+//    func DrawingAreaMotionNotifyEvent(std::shared_ptr<CGUIWidget> widget, SGUIMotionEvent &event) -> Bool {}
+    
+    EUIComponentType FindUIComponentType(const CPixelPosition &pos);
+    CPixelPosition ScreenToViewport(const CPixelPosition &pos);
+    CPixelPosition ScreenToMiniMap(const CPixelPosition &pos);
+    CPixelPosition ScreenToDetailedMap(const CPixelPosition &pos);
+    CPixelPosition ScreenToUnitDescription(const CPixelPosition &pos);
+    CPixelPosition ScreenToUnitAction(const CPixelPosition &pos);
+    CPixelPosition ViewportToDetailedMap(const CPixelPosition &pos);
+    CPixelPosition MiniMapToDetailedMap(const CPixelPosition &pos);
+    
+    // Output
+    void RenderMenuTitle(const std::string &title, int &titlebottomy, int &pagewidth, int &pageheight);
+    void RenderSplashStep();
+    static void SoundLoadingCallback(TSoundLibraryLoadingCalldata data);
+    
+    
+    void ChangeApplicationMode(std::shared_ptr< CApplicationMode > mode);
+    bool ModeIsChanging();
+    
+    void LoadGameMap(int index);
+    void ResetPlayerColors();
+    void ResizeCanvases();
 }
