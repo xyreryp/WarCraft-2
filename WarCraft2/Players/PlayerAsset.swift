@@ -213,11 +213,11 @@ class CPlayerAsset {
     func TileAligned() -> Bool {
         return DPosition.TileAligned()
     }
-    
+
     func Position() -> CPixelPosition {
         return DPosition
     }
-    
+
     func Position(position: CPixelPosition) -> CPixelPosition {
         DPosition = position
         return DPosition
@@ -414,12 +414,12 @@ class CPlayerAsset {
     func MaxHitPoints() -> Int {
         return DType.DHitPoints
     }
-    
-    func HitPoints() -> Int{
+
+    func HitPoints() -> Int {
         return DHitPoints
     }
-    
-    func HitPoints(hitpts: Int) -> Int{
+
+    func HitPoints(hitpts: Int) -> Int {
         DHitPoints = hitpts
         return DHitPoints
     }

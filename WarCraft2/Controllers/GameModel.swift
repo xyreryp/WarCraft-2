@@ -62,7 +62,7 @@ fileprivate func RangeToDistanceSquared(range: Int) -> Int {
     var range: Int = range
     range *= CPosition().TileWidth()
     range *= range
-    range += CPosition().TileWidth() * CPosition().TileWIdth()
+    range += CPosition().TileWidth() * CPosition().TileWidth()
     return range
 }
 
@@ -222,8 +222,8 @@ class CGameModel {
                 }
             } else if EAssetAction.HarvestLumber == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                var TilePosition: CTilePosition = Command.DAssetTarget.TilePosition(),
-                    var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
+                var TilePosition: CTilePosition = Command.DAssetTarget.TilePosition()
+                var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
                 if CTerrainMap.ETileType.Forest != DActualMap.TileType(pos: TilePosition) {
                     HarvestDirection = EDirection.Max
                     TilePosition = Asset.TilePosition()
@@ -237,7 +237,7 @@ class CGameModel {
                             var NewPosition: CPixelPosition
                             NewPosition.SetFromTile(pos: TilePosition)
                             Command.DAssetTarget = DPlayers[Asset.Color.rawValue].CreateMarker(NewPosition, false)
-                            Asset.PushCommand(c)
+                            Asset.PushCommand(command: Command)
                             Command.DAction = EAssetAction.Walk
                             Asset.PushCommand(command: Command)
                             Asset.ResetStep()
@@ -252,7 +252,7 @@ class CGameModel {
                     TempEvent.DType = EEventType.Harvest
                     TempEvent.DAsset = Asset
                     CurrentEvents.append(TempEvent)
-                    Asset.DDirection(HarvestDirection)
+                    Asset.Direction(direction: HarvestDirection)
                     Asset.IncrementStep()
                     if DHarvestSteps <= Asset.Step() {
                         var NearestRepository: CPlayerAsset = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
@@ -264,11 +264,11 @@ class CGameModel {
                             Asset.PushCommand(command: Command)
                             Command.DAction = EAssetAction.Walk
                             Asset.PushCommand(command: Command)
-                            Asset.DLumber(DLumberPerHarvest)
+                            Asset.Lumber(lumber: DLumberPerHarvest)
                             Asset.ResetStep()
                         } else {
                             Asset.PopCommand()
-                            Asset.DLumber(DLumberPerHarvest)
+                            Asset.Lumber(lumber: DLumberPerHarvest)
                             Asset.ResetStep()
                         }
                     }
@@ -279,7 +279,7 @@ class CGameModel {
                 var TilePosition: CTilePosition
                 var MineDirection: EDirection
                 TilePosition.SetFromPixel(pos: ClosestPosition)
-                MineDirection = Asset.TilePosition().AdjacentTileDirection(TilePosition)
+                MineDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
                 if (EDirection.Max == MineDirection) && (TilePosition != Asset.TilePosition()) {
                     var NewCommand: SAssetCommand = Command
                     NewCommand.DAction = EAssetAction.Walk
@@ -345,7 +345,7 @@ class CGameModel {
             } else if EAssetAction.Repair == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
                 if CurrentCommand.DAssetTarget.Alive() {
-                    var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(CurrentCommand.DAssetTarget.TilePosition(), CurrentCommand.DAssetTarget.Size())
+                    var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget.TilePosition(), objsize: CurrentCommand.DAssetTarget.Size())
                     if EDirection.Max == RepairDirection {
                         var NextCommand: SAssetCommand = Asset.NextCommand()
                         CurrentCommand.DAction = EAssetAction.Walk
@@ -377,7 +377,7 @@ class CGameModel {
                                 Asset.PopCommand()
                             }
                         }
-                        if Asset.Step >= (Asset.AttackSteps() + Asset.ReloadSteps()) {
+                        if Asset.Step() >= (Asset.AttackSteps() + Asset.ReloadSteps()) {
                             Asset.ResetStep()
                         }
                     }
@@ -392,14 +392,14 @@ class CGameModel {
                     var Movement = (CPosition.TileWidth() * 5) / CPlayerAsset.UpdateFrequency()
                     var TargetDistance = Asset.Position().Distance(pos: ClosestTargetPosition)
                     var Divisor = (TargetDistance + Movement - 1) / Movement
-                    if Divisor {
-                        DeltaPosition.X(DeltaPosition.X() / Divisor)
-                        DeltaPosition.Y(DeltaPosition.Y() / Divisor)
+                    if Divisor != 0 {
+                        DeltaPosition.X(x: DeltaPosition.X() / Divisor)
+                        DeltaPosition.Y(y: DeltaPosition.Y() / Divisor)
                     }
                     Asset.PositionX(Asset.PositionX() + DeltaPosition.X())
                     Asset.PositionY(Asset.PositionY() + DeltaPosition.Y())
-                    Asset.Direction(Asset.Position().DirectionTo(ClosestTargetPosition))
-                    if CPosition.HalfTileWidth() * CPosition.HalfTileHeight() > Asset.Position().DistanceSquared(ClosestTargetPosition) {
+                    Asset.Direction(direction: Asset.Position().DirectionTo(pos: ClosestTargetPosition))
+                    if CPosition.HalfTileWidth() * CPosition.HalfTileHeight() > Asset.Position().DistanceSquared(pos: ClosestTargetPosition) {
                         TempEvent.DType = EEventType.MissleHit
                         TempEvent.DAsset = Asset
                         CurrentEvents.append(TempEvent)
@@ -415,7 +415,7 @@ class CGameModel {
                                     // Damage the target
                                     CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
                                 } else if (EAssetAction.Capability == TargetCommand.DAction) && TargetCommand.DAssetTarget {
-                                    if CurrentCommand.DAssetTarget.Speed() && (EAssetAction.Construct == TargetCommand.DAssetTarget.Action()) {
+                                    if CurrentCommand.DAssetTarget.Speed() != 0 && (EAssetAction.Construct == TargetCommand.DAssetTarget.Action()) {
                                         CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
                                     }
                                 }
@@ -435,7 +435,7 @@ class CGameModel {
                                             Command.DAssetTarget.ClearCommand()
                                         }
                                     }
-                                    CurrentCommand.DAssetTarget.Direction(direction: DirectionOpposite(Asset.Direction()))
+                                    CurrentCommand.DAssetTarget.Direction(direction: DirectionOpposite(dir: Asset.Direction()))
                                     Command.DAction = EAssetAction.Death
                                     CurrentCommand.DAssetTarget.ClearCommand()
                                     CurrentCommand.DAssetTarget.PushCommand(command: Command)
@@ -447,18 +447,18 @@ class CGameModel {
                     }
                 } else if CurrentCommand.DAssetTarget.Alive() {
                     if 1 == Asset.EffectiveRange() {
-                        var AttackDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(CurrentCommand.DAssetTarget.TilePosition(), CurrentCommand.DAssetTarget.count())
+                        var AttackDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget.TilePosition(), objsize: CurrentCommand.DAssetTarget.count())
                         if EDirection.Max == AttackDirection {
                             var NextCommand: SAssetCommand = Asset.NextCommand()
                             if EAssetAction.StandGround != NextCommand.DAction {
                                 CurrentCommand.DAction = EAssetAction.Walk
-                                Asset.PushCommand(CurrentCommand)
+                                Asset.PushCommand(command: CurrentCommand)
                                 Asset.ResetStep()
                             } else {
                                 Asset.PopCommand()
                             }
                         } else {
-                            Asset.Direction(AttackDirection)
+                            Asset.Direction(direction: AttackDirection)
                             Asset.IncrementStep()
                             if Asset.Step() == Asset.AttackSteps() {
                                 var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget.EffectiveArmor()
@@ -468,7 +468,7 @@ class CGameModel {
                                     // 50% chance half damage
                                     Damage /= 2
                                 }
-                                CurrentCommand.DAssetTarget.DecrementHitPoints(Damage)
+                                CurrentCommand.DAssetTarget.DecrementHitPoints(hitpts: Damage)
                                 TempEvent.DType = EEventType.MeleeHit
                                 TempEvent.DAsset = Asset
                                 CurrentEvents.append(TempEvent)
@@ -493,7 +493,7 @@ class CGameModel {
                                     Command.DCapability = EAssetCapabilityType.None
                                     Command.DAssetTarget = nil
                                     Command.DActivatedCapability = nil
-                                    CurrentCommand.DAssetTarget.Direction(direction: DirectionOpposite(AttackDirection))
+                                    CurrentCommand.DAssetTarget.Direction(direction: DirectionOpposite(dir: AttackDirection))
                                     Command.DAction = EAssetAction.Death
                                     CurrentCommand.DAssetTarget.ClearCommand()
                                     CurrentCommand.DAssetTarget.PushCommand(command: Command)
@@ -506,11 +506,11 @@ class CGameModel {
                         }
                     } else { // EffectiveRanged
                         var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget.ClosestPosition(pos: Asset.Position())
-                        if ClosestTargetPosition.DistanceSquared(Asset.Position()) > RangeToDistanceSquared(Asset.EffectiveRange()) {
+                        if ClosestTargetPosition.DistanceSquared(pos: Asset.Position()) > RangeToDistanceSquared(range: Asset.EffectiveRange()) {
                             var NextCommand: SAssetCommand = Asset.NextCommand()
                             if EAssetAction.StandGround != NextCommand.DAction {
                                 CurrentCommand.DAction = EAssetAction.Walk
-                                Asset.PushCommand(CurrentCommand)
+                                Asset.PushCommand(command: CurrentCommand)
                                 Asset.ResetStep()
                             } else {
                                 Asset.PopCommand()
@@ -553,15 +553,15 @@ class CGameModel {
                              }
                              AttackDirection = DeltaPosition.TileOctant();
                              */
-                            var AttackDirection: EDirection = Asset.Position().DirectionTo(ClosestTargetPosition)
-                            Asset.Direction(AttackDirection)
+                            var AttackDirection: EDirection = Asset.Position().DirectionTo(pos: ClosestTargetPosition)
+                            Asset.Direction(direction: AttackDirection)
                             Asset.IncrementStep()
                             if Asset.Step() == Asset.AttackSteps() {
                                 var AttackCommand: SAssetCommand
                                 var ArrowAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset("None")
                                 var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
-                                Damage += Asset -> EffectivePiercingDamage()
+                                Damage += Asset.EffectivePiercingDamage()
                                 if DRandomNumberGenerator.Random() & 0x1 {
                                     // 50% chance half damage
                                     Damage /= 2
@@ -615,7 +615,7 @@ class CGameModel {
                     var NextTarget = CTilePosition(x: DPlayers[Asset.Color().rawValue].PlayerMap().Width() - 1, y: DPlayers[Asset.Color().rawValue].PlayerMap().Height() - 1)
                     DPlayers[Asset.Color().rawValue].IncrementGold(Asset.Gold())
                     DPlayers[Asset.Color().rawValue].IncrementLumber(Asset.Lumber())
-                    Asset.Gold(gold: gold: 0)
+                    Asset.Gold(gold: 0)
                     Asset.Lumber(lumber: 0)
                     Asset.PopCommand()
                     Asset.ResetStep()
@@ -634,7 +634,7 @@ class CGameModel {
             } else if EAssetAction.Death == Asset.Action() {
                 Asset.IncrementStep()
                 if Asset.Step() > DDeathSteps {
-                    if Asset.Speed() {
+                    if Asset.Speed() != 0 {
                         var DecayCommand: SAssetCommand
                         // Create corpse
                         var CorpseAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset("None")
@@ -657,23 +657,23 @@ class CGameModel {
                     var Command: SAssetCommand = Asset.CurrentCommand()
                     var NextCommand: SAssetCommand = Asset.NextCommand()
                     var TravelDirection: EDirection
-                    var MapTarget: CPixelPosition = Command.DAssetTarget.ClosestPosition(Asset.Position())
+                    var MapTarget: CPixelPosition = Command.DAssetTarget.ClosestPosition(pos: Asset.Position())
 
                     if EAssetAction.Attack == NextCommand.DAction {
                         // Check to see if can attack now
-                        if NextCommand.DAssetTarget.ClosestPosition(Asset.Position()).DistanceSquared(Asset.Position()) <= RangeToDistanceSquared(Asset.EffectiveRange()) {
+                        if NextCommand.DAssetTarget.ClosestPosition(pos: Asset.Position()).DistanceSquared(pos: Asset.Position()) <= RangeToDistanceSquared(range: Asset.EffectiveRange()) {
                             Asset.PopCommand()
                             Asset.ResetStep()
                             continue
                         }
                     }
-                    TravelDirection = DRouterMap.FindRoute(DPlayers[Asset.Color().rawValue].PlayerMap(), Asset, MapTarget)
+                    TravelDirection = DRouterMap.FindRoute(resmap: DPlayers[Asset.Color().rawValue].PlayerMap(), asset: Asset, target: MapTarget)
                     if EDirection.Max != TravelDirection {
-                        Asset.Direction(TravelDirection)
+                        Asset.Direction(direction: TravelDirection)
                     } else {
                         var TilePosition: CTilePosition
-                        TilePosition.SetFromPixel(MapTarget)
-                        if (TilePosition == Asset.TilePosition()) || (EDirection.Max != Asset.TilePosition().AdjacentTileDirection(TilePosition)) {
+                        TilePosition.SetFromPixel(pos: MapTarget)
+                        if TilePosition == Asset.TilePosition() || (EDirection.Max != Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)) {
                             Asset.PopCommand()
                             Asset.ResetStep()
                             continue
@@ -684,25 +684,25 @@ class CGameModel {
                             Asset.PopCommand()
                             if 0 <= TilePosition.X() {
                                 var NewPosition: CPixelPosition
-                                NewPosition.SetFromTile(TilePosition)
+                                NewPosition.SetFromTile(pos: TilePosition)
                                 Command.DAction = EAssetAction.HarvestLumber
                                 Command.DAssetTarget = DPlayers[Asset.Color().rawValue].CreateMarker(NewPosition, false)
-                                Asset.PushCommand(Command)
+                                Asset.PushCommand(command: Command)
                                 Command.DAction = EAssetAction.Walk
-                                Asset.PushCommand(Command)
+                                Asset.PushCommand(command: Command)
                                 Asset.ResetStep()
                                 continue
                             }
                         } else {
                             Command.DAction = EAssetAction.None
-                            Asset.PushCommand(Command)
+                            Asset.PushCommand(command: Command)
                             Asset.ResetStep()
                             continue
                         }
                     }
                 }
-                if !Asset.MoveStep(DAssetOccupancyMap, DDiagonalOccupancyMap) {
-                    Asset.Direction(DirectionOpposite(Asset.Position().TileOctant()))
+                if !Asset.MoveStep(occupancymap: &DAssetOccupancyMap, diagonals: &DDiagonalOccupancyMap) {
+                    Asset.Direction(direction: DirectionOpposite(dir: Asset.Position().TileOctant()))
                 }
             }
         }
