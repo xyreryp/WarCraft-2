@@ -20,8 +20,8 @@ class CPlayerUpgrade {
     private(set) var DResearchTime: Int = 0
     private(set) var DName: String = ""
     private(set) var DAffectedAssets: [EAssetType] = []
-    private(set) var DRegistryByName: [String: CPlayerUpgrade] = [:]
-    private(set) var DRegistryByType: [Int: CPlayerUpgrade] = [:]
+    static private(set) var DRegistryByName: [String: CPlayerUpgrade] = [:]
+    static private(set) var DRegistryByType: [Int: CPlayerUpgrade] = [:]
 
     func LoadUpgrades(container _: CDataContainer) -> Bool {
         //        var FileIterator = container.First()

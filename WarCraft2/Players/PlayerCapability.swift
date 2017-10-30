@@ -29,10 +29,10 @@ class CPlayerCapability {
     var DName: String = String()
     var DAssetCapabilityType: EAssetCapabilityType = EAssetCapabilityType.None
     var DTargetType: ETargetType = ETargetType.None
-    var NameRegistry: [String: CPlayerCapability] = [:]
-    var TypeRegistry: [Int: CPlayerCapability] = [:]
+    static var NameRegistry: [String: CPlayerCapability] = [:]
+    static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
-    func Register(capability: CPlayerCapability) -> Bool {
+    static func Register(capability: CPlayerCapability) -> Bool {
         if FindCapability(name: capability.DName) != nil {
             return false
         }
@@ -44,7 +44,7 @@ class CPlayerCapability {
     }
 
     // FIXME: Not sure about return type
-    func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
+    static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
@@ -52,7 +52,7 @@ class CPlayerCapability {
     }
 
     // FIXME: Not sure about return type
-    func FindCapability(name: String) -> CPlayerCapability {
+    static func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
@@ -60,7 +60,7 @@ class CPlayerCapability {
         return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
     }
 
-    func NameToType(name: String) -> EAssetCapabilityType {
+    static func NameToType(name: String) -> EAssetCapabilityType {
         var NameTypeTranslation: [String: EAssetCapabilityType] = [
             "None": EAssetCapabilityType.None,
             "BuildPeasant": EAssetCapabilityType.BuildPeasant,
@@ -109,7 +109,7 @@ class CPlayerCapability {
         return EAssetCapabilityType.None
     }
 
-    func TypeToName(type: EAssetCapabilityType) -> String {
+    static func TypeToName(type: EAssetCapabilityType) -> String {
         var TypeStrings: [String] = [
             "None",
             "BuildPeasant",
