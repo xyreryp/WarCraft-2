@@ -54,7 +54,7 @@ class GameViewController: NSViewController, viewToController {
         skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
 
         // entry point for program
-//        var application = CApplicationData()
+        //        var application = CApplicationData()
         // load tile sets
         application.Activate()
         var terrainTileset = application.DTerrainTileset
@@ -77,17 +77,31 @@ class GameViewController: NSViewController, viewToController {
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
-
         sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
+    }
+
+    func movePeasant(x: Int, y: Int) {
+        let assetDecoratedMap = application.DAssetMap
+        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
     }
 
     func leftDown(x: Int, y: Int) {
         // do whatever with x and y
+        var peasantSelected = false
         application.DLeftClicked = true
         application.X = x
         application.Y = y
+        if (x > -95 || x < -105) && (y > -55 || y < -45) {
+            peasantSelected = true
+        }
+        if peasantSelected {
+            movePeasant(x: x, y: y)
+            peasantSelected = false
+        }
     }
-    
+
     func leftUp() {
         application.DLeftClicked = false
     }
@@ -102,7 +116,8 @@ class GameView: SKView {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
         vc?.leftDown(x: Int(NSEvent.mouseLocation.x), y: Int(NSEvent.mouseLocation.y))
     }
-    override func mouseUp(with event: NSEvent) {
+
+    override func mouseUp(with _: NSEvent) {
         vc?.leftUp()
     }
 
