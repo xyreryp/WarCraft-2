@@ -347,7 +347,7 @@ class CPlayerData {
         return BestAsset
     }
 
-    func FindBestAssetPlacement(pos: CPixelPosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
+    func FindBestAssetPlacement(pos: CTilePosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
         let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
         let AssetType = DAssetTypes[cplayerassettype.TypeToName(type: assettype)]
         let PlacementSize: Int = AssetType!.DSize + 2 * buffer
