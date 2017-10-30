@@ -602,8 +602,8 @@ class CAssetRenderer {
                                 }
                                 TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.DDirection.rawValue * ActionSteps + CurrentStep]
                             }
-
-                            DCorpseTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                            //FIXME:
+                            DCorpseTileset?.DrawTile(skscene: surface as! SKScene, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     } else if EAssetAction.Attack != LockedAsset.Action() {
                         var RightX: Int
@@ -624,7 +624,8 @@ class CAssetRenderer {
                         if OnScreen {
                             let MarkerIndex: Int = LockedAsset.DStep / CAssetRenderer.DAnimationDownsample
                             if MarkerIndex < DMarkerIndices.count {
-                                DMarkerTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
+                                //FIXME:
+                                DMarkerTileset?.DrawTile(skscene: surface as! SKScene, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
                             }
                         }
                     }
@@ -684,8 +685,8 @@ class CAssetRenderer {
                     if OnScreen {
                         var ActionSteps: Int = DArrowIndices.count
                         ActionSteps = ActionSteps / EDirection.Max.rawValue
-
-                        DArrowTileset?.DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.DDirection.rawValue * ActionSteps + (((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % ActionSteps)])
+                        //FIXME:
+                        DArrowTileset?.DrawTile(skscene: surface as! SKScene, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.DDirection.rawValue * ActionSteps + (((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % ActionSteps)])
                     }
                 }
             } else if 0 == AssetIterator.Speed() {
@@ -732,7 +733,7 @@ class CAssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            DFireTilesets[TilesetIndex].DrawTile(surface: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                            //fixme: DFireTilesets[TilesetIndex].DrawTile(skscene: surface as! SKScene, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     }
                 }
