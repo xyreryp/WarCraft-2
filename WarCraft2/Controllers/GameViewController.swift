@@ -82,7 +82,7 @@ class GameViewController: NSViewController, viewToController {
     }
 
     @objc func timerAction() {
-        if timer.x == 600 {
+        if timer.x == 800 {
             time.invalidate()
         }
         timer.x -= 1
