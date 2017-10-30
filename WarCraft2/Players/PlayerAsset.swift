@@ -131,7 +131,7 @@ class CPlayerAsset {
         DGold = gold
         return DGold
     }
-    
+
     func Gold() -> Int {
         return DGold
     }
@@ -155,11 +155,11 @@ class CPlayerAsset {
         DLumber -= lumber
         return DLumber
     }
-    
+
     func Lumber() -> Int {
         return DLumber
     }
-    
+
     func Lumber(lumber: Int) -> Int {
         DLumber = lumber
         return DLumber
@@ -172,8 +172,8 @@ class CPlayerAsset {
     func IncrementStep() {
         DStep += 1
     }
-    
-    func Step() -> Int{
+
+    func Step() -> Int {
         return DStep
     }
 
@@ -212,6 +212,15 @@ class CPlayerAsset {
 
     func TileAligned() -> Bool {
         return DPosition.TileAligned()
+    }
+    
+    func Position() -> CPixelPosition {
+        return DPosition
+    }
+    
+    func Position(position: CPixelPosition) -> CPixelPosition {
+        DPosition = position
+        return DPosition
     }
 
     func PositionX() -> Int {
@@ -254,6 +263,15 @@ class CPlayerAsset {
         if !DCommands.isEmpty {
             DCommands.removeLast()
         }
+    }
+
+    func Direction() -> EDirection {
+        return DDirection
+    }
+
+    func Direction(direction: EDirection) -> EDirection {
+        DDirection = direction
+        return DDirection
     }
 
     // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
@@ -395,6 +413,15 @@ class CPlayerAsset {
 
     func MaxHitPoints() -> Int {
         return DType.DHitPoints
+    }
+    
+    func HitPoints() -> Int{
+        return DHitPoints
+    }
+    
+    func HitPoints(hitpts: Int) -> Int{
+        DHitPoints = hitpts
+        return DHitPoints
     }
 
     func Type() -> EAssetType {
