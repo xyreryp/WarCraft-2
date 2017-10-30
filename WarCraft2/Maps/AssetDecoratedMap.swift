@@ -373,8 +373,8 @@ class CAssetDecoratedMap: CTerrainMap {
         }
     }
 
-    func LoadMap(source: CDataSource) -> Bool {
-        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#") //there is a '#' here and not entirely sure how to handle it.
+    func LoadMap(source _: CDataSource) -> Bool {
+        //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#") //there is a '#' here and not entirely sure how to handle it.
         var TempString: String = ""
         var Tokens: [String] = [String]()
         var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
@@ -382,20 +382,20 @@ class CAssetDecoratedMap: CTerrainMap {
         var ResourceCount: Int, AssetCount: Int
         var InitialLumber: Int = 400
         var ReturnStatus: Bool = false
-        if !LoadMap(source: source) {
-            return false
-        }
-        if !LineSource.Read(line: &TempString) { // supposingly where try starts
-            print("Failed To read map resource count.\n")
-            return ReturnStatus
-        }
+        //        if !LoadMap(source: source) {
+        //            return false
+        //        }
+        //        if !LineSource.Read(line: &TempString) { // supposingly where try starts
+        //            print("Failed To read map resource count.\n")
+        //            return ReturnStatus
+        //        }
         ResourceCount = Int(TempString)!
         DResourceInitializationList.removeAll()
         for Index in stride(from: 0, to: ResourceCount, by: 1) {
-            if !LineSource.Read(line: &TempString) {
-                print("Failed to read map resource %d.\n", Index)
-                return ReturnStatus
-            }
+            //            if !LineSource.Read(line: &TempString) {
+            //                print("Failed to read map resource %d.\n", Index)
+            //                return ReturnStatus
+            //            }
             CTokenizer.Tokenize(tokens: &Tokens, data: TempString, delimiters: "")
             if 3 > Tokens.count {
                 print("Too few tokens for resource %d.\n", Index)
@@ -415,17 +415,17 @@ class CAssetDecoratedMap: CTerrainMap {
             DResourceInitializationList.append(TempResourceInit)
         }
 
-        if !LineSource.Read(line: &TempString) {
-            print("Failed to read map asset count.\n")
-            return ReturnStatus
-        }
+        //        if !LineSource.Read(line: &TempString) {
+        //            print("Failed to read map asset count.\n")
+        //            return ReturnStatus
+        //        }
         AssetCount = Int(TempString)!
         DAssetInitializationList.removeAll()
         for Index in stride(from: 0, to: AssetCount, by: 1) {
-            if !LineSource.Read(line: &TempString) {
-                print("Failed to read map asset %d.\n", Index)
-                return ReturnStatus
-            }
+            //            if !LineSource.Read(line: &TempString) {
+            //                print("Failed to read map asset %d.\n", Index)
+            //                return ReturnStatus
+            //            }
             CTokenizer.Tokenize(tokens: &Tokens, data: TempString)
             if 4 > Tokens.count {
                 print("Too few tokens for asset %d.\n", Index)

@@ -77,7 +77,11 @@ class GameViewController: NSViewController, viewToController {
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
-        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+
+        let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
+        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+
+        //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
@@ -109,6 +113,7 @@ class GameViewController: NSViewController, viewToController {
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         //        let sklocation = convert(
         assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
+        sound.playMusic(audioFileName: "selected4", audioType: "wav", numloops: 1)
     }
 
     func leftDown(x: Int, y: Int) {
@@ -130,19 +135,6 @@ class GameViewController: NSViewController, viewToController {
 
     func leftUp() {
         application.DLeftClicked = false
-        let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
-        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
-        let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
-
-        view.addSubview(skview)
-        skview.presentScene(skscene)
-        view.addSubview(cgview, positioned: .above, relativeTo: skview)
-        skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
-        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
-
-        // TODO:
-        //        graphicTileSet.LoadTileset(source: nil)
-        //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
     }
 }
 
