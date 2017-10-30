@@ -235,7 +235,7 @@ class CPlayerAsset {
         return DPosition.Y()
     }
 
-    func PositionX(y: Int) -> Int {
+    func PositionY(y: Int) -> Int {
         return DPosition.Y(y: y)
     }
 

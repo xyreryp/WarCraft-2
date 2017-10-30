@@ -42,7 +42,7 @@ class CPosition {
         DX = pos.DX
         DY = pos.DY
     }
-    
+
     static func TileWidth() -> Int {
         return DTileWidth
     }

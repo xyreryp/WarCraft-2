@@ -19,7 +19,7 @@ class CPlayerCapability {
 
     init(name: String, targettype: ETargetType) {
         DName = name
-        DTargetType = targettype
+        CPlayerCapability.DTargetType = targettype
         DAssetCapabilityType = NameToType(name: name)
     }
 
@@ -28,23 +28,23 @@ class CPlayerCapability {
 
     var DName: String = String()
     var DAssetCapabilityType: EAssetCapabilityType = EAssetCapabilityType.None
-    var DTargetType: ETargetType = ETargetType.None
-    var NameRegistry: [String: CPlayerCapability] = [:]
-    var TypeRegistry: [Int: CPlayerCapability] = [:]
+    static var DTargetType: ETargetType = ETargetType.None
+    static var NameRegistry: [String: CPlayerCapability] = [:]
+    static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
     func Register(capability: CPlayerCapability) -> Bool {
-        if FindCapability(name: capability.DName) != nil {
+        if CPlayerCapability.FindCapability(name: capability.DName) != nil {
             return false
         }
 
-        NameRegistry[capability.DName] = capability
-        TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
+        CPlayerCapability.NameRegistry[capability.DName] = capability
+        CPlayerCapability.TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
 
         return true
     }
 
     // FIXME: Not sure about return type
-    func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
+    static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
@@ -52,7 +52,7 @@ class CPlayerCapability {
     }
 
     // FIXME: Not sure about return type
-    func FindCapability(name: String) -> CPlayerCapability {
+    static func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }

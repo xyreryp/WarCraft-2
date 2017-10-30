@@ -178,8 +178,7 @@ class CAIPlayer {
             return false
         }
         if BuilderAsset != nil {
-            var PlayerCapability: CPlayerCapability?
-            PlayerCapability!.FindCapability(type: EAssetCapabilityType.BuildFootman)
+            var PlayerCapability: CPlayerCapability.FindCapability(type: BuildAction)
             var SourcePosition: CTilePosition = TownHallAsset!.TilePosition()
             var MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width() / 2, y: DPlayerData.DPlayerMap.Height() / 2)
 
@@ -286,9 +285,7 @@ class CAIPlayer {
             }
             return true
         } else if (TownHallAsset != nil) && trainmore {
-            var PlayerCapability: CPlayerCapability?
-            PlayerCapability!.FindCapability(type: EAssetCapabilityType.BuildFootman)
-
+            var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: BuildPeasant)
             if PlayerCapability != nil {
                 if PlayerCapability!.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
                     command.DAction = EAssetCapabilityType.BuildPeasant
