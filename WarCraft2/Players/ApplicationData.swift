@@ -104,21 +104,12 @@ class CApplicationData {
         //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
+        CHelper.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        //        CApplicationData.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: [CGraphicMulticolorTileset]())
+        //        resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: [CGraphicMulticolorTileset]())
 
         //         load tileset for peasant
         //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()

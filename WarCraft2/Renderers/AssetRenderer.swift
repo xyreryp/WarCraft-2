@@ -49,7 +49,8 @@ class CAssetRenderer {
         DPlayerData = player
         DPlayerMap = map
 
-        CMapRenderer.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
+        CHelper.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
+
         //        DPixelColors[EPlayerColor.None.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "none"), cindex: 0)
         //        DPixelColors[EPlayerColor.Blue.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "blue"), cindex: 0)
         //        DPixelColors[EPlayerColor.Red.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "red"), cindex: 0)
@@ -113,24 +114,15 @@ class CAssetRenderer {
             }
         }
 
-        func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-            while array.count < size {
-                array.append(defaultValue)
-            }
-            while array.count > size {
-                array.removeLast()
-            }
-        }
-
-        resize(array: &DConstructIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DBuildIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DWalkIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DNoneIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DCarryGoldIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DCarryLumberIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DAttackIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DDeathIndices, size: DTilesets.count, defaultValue: [Int()])
-        resize(array: &DPlaceIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DConstructIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DBuildIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DWalkIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DNoneIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DCarryGoldIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DCarryLumberIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DAttackIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DDeathIndices, size: DTilesets.count, defaultValue: [Int()])
+        CHelper.resize(array: &DPlaceIndices, size: DTilesets.count, defaultValue: [Int()])
 
         for Tileset in DTilesets {
             // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
@@ -295,15 +287,6 @@ class CAssetRenderer {
             // PrintDebug(DEBUG_LOW,"Done checking type %d\n",TypeIndex);
 
             TypeIndex = TypeIndex + 1
-        }
-    }
-
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
         }
     }
 
@@ -777,10 +760,10 @@ class CAssetRenderer {
     //            TempTilePosition.SetFromPixel(pos: TempPosition)
     //            XOff = 0
     //            YOff = 0
-    //            CAssetRenderer.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
+    //            CHelper.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
     //            for Row in PlacementTiles {
     //                var row = Row
-    //                CAssetRenderer.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
+    //                CHelper.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
     //                for var Cell in row {
     //                    var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
     //                    let cterrainmap = CTerrainMap()

@@ -82,17 +82,6 @@ class CGraphicRecolorMap {
         return DOriginalColors[gindex][cindex]
     }
 
-    // https://stackoverflow.com/questions/42821473/in-swift-can-i-write-a-generic-function-to-resize-an-array
-    // there is no default resize function in swift for lists
-    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     func Load(source _: CDataSource?) -> Bool {
         //        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
         //        var PNGPath = String()
