@@ -62,7 +62,7 @@ class CAIPlayer {
                 break
             }
         }
-        if DPlayerData.FindNearestEnemy(pos: TownHallAsset!.DPosition, range: -1) == nil {      //EXPIRATION CHECK DONE HERE, NO EXPIRE IN SWIFT
+        if DPlayerData.FindNearestEnemy(pos: TownHallAsset!.DPosition, range: -1) == nil { // EXPIRATION CHECK DONE HERE, NO EXPIRE IN SWIFT
             return SearchMap(command: &command)
         }
         return false
@@ -289,7 +289,7 @@ class CAIPlayer {
             var PlayerCapability: CPlayerCapability?
             PlayerCapability!.FindCapability(type: EAssetCapabilityType.BuildFootman)
 
-            if (PlayerCapability != nil) {
+            if PlayerCapability != nil {
                 if PlayerCapability!.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
                     command.DAction = EAssetCapabilityType.BuildPeasant
                     command.DActors.append(TownHallAsset!)
@@ -333,9 +333,9 @@ class CAIPlayer {
         }
         if TrainingAsset != nil {
             var PlayerCapability: CPlayerCapability?
-                PlayerCapability!.FindCapability(type: EAssetCapabilityType.BuildFootman)
+            PlayerCapability!.FindCapability(type: EAssetCapabilityType.BuildFootman)
 
-            if (PlayerCapability != nil) {
+            if PlayerCapability != nil {
                 if PlayerCapability!.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
                     command.DAction = EAssetCapabilityType.BuildFootman
                     command.DActors.append(TrainingAsset!)
@@ -368,7 +368,7 @@ class CAIPlayer {
         if TrainingAsset != nil {
             var PlayerCapability: CPlayerCapability?
             PlayerCapability!.FindCapability(type: EAssetCapabilityType.BuildFootman)
-            if (PlayerCapability != nil) {
+            if PlayerCapability != nil {
                 if PlayerCapability!.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
                     command.DAction = BuildType
                     command.DActors.append(TrainingAsset!)
@@ -397,9 +397,7 @@ class CAIPlayer {
                 ActivatePeasants(command: &command, trainmore: true)
             } else if 12 > DPlayerData.DVisibilityMap!.SeenPercent(max: 100) {
                 SearchMap(command: &command)
-            }
-            
-            else {
+            } else {
                 var CompletedAction: Bool = false
                 var BarracksCount: Int = 0
                 var FootmanCount = DPlayerData.PlayerAssetCount(type: EAssetType.Footman)
@@ -415,9 +413,9 @@ class CAIPlayer {
                     BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks)
                     CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Barracks, neartype: EAssetType.Farm)
                 }
-                
-                BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks)           //if(0 == (BarracksCount = PlayerAssetCount)) throws error. So I assign BaracksCount in either case
-                
+
+                BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks) // if(0 == (BarracksCount = PlayerAssetCount)) throws error. So I assign BaracksCount in either case
+
                 if !CompletedAction && (5 > FootmanCount) {
                     CompletedAction = TrainFootman(command: &command)
                 }
@@ -437,5 +435,4 @@ class CAIPlayer {
         }
         DCycle += 1
     }
-    
 }
