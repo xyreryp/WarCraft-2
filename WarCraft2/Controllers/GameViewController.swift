@@ -24,7 +24,8 @@ class GameViewController: NSViewController, viewToController {
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
     var application = CApplicationData()
-
+    var timer = CGPoint(x: 500, y: -200)
+    var time = Timer()
     //    override func viewDidLoad() {
     //        super.viewDidLoad()
     //        // Do view setup here.
@@ -75,14 +76,30 @@ class GameViewController: NSViewController, viewToController {
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
+        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
-        _ = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-
-        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
+        //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
 
     @objc func timerAction() {
-        print("here")
+        if timer.x == 600 {
+            time.invalidate()
+        }
+        timer.x -= 1
+        timer.y -= 1
+        skscene?.removeAllChildren()
+        //        application.Activate()
+        //        var terrainTileset = application.DTerrainTileset
+        //        let map = CTerrainMap()
+        //        do {
+        //            try map.LoadMap(fileToRead: "mountain")
+        //        } catch {
+        //            print("cant load map")
+        //        }
+        //        map.RenderTerrain()
+        //        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
+        //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
+        movePeasant(x: Int(timer.x), y: Int(timer.y))
     }
 
     func movePeasant(x: Int, y: Int) {
