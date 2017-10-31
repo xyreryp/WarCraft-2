@@ -79,6 +79,7 @@
 		E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
 		E14136B71F97F8530086A0A6 /* Scene.sks in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E1463B5F1FA70CDF0065DD82 /* BuildCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1463B5E1FA70CDF0065DD82 /* BuildCapabilities.swift */; };
+		E18A59DB1FA9286600CB3D7D /* BuildCapabilities.swift in Resources */ = {isa = PBXBuildFile; fileRef = E18A59DA1FA9286500CB3D7D /* BuildCapabilities.swift */; };
 		E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */; };
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
@@ -160,6 +161,7 @@
 		DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactory.swift; sourceTree = "<group>"; };
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
 		E1463B5E1FA70CDF0065DD82 /* BuildCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BuildCapabilities.swift; path = WarCraft2/Players/BuildCapabilities.swift; sourceTree = SOURCE_ROOT; };
+		E18A59DA1FA9286500CB3D7D /* BuildCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildCapabilities.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiniMapRenderer.swift; path = WarCraft2/Renderers/MiniMapRenderer.swift; sourceTree = SOURCE_ROOT; };
@@ -355,6 +357,7 @@
 			children = (
 				52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */,
 				E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */,
+				E18A59DA1FA9286500CB3D7D /* BuildCapabilities.swift */,
 				9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */,
 				9B64D61E1FA05AEB00C39977 /* PlayerAssetType.swift */,
 				9B64D61F1FA05AEB00C39977 /* PlayerCapability.swift */,
@@ -426,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E18A59DB1FA9286600CB3D7D /* BuildCapabilities.swift in Resources */,
 				A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */,
 				A13E1EA11FA65963001589CE /* mountain.map in Resources */,
 				A10B59751FA650880035C1EB /* BuildingDeath.dat in Resources */,
