@@ -67,4 +67,25 @@ class CDataSource {
         }
         return lines
     }
+
+    // reading .map files
+    static func ReadMap(fileName: String, extensionType: String) -> [[String]] {
+        let path = Bundle.main.path(forResource: fileName, ofType: extensionType)
+        var linesByHash = [String]()
+        var linesOfLines = [[String]]() /// empty array of Strings
+
+        do {
+            // read the whole file
+            let wholeFile = try String(contentsOf: URL(fileURLWithPath: path!), encoding: String.Encoding.utf8)
+            // separte wholeFile into lines, separated by new lines
+            linesByHash = wholeFile.components(separatedBy: "#")
+            for x in linesByHash {
+                linesOfLines.append(x.components(separatedBy: .newlines))
+            }
+
+        } catch {
+            print("Error")
+        }
+        return linesOfLines
+    }
 }
