@@ -409,25 +409,45 @@ class CApplicationData {
 //    func DrawingAreaButtonReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
 //    func DrawingAreaMotionNotifyEvent(std::shared_ptr<CGUIWidget> widget, SGUIMotionEvent &event) -> Bool {}
     
-    EUIComponentType FindUIComponentType(const CPixelPosition &pos);
-    CPixelPosition ScreenToViewport(const CPixelPosition &pos);
-    CPixelPosition ScreenToMiniMap(const CPixelPosition &pos);
-    CPixelPosition ScreenToDetailedMap(const CPixelPosition &pos);
-    CPixelPosition ScreenToUnitDescription(const CPixelPosition &pos);
-    CPixelPosition ScreenToUnitAction(const CPixelPosition &pos);
-    CPixelPosition ViewportToDetailedMap(const CPixelPosition &pos);
-    CPixelPosition MiniMapToDetailedMap(const CPixelPosition &pos);
+    
+    // functiones for going back and forth between screen and actions
+    // FIXME: what is UEIComponentType
+    // EUIComponentType FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {}
+    func ScreenToViewport(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
+    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
+    func ScreenToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
+    func ScreenToUnitDescription(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
+    func ScreenToUnitAction(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
+    func ViewportToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
+    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition()
+    }
     
     // Output
-    void RenderMenuTitle(const std::string &title, int &titlebottomy, int &pagewidth, int &pageheight);
-    void RenderSplashStep();
-    static void SoundLoadingCallback(TSoundLibraryLoadingCalldata data);
+    func RenderMenuTitle(title: String, titlebottomy: Int, pagewidth: Int, pageheight: Int) {}
+    func RenderSplashStep() {}
+    // FIXME: What is TSoundLibraryLoadingCalldata
+    // static func SoundLoadingCallback(data: TSoundLibraryLoadingCalldata) {}
     
     
-    void ChangeApplicationMode(std::shared_ptr< CApplicationMode > mode);
-    bool ModeIsChanging();
+    func ChangeApplicationMode(mode: CApplicationMode) {}
+    func ModeIsChanging() -> Bool {
+        return false
+    }
     
-    void LoadGameMap(int index);
-    void ResetPlayerColors();
-    void ResizeCanvases();
+    func  LoadGameMap(index: Int) {}
+    func  ResetPlayerColors() {}
+    func  ResizeCanvases() {}
 }
