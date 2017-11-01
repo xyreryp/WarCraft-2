@@ -287,7 +287,7 @@ class CAIPlayer {
         } else if (TownHallAsset != nil) && trainmore {
             var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: BuildPeasant)
             if PlayerCapability != nil {
-                if PlayerCapability!.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
+                if PlayerCapability.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
                     command.DAction = EAssetCapabilityType.BuildPeasant
                     command.DActors.append(TownHallAsset!)
                     command.DTargetLocation = TownHallAsset!.DPosition

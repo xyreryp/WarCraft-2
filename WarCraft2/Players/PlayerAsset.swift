@@ -9,8 +9,8 @@
 struct SAssetCommand {
     var DAction: EAssetAction
     var DCapability: EAssetCapabilityType
-    var DAssetTarget: CPlayerAsset
-    var DActivatedCapability: CActivatedPlayerCapability
+    var DAssetTarget: CPlayerAsset?
+    var DActivatedCapability: CActivatedPlayerCapability?
 }
 
 class CPlayerAsset {
@@ -344,7 +344,7 @@ class CPlayerAsset {
         case EAssetAction.Decay:
             return false
         case EAssetAction.Capability:
-            return EAssetAction.Construct != Command.DAssetTarget.Action()
+            return EAssetAction.Construct != Command.DAssetTarget?.Action()
         default:
             return true
         }

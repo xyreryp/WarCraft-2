@@ -207,10 +207,8 @@ class CGameModel {
 
             if EAssetAction.Capability == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                if Command.DActivatedCapability != nil {
-                    if Command.DActivatedCapability.IncrementStep() {
-                        // All Done
-                    }
+                if let command = Command.DActivatedCapability {
+                   command.IncrementStep()
                 } else {
                     var PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
                     Asset.PopCommand()
@@ -222,7 +220,7 @@ class CGameModel {
                 }
             } else if EAssetAction.HarvestLumber == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                var TilePosition: CTilePosition = Command.DAssetTarget.TilePosition()
+                var TilePosition: CTilePosition = (Command.DAssetTarget?.TilePosition())!
                 var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
                 if CTerrainMap.ETileType.Forest != DActualMap.TileType(pos: TilePosition) {
                     HarvestDirection = EDirection.Max
@@ -255,7 +253,7 @@ class CGameModel {
                     Asset.Direction(direction: HarvestDirection)
                     Asset.IncrementStep()
                     if DHarvestSteps <= Asset.Step() {
-                        var NearestRepository: CPlayerAsset = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
+                        var NearestRepository: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
                         DActualMap.RemoveLumber(pos: TilePosition, from: Asset.TilePosition(), amount: DLumberPerHarvest)
 
                         if NearestRepository != nil {
@@ -275,7 +273,7 @@ class CGameModel {
                 }
             } else if EAssetAction.MineGold == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                var ClosestPosition: CPixelPosition = Command.DAssetTarget.ClosestPosition(pos: Asset.Position())
+                var ClosestPosition: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
                 var TilePosition: CTilePosition
                 var MineDirection: EDirection
                 TilePosition.SetFromPixel(pos: ClosestPosition)
@@ -287,13 +285,13 @@ class CGameModel {
                     Asset.ResetStep()
                 } else {
                     if 0 == Asset.Step() {
-                        if (Command.DAssetTarget.CommandCount() + 1) * DGoldPerMining <= Command.DAssetTarget.Gold() {
+                        if ((Command.DAssetTarget?.CommandCount())! + 1) * DGoldPerMining <= (Command.DAssetTarget?.Gold())! {
                             var NewCommand: SAssetCommand
                             NewCommand.DAction = EAssetAction.Build
                             NewCommand.DAssetTarget = Asset
-                            Command.DAssetTarget.EnqueueCommand(command: NewCommand)
+                            Command.DAssetTarget?.EnqueueCommand(command: NewCommand)
                             Asset.IncrementStep()
-                            Asset.TilePosition(pos: Command.DAssetTarget.TilePosition())
+                            Asset.TilePosition(pos: (Command.DAssetTarget?.TilePosition())!)
                         } else {
                             // Look for new mine or give up?
                             Asset.PopCommand()
@@ -301,7 +299,7 @@ class CGameModel {
                     } else {
                         Asset.IncrementStep()
                         if DMineSteps <= Asset.Step() {
-                            var OldTarget: CPlayerAsset = Command.DAssetTarget
+                            var OldTarget: CPlayerAsset? = Command.DAssetTarget
                             var NearestRepository: CPlayerAsset = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle])
 
                             var NextTarget: CTilePosition = CTilePosition(x: DPlayers[Asset.Color().rawValue].PlayerMap().Width() - 1, y: DPlayers[Asset.Color().rawValue].PlayerMap().Height() - 1)
@@ -487,8 +485,8 @@ class CGameModel {
                                             DPlayers[Command.DAssetTarget.Color().rawValue].DeleteAsset(Command.DAssetTarget)
                                         }
                                     } else if EAssetAction.Construct == Command.DAction {
-                                        if Command.DAssetTarget {
-                                            Command.DAssetTarget.ClearCommand()
+                                        if let cassettarget:CPlayerAsset = Command.DAssetTarget {
+                                            cassettarget.ClearCommand()
                                         }
                                     }
                                     Command.DCapability = EAssetCapabilityType.None
