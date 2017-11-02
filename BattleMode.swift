@@ -50,7 +50,7 @@ class CBattleMode: CApplicationMode {
     //    }
 
     func InitializeChange(context: CApplicationData) {
-        context.LoadGameMap(context.DSelectedMapIndex)
+        context.LoadGameMap(index: context.DSelectedMapIndex)
         context.DSoundLibraryMixer.PlaySong(context.DSoundLibraryMixer.FindSong("game1"), context.DMusicVolume)
     }
 
@@ -82,7 +82,7 @@ class CBattleMode: CApplicationMode {
 
         for Key in context.DReleasedKeys {
             // Handle releases
-            if context.DSelectedPlayerAssets.size() {
+            if context.DSelectedPlayerAssets.count {
                 var CanMove: Bool = true
                 for Asset in context.DSelectedPlayerAssets {
                     if let LockedAsset = Asset {
@@ -114,7 +114,7 @@ class CBattleMode: CApplicationMode {
                         }
                     }
                 } else if CanMove {
-                    if let KeyLookup = context.DUnitHotKeyMap[Key] {
+                    if let KeyLookup = context.DUnitHotKeyMap![Key] {
                         var HasCapability: Bool = true
                         for Asset in context.DSelectedPlayerAssets {
                             if let LockedAsset = Asset {
@@ -151,7 +151,7 @@ class CBattleMode: CApplicationMode {
                         }
                     }
                 } else {
-                    if let KeyLookup = context.DTrainHotKeyMap[Key] {
+                    if let KeyLookup = context.DTrainHotKeyMap![Key] {
                         var HasCapability: Bool = true
                         for Asset in context.DSelectedPlayerAssets {
                             if let LockedAsset = Asset {
@@ -196,8 +196,8 @@ class CBattleMode: CApplicationMode {
 
         var ComponentType = context.FindUIComponentType(CPixelPosition(CurrentX, CurrentY))
         if CApplicationData.EUIComponentType.uictViewport == ComponentType {
-            var TempPosition: CPixelPosition = context.ScreenToDetailedMap(CPixelPosition(CurrentX, CurrentY))
-            var ViewPortPosition: CPixelPosition = context.ScreenToViewport(CPixelPosition(CurrentX, CurrentY))
+            var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(CurrentX, CurrentY))
+            var ViewPortPosition: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(CurrentX, CurrentY))
             var PixelType: CPixelType = CPixelType.GetPixelType(context.DViewportTypeSurface, ViewPortPosition)
 
             if context.DRightClick && !context.DRightDown && context.DSelectedPlayerAssets.count {
@@ -279,7 +279,7 @@ class CBattleMode: CApplicationMode {
                                 var TempTilePosition: CTilePosition
 
                                 context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Mine
-                                TempTilePosition.SetFromPixel(context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation)
+                                TempTilePosition.SetFromPixel(pos: context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation)
                                 if CTerrainMap.ETileType.Forest != context.DGameModel.Player(context.DPlayerColor).PlayerMap().TileType(TempTilePosition) {
                                     // Could be tree pixel, but tops of next row
                                     TempTilePosition.IncrementY(y: 1)
@@ -301,7 +301,7 @@ class CBattleMode: CApplicationMode {
                         context.DMouseDown = TempPosition
                     } else {
                         var TempRectangle: SRectangle
-                        var SearchColor: EPlayerColor = context.DPlayerColor
+                        var SearchColor: EPlayerColor = context.DPlayerColor!!
                         var PreviousSelections: [CPlayerAsset]
 
                         for WeakAsset in context.DSelectedPlayerAssets {
@@ -363,6 +363,7 @@ class CBattleMode: CApplicationMode {
                     }
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 } else {
+                    // FIXME: Player Capability
                     var PlayerCapability: CPlayerCapability = CPlayerCapability().FindCapability(context.DCurrentAssetCapability)
 
                     if PlayerCapability && !context.DLeftDown {
@@ -420,7 +421,7 @@ class CBattleMode: CApplicationMode {
             Panning = true
         } else if CApplicationData.EUIComponentType.uictMiniMap == ComponentType {
             if context.DLeftClick && !context.DLeftDown {
-                var TempPosition = CPixelPosition(pos: context.ScreenToMiniMap(CPixelPosition(x: CurrentX, y: CurrentY)))
+                var TempPosition = CPixelPosition(pos: context.ScreenToMiniMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
                 TempPosition = context.MiniMapToDetailedMap(TempPosition)
                 context.DViewportRenderer.CenterViewport(TempPosition)
             }
@@ -430,7 +431,7 @@ class CBattleMode: CApplicationMode {
                 if 1 == context.DSelectedPlayerAssets.count {
                     if 0 == IconPressed {
                         if let Asset = context.DSelectedPlayerAssets.first {
-                            context.DViewportRenderer.CenterViewport(Asset.Position)
+                            context.DViewportRenderer?.CenterViewport(Asset.Position)
                         }
                     }
                 } else if 0 <= IconPressed {
@@ -489,22 +490,22 @@ class CBattleMode: CApplicationMode {
             context.DPanningSpeed = 0
         } else {
             if EDirection.North == PanningDirection {
-                context.DViewportRenderer.PanNorth(context.DPanningSpeed >> PAN_SPEED_SHIFT)
+                context.DViewportRenderer?.PanNorth(pan: context.DPanningSpeed >> CBattleMode.PAN_SPEED_SHIFT)
             } else if EDirection.East == PanningDirection {
-                context.DViewportRenderer.PanEast(context.DPanningSpeed >> PAN_SPEED_SHIFT)
+                context.DViewportRenderer?.PanEast(pan: context.DPanningSpeed >> CBattleMode.PAN_SPEED_SHIFT)
             } else if EDirection.South == PanningDirection {
-                context.DViewportRenderer.PanSouth(context.DPanningSpeed >> PAN_SPEED_SHIFT)
+                context.DViewportRenderer?.PanSouth(pan: context.DPanningSpeed >> CBattleMode.PAN_SPEED_SHIFT)
             } else if EDirection.West == PanningDirection {
-                context.DViewportRenderer.PanWest(context.DPanningSpeed >> PAN_SPEED_SHIFT)
+                context.DViewportRenderer?.PanWest(pan: context.DPanningSpeed >> CBattleMode.PAN_SPEED_SHIFT)
             }
-            if context.DPanningSpeed {
+            if context.DPanningSpeed != 0 {
                 context.DPanningSpeed += 1
-                if PAN_SPEED_MAX < context.DPanningSpeed {
-                    context.DPanningSpeed = PAN_SPEED_MAX
+                if CBattleMode.PAN_SPEED_MAX < context.DPanningSpeed {
+                    context.DPanningSpeed = CBattleMode.PAN_SPEED_MAX
                 }
             }
             else {
-                context.DPanningSpeed = 1 << PAN_SPEED_SHIFT
+                context.DPanningSpeed = 1 << CBattleMode.PAN_SPEED_SHIFT
             }
         }
 
@@ -646,21 +647,21 @@ class CBattleMode: CApplicationMode {
 
         CurrentX = context.DCurrentX
         CurrentY = context.DCurrentY
-        BufferWidth = context.DWorkingBufferSurface.Width()
-        BufferHeight = context.DWorkingBufferSurface.Height()
-        ViewWidth = context.DViewportSurface.Width()
-        ViewHeight = context.DViewportSurface.Height()
-        MiniMapWidth = context.DMiniMapSurface.Width()
-        MiniMapHeight = context.DMiniMapSurface.Height()
-        DescriptionWidth = context.DUnitDescriptionSurface.Width()
-        DescriptionHeight = context.DUnitDescriptionSurface.Height()
-        ActionWidth = context.DUnitActionSurface.Width()
-        ActionHeight = context.DUnitActionSurface.Height()
-        ResourceWidth = context.DResourceSurface.Width()
-        ResourceHeight = context.DResourceSurface.Height()
+        BufferWidth = (context.DWorkingBufferSurface?.Width())!
+        BufferHeight = (context.DWorkingBufferSurface?.Height())!
+        ViewWidth = (context.DViewportSurface?.Width())!
+        ViewHeight = (context.DViewportSurface?.Height())!
+        MiniMapWidth = (context.DMiniMapSurface?.Width())!
+        MiniMapHeight = (context.DMiniMapSurface?.Height())!
+        DescriptionWidth = (context.DUnitDescriptionSurface?.Width())!
+        DescriptionHeight = (context.DUnitDescriptionSurface?.Height())!
+        ActionWidth = (context.DUnitActionSurface?.Width())!
+        ActionHeight = (context.DUnitActionSurface?.Height())!
+        ResourceWidth = (context.DResourceSurface?.Width())!
+        ResourceHeight = (context.DResourceSurface?.Height())!
 
         if context.DLeftDown && 0 < context.DMouseDown.X() {
-            var TempPosition = CPixelPosition(context.ScreenToDetailedMap(CPixelPosition(x: CurrentX, y: CurrentY)))
+            var TempPosition = CPixelPosition(pos: context.ScreenToDetailedMap(CPixelPosition(x: CurrentX, y: CurrentY)))
             //variables of SRectangle
             TempRectangle.DXPosition = min(context.DMouseDown.X(), TempPosition.X())
             TempRectangle.DYPosition = min(context.DMouseDown.Y(), TempPosition.Y())
@@ -763,6 +764,6 @@ class CBattleMode: CApplicationMode {
         if CBattleMode.DBattleModePointer == nil {
             CBattleMode.DBattleModePointer = CBattleMode()
         }
-        return DBattleModePointer
+        return CBattleMode.DBattleModePointer
     }
 }

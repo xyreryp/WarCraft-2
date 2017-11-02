@@ -48,38 +48,38 @@ class CApplicationData {
         case ptAIMedium
         case ptAIHard
     }
-    
+
     // pretty sure this is a pointer to itself
-    var DApplicationPointer: CApplicationData = CApplicationData()
+    var DApplicationPointer: CApplicationData? = CApplicationData()
     var DDeleted: Bool = Bool()
-    var DGameSessionType:EGameSessionType? = nil
+    var DGameSessionType: EGameSessionType?
     var DSoundVolume: Float = Float()
     var DMusicVolume: Float = Float()
     var DUserName: String = String()
     var DRemoteHostName: String = String()
-    
+
     // pretty sure dont need these
-//    std::shared_ptr<CGUIApplication> DApplication;
-//    std::shared_ptr<CGUIWindow> DMainWindow;
-//    std::shared_ptr<CGUIDrawingArea> DDrawingArea;
-//    std::shared_ptr<CGUICursor> DBlankCursor;
-    
+    //    std::shared_ptr<CGUIApplication> DApplication;
+    //    std::shared_ptr<CGUIWindow> DMainWindow;
+    //    std::shared_ptr<CGUIDrawingArea> DDrawingArea;
+    //    std::shared_ptr<CGUICursor> DBlankCursor;
+
     // different surfaces
-    var DDoubleBufferSurface: CGraphicSurface? = nil
-    var DWorkingBufferSurface: CGraphicSurface? = nil
-    var DMiniMapSurface: CGraphicSurface? = nil
-    var DViewportSurface: CGraphicSurface? = nil
-    var DViewportTypeSurface: CGraphicSurface? = nil
-    var DUnitDescriptionSurface: CGraphicSurface? = nil
-    var DUnitActionSurface: CGraphicSurface? = nil
-    var DResourceSurface: CGraphicSurface? = nil
-    var DMapSelectListViewSurface: CGraphicSurface? = nil
-    var DMiniMapViewportColor: uint32? = nil
+    var DDoubleBufferSurface: CGraphicSurface?
+    var DWorkingBufferSurface: CGraphicSurface?
+    var DMiniMapSurface: CGraphicSurface?
+    var DViewportSurface: CGraphicSurface?
+    var DViewportTypeSurface: CGraphicSurface?
+    var DUnitDescriptionSurface: CGraphicSurface?
+    var DUnitActionSurface: CGraphicSurface?
+    var DResourceSurface: CGraphicSurface?
+    var DMapSelectListViewSurface: CGraphicSurface?
+    var DMiniMapViewportColor: uint32?
 
     // coordinate and map and options related things
     var DBorderWidth: Int = Int()
     var DPanningSpeed: Int = Int()
-    var DViewportXOffset : Int = Int()
+    var DViewportXOffset: Int = Int()
     var DViewportYOffset: Int = Int()
     var DMiniMapXOffset: Int = Int()
     var DMiniMapYOffset: Int = Int()
@@ -92,75 +92,75 @@ class CApplicationData {
     var DMapSelectListViewXOffset: Int = Int()
     var DMapSelectListViewYOffset: Int = Int()
     var DSelectedMapIndex: Int = Int()
-    var DSelectedMap: CAssetDecoratedMap? = nil
+    var DSelectedMap: CAssetDecoratedMap?
     var DOptionsEditSelected: Int = Int()
     var DPotionsEditSelectedCharacter: Int = Int()
     var DOptionsEditLocations: [SRectangle] = [SRectangle]()
     var DOptionsEditTitles: [String] = [String]()
     var DOptionsEditText: [String] = [String]()
     // TODO: uncomment later
-//    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
-    
+    //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
+
     // Map Renderer
-    var DMapRenderer: CMapRenderer? = nil
-    
+    var DMapRenderer: CMapRenderer?
+
     // cursor things
     // TODO: uncomment later
     // var DCursorset: CCursorSet? = nil
     var DCursorIndices: [Int] = [Int](repeating: Int(), count: ECursorType.ctMax.rawValue)
-    var DCursorType: ECursorType? = nil
-    
+    var DCursorType: ECursorType?
+
     // sound things
     // TODO: uncomment later
     // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
     // var DSoundEventRenderer: CSoundEventRenderer? = nil
-    
+
     // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
-    
+
     // loading steps things
     var DTotalLoadingSteps: Int = Int()
     var DCurrentLoadingStep: Int = Int()
-    
+
     // tileset things
-    var DLoadingResourceContext: CGraphicResourceContext? = nil
+    var DLoadingResourceContext: CGraphicResourceContext?
     var DSplashTileset = CGraphicTileset()
-    var DMarkerTileset = CGraphicTileset()                                  // needed for assetRenderer
+    var DMarkerTileset = CGraphicTileset() // needed for assetRenderer
     var DBackgroundTileset = CGraphicTileset()
     var DMiniBevelTileset = CGraphicTileset()
     var DInnerBevelTileset = CGraphicTileset()
     var DOuterVevelTileset = CGraphicTileset()
     var DListViewIconTileset = CGraphicTileset()
-    
+
     // TODO: Import bevel stuff and uncomment
     // var DMiniBevel: CBevel? = nil
     // var DInnerBevel: CBevel? = nil
     // var DOuterBevel: CBevel? = nil
-    
+
     // more tileset things
     var DMapRendererConfigurationData: [Character] = [Character]()
     var DTerrainTileset = CGraphicTileset()
     var DFogTileset = CGraphicTileset()
-    
+
     // recolor maps
     var DAssetRecolorMap = CGraphicRecolorMap()
     var DButtonRecolorMap = CGraphicRecolorMap()
     var DFontRecolorMap = CGraphicRecolorMap()
     var DPlayerRecolorMap = CGraphicRecolorMap()
-    
+
     // more tileset things
     var DIconTileset = CGraphicMulticolorTileset()
     var DMiniIconTileset = CGraphicTileset()
-    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]()             // array of all asset tilesets
-    var DFireTileset = [CGraphicTileset]()                                  // needed for assetRenderer
-    var DCorpseTileset = CGraphicTileset()                                  // needed for assetRenderer
-    var DBuildingDeathTileset = CGraphicTileset()                           // needed for assetRenderer
-    var DArrowTileset = CGraphicTileset()                                   // needed for assetRenderer
+    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]() // array of all asset tilesets
+    var DFireTileset = [CGraphicTileset]() // needed for assetRenderer
+    var DCorpseTileset = CGraphicTileset() // needed for assetRenderer
+    var DBuildingDeathTileset = CGraphicTileset() // needed for assetRenderer
+    var DArrowTileset = CGraphicTileset() // needed for assetRenderer
 
     // all renderer things
-    var DAssetRenderer: CAssetRenderer? = nil
-    var DFogRenderer: CFogRenderer? = nil
-    var DViewportRenderer: CViewportRenderer? = nil
-    var DMiniMapRenderer: CMiniMapRenderer? = nil
+    var DAssetRenderer: CAssetRenderer?
+    var DFogRenderer: CFogRenderer?
+    var DViewportRenderer: CViewportRenderer?
+    var DMiniMapRenderer: CMiniMapRenderer?
     // TODO: finish these types of renderers
     // var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
     // var DUnitActionRenderer: CUnitActionRenderer? = nil
@@ -169,39 +169,38 @@ class CApplicationData {
     // var DButtonRenderer: CButtonRenderer? = nil
     // var DMapSelectListRenderer: CListViewRenderer? = nil
     // var DOptionsEditRenderer: CEditRenderer? = nil
-    
+
     // game model things
-    var DPlayerColor: EPlayerColor? = nil
-    //TODO: import CGameModel
+    var DPlayerColor: EPlayerColor?
+    // TODO: import CGameModel
     // var DGameModel: CGameModel? = nil
     // FIXME: type of expression is ambigous without more context?
-    // var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG, count: EPlayerColor.Max.rawValue)
+    var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG, count: EPlayerColor.Max.rawValue)
     // FIXME: DAIPlayer supposed to have size of EPlayerColor.Max.rawValue
     // var DAIPlayers = [CAIPlayer]()
     var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
     var DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
-    
+
     // application mode things
-    var DApplicationMode: CApplicationMode? = nil
-    var DNextApplicationMode: CApplicationMode? = nil
-    
+    var DApplicationMode: CApplicationMode?
+    var DNextApplicationMode: CApplicationMode?
+
     // hotkeys unordererd maps --> dictionaries
-    var DUnitHotKeyMap: [uint32: EAssetCapabilityType]? = nil
-    var DBuildHotKeyMap: [uint32: EAssetCapabilityType]? = nil
-    var DTrainHotKeyMap: [uint32: EAssetCapabilityType]? = nil
-    
+    var DUnitHotKeyMap: [uint32: EAssetCapabilityType]?
+    var DBuildHotKeyMap: [uint32: EAssetCapabilityType]?
+    var DTrainHotKeyMap: [uint32: EAssetCapabilityType]?
+
     // asset capabilities things
     var DSelectedPlayerAssets = [CPlayerAsset]()
-    var DCurrentAssetCapability: EAssetCapabilityType? = nil
-    
+    var DCurrentAssetCapability: EAssetCapabilityType?
+
     // keys related things
     var DPressedKeys = [uint32]()
     var DReleasedKeys = [uint32]()
-    
-    
+
     // mouse things
-    // var DCurrentX: Int = Int()                               // to ignore becuase we used X in below
-    // var DCurrentY: Int = Int()                               // to ignore becuase we used Y in below
+    var DCurrentX: Int = Int() // to ignore becuase we used X in below
+    var DCurrentY: Int = Int() // to ignore becuase we used Y in below
     var DMouseDown: CPixelPosition = CPixelPosition()
 
     // more mouse things
@@ -209,13 +208,12 @@ class CApplicationData {
     var DRightClicked: Bool = false
     var X: Int = Int()
     var Y: Int = Int()
-    
+
     // TODO: uncomment after Button Renderer
     // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
 
     // end of member variables from ApplicationData.h
-    
-    
+
     var ECursorTypeRef: ECursorType = ECursorType.ctPointer
     var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
     var EGameSessionTypeRef: EGameSessionType = EGameSessionType.gstSinglePlayer
@@ -251,9 +249,29 @@ class CApplicationData {
         //
         //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
+    
+    init (appName: String, key: SPrivateApplicationType) {
+        
+    }
+    
+    deinit {
+        
+    }
+    
+    static func Instance (appName: String) -> CApplicationData {
+        
+    }
+    
+    func Run(argv: [String]) -> Int {
+    
+        
+    }
+//    func Instnace(appName: String) -> CApplicationData {
+//        if let applicationPointer = DApplicationPointer {
+//
+//        }
+//    }
 
-    
-    
     // func ActivateCallback(data: TGUICalldata ) {}
     // func TimeoutCallback(data: TGUICalldata ) -> Bool {}
     // func MainWindowDeleteEventCallback(widget: CGUIWidget, data: TGUICalldata) -> Bool {}
@@ -265,8 +283,7 @@ class CApplicationData {
     // func DrawingAreaButtonPressEventCallback(widget: CGUIWidget, event: SGUIConfigureEven, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaButtonReleaseEventCallback(widget: CGUIWidget, event: SGUIButtonEvent, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaMotionNotifyEventCallback(widget: CGUIWidget, event: SGUIMotionEvent , data: TGUICalldata ) -> Bool {}
-    
-    
+
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
@@ -395,59 +412,63 @@ class CApplicationData {
             print("Failed to lead Arrow tileset")
         }
     }
-    
-    
-    
-//    func Timeout() -> Bool {}
-//    func MainWindowDeleteEvent(std::shared_ptr<CGUIWidget> widget) -> Bool{}
-//    func MainWindowDestroy(std::shared_ptr<CGUIWidget> widget) {}
-//    func MainWindowKeyPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
-//    func MainWindowKeyReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
-//    func MainWindowConfigureEvent(std::shared_ptr<CGUIWidget> widget, SGUIConfigureEvent &event) -> Bool {}
-//    func DrawingAreaDraw(std::shared_ptr<CGUIWidget> widget, std::shared_ptr<CGraphicResourceContext> rc) -> Bool {}
-//    func DrawingAreaButtonPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
-//    func DrawingAreaButtonReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
-//    func DrawingAreaMotionNotifyEvent(std::shared_ptr<CGUIWidget> widget, SGUIMotionEvent &event) -> Bool {}
-    
-    
+
+    //    func Timeout() -> Bool {}
+    //    func MainWindowDeleteEvent(std::shared_ptr<CGUIWidget> widget) -> Bool{}
+    //    func MainWindowDestroy(std::shared_ptr<CGUIWidget> widget) {}
+    //    func MainWindowKeyPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
+    //    func MainWindowKeyReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
+    //    func MainWindowConfigureEvent(std::shared_ptr<CGUIWidget> widget, SGUIConfigureEvent &event) -> Bool {}
+    //    func DrawingAreaDraw(std::shared_ptr<CGUIWidget> widget, std::shared_ptr<CGraphicResourceContext> rc) -> Bool {}
+    //    func DrawingAreaButtonPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
+    //    func DrawingAreaButtonReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
+    //    func DrawingAreaMotionNotifyEvent(std::shared_ptr<CGUIWidget> widget, SGUIMotionEvent &event) -> Bool {}
+
     // functiones for going back and forth between screen and actions
     // FIXME: what is UEIComponentType
     // EUIComponentType FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {}
-    func ScreenToViewport(pos: CPixelPosition) -> CPixelPosition {
+    func ScreenToViewport(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
+
+    func ScreenToMiniMap(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    func ScreenToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+
+    func ScreenToDetailedMap(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    func ScreenToUnitDescription(pos: CPixelPosition) -> CPixelPosition {
+
+    func ScreenToUnitDescription(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    func ScreenToUnitAction(pos: CPixelPosition) -> CPixelPosition {
+
+    func ScreenToUnitAction(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    func ViewportToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+
+    func ViewportToDetailedMap(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+
+    func MiniMapToDetailedMap(pos _: CPixelPosition) -> CPixelPosition {
         return CPixelPosition()
     }
-    
+
     // Output
-    func RenderMenuTitle(title: String, titlebottomy: Int, pagewidth: Int, pageheight: Int) {}
+    func RenderMenuTitle(title _: String, titlebottomy _: Int, pagewidth _: Int, pageheight _: Int) {}
     func RenderSplashStep() {}
     // FIXME: What is TSoundLibraryLoadingCalldata
     // static func SoundLoadingCallback(data: TSoundLibraryLoadingCalldata) {}
-    
-    
-    func ChangeApplicationMode(mode: CApplicationMode) {}
+
+    func ChangeApplicationMode(mode _: CApplicationMode) {}
     func ModeIsChanging() -> Bool {
         return false
     }
+
+    func LoadGameMap(index _: Int) {}
+    func ResetPlayerColors() {}
+    func ResizeCanvases() {}
     
-    func  LoadGameMap(index: Int) {}
-    func  ResetPlayerColors() {}
-    func  ResizeCanvases() {}
+    
 }

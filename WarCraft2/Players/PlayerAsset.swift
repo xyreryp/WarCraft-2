@@ -9,8 +9,8 @@
 struct SAssetCommand {
     var DAction: EAssetAction
     var DCapability: EAssetCapabilityType
-    var DAssetTarget: CPlayerAsset
-    var DActivatedCapability: CActivatedPlayerCapability
+    var DAssetTarget: CPlayerAsset?
+    var DActivatedCapability: CActivatedPlayerCapability?
 }
 
 class CPlayerAsset {
