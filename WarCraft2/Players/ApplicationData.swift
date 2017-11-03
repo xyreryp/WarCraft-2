@@ -9,7 +9,7 @@
 import Foundation
 
 class CApplicationData {
-
+    struct SPrivateApplicationType {}
     enum ECursorType: Int {
         case ctPointer = 0
         case ctInspect
@@ -57,6 +57,7 @@ class CApplicationData {
     var DMusicVolume: Float = Float()
     var DUserName: String = String()
     var DRemoteHostName: String = String()
+    var DMultiplayerPort = 55107 // Asc
 
     // pretty sure dont need these
     //    std::shared_ptr<CGUIApplication> DApplication;
@@ -175,7 +176,7 @@ class CApplicationData {
     // TODO: import CGameModel
     // var DGameModel: CGameModel? = nil
     // FIXME: type of expression is ambigous without more context?
-    var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG, count: EPlayerColor.Max.rawValue)
+    var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
     // FIXME: DAIPlayer supposed to have size of EPlayerColor.Max.rawValue
     // var DAIPlayers = [CAIPlayer]()
     var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
@@ -202,7 +203,10 @@ class CApplicationData {
     var DCurrentX: Int = Int() // to ignore becuase we used X in below
     var DCurrentY: Int = Int() // to ignore becuase we used Y in below
     var DMouseDown: CPixelPosition = CPixelPosition()
-
+    var DLeftClick: Int = Int()
+    var DRightClick: Int = Int()
+    var DLeftDown: Bool = false
+    var DRightDown: Bool = false
     // more mouse things
     var DLeftClicked: Bool = false
     var DRightClicked: Bool = false
@@ -249,28 +253,60 @@ class CApplicationData {
         //
         //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
-    
-    init (appName: String, key: SPrivateApplicationType) {
-        
+
+    init(appName _: String, key _: SPrivateApplicationType) {
+        // DApplication = CGUIFactoryApplicationInstance(appname)
+
+        // DApplication.SetActivateCallback(self, ActivateCallback)
+
+        DPlayerColor = EPlayerColor.Red
+        DMiniMapViewportColor = 0xFFFFFF
+        DDeleted = false
+
+        DCursorType = ECursorType.ctPointer
+
+        DMapSelectListViewXOffset = 0
+        DMapSelectListViewYOffset = 0
+        DSelectedMapIndex = 0
+        DSoundVolume = 1.0
+        DMusicVolume = 0.5
+        DUserName = "user"
+        DRemoteHostName = "localhost"
+        DMultiplayerPort = 55107 // Ascii WC = 0x5743 or'd with 0x8000
+        DBorderWidth = 32
+        DPanningSpeed = 0
+
+        var i = 0
+        for i in i ..< EPlayerColor.Max.rawValue {
+            DPlayerCommands[i].DAction = EAssetCapabilityType.None
+            DLoadingPlayerColors[i] = EPlayerColor(rawValue: i)!
+        }
+        DCurrentX = 0
+        DCurrentY = 0
+        DMouseDown = CPixelPosition(x: -1, y: -1)
+        DLeftClick = 0
+        DRightClick = 0
+        DLeftDown = false
+        DRightDown = false
     }
-    
+
     deinit {
-        
     }
-    
-    static func Instance (appName: String) -> CApplicationData {
-        
+
+    static func Instance(appName _: String) -> CApplicationData {
+        return CApplicationData()
     }
-    
-    func Run(argv: [String]) -> Int {
-    
-        
+
+    func Run(argv _: [String]) -> Int {
+
+        return 0
     }
-//    func Instnace(appName: String) -> CApplicationData {
-//        if let applicationPointer = DApplicationPointer {
-//
-//        }
-//    }
+
+    //    func Instnace(appName: String) -> CApplicationData {
+    //        if let applicationPointer = DApplicationPointer {
+    //
+    //        }
+    //    }
 
     // func ActivateCallback(data: TGUICalldata ) {}
     // func TimeoutCallback(data: TGUICalldata ) -> Bool {}
@@ -469,6 +505,4 @@ class CApplicationData {
     func LoadGameMap(index _: Int) {}
     func ResetPlayerColors() {}
     func ResizeCanvases() {}
-    
-    
 }

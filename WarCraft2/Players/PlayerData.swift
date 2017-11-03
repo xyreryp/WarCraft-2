@@ -324,7 +324,7 @@ class CPlayerData {
             if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
                 var Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
-                    if EAssetAction.Construct == Command.DAssetTarget.Action() {
+                    if EAssetAction.Construct == Command.DAssetTarget?.Action() {
                         continue
                     }
                 }

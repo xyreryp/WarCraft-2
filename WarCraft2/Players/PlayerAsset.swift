@@ -280,7 +280,7 @@ class CPlayerAsset {
         case EAssetAction.Decay:
             return false
         case EAssetAction.Capability:
-            return EAssetAction.Construct != Command.DAssetTarget.Action()
+            return EAssetAction.Construct != Command.DAssetTarget!.Action()
         default:
             return true
         }
