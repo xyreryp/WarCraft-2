@@ -485,33 +485,52 @@ class CApplicationData {
     // functiones for going back and forth between screen and actions
     // FIXME: what is UEIComponentType
     // EUIComponentType FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {}
-    func ScreenToViewport(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ScreenToViewport(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(x: pos.X() - DViewportXOffset, y: pos.Y() - DViewportYOffset)
     }
 
-    func ScreenToMiniMap(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(x: pos.X() - DMiniMapXOffset, y: pos.Y() - DMiniMapYOffset)
     }
 
-    func ScreenToDetailedMap(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ScreenToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        return ViewportToDetailedMap(pos: ScreenToViewport(pos: pos))
     }
 
-    func ScreenToUnitDescription(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ScreenToUnitDescription(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(x: pos.X() - DUnitDescriptionXOffset ,y: pos.Y() - DUnitDescriptionYOffset)
     }
 
-    func ScreenToUnitAction(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ScreenToUnitAction(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(x: pos.X() - DUnitDescriptionXOffset, y: pos.Y() - DUnitDescriptionYOffset)
     }
 
-    func ViewportToDetailedMap(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
+    func ViewportToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        var pos = pos
+        return (DViewportRenderer?.DetailedPosition(pos: &pos))!
     }
 
-    func MiniMapToDetailedMap(pos _: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition()
-    }
+        // FIXME: Need to pull from GameModel on richard's branch
+//    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+//        let X = pos.X() * DGameModel.Map.DWidth / DMiniMapRenderer?.VisibleWidth()
+//        let Y = pos.Y() * DGameModel.Map.DHeight / DMiniMapRenderer?.VisibleHeight()
+//        if(0 > X){
+//            X = 0
+//        }
+//        if(DGameModel.Map().Width() <= X){
+//            X = DGameModel.Map().Width() - 1
+//        }
+//        if(0 > Y){
+//            Y = 0
+//        }
+//        if(DGameModel.Map().Height() <= Y){
+//            Y = DGameModel.Map().Height() - 1
+//        }
+//        var Temp:CPixelPosition = CPixelPosition()
+//        Temp.SetXFromTile(X)
+//        Temp.SetYFromTile(Y)
+//        return Temp
+//    }
 
     // Output
     func RenderMenuTitle(title _: String, titlebottomy _: Int, pagewidth _: Int, pageheight _: Int) {}
