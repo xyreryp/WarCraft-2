@@ -288,6 +288,28 @@ class CApplicationData {
         DRightClick = 0
         DLeftDown = false
         DRightDown = false
+        
+        // FIXME: Whose doing button renderer
+        // DMenuButtonState = CButtonRenderer.EButtonState.None
+        DUnitHotKeyMap![0] = EAssetCapabilityType.Attack                // key A
+        DUnitHotKeyMap![11] = EAssetCapabilityType.BuildSimple          // key B
+        DUnitHotKeyMap![5] = EAssetCapabilityType.Convey                // G
+        DUnitHotKeyMap![46] = EAssetCapabilityType.Move                 // M
+        DUnitHotKeyMap![35] = EAssetCapabilityType.Patrol               // P
+        DUnitHotKeyMap![15] = EAssetCapabilityType.Repair               // R
+        DUnitHotKeyMap![17] = EAssetCapabilityType.StandGround          // T
+
+        DBuildHotKeyMap![11] = EAssetCapabilityType.BuildBarracks        // B
+        DBuildHotKeyMap![3] = EAssetCapabilityType.BuildFarm             // F
+        DBuildHotKeyMap![4] = EAssetCapabilityType.BuildTownHall         // H
+        DBuildHotKeyMap![37] = EAssetCapabilityType.BuildLumberMill      // L
+        DBuildHotKeyMap![1] = EAssetCapabilityType.BuildBlacksmith       // S
+        DBuildHotKeyMap![17] = EAssetCapabilityType.BuildScoutTower      // T
+
+        DTrainHotKeyMap![0] = EAssetCapabilityType.BuildArcher            // A
+        DTrainHotKeyMap![3] = EAssetCapabilityType.BuildFootman          // F
+        DTrainHotKeyMap![35] = EAssetCapabilityType.BuildPeasant          // P
+        DTrainHotKeyMap![15] = EAssetCapabilityType.BuildRanger           // R
     }
 
     deinit {
