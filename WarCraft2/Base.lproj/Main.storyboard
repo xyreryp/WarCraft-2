@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="EH6-fz-lbD">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -729,12 +729,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" imageFrameStyle="groove" image="Splash800x600" id="aXb-Nx-fxD"/>
                             </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dql-gD-kYO">
+                                <rect key="frame" x="224" y="460" width="74" height="32"/>
+                                <buttonCell key="cell" type="push" title="game" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sH1-oV-C2u">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="gameBtnClicked:" target="XfG-lQ-9wD" id="Mfs-SX-OdL"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ISg-aT-Aol">
-                                <rect key="frame" x="570" y="460" width="107" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="00j-v4-N2t"/>
-                                    <constraint firstAttribute="width" constant="95" id="a1p-B2-YG3"/>
-                                </constraints>
+                                <rect key="frame" x="421" y="460" width="107" height="32"/>
                                 <buttonCell key="cell" type="push" title="main menu" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lgW-ub-iAx">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -745,10 +751,16 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="ISg-aT-Aol" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="112" id="14e-zM-Abn"/>
+                            <constraint firstItem="dql-gD-kYO" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="112" id="FbR-h7-niH"/>
+                            <constraint firstItem="ISg-aT-Aol" firstAttribute="leading" secondItem="dql-gD-kYO" secondAttribute="trailing" constant="135" id="JNf-lS-wog"/>
+                            <constraint firstItem="dql-gD-kYO" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="230" id="Kt6-hK-DlC"/>
+                            <constraint firstAttribute="trailing" secondItem="ISg-aT-Aol" secondAttribute="trailing" constant="278" id="OWT-MS-ufm"/>
+                            <constraint firstAttribute="bottom" secondItem="ISg-aT-Aol" secondAttribute="bottom" constant="467" id="OWi-Hn-33T"/>
                             <constraint firstAttribute="bottom" secondItem="Ttu-CD-yFy" secondAttribute="bottom" constant="3" id="W75-Dy-thG"/>
                             <constraint firstAttribute="trailing" secondItem="Ttu-CD-yFy" secondAttribute="trailing" constant="3" id="YGe-j0-tdY"/>
-                            <constraint firstAttribute="trailing" secondItem="ISg-aT-Aol" secondAttribute="trailing" constant="129" id="bjO-pE-nzv"/>
+                            <constraint firstItem="ISg-aT-Aol" firstAttribute="leading" secondItem="dql-gD-kYO" secondAttribute="trailing" constant="135" id="ZZW-Uf-lMm"/>
+                            <constraint firstItem="ISg-aT-Aol" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="112" id="bEP-PH-IWk"/>
+                            <constraint firstAttribute="bottom" secondItem="dql-gD-kYO" secondAttribute="bottom" constant="467" id="c47-oX-Quz"/>
                             <constraint firstItem="Ttu-CD-yFy" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="3" id="d5d-l3-bj4"/>
                             <constraint firstItem="Ttu-CD-yFy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="3" id="vfg-eS-JZ8"/>
                         </constraints>
@@ -761,15 +773,15 @@
         <!--Game View Controller-->
         <scene sceneID="AwV-cD-Elv">
             <objects>
-                <viewController storyboardIdentifier="gameViewControllerId" id="EH6-fz-lbD" customClass="GameViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="gameViewControllerID" id="EH6-fz-lbD" customClass="GameViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="EAU-1i-QCI">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>
                 <customObject id="oFS-va-uGF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-658" y="1356"/>
+            <point key="canvasLocation" x="85" y="1863"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="tR0-hr-J4W">

@@ -12,6 +12,12 @@ class SplashViewController: NSViewController {
 
     var musicManager = SoundManager()
 
+    @IBAction func gameBtnClicked(_: Any) {
+        if let mainWC = view.window?.windowController as? MainWindowController {
+            mainWC.move(newMenu: "Game")
+        }
+    }
+
     @IBAction func mainMenuBtnClicked(_: Any) {
         musicManager.stopMusic()
         if let mainWC = view.window?.windowController as? MainWindowController {
