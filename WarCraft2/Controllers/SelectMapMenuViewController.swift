@@ -10,6 +10,24 @@ import Cocoa
 
 class SelectMapMenuViewController: NSViewController {
 
+    @IBOutlet weak var mapPreview: NSImageView!
+
+    @IBAction func onewayBtnClicked(_: Any) {
+        mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_oneway"))
+    }
+
+    @IBAction func nowhereBtnClicked(_: Any) {
+        mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_nowhere"))
+    }
+
+    @IBAction func nowayBtnClicked(_: Any) {
+        mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_noway"))
+    }
+
+    @IBAction func threeBtnClicked(_: Any) {
+        mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_three"))
+    }
+
     @IBAction func SelectBtnClicked(_: Any) {
     }
 

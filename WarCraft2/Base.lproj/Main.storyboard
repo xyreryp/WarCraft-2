@@ -916,6 +916,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="onewayBtnClicked:" target="ZHL-sN-CX2" id="Z8a-F1-h1d"/>
+                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrT-ed-sVW">
                                 <rect key="frame" x="38" y="509" width="230" height="16"/>
@@ -924,6 +927,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="nowhereBtnClicked:" target="ZHL-sN-CX2" id="uiG-BJ-8lG"/>
+                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcs-we-bJ2">
                                 <rect key="frame" x="38" y="480" width="172" height="20"/>
@@ -932,6 +938,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="nowayBtnClicked:" target="ZHL-sN-CX2" id="zcg-QJ-q4t"/>
+                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2JQ-bc-d4j">
                                 <rect key="frame" x="38" y="455" width="144" height="20"/>
@@ -940,11 +949,14 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="threeBtnClicked:" target="ZHL-sN-CX2" id="ZPN-lm-TYi"/>
+                                </connections>
                             </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LsS-dD-zpt">
                                 <rect key="frame" x="635" y="401" width="153" height="153"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="map_one-way" id="Yz0-6r-5CV"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="map_oneway" id="Yz0-6r-5CV"/>
                             </imageView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zVb-pS-a8B">
                                 <rect key="frame" x="633" y="34" width="155" height="38"/>
@@ -975,6 +987,9 @@
                             <constraint firstItem="78R-En-cd5" firstAttribute="centerX" secondItem="SkI-zw-FPo" secondAttribute="centerX" id="pbL-kY-het"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapPreview" destination="LsS-dD-zpt" id="tNC-m7-g2q"/>
+                    </connections>
                 </viewController>
                 <customObject id="iY9-aw-QwH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1380,7 +1395,7 @@
         <image name="label_sound_options" width="163" height="29"/>
         <image name="label_the_game" width="111" height="22"/>
         <image name="label_user_name_and_remote_hostname_and_remote_hostname" width="133" height="125"/>
-        <image name="map_one-way" width="153" height="153"/>
+        <image name="map_oneway" width="153" height="153"/>
         <image name="no-way-out-of-this-maze_selected" width="172" height="20"/>
         <image name="nowhere-to-run-nowhere-to-hide_selected" width="230" height="16"/>
         <image name="one-way-in-one-way-out_selected" width="171" height="18"/>
