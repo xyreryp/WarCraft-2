@@ -910,9 +910,9 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_select_map_mini_map_border" id="ywG-cd-Rwa"/>
                             </imageView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJ4-vy-fbG">
-                                <rect key="frame" x="38" y="532" width="171" height="18"/>
+                                <rect key="frame" x="38" y="532" width="172" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="one-way-in-one-way-out_selected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="buF-aU-9m8">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="oneway_selected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="buF-aU-9m8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -921,9 +921,9 @@
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YrT-ed-sVW">
-                                <rect key="frame" x="38" y="509" width="230" height="16"/>
+                                <rect key="frame" x="38" y="509" width="229" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="nowhere-to-run-nowhere-to-hide_selected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6Fb-Q3-GGN">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="nowhere_unselected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6Fb-Q3-GGN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -934,7 +934,7 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dcs-we-bJ2">
                                 <rect key="frame" x="38" y="480" width="172" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="no-way-out-of-this-maze_selected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uOl-J5-j25">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="noway_unselected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uOl-J5-j25">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -945,7 +945,7 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2JQ-bc-d4j">
                                 <rect key="frame" x="38" y="455" width="144" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="three-ways-to-cross_selected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="c4l-vw-XxZ">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="threeways_unselected" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="c4l-vw-XxZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -989,6 +989,10 @@
                     </view>
                     <connections>
                         <outlet property="mapPreview" destination="LsS-dD-zpt" id="tNC-m7-g2q"/>
+                        <outlet property="nowayLabel" destination="dcs-we-bJ2" id="wAp-FE-2Za"/>
+                        <outlet property="nowhereLabel" destination="YrT-ed-sVW" id="Jaw-jF-gNE"/>
+                        <outlet property="onewayLabel" destination="hJ4-vy-fbG" id="YoB-mI-lgg"/>
+                        <outlet property="threeLabel" destination="2JQ-bc-d4j" id="7Pw-Xp-GvJ"/>
                     </connections>
                 </viewController>
                 <customObject id="iY9-aw-QwH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1396,9 +1400,9 @@
         <image name="label_the_game" width="111" height="22"/>
         <image name="label_user_name_and_remote_hostname_and_remote_hostname" width="133" height="125"/>
         <image name="map_oneway" width="153" height="153"/>
-        <image name="no-way-out-of-this-maze_selected" width="172" height="20"/>
-        <image name="nowhere-to-run-nowhere-to-hide_selected" width="230" height="16"/>
-        <image name="one-way-in-one-way-out_selected" width="171" height="18"/>
-        <image name="three-ways-to-cross_selected" width="144" height="20"/>
+        <image name="noway_unselected" width="172" height="20"/>
+        <image name="nowhere_unselected" width="229" height="16"/>
+        <image name="oneway_selected" width="172" height="19"/>
+        <image name="threeways_unselected" width="143" height="20"/>
     </resources>
 </document>
