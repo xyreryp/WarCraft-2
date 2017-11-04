@@ -684,6 +684,12 @@ class CApplicationData {
             }
         }
     }
-    func ResetPlayerColors() {}
+    
+    func ResetPlayerColors() {
+        let Index = 0
+        for Index in Index ..< EPlayerColor.Max.rawValue {
+            DLoadingPlayerColors[Index] = EPlayerColor(rawValue: Index)
+        }
+    }
     func ResizeCanvases() {}
 }
