@@ -208,7 +208,7 @@ class CGameModel {
             if EAssetAction.Capability == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
                 if let command = Command.DActivatedCapability {
-                   command.IncrementStep()
+                    command.IncrementStep()
                 } else {
                     var PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
                     Asset.PopCommand()
@@ -300,17 +300,19 @@ class CGameModel {
                         Asset.IncrementStep()
                         if DMineSteps <= Asset.Step() {
                             var OldTarget: CPlayerAsset? = Command.DAssetTarget
-                            var NearestRepository: CPlayerAsset = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle])
+                            var NearestRepository: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(Asset.Position(), [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle])
 
-                            var NextTarget: CTilePosition = CTilePosition(x: DPlayers[Asset.Color().rawValue].PlayerMap().Width() - 1, y: DPlayers[Asset.Color().rawValue].PlayerMap().Height() - 1)
-                            Command.DAssetTarget.DecrementGold(gold: DGoldPerMining)
-                            Command.DAssetTarget.PopCommand()
-                            if 0 >= Command.DAssetTarget.Gold() {
-                                var NewCommand: SAssetCommand
-                                NewCommand.DAction = EAssetAction.Death
-                                Command.DAssetTarget.ClearCommand()
-                                Command.DAssetTarget.PushCommand(command: NewCommand)
-                                Command.DAssetTarget.ResetStep()
+                            var NextTarget: CTilePosition? = CTilePosition(x: DPlayers[Asset.Color().rawValue].PlayerMap().Width() - 1, y: DPlayers[Asset.Color().rawValue].PlayerMap().Height() - 1)
+                            Command.DAssetTarget?.DecrementGold(gold: DGoldPerMining)
+                            Command.DAssetTarget?.PopCommand()
+                            if let goldValue = Command.DAssetTarget?.Gold() {
+                                if 0 >= goldValue {
+                                    var NewCommand: SAssetCommand
+                                    NewCommand.DAction = EAssetAction.Death
+                                    Command.DAssetTarget?.ClearCommand()
+                                    Command.DAssetTarget?.PushCommand(command: NewCommand)
+                                    Command.DAssetTarget?.ResetStep()
+                                }
                             }
                             Asset.Gold(gold: DGoldPerMining)
                             if NearestRepository != nil {
@@ -320,7 +322,7 @@ class CGameModel {
                                 Command.DAction = EAssetAction.Walk
                                 Asset.PushCommand(command: Command)
                                 Asset.ResetStep()
-                                NextTarget = Command.DAssetTarget.TilePosition()
+                                NextTarget = Command.DAssetTarget?.TilePosition()
                             } else {
                                 Asset.PopCommand()
                             }
@@ -342,8 +344,8 @@ class CGameModel {
                 Asset.ResetStep()
             } else if EAssetAction.Repair == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
-                if CurrentCommand.DAssetTarget.Alive() {
-                    var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget.TilePosition(), objsize: CurrentCommand.DAssetTarget.Size())
+                if let CurrentC = CurrentCommand.DAssetTarget?.Alive() {
+                    var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
                     if EDirection.Max == RepairDirection {
                         var NextCommand: SAssetCommand = Asset.NextCommand()
                         CurrentCommand.DAction = EAssetAction.Walk
@@ -364,7 +366,7 @@ class CGameModel {
                                 DPlayers[Asset.Color().rawValue].DecrementGold(1)
                                 DPlayers[Asset.Color().rawValue].DecrementLumber(1)
                                 CurrentCommand.DAssetTarget.IncrementHitPoints(hitpts: RepairPoints)
-                                if CurrentCommand.DAssetTarget.HitPoints() == CurrentCommand.DAssetTarget.MaxHitPoints() {
+                                if CurrentCommand.DAssetTarget!.HitPoints() == CurrentCommand.DAssetTarget!.MaxHitPoints() {
                                     TempEvent.DType = EEventType.WorkComplete
                                     TempEvent.DAsset = Asset
                                     DPlayers[Asset.Color().rawValue].AddGameEvent(TempEvent)
@@ -385,7 +387,7 @@ class CGameModel {
             } else if EAssetAction.Attack == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
                 if EAssetType.None == Asset.Type() {
-                    var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget.ClosestPosition(pos: Asset.Position())
+                    var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget?.ClosestPosition(pos: Asset.Position())
                     var DeltaPosition = CPixelPosition(x: ClosestTargetPosition.X() - Asset.PositionX(), y: ClosestTargetPosition.Y() - Asset.PositionY())
                     var Movement = (CPosition.TileWidth() * 5) / CPlayerAsset.UpdateFrequency()
                     var TargetDistance = Asset.Position().Distance(pos: ClosestTargetPosition)
@@ -402,35 +404,35 @@ class CGameModel {
                         TempEvent.DAsset = Asset
                         CurrentEvents.append(TempEvent)
 
-                        if CurrentCommand.DAssetTarget.Alive() {
+                        if let alive = CurrentCommand.DAssetTarget?.Alive() {
                             var TargetCommand: SAssetCommand = CurrentCommand.DAssetTarget.CurrentCommand()
                             TempEvent.DType = EEventType.Attacked
-                            TempEvent.DAsset = CurrentCommand.DAssetTarget
+                            TempEvent.DAsset = CurrentCommand.DAssetTarget?
                             DPlayers[CurrentCommand.DAssetTarget.Color().rawValue].AddGameEvent(TempEvent)
 
                             if EAssetAction.MineGold != TargetCommand.DAction {
                                 if (EAssetAction.ConveyGold == TargetCommand.DAction) || (EAssetAction.ConveyLumber == TargetCommand.DAction) {
                                     // Damage the target
                                     CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
-                                } else if (EAssetAction.Capability == TargetCommand.DAction) && TargetCommand.DAssetTarget {
-                                    if CurrentCommand.DAssetTarget.Speed() != 0 && (EAssetAction.Construct == TargetCommand.DAssetTarget.Action()) {
+                                } else if (EAssetAction.Capability == TargetCommand.DAction) && TargetCommand.DAssetTarget != nil {
+                                    if CurrentCommand.DAssetTarget!.Speed() != 0 && (EAssetAction.Construct == TargetCommand.DAssetTarget!.Action()) {
                                         CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
                                     }
                                 }
                                 CurrentCommand.DAssetTarget.DecrementHitPoints(hitpts: Asset.HitPoints())
                                 if !CurrentCommand.DAssetTarget.Alive() {
-                                    var Command: SAssetCommand = CurrentCommand.DAssetTarget.CurrentCommand()
+                                    var Command: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
                                     TempEvent.DType = EEventType.Death
-                                    TempEvent.DAsset = CurrentCommand.DAssetTarget
+                                    TempEvent.DAsset = CurrentCommand.DAssetTarget!
                                     CurrentEvents.append(TempEvent)
                                     // Remove constructing
-                                    if (EAssetAction.Capability == Command.DAction) && (Command.DAssetTarget) {
-                                        if EAssetAction.Construct == Command.DAssetTarget.Action() {
-                                            DPlayers[Command.DAssetTarget.Color().rawValue].DeleteAsset(Command.DAssetTarget)
+                                    if (EAssetAction.Capability == Command.DAction) && (Command.DAssetTarget != nil) {
+                                        if EAssetAction.Construct == Command.DAssetTarget!.Action() {
+                                            DPlayers[Command.DAssetTarget!.Color().rawValue].DeleteAsset(Command.DAssetTarget)
                                         }
                                     } else if EAssetAction.Construct == Command.DAction {
                                         if Command.DAssetTarget != nil {
-                                            Command.DAssetTarget.ClearCommand()
+                                            Command.DAssetTarget!.ClearCommand()
                                         }
                                     }
                                     CurrentCommand.DAssetTarget.Direction(direction: DirectionOpposite(dir: Asset.Direction()))
@@ -445,7 +447,7 @@ class CGameModel {
                     }
                 } else if CurrentCommand.DAssetTarget.Alive() {
                     if 1 == Asset.EffectiveRange() {
-                        var AttackDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget.TilePosition(), objsize: CurrentCommand.DAssetTarget.Size())
+                        var AttackDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget.Size())
                         if EDirection.Max == AttackDirection {
                             var NextCommand: SAssetCommand = Asset.NextCommand()
                             if EAssetAction.StandGround != NextCommand.DAction {
@@ -459,7 +461,7 @@ class CGameModel {
                             Asset.Direction(direction: AttackDirection)
                             Asset.IncrementStep()
                             if Asset.Step() == Asset.AttackSteps() {
-                                var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget.EffectiveArmor()
+                                var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget!.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
                                 Damage += Asset.EffectivePiercingDamage()
                                 let random: UInt32 = 0x1
@@ -467,36 +469,36 @@ class CGameModel {
                                     // 50% chance half damage
                                     Damage /= 2
                                 }
-                                CurrentCommand.DAssetTarget.DecrementHitPoints(hitpts: Damage)
+                                CurrentCommand.DAssetTarget!.DecrementHitPoints(hitpts: Damage)
                                 TempEvent.DType = EEventType.MeleeHit
                                 TempEvent.DAsset = Asset
                                 CurrentEvents.append(TempEvent)
                                 TempEvent.DType = EEventType.Attacked
-                                TempEvent.DAsset = CurrentCommand.DAssetTarget
+                                TempEvent.DAsset = CurrentCommand.DAssetTarget!
                                 DPlayers[CurrentCommand.DAssetTarget.Color().rawValue].AddGameEvent(TempEvent)
-                                if !CurrentCommand.DAssetTarget.Alive() {
-                                    var Command: SAssetCommand = CurrentCommand.DAssetTarget.CurrentCommand()
+                                if !CurrentCommand.DAssetTarget!.Alive() {
+                                    var Command: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
                                     TempEvent.DType = EEventType.Death
-                                    TempEvent.DAsset = CurrentCommand.DAssetTarget
+                                    TempEvent.DAsset = CurrentCommand.DAssetTarget!
                                     CurrentEvents.append(TempEvent)
                                     // Remove constructing
-                                    if EAssetAction.Capability == Command.DAction && Command.DAssetTarget {
-                                        if EAssetAction.Construct == Command.DAssetTarget.Action() {
+                                    if EAssetAction.Capability == Command.DAction && Command.DAssetTarget != nil {
+                                        if EAssetAction.Construct == Command.DAssetTarget!.Action() {
                                             DPlayers[Command.DAssetTarget.Color().rawValue].DeleteAsset(Command.DAssetTarget)
                                         }
                                     } else if EAssetAction.Construct == Command.DAction {
-                                        if let cassettarget:CPlayerAsset = Command.DAssetTarget {
+                                        if let cassettarget: CPlayerAsset = Command.DAssetTarget {
                                             cassettarget.ClearCommand()
                                         }
                                     }
                                     Command.DCapability = EAssetCapabilityType.None
                                     Command.DAssetTarget = nil
                                     Command.DActivatedCapability = nil
-                                    CurrentCommand.DAssetTarget.Direction(direction: DirectionOpposite(dir: AttackDirection))
+                                    CurrentCommand.DAssetTarget?.Direction(direction: DirectionOpposite(dir: AttackDirection))
                                     Command.DAction = EAssetAction.Death
-                                    CurrentCommand.DAssetTarget.ClearCommand()
-                                    CurrentCommand.DAssetTarget.PushCommand(command: Command)
-                                    CurrentCommand.DAssetTarget.ResetStep()
+                                    CurrentCommand.DAssetTarget?.ClearCommand()
+                                    CurrentCommand.DAssetTarget?.PushCommand(command: Command)
+                                    CurrentCommand.DAssetTarget?.ResetStep()
                                 }
                             }
                             if Asset.Step() >= (Asset.AttackSteps() + Asset.ReloadSteps()) {
@@ -504,7 +506,7 @@ class CGameModel {
                             }
                         }
                     } else { // EffectiveRanged
-                        var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget.ClosestPosition(pos: Asset.Position())
+                        var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position())
                         if ClosestTargetPosition.DistanceSquared(pos: Asset.Position()) > RangeToDistanceSquared(range: Asset.EffectiveRange()) {
                             var NextCommand: SAssetCommand = Asset.NextCommand()
                             if EAssetAction.StandGround != NextCommand.DAction {
@@ -558,7 +560,7 @@ class CGameModel {
                             if Asset.Step() == Asset.AttackSteps() {
                                 var AttackCommand: SAssetCommand
                                 var ArrowAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset("None")
-                                var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget.EffectiveArmor()
+                                var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget!.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
                                 Damage += Asset.EffectivePiercingDamage()
                                 let random: UInt32 = 0x1
@@ -626,8 +628,8 @@ class CGameModel {
                 }
             } else if EAssetAction.Construct == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                if let cmd = Command.DActivatedCapability {
-                    if cmd.DActivatedCapability.IncrementStep() {
+                if Command.DActivatedCapability != nil {
+                    if Command.DActivatedCapability!.IncrementStep() {
                         // ALL DONE
                     }
                 }
@@ -657,11 +659,11 @@ class CGameModel {
                     var Command: SAssetCommand = Asset.CurrentCommand()
                     var NextCommand: SAssetCommand = Asset.NextCommand()
                     var TravelDirection: EDirection
-                    var MapTarget: CPixelPosition = Command.DAssetTarget.ClosestPosition(pos: Asset.Position())
+                    var MapTarget: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
 
                     if EAssetAction.Attack == NextCommand.DAction {
                         // Check to see if can attack now
-                        if NextCommand.DAssetTarget.ClosestPosition(pos: Asset.Position()).DistanceSquared(pos: Asset.Position()) <= RangeToDistanceSquared(range: Asset.EffectiveRange()) {
+                        if NextCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position()).DistanceSquared(pos: Asset.Position()) <= RangeToDistanceSquared(range: Asset.EffectiveRange()) {
                             Asset.PopCommand()
                             Asset.ResetStep()
                             continue
