@@ -39,9 +39,9 @@ class CVisibilityMap: PVisibilityMap {
     // required initializer
     required init(width: Int, height: Int, maxvisibility: Int) {
         DMaxVisibility = maxvisibility
-        resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [ETileVisibility.None])
+        CHelper.resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [])
         for (i, _) in DMap.enumerated() {
-            resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
+            CHelper.resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
             _ = ETileVisibility.None
         }
 
@@ -72,15 +72,6 @@ class CVisibilityMap: PVisibilityMap {
 
     func SeenPercent(max: Int) -> Int {
         return (max * (DTotalMapTiles - DUnseenTiles)) / DTotalMapTiles
-    }
-
-    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
     }
 
     func Width() -> Int {

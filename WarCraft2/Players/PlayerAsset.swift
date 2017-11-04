@@ -29,19 +29,19 @@ class CPlayerAsset {
     var DUpdateDivisor: Int = 32
 
     init(type _: CPlayerAssetType) {
-        var DCreationCycle: Int = 0
-        var DHitPoints: Int = 0
-        var DGold = 0
-        var DLumber = 0
-        var DStep = 0
-        var DMoveRemainderX = 0
-        var DMoveRemainderY = 0
-        var DPosition: CPixelPosition = CPixelPosition()
-        var DDirection: EDirection = EDirection.Max
-        var DCommands: [SAssetCommand] = [SAssetCommand]()
-        var DType: CPlayerAssetType = CPlayerAssetType()
-        var DUpdateFrequency: Int = 1
-        var DUpdateDivisor: Int = 32
+        DCreationCycle = 0
+        DHitPoints = 0
+        DGold = 0
+        DLumber = 0
+        DStep = 0
+        DMoveRemainderX = 0
+        DMoveRemainderY = 0
+        DPosition = CPixelPosition()
+        DDirection = EDirection.Max
+        DCommands = [SAssetCommand]()
+        DType = CPlayerAssetType()
+        DUpdateFrequency = 1
+        DUpdateDivisor = 32
     }
 
     deinit {
