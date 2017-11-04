@@ -1,16 +1,19 @@
 //
-//  MultiPlayerGameOptionsViewController.swift
+//  SelectMapMenuViewController.swift
 //  WarCraft2
 //
-//  Created by David Montes on 10/8/17.
+//  Created by David Montes on 11/4/17.
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
 import Cocoa
 
-class MultiPlayerGameOptionsViewController: NSViewController {
+class SelectMapMenuViewController: NSViewController {
 
-    @IBAction func backBtnClicked(_: Any) {
+    @IBAction func SelectBtnClicked(_: Any) {
+    }
+
+    @IBAction func CancelBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
             mainWC.move(newMenu: "MainMenu")
         }

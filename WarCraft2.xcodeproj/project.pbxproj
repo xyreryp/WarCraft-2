@@ -10,6 +10,7 @@
 		4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B12BCC71F8C376100F1E62D /* SoundManager.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
 		4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */; };
+		4B6DF4171FADA11800BAA481 /* SelectMapMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DF4161FADA11800BAA481 /* SelectMapMenuViewController.swift */; };
 		4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */; };
 		4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */; };
 		4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		4B6DF4161FADA11800BAA481 /* SelectMapMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */,
 				4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */,
 				E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */,
+				4B6DF4161FADA11800BAA481 /* SelectMapMenuViewController.swift */,
 				4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */,
 			);
 			path = Controllers;
@@ -431,6 +434,7 @@
 				E1D47D9F1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift in Sources */,
 				A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */,
 				E1D47D9A1FA2EC3700EFA5E4 /* FogRenderer.swift in Sources */,
+				4B6DF4171FADA11800BAA481 /* SelectMapMenuViewController.swift in Sources */,
 				6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
