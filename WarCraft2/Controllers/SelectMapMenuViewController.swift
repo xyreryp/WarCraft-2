@@ -15,27 +15,32 @@ class SelectMapMenuViewController: NSViewController {
     @IBOutlet weak var nowhereLabel: NSButton!
     @IBOutlet weak var nowayLabel: NSButton!
     @IBOutlet weak var threeLabel: NSButton!
+    @IBOutlet weak var miniMapLabel: NSImageView!
 
     @IBAction func onewayBtnClicked(_: Any) {
         unselectAll()
+        miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_2player"))
         onewayLabel.image = NSImage(named: NSImage.Name(rawValue: "oneway_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_oneway"))
     }
 
     @IBAction func nowhereBtnClicked(_: Any) {
         unselectAll()
+        miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_4player"))
         nowhereLabel.image = NSImage(named: NSImage.Name(rawValue: "nowhere_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_nowhere"))
     }
 
     @IBAction func nowayBtnClicked(_: Any) {
         unselectAll()
+        miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_6player"))
         nowayLabel.image = NSImage(named: NSImage.Name(rawValue: "noway_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_noway"))
     }
 
     @IBAction func threeBtnClicked(_: Any) {
         unselectAll()
+        miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_3player"))
         threeLabel.image = NSImage(named: NSImage.Name(rawValue: "threeways_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_three"))
     }
@@ -45,7 +50,12 @@ class SelectMapMenuViewController: NSViewController {
 
     @IBAction func CancelBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
-            mainWC.move(newMenu: "MainMenu")
+            if true == mainWC.multiPlayerGameOptionsMenuVC?.isMultiplayerGame {
+                mainWC.multiPlayerGameOptionsMenuVC?.isMultiplayerGame = false
+                mainWC.move(newMenu: "MultiPlayerGameOptionsMenu")
+            } else {
+                mainWC.move(newMenu: "MainMenu")
+            }
         }
     }
 

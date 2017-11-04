@@ -904,9 +904,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_select_map_blue_transparent" id="tPc-PD-e5h"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GtX-XB-DgD">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GtX-XB-DgD">
                                 <rect key="frame" x="628" y="396" width="165" height="165"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_select_map_mini_map_border" id="ywG-cd-Rwa"/>
                             </imageView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJ4-vy-fbG">
@@ -958,17 +957,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="map_oneway" id="Yz0-6r-5CV"/>
                             </imageView>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zVb-pS-a8B">
-                                <rect key="frame" x="633" y="34" width="155" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_cancel_(select_map)" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="X8K-AK-amH">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="CancelBtnClicked:" target="ZHL-sN-CX2" id="Pn7-x0-aJt"/>
-                                </connections>
-                            </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y6x-Pw-jEj">
                                 <rect key="frame" x="633" y="82" width="155" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -980,15 +968,34 @@
                                     <action selector="SelectBtnClicked:" target="ZHL-sN-CX2" id="zbk-0u-gOH"/>
                                 </connections>
                             </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zVb-pS-a8B">
+                                <rect key="frame" x="633" y="34" width="155" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_up_cancel_(select_map)" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="X8K-AK-amH">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="CancelBtnClicked:" target="ZHL-sN-CX2" id="Pn7-x0-aJt"/>
+                                </connections>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7zF-1H-QxQ">
+                                <rect key="frame" x="672" y="336" width="77" height="52"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_2player" id="SCC-Zj-S8z"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="78R-En-cd5" firstAttribute="centerX" secondItem="Ivv-4G-34b" secondAttribute="centerX" id="LGQ-gi-dhw"/>
+                            <constraint firstItem="GtX-XB-DgD" firstAttribute="top" secondItem="Ivv-4G-34b" secondAttribute="top" constant="39" id="MbL-9b-g8h"/>
+                            <constraint firstAttribute="trailing" secondItem="GtX-XB-DgD" secondAttribute="trailing" constant="7" id="fLu-z1-OpF"/>
                             <constraint firstItem="78R-En-cd5" firstAttribute="top" secondItem="Ivv-4G-34b" secondAttribute="top" constant="8" id="mKM-44-0Jz"/>
                             <constraint firstItem="78R-En-cd5" firstAttribute="centerX" secondItem="SkI-zw-FPo" secondAttribute="centerX" id="pbL-kY-het"/>
+                            <constraint firstAttribute="trailing" secondItem="7zF-1H-QxQ" secondAttribute="trailing" constant="51" id="yQC-6X-3rp"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapPreview" destination="LsS-dD-zpt" id="tNC-m7-g2q"/>
+                        <outlet property="miniMapLabel" destination="7zF-1H-QxQ" id="vjX-it-GpL"/>
                         <outlet property="nowayLabel" destination="dcs-we-bJ2" id="wAp-FE-2Za"/>
                         <outlet property="nowhereLabel" destination="YrT-ed-sVW" id="Jaw-jF-gNE"/>
                         <outlet property="onewayLabel" destination="hJ4-vy-fbG" id="YoB-mI-lgg"/>
@@ -1323,6 +1330,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="hostMultiPlayerGameBtnClicked:" target="CaG-wt-YRP" id="S1v-ue-jbV"/>
+                                </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="qHD-Fy-mkC">
                                 <rect key="frame" x="281" y="327" width="238" height="42"/>
@@ -1388,6 +1398,7 @@
         <image name="btn_up_select_(select_map)" width="155" height="38"/>
         <image name="btn_up_single_player_game" width="194" height="44"/>
         <image name="btn_up_sound_options" width="173" height="46"/>
+        <image name="label_2player" width="77" height="52"/>
         <image name="label_fx_volume" width="80" height="14"/>
         <image name="label_multi_player_game_options" width="303" height="28"/>
         <image name="label_music_volume" width="103" height="14"/>
