@@ -25,7 +25,7 @@ class CPlayerAsset {
     var DDirection: EDirection = EDirection.Max
     var DCommands: [SAssetCommand] = [SAssetCommand]()
     var DType: CPlayerAssetType = CPlayerAssetType()
-    var DUpdateFrequency: Int = 1
+    var DUpdateFrequency: Int
     var DUpdateDivisor: Int = 32
 
     init(type _: CPlayerAssetType) {

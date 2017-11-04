@@ -7,8 +7,15 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CApplicationData {
+    static var INITIAL_MAP_WIDTH = 800
+    static var INITIAL_MAO_HEIGHT = 600
+    static var TIMEOUT_INTERVAL = 50
+    static var MINI_MAP_MIN_WIDTH = 128
+    static var MINI_MAP_MIN_HEGHT = 128
+    
     struct SPrivateApplicationType {}
     enum ECursorType: Int {
         case ctPointer = 0
@@ -68,6 +75,7 @@ class CApplicationData {
     // different surfaces
     var DDoubleBufferSurface: CGraphicSurface?
     var DWorkingBufferSurface: CGraphicSurface?
+//    var DWorkingBufferSurface: SKScene?
     var DMiniMapSurface: CGraphicSurface?
     var DViewportSurface: CGraphicSurface?
     var DViewportTypeSurface: CGraphicSurface?
@@ -533,17 +541,149 @@ class CApplicationData {
 //    }
 
     // Output
-    func RenderMenuTitle(title _: String, titlebottomy _: Int, pagewidth _: Int, pageheight _: Int) {}
-    func RenderSplashStep() {}
+    func RenderMenuTitle(title: String, titlebottomy: Int, pagewidth: inout Int, pageheight: inout Int) {
+        var TitleWidth:Int
+        var TextColor:Int
+        var ShadowColor:Int
+        
+        pagewidth = (DWorkingBufferSurface?.Width())!
+        pageheight = (DWorkingBufferSurface?.Height())!
+        
+        let YPos = 0
+        let XPos = 0
+        for YPos in YPos ..< pageheight {
+            for XPos in XPos ..< pagewidth {
+//                func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
+                DBackgroundTileset.DrawTile(skscene: DWorkingBufferSurface as! SKScene, xpos: XPos, ypos: YPos, tileindex: 0)
+            }
+        }
+    
+        // FIXME: Need Bevel, and UnitDescriptionRenderer
+//        DOuterBevel.DrawBevel(DWorkingBufferSurface, DOuterBevel.Width(), DOuterBevel.Width(), pagewidth - DOuterBevel.Width() * 2, pageheight - DOuterBevel.Width() * 2)
+//
+//
+//        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].MeasureText(title, TitleWidth, titlebottomy)
+//        TextColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("white")
+//        ShadowColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("black")
+//        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].DrawTextWithShadow(DWorkingBufferSurface, pagewidth/2 - TitleWidth/2, DOuterBevel.Width(), TextColor, ShadowColor, 1, title)
+    }
+    func RenderSplashStep() {
+        var RenderAlpha: Double = Double(DCurrentLoadingStep) / Double(DTotalLoadingSteps)
+        DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 1)
+        
+        if RenderAlpha > 0.0 {
+            DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 0)
+            var ResourceContext = DDoubleBufferSurface?.CreateResourceContext()
+            ResourceContext?.SetSourceSurface(srcsurface: DWorkingBufferSurface!, xpos: 0, ypos: 0)
+            
+            ResourceContext?.PaintWithAlpha(alpha: RenderAlpha as! CGFloat)
+            DCurrentLoadingStep += 1
+        }
+    }
     // FIXME: What is TSoundLibraryLoadingCalldata
     // static func SoundLoadingCallback(data: TSoundLibraryLoadingCalldata) {}
 
-    func ChangeApplicationMode(mode _: CApplicationMode) {}
-    func ModeIsChanging() -> Bool {
-        return false
+    func ChangeApplicationMode(mode: CApplicationMode) {
+        DNextApplicationMode = mode
+        DNextApplicationMode?.InitializeChange(context: self)
     }
+    
+    // FIXME: can't do this overloaded operator.
+    // func ModeIsChanging() -> Bool {
+    //     return DNextApplicationMode == DApplicationMode
+    // }
 
-    func LoadGameMap(index _: Int) {}
+    func LoadGameMap(index _: Int) {
+        var DetailedMapWidth: Int
+        var DetailedMapHeight: Int
+        
+        // FIXME: Need DGameModel
+        DGameModel = CGameModel(index, 0x123456789ABCDEFULL, DLoadingPlayerColors)
+        let Index = 1
+        for Index in Index ..< EPlayerColor.Max.rawValue {
+            DGameModel.Player(DPlayerColor).IsAI((EPlayerType.ptAIEasy <= DLoadingPlayerTypes[Index]) && (EPlayerType.ptAIHard >= DLoadingPlayerTypes[Index]))
+        }
+        for Index in Index ..< EPlayerColor.Max.rawValue {
+            if DGameModel.Player(EPlayerColor(rawValue: Index)).IsAI() {
+                var Downsample:Int = 1
+                switch(DLoadingPlayerTypes[Index]){
+                case EPlayerType.ptAIEasy:
+                    let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
+                    Downsample = cplayerasset.DUpdateFrequency
+                    break
+                case EPlayerType.ptAIMedium:
+                    let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
+                    Downsample = cplayerasset.DUpdateFrequency / 2
+                    break
+                default :
+                    let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
+                    Downsample = cplayerasset.DUpdateFrequency / 4
+                    break
+                    
+                }
+                DAIPlayers[Index] = CAIPlayer(DGameModel.Player(EPlayerColor(rawValue: Index)), Downsample)
+            }
+        }
+        DCurrentAssetCapability = EAssetCapabilityType.None
+        
+        DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
+        DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
+        
+        // FIXME: CDataSource needs to be CMemoryDataSource
+        // DMapRenderer = CMapRenderer(config: CDataSource(DMapRendererConfigurationData), tileset: DTerrainTileset, map: DGameModel.Player(DPlayerColor).PlayerMap())
+        // FIXME: Need DGameModel
+        // DAssetRenderer = CAssetRenderer(tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(DPlayerColor), map: DGameModel.Player(DPlayerColor).PlayerMap()
+        DFogRenderer = CFogRenderer(tileset: DFireTileset, map: DGameModel.Player(DPlayerColor).VisibilityMap())
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer!, assetrender: DAssetRenderer!, fogrender: DFogRenderer!)
+        DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer!, assetrender: DAssetRenderer!, fogrender: DFogRenderer!, viewport: DViewportRenderer!, format: DDoubleBufferSurface!.Format())
+        DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(DPlayerColor))
+        DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(DPlayerColor))
+        DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(DPlayerColor))
+        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(DPlayerColor))
+        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
+        
+        DMenuButtonrenderer.Text("Menu")
+        DMenuButtonRenderer.ButtonColor(DPlayerColor)
+        
+        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
+        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
+        var MinUnitDescrHeight: Int
+        
+        DMiniMapXOffset = DInnerBevel.Width() * 2
+        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
+        DUnitActionXOffset = DUnitDescriptionXOffset
+        DViewportXOffset = LeftPanelWidth + DInnerBevel.Width()
+        
+        
+        DMiniMapYOffset = DBorderWidth
+        DUnitDescriptionYOffset = DMiniMapYOffset + (LeftPanelWidth - DInnerBevel.Width() * 3) + DOuterBevel.Width() * 2
+        MinUnitDescrHeight = DUnitDescriptionRenderer.MinimumHeight(LeftPanelWidth - DOuterBevel.Width() * 4, 9)
+        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
+        DViewportYOffset = DBorderWidth
+    
+        var MainWindowMinHeight = DUnitDescriptionYOffset + MinUnitDescrHeight + DUnitActionRenderer.MinimumHeight() + DOuterBevel.Width() * 5
+        DMainWindow.SetMinSize(CApplicationData.INITIAL_MAP_WIDTH, MainWindowMinHeight)
+        DMainWindow.SetMaxSize(DViewportXOffset + DetailedMapWidth + DBorderWidth, max(MainWindowMinHeight, DetailedMapHeight + DBorderWidth * 2))
+        
+        ResizeCanvases()
+        DMenuButtonRenderer.Width(DViewportXOffset/2)
+        DMenuButtonXOffset = DViewportXOffset/2 - DMenuButtonRenderer.Width()/2
+        DMenuButtonYOffset = (DViewportYOffset - DOuterBevel.Width())/2 - DMenuButtonRenderer.Height()/2
+        
+        var CurWidth: Int
+        var CurHeight: Int
+        
+        CurWidth = DViewportSurface.Width()
+        CurHeight = DViewportSurface.Height()
+        DViewportRenderer.InitViewportDimensions(CurWidth, CurHeight)
+        
+        for WeakAsset in DGameModel.Player(DPlayerColor).Assets() {
+            if let asset = WeakAsset {
+                DViewportRenderer?.CenterViewport(pos: &asset.Position())
+                break
+            }
+        }
+    }
     func ResetPlayerColors() {}
     func ResizeCanvases() {}
 }
