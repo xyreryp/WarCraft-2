@@ -11,6 +11,7 @@
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
 		4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */; };
 		4B6DF4171FADA11800BAA481 /* SelectMapMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DF4161FADA11800BAA481 /* SelectMapMenuViewController.swift */; };
+		4B6DF41C1FAE783D00BAA481 /* SelectColorsDifficultyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DF41B1FAE783D00BAA481 /* SelectColorsDifficultyViewController.swift */; };
 		4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */; };
 		4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */; };
 		4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */; };
@@ -94,6 +95,7 @@
 		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4B6DF4161FADA11800BAA481 /* SelectMapMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMapMenuViewController.swift; sourceTree = "<group>"; };
+		4B6DF41B1FAE783D00BAA481 /* SelectColorsDifficultyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorsDifficultyViewController.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundOptionsMenuViewController.swift; sourceTree = "<group>"; };
 		4BB118471F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				E1B45E2F1F9D4DB3009D9BF1 /* Controllers */,
 				CE4F77F91F85DF8F004379F5 /* Assets.xcassets */,
 				CE4F77FB1F85DF8F004379F5 /* Main.storyboard */,
+				4B6DF41B1FAE783D00BAA481 /* SelectColorsDifficultyViewController.swift */,
 				E1B45E301F9D4DF6009D9BF1 /* Data */,
 				CE4F77FE1F85DF8F004379F5 /* Info.plist */,
 				CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */,
@@ -520,6 +523,7 @@
 				DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */,
 				8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
+				4B6DF41C1FAE783D00BAA481 /* SelectColorsDifficultyViewController.swift in Sources */,
 				A10B58D81FA3AA6C0035C1EB /* MapRenderer.swift in Sources */,
 				8834FBD11FA1BE46003E81E5 /* CommentSkipLineDataSource.swift in Sources */,
 				8834FBD01FA1BE46003E81E5 /* LineDataSource.swift in Sources */,

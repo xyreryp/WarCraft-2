@@ -10,6 +10,7 @@ import Cocoa
 
 class MainWindowController: NSWindowController {
 
+    var selectColorsDifficultyMenuVC: SelectColorsDifficultyViewController?
     var selectMapMenuVC: SelectMapMenuViewController?
     var mainMenuVC: MainMenuViewController?
     var optionsMenuVC: OptionsMenuViewController?
@@ -32,6 +33,11 @@ class MainWindowController: NSWindowController {
         tickManager.playMusic(audioFileName: "tick", audioType: "wav", numloops: 1)
 
         switch newMenu {
+        case "SelectColorsDifficultyMenu":
+            if nil == selectColorsDifficultyMenuVC {
+                selectColorsDifficultyMenuVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "selectColorsDifficultyID")) as? SelectColorsDifficultyViewController
+            }
+            window?.contentView = selectColorsDifficultyMenuVC?.view
         case "SelectMapMenu":
             if nil == selectMapMenuVC {
                 selectMapMenuVC = storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "selectMapID")) as? SelectMapMenuViewController

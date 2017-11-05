@@ -1006,6 +1006,252 @@
             </objects>
             <point key="canvasLocation" x="976" y="1869"/>
         </scene>
+        <!--Select Colors Difficulty View Controller-->
+        <scene sceneID="np8-19-1Rb">
+            <objects>
+                <viewController storyboardIdentifier="selectColorsDifficultyID" id="nsi-Ph-mOs" customClass="SelectColorsDifficultyViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Lte-5n-Por">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AQF-KI-GaL">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Texture800x600" id="5Rb-Mb-Klq"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kZ2-yI-c1B">
+                                <rect key="frame" x="272" y="561" width="257" height="31"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_select-color-difficulty" id="Rug-0e-rGF"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRC-w3-Mp1">
+                                <rect key="frame" x="32" y="536" width="514" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_player-color-difficulty" id="kiS-B2-SvX"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHV-47-6lx">
+                                <rect key="frame" x="32" y="465" width="79" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="label_you-player" id="ZqK-hH-94u"/>
+                            </imageView>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XwI-wO-Ry3">
+                                <rect key="frame" x="141" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="080-Ew-OFW">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topRedBtnClicked:" target="nsi-Ph-mOs" id="0LH-AG-Cjh"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54F-lr-7Ly">
+                                <rect key="frame" x="141" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2TO-EA-5M9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomRedBtnClicked:" target="nsi-Ph-mOs" id="Xbh-hJ-dhC"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99t-aH-fM7">
+                                <rect key="frame" x="180" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ZPS-VH-TIc">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topBlueBtnClicked:" target="nsi-Ph-mOs" id="u44-kT-eeZ"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gD-Iq-DXU">
+                                <rect key="frame" x="180" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Kv1-HZ-rlZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomBlueBtnClicked:" target="nsi-Ph-mOs" id="2fP-J5-9JA"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wwy-gG-8Vr">
+                                <rect key="frame" x="219" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Kid-RM-nsZ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topGreenBtnClicked:" target="nsi-Ph-mOs" id="EGZ-vK-3p2"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KEA-Xm-lIU">
+                                <rect key="frame" x="219" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="WU0-Gz-tqy">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomGreenBtnClicked:" target="nsi-Ph-mOs" id="6TC-GY-lT6"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fWa-Qp-qKx">
+                                <rect key="frame" x="258" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="purple_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PTp-tr-RRs">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topPurpleBtnClicked:" target="nsi-Ph-mOs" id="dv2-B6-326"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbJ-li-18K">
+                                <rect key="frame" x="258" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="purple_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iWx-YZ-xJ7">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomPurpleBtnClicked:" target="nsi-Ph-mOs" id="9zr-av-U1o"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTH-Pb-xzX">
+                                <rect key="frame" x="297" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="brown_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="wfh-Bt-030">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topBrownBtnClicked:" target="nsi-Ph-mOs" id="2R9-wn-SG7"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iaB-Fw-JAW">
+                                <rect key="frame" x="297" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="brown_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="20e-5G-9eX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomBrownBtnClicked:" target="nsi-Ph-mOs" id="ggG-60-lhr"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhp-8y-Qmq">
+                                <rect key="frame" x="336" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gold_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CIP-7L-Lti">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topGoldBtnClicked:" target="nsi-Ph-mOs" id="tqT-1X-puL"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAb-Rr-bFg">
+                                <rect key="frame" x="336" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gold_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Mq2-T8-mWb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomGoldBtnClicked:" target="nsi-Ph-mOs" id="RRU-1b-5kE"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRg-To-cSj">
+                                <rect key="frame" x="375" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="black_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qrp-ne-Xuu">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topBlackBtnClicked:" target="nsi-Ph-mOs" id="81H-0R-0eU"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IAv-Fy-M51">
+                                <rect key="frame" x="375" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="black_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Kp5-A5-cuH">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomBlackBtnClicked:" target="nsi-Ph-mOs" id="WRP-sd-Stm"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMI-ws-nnm">
+                                <rect key="frame" x="414" y="503" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grey_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="nXi-yx-YD9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="topGreyBtnClicked:" target="nsi-Ph-mOs" id="Trm-Hq-O0I"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPO-0f-Tcv">
+                                <rect key="frame" x="414" y="462" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grey_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Dbs-c4-qLe">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="bottomGreyBtnClicked:" target="nsi-Ph-mOs" id="vqa-xz-AOm"/>
+                                </connections>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AGG-GJ-vJQ">
+                                <rect key="frame" x="135" y="395" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="NP1-j9-3bX"/>
+                            </imageView>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SxB-FZ-PvW">
+                                <rect key="frame" x="189" y="395" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="A4g-CJ-m6b"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="kZ2-yI-c1B" firstAttribute="centerX" secondItem="AQF-KI-GaL" secondAttribute="centerX" id="73b-Zk-eTQ"/>
+                            <constraint firstItem="kZ2-yI-c1B" firstAttribute="top" secondItem="Lte-5n-Por" secondAttribute="top" constant="8" id="qWw-LX-WkD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomBlack" destination="IAv-Fy-M51" id="O7k-HP-msU"/>
+                        <outlet property="bottomBlackBtnClicked" destination="IAv-Fy-M51" id="qei-7S-6gf"/>
+                        <outlet property="bottomBlue" destination="1gD-Iq-DXU" id="P7q-iz-4K6"/>
+                        <outlet property="bottomBrown" destination="iaB-Fw-JAW" id="NjN-aH-FX3"/>
+                        <outlet property="bottomGold" destination="AAb-Rr-bFg" id="kxd-3m-stu"/>
+                        <outlet property="bottomGreen" destination="KEA-Xm-lIU" id="hhB-eg-nLy"/>
+                        <outlet property="bottomGrey" destination="hPO-0f-Tcv" id="85c-XO-2sb"/>
+                        <outlet property="bottomPurple" destination="dbJ-li-18K" id="X1R-DD-TNm"/>
+                        <outlet property="bottomRed" destination="54F-lr-7Ly" id="ne3-gR-dpm"/>
+                        <outlet property="topBlack" destination="PRg-To-cSj" id="TfF-9P-pbv"/>
+                        <outlet property="topBlue" destination="99t-aH-fM7" id="ugK-PO-DXL"/>
+                        <outlet property="topBrown" destination="eTH-Pb-xzX" id="aXC-JG-aQG"/>
+                        <outlet property="topGold" destination="Xhp-8y-Qmq" id="HCS-bH-1lf"/>
+                        <outlet property="topGreen" destination="Wwy-gG-8Vr" id="q4p-tn-cFL"/>
+                        <outlet property="topGrey" destination="nMI-ws-nnm" id="o3O-lg-gUv"/>
+                        <outlet property="topPurple" destination="fWa-Qp-qKx" id="2nO-9A-gtT"/>
+                        <outlet property="topRed" destination="XwI-wO-Ry3" id="RM9-EC-1FL"/>
+                        <outlet property="topYellow" destination="Xhp-8y-Qmq" id="mqC-B1-Eq1"/>
+                        <outlet property="yellowX" destination="AGG-GJ-vJQ" id="0Ml-yD-6FP"/>
+                        <outlet property="yellowX1" destination="AGG-GJ-vJQ" id="8Nu-Hs-xll"/>
+                        <outlet property="yellowX2" destination="SxB-FZ-PvW" id="6td-L7-sxh"/>
+                    </connections>
+                </viewController>
+                <customObject id="Tnr-iu-tko" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1790" y="1869"/>
+        </scene>
         <!--Options Menu View Controller-->
         <scene sceneID="TsR-0R-fCT">
             <objects>
@@ -1384,6 +1630,9 @@
     <resources>
         <image name="Splash800x600" width="800" height="600"/>
         <image name="Texture800x600" width="800" height="600"/>
+        <image name="black_block" width="29" height="31"/>
+        <image name="blue_block" width="29" height="31"/>
+        <image name="brown_block" width="29" height="31"/>
         <image name="btn_up_back" width="173" height="46"/>
         <image name="btn_up_back_(multi_player_game_options)" width="238" height="42"/>
         <image name="btn_up_cancel" width="96" height="37"/>
@@ -1398,22 +1647,31 @@
         <image name="btn_up_select_(select_map)" width="155" height="38"/>
         <image name="btn_up_single_player_game" width="194" height="44"/>
         <image name="btn_up_sound_options" width="173" height="46"/>
+        <image name="gold_block" width="29" height="31"/>
+        <image name="green_block" width="29" height="31"/>
+        <image name="grey_block" width="29" height="31"/>
         <image name="label_2player" width="77" height="52"/>
         <image name="label_fx_volume" width="80" height="14"/>
         <image name="label_multi_player_game_options" width="303" height="28"/>
         <image name="label_music_volume" width="103" height="14"/>
         <image name="label_network_options" width="193" height="29"/>
         <image name="label_options" width="87" height="28"/>
+        <image name="label_player-color-difficulty" width="514" height="23"/>
+        <image name="label_select-color-difficulty" width="257" height="31"/>
         <image name="label_select_map" width="123" height="29"/>
         <image name="label_select_map_blue_transparent" width="589" height="533"/>
         <image name="label_select_map_mini_map_border" width="165" height="165"/>
         <image name="label_sound_options" width="163" height="29"/>
         <image name="label_the_game" width="111" height="22"/>
         <image name="label_user_name_and_remote_hostname_and_remote_hostname" width="133" height="125"/>
+        <image name="label_you-player" width="79" height="69"/>
         <image name="map_oneway" width="153" height="153"/>
         <image name="noway_unselected" width="172" height="20"/>
         <image name="nowhere_unselected" width="229" height="16"/>
         <image name="oneway_selected" width="172" height="19"/>
+        <image name="purple_block" width="29" height="31"/>
+        <image name="red_block" width="29" height="31"/>
         <image name="threeways_unselected" width="143" height="20"/>
+        <image name="yellow-x" width="10" height="15"/>
     </resources>
 </document>
