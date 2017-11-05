@@ -115,10 +115,21 @@ class CPlayerData {
         return TotalProduction
     }
 
-    //    VisibilityMap() return DVisibilityMap
-    //    PlayerMap() return DPlayerMap
-    //    Assets() return DAssets
-    //    AssetTypes() return DAssetTypes
+    func VisibilityMap() -> CVisibilityMap? {
+        return DVisibilityMap
+    }
+
+    func PlayerMap() -> CAssetDecoratedMap {
+        return DPlayerMap
+    }
+
+    func Assets() -> [CPlayerAsset] {
+        return DAssets
+    }
+
+    func AssetTypes() -> [String: CPlayerAssetType] {
+        return DAssetTypes
+    }
 
     func CreateMarker(pos: CPixelPosition, addtomap: Bool) -> CPlayerAsset {
         let NewMarker: CPlayerAsset = (DAssetTypes["None"]?.Construct())!

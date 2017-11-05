@@ -77,6 +77,7 @@
 		DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */; };
 		E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BA0911F8A13D70097867A /* VisibilityMap.swift */; };
 		E1384EDF1FAEE864008CED64 /* ResourceRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */; };
+		E1384EE11FAF0853008CED64 /* BuildCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1384EE01FAF0853008CED64 /* BuildCapabilities.swift */; };
 		E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0AD21F959094001B569C /* TerrainMap.swift */; };
 		E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
 		E14136B71F97F8530086A0A6 /* Scene.sks in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
@@ -162,6 +163,7 @@
 		DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactory.swift; sourceTree = "<group>"; };
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
 		E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceRenderer.swift; sourceTree = "<group>"; };
+		E1384EE01FAF0853008CED64 /* BuildCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BuildCapabilities.swift; path = WarCraft2/Players/BuildCapabilities.swift; sourceTree = SOURCE_ROOT; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiniMapRenderer.swift; path = WarCraft2/Renderers/MiniMapRenderer.swift; sourceTree = SOURCE_ROOT; };
@@ -338,6 +340,7 @@
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
 				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
+				E1384EE01FAF0853008CED64 /* BuildCapabilities.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */,
 				8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */,
 				E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */,
+				E1384EE11FAF0853008CED64 /* BuildCapabilities.swift in Sources */,
 				A10B58D81FA3AA6C0035C1EB /* MapRenderer.swift in Sources */,
 				8834FBD11FA1BE46003E81E5 /* CommentSkipLineDataSource.swift in Sources */,
 				8834FBD01FA1BE46003E81E5 /* LineDataSource.swift in Sources */,
