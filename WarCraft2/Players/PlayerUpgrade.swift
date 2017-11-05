@@ -56,11 +56,9 @@ class CPlayerUpgrade {
         //            return false
         //        }
 
-        // declare instance to use UpgradeType
-        let playerCapability = CPlayerCapability(name: Name, targettype: CPlayerCapability.ETargetType.None)
-        UpgradeType = playerCapability.NameToType(name: Name)
+        UpgradeType = CPlayerCapability.NameToType(name: Name)
 
-        if EAssetCapabilityType.None == UpgradeType && Name != playerCapability.TypeToName(type: EAssetCapabilityType.None) {
+        if EAssetCapabilityType.None == UpgradeType && Name != CPlayerCapability.TypeToName(type: EAssetCapabilityType.None) {
             print("Unknown upgrade type " + Name + ".\n")
             return false
         }
@@ -101,120 +99,4 @@ class CPlayerUpgrade {
         }
         return CPlayerUpgrade()
     }
-
-    //
-    //    bool CPlayerUpgrade::Load(std::shared_ptr< CDataSource > source){
-    //    CCommentSkipLineDataSource LineSource(source, '#');
-    //    std::string Name, TempString;
-    //    std::shared_ptr< CPlayerUpgrade > PlayerUpgrade;
-    //    EAssetCapabilityType UpgradeType;
-    //    int AffectedAssetCount;
-    //    bool ReturnStatus = false;
-    //
-    //    if(nullptr == source){
-    //    return false;
-    //    }
-    //    if(!LineSource.Read(Name)){
-    //    PrintError("Failed to get player upgrade name.\n");
-    //    return false;
-    //    }
-    //    UpgradeType = CPlayerCapability::NameToType(Name);
-    //    if((EAssetCapabilityType::None == UpgradeType) && (Name != CPlayerCapability::TypeToName(EAssetCapabilityType::None))){
-    //    PrintError("Unknown upgrade type %s.\n", Name.c_str());
-    //    return false;
-    //    }
-    //    auto Iterator = DRegistryByName.find(Name);
-    //    if(DRegistryByName.end() != Iterator){
-    //    PlayerUpgrade = Iterator->second;
-    //    }
-    //    else{
-    //    PlayerUpgrade = std::make_shared< CPlayerUpgrade >();
-    //    PlayerUpgrade->DName = Name;
-    //    DRegistryByName[Name] = PlayerUpgrade;
-    //    DRegistryByType[to_underlying(UpgradeType)] = PlayerUpgrade;
-    //    }
-    //    try{
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade armor.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DArmor = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade sight.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DSight = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade speed.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DSpeed = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade basic damage.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DBasicDamage = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade piercing damage.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DPiercingDamage = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade range.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DRange = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade gold cost.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DGoldCost = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade lumber cost.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DLumberCost = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade research time.\n");
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DResearchTime = std::stoi(TempString);
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to get upgrade affected asset count.\n");
-    //    goto LoadExit;
-    //    }
-    //    AffectedAssetCount = std::stoi(TempString);
-    //    for(int Index = 0; Index < AffectedAssetCount; Index++){
-    //    if(!LineSource.Read(TempString)){
-    //    PrintError("Failed to read upgrade affected asset %d.\n", Index);
-    //    goto LoadExit;
-    //    }
-    //    PlayerUpgrade->DAffectedAssets.push_back(CPlayerAssetType::NameToType(TempString));
-    //    }
-    //    ReturnStatus = true;
-    //    }
-    //    catch(std::exception &E){
-    //    PrintError("%s\n",E.what());
-    //    }
-    //    LoadExit:
-    //    return ReturnStatus;
-    //    }
-    //
-    //    std::shared_ptr< CPlayerUpgrade > CPlayerUpgrade::FindUpgradeFromType(EAssetCapabilityType type){
-    //    auto Iterator = DRegistryByType.find(to_underlying(type));
-    //
-    //    if(Iterator != DRegistryByType.end()){
-    //    return Iterator->second;
-    //    }
-    //    return std::shared_ptr< CPlayerUpgrade >();
-    //    }
-    //
-    //    std::shared_ptr< CPlayerUpgrade > CPlayerUpgrade::FindUpgradeFromName(const std::string &name){
-    //    auto Iterator = DRegistryByName.find( name );
-    //
-    //    if(Iterator != DRegistryByName.end()){
-    //    return Iterator->second;
-    //    }
-    //    return std::shared_ptr< CPlayerUpgrade >();
-    //    }
 }

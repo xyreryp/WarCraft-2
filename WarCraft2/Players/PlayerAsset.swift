@@ -14,6 +14,7 @@ struct SAssetCommand {
 }
 
 class CPlayerAsset {
+
     var DCreationCycle: Int
     var DHitPoints: Int
     var DGold: Int
@@ -25,23 +26,23 @@ class CPlayerAsset {
     var DDirection: EDirection
     var DCommands: [SAssetCommand]
     var DType: CPlayerAssetType
-    static var DUpdateFrequency: Int
-    static var DUpdateDivisor: Int
+    static var DUpdateFrequency: Int = 1
+    static var DUpdateDivisor: Int = 32
 
-    init(type _: CPlayerAssetType) {
+    init(type: CPlayerAssetType) {
         DCreationCycle = 0
-        DHitPoints = 0
+        DType = type
+        DHitPoints = type.DHitPoints
         DGold = 0
         DLumber = 0
         DStep = 0
         DMoveRemainderX = 0
         DMoveRemainderY = 0
-        DPosition = CPixelPosition()
-        DDirection = EDirection.Max
+        DPosition = CPixelPosition(x: 0, y: 0)
+        DDirection = EDirection.South
         DCommands = [SAssetCommand]()
-        DType = CPlayerAssetType()
-        DUpdateFrequency = 1
-        DUpdateDivisor = 32
+        // FIXME:
+        TilePosition(pos: CTilePosition())
     }
 
     deinit {
@@ -63,15 +64,15 @@ class CPlayerAsset {
     }
 
     func UpdateFrequency() -> Int {
-        return DUpdateFrequency
+        return CPlayerAsset.DUpdateFrequency
     }
 
     func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
-            DUpdateFrequency = freq
-            DUpdateDivisor = 32 * DUpdateFrequency
+            CPlayerAsset.DUpdateFrequency = freq
+            CPlayerAsset.DUpdateDivisor = 32 * CPlayerAsset.DUpdateFrequency
         }
-        return DUpdateFrequency
+        return CPlayerAsset.DUpdateFrequency
     }
 
     func Alive() -> Bool {
@@ -133,6 +134,7 @@ class CPlayerAsset {
 
     func TilePosition() -> CTilePosition {
         let ReturnPos: CTilePosition = CTilePosition()
+
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos
     }
@@ -295,20 +297,19 @@ class CPlayerAsset {
         let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
 
         CurrentTile.SetFromPixel(pos: DPosition)
-        let cPos = CPosition()
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
-            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
-            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
-            DMoveRemainderX = NewX % DUpdateDivisor
-            DMoveRemainderY = NewY % DUpdateDivisor
-            DPosition.IncrementX(x: NewX / DUpdateDivisor)
-            DPosition.IncrementY(y: NewY / DUpdateDivisor)
+            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
+            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
+            DMoveRemainderX = NewX % CPlayerAsset.DUpdateDivisor
+            DMoveRemainderY = NewY % CPlayerAsset.DUpdateDivisor
+            DPosition.IncrementX(x: NewX / CPlayerAsset.DUpdateDivisor)
+            DPosition.IncrementY(y: NewY / CPlayerAsset.DUpdateDivisor)
         } else { // Entering
-            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
-            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
-            var TempMoveRemainderX: Int = NewX % DUpdateDivisor
-            var TempMoveRemainderY: Int = NewY % DUpdateDivisor
-            let NewPosition: CPixelPosition = CPixelPosition(x: DPosition.X() + NewX / DUpdateDivisor, y: DPosition.Y() + NewY / DUpdateDivisor)
+            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
+            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
+            var TempMoveRemainderX: Int = NewX % CPlayerAsset.DUpdateDivisor
+            var TempMoveRemainderY: Int = NewY % CPlayerAsset.DUpdateDivisor
+            let NewPosition: CPixelPosition = CPixelPosition(x: DPosition.X() + NewX / CPlayerAsset.DUpdateDivisor, y: DPosition.Y() + NewY / CPlayerAsset.DUpdateDivisor)
 
             if NewPosition.TileOctant() == DDirection {
                 // Center in tile

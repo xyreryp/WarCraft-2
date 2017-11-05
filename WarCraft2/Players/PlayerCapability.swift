@@ -20,7 +20,7 @@ class CPlayerCapability {
     init(name: String, targettype: ETargetType) {
         DName = name
         DTargetType = targettype
-        DAssetCapabilityType = NameToType(name: name)
+        DAssetCapabilityType = CPlayerCapability.NameToType(name: name)
     }
 
     deinit {
@@ -157,6 +157,7 @@ class CPlayerCapability {
         return TypeStrings[type.rawValue]
     }
 
+    // FIXME: Virtual
     func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
     func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }

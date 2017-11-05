@@ -489,13 +489,8 @@ class CAssetDecoratedMap: CTerrainMap {
         return ReturnMap
     }
 
-    //    TODO: something wrong with MaxSight.
     func CreateVisibilityMap() -> CVisibilityMap {
-        let cplayerassettype: CPlayerAssetType = CPlayerAssetType(asset: CPlayerAssetType())
-        //        let retVal = CVisibilityMap(width: Width(), height: Height(), maxvisibility: cplayerassettype.MaxSight())
-        let retVal = CVisibilityMap(width: self.DTerrainMap.count - 1, height: self.DTerrainMap.count - 1, maxvisibility: cplayerassettype.MaxSight())
-
-        return retVal
+        return CVisibilityMap(width: Width(), height: Height(), maxvisibility: CPlayerAssetType.MaxSight())
     }
 
     func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {

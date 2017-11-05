@@ -57,8 +57,7 @@ class CPlayerData {
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
                 let assetInitType: String = AssetInit.DType
-                let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
-                if EAssetType.GoldMine == cplayerassettype.NameToType(name: assetInitType) {
+                if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: assetInitType) {
                     InitAsset.Gold(gold: DGold)
                 }
             }
@@ -338,8 +337,7 @@ class CPlayerData {
     }
 
     func FindBestAssetPlacement(pos: CTilePosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
-        let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
-        let AssetType = DAssetTypes[cplayerassettype.TypeToName(type: assettype)]
+        let AssetType = DAssetTypes[CPlayerAssetType.TypeToName(type: assettype)]
         let PlacementSize: Int = AssetType!.DSize + 2 * buffer
         let MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
 
@@ -502,11 +500,10 @@ class CPlayerData {
     //    }
 
     func RangeToDistanceSquared(range: Int) -> Int {
-        let cpos = CPosition()
         var r = range
-        r *= cpos.TileWidth()
+        r *= CPosition.TileWidth()
         r *= range
-        r += cpos.TileWidth() * cpos.TileWidth()
+        r += CPosition.TileWidth() * CPosition.TileWidth()
         return r
     }
 }

@@ -253,6 +253,7 @@ class CPlayerAssetType {
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     // FIXME: fix
     static func MaxSight() -> Int {
+        var MaxSightFound: Int = 0
         //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
         //        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
         //        return MaxSightFound!.value.DSight
@@ -273,8 +274,7 @@ class CPlayerAssetType {
 
             if let range = FileName.range(of: dat) {
                 if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
-                    let assetType = CPlayerAssetType()
-                    if !assetType.Load(source: container.DataSource(name: FileName)) {
+                    if !CPlayerAssetType.Load(source: container.DataSource(name: FileName)) {
                         print("Failed to load source \(FileName)")
                         continue
                     } else {

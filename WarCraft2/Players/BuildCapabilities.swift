@@ -9,68 +9,61 @@
 import Foundation
 
 class CPlayerCapabilityBuildNormal: CPlayerCapability {
-    class CRegistrant {
-
-        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("TownHall")));
-        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Farm")));
-        //    CPlayerCapability::Register(std::shared_ptr< CPlayer·CapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Barracks")));
-        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("LumberMill")));
-        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Blacksmith")));
-        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("ScoutTower")));
-    }
-
-    static var DRegistrant: CRegistrant
-    class CActivatedCapability: CActivatedPlayerCapability {
-        var DCurrentStep: Int
-        var DTotalSteps: Int
-        var DLumber: Int
-        var DGold: Int
-
-        init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset, lumber _: Int, gold _: Int, steps _: Int) {
-        }
-
-        deinit {
-        }
-
-        func PercentComplete(max _: Int) -> Int {
-        }
-
-        func IncrementStep() -> Bool {
-        }
-
-        func Cancel() {
-        }
-    }
-
-    var DBuildingName: String
-    init(buildingname: String) {
-        DBuildingName = buildingname
-    }
-
-    deinit {
-    }
-
-    func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool {
-    }
-
-    func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool {
-    }
-
-    func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool {
-    }
+    //    class CRegistrant {
+    //
+    //        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("TownHall")));
+    //        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Farm")));
+    //        //    CPlayerCapability::Register(std::shared_ptr< CPlayer·CapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Barracks")));
+    //        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("LumberMill")));
+    //        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Blacksmith")));
+    //        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("ScoutTower")));
+    //    }
+    //
+    //    static var DRegistrant: CRegistrant
+    //    class CActivatedCapability: CActivatedPlayerCapability {
+    //        var DCurrentStep: Int
+    //        var DTotalSteps: Int
+    //        var DLumber: Int
+    //        var DGold: Int
+    //
+    //        init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset, lumber _: Int, gold _: Int, steps _: Int) {
+    //        }
+    //
+    //        deinit {
+    //        }
+    //
+    //        func PercentComplete(max _: Int) -> Int {
+    //        }
+    //
+    //        func IncrementStep() -> Bool {
+    //        }
+    //
+    //        func Cancel() {
+    //        }
+    //    }
+    //
+    //    var DBuildingName: String
+    //    init(buildingname: String) {
+    //        DBuildingName = buildingname
+    //    }
+    //
+    //    deinit {
+    //    }
+    //
+    //    func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
+    //        var Iterator = playerdata.AssetsTypes()
+    //    }
+    //
+    //    func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool {
+    //    }
+    //
+    //    func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool {
+    //    }
 }
 
 //
 // CPlayerCapabilityBuildNormal::CRegistrant CPlayerCapabilityBuildNormal::DRegistrant;
-//
-// CPlayerCapabilityBuildNormal::CRegistrant::CRegistrant(){
-//    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("TownHall")));
-//    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Farm")));
-//    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Barracks")));
-//    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("LumberMill")));
-//    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Blacksmith")));
-//    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("ScoutTower")));
-// }
+
 //
 // CPlayerCapabilityBuildNormal::CPlayerCapabilityBuildNormal(const std::string &buildingname) : CPlayerCapability(std::string("Build") + buildingname, ETargetType::TerrainOrAsset){
 //    DBuildingName = buildingname;
