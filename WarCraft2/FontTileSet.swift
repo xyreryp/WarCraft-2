@@ -19,6 +19,12 @@ class CFontTileset: CGraphicMulticolorTileset {
     var DTopOpaque: Int
     var DBottomOpaque: Int
 
+    override init() {}
+    
+    public func CharacterBaseline() -> Int {
+        return DCharacterBaseline
+    }
+    
     static func TopBottomSearch(data: Any, pixel: UInt32) -> UInt32 {
         var Font: CFontTileset = data as! CFontTileset
         var Row: Int = (Font.DSearchCall / Font.DTileWidth)
@@ -76,26 +82,35 @@ class CFontTileset: CGraphicMulticolorTileset {
         //Try Catch here, need to figure out swift error handling
         
         //NOTE: Resize ignored
+        
         for Index in 0...BottomOccurence.count {
             if BottomOccurence[BestLine] < BottomOccurence[Index] {
                 BestLine = Index
             }
         }
-        
         for Index in 0...DTileCount {
             DTopOpaque = DTileHeight
             DBottomOpaque = 0
             DSearchCall = 0
-            DSurfaceTileset.Transform(DSurfaceTileset, Index*DTileHeight, DTileWidth, DTileHeight, 0, Index*DTileHeight, self, TopBottomSearch) //TODO: function not written yet
-            DCharacterTops[Index] = DTopOpque
+            DSurfaceTileset.Transform(DSurfaceTileset, 0, Index*DTileHeight, DTileWidth, DTileHeight, 0, Index*DTileHeight, self, TopBottomSearch) //TODO: function not written yet
+            DCharacterTops[Index] = DTopOpaque
+            DCharacterBottoms[Index] = DBottomOpaque
+            BottomOccurence[DBottomOpaque]+=1
         }
-    }
-
-    public func CharacterBaseline() -> Int {
-        return DCharacterBaseline
+        for Index in 1...BottomOccurence.count {
+            if BottomOccurence[BestLine] < BottomOccurence[Index] {
+                BestLine = Index
+            }
+        }
+        DCharacterBaseline = BestLine
+        
+        return ReturnStatus
+        
+        
     }
 
     public func DrawText(surface _: CGraphicSurface, xpos _: Int, ypos _: Int, str _: String) {
+        
     }
 
     public func DrawTextColor(surface _: CGraphicSurface, xpos _: Int, ypos _: Int, str _: String) {
@@ -110,5 +125,4 @@ class CFontTileset: CGraphicMulticolorTileset {
     public func MeasureTextDetailed(str _: String, width _: inout Int, height _: inout Int) {
     }
 
-    override init() {}
 }
