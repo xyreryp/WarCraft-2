@@ -45,11 +45,6 @@ class CPlayerData {
         for AssetInit in DActualMap.DAssetInitializationList {
 
             if AssetInit.DColor == color {
-<<<<<<< HEAD
-                // print debug stuff???
-
-=======
->>>>>>> master
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
                 let assetInitType: String = AssetInit.DType

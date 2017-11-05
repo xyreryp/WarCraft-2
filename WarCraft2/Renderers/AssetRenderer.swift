@@ -885,43 +885,6 @@ class CAssetRenderer {
         }
     }
 
-<<<<<<< HEAD
-    //    func DrawPlacement(surface: CGraphicSurface, rect: SRectangle, pos: CPixelPosition, type: EAssetType, builder: CPlayerAsset) {
-    //        var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
-    //        var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
-    //
-    //        if EAssetType.None != type {
-    //            var TempPosition: CPixelPosition = CPixelPosition()
-    //            var TempTilePosition: CTilePosition = CTilePosition()
-    //            var PlacementRightX, PlacementBottomY: Int
-    //            var OnScreen: Bool = true
-    //            var playerassettype = CPlayerAssetType()
-    //            var AssetType = playerassettype.FindDefaultFromType(type: type)
-    //            var PlacementTiles: [[Int]] = [[]]
-    //            var XOff, YOff: Int
-    //
-    //            TempTilePosition.SetFromPixel(pos: pos)
-    //            TempPosition.SetFromTile(pos: TempTilePosition)
-    //
-    //            let cpos = CPosition()
-    //            TempPosition.IncrementX(x: (AssetType.DSize - 1) * cpos.DHalfTileWidth - DTilesets[type.rawValue].TileHalfWidth())
-    //            TempPosition.IncrementY(y: (AssetType.DSize - 1) * cpos.DHalfTileHeight - DTilesets[type.rawValue].TileHalfHeight())
-    //            PlacementRightX = TempPosition.X() + DTilesets[type.rawValue].TileWidth()
-    //            PlacementBottomY = TempPosition.Y() + DTilesets[type.rawValue].TileHeight()
-    //
-    //            TempTilePosition.SetFromPixel(pos: TempPosition)
-    //            XOff = 0
-    //            YOff = 0
-<<<<<<< HEAD
-    //            AssetRenderer.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
-    //            for Row in PlacementTiles {
-    //                var row = Row
-    //                AssetRenderer.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
-    //                for var Cell in row {
-    //                    var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
-    //                    let cterrainmap = CTerrainMap()
-    //                    if cterrainmap.CanPlaceOn(type: TileType) {
-=======
     //            CHelper.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
     //            for Row in PlacementTiles {
     //                var row = Row
@@ -930,7 +893,6 @@ class CAssetRenderer {
     //                    var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
     //                    let cterrainmap = CTerrainMap()
     //                    if CTerrainMap.CanPlaceOn(type: TileType) {
->>>>>>> master
     //                        Cell = 1
     //                    } else {
     //                        Cell = 0
@@ -999,7 +961,6 @@ class CAssetRenderer {
     //            }
     //        }
     //    }
-=======
     func DrawPlacement(surface: CGraphicSurface, rect: SRectangle, pos: CPixelPosition, type: EAssetType, builder: CPlayerAsset) {
         var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
@@ -1102,8 +1063,6 @@ class CAssetRenderer {
             }
         }
     }
->>>>>>> master
-
     func DrawMiniAssets(surface: CGraphicSurface) {
         var ResourceContext = surface.CreateResourceContext()
         if nil == DPlayerData {
