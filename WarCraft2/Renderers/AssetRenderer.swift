@@ -884,86 +884,108 @@ class CAssetRenderer {
             }
         }
     }
-
-    //            CHelper.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
-    //            for Row in PlacementTiles {
-    //                var row = Row
-    //                CHelper.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
-    //                for var Cell in row {
-    //                    var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
-    //                    let cterrainmap = CTerrainMap()
-    //                    if CTerrainMap.CanPlaceOn(type: TileType) {
-    //                        Cell = 1
-    //                    } else {
-    //                        Cell = 0
-    //                    }
-    //                    XOff = XOff + 1
-    //                }
-    //                XOff = 0
-    //                YOff = YOff + 1
-    //            }
-    //            XOff = TempTilePosition.X() + AssetType.DSize
-    //            YOff = TempTilePosition.Y() + AssetType.DSize
-    //            for PlayerAsset in DPlayerMap.DAssets {
-    //                var MinX, MaxX, MinY, MaxY: Int
-    //                var Offset: Int = EAssetType.GoldMine == PlayerAsset.Type() ? 1 : 0
-    //
-    //                if !(builder != PlayerAsset) {
-    //                    continue
-    //                }
-    //                if XOff <= PlayerAsset.TilePositionX() - Offset {
-    //                    continue
-    //                }
-    //                if TempTilePosition.X() >= (PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset) {
-    //                    continue
-    //                }
-    //                if YOff <= PlayerAsset.TilePositionY() - Offset {
-    //                    continue
-    //                }
-    //                if TempTilePosition.Y() >= (PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset) {
-    //                    continue
-    //                }
-    //                MinX = max(TempTilePosition.X(), PlayerAsset.TilePositionX() - Offset)
-    //                MaxX = min(XOff, PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset)
-    //                MinY = max(TempTilePosition.Y(), PlayerAsset.TilePositionY() - Offset)
-    //                MaxY = min(YOff, PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset)
-    //                for Y in MinY ..< MaxY {
-    //                    for X in MinX ..< MaxX {
-    //                        PlacementTiles[Y - TempTilePosition.Y()][X - TempTilePosition.X()] = 0
-    //                    }
-    //                }
-    //            }
-    //
-    //            if PlacementRightX <= rect.DXPosition {
-    //                OnScreen = false
-    //            } else if PlacementBottomY <= rect.DYPosition {
-    //                OnScreen = false
-    //            } else if TempPosition.X() >= ScreenRightX {
-    //                OnScreen = false
-    //            } else if TempPosition.Y() >= ScreenBottomY {
-    //                OnScreen = false
-    //            }
-    //            if OnScreen {
-    //                var XPos, YPos: Int
-    //                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
-    //                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
-    //                DTilesets[type.rawValue].DrawTile(surface: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0], colorindex: (DPlayerData?.DColor.rawValue)! - 1)
-    //                XPos = TempPosition.X()
-    //                YPos = TempPosition.Y()
-    //                for Row in PlacementTiles {
-    //                    for Cell in Row {
-    //                        DMarkerTileset!.DrawTile(surface: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
-    //                        XPos = XPos + DMarkerTileset!.TileWidth()
-    //                    }
-    //                    YPos = YPos + DMarkerTileset!.TileHeight()
-    //                    XPos = TempPosition.X()
-    //                }
-    //            }
-    //        }
-    //    }
     func DrawPlacement(surface: CGraphicSurface, rect: SRectangle, pos: CPixelPosition, type: EAssetType, builder: CPlayerAsset) {
         var ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         var ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
+
+        if EAssetType.None != type {
+            var TempPosition: CPixelPosition = CPixelPosition()
+            var TempTilePosition: CTilePosition = CTilePosition()
+            var PlacementRightX, PlacementBottomY: Int
+            var OnScreen: Bool = true
+            var AssetType = CPlayerAssetType.FindDefaultFromType(type: type)
+            var PlacementTiles: [[Int]] = [[]]
+            var XOff, YOff: Int
+
+            TempTilePosition.SetFromPixel(pos: pos)
+            TempPosition.SetFromTile(pos: TempTilePosition)
+
+            TempPosition.IncrementX(x: (AssetType.DSize - 1) * CPosition.DHalfTileWidth - DTilesets[type.rawValue].TileHalfWidth())
+            TempPosition.IncrementY(y: (AssetType.DSize - 1) * CPosition.DHalfTileHeight - DTilesets[type.rawValue].TileHalfHeight())
+            PlacementRightX = TempPosition.X() + DTilesets[type.rawValue].TileWidth()
+            PlacementBottomY = TempPosition.Y() + DTilesets[type.rawValue].TileHeight()
+
+            TempTilePosition.SetFromPixel(pos: TempPosition)
+            XOff = 0
+            YOff = 0
+            CHelper.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
+            for Row in PlacementTiles {
+                var row = Row
+                CHelper.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
+                for var Cell in row {
+                    var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
+                    let cterrainmap = CTerrainMap()
+                    if CTerrainMap.CanPlaceOn(type: TileType) {
+                        Cell = 1
+                    } else {
+                        Cell = 0
+                    }
+                    XOff = XOff + 1
+                }
+                XOff = 0
+                YOff = YOff + 1
+            }
+            XOff = TempTilePosition.X() + AssetType.DSize
+            YOff = TempTilePosition.Y() + AssetType.DSize
+            for PlayerAsset in DPlayerMap.DAssets {
+                var MinX, MaxX, MinY, MaxY: Int
+                var Offset: Int = EAssetType.GoldMine == PlayerAsset.Type() ? 1 : 0
+
+                if !(builder != PlayerAsset) {
+                    continue
+                }
+                if XOff <= PlayerAsset.TilePositionX() - Offset {
+                    continue
+                }
+                if TempTilePosition.X() >= (PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset) {
+                    continue
+                }
+                if YOff <= PlayerAsset.TilePositionY() - Offset {
+                    continue
+                }
+                if TempTilePosition.Y() >= (PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset) {
+                    continue
+                }
+                MinX = max(TempTilePosition.X(), PlayerAsset.TilePositionX() - Offset)
+                MaxX = min(XOff, PlayerAsset.TilePositionX() + PlayerAsset.Size() + Offset)
+                MinY = max(TempTilePosition.Y(), PlayerAsset.TilePositionY() - Offset)
+                MaxY = min(YOff, PlayerAsset.TilePositionY() + PlayerAsset.Size() + Offset)
+                for Y in MinY ..< MaxY {
+                    for X in MinX ..< MaxX {
+                        PlacementTiles[Y - TempTilePosition.Y()][X - TempTilePosition.X()] = 0
+                    }
+                }
+            }
+
+            if PlacementRightX <= rect.DXPosition {
+                OnScreen = false
+            } else if PlacementBottomY <= rect.DYPosition {
+                OnScreen = false
+            } else if TempPosition.X() >= ScreenRightX {
+                OnScreen = false
+            } else if TempPosition.Y() >= ScreenBottomY {
+                OnScreen = false
+            }
+            if OnScreen {
+                var XPos, YPos: Int
+                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                // FIXME:
+                DTilesets[type.rawValue].DrawTile(skscene: surface as! SKScene, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
+                XPos = TempPosition.X()
+                YPos = TempPosition.Y()
+                for Row in PlacementTiles {
+                    for Cell in Row {
+                        // FIXME:
+                        DMarkerTileset!.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
+                        XPos = XPos + DMarkerTileset!.TileWidth()
+                    }
+                    YPos = YPos + DMarkerTileset!.TileHeight()
+                    XPos = TempPosition.X()
+                }
+            }
+        }
+    }
 
         if EAssetType.None != type {
             var TempPosition: CPixelPosition = CPixelPosition()
