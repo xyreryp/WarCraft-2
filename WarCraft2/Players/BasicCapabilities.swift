@@ -10,28 +10,15 @@
 import Foundation
 
 class CPlayerCapabilityMove: CPlayerCapability {
-    // TODO: Check how OSX deal with protected; cuz we usually treate it as normal
     class CRegistrant {
-        init(cplayercapabilitymove _: CPlayerCapabilityMove) {
-            // FIXME: CPlayerCapabilityMove::CRegistrant::CRegistrant(){CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityMove >(new CPlayerCapabilityMove()))};
-            // FIXME: Call Register of CPlayerCapability... This is likely to be incorrect
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityMove())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        // FIXME: virtual ~CActivatedCapability(){}
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -40,10 +27,10 @@ class CPlayerCapabilityMove: CPlayerCapability {
         override func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
-            DPlayerData.AddGameEvent(event: TempEvent)
 
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
+            DPlayerData.AddGameEvent(event: TempEvent)
+            
             AssetCommand.DAction = EAssetAction.Walk
             AssetCommand.DAssetTarget = DTarget
             if !DActor.TileAligned() {
@@ -60,59 +47,46 @@ class CPlayerCapabilityMove: CPlayerCapability {
     }
 
     init() {
-        super.init(name: "Move", targettype: ETargetType.TerrainOrAsset)
+        super.init(name: "Move", targettype: .TerrainOrAsset)
     }
 
-    // FIXME: ~CPlayerCapabilityMove()
     deinit {}
 
-    // FIXME: shared_ptr params and note that every class has these three functions
     override func CanInitiate(actor: CPlayerAsset, playerdata _: CPlayerData) -> Bool {
         return actor.Speed() > 0
     }
-    // FIXME: shared_ptr params
+
     func CanApply(actor: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerData) -> Bool {
         return actor.Speed() > 0
     }
-    // FIXME: shared_ptr params
+
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
         if actor.TilePosition() != target.TilePosition() {
             var NewCommand: SAssetCommand
 
             NewCommand.DAction = EAssetAction.Capability
-            // FIXME: AssetCapabilityType()
             NewCommand.DCapability = AssetCapabilityType()
             NewCommand.DAssetTarget = target
-            /// FIXME: shared_pointer
             NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
             actor.ClearCommand()
             actor.PushCommand(command: NewCommand)
             return true
         }
+
         return false
     }
 }
 
 class CPlayerCapabilityMineHarvest: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitymineharvest _: CPlayerCapabilityMineHarvest) {
-            // FIXME: calling super super class' function
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityMineHarvest())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        // FIXME: virtual destructor virtual ~CActivatedCapability(){}
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -122,8 +96,7 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
 
             AssetCommand.DAssetTarget = DTarget
@@ -138,6 +111,7 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
             if !DActor.TileAligned() {
                 DActor.Direction(direction: DirectionOpposite(dir: DActor.Position().TileOctant()))
             }
+
             DActor.PushCommand(command: AssetCommand)
             return true
         }
@@ -147,7 +121,7 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
         }
     }
 
-    required init() {
+    init() {
         super.init(name: "Mine", targettype: ETargetType.TerrainOrAsset)
     }
 
@@ -193,24 +167,15 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
 
 class CPlayerCapabilityStandGround: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitystandground _: CPlayerCapabilityStandGround) {
+        init() {
             // FIXME: Call Register of CPlayerCapability... This is likely to be incorrect
             CPlayerCapability.Register(capability: CPlayerCapabilityStandGround())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        // FIXME: Virtual destructor virtual ~CActivatedCapability(){}
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -249,7 +214,6 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
         super.init(name: "StandGround", targettype: ETargetType.None)
     }
 
-    // FIXME: virtual ~CPlayerCapabilityStandGround(){}
     deinit {
     }
 
@@ -277,23 +241,14 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
 
 class CPlayerCapabilityCancel: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitycancel _: CPlayerCapabilityCancel) {
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityCancel())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        // FIXME: virtual ~CActivatedCapability(){}
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -357,22 +312,14 @@ class CPlayerCapabilityCancel: CPlayerCapability {
 
 class CPlayerCapabilityConvey: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilityconvey _: CPlayerCapabilityConvey) {
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityConvey())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -450,22 +397,14 @@ class CPlayerCapabilityConvey: CPlayerCapability {
 
 class CPlayerCapabilityPatrol: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitypatrol _: CPlayerCapabilityPatrol) {
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityPatrol())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -542,26 +481,14 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
 class CPlayerCapabilityAttack: CPlayerCapability {
 
     class CRegistrant {
-        init(cplayercapabilityattack _: CPlayerCapabilityAttack) {
-            /// FIXME: access super super class
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityAttack())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        /// FIXME: virtual destructor
-        //        virtual ~CActivatedCapability(){};
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -571,8 +498,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
 
             AssetCommand.DAction = EAssetAction.Attack
@@ -630,23 +556,14 @@ class CPlayerCapabilityAttack: CPlayerCapability {
 
 class CPlayerCapabilityRepair: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilityrepair _: CPlayerCapabilityRepair) {
+        init() {
             CPlayerCapability.Register(capability: CPlayerCapabilityRepair())
         }
     }
 
-    var DRegistrant: CRegistrant
+    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
-        required init() {
-        }
-
-        required init(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) {
-        }
-
-        /// FIXME: virtual destructor
-        deinit {
-        }
 
         override func PercentComplete(max _: Int) -> Int {
             return 0
@@ -656,8 +573,7 @@ class CPlayerCapabilityRepair: CPlayerCapability {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
 
             AssetCommand.DAction = EAssetAction.Repair
@@ -704,10 +620,8 @@ class CPlayerCapabilityRepair: CPlayerCapability {
         if actor.TilePosition() != target.TilePosition() {
             var NewCommand: SAssetCommand
 
-            NewCommand.DAction = EAssetAction.Capability
-            NewCommand.DCapability = AssetCapabilityType()
-            NewCommand.DAssetTarget = target
-            NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
+            NewCommand = SAssetCommand(DAction: EAssetAction.Capability, DCapability: AssetCapabilityType(), DAssetTarget: target, DActivatedCapability: CActivatedCapability(actor: actor, playerdata: playerdata, target: target))
+
             actor.ClearCommand()
             actor.PushCommand(command: NewCommand)
             return true
