@@ -37,7 +37,7 @@ class CPixelPosition: CPosition {
     }
 
     func TileAligned() -> Bool {
-        return ((DX % DTileWidth) == DHalfTileWidth && ((DY % DTileHeight) == DHalfTileHeight))
+        return ((DX % CPosition.DTileWidth) == CPosition.DHalfTileWidth && ((DY % CPosition.DTileHeight) == CPosition.DHalfTileHeight))
     }
 
     // call CPositions.Direction()
@@ -52,18 +52,18 @@ class CPixelPosition: CPosition {
 
     // calculate new tile position
     func SetFromTile(pos: CTilePosition) {
-        DX = pos.X() * DTileWidth + DHalfTileWidth
-        DX = pos.Y() * DTileHeight + DHalfTileHeight
+        DX = pos.X() * CPosition.DTileWidth + CPosition.DHalfTileWidth
+        DX = pos.Y() * CPosition.DTileHeight + CPosition.DHalfTileHeight
     }
 
     // calculate new DX
     func SetXFromTile(x: Int) {
-        DX = x * DTileWidth + DHalfTileWidth
+        DX = x * CPosition.DTileWidth + CPosition.DHalfTileWidth
     }
 
     // calculate new DY
     func SetYFromTile(y: Int) {
-        DY = y * DTileHeight + DHalfTileHeight
+        DY = y * CPosition.DTileHeight + CPosition.DHalfTileHeight
     }
 
     // call CPositions's DistanceSquared()

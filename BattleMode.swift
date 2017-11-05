@@ -767,4 +767,4 @@
 //        return CBattleMode.DBattleModePointer
 //    }
 //}
-
+//

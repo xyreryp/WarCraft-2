@@ -14,12 +14,12 @@ class CPosition {
     var DY: Int = 0
 
     // Height and width of a tile
-    var DTileWidth: Int = 1
-    var DTileHeight: Int = 1
+    static var DTileWidth: Int = 1
+    static var DTileHeight: Int = 1
 
     // Height and width of a half tile
-    var DHalfTileWidth: Int = 0
-    var DHalfTileHeight: Int = 0
+    static var DHalfTileWidth: Int = 0
+    static var DHalfTileHeight: Int = 0
 
     // list of list EDirection used for... ?
     var DOctant: [[EDirection]] = [[EDirection.Max]]
@@ -43,11 +43,22 @@ class CPosition {
         DY = pos.DY
     }
 
+    static func TileWidth() -> Int {
+        return DTileWidth
+    }
+    static func TileHeight() -> Int {
+        return DTileHeight
+    }
+    static func HalfTileWidth() -> Int {
+        return DHalfTileWidth
+    }
+    static func HalfTileHeight() -> Int {
+        return DHalfTileHeight
+    }
     // overloaded operators to compare Positions
     static func ==(lhs: CPosition, rhs: CPosition) -> Bool {
         return (lhs.DX == rhs.DX && lhs.DY == rhs.DY)
     }
-
     // overloaded operators to compare Positions
     static func !=(lhs: CPosition, rhs: CPosition) -> Bool {
         return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
@@ -90,7 +101,7 @@ class CPosition {
     }
 
     func TileOctant() -> EDirection {
-        return DOctant[DY % DTileHeight][DX % DTileWidth]
+        return DOctant[DY % CTilePosition.DTileHeight][DX % CTilePosition.DTileWidth]
     }
 
     // x^2 + y^2, to be passed into square root
@@ -110,14 +121,14 @@ class CPosition {
     // Set the Octant's directions
     func SetTileDimensions(width: Int, height: Int) {
         if (0 < width) && (0 < height) {
-            DTileWidth = width
-            DTileHeight = height
-            DHalfTileWidth = width / 2
-            DHalfTileHeight = height / 2
+            CTilePosition.DTileWidth = width
+            CTilePosition.DTileHeight = height
+            CTilePosition.DHalfTileWidth = width / 2
+            CTilePosition.DHalfTileHeight = height / 2
 
-            CHelper.resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
+            CHelper.resize(array: &DOctant, size: CTilePosition.DTileHeight, defaultValue: [EDirection.Max])
             for (i, _) in DOctant.enumerated() {
-                CHelper.resize(array: &DOctant[i], size: DTileWidth, defaultValue: EDirection.Max)
+                CHelper.resize(array: &DOctant[i], size: CTilePosition.DTileWidth, defaultValue: EDirection.Max)
             }
         }
 
@@ -125,8 +136,8 @@ class CPosition {
         var X: Int = 0
         repeat {
             repeat {
-                var XDistance: Int = X - DHalfTileWidth
-                var YDistance: Int = Y - DHalfTileHeight
+                var XDistance: Int = X - CTilePosition.DHalfTileWidth
+                var YDistance: Int = Y - CTilePosition.DHalfTileHeight
                 let NegativeX: Bool = XDistance < 0
                 let NegativeY: Bool = YDistance > 0
 
@@ -168,9 +179,9 @@ class CPosition {
                     }
                 }
                 X += 1
-            } while X < DTileWidth
+            } while X < CTilePosition.DTileWidth
             Y += 1
-        } while Y < DTileHeight
+        } while Y < CTilePosition.DTileHeight
     }
 
     // getter for DX
@@ -221,21 +232,21 @@ class CPosition {
 
     // getter for DTileWidth
     func TileWidth() -> Int {
-        return DTileWidth
+        return CTilePosition.DTileWidth
     }
 
     // getter for DTileHeight
     func TileHeight() -> Int {
-        return DTileHeight
+        return CTilePosition.DTileHeight
     }
 
     // getter for DHalfTileWidth
     func HalfTileWidth() -> Int {
-        return DHalfTileWidth
+        return CTilePosition.DHalfTileWidth
     }
 
     // getter for DHalfTileHeight
     func HalfTileHeight() -> Int {
-        return DHalfTileHeight
+        return CTilePosition.DHalfTileHeight
     }
 }

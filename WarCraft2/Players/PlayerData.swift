@@ -12,13 +12,13 @@ class CPlayerData {
 
     var DIsAI: Bool = Bool()
     var DColor: EPlayerColor = EPlayerColor.None
-    var DVisibilityMap: CVisibilityMap?
+    var DVisibilityMap: CVisibilityMap = CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())
     var DActualMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DAssets: [CPlayerAsset] = [CPlayerAsset]()
     var DUpgrades: [Bool] = [Bool]()
-    //        var DGameEvents = [SGameEvent]    // TODO: Where
+    var DGameEvents: [SGameEvent] = [] // TODO: Where
     var DGold: Int = Int()
     var DLumber: Int = Int()
     var DGameCycle: Int = Int()
@@ -195,14 +195,14 @@ class CPlayerData {
     func UpdateVisibility() {
 
         var RemoveList: [CPlayerAsset] = [CPlayerAsset]()
-        DVisibilityMap?.Update(assets: DAssets)
-        DPlayerMap.UpdateMap(vismap: DVisibilityMap!, resmap: DActualMap)
+        DVisibilityMap.Update(assets: DAssets)
+        DPlayerMap.UpdateMap(vismap: DVisibilityMap, resmap: DActualMap)
         for Asset in DPlayerMap.DAssets {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
 
                 let cplayerasset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-                if cplayerasset.UpdateFrequency() < Asset.DStep * 2 {
+                if CPlayerAsset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
                 }
             }
@@ -493,21 +493,24 @@ class CPlayerData {
     }
 
     // TODO: What is SGameEvent
-    //    func GameEvents() -> [SGameEvent] {
-    //        return DGameEvents
-    //    }
+    func GameEvents() -> [SGameEvent] {
+        return DGameEvents
+    }
+
     //
-    //    func ClearGameEvents() {
-    //        DGameEvents.clear()
-    //    }
+    func ClearGameEvents() {
+        DGameEvents.removeAll()
+    }
+
     //
-    //    func AddGameEvent(event: SGameEvent) {
-    //        DGameEvents.push_back(event)
-    //    }
+    func AddGameEvent(event: SGameEvent) {
+        DGameEvents.append(event)
+    }
+
     //
-    //    func AppendGameEvents(events: [SGameEvent]) {
-    //        DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
-    //    }
+    func AppendGameEvents(events: [SGameEvent]) {
+        DGameEvents += events
+    }
 
     func RangeToDistanceSquared(range: Int) -> Int {
         let cpos = CPosition()

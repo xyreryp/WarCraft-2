@@ -6,7 +6,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "Terrain.dat"
+      "filename" : "selected4.wav",
+      "universal-type-identifier" : "com.microsoft.waveform-audio"
     }
   ]
 }

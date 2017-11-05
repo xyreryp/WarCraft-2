@@ -15,7 +15,7 @@ class CApplicationData {
     static var TIMEOUT_INTERVAL = 50
     static var MINI_MAP_MIN_WIDTH = 128
     static var MINI_MAP_MIN_HEGHT = 128
-    
+
     struct SPrivateApplicationType {}
     enum ECursorType: Int {
         case ctPointer = 0
@@ -73,9 +73,9 @@ class CApplicationData {
     //    std::shared_ptr<CGUICursor> DBlankCursor;
 
     // different surfaces
-    var DDoubleBufferSurface: CGraphicSurface?
-    var DWorkingBufferSurface: CGraphicSurface?
-//    var DWorkingBufferSurface: SKScene?
+    var DDoubleBufferSurface: CGraphicSurface
+    var DWorkingBufferSurface: CGraphicSurface
+    //    var DWorkingBufferSurface: SKScene?
     var DMiniMapSurface: CGraphicSurface?
     var DViewportSurface: CGraphicSurface?
     var DViewportTypeSurface: CGraphicSurface?
@@ -111,7 +111,7 @@ class CApplicationData {
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
     // Map Renderer
-    var DMapRenderer: CMapRenderer?
+    var DMapRenderer: CMapRenderer
 
     // cursor things
     // TODO: uncomment later
@@ -166,10 +166,10 @@ class CApplicationData {
     var DArrowTileset = CGraphicTileset() // needed for assetRenderer
 
     // all renderer things
-    var DAssetRenderer: CAssetRenderer?
-    var DFogRenderer: CFogRenderer?
-    var DViewportRenderer: CViewportRenderer?
-    var DMiniMapRenderer: CMiniMapRenderer?
+    var DAssetRenderer: CAssetRenderer
+    var DFogRenderer: CFogRenderer
+    var DViewportRenderer: CViewportRenderer
+    var DMiniMapRenderer: CMiniMapRenderer
     // TODO: finish these types of renderers
     // var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
     // var DUnitActionRenderer: CUnitActionRenderer? = nil
@@ -180,28 +180,28 @@ class CApplicationData {
     // var DOptionsEditRenderer: CEditRenderer? = nil
 
     // game model things
-    var DPlayerColor: EPlayerColor?
+    var DPlayerColor: EPlayerColor = EPlayerColor.None
     // TODO: import CGameModel
-    // var DGameModel: CGameModel? = nil
+    var DGameModel: CGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
     // FIXME: type of expression is ambigous without more context?
     var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
     // FIXME: DAIPlayer supposed to have size of EPlayerColor.Max.rawValue
-    // var DAIPlayers = [CAIPlayer]()
+    var DAIPlayers = [CAIPlayer]()
     var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
     var DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
 
     // application mode things
-    var DApplicationMode: CApplicationMode?
-    var DNextApplicationMode: CApplicationMode?
+    var DApplicationMode: CApplicationMode
+    var DNextApplicationMode: CApplicationMode
 
     // hotkeys unordererd maps --> dictionaries
-    var DUnitHotKeyMap: [uint32: EAssetCapabilityType]?
-    var DBuildHotKeyMap: [uint32: EAssetCapabilityType]?
-    var DTrainHotKeyMap: [uint32: EAssetCapabilityType]?
-
+    var DUnitHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
+    var DBuildHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
+    var DTrainHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
+    
     // asset capabilities things
     var DSelectedPlayerAssets = [CPlayerAsset]()
-    var DCurrentAssetCapability: EAssetCapabilityType?
+    var DCurrentAssetCapability: EAssetCapabilityType = EAssetCapabilityType.None
 
     // keys related things
     var DPressedKeys = [uint32]()
@@ -243,23 +243,6 @@ class CApplicationData {
     //    var DAssetRenderer: CAssetRenderer
 
     init() {
-        //        DMarkerTileset = CGraphicTileset()
-        //        DCorpseTileset = CGraphicTileset()
-        //        DFireTileset = [CGraphicTileset]()
-        //        DBuildingDeathTileset = CGraphicTileset()
-        //        DArrowTileset = CGraphicTileset()
-        //
-        //        DAssetMap = CAssetDecoratedMap()
-        //        // playerData needed for assetRenderer
-        //        DPlayer = CPlayerData(map: DAssetMap, color: EPlayerColor.Red)
-        //        // array of tilesets for all the assset
-        //        DAssetTilesets = [CGraphicMulticolorTileset]()
-        //
-        //        // map for drawing player
-        //        DPlayerRecolorMap = CGraphicRecolorMap()
-        //
-        //
-        //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
     init(appName _: String, key _: SPrivateApplicationType) {
@@ -296,28 +279,28 @@ class CApplicationData {
         DRightClick = 0
         DLeftDown = false
         DRightDown = false
-        
+
         // FIXME: Whose doing button renderer
         // DMenuButtonState = CButtonRenderer.EButtonState.None
-        DUnitHotKeyMap![0] = EAssetCapabilityType.Attack                // key A
-        DUnitHotKeyMap![11] = EAssetCapabilityType.BuildSimple          // key B
-        DUnitHotKeyMap![5] = EAssetCapabilityType.Convey                // G
-        DUnitHotKeyMap![46] = EAssetCapabilityType.Move                 // M
-        DUnitHotKeyMap![35] = EAssetCapabilityType.Patrol               // P
-        DUnitHotKeyMap![15] = EAssetCapabilityType.Repair               // R
-        DUnitHotKeyMap![17] = EAssetCapabilityType.StandGround          // T
+        DUnitHotKeyMap[0] = EAssetCapabilityType.Attack // key A
+        DUnitHotKeyMap[11] = EAssetCapabilityType.BuildSimple // key B
+        DUnitHotKeyMap[5] = EAssetCapabilityType.Convey // G
+        DUnitHotKeyMap[46] = EAssetCapabilityType.Move // M
+        DUnitHotKeyMap[35] = EAssetCapabilityType.Patrol // P
+        DUnitHotKeyMap[15] = EAssetCapabilityType.Repair // R
+        DUnitHotKeyMap[17] = EAssetCapabilityType.StandGround // T
 
-        DBuildHotKeyMap![11] = EAssetCapabilityType.BuildBarracks        // B
-        DBuildHotKeyMap![3] = EAssetCapabilityType.BuildFarm             // F
-        DBuildHotKeyMap![4] = EAssetCapabilityType.BuildTownHall         // H
-        DBuildHotKeyMap![37] = EAssetCapabilityType.BuildLumberMill      // L
-        DBuildHotKeyMap![1] = EAssetCapabilityType.BuildBlacksmith       // S
-        DBuildHotKeyMap![17] = EAssetCapabilityType.BuildScoutTower      // T
+        DBuildHotKeyMap[11] = EAssetCapabilityType.BuildBarracks // B
+        DBuildHotKeyMap[3] = EAssetCapabilityType.BuildFarm // F
+        DBuildHotKeyMap[4] = EAssetCapabilityType.BuildTownHall // H
+        DBuildHotKeyMap[37] = EAssetCapabilityType.BuildLumberMill // L
+        DBuildHotKeyMap[1] = EAssetCapabilityType.BuildBlacksmith // S
+        DBuildHotKeyMap[17] = EAssetCapabilityType.BuildScoutTower // T
 
-        DTrainHotKeyMap![0] = EAssetCapabilityType.BuildArcher            // A
-        DTrainHotKeyMap![3] = EAssetCapabilityType.BuildFootman          // F
-        DTrainHotKeyMap![35] = EAssetCapabilityType.BuildPeasant          // P
-        DTrainHotKeyMap![15] = EAssetCapabilityType.BuildRanger           // R
+        DTrainHotKeyMap[0] = EAssetCapabilityType.BuildArcher // A
+        DTrainHotKeyMap[3] = EAssetCapabilityType.BuildFootman // F
+        DTrainHotKeyMap[35] = EAssetCapabilityType.BuildPeasant // P
+        DTrainHotKeyMap[15] = EAssetCapabilityType.BuildRanger // R
     }
 
     deinit {
@@ -506,7 +489,7 @@ class CApplicationData {
     }
 
     func ScreenToUnitDescription(pos: CPixelPosition) -> CPixelPosition {
-        return CPixelPosition(x: pos.X() - DUnitDescriptionXOffset ,y: pos.Y() - DUnitDescriptionYOffset)
+        return CPixelPosition(x: pos.X() - DUnitDescriptionXOffset, y: pos.Y() - DUnitDescriptionYOffset)
     }
 
     func ScreenToUnitAction(pos: CPixelPosition) -> CPixelPosition {
@@ -515,168 +498,167 @@ class CApplicationData {
 
     func ViewportToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
         var pos = pos
-        return (DViewportRenderer?.DetailedPosition(pos: &pos))!
+        return DViewportRenderer.DetailedPosition(pos: &pos)
     }
 
-        // FIXME: Need to pull from GameModel on richard's branch
-//    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
-//        let X = pos.X() * DGameModel.Map.DWidth / DMiniMapRenderer?.VisibleWidth()
-//        let Y = pos.Y() * DGameModel.Map.DHeight / DMiniMapRenderer?.VisibleHeight()
-//        if(0 > X){
-//            X = 0
-//        }
-//        if(DGameModel.Map().Width() <= X){
-//            X = DGameModel.Map().Width() - 1
-//        }
-//        if(0 > Y){
-//            Y = 0
-//        }
-//        if(DGameModel.Map().Height() <= Y){
-//            Y = DGameModel.Map().Height() - 1
-//        }
-//        var Temp:CPixelPosition = CPixelPosition()
-//        Temp.SetXFromTile(X)
-//        Temp.SetYFromTile(Y)
-//        return Temp
-//    }
+    // FIXME: Need to pull from GameModel on richard's branch
+    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        var X = pos.X() * DGameModel.Map().Width() / DMiniMapRenderer.VisibleWidth()
+        var Y = pos.Y() * DGameModel.Map().Height() / DMiniMapRenderer.VisibleHeight()
+        if 0 > X {
+            X = 0
+        }
+        if DGameModel.Map().Width() <= X {
+            X = DGameModel.Map().Width() - 1
+        }
+        if 0 > Y {
+            Y = 0
+        }
+        if DGameModel.Map().Height() <= Y {
+            Y = DGameModel.Map().Height() - 1
+        }
+        var Temp: CPixelPosition = CPixelPosition()
+        Temp.SetXFromTile(x: X)
+        Temp.SetYFromTile(y: Y)
+        return Temp
+    }
 
     // Output
-    func RenderMenuTitle(title: String, titlebottomy: Int, pagewidth: inout Int, pageheight: inout Int) {
-        var TitleWidth:Int
-        var TextColor:Int
-        var ShadowColor:Int
-        
-        pagewidth = (DWorkingBufferSurface?.Width())!
-        pageheight = (DWorkingBufferSurface?.Height())!
-        
+    func RenderMenuTitle(title _: String, titlebottomy _: Int, pagewidth: inout Int, pageheight: inout Int) {
+        var TitleWidth: Int
+        var TextColor: Int
+        var ShadowColor: Int
+
+        pagewidth = DWorkingBufferSurface.Width()
+        pageheight = DWorkingBufferSurface.Height()
+
         let YPos = 0
         let XPos = 0
         for YPos in YPos ..< pageheight {
             for XPos in XPos ..< pagewidth {
-//                func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
+                //                func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
                 DBackgroundTileset.DrawTile(skscene: DWorkingBufferSurface as! SKScene, xpos: XPos, ypos: YPos, tileindex: 0)
             }
         }
-    
+
         // FIXME: Need Bevel, and UnitDescriptionRenderer
-//        DOuterBevel.DrawBevel(DWorkingBufferSurface, DOuterBevel.Width(), DOuterBevel.Width(), pagewidth - DOuterBevel.Width() * 2, pageheight - DOuterBevel.Width() * 2)
-//
-//
-//        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].MeasureText(title, TitleWidth, titlebottomy)
-//        TextColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("white")
-//        ShadowColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("black")
-//        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].DrawTextWithShadow(DWorkingBufferSurface, pagewidth/2 - TitleWidth/2, DOuterBevel.Width(), TextColor, ShadowColor, 1, title)
+        //        DOuterBevel.DrawBevel(DWorkingBufferSurface, DOuterBevel.Width(), DOuterBevel.Width(), pagewidth - DOuterBevel.Width() * 2, pageheight - DOuterBevel.Width() * 2)
+        //
+        //
+        //        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].MeasureText(title, TitleWidth, titlebottomy)
+        //        TextColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("white")
+        //        ShadowColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("black")
+        //        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].DrawTextWithShadow(DWorkingBufferSurface, pagewidth/2 - TitleWidth/2, DOuterBevel.Width(), TextColor, ShadowColor, 1, title)
     }
+
     func RenderSplashStep() {
         var RenderAlpha: Double = Double(DCurrentLoadingStep) / Double(DTotalLoadingSteps)
         DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 1)
-        
+
         if RenderAlpha > 0.0 {
             DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 0)
-            var ResourceContext = DDoubleBufferSurface?.CreateResourceContext()
-            ResourceContext?.SetSourceSurface(srcsurface: DWorkingBufferSurface!, xpos: 0, ypos: 0)
-            
-            ResourceContext?.PaintWithAlpha(alpha: RenderAlpha as! CGFloat)
+            var ResourceContext = DDoubleBufferSurface.CreateResourceContext()
+            ResourceContext.SetSourceSurface(srcsurface: DWorkingBufferSurface, xpos: 0, ypos: 0)
+
+            ResourceContext.PaintWithAlpha(alpha: RenderAlpha as! CGFloat)
             DCurrentLoadingStep += 1
         }
     }
+
     // FIXME: What is TSoundLibraryLoadingCalldata
     // static func SoundLoadingCallback(data: TSoundLibraryLoadingCalldata) {}
 
     func ChangeApplicationMode(mode: CApplicationMode) {
         DNextApplicationMode = mode
-        DNextApplicationMode?.InitializeChange(context: self)
+        DNextApplicationMode.InitializeChange(context: self)
     }
-    
+
     // FIXME: can't do this overloaded operator.
     // func ModeIsChanging() -> Bool {
     //     return DNextApplicationMode == DApplicationMode
     // }
 
     func LoadGameMap(index _: Int) {
-//        var DetailedMapWidth: Int
-//        var DetailedMapHeight: Int
-//        
-//        // FIXME: Need DGameModel
-//        DGameModel = CGameModel(index, 0x123456789ABCDEFULL, DLoadingPlayerColors)
-//        let Index = 1
-//        for Index in Index ..< EPlayerColor.Max.rawValue {
-//            DGameModel.Player(DPlayerColor).IsAI((EPlayerType.ptAIEasy <= DLoadingPlayerTypes[Index]) && (EPlayerType.ptAIHard >= DLoadingPlayerTypes[Index]))
-//        }
-//        for Index in Index ..< EPlayerColor.Max.rawValue {
-//            if DGameModel.Player(EPlayerColor(rawValue: Index)).IsAI() {
-//                var Downsample:Int = 1
-//                switch(DLoadingPlayerTypes[Index]){
-//                case EPlayerType.ptAIEasy:
-//                    let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
-//                    Downsample = cplayerasset.DUpdateFrequency
-//                    break
-//                case EPlayerType.ptAIMedium:
-//                    let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
-//                    Downsample = cplayerasset.DUpdateFrequency / 2
-//                    break
-//                default :
-//                    let cplayerasset = CPlayerAsset(type: CPlayerAssetType())
-//                    Downsample = cplayerasset.DUpdateFrequency / 4
-//                    break
-//                    
-//                }
-//                DAIPlayers[Index] = CAIPlayer(DGameModel.Player(EPlayerColor(rawValue: Index)), Downsample)
-//            }
-//        }
-//        DCurrentAssetCapability = EAssetCapabilityType.None
-//        
-//        DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
-//        DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
-//        
-//        // FIXME: CDataSource needs to be CMemoryDataSource
-//        // DMapRenderer = CMapRenderer(config: CDataSource(DMapRendererConfigurationData), tileset: DTerrainTileset, map: DGameModel.Player(DPlayerColor).PlayerMap())
-//        // FIXME: Need DGameModel
-//        // DAssetRenderer = CAssetRenderer(tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(DPlayerColor), map: DGameModel.Player(DPlayerColor).PlayerMap()
-//        DFogRenderer = CFogRenderer(tileset: DFireTileset, map: DGameModel.Player(DPlayerColor).VisibilityMap())
-//        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer!, assetrender: DAssetRenderer!, fogrender: DFogRenderer!)
-//        DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer!, assetrender: DAssetRenderer!, fogrender: DFogRenderer!, viewport: DViewportRenderer!, format: DDoubleBufferSurface!.Format())
-//        DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(DPlayerColor))
-//        DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(DPlayerColor))
-//        DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(DPlayerColor))
-//        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(DPlayerColor))
+        var DetailedMapWidth: Int
+        var DetailedMapHeight: Int
+
+        // FIXME: Need DGameModel
+        DGameModel = CGameModel(index, 0x123456789ABCDEFULL, DLoadingPlayerColors)
+        let Index = 1
+        for Index in Index ..< EPlayerColor.Max.rawValue {
+            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
+        }
+        for Index in Index ..< EPlayerColor.Max.rawValue {
+            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+                var Downsample:Int = 1
+                switch(DLoadingPlayerTypes[Index]){
+                case EPlayerType.ptAIEasy:
+                    Downsample = CPlayerAsset.DUpdateFrequency
+                    break
+                case EPlayerType.ptAIMedium:
+                    Downsample = CPlayerAsset.DUpdateFrequency / 2
+                    break
+                default :
+                    Downsample = CPlayerAsset.DUpdateFrequency / 4
+                    break
+
+                }
+                DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
+            }
+        }
+        DCurrentAssetCapability = EAssetCapabilityType.None
+
+        DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
+        DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
+
+        // FIXME: CDataSource needs to be CMemoryDataSource
+//        DMapRenderer = CMapRenderer(config: CDataSource(DMapRendererConfigurationData), tileset: DTerrainTileset, map: DGameModel.Player(color: DPlayerColor).PlayerMap())
+        DAssetRenderer = CAssetRenderer(tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
+            
+        DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
+        DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: DDoubleBufferSurface.Format())
+        // DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
+        // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
+        // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
+//        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
 //        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
-//        
+//
 //        DMenuButtonRenderer.Text("Menu")
 //        DMenuButtonRenderer.ButtonColor(DPlayerColor)
-//        
+
 //        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
 //        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
 //        var MinUnitDescrHeight: Int
-//        
+//
 //        DMiniMapXOffset = DInnerBevel.Width() * 2
 //        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
 //        DUnitActionXOffset = DUnitDescriptionXOffset
 //        DViewportXOffset = LeftPanelWidth + DInnerBevel.Width()
-//        
-//        
+//
+//
 //        DMiniMapYOffset = DBorderWidth
 //        DUnitDescriptionYOffset = DMiniMapYOffset + (LeftPanelWidth - DInnerBevel.Width() * 3) + DOuterBevel.Width() * 2
 //        MinUnitDescrHeight = DUnitDescriptionRenderer.MinimumHeight(LeftPanelWidth - DOuterBevel.Width() * 4, 9)
 //        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
 //        DViewportYOffset = DBorderWidth
-//    
+//
 //        var MainWindowMinHeight = DUnitDescriptionYOffset + MinUnitDescrHeight + DUnitActionRenderer.MinimumHeight() + DOuterBevel.Width() * 5
 //        DMainWindow.SetMinSize(CApplicationData.INITIAL_MAP_WIDTH, MainWindowMinHeight)
 //        DMainWindow.SetMaxSize(DViewportXOffset + DetailedMapWidth + DBorderWidth, max(MainWindowMinHeight, DetailedMapHeight + DBorderWidth * 2))
-//        
+//
 //        ResizeCanvases()
 //        DMenuButtonRenderer.Width(DViewportXOffset/2)
 //        DMenuButtonXOffset = DViewportXOffset/2 - DMenuButtonRenderer.Width()/2
 //        DMenuButtonYOffset = (DViewportYOffset - DOuterBevel.Width())/2 - DMenuButtonRenderer.Height()/2
-//        
+//
 //        var CurWidth: Int
 //        var CurHeight: Int
-//        
+//
 //        CurWidth = DViewportSurface.Width()
 //        CurHeight = DViewportSurface.Height()
 //        DViewportRenderer.InitViewportDimensions(CurWidth, CurHeight)
-//        
+//
 //        for WeakAsset in DGameModel.Player(DPlayerColor).Assets() {
 //            if let asset = WeakAsset {
 //                DViewportRenderer?.CenterViewport(pos: &asset.Position())
@@ -684,15 +666,14 @@ class CApplicationData {
 //            }
 //        }
     }
-    
+
     func ResetPlayerColors() {
         let Index = 0
         for Index in Index ..< EPlayerColor.Max.rawValue {
             DLoadingPlayerColors[Index] = EPlayerColor(rawValue: Index)!
         }
     }
-    
+
     func ResizeCanvases() {
-       
     }
 }

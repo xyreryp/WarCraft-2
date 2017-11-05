@@ -39,7 +39,7 @@ class CPlayerUpgrade {
 
     // TODO: how are we gonna do lineSource
     func Load(source: CDataSource) -> Bool {
-        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
+        //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#")
         var Name: String = String()
         var TempString: String
         var PlayerUpgrade: CPlayerUpgrade
@@ -51,10 +51,10 @@ class CPlayerUpgrade {
             return false
         }
 
-        if !LineSource.Read(line: &Name) {
-            print("Failed to get player upgrade name.\n")
-            return false
-        }
+        //        if !LineSource.Read(line: &Name) {
+        //            print("Failed to get player upgrade name.\n")
+        //            return false
+        //        }
 
         // declare instance to use UpgradeType
         let playerCapability = CPlayerCapability(name: Name, targettype: CPlayerCapability.ETargetType.None)

@@ -372,19 +372,13 @@ class CGraphicTileset {
     }
 
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
-        //        if 0 > tileindex || tileindex >= DTileCount {
-        //            return
-        //        }
+        if 0 > tileindex || tileindex >= DTileCount {
+            return
+        }
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
-    }
-    //
-    func DrawTile(surface _: CGraphicSurface, xpos _: Int, ypos _: Int, tileindex: Int) {
-        if 0 > tileindex || tileindex >= DTileCount {
-            return
-        }
     }
     //
     //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
