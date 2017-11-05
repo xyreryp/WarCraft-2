@@ -763,7 +763,7 @@
             <objects>
                 <viewController storyboardIdentifier="gameViewControllerId" id="EH6-fz-lbD" customClass="GameViewController" customModule="WarCraft2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="EAU-1i-QCI">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="900" height="900"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>

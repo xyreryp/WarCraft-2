@@ -14,7 +14,7 @@ class CViewportRenderer {
 
     // c++ shared_ptr
     internal var DMapRenderer: CMapRenderer
-    internal var DAssetRenderer: AssetRenderer
+    internal var DAssetRenderer: CAssetRenderer
     internal var DFogRenderer: CFogRenderer
 
     // c++ protected variables
@@ -24,8 +24,7 @@ class CViewportRenderer {
     internal var DLastViewportHeight: Int
 
     // constructor
-    init(maprender: CMapRenderer, assetrender: AssetRenderer,
-         fogrender: CFogRenderer) {
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
         DFogRenderer = fogrender
@@ -116,7 +115,7 @@ class CViewportRenderer {
 
     func DrawViewport(surface: CGraphicSurface, typesurface: CGraphicSurface,
                       selectionmarkerlist: inout [CPlayerAsset],
-                      selectrect: inout SRectangle, curcapability: EAssetCapabilityType) {
+                      selectrect _: inout SRectangle, curcapability: EAssetCapabilityType) {
 
         // need to initialize with parameters to avoid xcode error
         // initially all values are zero, values are assigned a few lines below
@@ -157,10 +156,17 @@ class CViewportRenderer {
         }
         // FIXME:
         DMapRenderer.DrawMap(surface: surface as! SKScene, typesurface: typesurface as! SKScene, rect: TempRectangle)
+<<<<<<< HEAD
         DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
                                       selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
         // DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
         DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
+=======
+        //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
+        //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
+        //  DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
+        //  DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
+>>>>>>> master
 
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();

@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 import Cocoa
+import AppKit
 
 class CGraphicTileset {
     // C++ protected functions
@@ -259,6 +260,39 @@ class CGraphicTileset {
         }
     } // end CreateCLippingMasks()
 
+    func TestLoadTileset(source: CDataSource!, assetName: String) -> Bool {
+        // use DataSource to Read
+        var TempTokens = source.Read(fileName: assetName, extensionType: "dat")
+        var Tokens = [String]()
+        for i in 5 ..< TempTokens.count {
+            Tokens.append(TempTokens[i])
+            DMapping[TempTokens[i]] = i - 5
+            DTileNames.append(TempTokens[i])
+        }
+        DTileCount = Tokens.count - 1
+
+        // load the actual image from Assets folder.
+
+        let Tileset = NSImage(named: NSImage.Name(rawValue: assetName))!
+        DTileWidth = Int(Tileset.size.width)
+        DTileHeight = Int(Tileset.size.height)
+        DTileHeight /= DTileCount
+        DTileHalfWidth = DTileWidth / 2
+        DTileHalfHeight = DTileHeight / 2
+
+        // crop the image into individual tiles
+        for i in 1 ... DTileCount {
+            let newSize: NSSize
+            newSize = NSSize(width: DTileWidth, height: DTileHeight)
+            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+            let tempTexture = SKTexture(image: temp)
+            DTileSet.append(tempTexture)
+        }
+
+        UpdateGroupName()
+        return true
+    }
+
     func LoadTileset(source _: CDataSource!) -> Bool {
         if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
             do {
@@ -372,18 +406,13 @@ class CGraphicTileset {
     }
 
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
-        //        if 0 > tileindex || tileindex >= DTileCount {
-        //            return
-        //        }
-        let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
-        tempNode.position = CGPoint(x: xpos, y: ypos)
-        skscene.addChild(tempNode)
-    }
-    //
-    func DrawTile(surface _: CGraphicSurface, xpos _: Int, ypos _: Int, tileindex: Int) {
         if 0 > tileindex || tileindex >= DTileCount {
             return
         }
+
+        let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+        tempNode.position = CGPoint(x: xpos, y: ypos)
+        skscene.addChild(tempNode)
     }
     //
     //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))

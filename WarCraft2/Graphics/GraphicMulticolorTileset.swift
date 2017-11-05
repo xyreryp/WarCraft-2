@@ -19,6 +19,19 @@ class CGraphicMulticolorTileset: CGraphicTileset {
 
     deinit {}
 
+    func TestLoadTileset(colormap: CGraphicRecolorMap, source: CDataSource, assetName: String) -> Bool {
+
+        if !super.TestLoadTileset(source: source, assetName: assetName) {
+            return false
+        }
+        DColoredTilesets.removeAll()
+        DColoredTilesets.append(DSurfaceTileset!)
+        for ColIndex in 1 ..< colormap.GroupCount() {
+            DColoredTilesets.append(colormap.RecolorSurface(index: ColIndex, srcsurface: DSurfaceTileset!)!)
+        }
+        return true
+    }
+
     func LoadTileset(colormap: CGraphicRecolorMap, source: CDataSource) -> Bool {
         DColorMap = colormap
         if !super.LoadTileset(source: source) {

@@ -28,7 +28,7 @@ protocol PMapRenderer {
 
     // functions to be implemented in CMapRenderer
     func DrawMap(surface: SKScene, typesurface: SKScene, rect: SRectangle)
-    func DrawMiniMap(surface: CGraphicSurface)
+    func DrawMiniMap(ResourceContext: CGraphicResourceContext)
 }
 
 class CMapRenderer: PMapRenderer {
@@ -37,22 +37,13 @@ class CMapRenderer: PMapRenderer {
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
-    static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     //    // huge constructor
     required init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
         // For the mini map rendering: @source
         //        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
-        //        var TempString: String = String()
-        //        var ItemCount: Int = Int()
+        //                var TempString: String = String()
+        //                var ItemCount: Int = Int()
 
         // data members
         DTileset = tileset
@@ -60,13 +51,13 @@ class CMapRenderer: PMapRenderer {
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 
-        //        CMapRenderer.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.None.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
+        CHelper.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
 
         //        if !LineSource.Read(line: &TempString) {
         //            return
         //        }
         //        ItemCount = Int(TempString)!
-
+        //
         //        var Index: Int = 0
         //        repeat {
         //            var tokens: [String] = [String]()
@@ -75,10 +66,10 @@ class CMapRenderer: PMapRenderer {
         //            }
         //            let tokenizer = CTokenizer(source: config, delimiters: TempString)
         //            tokenizer.Tokenize(tokens: &tokens, data: TempString) // , delimiters: TempString)
-
+        //
         //            var ColorValue: uint32 = uint32(tokens.first!)!
         //            var PixelIndex: Int = 0
-
+        //
         //            if tokens.first == "light-grass" {
         //                PixelIndex = CTerrainMap.ETileType.LightGrass.rawValue
         //            } else if tokens.first == "dark-grass" {
@@ -103,10 +94,22 @@ class CMapRenderer: PMapRenderer {
         //            DPixelIndices[PixelIndex] = Int(ColorValue)
         //            Index += 1
         //        } while Index < ItemCount
+        //
 
-        CMapRenderer.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
+        DPixelIndices[CTerrainMap.ETileType.LightGrass.rawValue] = Int(0xFF28_540C)
+        DPixelIndices[CTerrainMap.ETileType.DarkGrass.rawValue] = Int(0xFF14_4006)
+        DPixelIndices[CTerrainMap.ETileType.LightDirt.rawValue] = Int(0xFF74_4404)
+        DPixelIndices[CTerrainMap.ETileType.DarkDirt.rawValue] = Int(0xFF3A_2202)
+        DPixelIndices[CTerrainMap.ETileType.Rock.rawValue] = Int(0xFF42_4242)
+        DPixelIndices[CTerrainMap.ETileType.Forest.rawValue] = Int(0xFF00_2C00)
+        DPixelIndices[CTerrainMap.ETileType.Stump.rawValue] = Int(0xFF50_3000)
+        DPixelIndices[CTerrainMap.ETileType.ShallowWater.rawValue] = Int(0xFF0A_1F2B)
+        DPixelIndices[CTerrainMap.ETileType.DeepWater.rawValue] = Int(0xFF05_1015)
+        DPixelIndices[CTerrainMap.ETileType.Rubble.rawValue] = Int(0xFF3A_512B)
+
+        CHelper.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
         for (i, _) in DTileIndices.enumerated() {
-            CMapRenderer.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
+            CHelper.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
         }
 
         var Index2: Int = 0
@@ -307,9 +310,7 @@ class CMapRenderer: PMapRenderer {
         } while YPos < rect.DHeight
     }
 
-    func DrawMiniMap(surface: CGraphicSurface) {
-
-        var ResourceContext = surface.CreateResourceContext()
+    func DrawMiniMap(ResourceContext: CGraphicResourceContext) {
         ResourceContext.SetLineWidth(width: 1)
         ResourceContext.SetLineCap(cap: CGLineCap.square)
 

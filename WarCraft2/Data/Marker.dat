@@ -1,0 +1,12 @@
+# Path to frames
+./Marker.png
+# Number of frames
+7
+# Frame names
+marker-4
+marker-3
+marker-2
+marker-1
+marker-0
+place-good
+place-bad

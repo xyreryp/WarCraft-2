@@ -43,17 +43,18 @@ final class CTokenizer: PTokenizer {
 
         // token.clear()
         token = ""
-        while true {
-            if 0 < DDataSource.Read(length: 1).1 {
-                if nil != DDelimiters.range(of: TempChar) {
-                    token += TempChar
-                } else if token.count > 0 {
-                    return true
-                }
-            } else {
-                return 0 < token.count
-            }
-        }
+        //        while true {
+        //            if 0 < DDataSource.Read(length: 1).1 {
+        //                if nil != DDelimiters.range(of: TempChar) {
+        //                    token += TempChar
+        //                } else if token.count > 0 {
+        //                    return true
+        //                }
+        //            } else {
+        //                return 0 < token.count
+        //            }
+        //        }
+        return false
     }
 
     // reads in delimiters and writes back to token String

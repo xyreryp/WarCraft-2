@@ -161,7 +161,7 @@ class CAssetDecoratedMap: CTerrainMap {
         for YOff in stride(from: 0, to: size, by: 1) {
             for XOff in stride(from: 0, to: size, by: 1) {
                 let TileTerrainType = TileType(xindex: pos.X() + XOff, yindex: pos.Y() + YOff)
-                if !CanPlaceOn(type: TileTerrainType) {
+                if !CTerrainMap.CanPlaceOn(type: TileTerrainType) {
                     return false
                 }
             }
@@ -373,8 +373,8 @@ class CAssetDecoratedMap: CTerrainMap {
         }
     }
 
-    func LoadMap(source: CDataSource) -> Bool {
-        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#") //there is a '#' here and not entirely sure how to handle it.
+    func LoadMap(source _: CDataSource) -> Bool {
+        //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#") //there is a '#' here and not entirely sure how to handle it.
         var TempString: String = ""
         var Tokens: [String] = [String]()
         var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
@@ -382,20 +382,20 @@ class CAssetDecoratedMap: CTerrainMap {
         var ResourceCount: Int, AssetCount: Int
         var InitialLumber: Int = 400
         var ReturnStatus: Bool = false
-        if !LoadMap(source: source) {
-            return false
-        }
-        if !LineSource.Read(line: &TempString) { // supposingly where try starts
-            print("Failed To read map resource count.\n")
-            return ReturnStatus
-        }
+        //        if !LoadMap(source: source) {
+        //            return false
+        //        }
+        //        if !LineSource.Read(line: &TempString) { // supposingly where try starts
+        //            print("Failed To read map resource count.\n")
+        //            return ReturnStatus
+        //        }
         ResourceCount = Int(TempString)!
         DResourceInitializationList.removeAll()
         for Index in stride(from: 0, to: ResourceCount, by: 1) {
-            if !LineSource.Read(line: &TempString) {
-                print("Failed to read map resource %d.\n", Index)
-                return ReturnStatus
-            }
+            //            if !LineSource.Read(line: &TempString) {
+            //                print("Failed to read map resource %d.\n", Index)
+            //                return ReturnStatus
+            //            }
             CTokenizer.Tokenize(tokens: &Tokens, data: TempString, delimiters: "")
             if 3 > Tokens.count {
                 print("Too few tokens for resource", Index, "\n")
@@ -415,17 +415,17 @@ class CAssetDecoratedMap: CTerrainMap {
             DResourceInitializationList.append(TempResourceInit)
         }
 
-        if !LineSource.Read(line: &TempString) {
-            print("Failed to read map asset count.\n")
-            return ReturnStatus
-        }
+        //        if !LineSource.Read(line: &TempString) {
+        //            print("Failed to read map asset count.\n")
+        //            return ReturnStatus
+        //        }
         AssetCount = Int(TempString)!
         DAssetInitializationList.removeAll()
         for Index in stride(from: 0, to: AssetCount, by: 1) {
-            if !LineSource.Read(line: &TempString) {
-                print("Failed to read map asset %d.\n", Index)
-                return ReturnStatus
-            }
+            //            if !LineSource.Read(line: &TempString) {
+            //                print("Failed to read map asset %d.\n", Index)
+            //                return ReturnStatus
+            //            }
             CTokenizer.Tokenize(tokens: &Tokens, data: TempString)
             if 4 > Tokens.count {
                 print("Too few tokens for asset %d.\n", Index)
@@ -448,9 +448,9 @@ class CAssetDecoratedMap: CTerrainMap {
             DAssetInitializationList.append(TempAssetInit)
         }
 
-        resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+        CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
         for RowIndex in stride(from: 0, to: DLumberAvailable.count, by: 1) {
-            resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+            CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
             for ColIndex in stride(from: 0, to: DTerrainMap[RowIndex].count, by: 1) {
                 if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                     DLumberAvailable[RowIndex][ColIndex] = DPartials.count <= RowIndex && DPartials[RowIndex].count <= ColIndex ? InitialLumber : 0
@@ -575,16 +575,16 @@ class CAssetDecoratedMap: CTerrainMap {
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            resize(array: &ReturnMap.DMap, size: DMap.count, defaultValue: [])
+            CHelper.resize(array: &ReturnMap.DMap, size: DMap.count, defaultValue: [])
             for var Row in ReturnMap.DMap {
-                resize(array: &Row, size: DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
+                CHelper.resize(array: &Row, size: DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = ETileType.None
                 }
             }
-            resize(array: &ReturnMap.DMapIndices, size: DMap.count, defaultValue: [])
+            CHelper.resize(array: &ReturnMap.DMapIndices, size: DMap.count, defaultValue: [])
             for var Row in ReturnMap.DMapIndices {
-                resize(array: &Row, size: DMapIndices[0].count, defaultValue: Int())
+                CHelper.resize(array: &Row, size: DMapIndices[0].count, defaultValue: Int())
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = 0
                 }
@@ -596,8 +596,15 @@ class CAssetDecoratedMap: CTerrainMap {
     //    TODO: something wrong with MaxSight.
     func CreateVisibilityMap() -> CVisibilityMap {
         let cplayerassettype: CPlayerAssetType = CPlayerAssetType(asset: CPlayerAssetType())
+<<<<<<< HEAD
         // return CVisibilityMap(width: Width(), height: Height(), maxvisibility: cplayerassettype.MaxSight())
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: 2)
+=======
+        //        let retVal = CVisibilityMap(width: Width(), height: Height(), maxvisibility: cplayerassettype.MaxSight())
+        let retVal = CVisibilityMap(width: self.DTerrainMap.count - 1, height: self.DTerrainMap.count - 1, maxvisibility: cplayerassettype.MaxSight())
+
+        return retVal
+>>>>>>> master
     }
 
     func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {
@@ -606,16 +613,16 @@ class CAssetDecoratedMap: CTerrainMap {
         if DMap.count != resmap.DMap.count {
             DTerrainMap = resmap.DTerrainMap
             DPartials = resmap.DPartials
-            resize(array: &DMap, size: resmap.DMap.count, defaultValue: [])
+            CHelper.resize(array: &DMap, size: resmap.DMap.count, defaultValue: [])
             for var Row in DMap {
-                resize(array: &Row, size: resmap.DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
+                CHelper.resize(array: &Row, size: resmap.DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = ETileType.None
                 }
             }
-            resize(array: &DMapIndices, size: resmap.DMapIndices.count, defaultValue: [])
+            CHelper.resize(array: &DMapIndices, size: resmap.DMapIndices.count, defaultValue: [])
             for var Row in DMapIndices {
-                resize(array: &Row, size: resmap.DMapIndices[0].count, defaultValue: Int())
+                CHelper.resize(array: &Row, size: resmap.DMapIndices[0].count, defaultValue: Int())
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = 0
                 }
@@ -718,9 +725,9 @@ class CAssetDecoratedMap: CTerrainMap {
         var SearchYOffsets: [Int] = [-1, 0, 1, 0]
 
         if DSearchMap.count != DMap.count {
-            resize(array: &DSearchMap, size: DMap.count, defaultValue: [])
+            CHelper.resize(array: &DSearchMap, size: DMap.count, defaultValue: [])
             for var Row in DSearchMap {
-                resize(array: &Row, size: DMap[0].count, defaultValue: Int())
+                CHelper.resize(array: &Row, size: DMap[0].count, defaultValue: Int())
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = 0
                 }
@@ -769,7 +776,7 @@ class CAssetDecoratedMap: CTerrainMap {
                         return CTilePosition(x: TempSearch.DX - 1, y: TempSearch.DY - 1)
                     }
                     // if((ETileType::Grass == CurTileType)||(ETileType::Dirt == CurTileType)||(ETileType::Stump == CurTileType)||(ETileType::Rubble == CurTileType)||(ETileType::None == CurTileType)){
-                    if IsTraversable(type: CurTileType) {
+                    if CTerrainMap.IsTraversable(type: CurTileType) {
                         SearchQueue.append(TempSearch)
                     }
                 }

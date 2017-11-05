@@ -53,17 +53,6 @@ class CPosition {
         return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
     }
 
-    // https://stackoverflow.com/questions/42821473/in-swift-can-i-write-a-generic-function-to-resize-an-array
-    // there is no default resize function in swift for lists
-    func resize<T>(array: inout [T], size: Int, defaultValue: T) {
-        while array.count < size {
-            array.append(defaultValue)
-        }
-        while array.count > size {
-            array.removeLast()
-        }
-    }
-
     // calculate change, and give new direction
     func DirectionTo(pos: CPosition) -> EDirection {
         let DeltaPosition: CPosition = CPosition(x: pos.DX - DX, y: pos.DY - DY)
@@ -126,9 +115,9 @@ class CPosition {
             DHalfTileWidth = width / 2
             DHalfTileHeight = height / 2
 
-            resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
+            CHelper.resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
             for (i, _) in DOctant.enumerated() {
-                resize(array: &DOctant[i], size: DTileWidth, defaultValue: EDirection.Max)
+                CHelper.resize(array: &DOctant[i], size: DTileWidth, defaultValue: EDirection.Max)
             }
         }
 
