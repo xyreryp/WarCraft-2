@@ -326,14 +326,14 @@ class CBattleMode: CApplicationMode {
                             SearchColor = PixelType.Color()
                         }
                         if SearchColor != context.DPlayerColor {
-                            context.DSelectedPlayerAssets = [CPlayerAsset]()
+                            context.DSelectedPlayerAssets.removeAll()
                         }
                         if ShiftPressed {
                             if !(context.DSelectedPlayerAssets.count > 0) {
                                 if let TempAsset = context.DSelectedPlayerAssets.first {
                                     if TempAsset.Color() != context.DPlayerColor {
 //                                        context.DSelectedPlayerAssets.clear()
-                                        context.DSelectedPlayerAssets = [CPlayerAsset]()
+                                        context.DSelectedPlayerAssets.removeAll()
                                     }
                                 }
                             }
@@ -545,67 +545,61 @@ class CBattleMode: CApplicationMode {
                     CBattleMode.DBattleWon = true
                 }
             }
-            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && context.DGameModel.Player(color: EPlayerColor(Index)).IsAI() {
+            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
                 context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
             }
         }
 
         // if there is only one player left in battle, battle ends
-        if PlayerLeft == 1 {
-            context.ChangeApplicationMode(CEndOfBattleMode.Instance())
-        }
+        // if PlayerLeft == 1 {
+        //     context.ChangeApplicationMode(CEndOfBattleMode.Instance())
+        // }
 
-        // PrintDebug(DEBUG_LOW, "Finished 1st for loop and started 2nd for loop\n")
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
-                var PlayerCapability = CPlayerCapability.FindCapability(context.DPlayerCommands[Index].DAction)
-                if PlayerCapability {
-                    var NewTarget: CPlayerAsset
-
-                    if (CPlayerCapability.ETargetType.None != PlayerCapability.TargetType()) && (CPlayerCapability.ETargetType.Player != PlayerCapability.TargetType()) {
-                        if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-                            NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(context.DPlayerCommands[Index].DTargetLocation, true)
-                        } else {
-                            // Not sure if need a let; got rid of a lock()
-                            NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(context.DPlayerCommands[Index].DTargetLocation, context.DPlayerCommands[Index].DTargetType)
+                if let PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction) {
+                    if PlayerCapability != nil {
+                        var NewTarget: CPlayerAsset
+                        
+                        if (CPlayerCapability.ETargetType.None != PlayerCapability!.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability!.DTargetType) {
+                            if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
+                                NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
+                            } else {
+                                // Not sure if need a let; got rid of a lock()
+                                NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
+                            }
                         }
-                    }
-
-                    // PrintDebug(DEBUG_LOW, "Started 3rd for loop (nested)\n")
-                    for WeakActor in context.DPlayerCommands[Index].DActors {
-                        if let Actor = WeakActor {
-                            let NewActor = FindAssetObj(Actor.AssetID())
-
-                            if PlayerCapability.CanApply(NewActor, context.DGameModel.Player(EPlayerColor(Index)), NewTarget) && (NewActor.Interruptible() || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
-                                PlayerCapability.ApplyCapability(NewActor, context.DGameModel.Player(EPlayerColor(Index)), NewTarget)
+                        for WeakActor in context.DPlayerCommands[Index].DActors {
+                            if let Actor:CPlayerAsset? = WeakActor {
+                                if PlayerCapability!.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
+                                    PlayerCapability?.ApplyCapability(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
+                                }
                             }
                         }
                     }
-
-                    //                    PrintDebug(DEBUG_LOW, "Finished 3rd for loop (nested)\n")
                 }
                 context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }
         }
 
-        //        PrintDebug(DEBUG_LOW, "Finished 2nd for loop(nested)\n")
         // MARK: - Timestep()
         context.DGameModel.Timestep()
         //        PrintDebug(DEBUG_LOW, "Started 1st while (4th loop)\n")
 
         // MARK: PLEASE CHECK. TRYING TO MAKE SURE REMOVAL OF ITEM IS SAFE
         for (Index, AssetItem) in context.DSelectedPlayerAssets.enumerated().reversed() {
-            if let Asset = AssetItem { // WeakAsset should never return nil?
-                if context.DGameModel.ValidAsset(Asset) && Asset.Alive() {
-                    if Asset.Speed() && (EAssetAction.Capability == Asset.Action()) {
-                        var Command = Asset.CurrentCommand()
-                        if Command.DAssetTarget && (EAssetAction.Construct == Command.DAssetTarget.Action()) {
+            if let Asset:CPlayerAsset? = AssetItem { // WeakAsset should never return nil?
+                if context.DGameModel.ValidAsset(asset: Asset!) && Asset!.Alive() {
+                    if Asset!.Speed() != 0 && (EAssetAction.Capability == Asset!.Action()) {
+                        var Command = Asset!.CurrentCommand()
+                        if (Command.DAssetTarget != nil) && (EAssetAction.Construct == Command.DAssetTarget?.Action()) {
                             // var TempEvent: SGameEvent NEED TO ADD
+                            var TempEvent: SGameEvent
                             context.DSelectedPlayerAssets.removeAll()
-                            context.DSelectedPlayerAssets.append(Command.DAssetTarget)
+                            context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
                             TempEvent.DType = EEventType.Selection
-                            TempEvent.DAsset = Command.DAssetTarget
-                            context.DGameModel.Player(context.DPlayerColor).AddGameEvent(TempEvent)
+                            TempEvent.DAsset = Command.DAssetTarget!
+                            context.DGameModel.Player(color: context.DPlayerColor).AddGameEvent(TempEvent)
                             break
                         }
                     }
