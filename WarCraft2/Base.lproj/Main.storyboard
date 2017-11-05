@@ -769,7 +769,7 @@
                 </viewController>
                 <customObject id="oFS-va-uGF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-658" y="1356"/>
+            <point key="canvasLocation" x="-912" y="1250"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="tR0-hr-J4W">

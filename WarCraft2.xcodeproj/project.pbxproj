@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4999BB971FAF943E0080C019 /* ResourceRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999BB961FAF943E0080C019 /* ResourceRenderer.swift */; };
 		4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B12BCC71F8C376100F1E62D /* SoundManager.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
 		4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */; };
@@ -90,6 +91,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4999BB961FAF943E0080C019 /* ResourceRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRenderer.swift; sourceTree = "<group>"; };
 		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
+				4999BB961FAF943E0080C019 /* ResourceRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
+				4999BB971FAF943E0080C019 /* ResourceRenderer.swift in Sources */,
 				DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
 				E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */,

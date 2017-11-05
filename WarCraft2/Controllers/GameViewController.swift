@@ -181,6 +181,7 @@ class CGView: NSView {
         let context = NSGraphicsContext.current!.cgContext
         let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
         mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        
     }
 }
 
