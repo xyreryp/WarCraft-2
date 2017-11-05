@@ -39,10 +39,7 @@ class CPlayerCapabilityMove: CPlayerCapability {
 
         override func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
-            // FIXME: SGameEvent is a struct in GameModel
             var TempEvent: SGameEvent
-
-            // FIXME: EEventType is a struct in GameModel
             TempEvent.DType = EEventType.Acknowledge
             TempEvent.DAsset = DActor
             DPlayerData.AddGameEvent(event: TempEvent)
@@ -196,7 +193,7 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
 
 class CPlayerCapabilityStandGround: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitystandground: CPlayerCapabilityStandGround) {
+        init(cplayercapabilitystandground _: CPlayerCapabilityStandGround) {
             // FIXME: Call Register of CPlayerCapability... This is likely to be incorrect
             CPlayerCapability.Register(capability: CPlayerCapabilityStandGround())
         }
@@ -280,7 +277,7 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
 
 class CPlayerCapabilityCancel: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitycancel: CPlayerCapabilityCancel) {
+        init(cplayercapabilitycancel _: CPlayerCapabilityCancel) {
             CPlayerCapability.Register(capability: CPlayerCapabilityCancel())
         }
     }
@@ -312,12 +309,12 @@ class CPlayerCapabilityCancel: CPlayerCapability {
                 if EAssetAction.Construct == AssetCommand.DAction {
                     // FIXME: Not sure of a proper way to check if an object is nil or not
                     if AssetCommand.DAssetTarget != nil {
-                        AssetCommand.DAssetTarget.CurrentCommand().DActivatedCapability.Cancel()
+                        AssetCommand.DAssetTarget?.CurrentCommand().DActivatedCapability?.Cancel()
                     } else if AssetCommand.DActivatedCapability != nil {
-                        AssetCommand.DActivatedCapability.Cancel()
+                        AssetCommand.DActivatedCapability?.Cancel()
                     }
                 } else if AssetCommand.DActivatedCapability != nil {
-                    AssetCommand.DActivatedCapability.Cancel()
+                    AssetCommand.DActivatedCapability?.Cancel()
                 }
             }
             return true
@@ -360,7 +357,7 @@ class CPlayerCapabilityCancel: CPlayerCapability {
 
 class CPlayerCapabilityConvey: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilityconvey: CPlayerCapabilityConvey) {
+        init(cplayercapabilityconvey _: CPlayerCapabilityConvey) {
             CPlayerCapability.Register(capability: CPlayerCapabilityConvey())
         }
     }
@@ -388,7 +385,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
 
             TempEvent.DType = EEventType.Acknowledge
             TempEvent.DAsset = DActor
-            DPlayerData.AddGameEvent(TempEvent)
+            DPlayerData.AddGameEvent(event: TempEvent)
 
             DActor.PopCommand()
             if DActor.DLumber > 0 {
@@ -443,7 +440,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
         NewCommand.DAction = EAssetAction.Capability
         NewCommand.DCapability = AssetCapabilityType()
         NewCommand.DAssetTarget = target
-        NewCommand.DActivedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
+        NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
         actor.ClearCommand()
         actor.PushCommand(command: NewCommand)
 
@@ -453,8 +450,8 @@ class CPlayerCapabilityConvey: CPlayerCapability {
 
 class CPlayerCapabilityPatrol: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilitypatrol: CPlayerCapabilityPatrol) {
-            cplayercapabilitypatrol.Register(capability: CPlayerCapabilityPatrol())
+        init(cplayercapabilitypatrol _: CPlayerCapabilityPatrol) {
+            CPlayerCapability.Register(capability: CPlayerCapabilityPatrol())
         }
     }
 
@@ -528,7 +525,7 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
             var NewCommand: SAssetCommand
 
             NewCommand.DAction = EAssetAction.Capability
-            NewCommand.DCapability = AssetsCapabilityType()
+            NewCommand.DCapability = AssetCapabilityType()
             NewCommand.DAssetTarget = target
             NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
             actor.ClearCommand()
@@ -545,9 +542,9 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
 class CPlayerCapabilityAttack: CPlayerCapability {
 
     class CRegistrant {
-        init(cplayercapabilityattack: CPlayerCapabilityAttack) {
+        init(cplayercapabilityattack _: CPlayerCapabilityAttack) {
             /// FIXME: access super super class
-            cplayercapabilityattack.Register(capability: CPlayerCapabilityAttack())
+            CPlayerCapability.Register(capability: CPlayerCapabilityAttack())
         }
     }
 
@@ -576,7 +573,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
 
             TempEvent.DType = EEventType.Acknowledge
             TempEvent.DAsset = DActor
-            DPlayerData.AddGameEvent(TempEvent)
+            DPlayerData.AddGameEvent(event: TempEvent)
 
             AssetCommand.DAction = EAssetAction.Attack
             AssetCommand.DAssetTarget = DTarget
@@ -585,7 +582,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
 
             AssetCommand.DAction = EAssetAction.Walk
             if !DActor.TileAligned() {
-                DActor.Direction(DirectionOpposite(DActor.Position().TileOctant()))
+                DActor.Direction(direction: DirectionOpposite(dir: DActor.Position().TileOctant()))
             }
             DActor.PushCommand(command: AssetCommand)
             return true
@@ -620,7 +617,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
             var NewCommand: SAssetCommand
 
             NewCommand.DAction = EAssetAction.Capability
-            NewCommand.DCapability = AssetsCapabilityType()
+            NewCommand.DCapability = AssetCapabilityType()
             NewCommand.DAssetTarget = target
             NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
             actor.ClearCommand()
@@ -633,8 +630,8 @@ class CPlayerCapabilityAttack: CPlayerCapability {
 
 class CPlayerCapabilityRepair: CPlayerCapability {
     class CRegistrant {
-        init(cplayercapabilityrepair: CPlayerCapabilityRepair) {
-            cplayercapabilityrepair.Register(capability: CPlayerCapabilityRepair())
+        init(cplayercapabilityrepair _: CPlayerCapabilityRepair) {
+            CPlayerCapability.Register(capability: CPlayerCapabilityRepair())
         }
     }
 
@@ -661,7 +658,7 @@ class CPlayerCapabilityRepair: CPlayerCapability {
 
             TempEvent.DType = EEventType.Acknowledge
             TempEvent.DAsset = DActor
-            DPlayerData.AddGameEvent(TempEvent)
+            DPlayerData.AddGameEvent(event: TempEvent)
 
             AssetCommand.DAction = EAssetAction.Repair
             AssetCommand.DAssetTarget = DTarget
@@ -670,7 +667,7 @@ class CPlayerCapabilityRepair: CPlayerCapability {
 
             AssetCommand.DAction = EAssetAction.Walk
             if !DActor.TileAligned() {
-                DActor.Direction(DirectionOpposite(DActor.Position().TileOctant()))
+                DActor.Direction(direction: DirectionOpposite(dir: DActor.Position().TileOctant()))
             }
             DActor.PushCommand(command: AssetCommand)
             return true
@@ -708,7 +705,7 @@ class CPlayerCapabilityRepair: CPlayerCapability {
             var NewCommand: SAssetCommand
 
             NewCommand.DAction = EAssetAction.Capability
-            NewCommand.DCapability = AssetsCapabilityType()
+            NewCommand.DCapability = AssetCapabilityType()
             NewCommand.DAssetTarget = target
             NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
             actor.ClearCommand()
