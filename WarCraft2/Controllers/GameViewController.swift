@@ -68,10 +68,14 @@ class GameViewController: NSViewController, viewToController {
         } catch {
             print("cant load map")
         }
+        skscene?.size.width = 10
+        skscene?.size.height = 10
+        skscene?.scaleMode = .aspectFit
 
         map.RenderTerrain()
+        let cgr = CGraphicResourceContext()
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        // mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
+        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 512, DHeight: 512))
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)

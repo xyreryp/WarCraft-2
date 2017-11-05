@@ -113,7 +113,7 @@ class CViewportRenderer {
         }
     }
 
-    func DrawViewport(surface: CGraphicSurface, typesurface: CGraphicSurface,
+    func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
                       selectionmarkerlist: inout [CPlayerAsset],
                       selectrect _: inout SRectangle, curcapability: EAssetCapabilityType) {
 
@@ -123,8 +123,8 @@ class CViewportRenderer {
         var PlaceType: EAssetType = EAssetType.None
         var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
-        DLastViewportWidth = surface.Width()
-        DLastViewportHeight = surface.Height()
+        DLastViewportWidth = Int(surface.frame.width)
+        DLastViewportHeight = Int(surface.frame.height)
 
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
@@ -155,7 +155,7 @@ class CViewportRenderer {
             break // do nothing
         }
         // FIXME:
-        DMapRenderer.DrawMap(surface: surface as! SKScene, typesurface: typesurface as! SKScene, rect: TempRectangle)
+        DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
         //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
         //  DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)

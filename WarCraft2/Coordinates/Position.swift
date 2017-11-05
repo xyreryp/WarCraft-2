@@ -9,35 +9,31 @@
 import Foundation
 
 class CPosition {
-    // change in X and Y
-    var DX: Int = 0
-    var DY: Int = 0
+    var DX: Int
+    var DY: Int
 
-    // Height and width of a tile
-    var DTileWidth: Int = 1
-    var DTileHeight: Int = 1
-
-    // Height and width of a half tile
-    var DHalfTileWidth: Int = 0
-    var DHalfTileHeight: Int = 0
-
-    // list of list EDirection used for... ?
-    var DOctant: [[EDirection]] = [[EDirection.Max]]
-
-    // list of list EDirection used for... ?
-    var DTileDirections: [[EDirection]] =
+    static var DTileWidth: Int = 1
+    static var DTileHeight: Int = 1
+    static var DHalfTileWidth: Int = 0
+    static var DHalfTileHeight: Int = 0
+    static var DOctant: [[EDirection]] = [[EDirection.Max]]
+    static var DTileDirections: [[EDirection]] =
         [
             [EDirection.NorthWest, EDirection.North, EDirection.NorthEast],
             [EDirection.West, EDirection.Max, EDirection.East],
             [EDirection.SouthWest, EDirection.South, EDirection.SouthEast],
         ]
 
-    // different initializers/constructors
-    init() {}
+    init() {
+        DX = 0
+        DY = 0
+    }
+
     init(x: Int, y: Int) {
         DX = x
         DY = y
     }
+
     init(pos: CPosition) {
         DX = pos.DX
         DY = pos.DY
@@ -57,8 +53,8 @@ class CPosition {
     func DirectionTo(pos: CPosition) -> EDirection {
         let DeltaPosition: CPosition = CPosition(x: pos.DX - DX, y: pos.DY - DY)
 
-        var DivX: Int = DeltaPosition.DX / HalfTileWidth()
-        var DivY: Int = DeltaPosition.DY / HalfTileHeight()
+        var DivX: Int = DeltaPosition.DX / CPosition.HalfTileWidth()
+        var DivY: Int = DeltaPosition.DY / CPosition.HalfTileHeight()
 
         var Div = Int()
         DivX = 0 > DivX ? -DivX : DivX
@@ -70,8 +66,8 @@ class CPosition {
             DeltaPosition.DY /= Div
         }
 
-        DeltaPosition.DX += HalfTileWidth()
-        DeltaPosition.DY += HalfTileHeight()
+        DeltaPosition.DX += CPosition.HalfTileWidth()
+        DeltaPosition.DY += CPosition.HalfTileHeight()
 
         if 0 > DeltaPosition.DX {
             DeltaPosition.DX = 0
@@ -80,17 +76,17 @@ class CPosition {
             DeltaPosition.DY = 0
         }
 
-        if TileWidth() <= DeltaPosition.DX {
-            DeltaPosition.DX = TileWidth() - 1
+        if CPosition.TileWidth() <= DeltaPosition.DX {
+            DeltaPosition.DX = CPosition.TileWidth() - 1
         }
-        if TileHeight() <= DeltaPosition.DY {
-            DeltaPosition.DY = TileHeight() - 1
+        if CPosition.TileHeight() <= DeltaPosition.DY {
+            DeltaPosition.DY = CPosition.TileHeight() - 1
         }
         return DeltaPosition.TileOctant()
     }
 
     func TileOctant() -> EDirection {
-        return DOctant[DY % DTileHeight][DX % DTileWidth]
+        return CPosition.DOctant[DY % CPosition.DTileHeight][DX % CPosition.DTileWidth]
     }
 
     // x^2 + y^2, to be passed into square root
@@ -108,7 +104,7 @@ class CPosition {
     }
 
     // Set the Octant's directions
-    func SetTileDimensions(width: Int, height: Int) {
+    static func SetTileDimensions(width: Int, height: Int) {
         if (0 < width) && (0 < height) {
             DTileWidth = width
             DTileHeight = height
@@ -220,22 +216,22 @@ class CPosition {
     }
 
     // getter for DTileWidth
-    func TileWidth() -> Int {
+    static func TileWidth() -> Int {
         return DTileWidth
     }
 
     // getter for DTileHeight
-    func TileHeight() -> Int {
+    static func TileHeight() -> Int {
         return DTileHeight
     }
 
     // getter for DHalfTileWidth
-    func HalfTileWidth() -> Int {
+    static func HalfTileWidth() -> Int {
         return DHalfTileWidth
     }
 
     // getter for DHalfTileHeight
-    func HalfTileHeight() -> Int {
+    static func HalfTileHeight() -> Int {
         return DHalfTileHeight
     }
 }

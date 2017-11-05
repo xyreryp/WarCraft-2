@@ -27,7 +27,7 @@ protocol PMapRenderer {
     func DetailedMapHeight() -> Int
 
     // functions to be implemented in CMapRenderer
-    func DrawMap(surface: SKScene, typesurface: SKScene, rect: SRectangle)
+    func DrawMap(surface: SKScene, typesurface: CGraphicResourceContext, rect: SRectangle)
     func DrawMiniMap(ResourceContext: CGraphicResourceContext)
 }
 
@@ -260,7 +260,7 @@ class CMapRenderer: PMapRenderer {
         return DDMap.Height() * DTileset.TileHeight()
     }
 
-    func DrawMap(surface: SKScene, typesurface _: SKScene, rect: SRectangle) {
+    func DrawMap(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
         var TileWidth: Int = Int()
         var TileHeight: Int = Int()
 
