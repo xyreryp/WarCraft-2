@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 class CHelper {
     static func resize<T>(array: inout [T], size: Int, defaultValue: T) {
         while array.count < size {

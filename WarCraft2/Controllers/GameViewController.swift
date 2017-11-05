@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import SpriteKit
+import AppKit
 
 var peasantSelected = false
 
@@ -19,12 +20,13 @@ protocol viewToController {
 
 class GameViewController: NSViewController, viewToController {
 
-    var skview = GameView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900))
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 2000, height: 2000))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
     var application = CApplicationData()
-
+    var timer = CGPoint(x: 500, y: -200)
+    var time = Timer()
     //    override func viewDidLoad() {
     //        super.viewDidLoad()
     //        // Do view setup here.
@@ -62,7 +64,7 @@ class GameViewController: NSViewController, viewToController {
         var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
         do {
-            try map.LoadMap(fileToRead: "mountain")
+            try map.LoadMap(fileToRead: "bay")
         } catch {
             print("cant load map")
         }
@@ -71,15 +73,38 @@ class GameViewController: NSViewController, viewToController {
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
 
-        // call asset renderer
-        // declare asset renderer
-        // draw assets
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
-        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
+        let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
+        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+
+        //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+
+        //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
+    }
+
+    @objc func timerAction() {
+        if timer.x == 800 {
+            time.invalidate()
+        }
+        timer.x -= 1
+        timer.y -= 1
+        skscene?.removeAllChildren()
+        //        application.Activate()
+        //        var terrainTileset = application.DTerrainTileset
+        //        let map = CTerrainMap()
+        //        do {
+        //            try map.LoadMap(fileToRead: "mountain")
+        //        } catch {
+        //            print("cant load map")
+        //        }
+        //        map.RenderTerrain()
+        //        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
+        //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
+        movePeasant(x: Int(timer.x), y: Int(timer.y))
     }
 
     func movePeasant(x: Int, y: Int) {
@@ -88,6 +113,7 @@ class GameViewController: NSViewController, viewToController {
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         //        let sklocation = convert(
         assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
+        sound.playMusic(audioFileName: "selected4", audioType: "wav", numloops: 1)
     }
 
     func leftDown(x: Int, y: Int) {
@@ -119,7 +145,7 @@ class GameView: SKView {
     var sound = SoundManager()
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
-        var sklocation = convert(NSEvent.mouseLocation, to: skscene!)
+        let sklocation = convert(NSEvent.mouseLocation, to: skscene!)
         print(NSEvent.mouseLocation.x)
         print(NSEvent.mouseLocation.y)
 
@@ -135,5 +161,32 @@ class GameView: SKView {
         let y = event.scrollingDeltaY
         frame.origin.x += x
         frame.origin.y -= y
+    }
+}
+
+class CGView: NSView {
+    var mapRenderer: CMapRenderer
+
+    init(frame: NSRect, mapRenderer: CMapRenderer) {
+        self.mapRenderer = mapRenderer
+        super.init(frame: frame)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        let context = NSGraphicsContext.current!.cgContext
+        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+    }
+}
+
+extension NSView {
+    func backgroundColor(color: NSColor) {
+        wantsLayer = true
+        layer?.backgroundColor = color.cgColor
     }
 }
