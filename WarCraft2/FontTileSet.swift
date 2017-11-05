@@ -38,44 +38,39 @@ class CFontTileset: CGraphicMulticolorTileset {
         var LineSource = CLineDataSource(source: source)
         var TempString: String?
         var ReturnStatus: Bool = false
-        var BottomOccurence: [Int]
+        var BottomOccurence: [Int]?
         var BestLine: Int = 0
 
-        var hold: CGraphicMulticolorTileset?         //FIX: function from GraphicMultiColorTileSet is called: Told I need to make LoadTileSet static but creates too many errors.
-        if (hold?.LoadTileset(colormap: colormap, source: source))! {
+        if !CGraphicMulticolorTileset.LoadTileset(colormap: colormap, source: source) {
             return false
         }
-        //NOTE: resizes of arrays not neccesary
         
-        do{
-            for index in 0...DTileCount {
-                if (!LineSource.Read(line: &TempString!)) {
+        // NOTE: resizes of arrays not neccesary
+
+        do {
+            for index in 0 ... DTileCount {
+                if !LineSource.Read(line: &TempString!) {
                     return ReturnStatus
                 }
                 DCharacterWidths[index] = Int(TempString!)!
             }
-            for FromIndex in 0...DTileCount {
+            for FromIndex in 0 ... DTileCount {
                 var Values: [String]?
-                //resize
-                if(!LineSource.Read(line: &TempString!)) {
+                // resize
+                if !LineSource.Read(line: &TempString!) {
                     return ReturnStatus
                 }
                 CTokenizer.Tokenize(tokens: &Values!, data: TempString!)
-                if(Values?.count != DTileCount) {
+                if Values?.count != DTileCount {
                     return ReturnStatus
                 }
-                for ToIndex in 0...DTileCount {
+                for ToIndex in 0 ... DTileCount {
                     DDeltaWidths[FromIndex][ToIndex] = Int(Values![ToIndex])!
                 }
             }
             ReturnStatus = true
+        } catch {
         }
-        catch {
-                
-            }
-        
-        
-        
     }
 
     public func CharacterBaseline() -> Int {
