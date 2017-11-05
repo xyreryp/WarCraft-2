@@ -9,8 +9,8 @@
 struct SAssetCommand {
     var DAction: EAssetAction
     var DCapability: EAssetCapabilityType
-    var DAssetTarget: CPlayerAsset
-    var DActivatedCapability: CActivatedPlayerCapability
+    var DAssetTarget: CPlayerAsset?
+    var DActivatedCapability: CActivatedPlayerCapability?
 }
 
 class CPlayerAsset {
@@ -67,12 +67,20 @@ class CPlayerAsset {
         return CPlayerAsset.DUpdateFrequency
     }
 
-    func UpdateFrequency(freq: Int) -> Int {
+    static func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
             CPlayerAsset.DUpdateFrequency = freq
             CPlayerAsset.DUpdateDivisor = 32 * CPlayerAsset.DUpdateFrequency
         }
         return CPlayerAsset.DUpdateFrequency
+    }
+
+    func AssignTurnOrder() {
+        DTurnOrder = UInt(CPlayerAsset.DGenerateRandomNum.Random())
+    }
+
+    func getTurnOrder() -> UInt {
+        return DTurnOrder
     }
 
     func Alive() -> Bool {
@@ -104,6 +112,10 @@ class CPlayerAsset {
         return DGold
     }
 
+    func Gold() -> Int {
+        return DGold
+    }
+
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
         return DGold
@@ -124,12 +136,25 @@ class CPlayerAsset {
         return DLumber
     }
 
+    func Lumber() -> Int {
+        return DLumber
+    }
+
+    func Lumber(lumber: Int) -> Int {
+        DLumber = lumber
+        return DLumber
+    }
+
     func ResetStep() {
         DStep = 0
     }
 
     func IncrementStep() {
         DStep += 1
+    }
+
+    func Step() -> Int {
+        return DStep
     }
 
     func TilePosition() -> CTilePosition {
@@ -170,6 +195,15 @@ class CPlayerAsset {
         return DPosition.TileAligned()
     }
 
+    func Position() -> CPixelPosition {
+        return DPosition
+    }
+
+    func Position(position: CPixelPosition) -> CPixelPosition {
+        DPosition = position
+        return DPosition
+    }
+
     func PositionX() -> Int {
         return DPosition.X()
     }
@@ -182,7 +216,7 @@ class CPlayerAsset {
         return DPosition.Y()
     }
 
-    func PositionX(y: Int) -> Int {
+    func PositionY(y: Int) -> Int {
         return DPosition.Y(y: y)
     }
 
@@ -210,6 +244,15 @@ class CPlayerAsset {
         if !DCommands.isEmpty {
             DCommands.removeLast()
         }
+    }
+
+    func Direction() -> EDirection {
+        return DDirection
+    }
+
+    func Direction(direction: EDirection) -> EDirection {
+        DDirection = direction
+        return DDirection
     }
 
     // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
@@ -282,7 +325,7 @@ class CPlayerAsset {
         case EAssetAction.Decay:
             return false
         case EAssetAction.Capability:
-            return EAssetAction.Construct != Command.DAssetTarget.Action()
+            return EAssetAction.Construct != Command.DAssetTarget?.Action()
         default:
             return true
         }
@@ -350,6 +393,15 @@ class CPlayerAsset {
 
     func MaxHitPoints() -> Int {
         return DType.DHitPoints
+    }
+
+    func HitPoints() -> Int {
+        return DHitPoints
+    }
+
+    func HitPoints(hitpts: Int) -> Int {
+        DHitPoints = hitpts
+        return DHitPoints
     }
 
     func Type() -> EAssetType {

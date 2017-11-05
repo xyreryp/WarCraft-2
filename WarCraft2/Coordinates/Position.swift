@@ -39,11 +39,22 @@ class CPosition {
         DY = pos.DY
     }
 
+    static func TileWidth() -> Int {
+        return DTileWidth
+    }
+    static func TileHeight() -> Int {
+        return DTileHeight
+    }
+    static func HalfTileWidth() -> Int {
+        return DHalfTileWidth
+    }
+    static func HalfTileHeight() -> Int {
+        return DHalfTileHeight
+    }
     // overloaded operators to compare Positions
     static func ==(lhs: CPosition, rhs: CPosition) -> Bool {
         return (lhs.DX == rhs.DX && lhs.DY == rhs.DY)
     }
-
     // overloaded operators to compare Positions
     static func !=(lhs: CPosition, rhs: CPosition) -> Bool {
         return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
@@ -106,10 +117,10 @@ class CPosition {
     // Set the Octant's directions
     static func SetTileDimensions(width: Int, height: Int) {
         if (0 < width) && (0 < height) {
-            DTileWidth = width
-            DTileHeight = height
-            DHalfTileWidth = width / 2
-            DHalfTileHeight = height / 2
+            CTilePosition.DTileWidth = width
+            CTilePosition.DTileHeight = height
+            CTilePosition.DHalfTileWidth = width / 2
+            CTilePosition.DHalfTileHeight = height / 2
 
             CHelper.resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
             for (i, _) in CPosition.DOctant.enumerated() {
@@ -121,8 +132,8 @@ class CPosition {
         var X: Int = 0
         repeat {
             repeat {
-                var XDistance: Int = X - DHalfTileWidth
-                var YDistance: Int = Y - DHalfTileHeight
+                var XDistance: Int = X - CTilePosition.DHalfTileWidth
+                var YDistance: Int = Y - CTilePosition.DHalfTileHeight
                 let NegativeX: Bool = XDistance < 0
                 let NegativeY: Bool = YDistance > 0
 
@@ -164,9 +175,9 @@ class CPosition {
                     }
                 }
                 X += 1
-            } while X < DTileWidth
+            } while X < CTilePosition.DTileWidth
             Y += 1
-        } while Y < DTileHeight
+        } while Y < CTilePosition.DTileHeight
     }
 
     // getter for DX

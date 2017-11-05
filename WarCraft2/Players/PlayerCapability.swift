@@ -37,8 +37,8 @@ class CPlayerCapability {
             return false
         }
 
-        NameRegistry[capability.DName] = capability
-        TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
+        CPlayerCapability.NameRegistry[capability.DName] = capability
+        CPlayerCapability.TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
 
         return true
     }
