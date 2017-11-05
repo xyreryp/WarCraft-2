@@ -390,11 +390,11 @@ class CBattleMode: CApplicationMode {
                                 }
                             } else if ((CPlayerCapability.ETargetType.Terrain == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType)) && ((EAssetType.None == PixelType.AssetType()) && (EPlayerColor.None == PixelType.Color())) {
                                 let NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(pos: TempPosition, addtomap: false)
-                                if PlayerCapability.CanApply(context.DSelectedPlayerAssets.first, context.DGameModel.Player(context.DPlayerColor), NewTarget) {
+                                if PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!) {
                                     // FIXME: lol
                                     var TempEvent: SGameEvent
                                     TempEvent.DType = EEventType.PlaceAction
-                                    TempEvent.DAsset = NewTarget
+                                    TempEvent.DAsset = NewTarget!
                                     context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
                                     
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = context.DCurrentAssetCapability
@@ -535,17 +535,17 @@ class CBattleMode: CApplicationMode {
 
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             // calculate the total number of players left in the battle
-            if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index))?.IsAlive())! {
+            if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAlive())! {
                 PlayerLeft += 1
 
                 // if there is any NPC left in the battle
-                if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index))?.IsAI())! {
+                if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
                     CBattleMode.DBattleWon = false
                 } else {
                     CBattleMode.DBattleWon = true
                 }
             }
-            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && context.DGameModel.Player(EPlayerColor(Index)).IsAI() {
+            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && context.DGameModel.Player(color: EPlayerColor(Index)).IsAI() {
                 context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
             }
         }
