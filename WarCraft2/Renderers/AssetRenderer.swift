@@ -50,7 +50,7 @@ class CAssetRenderer {
         DPlayerMap = map
 
         // DPixelColors.resize((rawValue: EPlayerColor.Max) + 3)
-        CMapRenderer.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
+        CHelper.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
         DPixelColors[EPlayerColor.None.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "none"), cindex: 0)
         DPixelColors[EPlayerColor.Blue.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "blue"), cindex: 0)
         DPixelColors[EPlayerColor.Red.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "red"), cindex: 0)
@@ -988,11 +988,7 @@ class CAssetRenderer {
     //                var XPos, YPos: Int
     //                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
     //                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
-<<<<<<< HEAD
-    //                DTilesets[type.rawValue].DrawTile(surface: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0], colorindex: (DPlayerData?.DColor.rawValue)! - 1) this line.
-=======
     //                DTilesets[type.rawValue].DrawTile(surface: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0], colorindex: (DPlayerData?.DColor.rawValue)! - 1)
->>>>>>> master
     //                XPos = TempPosition.X()
     //                YPos = TempPosition.Y()
     //                for Row in PlacementTiles {
