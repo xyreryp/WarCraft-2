@@ -30,7 +30,7 @@ class CPlayerAssetType {
     var DPiercingDamage: Int = Int()
     var DRange: Int = Int()
     static var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
-    var DTypeStrings: [String] = [
+    static var DTypeStrings: [String] = [
         "None",
         "Peasant",
         "Footman",
@@ -49,7 +49,7 @@ class CPlayerAssetType {
         "CannonTower",
     ]
 
-    var DNameTypeTranslation: [String: EAssetType] = [
+    static var DNameTypeTranslation: [String: EAssetType] = [
         "None": EAssetType.None,
         "Peasant": EAssetType.Peasant,
         "Footman": EAssetType.Footman,
@@ -213,14 +213,14 @@ class CPlayerAssetType {
         return ReturnVector
     }
 
-    func NameToType(name: String) -> EAssetType {
+    static func NameToType(name: String) -> EAssetType {
         if let retVal = DNameTypeTranslation[name] {
             return retVal
         }
         return EAssetType.None
     }
 
-    func TypeToName(type: EAssetType) -> String {
+    static func TypeToName(type: EAssetType) -> String {
         if type.rawValue < 0 || type.rawValue >= DTypeStrings.count {
             return ""
         }
@@ -252,14 +252,15 @@ class CPlayerAssetType {
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     // FIXME: fix
-    func MaxSight() -> Int {
+    static func MaxSight() -> Int {
+        var MaxSightFound: Int = 0
         //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
         //        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
         //        return MaxSightFound!.value.DSight
         return 3
     }
 
-    func LoadTypes(container: CDataContainer) -> Bool {
+    static func LoadTypes(container: CDataContainer) -> Bool {
         let fileItr = container.First()
         if fileItr == nil {
             print("fileItr is nil")
@@ -273,8 +274,7 @@ class CPlayerAssetType {
 
             if let range = FileName.range(of: dat) {
                 if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
-                    let assetType = CPlayerAssetType()
-                    if !assetType.Load(source: container.DataSource(name: FileName)) {
+                    if !CPlayerAssetType.Load(source: container.DataSource(name: FileName)) {
                         print("Failed to load source \(FileName)")
                         continue
                     } else {
@@ -295,19 +295,19 @@ class CPlayerAssetType {
     }
 
     //     TODO: After we for sure know how to read stuff in
-    func Load(source _: CDataSource!) -> Bool {
+    static func Load(source _: CDataSource!) -> Bool {
         // gonna re impleiment using string name of the files
         return false
     }
 
-    func FindDefaultFromName(name: String) -> CPlayerAssetType {
+    static func FindDefaultFromName(name: String) -> CPlayerAssetType {
         if let itr = CPlayerAssetType.DRegistry[name] {
             return itr
         }
         return CPlayerAssetType()
     }
 
-    func FindDefaultFromType(type: EAssetType) -> CPlayerAssetType {
+    static func FindDefaultFromType(type: EAssetType) -> CPlayerAssetType {
         return FindDefaultFromName(name: TypeToName(type: type))
     }
 
