@@ -67,10 +67,10 @@ class CBevel {
         let BottomY: Int = ypos + height
         let LeftX: Int = xpos - DWidth
         let RightX: Int = xpos + width
-        // FIX ME DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: TopY, tileindex: DCornerIndices[0])
-        // FIX ME DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: TopY, tileindex: DCornerIndices[1])
-        // FIX ME DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: BottomY, tileindex: DCornerIndices[2])
-        // FIX ME DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: BottomY, tileindex: DCornerIndices[3])
+        // FIXME: DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: TopY, tileindex: DCornerIndices[0])
+        // FIXME: DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: TopY, tileindex: DCornerIndices[1])
+        // FIXME: DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: BottomY, tileindex: DCornerIndices[2])
+        // FIXME: DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: BottomY, tileindex: DCornerIndices[3])
         for Value in stride(from: 0, through: width, by: DWidth) {
             var Index = 0
             if (Value + DWidth) > width {
