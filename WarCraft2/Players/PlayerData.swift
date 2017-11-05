@@ -18,7 +18,7 @@ class CPlayerData {
     var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DAssets: [CPlayerAsset] = [CPlayerAsset]()
     var DUpgrades: [Bool] = [Bool]()
-    //        var DGameEvents = [SGameEvent]    // TODO: Where
+    var DGameEvents: [SGameEvent] = [] // TODO: Where
     var DGold: Int = Int()
     var DLumber: Int = Int()
     var DGameCycle: Int = Int()
@@ -317,7 +317,7 @@ class CPlayerData {
             if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
                 var Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
-                    if EAssetAction.Construct == Command.DAssetTarget.Action() {
+                    if EAssetAction.Construct == Command.DAssetTarget?.Action() {
                         continue
                     }
                 }
@@ -485,21 +485,24 @@ class CPlayerData {
     }
 
     // TODO: What is SGameEvent
-    //    func GameEvents() -> [SGameEvent] {
-    //        return DGameEvents
-    //    }
+    func GameEvents() -> [SGameEvent] {
+        return DGameEvents
+    }
+
     //
-    //    func ClearGameEvents() {
-    //        DGameEvents.clear()
-    //    }
+    func ClearGameEvents() {
+        DGameEvents.removeAll()
+    }
+
     //
-    //    func AddGameEvent(event: SGameEvent) {
-    //        DGameEvents.push_back(event)
-    //    }
+    func AddGameEvent(event: SGameEvent) {
+        DGameEvents.append(event)
+    }
+
     //
-    //    func AppendGameEvents(events: [SGameEvent]) {
-    //        DGameEvents.insert(DGameEvents.end(), events.begin(), events.end())
-    //    }
+    func AppendGameEvents(events: [SGameEvent]) {
+        DGameEvents += events
+    }
 
     func RangeToDistanceSquared(range: Int) -> Int {
         let cpos = CPosition()

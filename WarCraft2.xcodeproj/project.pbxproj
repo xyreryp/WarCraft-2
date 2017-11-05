@@ -25,7 +25,7 @@
 		8834FBD11FA1BE46003E81E5 /* CommentSkipLineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCD1FA1BE46003E81E5 /* CommentSkipLineDataSource.swift */; };
 		8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCE1FA1BE46003E81E5 /* DataSink.swift */; };
 		8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */; };
-		885B24371FA6B7A1004C1724 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B24361FA6B7A1004C1724 /* GameModel.swift */; };
+		8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B24361FA6B7A1004C1724 /* GameModel.swift */; };
 		88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */; };
 		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
@@ -505,12 +505,12 @@
 				DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
 				E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */,
-				885B24371FA6B7A1004C1724 /* GameModel.swift in Sources */,
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 				4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */,
+				8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */,
 				DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */,
 				9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */,
 				9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */,
