@@ -7,9 +7,11 @@
 //
 
 import Foundation
-protocol CApplicationMode {
+class CApplicationMode {
     func InitializeChange(context _: CApplicationData)
     func Input(context _: CApplicationData)
     func Calculate(context _: CApplicationData)
     func Render(context _: CApplicationData)
+    
+    init() {}
 }

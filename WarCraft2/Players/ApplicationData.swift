@@ -59,7 +59,7 @@ class CApplicationData {
     // pretty sure this is a pointer to itself
     var DApplicationPointer: CApplicationData? = CApplicationData()
     var DDeleted: Bool = Bool()
-    var DGameSessionType: EGameSessionType?
+//    var DGameSessionType: EGameSessionType
     var DSoundVolume: Float = Float()
     var DMusicVolume: Float = Float()
     var DUserName: String = String()
@@ -83,7 +83,7 @@ class CApplicationData {
     var DUnitActionSurface: CGraphicSurface
     var DResourceSurface: CGraphicSurface
     var DMapSelectListViewSurface: CGraphicSurface
-    var DMiniMapViewportColor: uint32?
+    var DMiniMapViewportColor: uint32 = uint32()
 
     // coordinate and map and options related things
     var DBorderWidth: Int = Int()
@@ -101,7 +101,7 @@ class CApplicationData {
     var DMapSelectListViewXOffset: Int = Int()
     var DMapSelectListViewYOffset: Int = Int()
     var DSelectedMapIndex: Int = Int()
-    var DSelectedMap: CAssetDecoratedMap?
+    var DSelectedMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DOptionsEditSelected: Int = Int()
     var DPotionsEditSelectedCharacter: Int = Int()
     var DOptionsEditLocations: [SRectangle] = [SRectangle]()
@@ -111,13 +111,13 @@ class CApplicationData {
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
     // Map Renderer
-    var DMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
     // cursor things
     // TODO: uncomment later
     // var DCursorset: CCursorSet? = nil
     var DCursorIndices: [Int] = [Int](repeating: Int(), count: ECursorType.ctMax.rawValue)
-    var DCursorType: ECursorType?
+    var DCursorType: ECursorType = ECursorType.ctPointer
 
     // sound things
     // TODO: uncomment later
@@ -131,7 +131,7 @@ class CApplicationData {
     var DCurrentLoadingStep: Int = Int()
 
     // tileset things
-    var DLoadingResourceContext: CGraphicResourceContext?
+    var DLoadingResourceContext: CGraphicResourceContext = CGraphicResourceContext()
     var DSplashTileset = CGraphicTileset()
     var DMarkerTileset = CGraphicTileset() // needed for assetRenderer
     var DBackgroundTileset = CGraphicTileset()
@@ -141,9 +141,9 @@ class CApplicationData {
     var DListViewIconTileset = CGraphicTileset()
 
     // TODO: Import bevel stuff and uncomment
-    var DMiniBevel: CBevel
-    var DInnerBevel: CBevel
-    var DOuterBevel: CBevel
+    var DMiniBevel: CBevel = CBevel(tileset: CGraphicTileset())
+    var DInnerBevel: CBevel = CBevel(tileset: CGraphicTileset())
+    var DOuterBevel: CBevel = CBevel(tileset: CGraphicTileset())
 
     // more tileset things
     var DMapRendererConfigurationData: [Character] = [Character]()
@@ -166,10 +166,15 @@ class CApplicationData {
     var DArrowTileset = CGraphicTileset() // needed for assetRenderer
 
     // all renderer things
-    var DAssetRenderer: CAssetRenderer
-    var DFogRenderer: CFogRenderer
-    var DViewportRenderer: CViewportRenderer
-    var DMiniMapRenderer: CMiniMapRenderer
+    var DAssetRenderer: CAssetRenderer = CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
+    
+    var DFogRenderer: CFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
+    
+    var DViewportRenderer: CViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
+    
+    var DMiniMapRenderer: CMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
+    
+    
     // TODO: finish these types of renderers
     //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
     // var DUnitActionRenderer: CUnitActionRenderer? = nil
@@ -181,18 +186,15 @@ class CApplicationData {
 
     // game model things
     var DPlayerColor: EPlayerColor = EPlayerColor.None
-    // TODO: import CGameModel
     var DGameModel: CGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
-    // FIXME: type of expression is ambigous without more context?
     var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
-    // FIXME: DAIPlayer supposed to have size of EPlayerColor.Max.rawValue
-    var DAIPlayers = [CAIPlayer]()
+    var DAIPlayers = [CAIPlayer](repeating:CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
     var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
     var DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
 
     // application mode things
-    var DApplicationMode: CApplicationMode
-    var DNextApplicationMode: CApplicationMode
+    var DApplicationMode: CApplicationMode = CApplicationMode()
+    var DNextApplicationMode: CApplicationMode = CApplicationMode()
 
     // hotkeys unordererd maps --> dictionaries
     var DUnitHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
@@ -236,12 +238,7 @@ class CApplicationData {
 
     var DAssetMap = CAssetDecoratedMap()
     // playerData needed for assetRenderer
-    //    var DPlayer: CPlayerData
-    // array of tilesets for all the assset
-    //    var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
-
-    //    var DAssetRenderer: CAssetRenderer
-
+    var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
     init() {
     }
 
@@ -552,15 +549,15 @@ class CApplicationData {
     }
 
     func RenderSplashStep() {
-        var RenderAlpha: Double = Double(DCurrentLoadingStep) / Double(DTotalLoadingSteps)
+        let RenderAlpha: Double = Double(DCurrentLoadingStep) / Double(DTotalLoadingSteps)
         DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 1)
 
         if RenderAlpha > 0.0 {
             DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 0)
-            var ResourceContext = DDoubleBufferSurface.CreateResourceContext()
+            let ResourceContext = DDoubleBufferSurface.CreateResourceContext()
             ResourceContext.SetSourceSurface(srcsurface: DWorkingBufferSurface, xpos: 0, ypos: 0)
 
-            ResourceContext.PaintWithAlpha(alpha: RenderAlpha as! CGFloat)
+            ResourceContext.PaintWithAlpha(alpha: CGFloat(RenderAlpha))
             DCurrentLoadingStep += 1
         }
     }
@@ -582,7 +579,6 @@ class CApplicationData {
         var DetailedMapWidth: Int
         var DetailedMapHeight: Int
 
-        // FIXME: Need DGameModel
         DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: DLoadingPlayerColors)
         let Index = 1
         for Index in Index ..< EPlayerColor.Max.rawValue {
@@ -638,8 +634,8 @@ class CApplicationData {
         DMiniMapYOffset = DBorderWidth
         //        DUnitDescriptionYOffset = DMiniMapYOffset + (LeftPanelWidth - DInnerBevel.Width() * 3) + DOuterBevel.Width() * 2
         //        MinUnitDescrHeight = DUnitDescriptionRenderer.MinimumHeight(LeftPanelWidth - DOuterBevel.Width() * 4, 9)
-        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
-        DViewportYOffset = DBorderWidth
+//        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
+//        DViewportYOffset = DBorderWidth
 
         //        var MainWindowMinHeight = DUnitDescriptionYOffset + MinUnitDescrHeight + DUnitActionRenderer.MinimumHeight() + DOuterBevel.Width() * 5
         //        DMainWindow.SetMinSize(CApplicationData.INITIAL_MAP_WIDTH, MainWindowMinHeight)/        DMainWindow.SetMaxSize(DViewportXOffset + DetailedMapWidth + DBorderWidth, max(MainWindowMinHeight, DetailedMapHeight + DBorderWidth * 2))
@@ -659,7 +655,7 @@ class CApplicationData {
         for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
             if var asset: CPlayerAsset? = WeakAsset {
                 var ass = asset
-                DViewportRenderer.CenterViewport(pos: ass!.Position())
+                DViewportRenderer.CenterViewport(pos: &ass!.DPosition)
                 break
             }
         }
