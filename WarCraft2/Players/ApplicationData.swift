@@ -73,16 +73,16 @@ class CApplicationData {
     //    std::shared_ptr<CGUICursor> DBlankCursor;
 
     // different surfaces
-    var DDoubleBufferSurface: CGraphicSurface?
-    var DWorkingBufferSurface: CGraphicSurface?
+    var DDoubleBufferSurface: SKScene = SKScene()
+    var DWorkingBufferSurface: SKScene = SKScene()
     //    var DWorkingBufferSurface: SKScene?
-    var DMiniMapSurface: CGraphicSurface?
-    var DViewportSurface: CGraphicSurface?
-    var DViewportTypeSurface: CGraphicSurface?
-    var DUnitDescriptionSurface: CGraphicSurface?
-    var DUnitActionSurface: CGraphicSurface?
-    var DResourceSurface: CGraphicSurface?
-    var DMapSelectListViewSurface: CGraphicSurface?
+    var DMiniMapSurface: SKScene = SKScene()
+    var DViewportSurface: SKScene = SKScene()
+    var DViewportTypeSurface: SKScene = SKScene()
+    var DUnitDescriptionSurface: SKScene = SKScene()
+    var DUnitActionSurface: SKScene = SKScene()
+    var DResourceSurface: SKScene = SKScene()
+    var DMapSelectListViewSurface: SKScene = SKScene()
     var DMiniMapViewportColor: uint32 = uint32()
 
     // coordinate and map and options related things
@@ -525,8 +525,8 @@ class CApplicationData {
         var TextColor: Int
         var ShadowColor: Int
 
-        pagewidth = (DWorkingBufferSurface?.Width())!
-        pageheight = (DWorkingBufferSurface?.Height())!
+        pagewidth = Int(DWorkingBufferSurface.frame.width)
+        pageheight = Int(DWorkingBufferSurface.frame.height)
 
         let YPos = 0
         let XPos = 0
@@ -549,14 +549,15 @@ class CApplicationData {
 
     func RenderSplashStep() {
         let RenderAlpha: Double = Double(DCurrentLoadingStep) / Double(DTotalLoadingSteps)
-        DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 1)
+        DSplashTileset.DrawTile(skscene: DDoubleBufferSurface, xpos: 0, ypos: 0, tileindex: 1)
 
         if RenderAlpha > 0.0 {
-            DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 0)
-            let ResourceContext = DDoubleBufferSurface?.CreateResourceContext()
-            ResourceContext?.SetSourceSurface(srcsurface: DWorkingBufferSurface!, xpos: 0, ypos: 0)
+            DSplashTileset.DrawTile(skscene: DDoubleBufferSurface, xpos: 0, ypos: 0, tileindex: 0)
+            let ResourceContext = CGraphicResourceContext()
+            // FIXME: DWorkingBufferSurface as! CGraphicSurface
+            ResourceContext.SetSourceSurface(srcsurface: DWorkingBufferSurface as! CGraphicSurface, xpos: 0, ypos: 0)
 
-            ResourceContext?.PaintWithAlpha(alpha: CGFloat(RenderAlpha))
+            ResourceContext.PaintWithAlpha(alpha: CGFloat(RenderAlpha))
             DCurrentLoadingStep += 1
         }
     }
@@ -611,7 +612,8 @@ class CApplicationData {
 
         DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
-        DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface?.Format())!)
+        // FIXME: .Format()?
+        // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
@@ -647,8 +649,8 @@ class CApplicationData {
         var CurWidth: Int
         var CurHeight: Int
 
-        CurWidth = (DViewportSurface?.Width())!
-        CurHeight = (DViewportSurface?.Height())!
+        CurWidth = Int(DViewportSurface.frame.width)
+        CurHeight = Int(DViewportSurface.frame.height)
         DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
 
         for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
