@@ -71,12 +71,12 @@ class GameViewController: NSViewController, viewToController {
 
         map.RenderTerrain()
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
+        // mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-        assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
+        // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
         let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
         view.addSubview(cgview, positioned: .above, relativeTo: skview)
