@@ -38,15 +38,17 @@ class CFontTileset: CGraphicMulticolorTileset {
         var LineSource = CLineDataSource(source: source)
         var TempString: String?
         var ReturnStatus: Bool = false
-        var BottomOccurence: [Int]?
+        var BottomOccurence: [Int]
         var BestLine: Int = 0
 
-        if !CGraphicMulticolorTileset.LoadTileset(colormap: colormap, source: source) {
+        if !CGraphicMulticolorTileset.LoadTileset(colormap: colormap, source: source) {         //not a static func so can't do this
             return false
         }
         
         // NOTE: resizes of arrays not neccesary
-
+        DCharacterBaseline = DTileHeight
+        
+        //Try Catch here, need to figure out swift error handling
         do {
             for index in 0 ... DTileCount {
                 if !LineSource.Read(line: &TempString!) {
@@ -70,6 +72,22 @@ class CFontTileset: CGraphicMulticolorTileset {
             }
             ReturnStatus = true
         } catch {
+        }
+        //Try Catch here, need to figure out swift error handling
+        
+        //NOTE: Resize ignored
+        for Index in 0...BottomOccurence.count {
+            if BottomOccurence[BestLine] < BottomOccurence[Index] {
+                BestLine = Index
+            }
+        }
+        
+        for Index in 0...DTileCount {
+            DTopOpaque = DTileHeight
+            DBottomOpaque = 0
+            DSearchCall = 0
+            DSurfaceTileset.Transform(DSurfaceTileset, Index*DTileHeight, DTileWidth, DTileHeight, 0, Index*DTileHeight, self, TopBottomSearch) //TODO: function not written yet
+            DCharacterTops[Index] = DTopOpque
         }
     }
 
