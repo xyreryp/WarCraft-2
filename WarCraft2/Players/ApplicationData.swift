@@ -59,7 +59,7 @@ class CApplicationData {
     // pretty sure this is a pointer to itself
     var DApplicationPointer: CApplicationData? = CApplicationData()
     var DDeleted: Bool = Bool()
-//    var DGameSessionType: EGameSessionType
+    //    var DGameSessionType: EGameSessionType
     var DSoundVolume: Float = Float()
     var DMusicVolume: Float = Float()
     var DUserName: String = String()
@@ -73,16 +73,16 @@ class CApplicationData {
     //    std::shared_ptr<CGUICursor> DBlankCursor;
 
     // different surfaces
-    var DDoubleBufferSurface: CGraphicSurface
-    var DWorkingBufferSurface: CGraphicSurface
+    var DDoubleBufferSurface: CGraphicSurface?
+    var DWorkingBufferSurface: CGraphicSurface?
     //    var DWorkingBufferSurface: SKScene?
-    var DMiniMapSurface: CGraphicSurface
-    var DViewportSurface: CGraphicSurface
-    var DViewportTypeSurface: CGraphicSurface
-    var DUnitDescriptionSurface: CGraphicSurface
-    var DUnitActionSurface: CGraphicSurface
-    var DResourceSurface: CGraphicSurface
-    var DMapSelectListViewSurface: CGraphicSurface
+    var DMiniMapSurface: CGraphicSurface?
+    var DViewportSurface: CGraphicSurface?
+    var DViewportTypeSurface: CGraphicSurface?
+    var DUnitDescriptionSurface: CGraphicSurface?
+    var DUnitActionSurface: CGraphicSurface?
+    var DResourceSurface: CGraphicSurface?
+    var DMapSelectListViewSurface: CGraphicSurface?
     var DMiniMapViewportColor: uint32 = uint32()
 
     // coordinate and map and options related things
@@ -167,14 +167,13 @@ class CApplicationData {
 
     // all renderer things
     var DAssetRenderer: CAssetRenderer = CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
-    
+
     var DFogRenderer: CFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
-    
+
     var DViewportRenderer: CViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
-    
+
     var DMiniMapRenderer: CMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
-    
-    
+
     // TODO: finish these types of renderers
     //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
     // var DUnitActionRenderer: CUnitActionRenderer? = nil
@@ -188,7 +187,7 @@ class CApplicationData {
     var DPlayerColor: EPlayerColor = EPlayerColor.None
     var DGameModel: CGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
     var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
-    var DAIPlayers = [CAIPlayer](repeating:CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
+    var DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
     var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
     var DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
 
@@ -526,8 +525,8 @@ class CApplicationData {
         var TextColor: Int
         var ShadowColor: Int
 
-        pagewidth = DWorkingBufferSurface.Width()
-        pageheight = DWorkingBufferSurface.Height()
+        pagewidth = (DWorkingBufferSurface?.Width())!
+        pageheight = (DWorkingBufferSurface?.Height())!
 
         let YPos = 0
         let XPos = 0
@@ -554,10 +553,10 @@ class CApplicationData {
 
         if RenderAlpha > 0.0 {
             DSplashTileset.DrawTile(skscene: DDoubleBufferSurface as! SKScene, xpos: 0, ypos: 0, tileindex: 0)
-            let ResourceContext = DDoubleBufferSurface.CreateResourceContext()
-            ResourceContext.SetSourceSurface(srcsurface: DWorkingBufferSurface, xpos: 0, ypos: 0)
+            let ResourceContext = DDoubleBufferSurface?.CreateResourceContext()
+            ResourceContext?.SetSourceSurface(srcsurface: DWorkingBufferSurface!, xpos: 0, ypos: 0)
 
-            ResourceContext.PaintWithAlpha(alpha: CGFloat(RenderAlpha))
+            ResourceContext?.PaintWithAlpha(alpha: CGFloat(RenderAlpha))
             DCurrentLoadingStep += 1
         }
     }
@@ -612,7 +611,7 @@ class CApplicationData {
 
         DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
-        DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: DDoubleBufferSurface.Format())
+        DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface?.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
@@ -634,8 +633,8 @@ class CApplicationData {
         DMiniMapYOffset = DBorderWidth
         //        DUnitDescriptionYOffset = DMiniMapYOffset + (LeftPanelWidth - DInnerBevel.Width() * 3) + DOuterBevel.Width() * 2
         //        MinUnitDescrHeight = DUnitDescriptionRenderer.MinimumHeight(LeftPanelWidth - DOuterBevel.Width() * 4, 9)
-//        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
-//        DViewportYOffset = DBorderWidth
+        //        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
+        //        DViewportYOffset = DBorderWidth
 
         //        var MainWindowMinHeight = DUnitDescriptionYOffset + MinUnitDescrHeight + DUnitActionRenderer.MinimumHeight() + DOuterBevel.Width() * 5
         //        DMainWindow.SetMinSize(CApplicationData.INITIAL_MAP_WIDTH, MainWindowMinHeight)/        DMainWindow.SetMaxSize(DViewportXOffset + DetailedMapWidth + DBorderWidth, max(MainWindowMinHeight, DetailedMapHeight + DBorderWidth * 2))
@@ -648,8 +647,8 @@ class CApplicationData {
         var CurWidth: Int
         var CurHeight: Int
 
-        CurWidth = DViewportSurface.Width()
-        CurHeight = DViewportSurface.Height()
+        CurWidth = (DViewportSurface?.Width())!
+        CurHeight = (DViewportSurface?.Height())!
         DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
 
         for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
