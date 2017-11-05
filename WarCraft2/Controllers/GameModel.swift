@@ -7,32 +7,6 @@
 //
 
 import Foundation
-// MARK: - Globals
-// NOTE: Recommended to wrap these in a struct
-var GAssetIDCount = 0
-var GAssetIDMap: [Int: CPlayerAsset] = [Int: CPlayerAsset]()
-
-/// Finds an asset using its ID
-///
-/// - Parameter AssetID: ID number of an asset
-/// - Returns:
-///     - Asset corresponding to `AssetID`
-///     - nil if `AssetID` is not in `GAssetIDMap`
-func FindAssetObj(AssetID: Int) -> CPlayerAsset {
-    return GAssetIDMap[AssetID]!
-}
-
-/// Inserts a new asset ID and asset into the `GAssetIDMap`
-///
-/// - Parameter CreatedAsset: New asset created by a unit
-func MapNewAssetObj(CreatedAsset: CPlayerAsset) {
-    GAssetIDMap[GAssetIDCount] = CreatedAsset
-    GAssetIDCount += 1
-}
-
-func GetAssetIDCount() -> Int {
-    return GAssetIDCount
-}
 
 enum EEventType: Int {
     case None = 0
@@ -56,18 +30,18 @@ struct SGameEvent {
     var DAsset: CPlayerAsset
 }
 
-/// Function is exclusive to this file
-/// TODO: Check if this workaround is correct
+// Function is exclusive to this file
+// TODO: Check if this workaround is correct
 fileprivate func RangeToDistanceSquared(range: Int) -> Int {
     var range: Int = range
-    range *= CPosition().TileWidth()
+    range *= CPosition.TileWidth()
     range *= range
-    range += CPosition().TileWidth() * CPosition().TileWidth()
+    range += CPosition.TileWidth() * CPosition.TileWidth()
     return range
 }
 
 class CGameModel {
-    // Protected
+
     var DRandomNumberGenerator: RandomNumberGenerator = RandomNumberGenerator()
     var DActualMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DAssetOccupancyMap: [[CPlayerAsset?]] = [[]]
@@ -107,10 +81,13 @@ class CGameModel {
         DRandomNumberGenerator.Seed(seed: seed)
 
         DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: newcolors)
+
         for PlayerIndex in 0 ..< EPlayerColor.Max.rawValue {
             DPlayers.append(CPlayerData(map: DActualMap, color: EPlayerColor(rawValue: PlayerIndex)!))
         }
+
         CHelper.resize(array: &DAssetOccupancyMap, size: DActualMap.Height(), defaultValue: [])
+
         for Index in 0 ..< DAssetOccupancyMap.count {
             CHelper.resize(array: &DAssetOccupancyMap[Index], size: DActualMap.Width(), defaultValue: CPlayerAsset(type: CPlayerAssetType()))
         }
@@ -154,11 +131,13 @@ class CGameModel {
                 DAssetOccupancyMap[RowIndex][ColIndex] = nil
             }
         }
+
         for RowIndex in 0 ..< DDiagonalOccupancyMap.count {
             for ColIndex in 0 ..< DDiagonalOccupancyMap[RowIndex].count {
                 DDiagonalOccupancyMap[RowIndex][ColIndex] = false
             }
         }
+
         for Asset in DActualMap.Assets() {
             if (EAssetAction.ConveyGold != Asset.Action()) && (EAssetAction.ConveyLumber != Asset.Action()) && (EAssetAction.MineGold != Asset.Action()) {
                 DAssetOccupancyMap[Asset.TilePositionY()][Asset.TilePositionX()] = Asset
@@ -170,36 +149,8 @@ class CGameModel {
             }
         }
         var AllAssets = DActualMap.Assets()
-        var MobileAssets: [CPlayerAsset] = []
-        var ImmobileAssets: [CPlayerAsset] = []
-
-        // FIX ME: I think this should be modifying asset, not sure if it does
-        // assign each asset a pseudo-random turn order
-        for Asset in AllAssets {
-            Asset.AssignTurnOrder()
-            if Asset.Speed() != 0 {
-                MobileAssets.append(Asset)
-            } else {
-                ImmobileAssets.append(Asset)
-            }
-        }
-        // Sort array
-        MobileAssets.sort(by: >)
-        ImmobileAssets.sort(by: >)
-        AllAssets = MobileAssets
-        // Splice the Array?
-        /// TODO: Check if the logic is corrrect
-        AllAssets.append(contentsOf: ImmobileAssets)
 
         for Asset in AllAssets {
-            // show that assets are ordered and sorted in Debug.out
-            // PrintDebug(DEBUG_LOW, "%u\n", Asset->GetTurnOrder());
-            if Asset.Speed() != 0 {
-                // PrintDebug(DEBUG_LOW, "asset is mobile\n");
-            } else {
-                // PrintDebug(DEBUG_LOW, "asset is immobile\n");
-            }
-
             if EAssetAction.None == Asset.Action() {
                 Asset.PopCommand()
             }
@@ -210,6 +161,7 @@ class CGameModel {
                     command.IncrementStep()
                 } else {
                     var PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
+
                     Asset.PopCommand()
                     if PlayerCapability.CanApply(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!) {
                         PlayerCapability.ApplyCapability(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!)

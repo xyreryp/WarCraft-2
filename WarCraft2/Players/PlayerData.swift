@@ -9,7 +9,6 @@
 import Foundation
 
 class CPlayerData {
-
     var DIsAI: Bool = Bool()
     var DColor: EPlayerColor = EPlayerColor.None
     var DVisibilityMap: CVisibilityMap = CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())
@@ -18,7 +17,7 @@ class CPlayerData {
     var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DAssets: [CPlayerAsset] = [CPlayerAsset]()
     var DUpgrades: [Bool] = [Bool]()
-    var DGameEvents: [SGameEvent] = [] // TODO: Where
+    var DGameEvents = [SGameEvent]()
     var DGold: Int = Int()
     var DLumber: Int = Int()
     var DGameCycle: Int = Int()
@@ -34,31 +33,22 @@ class CPlayerData {
         DGold = 0
         DLumber = 0
 
-        // resize
-        for i in 0 ..< DUpgrades.count {
-            DUpgrades[i] = false
-        }
-        var i = DUpgrades.count
-        while i > EAssetCapabilityType.Max.rawValue {
-            DUpgrades.append(false)
-        }
+        CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
-
             if ResourceInit.DColor == color {
                 DGold = ResourceInit.DGold
                 DLumber = ResourceInit.DLumber
             }
         }
+
         for AssetInit in DActualMap.DAssetInitializationList {
 
             if AssetInit.DColor == color {
-                // print debug stuff???
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
                 let assetInitType: String = AssetInit.DType
-                let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
-                if EAssetType.GoldMine == cplayerassettype.NameToType(name: assetInitType) {
+                if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: assetInitType) {
                     InitAsset.Gold(gold: DGold)
                 }
             }
@@ -345,8 +335,7 @@ class CPlayerData {
     }
 
     func FindBestAssetPlacement(pos: CTilePosition, builder: CPlayerAsset, assettype: EAssetType, buffer: Int) -> CTilePosition {
-        let cplayerassettype: CPlayerAssetType = CPlayerAssetType()
-        let AssetType = DAssetTypes[cplayerassettype.TypeToName(type: assettype)]
+        let AssetType = DAssetTypes[CPlayerAssetType.TypeToName(type: assettype)]
         let PlacementSize: Int = AssetType!.DSize + 2 * buffer
         let MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
 
@@ -513,11 +502,10 @@ class CPlayerData {
     }
 
     func RangeToDistanceSquared(range: Int) -> Int {
-        let cpos = CPosition()
         var r = range
-        r *= cpos.TileWidth()
+        r *= CPosition.TileWidth()
         r *= range
-        r += cpos.TileWidth() * cpos.TileWidth()
+        r += CPosition.TileWidth() * CPosition.TileWidth()
         return r
     }
 }

@@ -14,34 +14,39 @@ struct SAssetCommand {
 }
 
 class CPlayerAsset {
-    var DCreationCycle: Int = 0
-    var DHitPoints: Int = 0
-    var DGold: Int = 0
-    var DLumber: Int = 0
-    var DStep: Int = 0
-    var DMoveRemainderX: Int = 0
-    var DMoveRemainderY: Int = 0
+
+    var DCreationCycle: Int
+    var DHitPoints: Int
+    var DGold: Int
+    var DLumber: Int
+    var DStep: Int
+    var DMoveRemainderX: Int
+    var DMoveRemainderY: Int
     var DTurnOrder: UInt = UInt()
-    var DPosition: CPixelPosition = CPixelPosition()
-    var DDirection: EDirection = EDirection.Max
-    var DCommands: [SAssetCommand] = [SAssetCommand]()
-    var DType: CPlayerAssetType = CPlayerAssetType()
+    var DPosition: CPixelPosition
+    var DDirection: EDirection
+    var DCommands: [SAssetCommand]
+    var DType: CPlayerAssetType
     static var DUpdateFrequency: Int = 1
     static var DUpdateDivisor: Int = 32
     static var DGenerateRandomNum: RandomNumberGenerator = RandomNumberGenerator()
 
-    init(type _: CPlayerAssetType) {
+    init(type: CPlayerAssetType) {
         DCreationCycle = 0
-        DHitPoints = 0
+        DType = type
+        DHitPoints = type.DHitPoints
         DGold = 0
         DLumber = 0
         DStep = 0
         DMoveRemainderX = 0
         DMoveRemainderY = 0
-        DPosition = CPixelPosition()
-        DDirection = EDirection.Max
+        // FIXME:
+        DTurnOrder = 0
+        DPosition = CPixelPosition(x: 0, y: 0)
+        DDirection = EDirection.South
         DCommands = [SAssetCommand]()
-        DType = CPlayerAssetType()
+        // FIXME:
+        TilePosition(pos: CTilePosition())
     }
 
     deinit {
@@ -359,17 +364,16 @@ class CPlayerAsset {
         let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
 
         CurrentTile.SetFromPixel(pos: DPosition)
-        let cPos = CPosition()
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
-            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
-            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
+            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
+            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
             DMoveRemainderX = NewX % CPlayerAsset.DUpdateDivisor
             DMoveRemainderY = NewY % CPlayerAsset.DUpdateDivisor
             DPosition.IncrementX(x: NewX / CPlayerAsset.DUpdateDivisor)
             DPosition.IncrementY(y: NewY / CPlayerAsset.DUpdateDivisor)
         } else { // Entering
-            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * cPos.TileWidth() + DMoveRemainderX
-            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * cPos.TileHeight() + DMoveRemainderY
+            let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
+            let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
             var TempMoveRemainderX: Int = NewX % CPlayerAsset.DUpdateDivisor
             var TempMoveRemainderY: Int = NewY % CPlayerAsset.DUpdateDivisor
             let NewPosition: CPixelPosition = CPixelPosition(x: DPosition.X() + NewX / CPlayerAsset.DUpdateDivisor, y: DPosition.Y() + NewY / CPlayerAsset.DUpdateDivisor)

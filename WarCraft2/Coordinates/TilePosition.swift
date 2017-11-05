@@ -38,18 +38,18 @@ class CTilePosition: CPosition {
 
     // set new position
     func SetFromPixel(pos: CPixelPosition) {
-        DX = pos.X() / CTilePosition.DTileWidth
-        DY = pos.Y() / CTilePosition.DTileHeight
+        DX = pos.X() / CPosition.DTileWidth
+        DY = pos.Y() / CPosition.DTileHeight
     }
 
     // update X
     func SetXFromPixel(x: Int) {
-        DX = x / CTilePosition.DTileWidth
+        DX = x / CPosition.DTileWidth
     }
 
     // update Y
     func SetYFromPixel(y: Int) {
-        DY = y / CTilePosition.DTileWidth
+        DY = y / CPosition.DTileWidth
     }
 
     // call CPositions's DistanceSquared()
@@ -72,7 +72,7 @@ class CTilePosition: CPosition {
                 return EDirection.Max
             }
 
-            return DTileDirections[DeltaY + 1][DeltaX + 1]
+            return CPosition.DTileDirections[DeltaY + 1][DeltaX + 1]
         } else {
             let ThisPixelPosition = CPixelPosition()
             let TargetPixelPosition = CPixelPosition()

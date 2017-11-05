@@ -91,12 +91,12 @@ class CPixelPosition: CPosition {
                     BestDistance = CurDistance
                     BestPosition = CurPosition
                 }
-                CurPosition.DX = CurPosition.IncrementX(x: super.TileWidth())
+                CurPosition.DX = CurPosition.IncrementX(x: CPosition.DTileWidth)
                 XIndex += 1
             } while XIndex < objsize
 
             CurPosition.DX = CurPosition.X(x: objpos.X())
-            CurPosition.DY = CurPosition.IncrementY(y: super.TileHeight())
+            CurPosition.DY = CurPosition.IncrementY(y: CPosition.DTileHeight)
             YIndex += 1
         } while YIndex < objsize
 

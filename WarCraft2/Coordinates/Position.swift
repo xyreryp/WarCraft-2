@@ -9,56 +9,41 @@
 import Foundation
 
 class CPosition {
-    // change in X and Y
-    var DX: Int = 0
-    var DY: Int = 0
+    var DX: Int
+    var DY: Int
 
-    // Height and width of a tile
     static var DTileWidth: Int = 1
     static var DTileHeight: Int = 1
-
-    // Height and width of a half tile
     static var DHalfTileWidth: Int = 0
     static var DHalfTileHeight: Int = 0
-
-    // list of list EDirection used for... ?
-    var DOctant: [[EDirection]] = [[EDirection.Max]]
-
-    // list of list EDirection used for... ?
-    var DTileDirections: [[EDirection]] =
+    static var DOctant: [[EDirection]] = [[EDirection.Max]]
+    static var DTileDirections: [[EDirection]] =
         [
             [EDirection.NorthWest, EDirection.North, EDirection.NorthEast],
             [EDirection.West, EDirection.Max, EDirection.East],
             [EDirection.SouthWest, EDirection.South, EDirection.SouthEast],
         ]
 
-    // different initializers/constructors
-    init() {}
+    init() {
+        DX = 0
+        DY = 0
+    }
+
     init(x: Int, y: Int) {
         DX = x
         DY = y
     }
+
     init(pos: CPosition) {
         DX = pos.DX
         DY = pos.DY
     }
 
-    static func TileWidth() -> Int {
-        return DTileWidth
-    }
-    static func TileHeight() -> Int {
-        return DTileHeight
-    }
-    static func HalfTileWidth() -> Int {
-        return DHalfTileWidth
-    }
-    static func HalfTileHeight() -> Int {
-        return DHalfTileHeight
-    }
     // overloaded operators to compare Positions
     static func ==(lhs: CPosition, rhs: CPosition) -> Bool {
         return (lhs.DX == rhs.DX && lhs.DY == rhs.DY)
     }
+
     // overloaded operators to compare Positions
     static func !=(lhs: CPosition, rhs: CPosition) -> Bool {
         return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
@@ -68,8 +53,8 @@ class CPosition {
     func DirectionTo(pos: CPosition) -> EDirection {
         let DeltaPosition: CPosition = CPosition(x: pos.DX - DX, y: pos.DY - DY)
 
-        var DivX: Int = DeltaPosition.DX / HalfTileWidth()
-        var DivY: Int = DeltaPosition.DY / HalfTileHeight()
+        var DivX: Int = DeltaPosition.DX / CPosition.HalfTileWidth()
+        var DivY: Int = DeltaPosition.DY / CPosition.HalfTileHeight()
 
         var Div = Int()
         DivX = 0 > DivX ? -DivX : DivX
@@ -81,8 +66,8 @@ class CPosition {
             DeltaPosition.DY /= Div
         }
 
-        DeltaPosition.DX += HalfTileWidth()
-        DeltaPosition.DY += HalfTileHeight()
+        DeltaPosition.DX += CPosition.HalfTileWidth()
+        DeltaPosition.DY += CPosition.HalfTileHeight()
 
         if 0 > DeltaPosition.DX {
             DeltaPosition.DX = 0
@@ -91,17 +76,17 @@ class CPosition {
             DeltaPosition.DY = 0
         }
 
-        if TileWidth() <= DeltaPosition.DX {
-            DeltaPosition.DX = TileWidth() - 1
+        if CPosition.TileWidth() <= DeltaPosition.DX {
+            DeltaPosition.DX = CPosition.TileWidth() - 1
         }
-        if TileHeight() <= DeltaPosition.DY {
-            DeltaPosition.DY = TileHeight() - 1
+        if CPosition.TileHeight() <= DeltaPosition.DY {
+            DeltaPosition.DY = CPosition.TileHeight() - 1
         }
         return DeltaPosition.TileOctant()
     }
 
     func TileOctant() -> EDirection {
-        return DOctant[DY % CTilePosition.DTileHeight][DX % CTilePosition.DTileWidth]
+        return CPosition.DOctant[DY % CPosition.DTileHeight][DX % CPosition.DTileWidth]
     }
 
     // x^2 + y^2, to be passed into square root
@@ -119,16 +104,16 @@ class CPosition {
     }
 
     // Set the Octant's directions
-    func SetTileDimensions(width: Int, height: Int) {
+    static func SetTileDimensions(width: Int, height: Int) {
         if (0 < width) && (0 < height) {
-            CTilePosition.DTileWidth = width
-            CTilePosition.DTileHeight = height
-            CTilePosition.DHalfTileWidth = width / 2
-            CTilePosition.DHalfTileHeight = height / 2
+            DTileWidth = width
+            DTileHeight = height
+            DHalfTileWidth = width / 2
+            DHalfTileHeight = height / 2
 
-            CHelper.resize(array: &DOctant, size: CTilePosition.DTileHeight, defaultValue: [EDirection.Max])
+            CHelper.resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
             for (i, _) in DOctant.enumerated() {
-                CHelper.resize(array: &DOctant[i], size: CTilePosition.DTileWidth, defaultValue: EDirection.Max)
+                CHelper.resize(array: &DOctant[i], size: DTileWidth, defaultValue: EDirection.Max)
             }
         }
 
@@ -136,8 +121,8 @@ class CPosition {
         var X: Int = 0
         repeat {
             repeat {
-                var XDistance: Int = X - CTilePosition.DHalfTileWidth
-                var YDistance: Int = Y - CTilePosition.DHalfTileHeight
+                var XDistance: Int = X - DHalfTileWidth
+                var YDistance: Int = Y - DHalfTileHeight
                 let NegativeX: Bool = XDistance < 0
                 let NegativeY: Bool = YDistance > 0
 
@@ -179,9 +164,9 @@ class CPosition {
                     }
                 }
                 X += 1
-            } while X < CTilePosition.DTileWidth
+            } while X < DTileWidth
             Y += 1
-        } while Y < CTilePosition.DTileHeight
+        } while Y < DTileHeight
     }
 
     // getter for DX
@@ -231,22 +216,22 @@ class CPosition {
     }
 
     // getter for DTileWidth
-    func TileWidth() -> Int {
-        return CTilePosition.DTileWidth
+    static func TileWidth() -> Int {
+        return DTileWidth
     }
 
     // getter for DTileHeight
-    func TileHeight() -> Int {
-        return CTilePosition.DTileHeight
+    static func TileHeight() -> Int {
+        return DTileHeight
     }
 
     // getter for DHalfTileWidth
-    func HalfTileWidth() -> Int {
-        return CTilePosition.DHalfTileWidth
+    static func HalfTileWidth() -> Int {
+        return DHalfTileWidth
     }
 
     // getter for DHalfTileHeight
-    func HalfTileHeight() -> Int {
-        return CTilePosition.DHalfTileHeight
+    static func HalfTileHeight() -> Int {
+        return DHalfTileHeight
     }
 }
