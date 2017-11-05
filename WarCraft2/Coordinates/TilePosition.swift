@@ -38,18 +38,18 @@ class CTilePosition: CPosition {
 
     // set new position
     func SetFromPixel(pos: CPixelPosition) {
-        DX = pos.X() / DTileWidth
-        DY = pos.Y() / DTileHeight
+        DX = pos.X() / CPosition.DTileWidth
+        DY = pos.Y() / CPosition.DTileHeight
     }
 
     // update X
     func SetXFromPixel(x: Int) {
-        DX = x / DTileWidth
+        DX = x / CPosition.DTileWidth
     }
 
     // update Y
     func SetYFromPixel(y: Int) {
-        DY = y / DTileWidth
+        DY = y / CPosition.DTileWidth
     }
 
     // call CPositions's DistanceSquared()
@@ -63,7 +63,7 @@ class CTilePosition: CPosition {
     }
 
     // calculat directin of adjacent tile
-    func AdjacentTileDirection(pos: CTilePosition, objsize: Int) -> EDirection {
+    func AdjacentTileDirection(pos: CTilePosition, objsize: Int = 1) -> EDirection {
         if 1 == objsize {
             let DeltaX = pos.DX - DX
             let DeltaY = pos.DY - DY
@@ -72,7 +72,7 @@ class CTilePosition: CPosition {
                 return EDirection.Max
             }
 
-            return DTileDirections[DeltaY + 1][DeltaX + 1]
+            return CPosition.DTileDirections[DeltaY + 1][DeltaX + 1]
         } else {
             let ThisPixelPosition = CPixelPosition()
             let TargetPixelPosition = CPixelPosition()
