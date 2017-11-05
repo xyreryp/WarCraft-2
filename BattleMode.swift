@@ -676,33 +676,33 @@ class CBattleMode: CApplicationMode {
             }
         }
 
-        context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface as! SKScene , xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
+        context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
         context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
 
-        context.DResourceSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ResourceWidth, height: ResourceHeight, sxpos: context.DViewportXOffset, sypos: 0)
+        context.DResourceSurface.Draw(srcsurface: context.DWorkingBufferSurface, dxpos: 0, dypos: 0, width: ResourceWidth, height: ResourceHeight, sxpos: context.DViewportXOffset, sypos: 0)
         context.DResourceRenderer.DrawResources(context.DResourceSurface)
         context.DWorkingBufferSurface.Draw(srcsurface: context.DResourceSurface!, dxpos: context.DViewportXOffset, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
 
-        context.DOuterBevel.DrawBevel(surface: context.DWorkingBufferSurface!, xpos: context.DUnitDescriptionXOffset, ypos: context.DUnitDescriptionYOffset, width: DescriptionWidth, height: DescriptionHeight)
+        context.DOuterBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DUnitDescriptionXOffset, ypos: context.DUnitDescriptionYOffset, width: DescriptionWidth, height: DescriptionHeight)
 
-        context.DUnitDescriptionSurface?.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: DescriptionWidth, height: DescriptionHeight, sxpos: context.DUnitDescriptionXOffset, sypos: context.DUnitDescriptionYOffset)
+        context.DUnitDescriptionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: DescriptionWidth, height: DescriptionHeight, sxpos: context.DUnitDescriptionXOffset, sypos: context.DUnitDescriptionYOffset)
         context.DUnitDescriptionRenderer.DrawUnitDescription(context.DUnitDescriptionSurface, context.DSelectedPlayerAssets)
-        context.DWorkingBufferSurface?.Draw(srcsurface: context.DUnitDescriptionSurface, dxpos: context.DUnitDescriptionXOffset, dypos: context.DUnitDescriptionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+        context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitDescriptionSurface, dxpos: context.DUnitDescriptionXOffset, dypos: context.DUnitDescriptionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
 
-        context.DOuterBevel.DrawBevel(surface: context.DWorkingBufferSurface!, xpos: context.DUnitActionXOffset, ypos: context.DUnitActionYOffset, width: ActionWidth, height: ActionHeight)
-        context.DUnitActionSurface?.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ActionWidth, height: ActionHeight, sxpos: context.DUnitActionXOffset, sypos: context.DUnitActionYOffset)
+        context.DOuterBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DUnitActionXOffset, ypos: context.DUnitActionYOffset, width: ActionWidth, height: ActionHeight)
+        context.DUnitActionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ActionWidth, height: ActionHeight, sxpos: context.DUnitActionXOffset, sypos: context.DUnitActionYOffset)
         context.DUnitActionRenderer.DrawUnitAction(context.DUnitActionSurface!, context.DSelectedPlayerAssets, context.DCurrentAssetCapability)
-        context.DWorkingBufferSurface?.Draw(srcsurface: context.DUnitActionSurface!, dxpos: context.DUnitActionXOffset, dypos: context.DUnitActionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+        context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitActionSurface!, dxpos: context.DUnitActionXOffset, dypos: context.DUnitActionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
 
         for Asset in context.DGameModel.Player(color: context.DPlayerColor).PlayerMap().Assets {
             if EAssetType.None == Asset.Type() {
                 SelectedAndMarkerAssets.append(Asset)
             }
         }
-        context.DViewportRenderer.DrawViewport(context.DViewportSurface, context.DViewportTypeSurface, SelectedAndMarkerAssets, TempRectangle, context.DCurrentAssetCapability)
-        context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface!)
-        context.DWorkingBufferSurface?.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
-        context.DWorkingBufferSurface?.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+        context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
+        context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface)
+        context.DWorkingBufferSurface.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+        context.DWorkingBufferSurface.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
         context.DMenuButtonRenderer.DrawButton(context.DWorkingBufferSurface!, context.DMenuButtonXOffset, context.DMenuButtonYOffset, context.DMenuButtonState)
         // FIXME: switch statement done wrong, can do with rawValues of the enum type
         switch context.FindUIComponentType(CPixelPosition(x: CurrentX, y: CurrentY)) {
