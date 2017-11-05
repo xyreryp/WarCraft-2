@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CBattleMode: CApplicationMode {
     static let PAN_SPEED_MAX = 0x100
@@ -599,7 +600,7 @@ class CBattleMode: CApplicationMode {
                             context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
                             TempEvent.DType = EEventType.Selection
                             TempEvent.DAsset = Command.DAssetTarget!
-                            context.DGameModel.Player(color: context.DPlayerColor).AddGameEvent(TempEvent)
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(TempEvent)
                             break
                         }
                     }
@@ -625,7 +626,7 @@ class CBattleMode: CApplicationMode {
     override func Render(context: CApplicationData) {
         // PrintDebug(DEBUG_LOW, "Started CBatleMode::Render\n")
         // FIXME: SRectangle doesn't exist
-        // var TempRectange = SRectangle(0,0,0,0)
+        var TempRectangle = SRectangle(DXPosition: 0,DYPosition: 0,DWidth: 0,DHeight: 0)
         var CurrentX: Int = Int()
         var CurrentY: Int = Int()
         var BufferWidth: Int = Int()
@@ -644,18 +645,18 @@ class CBattleMode: CApplicationMode {
 
         CurrentX = context.DCurrentX
         CurrentY = context.DCurrentY
-        BufferWidth = (context.DWorkingBufferSurface?.Width())!
-        BufferHeight = (context.DWorkingBufferSurface?.Height())!
-        ViewWidth = (context.DViewportSurface?.Width())!
-        ViewHeight = (context.DViewportSurface?.Height())!
-        MiniMapWidth = (context.DMiniMapSurface?.Width())!
-        MiniMapHeight = (context.DMiniMapSurface?.Height())!
-        DescriptionWidth = (context.DUnitDescriptionSurface?.Width())!
-        DescriptionHeight = (context.DUnitDescriptionSurface?.Height())!
-        ActionWidth = (context.DUnitActionSurface?.Width())!
-        ActionHeight = (context.DUnitActionSurface?.Height())!
-        ResourceWidth = (context.DResourceSurface?.Width())!
-        ResourceHeight = (context.DResourceSurface?.Height())!
+        BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
+        BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
+        ViewWidth = Int(context.DViewportSurface.frame.width)
+        ViewHeight = Int(context.DViewportSurface.frame.height)
+        MiniMapWidth = Int(context.DMiniMapSurface.frame.width)
+        MiniMapHeight = Int(context.DMiniMapSurface.frame.height)
+        DescriptionWidth = Int(context.DUnitDescriptionSurface.frame.width)
+        DescriptionHeight = Int(context.DUnitDescriptionSurface.frame.height)
+        ActionWidth = Int(context.DUnitActionSurface.frame.width)
+        ActionHeight = Int(context.DUnitActionSurface.frame.height)
+        ResourceWidth = Int(context.DResourceSurface.frame.width)
+        ResourceHeight = Int(context.DResourceSurface.frame.height)
 
         if context.DLeftDown && 0 < context.DMouseDown.X() {
             var TempPosition = CPixelPosition(pos: context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
@@ -675,7 +676,7 @@ class CBattleMode: CApplicationMode {
             }
         }
 
-        context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
+        context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface as! SKScene , xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
         context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
 
         context.DResourceSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ResourceWidth, height: ResourceHeight, sxpos: context.DViewportXOffset, sypos: 0)

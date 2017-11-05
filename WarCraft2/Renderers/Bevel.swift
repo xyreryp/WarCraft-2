@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CBevel {
     var DTileset: CGraphicTileset
@@ -62,30 +63,30 @@ class CBevel {
     deinit {
     }
 
-    func DrawBevel(surface _: CGraphicSurface, xpos: Int, ypos: Int, width: Int, height: Int) {
+    func DrawBevel(surface: SKScene, xpos: Int, ypos: Int, width: Int, height: Int) {
         let TopY: Int = ypos - DWidth
         let BottomY: Int = ypos + height
         let LeftX: Int = xpos - DWidth
         let RightX: Int = xpos + width
-        // FIXME: DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: TopY, tileindex: DCornerIndices[0])
-        // FIXME: DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: TopY, tileindex: DCornerIndices[1])
-        // FIXME: DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: BottomY, tileindex: DCornerIndices[2])
-        // FIXME: DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: BottomY, tileindex: DCornerIndices[3])
+        DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: TopY, tileindex: DCornerIndices[0])
+        DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: TopY, tileindex: DCornerIndices[1])
+        DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: BottomY, tileindex: DCornerIndices[2])
+        DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: BottomY, tileindex: DCornerIndices[3])
         for Value in stride(from: 0, through: width, by: DWidth) {
             var Index = 0
             if (Value + DWidth) > width {
                 Index = width - Value
             }
-            // FIX ME DTileset.DrawTile(skscene: surface, xpos: xpos + Value, ypos: TopY, tileindex: DTopIndices[Index])
-            // FIX ME DTileset.DrawTile(skscene: surface, xpos: xpos + Value, ypos: BottomY, tileindex: DBottomIndices[Index])
+            DTileset.DrawTile(skscene: surface, xpos: xpos + Value, ypos: TopY, tileindex: DTopIndices[Index])
+            DTileset.DrawTile(skscene: surface, xpos: xpos + Value, ypos: BottomY, tileindex: DBottomIndices[Index])
         }
         for Value1 in stride(from: 0, through: height, by: DWidth) {
             var Index1 = 0
             if (Value1 + DWidth) > height {
                 Index1 = height - Value1
             }
-            // FIX ME DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: ypos + Value1, tileindex: DLeftIndices[Index1])
-            // FIX ME DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: ypos + Value1, tileindex: DRightIndices[Index1])
+            DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: ypos + Value1, tileindex: DLeftIndices[Index1])
+            DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: ypos + Value1, tileindex: DRightIndices[Index1])
         }
     }
 }
