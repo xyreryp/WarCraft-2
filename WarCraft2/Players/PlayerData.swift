@@ -131,7 +131,7 @@ class CPlayerData {
         return NewMarker
     }
 
-    func CreateAsset(assettypename: String) -> CPlayerAsset {
+    func CreateAsset(assettypename _: String) -> CPlayerAsset {
         // TODO: Uncomment and use real DAssetType
         //        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
         var CreatedAssetType = CPlayerAssetType()

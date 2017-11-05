@@ -551,9 +551,9 @@ class CAssetDecoratedMap: CTerrainMap {
             DAssetInitializationList.append(TempAssetInit)
         }
 
-        resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+        CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
         for RowIndex in stride(from: 0, to: DLumberAvailable.count, by: 1) {
-            resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+            CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
             for ColIndex in stride(from: 0, to: DTerrainMap[RowIndex].count, by: 1) {
                 if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                     DLumberAvailable[RowIndex][ColIndex] = DPartials.count <= RowIndex && DPartials[RowIndex].count <= ColIndex ? InitialLumber : 0

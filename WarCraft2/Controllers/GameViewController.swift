@@ -135,7 +135,6 @@ class GameViewController: NSViewController, viewToController {
 
     func leftUp() {
         application.DLeftClicked = false
->>>>>>> master
     }
 }
 
