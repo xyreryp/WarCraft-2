@@ -208,11 +208,8 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				9B2839241FA5AC7000CF7566 /* img */,
 				52DB596A1F9A923100BA1183 /* AIPlayer.swift */,
-=======
->>>>>>> master
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,

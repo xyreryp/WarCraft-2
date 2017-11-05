@@ -49,7 +49,6 @@ class CAssetRenderer {
         DPlayerData = player
         DPlayerMap = map
 
-<<<<<<< HEAD
         // DPixelColors.resize((rawValue: EPlayerColor.Max) + 3)
         CMapRenderer.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
         DPixelColors[EPlayerColor.None.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "none"), cindex: 0)
@@ -64,23 +63,6 @@ class CAssetRenderer {
         DPixelColors[EPlayerColor.Max.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "self"), cindex: 0)
         DPixelColors[EPlayerColor.Max.rawValue + 1] = colors.ColorValue(gindex: colors.FindColor(colorname: "enemy"), cindex: 0)
         DPixelColors[EPlayerColor.Max.rawValue + 2] = colors.ColorValue(gindex: colors.FindColor(colorname: "building"), cindex: 0)
-=======
-        CHelper.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
-
-        //        DPixelColors[EPlayerColor.None.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "none"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Blue.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "blue"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Red.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "red"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Green.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "green"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Purple.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "purple"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Orange.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "orange"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Yellow.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "yellow"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Black.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "black"), cindex: 0)
-        //        DPixelColors[EPlayerColor.White.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "white"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Max.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "self"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Max.rawValue + 1] = colors.ColorValue(gindex: colors.FindColor(colorname: "enemy"), cindex: 0)
-        //        DPixelColors[EPlayerColor.Max.rawValue + 2] = colors.ColorValue(gindex: colors.FindColor(colorname: "building"), cindex: 0)
->>>>>>> master
-
         while true {
             let markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
             let Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
@@ -339,7 +321,6 @@ class CAssetRenderer {
         return first.DX <= second.DX
     }
 
-<<<<<<< HEAD
     //  func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {
     func DrawAssets(surface: SKScene, rect: SRectangle) {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
@@ -490,7 +471,6 @@ class CAssetRenderer {
                 // DBuildingDeathTileset?.DrawTile(surface: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex)
             }
         }
-=======
     // hard code locations, and which tile in tileset
     func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
         let index = tileset.count - 1
@@ -514,9 +494,7 @@ class CAssetRenderer {
     }
 
     func movePeasant(x: Int, y: Int, surface: SKScene, tileset: [CGraphicTileset]) {
-
         tileset[1].DrawTile(skscene: surface, xpos: x, ypos: y, tileindex: 0)
->>>>>>> master
     }
 
     //    func DrawAssets(surface: CGraphicSurface, typesurface _: CGraphicSurface, rect: SRectangle) {

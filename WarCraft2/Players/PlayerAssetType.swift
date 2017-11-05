@@ -8,11 +8,6 @@
 
 import Foundation
 class CPlayerAssetType {
-<<<<<<< HEAD
-
-    //    var DThis: CPlayerAssetType =
-=======
->>>>>>> master
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
@@ -258,15 +253,10 @@ class CPlayerAssetType {
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
     // FIXME: fix
     func MaxSight() -> Int {
-<<<<<<< HEAD
-        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
-        return MaxSightFound!.value.DSight
-=======
         //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
         //        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
         //        return MaxSightFound!.value.DSight
         return 3
->>>>>>> master
     }
 
     func LoadTypes(container: CDataContainer) -> Bool {
@@ -296,10 +286,6 @@ class CPlayerAssetType {
         }
 
         let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
-<<<<<<< HEAD
-=======
-        //        PlayerAssetType.DThis = PlayerAssetType
->>>>>>> master
         PlayerAssetType.DName = "None"
         PlayerAssetType.DType = EAssetType.None
         PlayerAssetType.DColor = EPlayerColor.None
@@ -309,11 +295,7 @@ class CPlayerAssetType {
     }
 
     //     TODO: After we for sure know how to read stuff in
-<<<<<<< HEAD
-    func Load(source _: CDataSource!) -> Bool { // hardcoded only for goldmine.
-=======
     func Load(source _: CDataSource!) -> Bool {
->>>>>>> master
         // gonna re impleiment using string name of the files
         return false
     }

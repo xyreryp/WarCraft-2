@@ -156,17 +156,10 @@ class CViewportRenderer {
         }
         // FIXME:
         DMapRenderer.DrawMap(surface: surface as! SKScene, typesurface: typesurface as! SKScene, rect: TempRectangle)
-<<<<<<< HEAD
-        DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
-                                      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
-        // DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
-        DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
-=======
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
         //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
         //  DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
->>>>>>> master
 
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();
