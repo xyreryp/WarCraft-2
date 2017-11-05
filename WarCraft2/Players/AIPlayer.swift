@@ -178,8 +178,7 @@ class CAIPlayer {
             return false
         }
         if BuilderAsset != nil {
-
-            CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
+            var PlayerCapability = CPlayerCapability.FindCapability(type: BuildAction!)
             var SourcePosition: CTilePosition = TownHallAsset!.TilePosition()
             var MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width() / 2, y: DPlayerData.DPlayerMap.Height() / 2)
 
@@ -201,9 +200,8 @@ class CAIPlayer {
             if 0 > Placement.X() {
                 return SearchMap(command: &command)
             }
-            // FIXME:
-            if CPlayerCapability.self != nil {
-                if CPlayerCapability.CanInitiate(actor: BuilderAsset!, playerdata: DPlayerData) {
+            if PlayerCapability != nil {
+                if PlayerCapability.CanInitiate(actor: BuilderAsset!, playerdata: DPlayerData) {
                     if 0 <= Placement.X() {
                         command.DAction = BuildAction!
                         command.DActors.append(BuilderAsset!)
@@ -287,10 +285,9 @@ class CAIPlayer {
             }
             return true
         } else if (TownHallAsset != nil) && trainmore {
-            CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
-
-            if CPlayerCapability.self != nil {
-                if CPlayerCapability.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
+            var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildPeasant)
+            if PlayerCapability != nil {
+                if PlayerCapability.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
                     command.DAction = EAssetCapabilityType.BuildPeasant
                     command.DActors.append(TownHallAsset!)
                     command.DTargetLocation = TownHallAsset!.DPosition
@@ -322,7 +319,7 @@ class CAIPlayer {
     func TrainFootman(command: inout SPlayerCommandRequest) -> Bool {
 
         var IdleAssets = DPlayerData.IdleAssets()
-        var TrainingAsset: CPlayerAsset
+        var TrainingAsset: CPlayerAsset?
 
         for Weak_Asset in IdleAssets {
             let Asset = Weak_Asset
@@ -337,8 +334,8 @@ class CAIPlayer {
             if PlayerCapability != nil {
                 if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
                     command.DAction = EAssetCapabilityType.BuildFootman
-                    command.DActors.append(TrainingAsset)
-                    command.DTargetLocation = TrainingAsset.DPosition
+                    command.DActors.append(TrainingAsset!)
+                    command.DTargetLocation = TrainingAsset!.DPosition
                     return true
                 }
             }
@@ -365,8 +362,9 @@ class CAIPlayer {
             }
         }
         if TrainingAsset != nil {
-            if CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman) != nil {
-                if CPlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
+            var PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
+            if PlayerCapability != nil {
+                if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
                     command.DAction = BuildType
                     command.DActors.append(TrainingAsset!)
                     command.DTargetLocation = TrainingAsset!.DPosition

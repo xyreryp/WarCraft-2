@@ -18,7 +18,7 @@ class CPlayerData {
     var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DAssets: [CPlayerAsset] = [CPlayerAsset]()
     var DUpgrades: [Bool] = [Bool]()
-    var DGameEvents: [SGameEvent] = [] // TODO: Where
+    //        var DGameEvents = [SGameEvent]    // TODO: Where
     var DGold: Int = Int()
     var DLumber: Int = Int()
     var DGameCycle: Int = Int()

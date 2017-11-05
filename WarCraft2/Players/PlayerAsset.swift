@@ -63,16 +63,37 @@ class CPlayerAsset {
         )
     }
 
-    func UpdateFrequency() -> Int {
-        return CPlayerAsset.DUpdateFrequency
+    static func ==(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return
+            !(lhs.DCreationCycle != rhs.DCreationCycle ||
+                lhs.DType != rhs.DType ||
+                lhs.DHitPoints != rhs.DHitPoints ||
+                lhs.DGold != rhs.DGold ||
+                lhs.DLumber != rhs.DLumber ||
+                lhs.DStep != rhs.DStep ||
+                lhs.DMoveRemainderX != rhs.DMoveRemainderX ||
+                lhs.DMoveRemainderY != rhs.DMoveRemainderY ||
+                lhs.DDirection != rhs.DDirection)
+    }
+
+    static func <(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return lhs.getTurnOrder() < rhs.getTurnOrder()
+    }
+
+    static func >(lhs: CPlayerAsset, rhs: CPlayerAsset) -> Bool {
+        return lhs.getTurnOrder() > rhs.getTurnOrder()
+    }
+
+    static func UpdateFrequency() -> Int {
+        return DUpdateFrequency
     }
 
     static func UpdateFrequency(freq: Int) -> Int {
         if 0 < freq {
-            CPlayerAsset.DUpdateFrequency = freq
-            CPlayerAsset.DUpdateDivisor = 32 * CPlayerAsset.DUpdateFrequency
+            DUpdateFrequency = freq
+            DUpdateDivisor = 32 * DUpdateFrequency
         }
-        return CPlayerAsset.DUpdateFrequency
+        return DUpdateFrequency
     }
 
     func AssignTurnOrder() {
@@ -159,7 +180,6 @@ class CPlayerAsset {
 
     func TilePosition() -> CTilePosition {
         let ReturnPos: CTilePosition = CTilePosition()
-
         ReturnPos.SetFromPixel(pos: DPosition)
         return ReturnPos
     }

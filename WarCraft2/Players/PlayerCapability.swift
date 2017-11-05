@@ -19,8 +19,8 @@ class CPlayerCapability {
 
     init(name: String, targettype: ETargetType) {
         DName = name
-        DTargetType = targettype
-        DAssetCapabilityType = CPlayerCapability.NameToType(name: name)
+        CPlayerCapability.DTargetType = targettype
+        DAssetCapabilityType = NameToType(name: name)
     }
 
     deinit {
@@ -37,8 +37,8 @@ class CPlayerCapability {
             return false
         }
 
-        CPlayerCapability.NameRegistry[capability.DName] = capability
-        CPlayerCapability.TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
+        NameRegistry[capability.DName] = capability
+        TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
 
         return true
     }
