@@ -393,7 +393,7 @@ class CBattleMode: CApplicationMode {
                                 var TempEvent: SGameEvent
                                 TempEvent.DType = EEventType.PlaceAction
                                 TempEvent.DAsset = NewTarget
-                                context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(TempEvent)
+                                context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
 
                                 context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = context.DCurrentAssetCapability
                                 context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
@@ -530,18 +530,18 @@ class CBattleMode: CApplicationMode {
 
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             // calculate the total number of players left in the battle
-            if context.DGameModel.Player(EPlayerColor(Index)).IsAlive() {
+            if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index))?.IsAlive())! {
                 PlayerLeft += 1
 
                 // if there is any NPC left in the battle
-                if context.DGameModel.Player(EPlayerColor(Index)).IsAI() {
+                if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index))?.IsAI())! {
                     CBattleMode.DBattleWon = false
                 } else {
                     CBattleMode.DBattleWon = true
                 }
             }
-            if context.DGameModel.Player(EPlayerColor(Index)).IsAlive() && context.DGameModel.Player(EPlayerColor(Index)).IsAI() {
-                context.DAIPlayers[Index].CalculateCommand(context.DPlayerCommands[Index])
+            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && context.DGameModel.Player(EPlayerColor(Index)).IsAI() {
+                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
             }
         }
 
@@ -559,10 +559,10 @@ class CBattleMode: CApplicationMode {
 
                     if (CPlayerCapability.ETargetType.None != PlayerCapability.TargetType()) && (CPlayerCapability.ETargetType.Player != PlayerCapability.TargetType()) {
                         if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-                            NewTarget = context.DGameModel.Player(EPlayerColor(Index)).CreateMarker(context.DPlayerCommands[Index].DTargetLocation, true)
+                            NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(context.DPlayerCommands[Index].DTargetLocation, true)
                         } else {
                             // Not sure if need a let; got rid of a lock()
-                            NewTarget = context.DGameModel.Player(context.DPlayerCommands[Index].DTargetColor).SelectAsset(context.DPlayerCommands[Index].DTargetLocation, context.DPlayerCommands[Index].DTargetType)
+                            NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(context.DPlayerCommands[Index].DTargetLocation, context.DPlayerCommands[Index].DTargetType)
                         }
                     }
 
