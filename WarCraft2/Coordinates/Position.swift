@@ -104,16 +104,16 @@ class CPosition {
     }
 
     // Set the Octant's directions
-    func SetTileDimensions(width: Int, height: Int) {
+    static func SetTileDimensions(width: Int, height: Int) {
         if (0 < width) && (0 < height) {
-            CPosition.DTileWidth = width
-            CPosition.DTileHeight = height
-            CPosition.DHalfTileWidth = width / 2
-            CPosition.DHalfTileHeight = height / 2
+            DTileWidth = width
+            DTileHeight = height
+            DHalfTileWidth = width / 2
+            DHalfTileHeight = height / 2
 
-            CHelper.resize(array: &CPosition.DOctant, size: CPosition.DTileHeight, defaultValue: [EDirection.Max])
+            CHelper.resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
             for (i, _) in CPosition.DOctant.enumerated() {
-                CHelper.resize(array: &CPosition.DOctant[i], size: CPosition.DTileWidth, defaultValue: EDirection.Max)
+                CHelper.resize(array: &DOctant[i], size: DTileWidth, defaultValue: EDirection.Max)
             }
         }
 
@@ -121,8 +121,8 @@ class CPosition {
         var X: Int = 0
         repeat {
             repeat {
-                var XDistance: Int = X - CPosition.DHalfTileWidth
-                var YDistance: Int = Y - CPosition.DHalfTileHeight
+                var XDistance: Int = X - DHalfTileWidth
+                var YDistance: Int = Y - DHalfTileHeight
                 let NegativeX: Bool = XDistance < 0
                 let NegativeY: Bool = YDistance > 0
 
@@ -130,7 +130,7 @@ class CPosition {
                 YDistance *= YDistance
 
                 if 0 == (XDistance + YDistance) {
-                    CPosition.DOctant[Y][X] = EDirection.Max
+                    DOctant[Y][X] = EDirection.Max
                     continue
                 }
 
@@ -138,35 +138,35 @@ class CPosition {
 
                 if 0.1464466094 > SinSquared { // East or West
                     if NegativeX { // West
-                        CPosition.DOctant[Y][X] = EDirection.West
+                        DOctant[Y][X] = EDirection.West
                     } else { // East
-                        CPosition.DOctant[Y][X] = EDirection.East
+                        DOctant[Y][X] = EDirection.East
                     }
                 } else if 0.85355339059 > SinSquared { // NE, SE, SW, NW
                     if NegativeY {
                         if NegativeX {
-                            CPosition.DOctant[Y][X] = EDirection.SouthWest // SouthWest
+                            DOctant[Y][X] = EDirection.SouthWest // SouthWest
                         } else {
-                            CPosition.DOctant[Y][X] = EDirection.SouthEast // SouthEast
+                            DOctant[Y][X] = EDirection.SouthEast // SouthEast
                         }
                     } else {
                         if NegativeX {
-                            CPosition.DOctant[Y][X] = EDirection.NorthWest // NorthWest
+                            DOctant[Y][X] = EDirection.NorthWest // NorthWest
                         } else {
-                            CPosition.DOctant[Y][X] = EDirection.NorthEast // NorthEast
+                            DOctant[Y][X] = EDirection.NorthEast // NorthEast
                         }
                     }
                 } else { // North or South
                     if NegativeY {
-                        CPosition.DOctant[Y][X] = EDirection.South // South
+                        DOctant[Y][X] = EDirection.South // South
                     } else {
-                        CPosition.DOctant[Y][X] = EDirection.North // North
+                        DOctant[Y][X] = EDirection.North // North
                     }
                 }
                 X += 1
-            } while X < CPosition.DTileWidth
+            } while X < DTileWidth
             Y += 1
-        } while Y < CPosition.DTileHeight
+        } while Y < DTileHeight
     }
 
     // getter for DX
