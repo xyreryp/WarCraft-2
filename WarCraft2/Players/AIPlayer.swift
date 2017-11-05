@@ -390,7 +390,7 @@ class CAIPlayer {
                 BuildTownHall(command: &command)
             } else if 5 > DPlayerData.PlayerAssetCount(type: EAssetType.Peasant) {
                 ActivatePeasants(command: &command, trainmore: true)
-            } else if 12 > DPlayerData.DVisibilityMap!.SeenPercent(max: 100) {
+            } else if 12 > DPlayerData.DVisibilityMap.SeenPercent(max: 100) {
                 SearchMap(command: &command)
             } else {
                 var CompletedAction: Bool = false

@@ -76,13 +76,13 @@ class CApplicationData {
     var DDoubleBufferSurface: CGraphicSurface
     var DWorkingBufferSurface: CGraphicSurface
     //    var DWorkingBufferSurface: SKScene?
-    var DMiniMapSurface: CGraphicSurface?
-    var DViewportSurface: CGraphicSurface?
-    var DViewportTypeSurface: CGraphicSurface?
-    var DUnitDescriptionSurface: CGraphicSurface?
-    var DUnitActionSurface: CGraphicSurface?
-    var DResourceSurface: CGraphicSurface?
-    var DMapSelectListViewSurface: CGraphicSurface?
+    var DMiniMapSurface: CGraphicSurface
+    var DViewportSurface: CGraphicSurface
+    var DViewportTypeSurface: CGraphicSurface
+    var DUnitDescriptionSurface: CGraphicSurface
+    var DUnitActionSurface: CGraphicSurface
+    var DResourceSurface: CGraphicSurface
+    var DMapSelectListViewSurface: CGraphicSurface
     var DMiniMapViewportColor: uint32?
 
     // coordinate and map and options related things
@@ -141,9 +141,9 @@ class CApplicationData {
     var DListViewIconTileset = CGraphicTileset()
 
     // TODO: Import bevel stuff and uncomment
-    // var DMiniBevel: CBevel? = nil
-    // var DInnerBevel: CBevel? = nil
-    // var DOuterBevel: CBevel? = nil
+    var DMiniBevel: CBevel
+    var DInnerBevel: CBevel
+    var DOuterBevel: CBevel
 
     // more tileset things
     var DMapRendererConfigurationData: [Character] = [Character]()
@@ -171,7 +171,7 @@ class CApplicationData {
     var DViewportRenderer: CViewportRenderer
     var DMiniMapRenderer: CMiniMapRenderer
     // TODO: finish these types of renderers
-    // var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
+    //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
     // var DUnitActionRenderer: CUnitActionRenderer? = nil
     // var DResourceRenderer: CResourceRenderer? = nil
     // var DMenuButtonRenderer: CButtonRenderer? = nil
@@ -198,7 +198,7 @@ class CApplicationData {
     var DUnitHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
     var DBuildHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
     var DTrainHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
-    
+
     // asset capabilities things
     var DSelectedPlayerAssets = [CPlayerAsset]()
     var DCurrentAssetCapability: EAssetCapabilityType = EAssetCapabilityType.None
@@ -578,20 +578,20 @@ class CApplicationData {
     //     return DNextApplicationMode == DApplicationMode
     // }
 
-    func LoadGameMap(index _: Int) {
+    func LoadGameMap(index: Int) {
         var DetailedMapWidth: Int
         var DetailedMapHeight: Int
 
         // FIXME: Need DGameModel
-        DGameModel = CGameModel(index, 0x123456789ABCDEFULL, DLoadingPlayerColors)
+        DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: DLoadingPlayerColors)
         let Index = 1
         for Index in Index ..< EPlayerColor.Max.rawValue {
             DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
         }
         for Index in Index ..< EPlayerColor.Max.rawValue {
             if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-                var Downsample:Int = 1
-                switch(DLoadingPlayerTypes[Index]){
+                var Downsample: Int = 1
+                switch DLoadingPlayerTypes[Index] {
                 case EPlayerType.ptAIEasy:
                     Downsample = CPlayerAsset.DUpdateFrequency
                     break
@@ -601,7 +601,6 @@ class CApplicationData {
                 default :
                     Downsample = CPlayerAsset.DUpdateFrequency / 4
                     break
-
                 }
                 DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
             }
@@ -612,59 +611,58 @@ class CApplicationData {
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
         // FIXME: CDataSource needs to be CMemoryDataSource
-//        DMapRenderer = CMapRenderer(config: CDataSource(DMapRendererConfigurationData), tileset: DTerrainTileset, map: DGameModel.Player(color: DPlayerColor).PlayerMap())
+        //        DMapRenderer = CMapRenderer(config: CDataSource(DMapRendererConfigurationData), tileset: DTerrainTileset, map: DGameModel.Player(color: DPlayerColor).PlayerMap())
         DAssetRenderer = CAssetRenderer(tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
-            
+
         DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
         DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: DDoubleBufferSurface.Format())
-        // DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
+        //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
-//        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
-//        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
-//
-//        DMenuButtonRenderer.Text("Menu")
-//        DMenuButtonRenderer.ButtonColor(DPlayerColor)
+        //        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
+        //        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
+        //
+        //        DMenuButtonRenderer.Text("Menu")
+        //        DMenuButtonRenderer.ButtonColor(DPlayerColor)
 
-//        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
-//        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
-//        var MinUnitDescrHeight: Int
-//
-//        DMiniMapXOffset = DInnerBevel.Width() * 2
-//        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
-//        DUnitActionXOffset = DUnitDescriptionXOffset
-//        DViewportXOffset = LeftPanelWidth + DInnerBevel.Width()
-//
-//
-//        DMiniMapYOffset = DBorderWidth
-//        DUnitDescriptionYOffset = DMiniMapYOffset + (LeftPanelWidth - DInnerBevel.Width() * 3) + DOuterBevel.Width() * 2
-//        MinUnitDescrHeight = DUnitDescriptionRenderer.MinimumHeight(LeftPanelWidth - DOuterBevel.Width() * 4, 9)
-//        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
-//        DViewportYOffset = DBorderWidth
-//
-//        var MainWindowMinHeight = DUnitDescriptionYOffset + MinUnitDescrHeight + DUnitActionRenderer.MinimumHeight() + DOuterBevel.Width() * 5
-//        DMainWindow.SetMinSize(CApplicationData.INITIAL_MAP_WIDTH, MainWindowMinHeight)
-//        DMainWindow.SetMaxSize(DViewportXOffset + DetailedMapWidth + DBorderWidth, max(MainWindowMinHeight, DetailedMapHeight + DBorderWidth * 2))
-//
-//        ResizeCanvases()
-//        DMenuButtonRenderer.Width(DViewportXOffset/2)
-//        DMenuButtonXOffset = DViewportXOffset/2 - DMenuButtonRenderer.Width()/2
-//        DMenuButtonYOffset = (DViewportYOffset - DOuterBevel.Width())/2 - DMenuButtonRenderer.Height()/2
-//
-//        var CurWidth: Int
-//        var CurHeight: Int
-//
-//        CurWidth = DViewportSurface.Width()
-//        CurHeight = DViewportSurface.Height()
-//        DViewportRenderer.InitViewportDimensions(CurWidth, CurHeight)
-//
-//        for WeakAsset in DGameModel.Player(DPlayerColor).Assets() {
-//            if let asset = WeakAsset {
-//                DViewportRenderer?.CenterViewport(pos: &asset.Position())
-//                break
-//            }
-//        }
+        //        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
+        //        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
+        var MinUnitDescrHeight: Int
+
+        DMiniMapXOffset = DInnerBevel.Width() * 2
+        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
+        DUnitActionXOffset = DUnitDescriptionXOffset
+        //        DViewportXOffset = LeftPanelWidth + DInnerBevel.Width()
+
+        DMiniMapYOffset = DBorderWidth
+        //        DUnitDescriptionYOffset = DMiniMapYOffset + (LeftPanelWidth - DInnerBevel.Width() * 3) + DOuterBevel.Width() * 2
+        //        MinUnitDescrHeight = DUnitDescriptionRenderer.MinimumHeight(LeftPanelWidth - DOuterBevel.Width() * 4, 9)
+        DUnitActionYOffset = DUnitDescriptionYOffset + MinUnitDescrHeight + DOuterBevel.Width() * 3
+        DViewportYOffset = DBorderWidth
+
+        //        var MainWindowMinHeight = DUnitDescriptionYOffset + MinUnitDescrHeight + DUnitActionRenderer.MinimumHeight() + DOuterBevel.Width() * 5
+        //        DMainWindow.SetMinSize(CApplicationData.INITIAL_MAP_WIDTH, MainWindowMinHeight)/        DMainWindow.SetMaxSize(DViewportXOffset + DetailedMapWidth + DBorderWidth, max(MainWindowMinHeight, DetailedMapHeight + DBorderWidth * 2))
+
+        ResizeCanvases()
+        //        DMenuButtonRenderer.Width(DViewportXOffset/2)
+        //        DMenuButtonXOffset = DViewportXOffset/2 - DMenuButtonRenderer.Width()/2
+        //        DMenuButtonYOffset = (DViewportYOffset - DOuterBevel.Width())/2 - DMenuButtonRenderer.Height()/2
+
+        var CurWidth: Int
+        var CurHeight: Int
+
+        CurWidth = DViewportSurface.Width()
+        CurHeight = DViewportSurface.Height()
+        DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
+
+        for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
+            if var asset: CPlayerAsset? = WeakAsset {
+                var ass = asset
+                DViewportRenderer.CenterViewport(pos: ass!.Position())
+                break
+            }
+        }
     }
 
     func ResetPlayerColors() {
