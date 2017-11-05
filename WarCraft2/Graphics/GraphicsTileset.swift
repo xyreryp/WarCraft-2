@@ -326,50 +326,6 @@ class CGraphicTileset {
         UpdateGroupName()
         return true
     }
-    //    func LoadTileset(source: CDataSource) -> Bool {
-    //        CCommentSkipLineDataSource LineSource(source, '#'); /// NOTE: I don't know how to deal with this???
-    //        let PNGpath: String?
-    //        var TempString: String
-    //        var Tokens = [String]()
-    //        var ReturnStatus: Bool = false
-    //        if source == nil {
-    //            return false
-    //        }
-    //
-    //        //        if(!LineSource.Read(PNGPath)){ //NOTE:  also idk how to deal this
-    //        //            PrintError("Failed to get path.\n");
-    //        //            goto LoadTilesetExit;
-    //        //        }
-    //
-    //        //        DSurfaceTileset.LoadSurface(source.Container().DataSource(PNGpath)) // from CGraphicFactory
-    //
-    //        if nil == DSurfaceTileset {
-    //            print("Failed to load file")
-    //        }
-    //
-    //        return true // fix later
-    //    }
-
-    // TODO: TESTING FUNCTIONS
-    func DrawTest(skscene: SKScene, xpos: Int, ypos: Int) {
-        var col: Int = (-xpos * 2) / DTileWidth
-        var row: Int = (ypos * 2) / DTileHeight
-        var rowNum: Int = 0
-        var colNum: Int = 0
-        for i in 0 ..< DTileCount {
-            var xposSize: Int = xpos + colNum * DTileWidth
-            var yposSize: Int = ypos - rowNum * DTileHeight
-
-            if colNum < col {
-                colNum += 1
-                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-            } else if rowNum < col {
-                rowNum += 1
-                colNum = 0
-                DrawTile(skscene: skscene, xpos: xposSize, ypos: yposSize, tileindex: i)
-            }
-        }
-    }
 
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
         if 0 > tileindex || tileindex >= DTileCount {
@@ -380,10 +336,7 @@ class CGraphicTileset {
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }
-    //
-    //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
-    //    } // end LoadTileset()
-    //
+
     //    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
     //        if 0 > tileindex || tileindex >= DClippingMasks.count {
     //            return
