@@ -9,71 +9,71 @@
 import Foundation
 
 struct SGUIKeyType {
-    var DValue: UInt16 = 0
-    static var LeftShift: UInt16 = 56
-    static var RightShift: UInt16 = 60
-    static var LeftControl: UInt16 = 59
-    static var RightControl: UInt16 = 62
-    static var LeftAlt: UInt16 = 58
-    static var RightAlt: UInt16 = 61
-    static var Escape: UInt16 = 53
-    static var Space: UInt16 = 49
-    static var Delete: UInt16 = 51
-    static var Period: UInt16 = 47
-    static var BackSpace: UInt16 = 51
-    static var UpArrow: UInt16 = 126
-    static var DownArrow: UInt16 = 125
-    static var LeftArrow: UInt16 = 123
-    static var RightArrow: UInt16 = 124
-    static var Key0: UInt16 = 29
-    static var Key1: UInt16 = 18
-    static var Key2: UInt16 = 19
-    static var Key3: UInt16 = 20
-    static var Key4: UInt16 = 21
-    static var Key5: UInt16 = 23
-    static var Key6: UInt16 = 22
-    static var Key7: UInt16 = 26
-    static var Key8: UInt16 = 28
-    static var Key9: UInt16 = 25
-    static var KeyA: UInt16 = 0
-    static var KeyB: UInt16 = 11
-    static var KeyC: UInt16 = 8
-    static var KeyD: UInt16 = 2
-    static var KeyE: UInt16 = 14
-    static var KeyF: UInt16 = 3
-    static var KeyG: UInt16 = 5
-    static var KeyH: UInt16 = 4
-    static var KeyI: UInt16 = 34
-    static var KeyJ: UInt16 = 38
-    static var KeyK: UInt16 = 40
-    static var KeyL: UInt16 = 37
-    static var KeyM: UInt16 = 46
-    static var KeyN: UInt16 = 45
-    static var KeyO: UInt16 = 31
-    static var KeyP: UInt16 = 35
-    static var KeyQ: UInt16 = 12
-    static var KeyR: UInt16 = 15
-    static var KeyS: UInt16 = 1
-    static var KeyT: UInt16 = 17
-    static var KeyU: UInt16 = 32
-    static var KeyV: UInt16 = 9
-    static var KeyW: UInt16 = 13
-    static var KeyX: UInt16 = 7
-    static var KeyY: UInt16 = 16
-    static var KeyZ: UInt16 = 6
-    
-//    func IsKey(val: UInt16) -> Bool {
-//        
-//    }
-//    func SetKey(val: UInt16) {
-//        
-//    }
-//    func IsAlpha() {
-//        
-//    }
-//    func IsAlphaNumeric() {
-//        
-//    }
+    var DValue: UInt32 = 0
+    static var LeftShift: UInt32 = 56
+    static var RightShift: UInt32 = 60
+    static var LeftControl: UInt32 = 59
+    static var RightControl: UInt32 = 62
+    static var LeftAlt: UInt32 = 58
+    static var RightAlt: UInt32 = 61
+    static var Escape: UInt32 = 53
+    static var Space: UInt32 = 49
+    static var Delete: UInt32 = 51
+    static var Period: UInt32 = 47
+    static var BackSpace: UInt32 = 51
+    static var UpArrow: UInt32 = 126
+    static var DownArrow: UInt32 = 125
+    static var LeftArrow: UInt32 = 123
+    static var RightArrow: UInt32 = 124
+    static var Key0: UInt32 = 29
+    static var Key1: UInt32 = 18
+    static var Key2: UInt32 = 19
+    static var Key3: UInt32 = 20
+    static var Key4: UInt32 = 21
+    static var Key5: UInt32 = 23
+    static var Key6: UInt32 = 22
+    static var Key7: UInt32 = 26
+    static var Key8: UInt32 = 28
+    static var Key9: UInt32 = 25
+    static var KeyA: UInt32 = 0
+    static var KeyB: UInt32 = 11
+    static var KeyC: UInt32 = 8
+    static var KeyD: UInt32 = 2
+    static var KeyE: UInt32 = 14
+    static var KeyF: UInt32 = 3
+    static var KeyG: UInt32 = 5
+    static var KeyH: UInt32 = 4
+    static var KeyI: UInt32 = 34
+    static var KeyJ: UInt32 = 38
+    static var KeyK: UInt32 = 40
+    static var KeyL: UInt32 = 37
+    static var KeyM: UInt32 = 46
+    static var KeyN: UInt32 = 45
+    static var KeyO: UInt32 = 31
+    static var KeyP: UInt32 = 35
+    static var KeyQ: UInt32 = 12
+    static var KeyR: UInt32 = 15
+    static var KeyS: UInt32 = 1
+    static var KeyT: UInt32 = 17
+    static var KeyU: UInt32 = 32
+    static var KeyV: UInt32 = 9
+    static var KeyW: UInt32 = 13
+    static var KeyX: UInt32 = 7
+    static var KeyY: UInt32 = 16
+    static var KeyZ: UInt32 = 6
+
+    //    func IsKey(val: UInt32) -> Bool {
+    //
+    //    }
+    //    func SetKey(val: UInt32) {
+    //
+    //    }
+    //    func IsAlpha() {
+    //
+    //    }
+    //    func IsAlphaNumeric() {
+    //
+    //    }
     func IsDigit() -> Bool {
         return DValue >= 18 && DValue <= 29
     }

@@ -278,25 +278,25 @@ class CApplicationData {
 
         // FIXME: Whose doing button renderer
         // DMenuButtonState = CButtonRenderer.EButtonState.None
-        DUnitHotKeyMap[0] = EAssetCapabilityType.Attack // key A
-        DUnitHotKeyMap[11] = EAssetCapabilityType.BuildSimple // key B
-        DUnitHotKeyMap[5] = EAssetCapabilityType.Convey // G
-        DUnitHotKeyMap[46] = EAssetCapabilityType.Move // M
-        DUnitHotKeyMap[35] = EAssetCapabilityType.Patrol // P
-        DUnitHotKeyMap[15] = EAssetCapabilityType.Repair // R
-        DUnitHotKeyMap[17] = EAssetCapabilityType.StandGround // T
+        DUnitHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.Attack // key A
+        DUnitHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildSimple // key B
+        DUnitHotKeyMap[SGUIKeyType.KeyG] = EAssetCapabilityType.Convey // G
+        DUnitHotKeyMap[SGUIKeyType.KeyM] = EAssetCapabilityType.Move // M
+        DUnitHotKeyMap[SGUIKeyType.KeyP] = EAssetCapabilityType.Patrol // P
+        DUnitHotKeyMap[SGUIKeyType.KeyR] = EAssetCapabilityType.Repair // R
+        DUnitHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.StandGround // T
 
-        DBuildHotKeyMap[11] = EAssetCapabilityType.BuildBarracks // B
-        DBuildHotKeyMap[3] = EAssetCapabilityType.BuildFarm // F
-        DBuildHotKeyMap[4] = EAssetCapabilityType.BuildTownHall // H
-        DBuildHotKeyMap[37] = EAssetCapabilityType.BuildLumberMill // L
-        DBuildHotKeyMap[1] = EAssetCapabilityType.BuildBlacksmith // S
-        DBuildHotKeyMap[17] = EAssetCapabilityType.BuildScoutTower // T
+        DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
+        DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
+        DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
+        DBuildHotKeyMap[SGUIKeyType.KeyL] = EAssetCapabilityType.BuildLumberMill // L
+        DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
+        DBuildHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.BuildScoutTower // T
 
-        DTrainHotKeyMap[0] = EAssetCapabilityType.BuildArcher // A
-        DTrainHotKeyMap[3] = EAssetCapabilityType.BuildFootman // F
-        DTrainHotKeyMap[35] = EAssetCapabilityType.BuildPeasant // P
-        DTrainHotKeyMap[15] = EAssetCapabilityType.BuildRanger // R
+        DTrainHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildArcher // A
+        DTrainHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFootman // F
+        DTrainHotKeyMap[SGUIKeyType.KeyP] = EAssetCapabilityType.BuildPeasant // P
+        DTrainHotKeyMap[SGUIKeyType.KeyR] = EAssetCapabilityType.BuildRanger // R
     }
 
     deinit {
