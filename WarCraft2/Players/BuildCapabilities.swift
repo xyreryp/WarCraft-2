@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
-class CPlayerCapabilityBuildNormal: CPlayerCapability {
+//fixme:
+class CPlayerCapabilityBuildNormal {
     //    class CRegistrant {
     //
     //        //    CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("TownHall")));

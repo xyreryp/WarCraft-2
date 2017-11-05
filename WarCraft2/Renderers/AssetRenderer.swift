@@ -823,7 +823,8 @@ class CAssetRenderer {
                 var XPos, YPos: Int
                 _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
                 _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
-                DTilesets[type.rawValue].DrawTile(surface: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0], colorindex: (DPlayerData?.DColor.rawValue)! - 1)
+                // FIXME:
+                DTilesets[type.rawValue].DrawTile(skscene: surface as! SKScene, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {

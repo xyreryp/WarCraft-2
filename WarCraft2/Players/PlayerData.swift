@@ -9,16 +9,15 @@
 import Foundation
 
 class CPlayerData {
-
     var DIsAI: Bool = Bool()
-    var DColor: EPlayerColor = EPlayerColor.None
+    var DColor: EPlayerColor
     var DVisibilityMap: CVisibilityMap?
     var DActualMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
     var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     var DAssets: [CPlayerAsset] = [CPlayerAsset]()
     var DUpgrades: [Bool] = [Bool]()
-    //        var DGameEvents = [SGameEvent]    // TODO: Where
+    var DGameEvents = [SGameEvent]()
     var DGold: Int = Int()
     var DLumber: Int = Int()
     var DGameCycle: Int = Int()
@@ -34,26 +33,18 @@ class CPlayerData {
         DGold = 0
         DLumber = 0
 
-        // resize
-        for i in 0 ..< DUpgrades.count {
-            DUpgrades[i] = false
-        }
-        var i = DUpgrades.count
-        while i > EAssetCapabilityType.Max.rawValue {
-            DUpgrades.append(false)
-        }
+        CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
-
             if ResourceInit.DColor == color {
                 DGold = ResourceInit.DGold
                 DLumber = ResourceInit.DLumber
             }
         }
+
         for AssetInit in DActualMap.DAssetInitializationList {
 
             if AssetInit.DColor == color {
-                // print debug stuff???
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
                 let assetInitType: String = AssetInit.DType

@@ -22,12 +22,14 @@ class CPlayerAsset {
     var DStep: Int
     var DMoveRemainderX: Int
     var DMoveRemainderY: Int
+    var DTurnOrder: UInt = UInt()
     var DPosition: CPixelPosition
     var DDirection: EDirection
     var DCommands: [SAssetCommand]
     var DType: CPlayerAssetType
     static var DUpdateFrequency: Int = 1
     static var DUpdateDivisor: Int = 32
+    static var DGenerateRandomNum: RandomNumberGenerator = RandomNumberGenerator()
 
     init(type: CPlayerAssetType) {
         DCreationCycle = 0
@@ -38,6 +40,8 @@ class CPlayerAsset {
         DStep = 0
         DMoveRemainderX = 0
         DMoveRemainderY = 0
+        // FIXME:
+        DTurnOrder = 0
         DPosition = CPixelPosition(x: 0, y: 0)
         DDirection = EDirection.South
         DCommands = [SAssetCommand]()

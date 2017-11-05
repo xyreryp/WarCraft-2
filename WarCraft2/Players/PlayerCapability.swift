@@ -19,8 +19,8 @@ class CPlayerCapability {
 
     init(name: String, targettype: ETargetType) {
         DName = name
-        CPlayerCapability.DTargetType = targettype
-        DAssetCapabilityType = NameToType(name: name)
+        DTargetType = targettype
+        DAssetCapabilityType = CPlayerCapability.NameToType(name: name)
     }
 
     deinit {

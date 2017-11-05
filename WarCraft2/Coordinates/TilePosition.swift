@@ -63,7 +63,7 @@ class CTilePosition: CPosition {
     }
 
     // calculat directin of adjacent tile
-    func AdjacentTileDirection(pos: CTilePosition, objsize: Int) -> EDirection {
+    func AdjacentTileDirection(pos: CTilePosition, objsize: Int = 1) -> EDirection {
         if 1 == objsize {
             let DeltaX = pos.DX - DX
             let DeltaY = pos.DY - DY
