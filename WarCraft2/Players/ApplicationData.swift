@@ -49,15 +49,23 @@ class CApplicationData {
         case ptAIHard
     }
 
+    // clicking on map information
     var DLeftClicked: Bool = false
     var DRightClicked: Bool = false
     var X: Int = Int()
     var Y: Int = Int()
+
+    // ViewPort hardcoding information
     var scrollX: Int = Int()
     var ViewportX: Int = Int()
     var ViewportY: Int = Int()
     var PreviousViewPortX: Int = 0
     var PreviousViewPortY: Int = 0
+
+    // Renderer information
+    var DAssetRenderer: CAssetRenderer!
+    var DMapRenderer: CMapRenderer!
+    var DViewportRenderer: CViewportRenderer!
 
     var ECursorTypeRef: ECursorType = ECursorType.ctPointer
     var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone

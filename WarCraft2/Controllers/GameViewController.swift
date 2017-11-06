@@ -75,8 +75,8 @@ class GameViewController: NSViewController, viewToController {
 
         map.RenderTerrain()
         let cgr = CGraphicResourceContext()
-        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 300, DHeight: 300))
+        application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 300, DHeight: 300))
 
         // let assetDecoratedMap = application.DAssetMap
         // let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
@@ -109,24 +109,23 @@ class GameViewController: NSViewController, viewToController {
         //        map.RenderTerrain()
         //        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
-        var terrainTileset = application.DTerrainTileset
-        let map = CTerrainMap()
-        do {
-            try map.LoadMap(fileToRead: "bay")
-        } catch {
-            print("cant load map")
-        }
+
         skscene?.size.width = 300
         skscene?.size.height = 300
         skscene?.scaleMode = .aspectFit
-
-        map.RenderTerrain()
         let cgr = CGraphicResourceContext()
-        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
 
+        //        if (application.PreviousViewPortX + application.ViewportX) / application.DMapRenderer.DTileset.TileWidth() >= -1 {
         application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
-        application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
-        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: application.PreviousViewPortX, DYPosition: application.PreviousViewPortY, DWidth: application.PreviousViewPortX + 300, DHeight: application.PreviousViewPortY + 300))
+        //            print("here")
+        //        }
+
+        if (application.PreviousViewPortY - application.ViewportY) / application.DMapRenderer.DTileset.TileHeight() <= 128 && (application.PreviousViewPortY - application.ViewportY) / application.DMapRenderer.DTileset.TileHeight() >= 9 {
+            print("here")
+            application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
+        }
+
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: application.PreviousViewPortX, DYPosition: application.PreviousViewPortY, DWidth: 300, DHeight: 300))
         application.ViewportX = 0
         application.ViewportY = 0
     }

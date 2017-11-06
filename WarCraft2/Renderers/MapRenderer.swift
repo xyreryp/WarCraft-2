@@ -274,9 +274,9 @@ class CMapRenderer: PMapRenderer {
         var XIndex: Int = rect.DXPosition / TileWidth
         var XPos: Int = -(rect.DXPosition % TileWidth)
         print("XIndex is: ", XIndex)
-        print("XPos is: ", XPos)
+        // print("XPos is: ", XPos)
         print("YIndex is: ", YIndex)
-        print("YPos is: ", YPos)
+        //  print("YPos is: ", YPos)
         repeat {
             repeat {
                 // let type: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
