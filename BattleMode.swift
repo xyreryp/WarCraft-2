@@ -766,3 +766,4 @@ class CBattleMode: CApplicationMode {
     }
 }
 
+
