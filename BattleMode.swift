@@ -198,11 +198,11 @@ class CBattleMode: CApplicationMode {
         // context.DMenuButtonState = CButtonRenderer.EButtonState.None
 
         // FIXME: context.FindUIComponentType
-        var ComponentType = context.FindUIComponentType(CPixelPosition(x: CurrentX, y: CurrentY))
+        var ComponentType = context.FindUIComponentType(pos: CPixelPosition(x: CurrentX, y: CurrentY))
         if CApplicationData.EUIComponentType.uictViewport == ComponentType {
             var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY))
             var ViewPortPosition: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
-            var PixelType: CPixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface,pos: ViewPortPosition)
+            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface,pos: ViewPortPosition)
 
             if context.DRightClick != 0 && !context.DRightDown && context.DSelectedPlayerAssets.count > 0 {
                 var CanMove: Bool = true
