@@ -35,8 +35,6 @@ class CResourceRenderer: NSObject {
         ]
     }
 
-
-
     func DrawResources(surface: CGraphicSurface) {
         if let DPlayer = DPlayer {
             var Width = 0
@@ -70,13 +68,11 @@ class CResourceRenderer: NSObject {
             WidthSeparation = Width / 4
             XOffset = Width / 8
 
-
             if DPlayer.FoodConsumption() > DPlayer.FoodProduction() {
                 var secondTextWidth = 0
                 var TotalTextWidth = 0
                 var TextHeight = 0
             } else {
-                
             }
         }
     }

@@ -81,11 +81,15 @@ class GameViewController: NSViewController, viewToController {
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        resourceRenderer.DPlayer = playerData
+
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
         let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
+
+        let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 150, height: 150), mapRenderer: mapRenderer)
+        cgview.addSubview(miniMapView)
+
         view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
@@ -185,9 +189,9 @@ class CGView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        let context = NSGraphicsContext.current!.cgContext
-        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        //        let context = NSGraphicsContext.current!.cgContext
+        //        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        //        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
     }
 }
 

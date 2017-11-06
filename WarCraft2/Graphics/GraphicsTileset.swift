@@ -380,10 +380,9 @@ class CGraphicTileset {
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }
-    
-    func DrawTile(context: CGraphicResourceContext, xpos: Int, ypos: Int, titleindex: Int) {
+
+    func DrawTile(context: CGraphicResourceContext, xpos _: Int, ypos _: Int, titleindex _: Int) {
         //    surface->Draw(DSurfaceTileset, xpos, ypos, DTileWidth, DTileHeight, 0, tileindex * DTileHeight);
-        context.
     }
     //
     //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
