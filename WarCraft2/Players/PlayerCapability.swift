@@ -20,7 +20,7 @@ class CPlayerCapability {
     init(name: String, targettype: ETargetType) {
         DName = name
         DTargetType = targettype
-        DAssetCapabilityType = NameToType(name: name)
+        DAssetCapabilityType = CPlayerCapability.NameToType(name: name)
     }
 
     deinit {
@@ -29,10 +29,10 @@ class CPlayerCapability {
     var DName: String = String()
     var DAssetCapabilityType: EAssetCapabilityType = EAssetCapabilityType.None
     var DTargetType: ETargetType = ETargetType.None
-    var NameRegistry: [String: CPlayerCapability] = [:]
-    var TypeRegistry: [Int: CPlayerCapability] = [:]
+    static var NameRegistry: [String: CPlayerCapability] = [:]
+    static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
-    func Register(capability: CPlayerCapability) -> Bool {
+    static func Register(capability: CPlayerCapability) -> Bool {
         if FindCapability(name: capability.DName) != nil {
             return false
         }
@@ -43,8 +43,16 @@ class CPlayerCapability {
         return true
     }
 
+    func AssetCapabilityType() -> EAssetCapabilityType {
+        return DAssetCapabilityType
+    }
+
+    func TargetType() -> ETargetType {
+        return DTargetType
+    }
+
     // FIXME: Not sure about return type
-    func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
+    static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
@@ -52,7 +60,7 @@ class CPlayerCapability {
     }
 
     // FIXME: Not sure about return type
-    func FindCapability(name: String) -> CPlayerCapability {
+    static func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
@@ -60,7 +68,7 @@ class CPlayerCapability {
         return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
     }
 
-    func NameToType(name: String) -> EAssetCapabilityType {
+    static func NameToType(name: String) -> EAssetCapabilityType {
         var NameTypeTranslation: [String: EAssetCapabilityType] = [
             "None": EAssetCapabilityType.None,
             "BuildPeasant": EAssetCapabilityType.BuildPeasant,
@@ -109,7 +117,7 @@ class CPlayerCapability {
         return EAssetCapabilityType.None
     }
 
-    func TypeToName(type: EAssetCapabilityType) -> String {
+    static func TypeToName(type: EAssetCapabilityType) -> String {
         var TypeStrings: [String] = [
             "None",
             "BuildPeasant",
@@ -157,6 +165,7 @@ class CPlayerCapability {
         return TypeStrings[type.rawValue]
     }
 
+    // FIXME: Virtual
     func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
     func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }

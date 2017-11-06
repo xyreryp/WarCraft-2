@@ -64,7 +64,7 @@ class CFogRenderer {
         DNoneIndex = DBlackIndices[0]
     }
 
-    func DrawMap(surface: CGraphicSurface, rect: SRectangle) {
+    func DrawMap(surface: SKScene, rect: SRectangle) {
         var TileWidth: Int = DTileset.TileWidth()
         var TileHeight: Int = DTileset.TileHeight()
 
@@ -79,13 +79,13 @@ class CFogRenderer {
                 var TileType: ETileVisibility = DDMap.TileType(xindex: XIndex, yindex: YIndex)
 
                 if TileType == ETileVisibility.None {
-                    DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
                     continue
                 } else if TileType == ETileVisibility.Visible {
                     continue
                 }
                 if (TileType == ETileVisibility.Seen) || (TileType == ETileVisibility.SeenPartial) {
-                    DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
                 }
                 if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.Partial {
                     var VisibilityIndex: Int = 0
@@ -102,7 +102,7 @@ class CFogRenderer {
                             }
                         }
                     }
-                    DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DFogIndices[VisibilityIndex])
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DFogIndices[VisibilityIndex])
                 }
                 if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.SeenPartial {
                     var VisibilityIndex: Int = 0
@@ -120,7 +120,7 @@ class CFogRenderer {
                             }
                         }
                     }
-                    DTileset.DrawTile(skscene: surface as! SKScene, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
                 }
                 XIndex = XIndex + 1
                 XPos = XPos + TileWidth
@@ -130,8 +130,7 @@ class CFogRenderer {
         }
     }
 
-    func DrawMiniMap(surface: CGraphicSurface) {
-        var ResourceContext = surface.CreateResourceContext()
+    func DrawMiniMap(ResourceContext: CGraphicResourceContext) {
         ResourceContext.SetLineWidth(width: 1)
         ResourceContext.SetLineCap(cap: CGLineCap.square)
 

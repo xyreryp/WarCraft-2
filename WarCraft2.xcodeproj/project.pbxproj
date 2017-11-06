@@ -26,6 +26,7 @@
 		8834FBD11FA1BE46003E81E5 /* CommentSkipLineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCD1FA1BE46003E81E5 /* CommentSkipLineDataSource.swift */; };
 		8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCE1FA1BE46003E81E5 /* DataSink.swift */; };
 		8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */; };
+		8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B24361FA6B7A1004C1724 /* GameModel.swift */; };
 		88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */; };
 		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
@@ -76,6 +77,8 @@
 		DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */; };
 		DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */; };
 		E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10BA0911F8A13D70097867A /* VisibilityMap.swift */; };
+		E1384EDF1FAEE864008CED64 /* ResourceRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */; };
+		E1384EE51FAF1AB2008CED64 /* BasicCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1384EE41FAF1AB2008CED64 /* BasicCapabilities.swift */; };
 		E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A0AD21F959094001B569C /* TerrainMap.swift */; };
 		E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */; };
 		E14136B71F97F8530086A0A6 /* Scene.sks in Sources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
@@ -111,6 +114,7 @@
 		8834FBCD1FA1BE46003E81E5 /* CommentSkipLineDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentSkipLineDataSource.swift; sourceTree = "<group>"; };
 		8834FBCE1FA1BE46003E81E5 /* DataSink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSink.swift; sourceTree = "<group>"; };
 		8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		885B24361FA6B7A1004C1724 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
 		9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDecoratedMap.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 		DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		DDC38C791F9300CE00967EA6 /* GraphicFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactory.swift; sourceTree = "<group>"; };
 		E10BA0911F8A13D70097867A /* VisibilityMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityMap.swift; sourceTree = "<group>"; };
+		E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceRenderer.swift; sourceTree = "<group>"; };
+		E1384EE41FAF1AB2008CED64 /* BasicCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCapabilities.swift; sourceTree = "<group>"; };
 		E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicResourceContext.swift; sourceTree = "<group>"; };
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiniMapRenderer.swift; path = WarCraft2/Renderers/MiniMapRenderer.swift; sourceTree = SOURCE_ROOT; };
@@ -279,6 +285,7 @@
 				4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */,
 				E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */,
 				4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */,
+				885B24361FA6B7A1004C1724 /* GameModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -335,6 +342,7 @@
 				E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
+				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 				9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */,
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
 				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
+				E1384EE41FAF1AB2008CED64 /* BasicCapabilities.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -481,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1384EE51FAF1AB2008CED64 /* BasicCapabilities.swift in Sources */,
 				88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */,
 				93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */,
 				E14136B61F97F8530086A0A6 /* GraphicFactoryCoreGraphics.swift in Sources */,
@@ -515,6 +525,8 @@
 				520A1D4E1FAE85D7006A4B96 /* FontTileSet.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 				4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */,
+				8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */,
+				E1384EDF1FAEE864008CED64 /* ResourceRenderer.swift in Sources */,
 				DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */,
 				9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */,
 				9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */,
