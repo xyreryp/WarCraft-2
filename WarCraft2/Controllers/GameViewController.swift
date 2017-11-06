@@ -69,20 +69,20 @@ class GameViewController: NSViewController, viewToController {
         } catch {
             print("cant load map")
         }
-        skscene?.size.width = 300
-        skscene?.size.height = 300
-        skscene?.scaleMode = .aspectFit
+        // skscene?.size.width = 300
+        // skscene?.size.height = 300
+        skscene?.scaleMode = .fill
 
         map.RenderTerrain()
         let cgr = CGraphicResourceContext()
         application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 300, DHeight: 300))
 
-        // let assetDecoratedMap = application.DAssetMap
-        // let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        // let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        let assetDecoratedMap = application.DAssetMap
+        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        application.DAssetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
-
+        application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer)
         //  let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
         // view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
@@ -110,22 +110,22 @@ class GameViewController: NSViewController, viewToController {
         //        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
 
-        skscene?.size.width = 300
-        skscene?.size.height = 300
-        skscene?.scaleMode = .aspectFit
+        //  skscene?.size.width = 300
+        //   skscene?.size.height = 300
+        skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
 
-        //        if (application.PreviousViewPortX + application.ViewportX) / application.DMapRenderer.DTileset.TileWidth() >= -1 {
-        application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
-        //            print("here")
-        //        }
+        if (application.PreviousViewPortX + application.ViewportX) / application.DMapRenderer.DTileset.TileWidth() >= 0 {
+            application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
+            //            print("here")
+        }
 
         if (application.PreviousViewPortY - application.ViewportY) / application.DMapRenderer.DTileset.TileHeight() <= 128 && (application.PreviousViewPortY - application.ViewportY) / application.DMapRenderer.DTileset.TileHeight() >= 9 {
             print("here")
             application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
         }
 
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: application.PreviousViewPortX, DYPosition: application.PreviousViewPortY, DWidth: 300, DHeight: 300))
+        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: SRectangle(DXPosition: application.PreviousViewPortX, DYPosition: application.PreviousViewPortY, DWidth: 300, DHeight: 300))
         application.ViewportX = 0
         application.ViewportY = 0
     }

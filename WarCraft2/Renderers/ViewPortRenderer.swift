@@ -24,7 +24,8 @@ class CViewportRenderer {
     internal var DLastViewportHeight: Int
 
     // constructor
-    init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender _: CFogRenderer) {
+    // FIXME: taking out fog renderer
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer /* fogrender _: CFogRenderer */ ) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
         //  DFogRenderer = fogrender
@@ -113,9 +114,10 @@ class CViewportRenderer {
         }
     }
 
+    // FIXME: took out parameters
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
-                      selectionmarkerlist: inout [CPlayerAsset],
-                      selectrect _: inout SRectangle, curcapability: EAssetCapabilityType) {
+                      /* selectionmarkerlist: inout [CPlayerAsset],*/
+                      selectrect: SRectangle /* ,curcapability: EAssetCapabilityType */ ) {
 
         // need to initialize with parameters to avoid xcode error
         // initially all values are zero, values are assigned a few lines below
@@ -126,34 +128,35 @@ class CViewportRenderer {
         DLastViewportWidth = Int(surface.frame.width)
         DLastViewportHeight = Int(surface.frame.height)
 
-        if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
-            DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
-        }
-        if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
-            DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
-        }
+        /* if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
+         DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
+         }
+         if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
+         DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
+         } */
+        // FIXME: hardcoding
 
-        TempRectangle.DXPosition = DViewportX
-        TempRectangle.DYPosition = DViewportY
-        TempRectangle.DWidth = DLastViewportWidth
-        TempRectangle.DHeight = DLastViewportHeight
+        TempRectangle.DXPosition = selectrect.DXPosition
+        TempRectangle.DYPosition = selectrect.DYPosition
+        TempRectangle.DWidth = 300
+        TempRectangle.DHeight = 300
 
-        switch curcapability {
-        case EAssetCapabilityType.BuildFarm:
-            PlaceType = EAssetType.Farm
-        case EAssetCapabilityType.BuildTownHall:
-            PlaceType = EAssetType.TownHall
-        case EAssetCapabilityType.BuildBarracks:
-            PlaceType = EAssetType.Barracks
-        case EAssetCapabilityType.BuildLumberMill:
-            PlaceType = EAssetType.LumberMill
-        case EAssetCapabilityType.BuildBlacksmith:
-            PlaceType = EAssetType.Blacksmith
-        case EAssetCapabilityType.BuildScoutTower:
-            PlaceType = EAssetType.ScoutTower
-        default:
-            break // do nothing
-        }
+        /*  switch curcapability {
+         case EAssetCapabilityType.BuildFarm:
+         PlaceType = EAssetType.Farm
+         case EAssetCapabilityType.BuildTownHall:
+         PlaceType = EAssetType.TownHall
+         case EAssetCapabilityType.BuildBarracks:
+         PlaceType = EAssetType.Barracks
+         case EAssetCapabilityType.BuildLumberMill:
+         PlaceType = EAssetType.LumberMill
+         case EAssetCapabilityType.BuildBlacksmith:
+         PlaceType = EAssetType.Blacksmith
+         case EAssetCapabilityType.BuildScoutTower:
+         PlaceType = EAssetType.ScoutTower
+         default:
+         break // do nothing
+         }*/
         // FIXME:
         DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
@@ -163,17 +166,17 @@ class CViewportRenderer {
 
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();
-        if selectionmarkerlist.count != 0 { // if list is not empty
+        /* if selectionmarkerlist.count != 0 { // if list is not empty
 
-            // type of selectionmarkerlist guarantees it cannot be a non-optional
-            Builder = selectionmarkerlist[0]
+         // type of selectionmarkerlist guarantees it cannot be a non-optional
+         Builder = selectionmarkerlist[0]
 
-            //            if let tempValue = selectionmarkerlist[0] {
-            //                Builder = tempValue
-            //            } else {
-            //                Builder = nil // cannot Builder assign to nil
-            //            }
-        }
+         //            if let tempValue = selectionmarkerlist[0] {
+         //                Builder = tempValue
+         //            } else {
+         //                Builder = nil // cannot Builder assign to nil
+         //            }
+         } */
 
         //        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
         //                                     pos: CPixelPosition(x: selectrect.DXPosition,
