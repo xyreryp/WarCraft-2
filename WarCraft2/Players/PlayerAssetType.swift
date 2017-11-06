@@ -67,16 +67,11 @@ class CPlayerAssetType {
         "GuardTower": EAssetType.GuardTower,
         "CannonTower": EAssetType.CannonTower,
     ]
-    //
-    //    public:
-    //    CPlayerAssetType();
-    //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
-    //    ~CPlayerAssetType();
-    //
 
     // default constructor
     init() {
         //        DThis = CPlayerAssetType()
+        DCapabilities = [Bool]()
         CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
         DHitPoints = 0
         DArmor = 0

@@ -32,7 +32,7 @@ class CPlayerData {
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
-
+        DUpgrades = [Bool]()
         CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
