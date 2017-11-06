@@ -284,7 +284,8 @@ class CPlayerAsset {
         if !DCommands.isEmpty {
             DCommands.removeLast()
         }
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: CActivatedPlayerCapability())
+        // FIXME: DActivatedCapability?
+        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
         RetVal.DAction = EAssetAction.None
 
         return RetVal
@@ -296,7 +297,7 @@ class CPlayerAsset {
             return DCommands[DCommands.count - 2]
         }
 
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: CActivatedPlayerCapability())
+        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
         RetVal.DAction = EAssetAction.None
         return RetVal
     }
