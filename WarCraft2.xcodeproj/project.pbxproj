@@ -208,7 +208,6 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
-				520A1D4D1FAE85D7006A4B96 /* FontTileSet.swift */,
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -239,6 +238,7 @@
 		E1B45E2D1F9D4D35009D9BF1 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				520A1D4D1FAE85D7006A4B96 /* FontTileSet.swift */,
 				A1AE6E601F92A95200D40A86 /* PixelType.swift */,
 				E18B688E1F8B3DC300962891 /* GraphicResourceContext.swift */,
 				E1F589981F8A01C80072BE93 /* GraphicSurface.swift */,
