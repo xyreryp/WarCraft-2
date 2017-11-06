@@ -71,7 +71,6 @@
 		DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3F34021F8C13D3006A805B /* PlayerCommand.swift */; };
 		DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC677471F8C186D00953C3A /* Rectangle.swift */; };
 		DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78FA0C1F94389100E0614B /* GraphicRecolorMap.swift */; };
-		DD9744261FAFEA0C00AEC52F /* ButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9744251FAFEA0C00AEC52F /* ButtonRenderer.swift */; };
 		DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDAA9A141F9E77350062A337 /* RouterMap.swift */; };
 		DDBAC41C1F987E2B0075BB57 /* GraphicMulticolorTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBAC41B1F987E2B0075BB57 /* GraphicMulticolorTileset.swift */; };
 		DDBC28321F881D2E00C8B8F3 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */; };
@@ -515,7 +514,6 @@
 				DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
 				E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */,
-				DD9744261FAFEA0C00AEC52F /* ButtonRenderer.swift in Sources */,
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
