@@ -44,13 +44,16 @@ class CPlayerData {
 
         for AssetInit in DActualMap.DAssetInitializationList {
 
-            if AssetInit.DColor == color {
-                let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
-                InitAsset.TilePosition(pos: AssetInit.DTilePosition)
-                let assetInitType: String = AssetInit.DType
-                if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: assetInitType) {
-                    InitAsset.Gold(gold: DGold)
-                }
+            // if AssetInit.DColor == color { TODO: color check bypassed
+            let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
+            // InitAsset.TilePosition(pos: AssetInit.DTilePosition) FIXME: this function is not working
+            InitAsset.DPosition.DX = AssetInit.DTilePosition.DX
+            InitAsset.DPosition.DY = AssetInit.DTilePosition.DY
+            // FIXME: ended, here i am just passing the tile coord into the init asset. once this is fixed AssetRenderer also need fixing
+            let assetInitType: String = AssetInit.DType
+            if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: assetInitType) {
+                InitAsset.Gold(gold: DGold)
+                //    }
             }
         }
     }

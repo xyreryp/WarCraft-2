@@ -483,8 +483,7 @@ class CAssetDecoratedMap: CTerrainMap {
 
         var TempString: String = ""
         var Tokens: [String] = [String]()
-        var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
-        var TempAssetInit: SAssetInitialization = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
+
         var ResourceCount: Int, AssetCount: Int
         var InitialLumber: Int = 400
         var ReturnStatus: Bool = false
@@ -501,6 +500,7 @@ class CAssetDecoratedMap: CTerrainMap {
         ResourceCount = Int(TempString)!
         DResourceInitializationList.removeAll()
         for Index in stride(from: I, to: I + ResourceCount, by: 1) {
+            var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
             CTokenizer.Tokenize(tokens: &Tokens, data: fileLines[Index], delimiters: " ")
             if 3 > Tokens.count {
                 print("Too few tokens for resource", Index, "\n")
@@ -516,8 +516,8 @@ class CAssetDecoratedMap: CTerrainMap {
             if EPlayerColor.None == TempResourceInit.DColor {
                 InitialLumber = TempResourceInit.DLumber
             }
-
-            DResourceInitializationList.append(TempResourceInit)
+            var readyToAppend = TempResourceInit
+            DResourceInitializationList.append(readyToAppend)
         }
         I = I + ResourceCount + 1
         if fileLines[I] != "# Number of assets" {
@@ -529,6 +529,7 @@ class CAssetDecoratedMap: CTerrainMap {
         I = I + 3
         DAssetInitializationList.removeAll()
         for Index in stride(from: I, to: I + AssetCount, by: 1) {
+            var TempAssetInit: SAssetInitialization = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
             CTokenizer.Tokenize(tokens: &Tokens, data: fileLines[Index], delimiters: " ")
             if 4 > Tokens.count {
                 print("Too few tokens for asset", Index, "\n")
@@ -539,6 +540,7 @@ class CAssetDecoratedMap: CTerrainMap {
             var StopGivingMeWarning = TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
             StopGivingMeWarning = TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
             StopGivingMeWarning = StopGivingMeWarning + 1
+            Tokens.removeAll()
 
             if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
                 print("Invalid resource position ", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y(), "\n")
