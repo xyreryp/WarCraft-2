@@ -10,10 +10,8 @@ import Foundation
 
 extension Character {
     var asciiValue: Int {
-        get {
-            let s = String(self).unicodeScalars
-            return Int(s[s.startIndex].value)
-        }
+        let s = String(self).unicodeScalars
+        return Int(s[s.startIndex].value)
     }
 }
 
@@ -28,7 +26,17 @@ class CFontTileset: CGraphicMulticolorTileset {
     var DTopOpaque: Int
     var DBottomOpaque: Int
 
-    override init() {}
+    override init() {
+        DCharacterWidths = [Int()]
+        DDeltaWidths = [[Int()]]
+        DCharacterTops = [Int()]
+        DCharacterBottoms = [Int()]
+        DCharacterBaseline = Int()
+        DSearchCall = Int()
+        DTopOpaque = Int()
+        DBottomOpaque = Int()
+        super.init()
+    }
 
     public func CharacterBaseline() -> Int {
         return DCharacterBaseline
@@ -53,17 +61,15 @@ class CFontTileset: CGraphicMulticolorTileset {
         var LineSource = CLineDataSource(source: source)
         var TempString: String?
         var ReturnStatus: Bool = false
-        var BottomOccurence: [Int]
         var BestLine: Int = 0
 
-        if (!super.LoadTileset(colormap: colormap, source: source)) { // not a static func so can't do this
+        if !super.LoadTileset(colormap: colormap, source: source) {
             return false
         }
 
         // NOTE: resizes of arrays not neccesary
         DCharacterBaseline = DTileHeight
 
-        // Try Catch here, need to figure out swift error handling
         do {
             for index in 0 ... DTileCount {
                 if !LineSource.Read(line: &TempString!) {
@@ -89,10 +95,9 @@ class CFontTileset: CGraphicMulticolorTileset {
         } catch is exception {
             print("Error: FontTileSet: LoadFont")
         }
-        // Try Catch here, need to figure out swift error handling
+        // Try Catch here, not sure about swift error handling
 
-        // NOTE: Resize ignored
-
+        var BottomOccurence = Array(repeating: Int(), count: DTileHeight + 1)
         for Index in 0 ... BottomOccurence.count {
             if BottomOccurence[BestLine] < BottomOccurence[Index] {
                 BestLine = Index
@@ -102,7 +107,7 @@ class CFontTileset: CGraphicMulticolorTileset {
             DTopOpaque = DTileHeight
             DBottomOpaque = 0
             DSearchCall = 0
-            DSurfaceTileset.Transform(DSurfaceTileset, 0, Index * DTileHeight, DTileWidth, DTileHeight, 0, Index * DTileHeight, self, TopBottomSearch) // TODO: function not written yet
+            // DSurfaceTileset.Transform(DSurfaceTileset, 0, Index * DTileHeight, DTileWidth, DTileHeight, 0, Index * DTileHeight, self, TopBottomSearch) // TODO: function not written yet
             DCharacterTops[Index] = DTopOpaque
             DCharacterBottoms[Index] = DBottomOpaque
             BottomOccurence[DBottomOpaque] += 1
@@ -116,40 +121,38 @@ class CFontTileset: CGraphicMulticolorTileset {
 
         return ReturnStatus
     }
-    
-    
 
-    public func DrawText(surface: CGraphicSurface, xpos: Int, ypos: Int, str: String) {
-        var LastChar: Int
+    public func DrawText(surface _: CGraphicSurface, xpos: Int, ypos _: Int, str: String) {
+        var LastChar = Int()
         var NextChar: Int
         var Skip: Bool = true
         var xposHold: Int = xpos
-        
+
         for index in str.indices {
-            
+
             NextChar = str[index].asciiValue - 32
             if !Skip {
                 xposHold = xpos + DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
-            super.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: LastChar)     //NOT SURE ABOUT THIS, ONLY DRAWTILE THAT TAKES IN CGraphicSurface when the one I need is taking in SKScene
+            // super.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: LastChar)     //NOT SURE ABOUT THIS, ONLY DRAWTILE THAT TAKES IN CGraphicSurface when the one I need is taking in SKScene
             LastChar = NextChar
         }
     }
 
     public func DrawTextColor(surface: CGraphicSurface, xpos: Int, ypos: Int, colorindex: Int, str: String) {
-        var LastChar: Int
+        var LastChar = Int()
         var NextChar: Int
         var Skip: Bool = true
         var xposHold: Int = xpos
-        
-        if( (0 > colorindex) || (colorindex >= DColoredTilesets.count) ){
+
+        if (0 > colorindex) || (colorindex >= DColoredTilesets.count) {
             return
         }
         for index in str.indices {
             NextChar = str[index].asciiValue - 32
-            
-            if(!Skip) {
+
+            if !Skip {
                 xposHold = xpos + DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
@@ -159,48 +162,47 @@ class CFontTileset: CGraphicMulticolorTileset {
     }
 
     public func DrawTextWithShadow(surface: CGraphicSurface, xpos: Int, ypos: Int, color: Int, shadowcol: Int, shadowwidth: Int, str: String) {
-        if( (0 > color) || (color >= DColoredTilesets.count) ){
-            print("Invalid!! color %d of %zd\n",color, DColoredTilesets.count )
+        if (0 > color) || (color >= DColoredTilesets.count) {
+            print("Invalid!! color %d of %zd\n", color, DColoredTilesets.count)
             return
         }
-        if( (0 > shadowcol) || (shadowcol >= DColoredTilesets.count)) {
-            print("Invalid!! shadcolor %d of %zd\n",shadowcol, DColoredTilesets.count)
+        if (0 > shadowcol) || (shadowcol >= DColoredTilesets.count) {
+            print("Invalid!! shadcolor %d of %zd\n", shadowcol, DColoredTilesets.count)
             return
         }
-        DrawTextColor(surface: surface, xpos: xpos+shadowwidth, ypos: ypos+shadowwidth, colorindex: shadowcol, str: str)
+        DrawTextColor(surface: surface, xpos: xpos + shadowwidth, ypos: ypos + shadowwidth, colorindex: shadowcol, str: str)
         DrawTextColor(surface: surface, xpos: xpos, ypos: ypos, colorindex: color, str: str)
     }
 
     public func MeasureText(str: String, width: inout Int, height: inout Int) {
-        var TempTop: Int
-        var TempBottom: Int
+        var TempTop = Int()
+        var TempBottom = Int()
         MeasureTextDetailed(str: str, width: &width, height: &height, top: &TempTop, bottom: &TempBottom)
     }
 
     public func MeasureTextDetailed(str: String, width: inout Int, height: inout Int, top: inout Int, bottom: inout Int) {
-        var LastChar: Int
+        var LastChar = Int()
         var NextChar: Int
         var Skip: Bool = true
         width = 0
         top = DTileHeight
         bottom = 0
-        
+
         for index in str.indices {
             NextChar = str[index].asciiValue - 32
-            
-            if(!Skip){
+
+            if !Skip {
                 width += DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
             width += DCharacterWidths[NextChar]
-            if(DCharacterTops[NextChar] < top) {
+            if DCharacterTops[NextChar] < top {
                 top = DCharacterTops[NextChar]
             }
-            if(DCharacterBottoms[NextChar] > bottom) {
+            if DCharacterBottoms[NextChar] > bottom {
                 bottom = DCharacterBottoms[NextChar]
             }
             LastChar = NextChar
-        
         }
         height = DTileHeight
     }
