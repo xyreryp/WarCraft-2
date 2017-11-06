@@ -140,41 +140,40 @@ class CApplicationData {
     var DListViewIconTileset: CGraphicTileset
 
     // TODO: Import bevel stuff and uncomment
-    var DMiniBevel: CBevel = CBevel(tileset: CGraphicTileset())
-    var DInnerBevel: CBevel = CBevel(tileset: CGraphicTileset())
-    var DOuterBevel: CBevel = CBevel(tileset: CGraphicTileset())
-
+    var DMiniBevel: CBevel
+    var DInnerBevel: CBevel
+    var DOuterBevel: CBevel
     // more tileset things
-    var DMapRendererConfigurationData: [Character] = [Character]()
-    var DTerrainTileset = CGraphicTileset()
-    var DFogTileset = CGraphicTileset()
+    var DMapRendererConfigurationData: [Character]
+    var DTerrainTileset: CGraphicTileset
+    var DFogTileset: CGraphicTileset
 
     // recolor maps
-    var DAssetRecolorMap = CGraphicRecolorMap()
-    var DButtonRecolorMap = CGraphicRecolorMap()
-    var DFontRecolorMap = CGraphicRecolorMap()
-    var DPlayerRecolorMap = CGraphicRecolorMap()
+    var DAssetRecolorMap: CGraphicRecolorMap
+    var DButtonRecolorMap: CGraphicRecolorMap
+    var DFontRecolorMap: CGraphicRecolorMap
+    var DPlayerRecolorMap: CGraphicRecolorMap
 
     // more tileset things
-    var DIconTileset = CGraphicMulticolorTileset()
-    var DMiniIconTileset = CGraphicTileset()
-    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]() // array of all asset tilesets
-    var DFireTileset = [CGraphicTileset]() // needed for assetRenderer
-    var DCorpseTileset = CGraphicTileset() // needed for assetRenderer
-    var DBuildingDeathTileset = CGraphicTileset() // needed for assetRenderer
-    var DArrowTileset = CGraphicTileset() // needed for assetRenderer
+    var DIconTileset: CGraphicMulticolorTileset
+    var DMiniIconTileset: CGraphicTileset
+    var DAssetTilesets: [CGraphicTileset] // array of all asset tilesets
+    var DFireTileset: [CGraphicTileset] // needed for assetRenderer
+    var DCorpseTileset: CGraphicTileset // needed for assetRenderer
+    var DBuildingDeathTileset: CGraphicTileset // needed for assetRenderer
+    var DArrowTileset: CGraphicTileset // needed for assetRenderer
 
     // all renderer things
-    var DAssetRenderer: CAssetRenderer = CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
+    var DAssetRenderer: CAssetRenderer // = CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
 
-    var DFogRenderer: CFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
+    var DFogRenderer: CFogRenderer // = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
 
-    var DViewportRenderer: CViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
+    var DViewportRenderer: CViewportRenderer // = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
 
-    var DMiniMapRenderer: CMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
+    var DMiniMapRenderer: CMiniMapRenderer // = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
 
     // TODO: finish these types of renderers
-    //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
+    var DUnitDescriptionRenderer: CUnitDescriptionRenderer
     // var DUnitActionRenderer: CUnitActionRenderer? = nil
     // var DResourceRenderer: CResourceRenderer? = nil
     // var DMenuButtonRenderer: CButtonRenderer? = nil
@@ -183,60 +182,61 @@ class CApplicationData {
     // var DOptionsEditRenderer: CEditRenderer? = nil
 
     // game model things
-    var DPlayerColor: EPlayerColor = EPlayerColor.None
-    var DGameModel: CGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
-    var DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
-    var DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
-    var DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
-    var DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
+    var DPlayerColor: EPlayerColor
+    var DGameModel: CGameModel
+    var DPlayerCommands: [PLAYERCOMMANDREQUEST_TAG] // = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
+    var DAIPlayers: [CAIPlayer] // = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
+    var DLoadingPlayerTypes: [EPlayerType] // = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
+    var DLoadingPlayerColors: [EPlayerColor] // = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
 
     // application mode things
-    var DApplicationMode: CApplicationMode = CApplicationMode()
-    var DNextApplicationMode: CApplicationMode = CApplicationMode()
+    var DApplicationMode: CApplicationMode // = CApplicationMode()
+    var DNextApplicationMode: CApplicationMode // = CApplicationMode()
 
     // hotkeys unordererd maps --> dictionaries
-    var DUnitHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
-    var DBuildHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
-    var DTrainHotKeyMap: [uint32: EAssetCapabilityType] = [uint32: EAssetCapabilityType]()
+    var DUnitHotKeyMap: [uint32: EAssetCapabilityType] // = [uint32: EAssetCapabilityType]()
+    var DBuildHotKeyMap: [uint32: EAssetCapabilityType] // = [uint32: EAssetCapabilityType]()
+    var DTrainHotKeyMap: [uint32: EAssetCapabilityType] // = [uint32: EAssetCapabilityType]()
 
     // asset capabilities things
-    var DSelectedPlayerAssets = [CPlayerAsset]()
-    var DCurrentAssetCapability: EAssetCapabilityType = EAssetCapabilityType.None
+    var DSelectedPlayerAssets: [CPlayerAsset]
+    var DCurrentAssetCapability: EAssetCapabilityType // = EAssetCapabilityType.None
 
     // keys related things
-    var DPressedKeys = [uint32]()
-    var DReleasedKeys = [uint32]()
+    var DPressedKeys: [uint32]
+    var DReleasedKeys: [uint32]
 
     // mouse things
-    var DCurrentX: Int = Int() // to ignore becuase we used X in below
-    var DCurrentY: Int = Int() // to ignore becuase we used Y in below
-    var DMouseDown: CPixelPosition = CPixelPosition()
-    var DLeftClick: Int = Int()
-    var DRightClick: Int = Int()
-    var DLeftDown: Bool = false
-    var DRightDown: Bool = false
+    var DCurrentX: Int
+    var DCurrentY: Int
+    var DMouseDown: CPixelPosition
+    var DLeftClick: Int
+    var DRightClick: Int
+    var DLeftDown: Bool
+    var DRightDown: Bool
     // more mouse things
-    var DLeftClicked: Bool = false
-    var DRightClicked: Bool = false
-    var X: Int = Int()
-    var Y: Int = Int()
+    var DLeftClicked: Bool
+    var DRightClicked: Bool
+    var X: Int
+    var Y: Int
 
     // TODO: uncomment after Button Renderer
     // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
 
     // end of member variables from ApplicationData.h
 
-    var ECursorTypeRef: ECursorType = ECursorType.ctPointer
-    var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
-    var EGameSessionTypeRef: EGameSessionType = EGameSessionType.gstSinglePlayer
-    var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
+    var ECursorTypeRef: ECursorType
+    var EUIComponentTypeRef: EUIComponentType
+    var EGameSessionTypeRef: EGameSessionType
+    var EPlayerTypeRef: EPlayerType
 
     // Data Source, used for all reading of files
-    var TempDataSource: CDataSource = CDataSource()
+    var TempDataSource: CDataSource
 
-    var DAssetMap = CAssetDecoratedMap()
+    var DAssetMap: CAssetDecoratedMap
     // playerData needed for assetRenderer
     var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
+
     init() {
         DApplicationPointer = CApplicationData()
         DDeleted = Bool()
