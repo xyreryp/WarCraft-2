@@ -33,6 +33,7 @@ class CPlayerData {
         DGold = 0
         DLumber = 0
         DUpgrades = [Bool]()
+        DGameEvents = [SGameEvent]()
         CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
@@ -484,22 +485,18 @@ class CPlayerData {
         return DUpgrades[upgrade.rawValue]
     }
 
-    // TODO: What is SGameEvent
     func GameEvents() -> [SGameEvent] {
         return DGameEvents
     }
 
-    //
     func ClearGameEvents() {
         DGameEvents.removeAll()
     }
 
-    //
     func AddGameEvent(event: SGameEvent) {
         DGameEvents.append(event)
     }
 
-    //
     func AppendGameEvents(events: [SGameEvent]) {
         DGameEvents += events
     }

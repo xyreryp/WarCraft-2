@@ -71,7 +71,10 @@ class CPlayerAssetType {
     // default constructor
     init() {
         //        DThis = CPlayerAssetType()
+        DName = ""
+        DType = EAssetType.None
         DCapabilities = [Bool]()
+        DColor = EPlayerColor.None
         CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
         DHitPoints = 0
         DArmor = 0
@@ -88,6 +91,8 @@ class CPlayerAssetType {
         DBasicDamage = 0
         DPiercingDamage = 0
         DRange = 0
+        DAssetRequirements = [EAssetType]()
+        DAssetUpgrades = [CPlayerUpgrade]()
     }
 
     // constructor
