@@ -56,7 +56,7 @@ class CFontTileset: CGraphicMulticolorTileset {
         var BottomOccurence: [Int]
         var BestLine: Int = 0
 
-        if !CGraphicMulticolorTileset.LoadTileset(colormap: colormap, source: source) { // not a static func so can't do this
+        if (!super.LoadTileset(colormap: colormap, source: source)) { // not a static func so can't do this
             return false
         }
 
@@ -86,7 +86,8 @@ class CFontTileset: CGraphicMulticolorTileset {
                 }
             }
             ReturnStatus = true
-        } catch {
+        } catch is exception {
+            print("Error: FontTileSet: LoadFont")
         }
         // Try Catch here, need to figure out swift error handling
 
@@ -131,7 +132,7 @@ class CFontTileset: CGraphicMulticolorTileset {
                 xposHold = xpos + DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
-            CGraphicTileset.DrawTile(surface, xposHold, ypos, NextChar) // has to be static
+            super.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: LastChar)     //NOT SURE ABOUT THIS, ONLY DRAWTILE THAT TAKES IN CGraphicSurface when the one I need is taking in SKScene
             LastChar = NextChar
         }
     }
@@ -152,7 +153,7 @@ class CFontTileset: CGraphicMulticolorTileset {
                 xposHold = xpos + DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
-            CGraphicMulticolorTileset.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: colorindex)
+            super.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: colorindex)
             LastChar = NextChar
         }
     }
