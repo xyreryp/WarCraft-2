@@ -8,14 +8,10 @@
 
 import Foundation
 
-/// PLAYERCOMMANDREQUEST_TAG
-struct PLAYERCOMMANDREQUEST_TAG {
+struct SPlayerCommandRequest {
     var DAction: EAssetCapabilityType
-    // TODO: update this when CPlayerAsset has been written
     var DActors: [CPlayerAsset]
     var DTargetColor: EPlayerColor
     var DTargetType: EAssetType
     var DTargetLocation: CPixelPosition
 }
-
-typealias SPlayerCommandRequest = PLAYERCOMMANDREQUEST_TAG

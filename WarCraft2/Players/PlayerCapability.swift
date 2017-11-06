@@ -43,6 +43,14 @@ class CPlayerCapability {
         return true
     }
 
+    func AssetCapabilityType() -> EAssetCapabilityType {
+        return DAssetCapabilityType
+    }
+
+    func TargetType() -> ETargetType {
+        return DTargetType
+    }
+
     // FIXME: Not sure about return type
     static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
