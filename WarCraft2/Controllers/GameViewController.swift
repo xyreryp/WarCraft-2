@@ -27,6 +27,7 @@ class GameViewController: NSViewController, viewToController {
     var application = CApplicationData()
     var timer = CGPoint(x: 500, y: -200)
     var time = Timer()
+
     //    override func viewDidLoad() {
     //        super.viewDidLoad()
     //        // Do view setup here.
@@ -61,6 +62,7 @@ class GameViewController: NSViewController, viewToController {
         //        var application = CApplicationData()
         // load tile sets
         application.Activate()
+        CPlayerAssetType.LoadTypes()
         var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
         do {
@@ -74,6 +76,9 @@ class GameViewController: NSViewController, viewToController {
         mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
 
         let assetDecoratedMap = application.DAssetMap
+        do {
+            try assetDecoratedMap.LoadMap(fileNameToRead: "bay")
+        }
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)

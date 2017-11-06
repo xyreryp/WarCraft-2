@@ -260,31 +260,44 @@ class CPlayerAssetType {
         return 3
     }
 
-    static func LoadTypes(container: CDataContainer) -> Bool {
-        let fileItr = container.First()
-        if fileItr == nil {
-            print("fileItr is nil")
-            return false
-        }
+    static func LoadTypes( /* container _: CDataContainer */ ) -> Bool {
+        var Index: Int = 1
+        while Index != DTypeStrings.count {
+            let fileData = CDataSource.ReadMap(fileName: DTypeStrings[Index], extensionType: ".dat")
 
-        while fileItr != nil && (fileItr?.IsValid())! {
-            let FileName: String = fileItr!.Name()
-            let dat: String = ".dat"
-            fileItr?.Next()
-
-            if let range = FileName.range(of: dat) {
-                if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
-                    if !CPlayerAssetType.Load(source: container.DataSource(name: FileName)) {
-                        print("Failed to load source \(FileName)")
-                        continue
-                    } else {
-                        // Debug stuff
-                        print("Loaded source \(FileName)")
-                    }
-                }
+            if !CPlayerAssetType.Load(fileData: fileData, fileName: DTypeStrings[Index]) {
+                print("Failed to load source \(DTypeStrings[Index])")
+                continue
+            } else {
+                print("Loaded source \(DTypeStrings[Index])")
             }
+            Index = Index + 1
         }
 
+        //        let fileItr = container.First()
+        //        if fileItr == nil {
+        //            print("fileItr is nil")
+        //            return false
+        //        }
+        //
+        //        while fileItr != nil && (fileItr?.IsValid())! {
+        //            let FileName: String = fileItr!.Name()
+        //            let dat: String = ".dat"
+        //            fileItr?.Next()
+        //
+        //            if let range = FileName.range(of: dat) {
+        //                if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
+        //                    if !CPlayerAssetType.Load(source: container.DataSource(name: FileName)) {
+        //                        print("Failed to load source \(FileName)")
+        //                        continue
+        //                    } else {
+        //                        // Debug stuff
+        //                        print("Loaded source \(FileName)")
+        //                    }
+        //                }
+        //            }
+        //        }
+        //
         let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
         PlayerAssetType.DName = "None"
         PlayerAssetType.DType = EAssetType.None
@@ -295,9 +308,21 @@ class CPlayerAssetType {
     }
 
     //     TODO: After we for sure know how to read stuff in
-    static func Load(source _: CDataSource!) -> Bool {
+    static func Load(fileData _: [[String]], fileName: String) -> Bool {
         // gonna re impleiment using string name of the files
-        return false
+        var TempString: String
+        var PlayerAssetType: CPlayerAssetType
+        var AssetType: EAssetType
+        AssetType = NameToType(name: fileName)
+        var Iterator = DRegistry[fileName]
+        PlayerAssetType = CPlayerAssetType()
+        PlayerAssetType.DName = fileName
+        DRegistry[fileName] = PlayerAssetType
+        PlayerAssetType.DType = AssetType
+        PlayerAssetType.DColor = EPlayerColor.None
+        //the .dat files are not here
+        // TODO: add reading stats after figuring out how to handle the other .dat files
+        return true
     }
 
     static func FindDefaultFromName(name: String) -> CPlayerAssetType {

@@ -131,15 +131,8 @@ class CPlayerData {
         return NewMarker
     }
 
-    func CreateAsset(assettypename _: String) -> CPlayerAsset {
-        // TODO: Uncomment and use real DAssetType
-        //        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
-        var CreatedAssetType = CPlayerAssetType()
-        CreatedAssetType.DName = "GoldMine"
-        CreatedAssetType.DType = .GoldMine
-        var CreatedAsset = CreatedAssetType.Construct()
-        // hardcode end here
-
+    func CreateAsset(assettypename: String) -> CPlayerAsset {
+        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
         CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
         DActualMap.AddAsset(asset: CreatedAsset)
