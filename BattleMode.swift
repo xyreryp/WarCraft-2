@@ -436,8 +436,9 @@ class CBattleMode: CApplicationMode {
                 if 1 == context.DSelectedPlayerAssets.count {
                     if 0 == IconPressed {
                         // FIXME: immutable Asset.Position
-                        if let Asset = context.DSelectedPlayerAssets.first {
-                            context.DViewportRenderer.CenterViewport(pos: Asset.Position)
+                        if let Asset:CPlayerAsset? = context.DSelectedPlayerAssets.first {
+                            var pos = Asset?.Position()
+                            context.DViewportRenderer.CenterViewport(pos: &Asset!.Position())
                         }
                     }
                 } else if 0 <= IconPressed {
