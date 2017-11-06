@@ -303,8 +303,8 @@ class CMapRenderer: PMapRenderer {
                 XPos += TileWidth
             } while XPos < rect.DWidth
 
-            XIndex = 0
-            XPos = 0
+            XIndex = rect.DXPosition / TileWidth
+            XPos = -(rect.DXPosition % TileWidth)
             YIndex += 1
             YPos += TileHeight
         } while YPos < rect.DHeight
