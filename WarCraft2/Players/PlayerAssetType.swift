@@ -76,7 +76,7 @@ class CPlayerAssetType {
         DCapabilities = [Bool]()
         DColor = EPlayerColor.None
         CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
-        DHitPoints = 0
+        DHitPoints = 1
         DArmor = 0
         DSight = 0
         DConstructionSight = 0
@@ -119,6 +119,30 @@ class CPlayerAssetType {
             DBasicDamage = asset.DBasicDamage
             DPiercingDamage = asset.DPiercingDamage
             DRange = asset.DRange
+            DAssetUpgrades = [CPlayerUpgrade]()
+        } else {
+            DName = ""
+            DType = EAssetType.None
+            DCapabilities = [Bool]()
+            DColor = EPlayerColor.None
+            CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+            DHitPoints = 1
+            DArmor = 0
+            DSight = 0
+            DConstructionSight = 0
+            DSize = 1
+            DSpeed = 0
+            DGoldCost = 0
+            DLumberCost = 0
+            DFoodConsumption = 0
+            DBuildTime = 0
+            DAttackSteps = 0
+            DReloadSteps = 0
+            DBasicDamage = 0
+            DPiercingDamage = 0
+            DRange = 0
+            DAssetRequirements = [EAssetType]()
+            DAssetUpgrades = [CPlayerUpgrade]()
         }
     }
 
