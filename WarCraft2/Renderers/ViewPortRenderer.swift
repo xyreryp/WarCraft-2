@@ -82,7 +82,7 @@ class CViewportRenderer {
         return DLastViewportHeight
     }
 
-    func CenterViewport(pos: inout CPixelPosition) {
+    func CenterViewport(pos: CPixelPosition) {
         ViewPortX(x: (pos.X() - DLastViewportWidth / 2))
         ViewPortY(y: (pos.Y() - DLastViewportHeight / 2))
     }
