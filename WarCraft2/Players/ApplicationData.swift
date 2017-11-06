@@ -76,7 +76,7 @@ class CApplicationData {
     var DDoubleBufferSurface: SKScene = SKScene()
     var DWorkingBufferSurface: SKScene = SKScene()
     //    var DWorkingBufferSurface: SKScene?
-    var DMiniMapSurface: SKScene = SKScene()
+    var DMiniMapSurface: CGraphicResourceContext
     var DViewportSurface: SKScene = SKScene()
     var DViewportTypeSurface: SKScene = SKScene()
     var DUnitDescriptionSurface: SKScene = SKScene()
