@@ -17,8 +17,17 @@ class CUnitActionRenderer {
     var DFullIconWidth: Int
     var DFullIconHeight: Int
     var DDisabledIndex: Int
-    init(bevel _: CBevel, icons: CGraphicTileset, color _: EPlayerColor, player _: CPlayerData) {
+    
+    init(bevel: CBevel, icons: CGraphicTileset, color: EPlayerColor, player: CPlayerData) {
         DIconTileset = icons
+        DBevel = bevel
+        DPlayerData = player
+        DCommandIndices = [Int]()
+        DDisplayedCommands = [EAssetCapabilityType]()
+        DPlayerColor = color
+        DFullIconWidth = Int()
+        DFullIconHeight = Int()
+        DDisabledIndex = Int()
     }
 }
 
