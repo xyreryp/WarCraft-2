@@ -286,6 +286,7 @@ class CGraphicTileset {
             let newSize: NSSize
             newSize = NSSize(width: DTileWidth, height: DTileHeight)
             let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+            DTileImageSet.append(temp)
             let tempTexture = SKTexture(image: temp)
             DTileSet.append(tempTexture)
         }
@@ -383,13 +384,13 @@ class CGraphicTileset {
         skscene.addChild(tempNode)
     }
 
-    func DrawTile(context: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, tileindex: Int) {
-        if 0 >= tileindex || tileindex >= DTileCount {
+    func DrawTile(context: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, width: Int, height: Int, tileindex: Int) {
+        if 0 > tileindex || tileindex >= DTileCount {
             return
         }
 
         let image = DTileImageSet[tileindex]
-        let imageRect = CGRect(x: CGFloat(xpos), y: CGFloat(ypos), width: image.width, height: image.height)
+        let imageRect = CGRect(x: CGFloat(xpos), y: CGFloat(ypos), width: CGFloat(width), height: CGFloat(height))
         context.myContext.draw(image.CGImage, in: imageRect)
     }
 

@@ -56,15 +56,16 @@ class CBevel: NSObject {
     }
 
     func DrawBevel(context: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, width: Int, height: Int) {
-        let TopY = ypos - DWidth
-        let BottomY = ypos + height
-        let LeftX = xpos - DWidth
+        let TopY = ypos + height
+        let BottomY = ypos
+        let LeftX = xpos
         let RightX = xpos + width
 
-        DTileset.DrawTile(context: context, xpos: LeftX, ypos: TopY, tileindex: DCornerIndices[0])
-        DTileset.DrawTile(context: context, xpos: RightX, ypos: TopY, tileindex: DCornerIndices[1])
-        DTileset.DrawTile(context: context, xpos: LeftX, ypos: BottomY, tileindex: DCornerIndices[2])
-        DTileset.DrawTile(context: context, xpos: LeftX, ypos: BottomY, tileindex: DCornerIndices[3])
+        let tileWidth = DWidth
+        DTileset.DrawTile(context: context, xpos: LeftX, ypos: TopY, width: tileWidth, height: tileWidth, tileindex: DCornerIndices[0])
+        DTileset.DrawTile(context: context, xpos: RightX, ypos: TopY, width: tileWidth, height: tileWidth, tileindex: DCornerIndices[1])
+        DTileset.DrawTile(context: context, xpos: LeftX, ypos: BottomY, width: tileWidth, height: tileWidth, tileindex: DCornerIndices[2])
+        DTileset.DrawTile(context: context, xpos: RightX, ypos: BottomY, width: tileWidth, height: tileWidth, tileindex: DCornerIndices[3])
 
         var XOff = 0
         while XOff < width {
@@ -72,22 +73,22 @@ class CBevel: NSObject {
             if XOff + DWidth > width {
                 Index = width - XOff
             }
-            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: TopY, tileindex: DTopIndices[Index])
-            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: BottomY, tileindex: DBottomIndices[Index])
+            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: TopY, width: tileWidth, height: tileWidth, tileindex: DTopIndices[Index])
+            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: BottomY, width: tileWidth, height: tileWidth, tileindex: DBottomIndices[Index])
 
             XOff += DWidth
         }
 
-        var YOff = 0
-        while YOff < height {
+        var YOff = height
+        while YOff < 0 {
             var Index = 0
             if XOff + DWidth > width {
                 Index = width - XOff
             }
-            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: TopY, tileindex: DTopIndices[Index])
-            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: BottomY, tileindex: DBottomIndices[Index])
+            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: TopY, width: tileWidth, height: tileWidth, tileindex: DTopIndices[Index])
+            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: BottomY, width: tileWidth, height: tileWidth, tileindex: DBottomIndices[Index])
 
-            YOff += DWidth
+            YOff -= DWidth
         }
 
         YOff = 0
@@ -96,8 +97,8 @@ class CBevel: NSObject {
             if YOff + DWidth > height {
                 Index = height - YOff
             }
-            DTileset.DrawTile(context: context, xpos: LeftX, ypos: ypos + YOff, tileindex: DLeftIndices[Index])
-            DTileset.DrawTile(context: context, xpos: RightX, ypos: ypos + YOff, tileindex: DRightIndices[Index])
+            DTileset.DrawTile(context: context, xpos: LeftX, ypos: ypos + YOff, width: tileWidth, height: tileWidth, tileindex: DLeftIndices[Index])
+            DTileset.DrawTile(context: context, xpos: RightX, ypos: ypos + YOff, width: tileWidth, height: tileWidth, tileindex: DRightIndices[Index])
 
             YOff += DWidth
         }

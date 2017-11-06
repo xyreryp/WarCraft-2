@@ -22,6 +22,9 @@ class ResourceView: NSView {
     init(frame frameRect: NSRect, resourceRenderer: CResourceRenderer) {
         self.resourceRenderer = resourceRenderer
         super.init(frame: frameRect)
+
+        let bevel = CBevelView(frame: frame)
+        addSubview(bevel)
     }
 
     required init?(coder _: NSCoder) {

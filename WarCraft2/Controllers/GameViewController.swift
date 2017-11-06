@@ -89,11 +89,29 @@ class GameViewController: NSViewController, viewToController {
 
         let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 150, height: 150), mapRenderer: mapRenderer)
         cgview.addSubview(miniMapView)
-        
-        
-        let resourceView = ResourceView(frame: NSRect(x:150, y: view.frame.height - 60, width: 800, height:60  ), resourceRenderer: resourceRenderer)
- 
+
+        //        TempDataSource = ImageDirectory->DataSource("MiniIcons.dat");
+        //        DMiniIconTileset = std::make_shared< CGraphicTileset > ();
+        //        if(!DMiniIconTileset->LoadTileset(TempDataSource)){
+        //            PrintError("Failed to load mini icons.\n");
+        //            return;
+        //        }
+
+        let resourceRenderer = CResourceRenderer(icons: application.DMiniIconTileset, font: CFontTileset(), player: playerData)
+        let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
         cgview.addSubview(resourceView)
+
+        let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
+        cgview.addSubview(bevelView)
+
+        let bevelView2 = CBevelView(frame: NSRect(x: 10, y: 180, width: 150, height: 180))
+        cgview.addSubview(bevelView2)
+
+        let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
+        cgview.addSubview(bevelView3)
+
+        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+        cgview.addSubview(bevelView4)
 
         view.addSubview(cgview, positioned: .above, relativeTo: skview)
 

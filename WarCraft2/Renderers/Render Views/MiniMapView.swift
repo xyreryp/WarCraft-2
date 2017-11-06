@@ -22,6 +22,9 @@ class MiniMapView: NSView {
     init(frame frameRect: NSRect, mapRenderer: CMapRenderer) {
         self.mapRenderer = mapRenderer
         super.init(frame: frameRect)
+
+        let bevel = CBevelView(frame: frame)
+        self.addSubview(bevel)
     }
 
     required init?(coder _: NSCoder) {
