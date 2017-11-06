@@ -354,8 +354,10 @@ class CApplicationData {
 
         DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
 
+        // FIXME:
+        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicMulticolorTileset(), fonts: [], color: EPlayerColor.None)
+
         // TODO: finish these types of renderers
-        //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
         // var DUnitActionRenderer: CUnitActionRenderer? = nil
         // var DResourceRenderer: CResourceRenderer? = nil
         // var DMenuButtonRenderer: CButtonRenderer? = nil
