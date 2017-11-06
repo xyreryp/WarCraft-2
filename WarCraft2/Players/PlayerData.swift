@@ -14,8 +14,8 @@ class CPlayerData {
     var DVisibilityMap: CVisibilityMap?
     var DActualMap: CAssetDecoratedMap
     var DPlayerMap: CAssetDecoratedMap
-    var DAssetTypes = [String: CPlayerAssetType]()
-    var DAssets = [CPlayerAsset]()
+    var DAssetTypes: [String: CPlayerAssetType]
+    var DAssets: [CPlayerAsset]
     var DUpgrades: [Bool]
     var DGameEvents: [SGameEvent]
     var DGold: Int
@@ -34,6 +34,7 @@ class CPlayerData {
         DLumber = 0
         DUpgrades = [Bool]()
         DGameEvents = [SGameEvent]()
+        DAssets = [CPlayerAsset]()
         CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
