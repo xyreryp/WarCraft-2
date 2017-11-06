@@ -673,9 +673,9 @@ class CBattleMode: CApplicationMode {
             TempRectangle.DXPosition = TempPosition.X()
             TempRectangle.DYPosition = TempPosition.Y()
         }
-        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.TileHeight) {
-            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.TileWdith) {
-                context.DBackgroundTileSet.DrawTile(context.DWorkingBufferSurface, YPos, XPos, 0)
+        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
+            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
+                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
             }
         }
 
