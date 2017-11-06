@@ -700,7 +700,7 @@ class CBattleMode: CApplicationMode {
             }
         }
         context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
-        context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface)
+        context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface as! CGraphicSurface)
         context.DWorkingBufferSurface.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
         context.DWorkingBufferSurface.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
         context.DMenuButtonRenderer.DrawButton(context.DWorkingBufferSurface!, context.DMenuButtonXOffset, context.DMenuButtonYOffset, context.DMenuButtonState)
@@ -708,25 +708,25 @@ class CBattleMode: CApplicationMode {
         switch context.FindUIComponentType(CPixelPosition(x: CurrentX, y: CurrentY)) {
         case CApplicationData.EUIComponentType.uictViewport:
             var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
-            var PixelType: CPixelType = CPixelType.GetPixelType(context.DViewportTypeSurface, ViewportCursorLocation.X(), ViewportCursorLocation.Y())
-            context.DCursorType = CApplicationData.ctPointer
+            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface, xpos: ViewportCursorLocation.X(), ypos: ViewportCursorLocation.Y())
+            context.DCursorType = CApplicationData.ECursorType.ctPointer
             if EAssetCapabilityType.None == context.DCurrentAssetCapability {
                 if PixelType.Color() == context.DPlayerColor {
-                    context.DCursorType = CApplicationData.ctInspect
+                    context.DCursorType = CApplicationData.ECursorType.ctInspect
                 }
             } else {
-                var PlayerCapability = CPlayerCapability.FindCapability(context.DCurrentAssetCapability)
-                if PlayerCapability {
+                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
+                if PlayerCapability != nil {
                     var CanApply: Bool = false
-                    if EAssetType.None == PixelType.AssetType() {
-                        if (CPlayerCapability.ETargetType.Terrain == PlayerCapability.TargetType()) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability.TargetType()) {
-                            var NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(context.ViewportToDetailedMap(ViewportCursorLocation), false)
+                    if EAssetType.None == PixelType.DAssetType{
+                        if (CPlayerCapability.ETargetType.Terrain == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability.TargetType()) {
+                            var NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), addtomap: false)
 
-                            CanApply = PlayerCapability.CanApply(context.DSelectedPlayerAssets.front().lock(), context.DGameModel.Player(context.DPlayerColor), NewTarget)
+                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.front().lock(), playerdata: context.DGameModel.Player(color: context.DPlayerColor), target: NewTarget)
                         }
                     } else {
-                        if (CPlayerCapability.ETargetType.Asset == PlayerCapability.TargetType()) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability.TargetType()) {
-                            let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), assettype: PixelType.AssetType())
+                        if (CPlayerCapability.ETargetType.Asset == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
+                            let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), assettype: PixelType.DAssetType)
 
                             CanApply = PlayerCapability.CanApply(context.DSelectedPlayerAssets.front().lock(), context.DGameModel.Player(context.DPlayerColor), NewTarget)
                         }
