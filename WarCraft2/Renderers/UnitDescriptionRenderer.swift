@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 // global constants needed
 let FG_COLOR: Int = 0
@@ -114,7 +115,10 @@ class CUnitDescriptionRenderer {
         DResearchIndices[EAssetCapabilityType.BuildRanger.rawValue] = DIconTileset.FindTile(tilename: "ranger")
     }
     
-    func AddAssetNameSpaces(name: inout String) -> String { // passing reference to string
+    // NOTE: changed it to not inout
+    // func AddAssetNameSpaces(name: inout String) -> String { // passing reference to string
+    func AddAssetNameSpaces(name:  String) -> String { // passing reference to string
+
         var ReturnString: String
         for CurChar in name {
             if (!(ReturnString.isEmpty)) && (CurChar >= "A") && (CurChar <= "Z") {
@@ -202,8 +206,8 @@ class CUnitDescriptionRenderer {
         DFonts[EFontSize.Large.rawValue].DrawTextWithShadow(surface, DDisplayedWidth / 2 - TextWidth / 2, DDisplayedWidth - (TextHeight + TextTop + 6), DFontColorIndices[EFontSize.Large.rawValue][FG_COLOR], DFontColorIndices[EFontSize.Large.rawValue][BG_COLOR], 1, "% Complete")
     }
     
-    func DrawUnitDescription(surface: CGraphicSurface,
-                             selectionlist: [CPlayerAsset?]) {
+    func DrawUnitDescription(surface: CGraphicSurface, selectionlist: [CPlayerAsset?]) {
+//    func DrawUnitDescription(surface: SKScene, selectionlist: [CPlayerAsset?]) {
         DDisplayedIcons = 0
         if selectionlist.count > 0 {
             var ResourceContext = surface.CreateResourceContext()
@@ -212,6 +216,7 @@ class CUnitDescriptionRenderer {
             var HorizontalGap: Int
             var VerticalGap: Int
             
+            // Passing in SKScene
             DDisplayedWidth = surface.Width()
             DDisplayedHeight = surface.Height()
             HorizontalIcons = DDisplayedWidth / DFullIconWidth
@@ -227,14 +232,15 @@ class CUnitDescriptionRenderer {
                     var TextHeight: Int
                     var TextCenter: Int
                     var TextTop: Int
-                    var AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(Asset.Type()))
+                    var AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
                     
                     var TempString: String
                     
-                    DBevel.DrawBevel(surface: surface, xpos: DBevel.Width(), ypos: DBevel.Width(), width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                    // NOTE: Changed to skscene
+                    DBevel.DrawBevel(surface: surface as! SKScene, xpos: DBevel.Width(), ypos: DBevel.Width(), width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
                     
-                    // FIXME:
-                    DIconTileset.DrawTile(surface: surface, xpos: DBevel.Width(), ypos: DBevel.Width(), tileindex: DAssetIndices[Asset.Type().rawValue]!, colorindex: (Asset.Color().rawValue as Bool) ? Asset.Color().rawValue - 1 : 0)
+                    // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
+                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: DBevel.Width(), ypos: DBevel.Width(), tileindex: DAssetIndices[Asset.Type().rawValue]!, colorindex: (Asset.Color().rawValue != 0) ? Asset.Color().rawValue - 1 : 0)
                     
                     DFonts[EFontSize.Medium.rawValue].MeasureText(AssetName, TextWidth, TextHeight)
                     TextCenter = (DDisplayedWidth + DIconTileset.TileWidth() + DBevel.Width() * 2) / 2
@@ -242,12 +248,12 @@ class CUnitDescriptionRenderer {
                     DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface, TextCenter - TextWidth / 2, (DIconTileset.TileHeight() / 2 + DBevel.Width()) - TextHeight / 2, DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], DFontColorIndices[EFontSize.Medium][BG_COLOR], 1, AssetName)
                     
                     if EPlayerColor.None != Asset.Color() {
-                        ResourceContext.SetSourceRGB(DHealthRectangleFG)
-                        ResourceContext.Rectangle(0, DIconTileset.TileHeight() + DBevel.Width() * 3, DIconTileset.TileWidth() + DBevel.Width() * 2, HEALTH_HEIGHT + 2)
+                        ResourceContext.SetSourceRGB(rgb: DHealthRectangleFG)
+                        ResourceContext.Rectangle(xpos: 0, ypos: DIconTileset.TileHeight() + DBevel.Width() * 3, width: DIconTileset.TileWidth() + DBevel.Width() * 2, height: HEALTH_HEIGHT + 2)
                         ResourceContext.Fill()
                         
-                        ResourceContext.SetSourceRGB(DHealthColors[HPColor])
-                        ResourceContext.Rectangle(1, DIconTileset.TileHeight() + DBevel.Width() * 3 + 1, (DIconTileset.TileWidth() + DBevel.Width() * 2 - 2) * Asset.HitPoints() / Asset.MaxHitPoints(), HEALTH_HEIGHT)
+                        ResourceContext.SetSourceRGB(rgb: DHealthColors[HPColor]!)
+                        ResourceContext.Rectangle(xpos: 1, ypos: DIconTileset.TileHeight() + DBevel.Width() * 3 + 1, width: (DIconTileset.TileWidth() + DBevel.Width() * 2 - 2) * Asset.HitPoints() / Asset.MaxHitPoints(), height: HEALTH_HEIGHT)
                         ResourceContext.Fill()
                         
                         TempString = String(Asset.DHitPoints) + String(" / ") + String(Asset.MaxHitPoints())
@@ -335,28 +341,30 @@ class CUnitDescriptionRenderer {
                                 var Command = Asset.CurrentCommand()
                                 var PercentComplete: Int = 0
                                 if Command.DAssetTarget != nil {
-                                    Command = Command.DAssetTarget.CurrentCommand()
+                                    Command = (Command.DAssetTarget?.CurrentCommand())!
                                     if Command.DActivatedCapability != nil {
-                                        PercentComplete = Command.DActivatedCapability.PercentComplete(max: 100)
+                                        PercentComplete = (Command.DActivatedCapability?.PercentComplete(max: 100))!
                                     }
                                 } else if Command.DActivatedCapability != nil {
-                                    PercentComplete = Command.DActivatedCapability.PercentComplete(max: 100)
+                                    PercentComplete = (Command.DActivatedCapability?.PercentComplete(max: 100))!
                                 }
-                                DrawCompletionBar(surface: surface, percent: PercentComplete)
+                                DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
                             } else if EAssetAction.Capability == Asset.Action() {
                                 var Command = Asset.CurrentCommand()
                                 var PercentComplete: Int = 0
-                                if Command.DActivatedCapability != nil {
-                                    PercentComplete = Command.DActivatedCapabilityPercentComplete(max: 100)
-                                }
+                                // NOTE: this is in new Linux code?
+//                                if Command.DActivatedCapability != nil {
+//                                    PercentComplete = Command.DActivatedCapabilityPercentComplete(max: 100)
+//                                }
                                 if Command.DAssetTarget != nil {
                                     var HorizontalOffset: Int = DBevel.Width(), VerticalOffset = DBevel.Width()
                                     
                                     HorizontalOffset += 2 * (DFullIconWidth + HorizontalGap)
                                     VerticalOffset += DFullIconHeight + VerticalGap
                                     
-                                    DBevel.DrawBevel(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-                                    DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Command.DAssetTarget.Type().rawValue]!, colorindex: Command.DAssetTarget.Color().rawValue ? Command.DAssetTarget.Color().rawValue - 1 : 0)
+                                    DBevel.DrawBevel(surface: surface as! SKScene, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                                    // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
+                                    DIconTileset.DrawTile(surface: surface , xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Command.DAssetTarget!.Type().rawValue]!, colorindex: Command.DAssetTarget!.Color().rawValue != 0 ?     Command.DAssetTarget!.Color().rawValue - 1 : 0)
                                     
                                     TempString = "Training: "
                                     DFonts[EFontSize.Medium.rawValue].MeasureText(TempString, TextWidth, TextHeight)
@@ -367,8 +375,12 @@ class CUnitDescriptionRenderer {
                                     HorizontalOffset += 2 * (DFullIconWidth + HorizontalGap)
                                     VerticalOffset += DFullIconHeight + VerticalGap
                                     
-                                    DBevel.DrawBevel(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-                                    DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DResearchIndices[Command.DCapability.rawValue]!, colorindex: Asset.Color().rawValue ? Asset.Color().rawValue - 1 : 0)
+                                    DBevel.DrawBevel(surface: surface as! SKScene, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                                    
+                                    // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
+//                                    DIconTileset->DrawTile(surface, HorizontalOffset, VerticalOffset, DResearchIndices[to_underlying(Command.DCapability)], to_underlying(Asset->Color()) ? to_underlying(Asset->Color()) - 1 : 0);
+                                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DResearchIndices[Command.DCapability.rawValue]!, colorindex: Asset.Color().rawValue != 0 ?
+                                        Asset.Color().rawValue - 1 : 0)
                                     
                                     TempString = "Researching: "
                                     DFonts[EFontSize.Medium.rawValue].MeasureText(TempString, TextWidth, TextHeight)
@@ -377,7 +389,8 @@ class CUnitDescriptionRenderer {
                                                                                          (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2,
                                                                                          DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], 1, TempString)
                                 }
-                                DrawCompletionBar(surface: surface, percent: PercentComplete)
+                                // FIXME: should DrawCompletionBar take in GraphicSurface or SKScene or GraphicResourceContext
+                                DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
                             }
                         }
                     } else {
@@ -408,15 +421,16 @@ class CUnitDescriptionRenderer {
                         var TextTop: Int
                         var TempString: String
                         
-                        DBevel.DrawBevel(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-                        DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Asset.Type().rawValue]!, colorindex: Asset.Color().rawValue > 0 ? Asset.Color().rawValue - 1 : 0)
+                        DBevel.DrawBevel(surface: surface as! SKScene, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                        // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
+                        DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Asset.Type().rawValue]!, colorindex: Asset.Color().rawValue > 0 ? Asset.Color().rawValue - 1 : 0)
                         
-                        ResourceContext.SetSourceRGB(DHealthRectangleFG)
-                        ResourceContext.Rectangle(HorizontalOffset - DBevel.Width(), VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3, DIconTileset.TileWidth() + DBevel.Width() * 2, HEALTH_HEIGHT + 2)
+                        ResourceContext.SetSourceRGB(rgb: DHealthRectangleFG)
+                        ResourceContext.Rectangle(xpos: HorizontalOffset - DBevel.Width(), ypos: VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3, width: DIconTileset.TileWidth() + DBevel.Width() * 2, height: HEALTH_HEIGHT + 2)
                         ResourceContext.Fill()
                         
-                        ResourceContext.SetSourceRGB(DHealthColors[HPColor])
-                        ResourceContext.Rectangle(HorizontalOffset - DBevel.Width() + 1, VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3 + 1, (DIconTileset.TileWidth() + DBevel.Width() * 2 - 2) * Asset.DHitPoints / Asset.MaxHitPoints(), HEALTH_HEIGHT)
+                        ResourceContext.SetSourceRGB(rgb: DHealthColors[HPColor]!)
+                        ResourceContext.Rectangle(xpos: HorizontalOffset - DBevel.Width() + 1, ypos: VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3 + 1, width: (DIconTileset.TileWidth() + DBevel.Width() * 2 - 2) * Asset.DHitPoints / Asset.MaxHitPoints(), height: HEALTH_HEIGHT)
                         ResourceContext.Fill()
                         
                         TempString = String(Asset.DHitPoints) + String(" / ") + String(Asset.MaxHitPoints())
