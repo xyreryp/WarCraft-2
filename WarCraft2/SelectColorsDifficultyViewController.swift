@@ -15,6 +15,19 @@ class SelectColorsDifficultyViewController: NSViewController {
     @IBOutlet weak var yellowX4: NSImageView!
     @IBOutlet weak var yellowX5: NSImageView!
     @IBOutlet weak var yellowX6: NSImageView!
+    
+    struct mark {
+        var X: NSImageView
+        var row: Int
+        var col: Int
+    }
+    
+    var mark1: mark
+    var mark2: mark
+    var mark3: mark
+    var mark4: mark
+    var mark5: mark
+    var mark6: mark
 
     @IBOutlet weak var red1: NSButton!
     @IBOutlet weak var red2: NSButton!
@@ -295,6 +308,8 @@ class SelectColorsDifficultyViewController: NSViewController {
     }
 
     func unhideRows(firstRowToHide: Int) {
+        yellowX1.isHidden = false
+        yellowX2.isHidden = false
         if 3 <= firstRowToHide {
             moveYellowX(button: green3)
             yellowX3.isHidden = false
@@ -368,29 +383,52 @@ class SelectColorsDifficultyViewController: NSViewController {
         } else if row6 == button.frame.origin.y {
             return yellowX6
         }
+        print(button.frame.origin.y)
+        print(row1, row2, row3, row4, row5, row6)
         return yellowX1
     }
+
+    // the current YellowX is passed in.  Compare it to every other Y and look for matching X value.  Also check that this is not
+    // the same YellowY.  Also check that the row of the YellowX is allowed.
     
-    //if X's are same vertically, then other will move horizontally
+    func resolveConflict(yellowX _: NSImageView) {
+        //if yellowX.frame.origin.x == yellowX1.frame.origin.x {
+            
+        //}
+
+        
+    }
 
     func moveYellowX(button: NSButton) {
         let yellowX: NSImageView = getYellowX(button: button)
 
         yellowX.setFrameOrigin(NSPoint(x: button.frame.origin.x + buttonOffsetX, y: button.frame.origin.y + buttonOffsetY))
-    }
 
+        resolveConflict(yellowX: yellowX)
+    }
+    
+    required init?(coder: NSCoder) {
+        mark1 = mark(X: yellowX1, row: 1, col: 1)
+        mark2 = mark(X: yellowX2, row: 2, col: 2)
+        mark3 = mark(X: yellowX3, row: 3, col: 3)
+        mark4 = mark(X: yellowX4, row: 4, col: 4)
+        mark5 = mark(X: yellowX5, row: 5, col: 5)
+        mark6 = mark(X: yellowX6, row: 6, col: 6)
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidAppear() {
         if let mainWC = view.window?.windowController as? MainWindowController {
             let numPlayers: Int = mainWC.selectMapMenuVC!.numPlayers
-            unhideRows(firstRowToHide: numPlayers)
             setRows()
-
+            
             moveYellowX(button: red1)
             moveYellowX(button: blue2)
             moveYellowX(button: green3)
             moveYellowX(button: purple4)
             moveYellowX(button: brown5)
             moveYellowX(button: gold6)
+            unhideRows(firstRowToHide: numPlayers)
         }
     }
 
