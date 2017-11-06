@@ -45,9 +45,11 @@ class CResourceRenderer: NSObject {
             DIconTileset.FindTile(tilename: "lumber"),
             DIconTileset.FindTile(tilename: "food"),
         ]
+
+        DFont.MeasureText(str: "0123456789", width: &Width, height: &DTextHeight)
     }
 
-    func DrawResources(surface: CGraphicSurface) {
+    func DrawResources(context: CGraphicResourceContextCoreGraphics) {
         if let DPlayer = DPlayer {
             var Width = 0
             var Height = 0
@@ -82,6 +84,17 @@ class CResourceRenderer: NSObject {
             WidthSeparation = Width / 4
             XOffset = Width / 8
 
+            let iconWidth = 20
+            DIconTileset.DrawTile(context: context, xpos: XOffset, ypos: ImageYOffset, width: iconWidth, height: iconWidth, tileindex: EMiniIconTypes.Gold.rawValue)
+            // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DLastGoldDisplay)")
+            XOffset += WidthSeparation
+
+            DIconTileset.DrawTile(context: context, xpos: XOffset, ypos: ImageYOffset, width: iconWidth, height: iconWidth, tileindex: DIconIndices[EMiniIconTypes.Lumber.rawValue])
+            // DFont.DrawTextWithShadow(surface: IOSurface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DLastLumberDisplay)")
+            XOffset += WidthSeparation
+
+            DIconTileset.DrawTile(context: context, xpos: XOffset, ypos: ImageYOffset, width: iconWidth, height: iconWidth, tileindex: DIconIndices[EMiniIconTypes.Food.rawValue])
+
             if DPlayer.FoodConsumption() > DPlayer.FoodProduction() {
                 var secondTextWidth = 0
                 var TotalTextWidth = 0
@@ -91,6 +104,7 @@ class CResourceRenderer: NSObject {
                 // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DPlayer.FoodConsumption)")
                 // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth() + TotalTextWidth - secondTextWidth, ypos: TextYOffset, str: " / \(DPlayer.FoodProduction())")
             } else {
+                // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DPlayer.FoodConsumption()) / \(DPlayer.FoodProduction())")
             }
         }
     }

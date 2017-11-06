@@ -384,9 +384,14 @@ class CGraphicTileset {
         skscene.addChild(tempNode)
     }
 
-    func DrawTile(context: CGraphicResourceContext, xpos _: Int, ypos _: Int, titleindex _: Int) {
-        //    surface->Draw(DSurfaceTileset, xpos, ypos, DTileWidth, DTileHeight, 0, tileindex * DTileHeight);
-        context.
+    func DrawTile(context: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, width: Int, height: Int, tileindex: Int) {
+        if 0 > tileindex || tileindex >= DTileCount {
+            return
+        }
+
+        let image = DTileImageSet[tileindex]
+        let imageRect = CGRect(x: CGFloat(xpos), y: CGFloat(ypos), width: CGFloat(width), height: CGFloat(height))
+        context.myContext.draw(image.CGImage, in: imageRect)
     }
 
     //
