@@ -20,7 +20,9 @@ protocol viewToController {
 
 class GameViewController: NSViewController, viewToController {
 
-    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 2000, height: 2000))
+    @IBOutlet weak var resourceRenderer: CResourceRenderer!
+
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 900, height: 500))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
@@ -50,10 +52,14 @@ class GameViewController: NSViewController, viewToController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        view.addSubview(skview)
+        //
         //                skview.showsFPS = true
         // skscene?.backgroundColor = NSColor.brown
-        skview.presentScene(skscene)
+
+        // FIXME: Uncomment this to put scene back
+        // view.addSubview(skview)
+        // skview.presentScene(skscene)
+
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
 
@@ -75,6 +81,7 @@ class GameViewController: NSViewController, viewToController {
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        resourceRenderer.DPlayer = playerData
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
@@ -181,7 +188,6 @@ class CGView: NSView {
         let context = NSGraphicsContext.current!.cgContext
         let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
         mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
-        
     }
 }
 
