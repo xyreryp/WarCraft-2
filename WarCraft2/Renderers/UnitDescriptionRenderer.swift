@@ -177,26 +177,26 @@ class CUnitDescriptionRenderer {
         DFonts[EFontSize.Large.rawVale].MeasureTextDetailed("% Complete", TextWidth, TextHeight, TextTop, TextBottom)
         
         TextHeight = TextBottom - TextTop + 1
-        ResourceContext.SetSourceRGB(BlackColor)
-        ResourceContext.Rectangle(0, DDisplayedHeight - (TextHeight + 12), DDisplayedWidth, TextHeight + 12)
+        ResourceContext.SetSourceRGB(rgb: BlackColor)
+        ResourceContext.Rectangle(xpos: 0, ypos: DDisplayedHeight - (TextHeight + 12), width: DDisplayedWidth, height: TextHeight + 12)
         ResourceContext.Fill()
         
-        ResourceContext.SetSourceRBG(DConstructionRectangleFG)
-        ResourceContext.Rectangle(1, DDisplayedHeight - (TextHeight + 11), DDisplayedWidth - 1, TextHeight + 10)
+        ResourceContext.SetSourceRGB(rgb: DConstructionRectangleFG)
+        ResourceContext.Rectangle(xpos: 1, ypos: DDisplayedHeight - (TextHeight + 11), width: DDisplayedWidth - 1, height: TextHeight + 10)
         ResourceContext.Stroke()
         
-        ResourceContext.SetSourceRGB(BlackColor)
-        ResourceContext.Rectangle(3, DDisplayedHeight - (TextHeight + 9), DDisplayedWidth - 6, TextHeight + 6)
+        ResourceContext.SetSourceRGB(rgb: BlackColor)
+        ResourceContext.Rectangle(xpos: 3, ypos: DDisplayedHeight - (TextHeight + 9), width: DDisplayedWidth - 6, height: TextHeight + 6)
         ResourceContext.Fill()
         
-        ResourceContext.SetSourceRGB(DConstructionRectangleShadow)
-        ResourceContext.Rectangle(4, DDisplayedHeight - (TextHeight + 8), DDisplayedWidth - 8, TextHeight / 2 + 2)
+        ResourceContext.SetSourceRGB(rgb: DConstructionRectangleShadow)
+        ResourceContext.Rectangle(xpos: 4, ypos: DDisplayedHeight - (TextHeight + 8), width: DDisplayedWidth - 8, height: TextHeight / 2 + 2)
         ResourceContext.Fill()
         
         DisplayWidth = percent * (DDisplayedWidth - 8) / 100
         
-        ResourceContext.SetSourceRGB(DConstructionRectangleCompletion)
-        ResourceContext.Rectangle(4, DDisplayedHeight - (TextHeight + 8), DisplayWidth, TextHeight + 4)
+        ResourceContext.SetSourceRGB(rgb: DConstructionRectangleCompletion)
+        ResourceContext.Rectangle(xpos: 4, ypos: DDisplayedHeight - (TextHeight + 8), width: DisplayWidth, height: TextHeight + 4)
         ResourceContext.Fill()
         
         DFonts[EFontSize.Large.rawValue].DrawTextWithShadow(surface, DDisplayedWidth / 2 - TextWidth / 2, DDisplayedWidth - (TextHeight + TextTop + 6), DFontColorIndices[EFontSize.Large.rawValue][FG_COLOR], DFontColorIndices[EFontSize.Large.rawValue][BG_COLOR], 1, "% Complete")
