@@ -20,17 +20,29 @@ class CPlayerCapabilityMove: CPlayerCapability {
 
     class CActivatedCapability: CActivatedPlayerCapability {
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DActor: CPlayerAsset
+
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
             TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
-            
+
             AssetCommand.DAction = EAssetAction.Walk
             AssetCommand.DAssetTarget = DTarget
             if !DActor.TileAligned() {
@@ -41,7 +53,8 @@ class CPlayerCapabilityMove: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
+
             DActor.PopCommand()
         }
     }
@@ -87,12 +100,23 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
@@ -116,7 +140,7 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
@@ -176,17 +200,27 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
 
             AssetCommand.DAssetTarget = DPlayerData.CreateMarker(pos: DActor.DPosition, addtomap: false)
@@ -205,7 +239,7 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
@@ -249,12 +283,23 @@ class CPlayerCapabilityCancel: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             DActor.PopCommand()
 
             if EAssetAction.None != DActor.Action() {
@@ -275,7 +320,7 @@ class CPlayerCapabilityCancel: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
@@ -320,18 +365,28 @@ class CPlayerCapabilityConvey: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var NearestRepository: CPlayerAsset
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
 
             DActor.PopCommand()
@@ -351,7 +406,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
@@ -405,18 +460,28 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var PatrolCommand: SAssetCommand
             var WalkCommand: SAssetCommand
             var TempEvent: SGameEvent
 
-            TempEvent.DType = EEventType.Acknowledge
-            TempEvent.DAsset = DActor
+            TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
             DPlayerData.AddGameEvent(event: TempEvent)
 
             PatrolCommand.DAction = EAssetAction.Capability
@@ -439,7 +504,7 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
@@ -489,12 +554,23 @@ class CPlayerCapabilityAttack: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
@@ -514,7 +590,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
@@ -564,12 +640,23 @@ class CPlayerCapabilityRepair: CPlayerCapability {
     static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
+        var DActor: CPlayerAsset
 
-        override func PercentComplete(max _: Int) -> Int {
+        var DPlayerData: CPlayerData
+
+        var DTarget: CPlayerAsset
+
+        init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) {
+            DActor = actor
+            DPlayerData = playerdata
+            DTarget = target
+        }
+
+        func PercentComplete(max _: Int) -> Int {
             return 0
         }
 
-        override func IncrementStep() -> Bool {
+        func IncrementStep() -> Bool {
             var AssetCommand: SAssetCommand
             var TempEvent: SGameEvent
 
@@ -589,7 +676,7 @@ class CPlayerCapabilityRepair: CPlayerCapability {
             return true
         }
 
-        override func Cancel() {
+        func Cancel() {
             DActor.PopCommand()
         }
     }
