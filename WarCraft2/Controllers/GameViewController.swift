@@ -89,6 +89,11 @@ class GameViewController: NSViewController, viewToController {
 
         let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 150, height: 150), mapRenderer: mapRenderer)
         cgview.addSubview(miniMapView)
+        
+        
+        let resourceView = ResourceView(frame: NSRect(x:150, y: view.frame.height - 60, width: 800, height:60  ), resourceRenderer: resourceRenderer)
+ 
+        cgview.addSubview(resourceView)
 
         view.addSubview(cgview, positioned: .above, relativeTo: skview)
 

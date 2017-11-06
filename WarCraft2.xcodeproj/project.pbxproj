@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		497121311FB02F400089DF03 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121301FB02F400089DF03 /* MiniMapView.swift */; };
 		497121331FB032150089DF03 /* CBevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121321FB032150089DF03 /* CBevel.swift */; };
+		497121351FB03E370089DF03 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121341FB03E370089DF03 /* ResourceView.swift */; };
 		4999BB971FAF943E0080C019 /* ResourceRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999BB961FAF943E0080C019 /* ResourceRenderer.swift */; };
 		4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B12BCC71F8C376100F1E62D /* SoundManager.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
@@ -96,6 +97,7 @@
 /* Begin PBXFileReference section */
 		497121301FB02F400089DF03 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
 		497121321FB032150089DF03 /* CBevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBevel.swift; sourceTree = "<group>"; };
+		497121341FB03E370089DF03 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
 		4999BB961FAF943E0080C019 /* ResourceRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRenderer.swift; sourceTree = "<group>"; };
 		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			children = (
 				497121301FB02F400089DF03 /* MiniMapView.swift */,
 				497121321FB032150089DF03 /* CBevel.swift */,
+				497121341FB03E370089DF03 /* ResourceView.swift */,
 			);
 			path = "Render Views";
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */,
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */,
+				497121351FB03E370089DF03 /* ResourceView.swift in Sources */,
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				E1D2FD4E1FA6AE0E00093313 /* Helpers.swift in Sources */,
