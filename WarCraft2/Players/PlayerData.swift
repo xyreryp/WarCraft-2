@@ -14,8 +14,8 @@ class CPlayerData {
     var DVisibilityMap: CVisibilityMap?
     var DActualMap: CAssetDecoratedMap
     var DPlayerMap: CAssetDecoratedMap
-    var DAssetTypes: [String: CPlayerAssetType]
-    var DAssets: [CPlayerAsset]
+    var DAssetTypes = [String: CPlayerAssetType]()
+    var DAssets = [CPlayerAsset]()
     var DUpgrades: [Bool]
     var DGameEvents: [SGameEvent]
     var DGold: Int
