@@ -57,13 +57,13 @@ class CApplicationData {
     }
 
     // pretty sure this is a pointer to itself
-    var DApplicationPointer: CApplicationData? = CApplicationData()
-    var DDeleted: Bool = Bool()
+    var DApplicationPointer: CApplicationData?
+    var DDeleted: Bool
     var DGameSessionType: EGameSessionType
-    var DSoundVolume: Float = Float()
-    var DMusicVolume: Float = Float()
-    var DUserName: String = String()
-    var DRemoteHostName: String = String()
+    var DSoundVolume: Float
+    var DMusicVolume: Float
+    var DUserName: String
+    var DRemoteHostName: String
     var DMultiplayerPort = 55107 // Asc
 
     // pretty sure dont need these
@@ -73,51 +73,50 @@ class CApplicationData {
     //    std::shared_ptr<CGUICursor> DBlankCursor;
 
     // different surfaces
-    var DDoubleBufferSurface: SKScene = SKScene()
-    var DWorkingBufferSurface: SKScene = SKScene()
+    var DDoubleBufferSurface: SKScene
+    var DWorkingBufferSurface: SKScene
     //    var DWorkingBufferSurface: SKScene?
     var DMiniMapSurface: CGraphicResourceContext
-    var DViewportSurface: SKScene = SKScene()
-    var DViewportTypeSurface: SKScene = SKScene()
-    var DUnitDescriptionSurface: SKScene = SKScene()
-    var DUnitActionSurface: SKScene = SKScene()
-    var DResourceSurface: SKScene = SKScene()
-    var DMapSelectListViewSurface: SKScene = SKScene()
-    var DMiniMapViewportColor: uint32 = uint32()
+    var DViewportSurface: SKScene
+    var DViewportTypeSurface: SKScene
+    var DUnitDescriptionSurface: SKScene
+    var DUnitActionSurface: SKScene
+    var DResourceSurface: SKScene
+    var DMapSelectListViewSurface: SKScene
+    var DMiniMapViewportColor: uint32
 
     // coordinate and map and options related things
-    var DBorderWidth: Int = Int()
-    var DPanningSpeed: Int = Int()
-    var DViewportXOffset: Int = Int()
-    var DViewportYOffset: Int = Int()
-    var DMiniMapXOffset: Int = Int()
-    var DMiniMapYOffset: Int = Int()
-    var DUnitDescriptionXOffset: Int = Int()
-    var DUnitDescriptionYOffset: Int = Int()
-    var DUnitActionXOffset: Int = Int()
-    var DUnitActionYOffset: Int = Int()
-    var DMenuButtonXOffset: Int = Int()
-    var DMenuButtonYOffset: Int = Int()
-    var DMapSelectListViewXOffset: Int = Int()
-    var DMapSelectListViewYOffset: Int = Int()
-    var DSelectedMapIndex: Int = Int()
-    var DSelectedMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    var DOptionsEditSelected: Int = Int()
-    var DPotionsEditSelectedCharacter: Int = Int()
-    var DOptionsEditLocations: [SRectangle] = [SRectangle]()
-    var DOptionsEditTitles: [String] = [String]()
-    var DOptionsEditText: [String] = [String]()
+    var DBorderWidth: Int
+    var DPanningSpeed: Int
+    var DViewportXOffset: Int
+    var DViewportYOffset: Int
+    var DMiniMapXOffset: Int
+    var DMiniMapYOffset: Int
+    var DUnitDescriptionXOffset: Int
+    var DUnitDescriptionYOffset: Int
+    var DUnitActionXOffset: Int
+    var DUnitActionYOffset: Int
+    var DMenuButtonXOffset: Int
+    var DMenuButtonYOffset: Int
+    var DMapSelectListViewXOffset: Int
+    var DMapSelectListViewYOffset: Int
+    var DSelectedMapIndex: Int
+    var DSelectedMap: CAssetDecoratedMap
+    var DOptionsEditSelected: Int
+    var DPotionsEditSelectedCharacter: Int
+    var DOptionsEditLocations: [SRectangle]
+    var DOptionsEditTitles: [String]
+    var DOptionsEditText: [String]
     // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
     // Map Renderer
-    var DMapRenderer: CMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
-
+    var DMapRenderer: CMapRenderer
     // cursor things
     // TODO: uncomment later
     // var DCursorset: CCursorSet? = nil
-    var DCursorIndices: [Int] = [Int](repeating: Int(), count: ECursorType.ctMax.rawValue)
-    var DCursorType: ECursorType = ECursorType.ctPointer
+    var DCursorIndices: [Int]
+    var DCursorType: ECursorType 
 
     // sound things
     // TODO: uncomment later
@@ -127,18 +126,18 @@ class CApplicationData {
     // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
 
     // loading steps things
-    var DTotalLoadingSteps: Int = Int()
-    var DCurrentLoadingStep: Int = Int()
+    var DTotalLoadingSteps: Int
+    var DCurrentLoadingStep: Int
 
     // tileset things
-    var DLoadingResourceContext: CGraphicResourceContext = CGraphicResourceContext()
-    var DSplashTileset = CGraphicTileset()
-    var DMarkerTileset = CGraphicTileset() // needed for assetRenderer
-    var DBackgroundTileset = CGraphicTileset()
-    var DMiniBevelTileset = CGraphicTileset()
-    var DInnerBevelTileset = CGraphicTileset()
-    var DOuterVevelTileset = CGraphicTileset()
-    var DListViewIconTileset = CGraphicTileset()
+    var DLoadingResourceContext: CGraphicResourceContext
+    var DSplashTileset: CGraphicTileset
+    var DMarkerTileset: CGraphicTileset
+    var DBackgroundTileset: CGraphicTileset
+    var DMiniBevelTileset: CGraphicTileset
+    var DInnerBevelTileset: CGraphicTileset
+    var DOuterVevelTileset: CGraphicTileset
+    var DListViewIconTileset: CGraphicTileset
 
     // TODO: Import bevel stuff and uncomment
     var DMiniBevel: CBevel = CBevel(tileset: CGraphicTileset())
