@@ -86,7 +86,7 @@ class GameViewController: NSViewController, viewToController {
         //  let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
         // view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
-        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        time = Timer.scheduledTimer(timeInterval: 0.10, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
@@ -124,9 +124,11 @@ class GameViewController: NSViewController, viewToController {
         let cgr = CGraphicResourceContext()
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
 
-        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: application.PreviousViewPortX + application.ViewportX, DYPosition: application.PreviousViewPortY - application.PreviousViewPortY, DWidth: application.PreviousViewPortX + 300, DHeight: application.PreviousViewPortY + 300))
         application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
         application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
+        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: application.PreviousViewPortX, DYPosition: application.PreviousViewPortY, DWidth: application.PreviousViewPortX + 300, DHeight: application.PreviousViewPortY + 300))
+        application.ViewportX = 0
+        application.ViewportY = 0
     }
 
     func movePeasant(x: Int, y: Int) {
@@ -186,8 +188,8 @@ class GameView: SKView {
     override func scrollWheel(with event: NSEvent) {
         let x = event.scrollingDeltaX
         let y = event.scrollingDeltaY
-        frame.origin.x += x
-        frame.origin.y -= y
+        //   frame.origin.x += x
+        //  frame.origin.y -= y
         vc?.scrollWheel(x: Int(x), y: Int(y))
     }
 }
