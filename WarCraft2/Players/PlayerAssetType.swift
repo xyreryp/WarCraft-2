@@ -8,27 +8,27 @@
 
 import Foundation
 class CPlayerAssetType {
-    var DName: String = String()
-    var DType: EAssetType = EAssetType.None
-    var DColor: EPlayerColor = EPlayerColor.None
-    var DCapabilities: [Bool] = [Bool]()
-    var DAssetRequirements: [EAssetType] = [EAssetType]()
-    var DAssetUpgrades = [CPlayerUpgrade]()
-    var DHitPoints: Int = Int()
-    var DArmor: Int = Int()
-    var DSight: Int = Int()
-    var DConstructionSight: Int = Int()
-    var DSize: Int = Int()
-    var DSpeed: Int = Int()
-    var DGoldCost: Int = Int()
-    var DLumberCost: Int = Int()
-    var DFoodConsumption: Int = Int()
-    var DBuildTime: Int = Int()
-    var DAttackSteps: Int = Int()
-    var DReloadSteps: Int = Int()
-    var DBasicDamage: Int = Int()
-    var DPiercingDamage: Int = Int()
-    var DRange: Int = Int()
+    var DName: String
+    var DType: EAssetType
+    var DColor: EPlayerColor
+    var DCapabilities: [Bool]
+    var DAssetRequirements: [EAssetType]
+    var DAssetUpgrades: [CPlayerUpgrade]
+    var DHitPoints: Int
+    var DArmor: Int
+    var DSight: Int
+    var DConstructionSight: Int
+    var DSize: Int
+    var DSpeed: Int
+    var DGoldCost: Int
+    var DLumberCost: Int
+    var DFoodConsumption: Int
+    var DBuildTime: Int
+    var DAttackSteps: Int
+    var DReloadSteps: Int
+    var DBasicDamage: Int
+    var DPiercingDamage: Int
+    var DRange: Int
     static var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     static var DTypeStrings: [String] = [
         "None",

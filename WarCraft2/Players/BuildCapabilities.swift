@@ -10,24 +10,22 @@ import Foundation
 // fixme:
 
 class CPlayerCapabilityBuildNormal: CPlayerCapability {
-        class CRegistrant {
-            init() {
-                CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal("TownHall")
-//                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("TownHall")));
-//                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Farm")));
-//                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Barracks")));
-//                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("LumberMill")));
-//                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Blacksmith")));
-//                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("ScoutTower")));
-                
-            }
-        }
-        static var DRegistrant: CRegistrant
-        class CActivatedCapability: CActivatedPlayerCapability {
-            var DCurrentStep: Int
-            var DTotalSteps: Int
-            var DLumber: Int
-            var DGold: Int
-
+    //        class CRegistrant {
+    //            init() {
+    //                CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal("TownHall")
+    ////                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("TownHall")));
+    ////                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Farm")));
+    ////                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Barracks")));
+    ////                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("LumberMill")));
+    ////                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("Blacksmith")));
+    ////                CPlayerCapability::Register(std::shared_ptr< CPlayerCapabilityBuildNormal >(new CPlayerCapabilityBuildNormal("ScoutTower")));
+    //
+    //            }
+    //        }
+    //        static var DRegistrant: CRegistrant
+    //        class CActivatedCapability: CActivatedPlayerCapability {
+    //            var DCurrentStep: Int
+    //            var DTotalSteps: Int
+    //            var DLumber: Int
+    //            var DGold: Int
 }
-

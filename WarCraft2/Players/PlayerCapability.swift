@@ -26,9 +26,9 @@ class CPlayerCapability {
     deinit {
     }
 
-    var DName: String = String()
-    var DAssetCapabilityType: EAssetCapabilityType = EAssetCapabilityType.None
-    var DTargetType: ETargetType = ETargetType.None
+    var DName: String
+    var DAssetCapabilityType: EAssetCapabilityType
+    var DTargetType: ETargetType
     static var NameRegistry: [String: CPlayerCapability] = [:]
     static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
