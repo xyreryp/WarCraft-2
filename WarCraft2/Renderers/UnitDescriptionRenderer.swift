@@ -49,6 +49,7 @@ class CUnitDescriptionRenderer {
     var DDisplayedHeight: Int
     var DDisplayedIcons: Int
     
+    // FIXME: Change [] to [CFontTileset]
     init(bevel: CBevel, icons: CGraphicMulticolorTileset, fonts: [CFontTileset], color: EPlayerColor) {
         var TextWidth: Int
         var TextHeight: Int
