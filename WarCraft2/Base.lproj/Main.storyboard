@@ -1040,7 +1040,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topRedBtnClicked:" target="nsi-Ph-mOs" id="0LH-AG-Cjh"/>
+                                    <action selector="red1:" target="nsi-Ph-mOs" id="Vp3-EN-Lmh"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54F-lr-7Ly">
@@ -1051,7 +1051,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomRedBtnClicked:" target="nsi-Ph-mOs" id="Xbh-hJ-dhC"/>
+                                    <action selector="red2:" target="nsi-Ph-mOs" id="wkh-ms-LTe"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99t-aH-fM7">
@@ -1062,7 +1062,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topBlueBtnClicked:" target="nsi-Ph-mOs" id="u44-kT-eeZ"/>
+                                    <action selector="blue1:" target="nsi-Ph-mOs" id="pMM-C0-LwV"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gD-Iq-DXU">
@@ -1073,7 +1073,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomBlueBtnClicked:" target="nsi-Ph-mOs" id="2fP-J5-9JA"/>
+                                    <action selector="blue2:" target="nsi-Ph-mOs" id="H5a-u1-sww"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wwy-gG-8Vr">
@@ -1084,7 +1084,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topGreenBtnClicked:" target="nsi-Ph-mOs" id="EGZ-vK-3p2"/>
+                                    <action selector="green1:" target="nsi-Ph-mOs" id="kL0-le-d92"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KEA-Xm-lIU">
@@ -1095,7 +1095,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomGreenBtnClicked:" target="nsi-Ph-mOs" id="6TC-GY-lT6"/>
+                                    <action selector="green2:" target="nsi-Ph-mOs" id="TPe-s3-wPp"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fWa-Qp-qKx">
@@ -1106,7 +1106,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topPurpleBtnClicked:" target="nsi-Ph-mOs" id="dv2-B6-326"/>
+                                    <action selector="purple1:" target="nsi-Ph-mOs" id="nyA-3W-LRH"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbJ-li-18K">
@@ -1117,7 +1117,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomPurpleBtnClicked:" target="nsi-Ph-mOs" id="9zr-av-U1o"/>
+                                    <action selector="purple2:" target="nsi-Ph-mOs" id="bBg-Rs-WBW"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTH-Pb-xzX">
@@ -1128,7 +1128,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topBrownBtnClicked:" target="nsi-Ph-mOs" id="2R9-wn-SG7"/>
+                                    <action selector="brown1:" target="nsi-Ph-mOs" id="MYM-XS-EZT"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iaB-Fw-JAW">
@@ -1139,7 +1139,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomBrownBtnClicked:" target="nsi-Ph-mOs" id="ggG-60-lhr"/>
+                                    <action selector="brown2:" target="nsi-Ph-mOs" id="JKg-JW-5RH"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhp-8y-Qmq">
@@ -1150,7 +1150,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topGoldBtnClicked:" target="nsi-Ph-mOs" id="tqT-1X-puL"/>
+                                    <action selector="gold1:" target="nsi-Ph-mOs" id="WSh-7a-Uir"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AAb-Rr-bFg">
@@ -1161,7 +1161,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomGoldBtnClicked:" target="nsi-Ph-mOs" id="RRU-1b-5kE"/>
+                                    <action selector="gold2:" target="nsi-Ph-mOs" id="R4I-iP-CSy"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PRg-To-cSj">
@@ -1172,7 +1172,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topBlackBtnClicked:" target="nsi-Ph-mOs" id="81H-0R-0eU"/>
+                                    <action selector="black1:" target="nsi-Ph-mOs" id="tya-lC-g4C"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IAv-Fy-M51">
@@ -1183,7 +1183,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomBlackBtnClicked:" target="nsi-Ph-mOs" id="WRP-sd-Stm"/>
+                                    <action selector="black2:" target="nsi-Ph-mOs" id="yQa-d6-edG"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMI-ws-nnm">
@@ -1194,7 +1194,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="topGreyBtnClicked:" target="nsi-Ph-mOs" id="Trm-Hq-O0I"/>
+                                    <action selector="grey1:" target="nsi-Ph-mOs" id="mci-Un-Ugx"/>
                                 </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPO-0f-Tcv">
@@ -1205,18 +1205,390 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="bottomGreyBtnClicked:" target="nsi-Ph-mOs" id="vqa-xz-AOm"/>
+                                    <action selector="grey2:" target="nsi-Ph-mOs" id="LBf-vx-8hz"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tWe-gL-b2I">
+                                <rect key="frame" x="141" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XiL-kJ-1w8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="red3:" target="nsi-Ph-mOs" id="aHJ-Eh-iT4"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="feT-is-m2A">
+                                <rect key="frame" x="180" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uud-4D-A0k">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="blue3:" target="nsi-Ph-mOs" id="K36-1R-dK2"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z6j-Iz-Gwe">
+                                <rect key="frame" x="219" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="1GZ-ya-Qcw">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="green3:" target="nsi-Ph-mOs" id="SJs-K9-gBl"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4W1-Q2-T8r">
+                                <rect key="frame" x="258" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="purple_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="OdH-kq-Wyj">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="purple3:" target="nsi-Ph-mOs" id="ZKc-mM-IBw"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wp1-fL-qJa">
+                                <rect key="frame" x="297" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="brown_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9ZM-xQ-iv6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="brown3:" target="nsi-Ph-mOs" id="YZa-Nr-mvE"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iRo-h1-HJU">
+                                <rect key="frame" x="336" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gold_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="1vH-8C-yf3">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="gold3:" target="nsi-Ph-mOs" id="vK3-Iv-hZV"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dyj-3Y-ymc">
+                                <rect key="frame" x="375" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="black_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="YJE-OS-6OD">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="black3:" target="nsi-Ph-mOs" id="rbz-6H-ZiV"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZA-wm-Bs8">
+                                <rect key="frame" x="414" y="421" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grey_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="snl-5c-ZoA">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="grey3:" target="nsi-Ph-mOs" id="Gj6-sX-bf2"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DsC-UR-5sy">
+                                <rect key="frame" x="141" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Lpx-lA-qU7">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="red4:" target="nsi-Ph-mOs" id="vgz-KY-fh5"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2f-5e-Gwa">
+                                <rect key="frame" x="180" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="OBG-qJ-AhX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="blue4:" target="nsi-Ph-mOs" id="hvk-Hi-1b8"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d9E-27-bwI">
+                                <rect key="frame" x="219" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2hB-nu-Ppd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="green4:" target="nsi-Ph-mOs" id="ar5-B0-a3j"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5j1-Vw-FRi">
+                                <rect key="frame" x="258" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="purple_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="EDT-3j-RKr">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="purple4:" target="nsi-Ph-mOs" id="Z93-c1-4U6"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XQ2-Mt-t89">
+                                <rect key="frame" x="297" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="brown_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="VOj-Lg-MG8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="brown4:" target="nsi-Ph-mOs" id="38U-LL-a1Q"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iyr-Mb-qHB">
+                                <rect key="frame" x="336" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gold_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="qjx-Wc-QoN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="gold4:" target="nsi-Ph-mOs" id="hl7-W3-CCc"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cKt-fg-FQT">
+                                <rect key="frame" x="375" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="black_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="6HS-fb-6hx">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="black4:" target="nsi-Ph-mOs" id="aYe-GJ-X0i"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z6z-vQ-3rf">
+                                <rect key="frame" x="414" y="380" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grey_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="MGg-mp-zNv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="grey4:" target="nsi-Ph-mOs" id="D5Q-c6-Waa"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z6t-Ac-JTO">
+                                <rect key="frame" x="141" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mS3-Ho-Ryi">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="red5:" target="nsi-Ph-mOs" id="E2g-ol-fwQ"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qea-v4-ugV">
+                                <rect key="frame" x="180" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="WX7-SE-CkJ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="blue5:" target="nsi-Ph-mOs" id="0Gw-2D-qtl"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xOv-ro-HPw">
+                                <rect key="frame" x="219" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hGU-o3-lcG">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="green5:" target="nsi-Ph-mOs" id="UYC-pf-nUP"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H0D-88-TL3">
+                                <rect key="frame" x="258" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="purple_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="AT3-js-OjB">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="purple5:" target="nsi-Ph-mOs" id="hpl-Oe-R83"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1l-9D-u1d">
+                                <rect key="frame" x="297" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="brown_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Zii-Ol-XVF">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="brown5:" target="nsi-Ph-mOs" id="chF-7T-FCp"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0TV-Tq-Xjd">
+                                <rect key="frame" x="336" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gold_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XtZ-v6-WZL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="gold5:" target="nsi-Ph-mOs" id="Oyn-Jp-MUy"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EzL-Tb-Le0">
+                                <rect key="frame" x="375" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="black_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="QcX-Qe-sht">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="black5:" target="nsi-Ph-mOs" id="Law-SV-PHn"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lKT-C1-Bbr">
+                                <rect key="frame" x="414" y="339" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grey_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="RAI-ao-gj6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="grey5:" target="nsi-Ph-mOs" id="T39-Gz-G5M"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MkP-F7-9fQ">
+                                <rect key="frame" x="141" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="zH8-6X-yWY">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="red6:" target="nsi-Ph-mOs" id="sUn-RA-73m"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fnc-c5-CVd">
+                                <rect key="frame" x="180" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hc5-2j-o0e">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="blue6:" target="nsi-Ph-mOs" id="t7Y-0h-cGq"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9sH-kU-eEd">
+                                <rect key="frame" x="219" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="OFW-x1-4CD">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="green6:" target="nsi-Ph-mOs" id="L9y-d1-l57"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9OO-3o-4hE">
+                                <rect key="frame" x="258" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="purple_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="XtF-Bk-F3g">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="purple6:" target="nsi-Ph-mOs" id="Dst-qS-V1Y"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pGt-UA-ScK">
+                                <rect key="frame" x="297" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="brown_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ICc-Mp-xck">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="brown6:" target="nsi-Ph-mOs" id="B6p-dv-rwt"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o5W-wz-gvi">
+                                <rect key="frame" x="336" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gold_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vHT-ZJ-tJ7">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="gold6:" target="nsi-Ph-mOs" id="fS6-UM-nGc"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ny7-6Z-iDS">
+                                <rect key="frame" x="375" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="black_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bjZ-CK-FDd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="black6:" target="nsi-Ph-mOs" id="9iG-g6-QoK"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edT-1t-yP0">
+                                <rect key="frame" x="414" y="298" width="29" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="grey_block" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uHP-Gw-1mG">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="grey6:" target="nsi-Ph-mOs" id="tXf-zY-yS2"/>
                                 </connections>
                             </button>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AGG-GJ-vJQ">
-                                <rect key="frame" x="135" y="395" width="10" height="15"/>
+                                <rect key="frame" x="77" y="388" width="10" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="NP1-j9-3bX"/>
                             </imageView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SxB-FZ-PvW">
-                                <rect key="frame" x="189" y="395" width="10" height="15"/>
+                                <rect key="frame" x="77" y="355" width="10" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="A4g-CJ-m6b"/>
+                            </imageView>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbq-Al-C9A">
+                                <rect key="frame" x="77" y="320" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="qgy-xa-9SB"/>
+                            </imageView>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Sa-pj-suK">
+                                <rect key="frame" x="77" y="292" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="B9J-jB-RNg"/>
+                            </imageView>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DU-cb-ZHq">
+                                <rect key="frame" x="77" y="269" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="6a3-HM-h1L"/>
+                            </imageView>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KT5-yG-G6Z">
+                                <rect key="frame" x="77" y="239" width="10" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="yellow-x" id="FtU-v6-lCP"/>
                             </imageView>
                         </subviews>
                         <constraints>
@@ -1225,6 +1597,18 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="black1" destination="PRg-To-cSj" id="X9E-NO-HlH"/>
+                        <outlet property="black2" destination="IAv-Fy-M51" id="B2X-F7-MnO"/>
+                        <outlet property="black3" destination="Dyj-3Y-ymc" id="JLO-lh-8Fs"/>
+                        <outlet property="black4" destination="cKt-fg-FQT" id="o7v-To-Cts"/>
+                        <outlet property="black5" destination="EzL-Tb-Le0" id="nAi-4X-zRN"/>
+                        <outlet property="black6" destination="ny7-6Z-iDS" id="HVK-I2-DIW"/>
+                        <outlet property="blue1" destination="99t-aH-fM7" id="EEy-rM-yev"/>
+                        <outlet property="blue2" destination="1gD-Iq-DXU" id="c0f-e7-JNo"/>
+                        <outlet property="blue3" destination="feT-is-m2A" id="y1Z-l8-2gb"/>
+                        <outlet property="blue4" destination="a2f-5e-Gwa" id="Ib2-ik-U7D"/>
+                        <outlet property="blue5" destination="qea-v4-ugV" id="29l-eg-yhe"/>
+                        <outlet property="blue6" destination="fnc-c5-CVd" id="eP3-5b-xe1"/>
                         <outlet property="bottomBlack" destination="IAv-Fy-M51" id="O7k-HP-msU"/>
                         <outlet property="bottomBlackBtnClicked" destination="IAv-Fy-M51" id="qei-7S-6gf"/>
                         <outlet property="bottomBlue" destination="1gD-Iq-DXU" id="P7q-iz-4K6"/>
@@ -1234,6 +1618,43 @@
                         <outlet property="bottomGrey" destination="hPO-0f-Tcv" id="85c-XO-2sb"/>
                         <outlet property="bottomPurple" destination="dbJ-li-18K" id="X1R-DD-TNm"/>
                         <outlet property="bottomRed" destination="54F-lr-7Ly" id="ne3-gR-dpm"/>
+                        <outlet property="brown1" destination="eTH-Pb-xzX" id="94h-2v-ykZ"/>
+                        <outlet property="brown2" destination="iaB-Fw-JAW" id="CIW-8c-qzy"/>
+                        <outlet property="brown3" destination="wp1-fL-qJa" id="5pR-y4-ZZ1"/>
+                        <outlet property="brown4" destination="XQ2-Mt-t89" id="1NF-ax-9w4"/>
+                        <outlet property="brown5" destination="i1l-9D-u1d" id="fPd-m0-lxy"/>
+                        <outlet property="brown6" destination="pGt-UA-ScK" id="LzK-Cd-r23"/>
+                        <outlet property="gold1" destination="Xhp-8y-Qmq" id="uUH-x2-i7t"/>
+                        <outlet property="gold2" destination="AAb-Rr-bFg" id="A6f-7o-xLt"/>
+                        <outlet property="gold3" destination="iRo-h1-HJU" id="5vk-Iw-f1e"/>
+                        <outlet property="gold4" destination="Iyr-Mb-qHB" id="Yx2-Yy-Rf1"/>
+                        <outlet property="gold5" destination="0TV-Tq-Xjd" id="C7X-Zo-yx9"/>
+                        <outlet property="gold6" destination="o5W-wz-gvi" id="NFz-Kq-raF"/>
+                        <outlet property="green1" destination="Wwy-gG-8Vr" id="CeL-0A-pdb"/>
+                        <outlet property="green2" destination="KEA-Xm-lIU" id="7d1-mR-a0B"/>
+                        <outlet property="green3" destination="Z6j-Iz-Gwe" id="dFc-z9-8aK"/>
+                        <outlet property="green4" destination="d9E-27-bwI" id="2DR-PM-cSz"/>
+                        <outlet property="green5" destination="xOv-ro-HPw" id="zay-Sb-85D"/>
+                        <outlet property="green6" destination="9sH-kU-eEd" id="awP-Dz-RoC"/>
+                        <outlet property="grey1" destination="nMI-ws-nnm" id="15T-Im-Y9R"/>
+                        <outlet property="grey2" destination="hPO-0f-Tcv" id="Z1q-WI-5dq"/>
+                        <outlet property="grey3" destination="fZA-wm-Bs8" id="UZa-F0-dWy"/>
+                        <outlet property="grey4" destination="Z6z-vQ-3rf" id="ey9-VA-H3L"/>
+                        <outlet property="grey5" destination="lKT-C1-Bbr" id="237-7y-Uah"/>
+                        <outlet property="grey6" destination="edT-1t-yP0" id="5wk-aX-uhD"/>
+                        <outlet property="purpl4" destination="5j1-Vw-FRi" id="bYp-On-OU1"/>
+                        <outlet property="purple1" destination="fWa-Qp-qKx" id="Ygd-60-rqA"/>
+                        <outlet property="purple2" destination="dbJ-li-18K" id="dW3-X0-dKa"/>
+                        <outlet property="purple3" destination="4W1-Q2-T8r" id="xLO-D1-Km0"/>
+                        <outlet property="purple4" destination="5j1-Vw-FRi" id="YRV-nc-V8S"/>
+                        <outlet property="purple5" destination="H0D-88-TL3" id="xo8-oc-uAK"/>
+                        <outlet property="purple6" destination="9OO-3o-4hE" id="1LO-pt-d52"/>
+                        <outlet property="red1" destination="XwI-wO-Ry3" id="2nq-8Z-5Rh"/>
+                        <outlet property="red2" destination="54F-lr-7Ly" id="hwd-eS-h6e"/>
+                        <outlet property="red3" destination="tWe-gL-b2I" id="7Ak-Jb-zA3"/>
+                        <outlet property="red4" destination="DsC-UR-5sy" id="blO-up-qwF"/>
+                        <outlet property="red5" destination="z6t-Ac-JTO" id="LdB-QJ-qur"/>
+                        <outlet property="red6" destination="MkP-F7-9fQ" id="Bvs-bt-5UT"/>
                         <outlet property="topBlack" destination="PRg-To-cSj" id="TfF-9P-pbv"/>
                         <outlet property="topBlue" destination="99t-aH-fM7" id="ugK-PO-DXL"/>
                         <outlet property="topBrown" destination="eTH-Pb-xzX" id="aXC-JG-aQG"/>
@@ -1246,6 +1667,10 @@
                         <outlet property="yellowX" destination="AGG-GJ-vJQ" id="0Ml-yD-6FP"/>
                         <outlet property="yellowX1" destination="AGG-GJ-vJQ" id="8Nu-Hs-xll"/>
                         <outlet property="yellowX2" destination="SxB-FZ-PvW" id="6td-L7-sxh"/>
+                        <outlet property="yellowX3" destination="bbq-Al-C9A" id="siB-dt-xab"/>
+                        <outlet property="yellowX4" destination="5Sa-pj-suK" id="opi-9a-iac"/>
+                        <outlet property="yellowX5" destination="8DU-cb-ZHq" id="hUH-q8-yoh"/>
+                        <outlet property="yellowX6" destination="KT5-yG-G6Z" id="Rze-YL-nbH"/>
                     </connections>
                 </viewController>
                 <customObject id="Tnr-iu-tko" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
