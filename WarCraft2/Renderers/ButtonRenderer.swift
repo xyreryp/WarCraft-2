@@ -45,27 +45,29 @@ class CButtonRenderer {
         DHeight = DWidth
         CHelper.resize(array: &DLightIndices, size: EPlayerColor.Max.rawValue, defaultValue: Int())
         CHelper.resize(array: &DDarkIndices, size: EPlayerColor.Max.rawValue, defaultValue: Int())
-        DDarkIndices[EPlayerColor.None.rawValue] = DDarkIndices[EPlayerColor.Blue.rawValue] = DColorMap.FindColor(colorname: "blue-dark")
-//        DDarkIndices[to_underlying(EPlayerColor::Red)] = DColorMap->FindColor("red-dark");
-//        DDarkIndices[to_underlying(EPlayerColor::Green)] = DColorMap->FindColor("green-dark");
-//        DDarkIndices[to_underlying(EPlayerColor::Purple)] = DColorMap->FindColor("purple-dark");
-//        DDarkIndices[to_underlying(EPlayerColor::Orange)] = DColorMap->FindColor("orange-dark");
-//        DDarkIndices[to_underlying(EPlayerColor::Yellow)] = DColorMap->FindColor("yellow-dark");
-//        DDarkIndices[to_underlying(EPlayerColor::Black)] = DColorMap->FindColor("black-dark");
-//        DDarkIndices[to_underlying(EPlayerColor::White)] = DColorMap->FindColor("white-dark");
-//
-//        DLightIndices[to_underlying(EPlayerColor::None)] = DLightIndices[to_underlying(EPlayerColor::Blue)] = DColorMap->FindColor("blue-light");
-//        DLightIndices[to_underlying(EPlayerColor::Red)] = DColorMap->FindColor("red-light");
-//        DLightIndices[to_underlying(EPlayerColor::Green)] = DColorMap->FindColor("green-light");
-//        DLightIndices[to_underlying(EPlayerColor::Purple)] = DColorMap->FindColor("purple-light");
-//        DLightIndices[to_underlying(EPlayerColor::Orange)] = DColorMap->FindColor("orange-light");
-//        DLightIndices[to_underlying(EPlayerColor::Yellow)] = DColorMap->FindColor("yellow-light");
-//        DLightIndices[to_underlying(EPlayerColor::Black)] = DColorMap->FindColor("black-light");
-//        DLightIndices[to_underlying(EPlayerColor::White)] = DColorMap->FindColor("white-light");
-//        
-//        DWhiteIndex = DFont->FindColor("white");
-//        DGoldIndex = DFont->FindColor("gold");
-//        DBlackIndex = DFont->FindColor("black");
+        DDarkIndices[EPlayerColor.None.rawValue] = DColorMap.FindColor(colorname: "blue-dark")
+        DDarkIndices[EPlayerColor.Blue.rawValue] = DColorMap.FindColor(colorname: "blue-dark")
+        DDarkIndices[EPlayerColor.Red.rawValue] = DColorMap.FindColor(colorname: "red-dark")
+        DDarkIndices[EPlayerColor.Green.rawValue] = DColorMap.FindColor(colorname: "green-dark")
+        DDarkIndices[EPlayerColor.Purple.rawValue] = DColorMap.FindColor(colorname: "purple-dark")
+        DDarkIndices[EPlayerColor.Orange.rawValue] = DColorMap.FindColor(colorname: "orange-dark")
+        DDarkIndices[EPlayerColor.Yellow.rawValue] = DColorMap.FindColor(colorname: "yellow-dark")
+        DDarkIndices[EPlayerColor.Black.rawValue] = DColorMap.FindColor(colorname: "black-dark")
+        DDarkIndices[EPlayerColor.White.rawValue] = DColorMap.FindColor(colorname: "white-dark")
+        
+        DLightIndices[EPlayerColor.None.rawValue] = DColorMap.FindColor(colorname: "blue-light")
+        DLightIndices[EPlayerColor.Blue.rawValue] = DColorMap.FindColor(colorname: "blue-light")
+        DLightIndices[EPlayerColor.Red.rawValue] = DColorMap.FindColor(colorname: "red-light")
+        DLightIndices[EPlayerColor.Green.rawValue] = DColorMap.FindColor(colorname: "green-light")
+        DLightIndices[EPlayerColor.Purple.rawValue] = DColorMap.FindColor(colorname: "purple-light")
+        DLightIndices[EPlayerColor.Orange.rawValue] = DColorMap.FindColor(colorname: "orange-light")
+        DLightIndices[EPlayerColor.Yellow.rawValue] = DColorMap.FindColor(colorname: "yellow-light")
+        DLightIndices[EPlayerColor.Black.rawValue] = DColorMap.FindColor(colorname: "black-light")
+        DLightIndices[EPlayerColor.White.rawValue] = DColorMap.FindColor(colorname: "white-light")
+       
+        DWhiteIndex = DFont.FindColor("white")
+        DGoldIndex = DFont.FindColor("gold")
+        DBlackIndex = DFont.FindColor("black")
 //        PrintDebug(DEBUG_HIGH,"CButtonRenderer w = %d, g = %d, b = %d\n", DWhiteIndex, DGoldIndex, DBlackIndex);
     }
     
@@ -74,28 +76,103 @@ class CButtonRenderer {
     }
     
     func ButtonColor(color: EPlayerColor) -> EPlayerColor {
-        return DButtonColor =  color
+        DButtonColor = color
+        return DButtonColor
     }
     
     func Text() -> String {
         return DText
     }
     
-//    std::string Text(const std::string &text, bool minimize = false);
+    func Text(text: String, minimize: Bool) -> String {
+        var TotalWidth: Int
+        var TotalHeight: Int
+        var Top: Int
+        var Bottom: Int
+        DText = text
+        DFont.MeasureTextDetailed(DText, TotalWidth, TotalHeight, Top, Bottom)
+        TotalHeight = Bottom - Top + 1
+        if(TotalHeight + DOuterBevel.Width() * 2 > DHeight) {
+            DHeight = TotalHeight + DOuterBevel.Width() * 2
+        }
+        else if minimize {
+            DHeight = TotalHeight + DOuterBevel.Width() * 2
+        }
+        if(TotalWidth + DOuterBevel.Width() * 2 > DWidth) {
+            DWidth = TotalWidth + DOuterBevel.Width() * 2
+        }
+        else if minimize {
+            DWidth = TotalWidth + DOuterBevel.Width() * 2
+        }
+        DTextOffsetX = DWidth/2 - TotalWidth/2
+        DTextOffsetY = DHeight/2 - TotalHeight/2 - Top
+        return DText
+    }
     
     func Width() -> Int {
         return DWidth
     }
     
-//    int Width(int width);
+    func Width(width: Int) -> Int {
+        if(width > DWidth) {
+            var TotalWidth: Int
+            var TotalHeight: Int
+            var Top: Int
+            var Bottom: Int
+            DFont.MeasureTextDetailed(DText, TotalWidth, TotalHeight, Top, Bottom)
+            DWidth = width;
+            DTextOffsetX = DWidth/2 - TotalWidth/2
+        }
+        return DWidth
+    }
     
     func Height() -> Int{
         return DHeight
     }
-//
-//    int Height(int height);
-//
-//    void DrawButton(std::shared_ptr<CGraphicSurface> surface, int x, int y, EButtonState state);
-    
-    
+
+    func Height(height: Int) -> Int {
+        if(height > DHeight){
+            var TotalWidth: Int
+            var TotalHeight: Int
+            var Top: Int
+            var Bottom: Int
+            DFont.MeasureTextDetailed(DText, TotalWidth, TotalHeight, Top, Bottom)
+            TotalHeight = Bottom - Top + 1
+            DHeight = height
+            DTextOffsetY = DHeight/2 - TotalHeight/2 - Top
+        }
+        return DHeight;
+    }
+
+    func DrawButton(surface: CGraphicSurface, x: Int, y: Int, state: EButtonState) {
+        var ResourceContext = surface.CreateResourceContext()
+        if(EButtonState.Pressed == state){
+            var BevelWidth: Int = DInnerBevel.Width
+            ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
+            ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
+            ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
+            ResourceContext.Fill()
+            //DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DDarkIndices[DButtonColor]);
+            DFont.DrawTextWithShadow(surface, x + DTextOffsetX, y + DTextOffsetY, DWhiteIndex, DBlackIndex, 1, DText)
+            DInnerBevel.DrawBevel(surface, x + BevelWidth, y + BevelWidth, DWidth - BevelWidth * 2, DHeight - BevelWidth * 2)
+        }
+        else if(EButtonState.Inactive == state) {
+            var BevelWidth: Int = DOuterBevel.Width()
+            ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
+            ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
+            ResourceContext.Fill()
+            //DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DDarkIndices[pcBlack]);
+            DFont.DrawTextWithShadow(surface, x + DTextOffsetX, y + DTextOffsetY, DBlackIndex, DWhiteIndex, 1, DText)
+            DOuterBevel.DrawBevel(surface, x + BevelWidth, y + BevelWidth, DWidth - BevelWidth * 2, DHeight - BevelWidth * 2)
+        }
+        else {
+            var BevelWidth: Int = DOuterBevel.Width()
+            ResourceContext.SetSourceRGBA( rgba: DColorMap.ColorValue(gindex: DLightIndices[DButtonColor.rawValue], cindex: 0) );
+            ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
+            ResourceContext.Fill()
+            //DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DLightIndices[DButtonColor]);
+            DFont.DrawTextWithShadow(surface, x + DTextOffsetX, y + DTextOffsetY, EButtonState.Hover == state ? DWhiteIndex : DGoldIndex, DBlackIndex, 1, DText)
+            DOuterBevel.DrawBevel(surface, x + BevelWidth, y + BevelWidth, DWidth - BevelWidth * 2, DHeight - BevelWidth * 2)
+        }
+    }
 }
