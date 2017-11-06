@@ -16,11 +16,12 @@ var peasantSelected = false
 protocol viewToController {
     func leftDown(x: Int, y: Int)
     func leftUp()
+    func scrollWheel(x: Int, y: Int)
 }
 
 class GameViewController: NSViewController, viewToController {
 
-    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 2000, height: 2000))
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 1024, height: 1024))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
@@ -68,24 +69,24 @@ class GameViewController: NSViewController, viewToController {
         } catch {
             print("cant load map")
         }
-        skscene?.size.width = 10
-        skscene?.size.height = 10
+        skscene?.size.width = 300
+        skscene?.size.height = 300
         skscene?.scaleMode = .aspectFit
 
         map.RenderTerrain()
         let cgr = CGraphicResourceContext()
         let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 512, DHeight: 512))
+        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 300, DHeight: 300))
 
-        let assetDecoratedMap = application.DAssetMap
-        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        // let assetDecoratedMap = application.DAssetMap
+        // let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        // let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
-        let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
-        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+        //  let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
+        // view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
-        //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
@@ -108,7 +109,24 @@ class GameViewController: NSViewController, viewToController {
         //        map.RenderTerrain()
         //        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
-        movePeasant(x: Int(timer.x), y: Int(timer.y))
+        var terrainTileset = application.DTerrainTileset
+        let map = CTerrainMap()
+        do {
+            try map.LoadMap(fileToRead: "bay")
+        } catch {
+            print("cant load map")
+        }
+        skscene?.size.width = 300
+        skscene?.size.height = 300
+        skscene?.scaleMode = .aspectFit
+
+        map.RenderTerrain()
+        let cgr = CGraphicResourceContext()
+        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
+
+        mapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: application.PreviousViewPortX + application.ViewportX, DYPosition: application.PreviousViewPortY - application.PreviousViewPortY, DWidth: application.PreviousViewPortX + 300, DHeight: application.PreviousViewPortY + 300))
+        application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
+        application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
     }
 
     func movePeasant(x: Int, y: Int) {
@@ -140,6 +158,11 @@ class GameViewController: NSViewController, viewToController {
     func leftUp() {
         application.DLeftClicked = false
     }
+
+    func scrollWheel(x: Int, y: Int) {
+        application.ViewportX += x
+        application.ViewportY -= y
+    }
 }
 
 class GameView: SKView {
@@ -165,6 +188,7 @@ class GameView: SKView {
         let y = event.scrollingDeltaY
         frame.origin.x += x
         frame.origin.y -= y
+        vc?.scrollWheel(x: Int(x), y: Int(y))
     }
 }
 

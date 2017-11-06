@@ -53,6 +53,11 @@ class CApplicationData {
     var DRightClicked: Bool = false
     var X: Int = Int()
     var Y: Int = Int()
+    var scrollX: Int = Int()
+    var ViewportX: Int = Int()
+    var ViewportY: Int = Int()
+    var PreviousViewPortX: Int = 0
+    var PreviousViewPortY: Int = 0
 
     var ECursorTypeRef: ECursorType = ECursorType.ctPointer
     var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
