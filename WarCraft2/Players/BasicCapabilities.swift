@@ -93,7 +93,7 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
         }
 
         override func IncrementStep() -> Bool {
-            var AssetCommand: SAssetCommand
+            var AssetCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
             var TempEvent: SGameEvent
 
             TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
@@ -226,7 +226,7 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
     }
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var NewCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.Capability, DCapability: EAssetCapabilityType(rawValue: None), DAssetTarget: target, DActivatedCapability: nil)
+        var NewCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.Capability, DCapability: EAssetCapabilityType.None, DAssetTarget: target, DActivatedCapability: nil)
 
         NewCommand.DAction = EAssetAction.Capability
         NewCommand.DCapability = AssetCapabilityType()
@@ -327,7 +327,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
 
         override func IncrementStep() -> Bool {
             var NearestRepository: CPlayerAsset
-            var AssetCommand: SAssetCommand
+            var AssetCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
             var TempEvent: SGameEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
 
             TempEvent.DType = EEventType.Acknowledge
@@ -383,7 +383,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
     }
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var NewCommand: SAssetCommand
+        var NewCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
         NewCommand.DAction = EAssetAction.Capability
         NewCommand.DCapability = AssetCapabilityType()
         NewCommand.DAssetTarget = target
@@ -411,9 +411,9 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
         }
 
         override func IncrementStep() -> Bool {
-            var PatrolCommand: SAssetCommand
-            var WalkCommand: SAssetCommand
-            var TempEvent: SGameEvent
+            var PatrolCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var WalkCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var TempEvent: SGameEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
 
             TempEvent.DType = EEventType.Acknowledge
             TempEvent.DAsset = DActor
@@ -461,7 +461,7 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
         if actor.TilePosition() != target.TilePosition() {
-            var NewCommand: SAssetCommand
+            var NewCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 
             NewCommand.DAction = EAssetAction.Capability
             NewCommand.DCapability = AssetCapabilityType()
@@ -495,7 +495,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
         }
 
         override func IncrementStep() -> Bool {
-            var AssetCommand: SAssetCommand
+            var AssetCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
             var TempEvent: SGameEvent
 
             TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
@@ -540,7 +540,7 @@ class CPlayerCapabilityAttack: CPlayerCapability {
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
         if actor.TilePosition() != target.TilePosition() {
-            var NewCommand: SAssetCommand
+            var NewCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 
             NewCommand.DAction = EAssetAction.Capability
             NewCommand.DCapability = AssetCapabilityType()
@@ -570,7 +570,7 @@ class CPlayerCapabilityRepair: CPlayerCapability {
         }
 
         override func IncrementStep() -> Bool {
-            var AssetCommand: SAssetCommand
+            var AssetCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
             var TempEvent: SGameEvent
 
             TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
