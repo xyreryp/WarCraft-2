@@ -116,7 +116,7 @@ class CApplicationData {
     // TODO: uncomment later
     // var DCursorset: CCursorSet? = nil
     var DCursorIndices: [Int]
-    var DCursorType: ECursorType 
+    var DCursorType: ECursorType
 
     // sound things
     // TODO: uncomment later
@@ -421,17 +421,16 @@ class CApplicationData {
     init(appName _: String, key _: SPrivateApplicationType) {
         // DApplication = CGUIFactoryApplicationInstance(appname)
         // DApplication.SetActivateCallback(self, ActivateCallback)
-        
+
         DApplicationPointer = CApplicationData()
         DGameSessionType = EGameSessionType.gstSinglePlayer
-        
-        
+
         // pretty sure dont need these
         //    std::shared_ptr<CGUIApplication> DApplication;
         //    std::shared_ptr<CGUIWindow> DMainWindow;
         //    std::shared_ptr<CGUIDrawingArea> DDrawingArea;
         //    std::shared_ptr<CGUICursor> DBlankCursor;
-        
+
         // different surfaces
         DDoubleBufferSurface = SKScene()
         DWorkingBufferSurface = SKScene()
@@ -442,7 +441,7 @@ class CApplicationData {
         DUnitActionSurface = SKScene()
         DResourceSurface = SKScene()
         DMapSelectListViewSurface = SKScene()
-        
+
         // coordinate and map and options related things
         DViewportXOffset = Int()
         DViewportYOffset = Int()
@@ -462,26 +461,26 @@ class CApplicationData {
         DOptionsEditText = [String]()
         // TODO: uncomment later
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
-        
+
         // Map Renderer
         DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
-        
+
         // cursor things
         // TODO: uncomment later
         // var DCursorset: CCursorSet? = nil
         DCursorIndices = [Int](repeating: Int(), count: ECursorType.ctMax.rawValue)
-        
+
         // sound things
         // TODO: uncomment later
         // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
         // var DSoundEventRenderer: CSoundEventRenderer? = nil
-        
+
         // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
-        
+
         // loading steps things
         DTotalLoadingSteps = Int()
         DCurrentLoadingStep = Int()
-        
+
         // tileset things
         DLoadingResourceContext = CGraphicResourceContext()
         DSplashTileset = CGraphicTileset()
@@ -491,23 +490,23 @@ class CApplicationData {
         DInnerBevelTileset = CGraphicTileset()
         DOuterVevelTileset = CGraphicTileset()
         DListViewIconTileset = CGraphicTileset()
-        
+
         // TODO: Import bevel stuff and uncomment
         DMiniBevel = CBevel(tileset: CGraphicTileset())
         DInnerBevel = CBevel(tileset: CGraphicTileset())
         DOuterBevel = CBevel(tileset: CGraphicTileset())
-        
+
         // more tileset things
         DMapRendererConfigurationData = [Character]()
         DTerrainTileset = CGraphicTileset()
         DFogTileset = CGraphicTileset()
-        
+
         // recolor maps
         DAssetRecolorMap = CGraphicRecolorMap()
         DButtonRecolorMap = CGraphicRecolorMap()
         DFontRecolorMap = CGraphicRecolorMap()
         DPlayerRecolorMap = CGraphicRecolorMap()
-        
+
         // more tileset things
         DIconTileset = CGraphicMulticolorTileset()
         DMiniIconTileset = CGraphicTileset()
@@ -516,16 +515,16 @@ class CApplicationData {
         DCorpseTileset = CGraphicTileset() // needed for assetRenderer
         DBuildingDeathTileset = CGraphicTileset() // needed for assetRenderer
         DArrowTileset = CGraphicTileset() // needed for assetRenderer
-        
+
         // all renderer things
         DAssetRenderer = CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
-        
+
         DFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
-        
+
         DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
-        
+
         DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
-        
+
         // TODO: finish these types of renderers
         //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
         // var DUnitActionRenderer: CUnitActionRenderer? = nil
@@ -534,37 +533,37 @@ class CApplicationData {
         // var DButtonRenderer: CButtonRenderer? = nil
         // var DMapSelectListRenderer: CListViewRenderer? = nil
         // var DOptionsEditRenderer: CEditRenderer? = nil
-        
+
         // game model things
         DGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
         DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
-        
+
         // application mode things
         DApplicationMode = CApplicationMode()
         DNextApplicationMode = CApplicationMode()
-        
+
         // asset capabilities things
         DSelectedPlayerAssets = [CPlayerAsset]()
         DCurrentAssetCapability = EAssetCapabilityType.None
-        
+
         // keys related things
         DPressedKeys = [uint32]()
         DReleasedKeys = [uint32]()
-  
+
         // TODO: uncomment after Button Renderer
         // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
         ECursorTypeRef = ECursorType.ctPointer
         EUIComponentTypeRef = EUIComponentType.uictNone
         EGameSessionTypeRef = EGameSessionType.gstSinglePlayer
         EPlayerTypeRef = EPlayerType.ptNone
-        
+
         // Data Source, used for all reading of files
         TempDataSource = CDataSource()
         DAssetMap = CAssetDecoratedMap()
-        
+
         // playerData needed for assetRenderer
         DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
         DPlayerColor = EPlayerColor.Red
@@ -598,7 +597,7 @@ class CApplicationData {
         DRightClicked = false
         X = Int()
         Y = Int()
-        
+
         // FIXME: Whose doing button renderer
         // DMenuButtonState = CButtonRenderer.EButtonState.None
         DUnitHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.Attack // key A
@@ -795,7 +794,68 @@ class CApplicationData {
 
     // functiones for going back and forth between screen and actions
     // FIXME: what is UEIComponentType
-    // EUIComponentType FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {}
+    func FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {
+        var ViewWidth: Int
+        var ViewHeight: Int
+        var MiniWidth: Int
+        var MiniHeight: Int
+        var DescrWidth: Int
+        var DescrHeight: Int
+        var ActWidth: Int
+        var ActHeight: Int
+
+        ViewWidth = Int(DViewportSurface.frame.width)
+        ViewHeight = Int(DViewportSurface.frame.height)
+
+        if (DViewportXOffset > pos.X()) || (DViewportYOffset > pos.Y()) || (DViewportXOffset + ViewWidth <= pos.X()) || (DViewportYOffset + ViewHeight <= pos.Y()) {
+            if (DViewportXOffset - DInnerBevel.Width() <= pos.X()) && (DViewportXOffset > pos.X()) {
+                if (DViewportYOffset <= pos.Y()) && (pos.Y() < DViewportYOffset + ViewHeight) {
+                    return EUIComponentType.uictViewportBevelW
+                }
+            } else if (DViewportXOffset + ViewWidth <= pos.X()) && (DViewportXOffset + ViewWidth + DInnerBevel.Width() > pos.X()) {
+                if (DViewportYOffset <= pos.Y()) && (pos.Y() < DViewportYOffset + ViewHeight) {
+                    return EUIComponentType.uictViewportBevelE
+                }
+            } else if (DViewportXOffset <= pos.X()) && (pos.X() < DViewportXOffset + ViewWidth) {
+                if (DViewportYOffset - DInnerBevel.Width() <= pos.Y()) && (DViewportYOffset > pos.Y()) {
+                    return EUIComponentType.uictViewportBevelN
+                } else if (DViewportYOffset + ViewHeight <= pos.Y()) && (DViewportYOffset + ViewHeight + DInnerBevel.Width() > pos.Y()) {
+                    return EUIComponentType.uictViewportBevelS
+                }
+            }
+        } else {
+            return EUIComponentType.uictViewport
+        }
+
+        // FIXME: @Yepu, CGraphicResourceContext
+        // MiniWidth = Int(DMiniMapSurface.Width())
+        // MiniHeight = Int(DMiniMapSurface.Height())
+        // NOTE: hardcode values from Andrew
+        MiniWidth = 130
+        MiniHeight = 130
+        if (DMiniMapXOffset <= pos.X()) && (DMiniMapXOffset + MiniWidth > pos.X()) && (DMiniMapYOffset <= pos.Y()) && (DMiniMapYOffset + MiniHeight > pos.Y()) {
+            return EUIComponentType.uictMiniMap
+        }
+
+        DescrWidth = Int(DUnitDescriptionSurface.frame.width)
+        DescrHeight = Int(DUnitDescriptionSurface.frame.height)
+        if (DUnitDescriptionXOffset <= pos.X()) && (DUnitDescriptionXOffset + DescrWidth > pos.X()) && (DUnitDescriptionYOffset <= pos.Y()) && (DUnitDescriptionYOffset + DescrHeight > pos.Y()) {
+            return EUIComponentType.uictUserDescription
+        }
+
+        ActWidth = Int(DUnitActionSurface.frame.width)
+        ActHeight = Int(DUnitActionSurface.frame.height)
+        if (DUnitActionXOffset <= pos.X()) && (DUnitActionXOffset + ActWidth > pos.X()) && (DUnitActionYOffset <= pos.Y()) && (DUnitActionYOffset + ActHeight > pos.Y()) {
+            return EUIComponentType.uictUserAction
+        }
+
+        // FIXME: Need ButtonRenderer
+        // if((DMenuButtonXOffset <= pos.X())&&(DMenuButtonXOffset + DMenuButtonRenderer.Width() > pos.X())&&(DMenuButtonYOffset <= pos.Y())&&(DMenuButtonYOffset + DMenuButtonRenderer.Height() > pos.Y())){
+        //     return EUIComponentType.uictMenuButton
+        // }
+        return EUIComponentType.uictNone
+    }
+
     func ScreenToViewport(pos: CPixelPosition) -> CPixelPosition {
         return CPixelPosition(x: pos.X() - DViewportXOffset, y: pos.Y() - DViewportYOffset)
     }
