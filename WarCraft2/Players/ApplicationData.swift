@@ -1039,8 +1039,8 @@ class CApplicationData {
 
         for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
             if var asset: CPlayerAsset? = WeakAsset {
-                var ass = asset
-                DViewportRenderer.CenterViewport(pos: &ass!.DPosition)
+
+                DViewportRenderer.CenterViewport(pos: asset!.DPosition)
                 break
             }
         }
