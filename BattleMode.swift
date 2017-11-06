@@ -202,7 +202,8 @@ class CBattleMode: CApplicationMode {
         if CApplicationData.EUIComponentType.uictViewport == ComponentType {
             var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY))
             var ViewPortPosition: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
-            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface,pos: ViewPortPosition)
+            // FIXME: passing in context.DViewportTypeSurface as CGraphic Surface. May need to change PixelType to take in skscene>
+            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface,pos: ViewPortPosition)
 
             if context.DRightClick != 0 && !context.DRightDown && context.DSelectedPlayerAssets.count > 0 {
                 var CanMove: Bool = true
@@ -483,14 +484,15 @@ class CBattleMode: CApplicationMode {
                     context.DCurrentAssetCapability = CapabilityType
                 }
             }
-        } else if CApplicationData.uictMenuButton == ComponentType {
+        } else if CApplicationData.EUIComponentType.uictMenuButton == ComponentType {
             // FIXME: Need ButtonRenderer
-            context.DMenuButtonState = context.DLeftDown ? CButtonRenderer.EButtonState.Pressed : CButtonRenderer.EButtonState.Hover
+            // context.DMenuButtonState = context.DLeftDown ? CButtonRenderer.EButtonState.Pressed : CButtonRenderer.EButtonState.Hover
 
             // if the menu button is clicked, bring up the in-game menu
-            if context.DMenuButtonState == CButtonRenderer.EButtonState.Pressed {
-                context.DNextApplicationMode = CInGameMenuMode.Instance()
-            }
+            // FIXME: Need ButtonRenderer
+            // if context.DMenuButtonState == CButtonRenderer.EButtonState.Pressed {
+            //     context.DNextApplicationMode = CInGameMenuMode.Instance()
+            // }
         }
         if !Panning {
             context.DPanningSpeed = 0
@@ -600,7 +602,7 @@ class CBattleMode: CApplicationMode {
                             context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
                             TempEvent.DType = EEventType.Selection
                             TempEvent.DAsset = Command.DAssetTarget!
-                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(TempEvent)
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
                             break
                         }
                     }
@@ -698,69 +700,72 @@ class CBattleMode: CApplicationMode {
         // context.DUnitActionRenderer.DrawUnitAction(context.DUnitActionSurface!, context.DSelectedPlayerAssets, context.DCurrentAssetCapability)
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitActionSurface!, dxpos: context.DUnitActionXOffset, dypos: context.DUnitActionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
 
-        for Asset in context.DGameModel.Player(color: context.DPlayerColor).PlayerMap().Assets {
+        for Asset in (context.DGameModel.Player(color: context.DPlayerColor)?.DPlayerMap.DAssets)! {
             if EAssetType.None == Asset.Type() {
                 SelectedAndMarkerAssets.append(Asset)
             }
         }
         // FIXME: Richard's working on making DrawViewport take in SKScene
-        context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
-        context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface as! CGraphicSurface)
+        // context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
+        // context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface )
+        
         // FIXME: SKSCENE.draw?
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
         // context.DMenuButtonRenderer.DrawButton(context.DWorkingBufferSurface!, context.DMenuButtonXOffset, context.DMenuButtonYOffset, context.DMenuButtonState)
-        // FIXME: switch statement done wrong, can do with rawValues of the enum type
-//        switch context.FindUIComponentType(CPixelPosition(x: CurrentX, y: CurrentY)) {
-//        case CApplicationData.EUIComponentType.uictViewport:
-//            var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
-//            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface, xpos: ViewportCursorLocation.X(), ypos: ViewportCursorLocation.Y())
-//            context.DCursorType = CApplicationData.ECursorType.ctPointer
-//            if EAssetCapabilityType.None == context.DCurrentAssetCapability {
-//                if PixelType.Color() == context.DPlayerColor {
-//                    context.DCursorType = CApplicationData.ECursorType.ctInspect
-//                }
-//            } else {
-//                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
-//                if PlayerCapability != nil {
-//                    var CanApply: Bool = false
-//                    if EAssetType.None == PixelType.DAssetType{
-//                        if (CPlayerCapability.ETargetType.Terrain == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
-//                            var NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), addtomap: false)
-//
-//                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
-//                        }
-//                    } else {
-//                        if (CPlayerCapability.ETargetType.Asset == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
-//                            let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), assettype: PixelType.DAssetType)
-//
-//                            CanApply = PlayerCapability.CanApply(context.DSelectedPlayerAssets.front().lock(), context.DGameModel.Player(context.DPlayerColor), NewTarget)
-//                        }
-//                    }
-//
-//                    context.DCursorType = CanApply ? CApplicationData.ECursorType.ctTargetOn : CApplicationData.ECursorType.ctTargetOff
-//                }
-//            }
-//            break
-//        case CApplicationData.EUIComponentTypeuictViewport.BevelN:
-//            context.DCursorType = CApplicationData.ECursorType.ctArrowN
-//            break
-//        case CApplicationData.EUIComponentType.uictViewportBevelE:
-//            context.DCursorType = CApplicationData.ECursorType.ctArrowE
-//            break
-//        case CApplicationData.EUIComponentType.uictViewportBevelS:
-//            context.DCursorType = CApplicationData.ECursorType.ctArrowS
-//            break
-//        case CApplicationData.EUIComponentType.uictViewportBevelW:
-//            context.DCursorType = CApplicationData.ECursorType.ctArrowW
-//            break
-//        default:
-//            context.DCursorType = CApplicationData.ECursorType.ctPointer
-//            break
-//        }
-        // FIXME: fix below, no type SRec
-        var ViewportRectangle: SRectangle = SRectangle([context.DViewportRenderer.ViewportX(), context.DViewportRenderer.ViewportY(), context.DViewportRenderer.LastViewportWidth(), context.DViewportRenderer.LastViewportHeight()])
-        context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
+
+        switch context.FindUIComponentType(pos: CPixelPosition(x: CurrentX, y: CurrentY)) {
+        case CApplicationData.EUIComponentType.uictViewport:
+            var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
+            //
+            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface, xpos: ViewportCursorLocation.X(), ypos: ViewportCursorLocation.Y())
+            context.DCursorType = CApplicationData.ECursorType.ctPointer
+            if EAssetCapabilityType.None == context.DCurrentAssetCapability {
+                if PixelType.Color() == context.DPlayerColor {
+                    context.DCursorType = CApplicationData.ECursorType.ctInspect
+                }
+            } else {
+                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
+                if PlayerCapability != nil {
+                    var CanApply: Bool = false
+                    if EAssetType.None == PixelType.AssetType() {
+                        if (CPlayerCapability.ETargetType.Terrain == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
+                            var NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), addtomap: false)
+
+                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
+                        }
+                    } else {
+                        if (CPlayerCapability.ETargetType.Asset == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
+                            let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), assettype: PixelType.AssetType())
+
+                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
+                        }
+                    }
+
+                    context.DCursorType = CanApply ? CApplicationData.ECursorType.ctTargetOn : CApplicationData.ECursorType.ctTargetOff
+                }
+            }
+            break
+        case CApplicationData.EUIComponentType.uictViewportBevelN:
+            context.DCursorType = CApplicationData.ECursorType.ctArrowN
+            break
+        case CApplicationData.EUIComponentType.uictViewportBevelE:
+            context.DCursorType = CApplicationData.ECursorType.ctArrowE
+            break
+        case CApplicationData.EUIComponentType.uictViewportBevelS:
+            context.DCursorType = CApplicationData.ECursorType.ctArrowS
+            break
+        case CApplicationData.EUIComponentType.uictViewportBevelW:
+            context.DCursorType = CApplicationData.ECursorType.ctArrowW
+            break
+        default:
+            context.DCursorType = CApplicationData.ECursorType.ctPointer
+            break
+        }
+        var ViewportRectangle: SRectangle = SRectangle(DXPosition: context.DViewportRenderer.ViewPortX(), DYPosition:  context.DViewportRenderer.ViewPortY(), DWidth: context.DViewportRenderer.LastViewportWidth(), DHeight:context.DViewportRenderer.LastViewportHeight())
+        
+        // FIXME: SoundEventRenderer
+        // context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
         // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Render\n")
     }
 
