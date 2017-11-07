@@ -1,26 +1,23 @@
 //
-//  BuildCapabilities.swift
+//  TrainCapabilities.swift
 //  WarCraft2
 //
-//  Created by Yepu Xie on 11/5/17.
+//  Created by Yepu Xie on 11/7/17.
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
 import Foundation
-
-class CPlayerCapabilityBuildNormal: CPlayerCapability {
+class CPlayerCapabilityTrainNormal: CPlayerCapability {
     class CRegistrant {
         init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "TownHall"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Farm"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Barracks"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "LumberMill"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Blacksmith"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "ScoutTower"))
+            CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Peasant"))
+            CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Footman"))
+            CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Archer"))
         }
     }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static var DRegistrant = CRegistrant()
+
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
 
@@ -91,15 +88,14 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
         }
     }
 
-    var DBuildingName: String
-
-    init(buildingname: String) {
-        DBuildingName = buildingname
-        super.init(name: "Build\(buildingname)", targettype: ETargetType.TerrainOrAsset)
+    var DUnitName: String
+    init(unitname: String) {
+        DUnitName = unitname
+        super.init(name: "Build\(unitname)", targettype: ETargetType.None)
     }
 
     override func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
+        var Iterator = playerdata.AssetTypes()[DUnitName]
 
         if let AssetType = Iterator {
             if AssetType.DLumberCost > playerdata.DLumber {
@@ -108,28 +104,10 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
             if AssetType.DGoldCost > playerdata.DGold {
                 return false
             }
-        }
-
-        return true
-    }
-
-    override func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
-
-        if (actor != target) && (EAssetType.None != target.Type()) {
-            return false
-        }
-
-        if let AssetType = Iterator {
-            if AssetType.DLumberCost > playerdata.DLumber {
+            if AssetType.DFoodConsumption + playerdata.FoodConsumption() > playerdata.FoodProduction() {
                 return false
             }
-
-            if AssetType.DGoldCost > playerdata.DGold {
-                return false
-            }
-
-            if !(playerdata.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: AssetType.DSize, ignoreasset: actor)) {
+            if !(playerdata.AssetRequirementsMet(assettypename: DUnitName)) {
                 return false
             }
         }
@@ -137,39 +115,28 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
         return true
     }
 
-    override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
+    override func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target _: CPlayerAsset) -> Bool {
+        return CanInitiate(actor: actor, playerdata: playerdata)
+    }
+
+    override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target _: CPlayerAsset) -> Bool {
+        var Iterator = playerdata.AssetTypes()[DUnitName]
 
         if let AssetType = Iterator {
+            var NewAsset = playerdata.CreateAsset(assettypename: DUnitName)
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var Tileposition = CTilePosition()
+            Tileposition.SetFromPixel(pos: actor.Position())
+            NewAsset.TilePosition(pos: Tileposition)
+            NewAsset.HitPoints(hitpts: 1)
 
-            actor.ClearCommand()
-            if actor.TilePosition() == target.TilePosition() {
-                var NewAsset = playerdata.CreateAsset(assettypename: DBuildingName)
-                var TilePosition = CTilePosition()
-                TilePosition.SetFromPixel(pos: target.Position())
-                NewAsset.TilePosition(pos: TilePosition)
-                NewAsset.HitPoints(hitpts: 1)
-
-                NewCommand.DAction = EAssetAction.Capability
-                NewCommand.DCapability = AssetCapabilityType()
-                NewCommand.DAssetTarget = NewAsset
-                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
-                actor.PushCommand(command: NewCommand)
-
-            } else {
-                NewCommand.DAction = EAssetAction.Capability
-                NewCommand.DCapability = AssetCapabilityType()
-                NewCommand.DAssetTarget = target
-                actor.PushCommand(command: NewCommand)
-
-                NewCommand.DAction = EAssetAction.Walk
-                actor.PushCommand(command: NewCommand)
-            }
-
-            return true
+            NewCommand.DAction = EAssetAction.Capability
+            NewCommand.DCapability = AssetCapabilityType()
+            NewCommand.DAssetTarget = NewAsset
+            NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: NewAsset, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
+            actor.PushCommand(command: NewCommand)
+            actor.ResetStep()
         }
-
         return false
     }
 }
