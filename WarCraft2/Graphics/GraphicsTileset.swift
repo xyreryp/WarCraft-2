@@ -24,6 +24,7 @@ class CGraphicTileset {
     var DTileHalfWidth: Int
     var DTileHalfHeight: Int
     var DTileSet: [SKTexture]
+    var DTileImageSet: [NSImage]
 
     init() {
         DSurfaceTileset = nil
