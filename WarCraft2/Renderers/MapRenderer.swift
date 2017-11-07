@@ -13,7 +13,7 @@ import SpriteKit
 // TODO: implement MapRenderer
 protocol PMapRenderer {
     var DTileset: CGraphicTileset { get set }
-    var DDMap: CTerrainMap { get set }
+    var DMap: CTerrainMap { get set }
     var DTileIndices: [[[Int]]] { get set }
     var DPixelIndices: [Int] { get set }
 
@@ -33,7 +33,7 @@ protocol PMapRenderer {
 
 class CMapRenderer: PMapRenderer {
     var DTileset: CGraphicTileset
-    var DDMap: CTerrainMap
+    var DMap: CTerrainMap
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
@@ -47,7 +47,7 @@ class CMapRenderer: PMapRenderer {
 
         // data members
         DTileset = tileset
-        DDMap = map // changed to DDMap because DMap kept referencing visibilityMap.Dmap
+        DMap = map
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 
@@ -245,19 +245,19 @@ class CMapRenderer: PMapRenderer {
     // end of init()
 
     func MapWidth() -> Int {
-        return DDMap.Width()
+        return DMap.Width()
     }
 
     func MapHeight() -> Int {
-        return DDMap.Height()
+        return DMap.Height()
     }
 
     func DetailedMapWidth() -> Int {
-        return DDMap.Width() * DTileset.TileWidth()
+        return DMap.Width() * DTileset.TileWidth()
     }
 
     func DetailedMapHeight() -> Int {
-        return DDMap.Height() * DTileset.TileHeight()
+        return DMap.Height() * DTileset.TileHeight()
     }
 
     func DrawMap(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
@@ -275,11 +275,11 @@ class CMapRenderer: PMapRenderer {
         var XPos: Int = -(rect.DXPosition % TileWidth)
         repeat {
             repeat {
-                // let type: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+                // let type: CTerrainMap.ETileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
                 // PixelType used in DrawClipped
-                let PixelType: CPixelType = CPixelType(type: DDMap.TileType(xindex: XIndex, yindex: YIndex))
-                let ThisTileType: CTerrainMap.ETileType = DDMap.TileType(xindex: XIndex, yindex: YIndex)
-                let TileIndex: Int = DDMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
+                let PixelType: CPixelType = CPixelType(type: DMap.TileType(xindex: XIndex, yindex: YIndex))
+                let ThisTileType: CTerrainMap.ETileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
+                let TileIndex: Int = DMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
 
                 if (0 <= TileIndex) && (16 > TileIndex) {
                     var DisplayIndex: Int = -1
@@ -314,14 +314,14 @@ class CMapRenderer: PMapRenderer {
         ResourceContext.SetLineWidth(width: 1)
         ResourceContext.SetLineCap(cap: CGLineCap.square)
 
-        for YPos in 0 ..< DDMap.Height() {
+        for YPos in 0 ..< DMap.Height() {
             var XPos = 0
 
-            while XPos < DDMap.Width() {
-                var TileType = DDMap.TileType(xindex: XPos, yindex: YPos)
+            while XPos < DMap.Width() {
+                var TileType = DMap.TileType(xindex: XPos, yindex: YPos)
                 var XAnchor = XPos
 
-                while XPos < DDMap.Width() && DDMap.TileType(xindex: XPos, yindex: YPos) == TileType {
+                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: YPos) == TileType {
                     XPos += 1
                 }
 
