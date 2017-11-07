@@ -17,7 +17,7 @@ class CBevel: NSObject {
     var DCornerIndices = [Int]()
     var DWidth = 0
 
-    init(tileSet: CGraphicTileset) {
+    init(tileset: CGraphicTileset) {
         DTileset = tileSet
         DWidth = tileSet.TileWidth()
         DTopIndices = [Int](repeating: 0, count: DWidth)
