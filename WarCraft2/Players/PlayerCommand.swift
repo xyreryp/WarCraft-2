@@ -8,10 +8,12 @@
 
 import Foundation
 
-struct SPlayerCommandRequest {
+struct PLAYERCOMMANDREQUEST_TAG {
     var DAction: EAssetCapabilityType
     var DActors: [CPlayerAsset]
     var DTargetColor: EPlayerColor
     var DTargetType: EAssetType
     var DTargetLocation: CPixelPosition
 }
+
+typealias SPlayerCommandRequest = PLAYERCOMMANDREQUEST_TAG
