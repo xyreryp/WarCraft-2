@@ -121,8 +121,8 @@ class CFontTileset: CGraphicMulticolorTileset {
 
         return ReturnStatus
     }
-
-    public func DrawText(surface _: CGraphicSurface, xpos: Int, ypos _: Int, str: String) {
+//graphics factory core graphics->
+    public func DrawText(surface: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, str: String) {
         var LastChar = Int()
         var NextChar: Int
         var Skip: Bool = true
@@ -132,10 +132,10 @@ class CFontTileset: CGraphicMulticolorTileset {
 
             NextChar = str[index].asciiValue - 32
             if !Skip {
-                xposHold = xpos + DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
+                xposHold += DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
-            // super.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: LastChar)     //NOT SURE ABOUT THIS, ONLY DRAWTILE THAT TAKES IN CGraphicSurface when the one I need is taking in SKScene
+            super.DrawTile(context: surface, xpos: xposHold, ypos: ypos, width: 50, height: 50, tileindex: NextChar)    //FIXME: Not sure what width/hieght should be
             LastChar = NextChar
         }
     }
@@ -153,7 +153,7 @@ class CFontTileset: CGraphicMulticolorTileset {
             NextChar = str[index].asciiValue - 32
 
             if !Skip {
-                xposHold = xpos + DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
+                xposHold += DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
             super.DrawTile(surface: surface, xpos: xposHold, ypos: ypos, tileindex: NextChar, colorindex: colorindex)
