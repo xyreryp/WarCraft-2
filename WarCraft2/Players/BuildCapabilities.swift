@@ -84,4 +84,86 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
             DActor.PopCommand()
         }
     }
+
+    var DBuildingName: String
+
+    init(buildingname: String) {
+        DBuildingName = buildingname
+        super.init(name: "Build", targettype: ETargetType.TerrainOrAsset)
+    }
+
+    override func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
+        var Iterator = playerdata.AssetTypes()[DBuildingName]
+
+        if let AssetType = Iterator {
+            if AssetType.DLumberCost > playerdata.DLumber {
+                return false
+            }
+            if AssetType.DGoldCost > playerdata.DGold {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    override func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
+        var Iterator = playerdata.AssetTypes()[DBuildingName]
+
+        if (actor != target) && (EAssetType.None != target.Type()) {
+            return false
+        }
+
+        if let AssetType = Iterator {
+            if AssetType.DLumberCost > playerdata.DLumber {
+                return false
+            }
+
+            if AssetType.DGoldCost > playerdata.DGold {
+                return false
+            }
+
+            if !(playerdata.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: AssetType.DSize, ignoreasset: actor)) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
+        var Iterator = playerdata.AssetTypes()[DBuildingName]
+
+        if let AssetType = Iterator {
+            var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+
+            actor.ClearCommand()
+            if actor.TilePosition() == target.TilePosition() {
+                var NewAsset = playerdata.CreateAsset(assettypename: DBuildingName)
+                var TilePosition = CTilePosition()
+                TilePosition.SetFromPixel(pos: target.Position())
+                NewAsset.TilePosition(pos: TilePosition)
+                NewAsset.HitPoints(hitpts: 1)
+
+                NewCommand.DAction = EAssetAction.Capability
+                NewCommand.DCapability = AssetCapabilityType()
+                NewCommand.DAssetTarget = NewAsset
+                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
+                actor.PushCommand(command: NewCommand)
+
+            } else {
+                NewCommand.DAction = EAssetAction.Capability
+                NewCommand.DCapability = AssetCapabilityType()
+                NewCommand.DAssetTarget = target
+                actor.PushCommand(command: NewCommand)
+
+                NewCommand.DAction = EAssetAction.Walk
+                actor.PushCommand(command: NewCommand)
+            }
+
+            return true
+        }
+
+        return false
+    }
 }
