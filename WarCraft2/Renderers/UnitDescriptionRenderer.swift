@@ -27,14 +27,14 @@ class CUnitDescriptionRenderer {
 
     var DIconTileset: CGraphicMulticolorTileset // shared ptr
     var DBevel: CBevel // shared ptr
-    var DFonts: [CFontTileset] = [] // NOTE: FontTileset is currently in progress
-    var DAssetIndices = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // NOTE: May not need to initialize as empty
+    var DFonts: [CFontTileset] // NOTE: FontTileset is currently in progress
+    var DAssetIndices: [Int]// = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // NOTE: May not need to initialize as empty
 
-    var DResearchIndices = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // Note EAssetCapabilityType is enum of ints
+    var DResearchIndices: [Int] // = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // Note EAssetCapabilityType is enum of ints
 
     // var DResearchIndices = [Int](repeating: nil, count: EAssetCapabilityType.Max.rawValue) // NOTE: see above note, vector container
     var DFontColorIndices = Array(repeating: [Int](), count: EFontSize.Max.rawValue) // NOTE: This could be possible source of error
-    var DHealthColors = [UInt32?](repeating: nil, count: MAX_HP_COLOR)
+    var DHealthColors:[UInt32]// = [UInt32?](repeating: nil, count: MAX_HP_COLOR)
     var DPlayerColor: EPlayerColor
     var DHealthRectangleFG: UInt32
     var DHealthRectangleBG: UInt32
@@ -49,7 +49,6 @@ class CUnitDescriptionRenderer {
     var DDisplayedHeight: Int
     var DDisplayedIcons: Int
 
-    // FIXME: Change [] to [CFontTileset]
     init(bevel: CBevel, icons: CGraphicMulticolorTileset, fonts: [CFontTileset], color: EPlayerColor) {
         var TextWidth: Int
         var TextHeight: Int
@@ -62,12 +61,13 @@ class CUnitDescriptionRenderer {
         while index < EFontSize.Max.rawValue {
             DFonts[index] = fonts[index]
             // DFontColorIndices[index].resize(2) FIXME: need array of size 2
+            
             DFontColorIndices[index][FG_COLOR] = DFonts[index].FindColor("white")
             DFontColorIndices[index][BG_COLOR] = DFonts[index].FindColor("black")
             index = index + 1
         }
 
-        DFonts[EFontSize.Small.rawValue].MeasureText(str: "0123456789", width: TextWidth, height: TextHeight)
+        DFonts[EFontSize.Small.rawValue].MeasureText(str: "0123456789", width: &TextWidth, height: &TextHeight)
 
         // FIXME: TileWidth() used in Linux source code, but not defined in CGraphicMulticolorTileset
         // Where is this actually used?
@@ -253,7 +253,7 @@ class CUnitDescriptionRenderer {
                         ResourceContext.Rectangle(xpos: 0, ypos: DIconTileset.TileHeight() + DBevel.Width() * 3, width: DIconTileset.TileWidth() + DBevel.Width() * 2, height: HEALTH_HEIGHT + 2)
                         ResourceContext.Fill()
 
-                        ResourceContext.SetSourceRGB(rgb: DHealthColors[HPColor]!)
+                        ResourceContext.SetSourceRGB(rgb: DHealthColors[HPColor])
                         ResourceContext.Rectangle(xpos: 1, ypos: DIconTileset.TileHeight() + DBevel.Width() * 3 + 1, width: (DIconTileset.TileWidth() + DBevel.Width() * 2 - 2) * Asset.HitPoints() / Asset.MaxHitPoints(), height: HEALTH_HEIGHT)
                         ResourceContext.Fill()
 

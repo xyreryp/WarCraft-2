@@ -445,7 +445,7 @@ class CBattleMode: CApplicationMode {
                         context.DSelectedPlayerAssets.removeLast()
                     }
                     // START HERE
-                    var TempEvent: SGameEvent
+                    var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
                     TempEvent.DType = EEventType.Selection
                     TempEvent.DAsset = context.DSelectedPlayerAssets.first!
                     context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
