@@ -146,7 +146,7 @@ class CButtonRenderer {
     func DrawButton(surface: CGraphicSurface, x: Int, y: Int, state: EButtonState) {
         var ResourceContext = surface.CreateResourceContext()
         if EButtonState.Pressed == state {
-            var BevelWidth: Int = DInnerBevel.Width
+            var BevelWidth: Int = DInnerBevel.Width()
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
             ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
