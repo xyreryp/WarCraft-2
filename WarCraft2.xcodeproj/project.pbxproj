@@ -376,8 +376,8 @@
 				E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
-												//E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
-				4999BB961FAF943E0080C019 /* ResourceRenderer.swift */,
+				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
+												//4999BB961FAF943E0080C019 /* ResourceRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
