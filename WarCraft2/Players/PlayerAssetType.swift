@@ -8,27 +8,27 @@
 
 import Foundation
 class CPlayerAssetType {
-    var DName: String = String()
-    var DType: EAssetType = EAssetType.None
-    var DColor: EPlayerColor = EPlayerColor.None
-    var DCapabilities: [Bool] = [Bool]()
-    var DAssetRequirements: [EAssetType] = [EAssetType]()
-    var DAssetUpgrades = [CPlayerUpgrade]()
-    var DHitPoints: Int = Int()
-    var DArmor: Int = Int()
-    var DSight: Int = Int()
-    var DConstructionSight: Int = Int()
-    var DSize: Int = Int()
-    var DSpeed: Int = Int()
-    var DGoldCost: Int = Int()
-    var DLumberCost: Int = Int()
-    var DFoodConsumption: Int = Int()
-    var DBuildTime: Int = Int()
-    var DAttackSteps: Int = Int()
-    var DReloadSteps: Int = Int()
-    var DBasicDamage: Int = Int()
-    var DPiercingDamage: Int = Int()
-    var DRange: Int = Int()
+    var DName: String
+    var DType: EAssetType
+    var DColor: EPlayerColor
+    var DCapabilities: [Bool]
+    var DAssetRequirements: [EAssetType]
+    var DAssetUpgrades: [CPlayerUpgrade]
+    var DHitPoints: Int
+    var DArmor: Int
+    var DSight: Int
+    var DConstructionSight: Int
+    var DSize: Int
+    var DSpeed: Int
+    var DGoldCost: Int
+    var DLumberCost: Int
+    var DFoodConsumption: Int
+    var DBuildTime: Int
+    var DAttackSteps: Int
+    var DReloadSteps: Int
+    var DBasicDamage: Int
+    var DPiercingDamage: Int
+    var DRange: Int
     static var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     static var DTypeStrings: [String] = [
         "None",
@@ -67,18 +67,16 @@ class CPlayerAssetType {
         "GuardTower": EAssetType.GuardTower,
         "CannonTower": EAssetType.CannonTower,
     ]
-    //
-    //    public:
-    //    CPlayerAssetType();
-    //    CPlayerAssetType(std::shared_ptr< CPlayerAssetType > res);
-    //    ~CPlayerAssetType();
-    //
 
     // default constructor
     init() {
         //        DThis = CPlayerAssetType()
+        DName = ""
+        DType = EAssetType.None
+        DCapabilities = [Bool]()
+        DColor = EPlayerColor.None
         CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
-        DHitPoints = 0
+        DHitPoints = 1
         DArmor = 0
         DSight = 0
         DConstructionSight = 0
@@ -93,6 +91,8 @@ class CPlayerAssetType {
         DBasicDamage = 0
         DPiercingDamage = 0
         DRange = 0
+        DAssetRequirements = [EAssetType]()
+        DAssetUpgrades = [CPlayerUpgrade]()
     }
 
     // constructor
@@ -119,6 +119,30 @@ class CPlayerAssetType {
             DBasicDamage = asset.DBasicDamage
             DPiercingDamage = asset.DPiercingDamage
             DRange = asset.DRange
+            DAssetUpgrades = [CPlayerUpgrade]()
+        } else {
+            DName = ""
+            DType = EAssetType.None
+            DCapabilities = [Bool]()
+            DColor = EPlayerColor.None
+            CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+            DHitPoints = 1
+            DArmor = 0
+            DSight = 0
+            DConstructionSight = 0
+            DSize = 1
+            DSpeed = 0
+            DGoldCost = 0
+            DLumberCost = 0
+            DFoodConsumption = 0
+            DBuildTime = 0
+            DAttackSteps = 0
+            DReloadSteps = 0
+            DBasicDamage = 0
+            DPiercingDamage = 0
+            DRange = 0
+            DAssetRequirements = [EAssetType]()
+            DAssetUpgrades = [CPlayerUpgrade]()
         }
     }
 

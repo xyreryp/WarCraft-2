@@ -32,7 +32,9 @@ class CPlayerData {
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
-
+        DUpgrades = [Bool]()
+        DGameEvents = [SGameEvent]()
+        DAssets = [CPlayerAsset]()
         CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
@@ -115,10 +117,21 @@ class CPlayerData {
         return TotalProduction
     }
 
-    //    VisibilityMap() return DVisibilityMap
-    //    PlayerMap() return DPlayerMap
-    //    Assets() return DAssets
-    //    AssetTypes() return DAssetTypes
+    func VisibilityMap() -> CVisibilityMap? {
+        return DVisibilityMap
+    }
+
+    func PlayerMap() -> CAssetDecoratedMap {
+        return DPlayerMap
+    }
+
+    func Assets() -> [CPlayerAsset] {
+        return DAssets
+    }
+
+    func AssetTypes() -> [String: CPlayerAssetType] {
+        return DAssetTypes
+    }
 
     func CreateMarker(pos: CPixelPosition, addtomap: Bool) -> CPlayerAsset {
         let NewMarker: CPlayerAsset = (DAssetTypes["None"]?.Construct())!
@@ -481,22 +494,18 @@ class CPlayerData {
         return DUpgrades[upgrade.rawValue]
     }
 
-    // TODO: What is SGameEvent
     func GameEvents() -> [SGameEvent] {
         return DGameEvents
     }
 
-    //
     func ClearGameEvents() {
         DGameEvents.removeAll()
     }
 
-    //
     func AddGameEvent(event: SGameEvent) {
         DGameEvents.append(event)
     }
 
-    //
     func AppendGameEvents(events: [SGameEvent]) {
         DGameEvents += events
     }

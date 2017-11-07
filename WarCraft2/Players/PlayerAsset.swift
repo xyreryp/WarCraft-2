@@ -22,7 +22,7 @@ class CPlayerAsset {
     var DStep: Int
     var DMoveRemainderX: Int
     var DMoveRemainderY: Int
-    var DTurnOrder: UInt = UInt()
+    var DTurnOrder: UInt
     var DPosition: CPixelPosition
     var DDirection: EDirection
     var DCommands: [SAssetCommand]
@@ -44,7 +44,7 @@ class CPlayerAsset {
         DTurnOrder = 0
         DPosition = CPixelPosition(x: 0, y: 0)
         DDirection = EDirection.South
-        DCommands = [SAssetCommand]()
+        DCommands = []
         // FIXME:
         TilePosition(pos: CTilePosition())
     }
@@ -284,7 +284,8 @@ class CPlayerAsset {
         if !DCommands.isEmpty {
             DCommands.removeLast()
         }
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: CActivatedPlayerCapability())
+        // FIXME: DActivatedCapability?
+        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
         RetVal.DAction = EAssetAction.None
 
         return RetVal
@@ -296,7 +297,7 @@ class CPlayerAsset {
             return DCommands[DCommands.count - 2]
         }
 
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: CActivatedPlayerCapability())
+        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
         RetVal.DAction = EAssetAction.None
         return RetVal
     }
