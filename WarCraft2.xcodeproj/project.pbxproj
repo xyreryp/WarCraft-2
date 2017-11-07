@@ -158,6 +158,7 @@
 		CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WarCraft2.entitlements; sourceTree = "<group>"; };
 		DD3F34021F8C13D3006A805B /* PlayerCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCommand.swift; sourceTree = "<group>"; };
 		DD78FA0C1F94389100E0614B /* GraphicRecolorMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicRecolorMap.swift; sourceTree = "<group>"; };
+		DD9744251FAFEA0C00AEC52F /* ButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRenderer.swift; sourceTree = "<group>"; };
 		DDAA9A141F9E77350062A337 /* RouterMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMap.swift; sourceTree = "<group>"; };
 		DDBAC41B1F987E2B0075BB57 /* GraphicMulticolorTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicMulticolorTileset.swift; sourceTree = "<group>"; };
 		DDBC28311F881D2E00C8B8F3 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
@@ -342,6 +343,7 @@
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
 				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
+				DD9744251FAFEA0C00AEC52F /* ButtonRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
