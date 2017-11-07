@@ -115,12 +115,20 @@ class GameViewController: NSViewController, viewToController {
         skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
 
-        if (application.PreviousViewPortX + application.ViewportX) / application.DMapRenderer.DTileset.TileWidth() >= 0 {
+        if application.PreviousViewPortX + application.ViewportX > Int(skscene!.size.width) {
+            application.PreviousViewPortX = Int(skscene!.size.width)
+        } else if application.PreviousViewPortX + application.ViewportX < 0 {
+            application.PreviousViewPortX = 0
+        } else {
             application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
             //            print("here")
         }
 
-        if (application.PreviousViewPortY - application.ViewportY) / application.DMapRenderer.DTileset.TileHeight() <= 128 && (application.PreviousViewPortY - application.ViewportY) / application.DMapRenderer.DTileset.TileHeight() >= 9 {
+        if (application.PreviousViewPortY - application.ViewportY) > Int(skscene!.size.height) {
+            application.PreviousViewPortY = Int(skscene!.size.height)
+        } else if application.PreviousViewPortY - application.ViewportY < 0 {
+            application.PreviousViewPortY = 0
+        } else {
             print("here")
             application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
         }

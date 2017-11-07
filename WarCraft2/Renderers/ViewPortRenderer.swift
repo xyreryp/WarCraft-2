@@ -138,8 +138,8 @@ class CViewportRenderer {
 
         TempRectangle.DXPosition = selectrect.DXPosition
         TempRectangle.DYPosition = selectrect.DYPosition
-        TempRectangle.DWidth = 300
-        TempRectangle.DHeight = 300
+        TempRectangle.DWidth = Int(surface.frame.width)
+        TempRectangle.DHeight = Int(surface.frame.height)
 
         /*  switch curcapability {
          case EAssetCapabilityType.BuildFarm:
