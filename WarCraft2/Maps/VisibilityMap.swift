@@ -30,7 +30,7 @@ class CVisibilityMap {
         DMaxVisibility = maxvisibility
         DMap = [[ETileVisibility]]()
         CHelper.resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [])
-        //FIXME: 
+        // FIXME:
         for (i, _) in DMap.enumerated() {
             CHelper.resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
             _ = ETileVisibility.None
@@ -47,7 +47,7 @@ class CVisibilityMap {
         DTotalMapTiles = map.DTotalMapTiles
         DUnseenTiles = map.DUnseenTiles
     }
-    
+
     deinit {
     }
 

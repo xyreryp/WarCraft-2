@@ -8,37 +8,15 @@
 
 import Foundation
 import SpriteKit
-// TODO: COME BACK AFTER I DO CTERRAINMAP
 
-// TODO: implement MapRenderer
-protocol PMapRenderer {
-    var DTileset: CGraphicTileset { get set }
-    var DMap: CTerrainMap { get set }
-    var DTileIndices: [[[Int]]] { get set }
-    var DPixelIndices: [Int] { get set }
-
-    // initializer
-    init(config: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap)
-
-    // functions to be implemented in CMapRenderer
-    func MapWidth() -> Int
-    func MapHeight() -> Int
-    func DetailedMapWidth() -> Int
-    func DetailedMapHeight() -> Int
-
-    // functions to be implemented in CMapRenderer
-    func DrawMap(surface: SKScene, typesurface: CGraphicResourceContext, rect: SRectangle)
-    func DrawMiniMap(ResourceContext: CGraphicResourceContext)
-}
-
-class CMapRenderer: PMapRenderer {
+class CMapRenderer {
     var DTileset: CGraphicTileset
     var DMap: CTerrainMap
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
     //    // huge constructor
-    required init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
+    init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
         // For the mini map rendering: @source
         //        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
@@ -95,7 +73,8 @@ class CMapRenderer: PMapRenderer {
         //            Index += 1
         //        } while Index < ItemCount
         //
-
+        
+        // TODO:
         DPixelIndices[CTerrainMap.ETileType.LightGrass.rawValue] = Int(0xFF28_540C)
         DPixelIndices[CTerrainMap.ETileType.DarkGrass.rawValue] = Int(0xFF14_4006)
         DPixelIndices[CTerrainMap.ETileType.LightDirt.rawValue] = Int(0xFF74_4404)
