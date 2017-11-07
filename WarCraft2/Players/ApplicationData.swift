@@ -217,8 +217,7 @@ class CApplicationData {
     var X: Int
     var Y: Int
 
-    // TODO: uncomment after Button Renderer
-    // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
+    var DMenuButtonState: CButtonRenderer.EButtonState
     // end of member variables from ApplicationData.h
 
     var ECursorTypeRef: ECursorType
@@ -398,8 +397,7 @@ class CApplicationData {
         X = Int()
         Y = Int()
 
-        // TODO: uncomment after Button Renderer
-        // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
+        DMenuButtonState = CButtonRenderer.EButtonState.None
         // end of member variables from ApplicationData.h
 
         ECursorTypeRef = ECursorType.ctPointer
@@ -550,8 +548,7 @@ class CApplicationData {
         DPressedKeys = [uint32]()
         DReleasedKeys = [uint32]()
 
-        // TODO: uncomment after Button Renderer
-        // var DMenuButtonState: CButtonRenderer.EButtonState? = nil
+        DMenuButtonState = CButtonRenderer.EButtonState.None
         ECursorTypeRef = ECursorType.ctPointer
         EUIComponentTypeRef = EUIComponentType.uictNone
         EGameSessionTypeRef = EGameSessionType.gstSinglePlayer

@@ -15,5 +15,3 @@ struct PLAYERCOMMANDREQUEST_TAG {
     var DTargetType: EAssetType
     var DTargetLocation: CPixelPosition
 }
-
-typealias SPlayerCommandRequest = PLAYERCOMMANDREQUEST_TAG

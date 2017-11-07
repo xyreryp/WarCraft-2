@@ -28,7 +28,7 @@ class CAIPlayer {
         DDownSample = downsample
     }
 
-    func SearchMap(command: inout SPlayerCommandRequest) -> Bool {
+    func SearchMap(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets() // IdleAssets list of weak_ptrs of type CPlayerAsset
         var MovableAsset: CPlayerAsset?
 
@@ -52,7 +52,7 @@ class CAIPlayer {
         return false
     }
 
-    func FindEnemies(command: inout SPlayerCommandRequest) -> Bool {
+    func FindEnemies(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
         var TownHallAsset: CPlayerAsset?
 
         for Weak_Asset in DPlayerData.DAssets { // weak_ptr.lock() ignored again
@@ -68,7 +68,7 @@ class CAIPlayer {
         return false
     }
 
-    func AttackEnemies(command: inout SPlayerCommandRequest) -> Bool {
+    func AttackEnemies(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
         var AverageLocation = CPixelPosition(x: 0, y: 0)
 
         for Weak_Asset in DPlayerData.DAssets {
@@ -100,7 +100,7 @@ class CAIPlayer {
         return false
     }
 
-    func BuildTownHall(command: inout SPlayerCommandRequest) -> Bool {
+    func BuildTownHall(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
         var BuilderAsset: CPlayerAsset?
 
@@ -127,7 +127,7 @@ class CAIPlayer {
         return false
     }
 
-    func BuildBuilding(command: inout SPlayerCommandRequest, buildingtype: EAssetType, neartype: EAssetType) -> Bool {
+    func BuildBuilding(command: inout PLAYERCOMMANDREQUEST_TAG, buildingtype: EAssetType, neartype: EAssetType) -> Bool {
 
         var BuilderAsset: CPlayerAsset?
         var TownHallAsset: CPlayerAsset?
@@ -215,7 +215,7 @@ class CAIPlayer {
         return false
     }
 
-    func ActivatePeasants(command: inout SPlayerCommandRequest, trainmore: Bool) -> Bool {
+    func ActivatePeasants(command: inout PLAYERCOMMANDREQUEST_TAG, trainmore: Bool) -> Bool {
 
         var MiningAsset: CPlayerAsset?
         var InterruptibleAsset: CPlayerAsset?
@@ -298,7 +298,7 @@ class CAIPlayer {
         return false
     }
 
-    func ActivateFighters(command: inout SPlayerCommandRequest) -> Bool {
+    func ActivateFighters(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
 
         for Weak_Asset in IdleAssets {
@@ -316,7 +316,7 @@ class CAIPlayer {
         return false
     }
 
-    func TrainFootman(command: inout SPlayerCommandRequest) -> Bool {
+    func TrainFootman(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
 
         var IdleAssets = DPlayerData.IdleAssets()
         var TrainingAsset: CPlayerAsset?
@@ -343,7 +343,7 @@ class CAIPlayer {
         return false
     }
 
-    func TrainArcher(command: inout SPlayerCommandRequest) -> Bool {
+    func TrainArcher(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
         var IdleAssets = DPlayerData.IdleAssets()
         var TrainingAsset: CPlayerAsset?
         var BuildType: EAssetCapabilityType = EAssetCapabilityType.BuildArcher
@@ -375,7 +375,7 @@ class CAIPlayer {
         return false
     }
 
-    public func CalculateCommand(command: inout SPlayerCommandRequest) {
+    public func CalculateCommand(command: inout PLAYERCOMMANDREQUEST_TAG) {
 
         command.DAction = EAssetCapabilityType.None
         command.DActors.removeAll()
@@ -390,7 +390,7 @@ class CAIPlayer {
                 BuildTownHall(command: &command)
             } else if 5 > DPlayerData.PlayerAssetCount(type: EAssetType.Peasant) {
                 ActivatePeasants(command: &command, trainmore: true)
-            } else if 12 > DPlayerData.DVisibilityMap.SeenPercent(max: 100) {
+            } else if 12 > DPlayerData.DVisibilityMap?.SeenPercent(max: 100) {
                 SearchMap(command: &command)
             } else {
                 var CompletedAction: Bool = false
