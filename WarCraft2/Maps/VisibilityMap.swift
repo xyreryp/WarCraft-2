@@ -17,17 +17,17 @@ enum ETileVisibility {
     case Seen
 }
 
-protocol PVisibilityMap {
-    var DMap: [[ETileVisibility]] { get set }
-    var DMaxVisibility: Int { get set }
-    var DTotalMapTiles: Int { get set }
-    var DUnseenTiles: Int { get set }
-    init(width: Int, height: Int, maxvisibility: Int)
+// protocol PVisibilityMap {
+//    var DMap: [[ETileVisibility]] { get set }
+//    var DMaxVisibility: Int { get set }
+//    var DTotalMapTiles: Int { get set }
+//    var DUnseenTiles: Int { get set }
+//    init(width: Int, height: Int, maxvisibility: Int)
+//
+//    func SeenPercent(max: Int) -> Int
+// }
 
-    func SeenPercent(max: Int) -> Int
-}
-
-class CVisibilityMap: PVisibilityMap {
+class CVisibilityMap {
     var DMap: [[ETileVisibility]] = [[ETileVisibility.None]]
 
     var DMaxVisibility: Int = Int()
