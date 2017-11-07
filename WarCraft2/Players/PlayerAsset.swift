@@ -22,7 +22,7 @@ class CPlayerAsset {
     var DStep: Int
     var DMoveRemainderX: Int
     var DMoveRemainderY: Int
-    var DTurnOrder: UInt = UInt()
+    var DTurnOrder: UInt
     var DPosition: CPixelPosition
     var DDirection: EDirection
     var DCommands: [SAssetCommand]
@@ -44,7 +44,7 @@ class CPlayerAsset {
         DTurnOrder = 0
         DPosition = CPixelPosition(x: 0, y: 0)
         DDirection = EDirection.South
-        DCommands = [SAssetCommand]()
+        DCommands = []
         // FIXME:
         TilePosition(pos: CTilePosition())
     }
