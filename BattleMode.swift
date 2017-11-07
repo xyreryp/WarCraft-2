@@ -194,10 +194,8 @@ class CBattleMode: CApplicationMode {
 
         context.DReleasedKeys.removeAll()
 
-        // FIXME: need ButtonRenderer
-        // context.DMenuButtonState = CButtonRenderer.EButtonState.None
+         context.DMenuButtonState = CButtonRenderer.EButtonState.None
 
-        // FIXME: context.FindUIComponentType
         var ComponentType = context.FindUIComponentType(pos: CPixelPosition(x: CurrentX, y: CurrentY))
         if CApplicationData.EUIComponentType.uictViewport == ComponentType {
             var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY))
@@ -222,7 +220,6 @@ class CBattleMode: CApplicationMode {
                 if CanMove {
                     if EPlayerColor.None != PixelType.Color() {
                         // Command is either walk/deliver, repair, or attack
-
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = PixelType.Color()
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = PixelType.AssetType()
@@ -372,7 +369,6 @@ class CBattleMode: CApplicationMode {
                     // FIXME: Player Capability
                     if let PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability) {
                         if PlayerCapability != nil && !context.DLeftDown {
-                            // FIXME: Ask Alex about PlayerCapability TargetType
                             if ((CPlayerCapability.ETargetType.Asset == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType)) && (EAssetType.None != PixelType.AssetType()) { // No TargetType ask Alex for PlayerCapability
                                 let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: TempPosition, assettype: PixelType.AssetType())
                                 
@@ -432,30 +428,29 @@ class CBattleMode: CApplicationMode {
             }
         } else if CApplicationData.EUIComponentType.uictUserDescription == ComponentType {
             // FIXME: Need DUnitActionRenderer
-//            if context.DLeftClick != 0 && !context.DLeftDown {
-//                var IconPressed = context.DUnitDescriptionRenderer.Selection(context.ScreenTOUnitDescription(CPixelPosition(x: CurrentX, y: CurrentY)))
-//                if 1 == context.DSelectedPlayerAssets.count {
-//                    if 0 == IconPressed {
-//                        // FIXME: immutable Asset.Position
-//                        if var Asset:CPlayerAsset? = context.DSelectedPlayerAssets.first {
-//                            context.DViewportRenderer.CenterViewport(pos: Asset!.Position())
-//                        }
-//                    }
-//                } else if 0 <= IconPressed {
-//                    while Bool(IconPressed) {
-//                        IconPressed -= 1
-//                        context.DSelectedPlayerAssets.remove(at: 0)
-//                    }
-//                    while 1 < context.DSelectedPlayerAssets.count {
-//                        context.DSelectedPlayerAssets.removeLast()
-//                    }
-//                    // START HERE
-//                    var TempEvent: SGameEvent
-//                    TempEvent.DType = EEventType.Selection
-//                    TempEvent.DAsset = context.DSelectedPlayerAssets.first!
-//                    context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-//                }
-//            }
+            if context.DLeftClick != 0 && !context.DLeftDown {
+                var IconPressed = context.DUnitDescriptionRenderer.Selection(pos: context.ScreenToUnitDescription(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
+                if 1 == context.DSelectedPlayerAssets.count {
+                    if 0 == IconPressed {
+                        if var Asset:CPlayerAsset? = context.DSelectedPlayerAssets.first {
+                            context.DViewportRenderer.CenterViewport(pos: Asset!.Position())
+                        }
+                    }
+                } else if 0 <= IconPressed {
+                    while IconPressed > 0 {
+                        IconPressed -= 1
+                        context.DSelectedPlayerAssets.remove(at: 0)
+                    }
+                    while 1 < context.DSelectedPlayerAssets.count {
+                        context.DSelectedPlayerAssets.removeLast()
+                    }
+                    // START HERE
+                    var TempEvent: SGameEvent
+                    TempEvent.DType = EEventType.Selection
+                    TempEvent.DAsset = context.DSelectedPlayerAssets.first!
+                    context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                }
+            }
         } else if CApplicationData.EUIComponentType.uictUserAction == ComponentType {
             // FIXME: Need DUnitActionRenderer
 

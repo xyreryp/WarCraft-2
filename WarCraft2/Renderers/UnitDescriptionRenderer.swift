@@ -147,7 +147,7 @@ class CUnitDescriptionRenderer {
     // NOTE: I kept getting "CPosition is ambiguous for type lookup in this context" error
     // using an inherited class (CTilePosition, which I think is the right one) cleared the error.
     // If there's an error caused by pos, we may need to change it to CPixelPosition
-    func Selection(pos: CTilePosition) -> Int {
+    func Selection(pos: CPixelPosition) -> Int {
         var HorizontalIcons: Int
         var VerticalIcons: Int
         var HorizontalGap: Int
