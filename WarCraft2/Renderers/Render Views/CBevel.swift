@@ -9,17 +9,17 @@
 import Cocoa
 
 class CBevel: NSObject {
-    var DTileset = CGraphicTileset()
-    var DTopIndices = [Int]()
-    var DBottomIndices = [Int]()
-    var DLeftIndices = [Int]()
-    var DRightIndices = [Int]()
-    var DCornerIndices = [Int]()
+    var DTileset: CGraphicTileset
+    var DTopIndices: [Int]
+    var DBottomIndices: [Int]
+    var DLeftIndices: [Int]
+    var DRightIndices: [Int]
+    var DCornerIndices: [Int]
     var DWidth = 0
 
     init(tileset: CGraphicTileset) {
-        DTileset = tileSet
-        DWidth = tileSet.TileWidth()
+        DTileset = tileset
+        DWidth = tileset.TileWidth()
         DTopIndices = [Int](repeating: 0, count: DWidth)
         DTopIndices[0] = DTileset.FindTile(tilename: "tf")
         for Index in 1 ..< DWidth {
