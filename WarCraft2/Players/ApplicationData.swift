@@ -139,13 +139,13 @@ class CApplicationData {
     var DListViewIconTileset: CGraphicTileset
     var DTerrainTileset: CGraphicTileset
     var DFogTileset: CGraphicTileset
-    
+
     // bevel things
     var DMiniBevel: CBevel
     var DInnerBevel: CBevel
     var DOuterBevel: CBevel
     var DMapRendererConfigurationData: [Character]
-   
+
     // recolor maps
     var DAssetRecolorMap: CGraphicRecolorMap
     var DButtonRecolorMap: CGraphicRecolorMap
@@ -171,8 +171,8 @@ class CApplicationData {
 
     // TODO: finish these types of renderers
     var DUnitDescriptionRenderer: CUnitDescriptionRenderer
-    // var DUnitActionRenderer: CUnitActionRenderer? = nil
-    // var DResourceRenderer: CResourceRenderer? = nil
+    var DUnitActionRenderer: CUnitActionRenderer
+    var DResourceRenderer: CResourceRenderer
     // var DMenuButtonRenderer: CButtonRenderer? = nil
     // var DButtonRenderer: CButtonRenderer? = nil
     // var DMapSelectListRenderer: CListViewRenderer? = nil
@@ -298,6 +298,7 @@ class CApplicationData {
         // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
         // var DSoundEventRenderer: CSoundEventRenderer? = nil
 
+        // TODO: CFontTileset
         // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
 
         // loading steps things
@@ -307,7 +308,7 @@ class CApplicationData {
         // tileset things
         DLoadingResourceContext = CGraphicResourceContext()
         DSplashTileset = CGraphicTileset()
-        DMarkerTileset = CGraphicTileset() // needed for assetRenderer
+        DMarkerTileset = CGraphicTileset()
         DBackgroundTileset = CGraphicTileset()
         DMiniBevelTileset = CGraphicTileset()
         DInnerBevelTileset = CGraphicTileset()
@@ -352,8 +353,8 @@ class CApplicationData {
         DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicMulticolorTileset(), fonts: [], color: EPlayerColor.None)
 
         // TODO: finish these types of renderers
-        // var DUnitActionRenderer: CUnitActionRenderer? = nil
-        // var DResourceRenderer: CResourceRenderer? = nil
+        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+        DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         // var DMenuButtonRenderer: CButtonRenderer? = nil
         // var DButtonRenderer: CButtonRenderer? = nil
         // var DMapSelectListRenderer: CListViewRenderer? = nil
@@ -506,11 +507,11 @@ class CApplicationData {
         // more tileset things
         DIconTileset = CGraphicMulticolorTileset()
         DMiniIconTileset = CGraphicTileset()
-        DAssetTilesets = [CGraphicTileset]() // array of all asset tilesets
-        DFireTileset = [CGraphicTileset]() // needed for assetRenderer
-        DCorpseTileset = CGraphicTileset() // needed for assetRenderer
-        DBuildingDeathTileset = CGraphicTileset() // needed for assetRenderer
-        DArrowTileset = CGraphicTileset() // needed for assetRenderer
+        DAssetTilesets = [CGraphicTileset]()
+        DFireTileset = [CGraphicTileset]()
+        DCorpseTileset = CGraphicTileset()
+        DBuildingDeathTileset = CGraphicTileset()
+        DArrowTileset = CGraphicTileset()
 
         // all renderer things
         DAssetRenderer = CAssetRenderer(tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
@@ -523,8 +524,8 @@ class CApplicationData {
 
         // TODO: finish these types of renderers
         //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
-        // var DUnitActionRenderer: CUnitActionRenderer? = nil
-        // var DResourceRenderer: CResourceRenderer? = nil
+        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+        DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         // var DMenuButtonRenderer: CButtonRenderer? = nil
         // var DButtonRenderer: CButtonRenderer? = nil
         // var DMapSelectListRenderer: CListViewRenderer? = nil
