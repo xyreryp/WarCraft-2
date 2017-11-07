@@ -173,8 +173,8 @@ class CApplicationData {
     var DUnitDescriptionRenderer: CUnitDescriptionRenderer
     var DUnitActionRenderer: CUnitActionRenderer
     var DResourceRenderer: CResourceRenderer
-    // var DMenuButtonRenderer: CButtonRenderer? = nil
-    // var DButtonRenderer: CButtonRenderer? = nil
+//    var DMenuButtonRenderer: CButtonRenderer
+//     var DButtonRenderer: CButtonRenderer
     // var DMapSelectListRenderer: CListViewRenderer? = nil
     // var DOptionsEditRenderer: CEditRenderer? = nil
 
@@ -790,7 +790,6 @@ class CApplicationData {
     //    func DrawingAreaMotionNotifyEvent(std::shared_ptr<CGUIWidget> widget, SGUIMotionEvent &event) -> Bool {}
 
     // functiones for going back and forth between screen and actions
-    // FIXME: what is UEIComponentType
     func FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {
         var ViewWidth: Int
         var ViewHeight: Int
@@ -825,9 +824,6 @@ class CApplicationData {
         }
 
         // FIXME: @Yepu, CGraphicResourceContext
-        // MiniWidth = Int(DMiniMapSurface.Width())
-        // MiniHeight = Int(DMiniMapSurface.Height())
-        // NOTE: hardcode values from Andrew
         MiniWidth = 130
         MiniHeight = 130
         if (DMiniMapXOffset <= pos.X()) && (DMiniMapXOffset + MiniWidth > pos.X()) && (DMiniMapYOffset <= pos.Y()) && (DMiniMapYOffset + MiniHeight > pos.Y()) {
