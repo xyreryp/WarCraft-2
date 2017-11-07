@@ -289,6 +289,7 @@ class CGraphicTileset {
             let newSize: NSSize
             newSize = NSSize(width: DTileWidth, height: DTileHeight)
             let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+            DTileImageSet.append(temp)
             let tempTexture = SKTexture(image: temp)
             DTileSet.append(tempTexture)
         }
@@ -323,6 +324,7 @@ class CGraphicTileset {
             let newSize: NSSize
             newSize = NSSize(width: DTileWidth, height: DTileHeight)
             let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+            DTileImageSet.append(temp)
             let tempTexture = SKTexture(image: temp)
             DTileSet.append(tempTexture)
         }
@@ -340,6 +342,21 @@ class CGraphicTileset {
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }
+
+    func DrawTile(context: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, width: Int, height: Int, tileindex: Int) {
+        if 0 > tileindex || tileindex >= DTileCount {
+            return
+        }
+
+        let image = DTileImageSet[tileindex]
+        let imageRect = CGRect(x: CGFloat(xpos), y: CGFloat(ypos), width: CGFloat(width), height: CGFloat(height))
+        context.myContext.draw(image.CGImage, in: imageRect)
+    }
+
+    //
+    //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
+    //    } // end LoadTileset()
+    //
 
     //    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
     //        if 0 > tileindex || tileindex >= DClippingMasks.count {
@@ -469,5 +486,13 @@ extension NSImage {
 
         // Return nil in case anything fails.
         return nil
+    }
+}
+
+// convert NSImage to CGImage
+extension NSImage {
+    var CGImage: CGImage {
+        var imageRect: CGRect = CGRect(x: CGFloat(0), y: CGFloat(0), width: size.width, height: size.height)
+        return cgImage(forProposedRect: &imageRect, context: nil, hints: nil)!
     }
 }

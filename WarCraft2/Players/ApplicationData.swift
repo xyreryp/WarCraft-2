@@ -774,6 +774,23 @@ class CApplicationData {
         if !DArrowTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow") {
             print("Failed to lead Arrow tileset")
         }
+
+        DMiniIconTileset = CGraphicTileset()
+        if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
+            print("Failed to load Mini Icon tileset")
+        }
+
+        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
+            print("Failed to load Mini Bevel Tileset")
+        }
+
+        if !DInnerBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "InnerBevel") {
+            print("Failed to load Inner Bevel Tileset")
+        }
+
+        if !DOuterBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "OuterBevel") {
+            print("Failed to load Outer Bevel Tileset")
+        }
     }
 
     //    func Timeout() -> Bool {}
