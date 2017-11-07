@@ -354,9 +354,9 @@ class CApplicationData {
         // TODO: finish these types of renderers
         DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        // var DMenuButtonRenderer: CButtonRenderer? = nil
-        // var DButtonRenderer: CButtonRenderer? = nil
-        // var DMapSelectListRenderer: CListViewRenderer? = nil
+        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
+        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
+        DMapSelectListRenderer = CListViewRenderer(icons: Int(), font: Int())
         // var DOptionsEditRenderer: CEditRenderer? = nil
 
         // game model things
@@ -520,13 +520,14 @@ class CApplicationData {
 
         DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
 
-        // TODO: finish these types of renderers
         //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
         DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        // var DMenuButtonRenderer: CButtonRenderer? = nil
-        // var DButtonRenderer: CButtonRenderer? = nil
-        // var DMapSelectListRenderer: CListViewRenderer? = nil
+        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
+        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
+        DMapSelectListRenderer = CListViewRenderer(icons: Int(), font: Int())
+
+        // TODO: finish these types of renderers
         // var DOptionsEditRenderer: CEditRenderer? = nil
 
         // game model things
@@ -990,12 +991,12 @@ class CApplicationData {
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
         // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
-        // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
+         //DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
         //        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
         //        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
         //
-        //        DMenuButtonRenderer.Text("Menu")
-        //        DMenuButtonRenderer.ButtonColor(DPlayerColor)
+          //      DMenuButtonRenderer.Text("Menu")
+        //DMenuButtonRenderer.ButtonColor(color: DPlayerColor)
 
         //        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
         //        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
