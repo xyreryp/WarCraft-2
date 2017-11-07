@@ -681,23 +681,26 @@ class CBattleMode: CApplicationMode {
                 context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
             }
         }
-
-        context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
-        context.DInnerBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
+        
+        // FIXME: Bevel draw takes in CGraphicResourceContextCoreGraphics?
+        // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
+        // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
 
         // FIXME: SKSCENE.draw?
         // context.DResourceSurface.Draw(srcsurface: context.DWorkingBufferSurface, dxpos: 0, dypos: 0, width: ResourceWidth, height: ResourceHeight, sxpos: context.DViewportXOffset, sypos: 0)
         // context.DResourceRenderer.DrawResources(context.DResourceSurface)
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DResourceSurface!, dxpos: context.DViewportXOffset, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
 
-        context.DOuterBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DUnitDescriptionXOffset, ypos: context.DUnitDescriptionYOffset, width: DescriptionWidth, height: DescriptionHeight)
+        // FIXME: context or skscene?
+        // context.DOuterBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DUnitDescriptionXOffset, ypos: context.DUnitDescriptionYOffset, width: DescriptionWidth, height: DescriptionHeight)
 
         // FIXME: SKSCENE.draw?
         // context.DUnitDescriptionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: DescriptionWidth, height: DescriptionHeight, sxpos: context.DUnitDescriptionXOffset, sypos: context.DUnitDescriptionYOffset)
         // context.DUnitDescriptionRenderer.DrawUnitDescription(context.DUnitDescriptionSurface, context.DSelectedPlayerAssets)
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitDescriptionSurface, dxpos: context.DUnitDescriptionXOffset, dypos: context.DUnitDescriptionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
 
-        context.DOuterBevel.DrawBevel(surface: context.DWorkingBufferSurface, xpos: context.DUnitActionXOffset, ypos: context.DUnitActionYOffset, width: ActionWidth, height: ActionHeight)
+        // FIXME: context or skscene?
+        // context.DOuterBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DUnitActionXOffset, ypos: context.DUnitActionYOffset, width: ActionWidth, height: ActionHeight)
         // FIXME: SKSCENE.draw?
         // context.DUnitActionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ActionWidth, height: ActionHeight, sxpos: context.DUnitActionXOffset, sypos: context.DUnitActionYOffset)
         // context.DUnitActionRenderer.DrawUnitAction(context.DUnitActionSurface!, context.DSelectedPlayerAssets, context.DCurrentAssetCapability)

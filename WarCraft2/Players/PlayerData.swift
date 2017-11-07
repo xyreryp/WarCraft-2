@@ -11,7 +11,7 @@ import Foundation
 class CPlayerData {
     var DIsAI: Bool
     var DColor: EPlayerColor
-    var DVisibilityMap: CVisibilityMap?
+    var DVisibilityMap: CVisibilityMap
     var DActualMap: CAssetDecoratedMap
     var DPlayerMap: CAssetDecoratedMap
     var DAssetTypes: [String: CPlayerAssetType]

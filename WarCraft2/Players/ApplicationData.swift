@@ -135,7 +135,7 @@ class CApplicationData {
     var DBackgroundTileset: CGraphicTileset
     var DMiniBevelTileset: CGraphicTileset
     var DInnerBevelTileset: CGraphicTileset
-    var DOuterVevelTileset: CGraphicTileset
+    var DOuterBevelTileset: CGraphicTileset
     var DListViewIconTileset: CGraphicTileset
     var DTerrainTileset: CGraphicTileset
     var DFogTileset: CGraphicTileset
@@ -311,7 +311,7 @@ class CApplicationData {
         DBackgroundTileset = CGraphicTileset()
         DMiniBevelTileset = CGraphicTileset()
         DInnerBevelTileset = CGraphicTileset()
-        DOuterVevelTileset = CGraphicTileset()
+        DOuterBevelTileset = CGraphicTileset()
         DListViewIconTileset = CGraphicTileset()
 
         // TODO: Import bevel stuff and uncomment
@@ -354,8 +354,8 @@ class CApplicationData {
         // TODO: finish these types of renderers
         DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), font: CFontTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
-        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
+        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: CGraphicTileset()), outerbevel: CBevel(tileset: CGraphicTileset()), font: CFontTileset())
+        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: CGraphicTileset()), outerbevel: CBevel(tileset: CGraphicTileset()), font: CFontTileset())
         DMapSelectListRenderer = CListViewRenderer(icons: Int(), font: Int())
         // var DOptionsEditRenderer: CEditRenderer? = nil
 
@@ -483,10 +483,10 @@ class CApplicationData {
         DBackgroundTileset = CGraphicTileset()
         DMiniBevelTileset = CGraphicTileset()
         DInnerBevelTileset = CGraphicTileset()
-        DOuterVevelTileset = CGraphicTileset()
+        DOuterBevelTileset = CGraphicTileset()
         DListViewIconTileset = CGraphicTileset()
 
-        // TODO: Import bevel stuff and uncomment
+        // bevel things
         DMiniBevel = CBevel(tileset: CGraphicTileset())
         DInnerBevel = CBevel(tileset: CGraphicTileset())
         DOuterBevel = CBevel(tileset: CGraphicTileset())
@@ -520,11 +520,11 @@ class CApplicationData {
 
         DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
 
-        //     var DUnitDescriptionRenderer: CUnitDescriptionRenderer? = nil
+        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
         DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
-        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(), outerbevel: CBevel(), font: CFontTileset())
+        DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), font: CFontTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: CGraphicTileset()), outerbevel: CBevel(tileset: CGraphicTileset()), font: CFontTileset())
+        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: CGraphicTileset()), outerbevel: CBevel(tileset: CGraphicTileset()), font: CFontTileset())
         DMapSelectListRenderer = CListViewRenderer(icons: Int(), font: Int())
 
         // TODO: finish these types of renderers
@@ -593,8 +593,7 @@ class CApplicationData {
         X = Int()
         Y = Int()
 
-        // FIXME: Whose doing button renderer
-        // DMenuButtonState = CButtonRenderer.EButtonState.None
+        DUnitHotKeyMap = [uint32: EAssetCapabilityType]()
         DUnitHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.Attack // key A
         DUnitHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildSimple // key B
         DUnitHotKeyMap[SGUIKeyType.KeyG] = EAssetCapabilityType.Convey // G
@@ -603,6 +602,7 @@ class CApplicationData {
         DUnitHotKeyMap[SGUIKeyType.KeyR] = EAssetCapabilityType.Repair // R
         DUnitHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.StandGround // T
 
+        DBuildHotKeyMap = [uint32: EAssetCapabilityType]()
         DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
         DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
         DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
@@ -610,6 +610,7 @@ class CApplicationData {
         DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
         DBuildHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.BuildScoutTower // T
 
+        DTrainHotKeyMap = [uint32: EAssetCapabilityType]()
         DTrainHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildArcher // A
         DTrainHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFootman // F
         DTrainHotKeyMap[SGUIKeyType.KeyP] = EAssetCapabilityType.BuildPeasant // P

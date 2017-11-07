@@ -23,7 +23,7 @@ class CButtonRenderer {
     internal var DInnerBevel: CBevel
     internal var DLightIndices: [Int]
     internal var DDarkIndices: [Int]
-    internal var DFont: [CFontTileSet]
+    internal var DFont: [CFontTileset]
     internal var DButtonColor: EPlayerColor
     internal var DText: String
     internal var DTextOffsetX: Int
