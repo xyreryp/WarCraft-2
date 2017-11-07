@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		497121311FB02F400089DF03 /* MiniMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121301FB02F400089DF03 /* MiniMapView.swift */; };
+		497121331FB032150089DF03 /* CBevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121321FB032150089DF03 /* CBevel.swift */; };
+		497121351FB03E370089DF03 /* ResourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121341FB03E370089DF03 /* ResourceView.swift */; };
+		497121391FB04F530089DF03 /* CBevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497121381FB04F530089DF03 /* CBevelView.swift */; };
+		498AB0191FB0FD0F0012A121 /* MiniBevel.dat in Resources */ = {isa = PBXBuildFile; fileRef = 498AB0171FB0FCEB0012A121 /* MiniBevel.dat */; };
+		498AB01A1FB0FD160012A121 /* InnerBevel.dat in Resources */ = {isa = PBXBuildFile; fileRef = 498AB0161FB0FCE20012A121 /* InnerBevel.dat */; };
+		498AB01B1FB0FD1D0012A121 /* OuterBevel.dat in Resources */ = {isa = PBXBuildFile; fileRef = 498AB0181FB0FCF20012A121 /* OuterBevel.dat */; };
+		4999BB971FAF943E0080C019 /* ResourceRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999BB961FAF943E0080C019 /* ResourceRenderer.swift */; };
 		4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B12BCC71F8C376100F1E62D /* SoundManager.swift */; };
 		4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B39625F1F8ACCE7003238AB /* SplashViewController.swift */; };
 		4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */; };
@@ -66,6 +74,7 @@
 		A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF5891F8AD924005007C4 /* PixelPosition.swift */; };
 		A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AE6E601F92A95200D40A86 /* PixelType.swift */; };
 		A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */ = {isa = PBXBuildFile; fileRef = E1E55CA61FA7BC0D000B9E65 /* bay.map */; };
+		A1CDAA4F1FB12BB500800D82 /* MiniIcons.dat in Resources */ = {isa = PBXBuildFile; fileRef = A1CDAA4E1FB12BB500800D82 /* MiniIcons.dat */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FA1F85DF8F004379F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77F91F85DF8F004379F5 /* Assets.xcassets */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
@@ -94,6 +103,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		497121301FB02F400089DF03 /* MiniMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMapView.swift; sourceTree = "<group>"; };
+		497121321FB032150089DF03 /* CBevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBevel.swift; sourceTree = "<group>"; };
+		497121341FB03E370089DF03 /* ResourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceView.swift; sourceTree = "<group>"; };
+		497121381FB04F530089DF03 /* CBevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBevelView.swift; sourceTree = "<group>"; };
+		498AB0161FB0FCE20012A121 /* InnerBevel.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = InnerBevel.dat; sourceTree = "<group>"; };
+		498AB0171FB0FCEB0012A121 /* MiniBevel.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = MiniBevel.dat; sourceTree = "<group>"; };
+		498AB0181FB0FCF20012A121 /* OuterBevel.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = OuterBevel.dat; sourceTree = "<group>"; };
+		4999BB961FAF943E0080C019 /* ResourceRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRenderer.swift; sourceTree = "<group>"; };
 		4B12BCC71F8C376100F1E62D /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4B39625F1F8ACCE7003238AB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		4BB118411F89EF94002DAB2B /* OptionsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsMenuViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +168,7 @@
 		A1AAF5871F8A955D005007C4 /* TilePosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePosition.swift; sourceTree = "<group>"; };
 		A1AAF5891F8AD924005007C4 /* PixelPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPosition.swift; sourceTree = "<group>"; };
 		A1AE6E601F92A95200D40A86 /* PixelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelType.swift; sourceTree = "<group>"; };
+		A1CDAA4E1FB12BB500800D82 /* MiniIcons.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MiniIcons.dat; path = ../../../../../Desktop/ECS/ECS160/Mac/ECS160OSX/WarCraft2/Data/MiniIcons.dat; sourceTree = "<group>"; };
 		CE4F77F21F85DF8F004379F5 /* WarCraft2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarCraft2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4F77F91F85DF8F004379F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +212,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4971212F1FB02F210089DF03 /* Render Views */ = {
+			isa = PBXGroup;
+			children = (
+				497121301FB02F400089DF03 /* MiniMapView.swift */,
+				497121381FB04F530089DF03 /* CBevelView.swift */,
+				497121321FB032150089DF03 /* CBevel.swift */,
+				497121341FB03E370089DF03 /* ResourceView.swift */,
+			);
+			path = "Render Views";
+			sourceTree = "<group>";
+		};
 		CE4F77E91F85DF8F004379F5 = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +322,7 @@
 		E1B45E301F9D4DF6009D9BF1 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				A1CDAA4E1FB12BB500800D82 /* MiniIcons.dat */,
 				A13E1EA01FA65914001589CE /* mountain.map */,
 				A10B595C1FA650860035C1EB /* Archer.dat */,
 				A10B59551FA650850035C1EB /* Arrow.dat */,
@@ -307,9 +337,12 @@
 				A10B59591FA650850035C1EB /* FireSmall.dat */,
 				A10B59511FA650850035C1EB /* Footman.dat */,
 				A10B59651FA650870035C1EB /* GoldMine.dat */,
+				498AB0161FB0FCE20012A121 /* InnerBevel.dat */,
 				A10B595D1FA650860035C1EB /* GuardTower.dat */,
 				A10B59611FA650860035C1EB /* Keep.dat */,
 				A10B59541FA650850035C1EB /* LumberMill.dat */,
+				498AB0171FB0FCEB0012A121 /* MiniBevel.dat */,
+				498AB0181FB0FCF20012A121 /* OuterBevel.dat */,
 				A10B59571FA650850035C1EB /* Marker.dat */,
 				A10B59631FA650870035C1EB /* Peasant.dat */,
 				A10B59501FA650850035C1EB /* Ranger.dat */,
@@ -336,13 +369,15 @@
 		E1B45E321F9D500E009D9BF1 /* Renderers */ = {
 			isa = PBXGroup;
 			children = (
+				4971212F1FB02F210089DF03 /* Render Views */,
 				8812C1FE1FA1C5D700C9B73A /* FogRenderer.swift */,
 				E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */,
 				E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */,
 				E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */,
 				E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */,
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
-				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
+												//E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
+				4999BB961FAF943E0080C019 /* ResourceRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -435,6 +470,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				498AB01B1FB0FD1D0012A121 /* OuterBevel.dat in Resources */,
+				498AB01A1FB0FD160012A121 /* InnerBevel.dat in Resources */,
+				498AB0191FB0FD0F0012A121 /* MiniBevel.dat in Resources */,
 				A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */,
 				A13E1EA11FA65963001589CE /* mountain.map in Resources */,
 				A10B59751FA650880035C1EB /* BuildingDeath.dat in Resources */,
@@ -460,6 +498,7 @@
 				A10B59711FA650880035C1EB /* TownHall.dat in Resources */,
 				A10B596C1FA650880035C1EB /* Arrow.dat in Resources */,
 				A10B596F1FA650880035C1EB /* Terrain.dat in Resources */,
+				A1CDAA4F1FB12BB500800D82 /* MiniIcons.dat in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,
 				A10B596B1FA650880035C1EB /* LumberMill.dat in Resources */,
 				A10B59731FA650880035C1EB /* Archer.dat in Resources */,
@@ -499,6 +538,7 @@
 				52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */,
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */,
+				497121351FB03E370089DF03 /* ResourceView.swift in Sources */,
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				E1D2FD4E1FA6AE0E00093313 /* Helpers.swift in Sources */,
@@ -515,12 +555,15 @@
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
+				497121331FB032150089DF03 /* CBevel.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
+				4999BB971FAF943E0080C019 /* ResourceRenderer.swift in Sources */,
 				DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
 				E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */,
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
+				497121391FB04F530089DF03 /* CBevelView.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
 				520A1D4E1FAE85D7006A4B96 /* FontTileSet.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
@@ -546,6 +589,7 @@
 				A19B88BC1F982AAF0090BD52 /* GameViewController.swift in Sources */,
 				E1D47D9A1FA2EC3700EFA5E4 /* FogRenderer.swift in Sources */,
 				6B5A5CEA1F8B387600A7B009 /* RandomNumberGenerator.swift in Sources */,
+				497121311FB02F400089DF03 /* MiniMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
