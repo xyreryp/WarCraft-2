@@ -14,8 +14,8 @@ class CFogRenderer {
 
     var DTileset: CGraphicTileset
     var DDMap: CVisibilityMap
-    var DNoneIndex: Int = -1
-    var DSeenIndex: Int = -1
+    var DNoneIndex: Int
+    var DSeenIndex: Int
     var DPartialIndex: Int
     var DFogIndices: [Int]
     var DBlackIndices: [Int]
@@ -31,7 +31,7 @@ class CFogRenderer {
             DFogIndices.append(DTileset.FindTile(tilename: "pf-\(hexIndex)"))
             DBlackIndices.append(DTileset.FindTile(tilename: "pb-\(hexIndex)"))
         }
-        
+
         DSeenIndex = DFogIndices[0x00]
         DNoneIndex = DBlackIndices[0x00]
     }

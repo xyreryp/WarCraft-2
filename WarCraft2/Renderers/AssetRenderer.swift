@@ -10,34 +10,34 @@ import Foundation
 import SpriteKit
 
 class CAssetRenderer {
-    static let TARGET_FREQUENCY = 10
     var DPlayerData: CPlayerData?
-    var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    var DTilesets: [CGraphicTileset] = [CGraphicTileset]()
+    var DPlayerMap: CAssetDecoratedMap
+    var DTilesets: [CGraphicTileset]
     var DMarkerTileset: CGraphicTileset?
-    var DFireTilesets = [CGraphicTileset]()
+    var DFireTilesets: [CGraphicTileset]
     var DBuildingDeathTileset: CGraphicTileset?
     var DCorpseTileset: CGraphicTileset?
     var DArrowTileset: CGraphicTileset?
-    var DMarkerIndices = [Int]()
-    var DCorpseIndices = [Int]()
-    var DArrowIndices = [Int]()
+    var DMarkerIndices: [Int]
+    var DCorpseIndices: [Int]
+    var DArrowIndices: [Int]
     var DPlaceGoodIndex: Int?
     var DPlaceBadIndex: Int?
-    var DNoneIndices = [[Int]]()
-    var DConstructIndices = [[Int]]()
-    var DBuildIndices = [[Int]]()
-    var DWalkIndices = [[Int]]()
-    var DAttackIndices = [[Int]]()
-    var DCarryGoldIndices = [[Int]]()
-    var DCarryLumberIndices = [[Int]]()
-    var DDeathIndices = [[Int]]()
-    var DPlaceIndices = [[Int]]()
+    var DNoneIndices: [[Int]]
+    var DConstructIndices: [[Int]]
+    var DBuildIndices: [[Int]]
+    var DWalkIndices: [[Int]]
+    var DAttackIndices: [[Int]]
+    var DCarryGoldIndices: [[Int]]
+    var DCarryLumberIndices: [[Int]]
+    var DDeathIndices: [[Int]]
+    var DPlaceIndices: [[Int]]
+    var DPixelColors: [UInt32]
 
-    var DPixelColors = [uint32]()
     static var DAnimationDownsample: Int = 1
+    static let TARGET_FREQUENCY = 10
 
-    init( /* colors: CGraphicRecolorMap, */ tilesets: [CGraphicTileset], markertileset: CGraphicTileset, corpsetileset: CGraphicTileset, firetileset: [CGraphicTileset], buildingdeath: CGraphicTileset, arrowtileset: CGraphicTileset, player: CPlayerData, map: CAssetDecoratedMap) {
+    init(colors _: CGraphicRecolorMap, tilesets: [CGraphicTileset], markertileset: CGraphicTileset, corpsetileset: CGraphicTileset, firetileset: [CGraphicTileset], buildingdeath: CGraphicTileset, arrowtileset: CGraphicTileset, player: CPlayerData, map: CAssetDecoratedMap) {
         var TypeIndex: Int = 0
         var MarkerIndex: Int = 0
         DTilesets = tilesets
@@ -48,6 +48,19 @@ class CAssetRenderer {
         DArrowTileset = arrowtileset
         DPlayerData = player
         DPlayerMap = map
+        DPixelColors = [UInt32]()
+        DNoneIndices = [[Int]]()
+        DConstructIndices = [[Int]]()
+        DBuildIndices = [[Int]]()
+        DWalkIndices = [[Int]]()
+        DAttackIndices = [[Int]]()
+        DCarryGoldIndices = [[Int]]()
+        DCarryLumberIndices = [[Int]]()
+        DDeathIndices = [[Int]]()
+        DPlaceIndices = [[Int]]()
+        DCorpseIndices = [Int]()
+        DArrowIndices = [Int]()
+        DMarkerIndices = [Int]()
 
         CHelper.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
 
