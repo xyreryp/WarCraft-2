@@ -9,18 +9,18 @@
 import Foundation
 
 class CPlayerData {
-    var DIsAI: Bool = Bool()
-    var DColor: EPlayerColor = EPlayerColor.None
-    var DVisibilityMap: CVisibilityMap = CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())
-    var DActualMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    var DPlayerMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    var DAssetTypes: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
-    var DAssets: [CPlayerAsset] = [CPlayerAsset]()
-    var DUpgrades: [Bool] = [Bool]()
-    var DGameEvents = [SGameEvent]()
-    var DGold: Int = Int()
-    var DLumber: Int = Int()
-    var DGameCycle: Int = Int()
+    var DIsAI: Bool
+    var DColor: EPlayerColor
+    var DVisibilityMap: CVisibilityMap?
+    var DActualMap: CAssetDecoratedMap
+    var DPlayerMap: CAssetDecoratedMap
+    var DAssetTypes: [String: CPlayerAssetType]
+    var DAssets: [CPlayerAsset]
+    var DUpgrades: [Bool]
+    var DGameEvents: [SGameEvent]
+    var DGold: Int
+    var DLumber: Int
+    var DGameCycle: Int
 
     init(map: CAssetDecoratedMap, color: EPlayerColor) {
         DIsAI = true
