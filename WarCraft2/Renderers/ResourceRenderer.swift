@@ -21,7 +21,7 @@ class CResourceRenderer {
     // FIXME: Uncomment these two lines
     // var DFont: CFontTileset
     var DPlayer: CPlayerData
-    var DIconIndices = [Int]()
+    var DIconIndices: [Int]
     //    var DTextHeight: Int
     //    var DForegroundColor: Int
     //    var DBackgroundColor: Int
@@ -38,6 +38,7 @@ class CResourceRenderer {
         //     DInsufficientColor = DFont.FindColor("red")
         DLastGoldDisplay = 0
         DLastLumberDisplay = 0
+        DIconIndices = [Int]()
 
         // DIconIndices.resize(EMiniIconTypes.Max.rawValue)
         CHelper.resize(array: &DIconIndices, size: EMiniIconTypes.Max.rawValue, defaultValue: Int())

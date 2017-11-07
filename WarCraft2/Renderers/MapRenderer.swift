@@ -73,7 +73,7 @@ class CMapRenderer {
         //            Index += 1
         //        } while Index < ItemCount
         //
-        
+
         // TODO:
         DPixelIndices[CTerrainMap.ETileType.LightGrass.rawValue] = Int(0xFF28_540C)
         DPixelIndices[CTerrainMap.ETileType.DarkGrass.rawValue] = Int(0xFF14_4006)
