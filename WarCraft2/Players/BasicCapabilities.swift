@@ -149,7 +149,6 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
         super.init(name: "Mine", targettype: ETargetType.TerrainOrAsset)
     }
 
-    // FIXME: Virtual destructor virtual ~CPlayerCapabilityMineHarvest(){}
     deinit {
     }
 
@@ -179,20 +178,16 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
         NewCommand.DAction = EAssetAction.Capability
         NewCommand.DCapability = AssetCapabilityType()
         NewCommand.DAssetTarget = target
-        // FIXME: make_shared
         NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
         actor.ClearCommand()
         actor.PushCommand(command: NewCommand)
         return true
     }
-
-    // FIXME: Weird line - CPlayerCapabilityMineHarvest::CRegistrant CPlayerCapabilityMineHarvest::DRegistrant but it should be declared already???
 }
 
 class CPlayerCapabilityStandGround: CPlayerCapability {
     class CRegistrant {
         init() {
-            // FIXME: Call Register of CPlayerCapability... This is likely to be incorrect
             CPlayerCapability.Register(capability: CPlayerCapabilityStandGround())
         }
     }
@@ -231,7 +226,6 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
 
             if !DActor.TileAligned() {
                 AssetCommand.DAction = EAssetAction.Walk
-                // FIXME: Direction()
                 DActor.Direction(direction: DirectionOpposite(dir: DActor.DPosition.TileOctant()))
                 DActor.PushCommand(command: AssetCommand)
             }
@@ -265,7 +259,6 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
         NewCommand.DAction = EAssetAction.Capability
         NewCommand.DCapability = AssetCapabilityType()
         NewCommand.DAssetTarget = target
-        // FIXME: make_shared thing
         NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
         actor.ClearCommand()
         actor.PushCommand(command: NewCommand)
@@ -307,7 +300,6 @@ class CPlayerCapabilityCancel: CPlayerCapability {
 
                 AssetCommand = DActor.CurrentCommand()
                 if EAssetAction.Construct == AssetCommand.DAction {
-                    // FIXME: Not sure of a proper way to check if an object is nil or not
                     if AssetCommand.DAssetTarget != nil {
                         AssetCommand.DAssetTarget?.CurrentCommand().DActivatedCapability?.Cancel()
                     } else if AssetCommand.DActivatedCapability != nil {
@@ -329,7 +321,6 @@ class CPlayerCapabilityCancel: CPlayerCapability {
         super.init(name: "Cancel", targettype: ETargetType.None)
     }
 
-    //    FIXME: Virtual thing again - virtual ~CPlayerCapabilityCancel(){}
     deinit {
     }
 
@@ -347,7 +338,6 @@ class CPlayerCapabilityCancel: CPlayerCapability {
         NewCommand.DAction = EAssetAction.Capability
         NewCommand.DCapability = AssetCapabilityType()
         NewCommand.DAssetTarget = target
-        // FIXME: make_shared thing
         NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target)
         actor.PushCommand(command: NewCommand)
 
@@ -496,7 +486,6 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
             WalkCommand.DAssetTarget = DTarget
 
             if !DActor.TileAligned() {
-                // FIXME: Not sure about the direction thing
                 DActor.Direction(direction: DirectionOpposite(dir: DActor.DPosition.TileOctant()))
             }
 
@@ -538,9 +527,6 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
         }
         return false
     }
-
-    // FIXME: .cpp file line 571 don't understand what this is doing
-    // CPlayerCapabilityPatrol::CRegistrant CPlayerCapabilityPatrol::DRegistrant;
 }
 
 class CPlayerCapabilityAttack: CPlayerCapability {
@@ -599,7 +585,6 @@ class CPlayerCapabilityAttack: CPlayerCapability {
         super.init(name: "Attack", targettype: ETargetType.Asset)
     }
 
-    /// FIXME: virtual ~CPlayerCapabilityAttack(){};
     deinit {
     }
 
@@ -685,7 +670,6 @@ class CPlayerCapabilityRepair: CPlayerCapability {
         super.init(name: "Repair", targettype: ETargetType.Asset)
     }
 
-    /// FIXME: virtual destructor
     deinit {
     }
 

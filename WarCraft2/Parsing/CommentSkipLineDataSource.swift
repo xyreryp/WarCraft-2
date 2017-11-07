@@ -9,12 +9,12 @@
 import Foundation
 
 class CCommentSkipLineDataSource: CLineDataSource {
-    var DCommentCharacter: Character = Character("")
+    var DCommentCharacter: Character
 
     // initializer
     init(source: CDataSource, commentchar: Character) {
-        super.init(source: source)
         DCommentCharacter = commentchar
+        super.init(source: source)
     }
 
     // NOTE: not 100% sure

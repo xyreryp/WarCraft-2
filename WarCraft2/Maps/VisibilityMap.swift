@@ -17,29 +17,20 @@ enum ETileVisibility {
     case Seen
 }
 
-protocol PVisibilityMap {
-    var DMap: [[ETileVisibility]] { get set }
-    var DMaxVisibility: Int { get set }
-    var DTotalMapTiles: Int { get set }
-    var DUnseenTiles: Int { get set }
-    init(width: Int, height: Int, maxvisibility: Int)
+class CVisibilityMap {
+    var DMap: [[ETileVisibility]]
 
-    func SeenPercent(max: Int) -> Int
-}
+    var DMaxVisibility: Int
 
-class CVisibilityMap: PVisibilityMap {
-    var DMap: [[ETileVisibility]] = [[ETileVisibility.None]]
+    var DTotalMapTiles: Int
 
-    var DMaxVisibility: Int = Int()
+    var DUnseenTiles: Int
 
-    var DTotalMapTiles: Int = Int()
-
-    var DUnseenTiles: Int = Int()
-
-    // required initializer
-    required init(width: Int, height: Int, maxvisibility: Int) {
+    init(width: Int, height: Int, maxvisibility: Int) {
         DMaxVisibility = maxvisibility
+        DMap = [[]]
         CHelper.resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [])
+        // FIXME:
         for (i, _) in DMap.enumerated() {
             CHelper.resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
             _ = ETileVisibility.None
@@ -55,6 +46,9 @@ class CVisibilityMap: PVisibilityMap {
         DMap = map.DMap
         DTotalMapTiles = map.DTotalMapTiles
         DUnseenTiles = map.DUnseenTiles
+    }
+
+    deinit {
     }
 
     func TileType(xindex: Int, yindex: Int) -> ETileVisibility {
