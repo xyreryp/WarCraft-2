@@ -273,4 +273,79 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
         super.init(name: "Build\(unitname)", targettype: ETargetType.None)
     }
 
+    override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
+        if EAssetType.LumberMill == actor.Type() {
+            var upgrade = CPlayerUpgrade.FindUpgradeFromName(name: "Build\(DUnitName)")
+
+            if let found = upgrade {
+                var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+
+                actor.ClearCommand()
+                NewCommand.DAction = EAssetAction.Capability
+                NewCommand.DCapability = AssetCapabilityType()
+                NewCommand.DAssetTarget = target
+                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, upgradingtype: actor.AssetType(), unitname: DUnitName, lumber: found.DLumberCost, gold: found.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * found.DResearchTime)
+                actor.PushCommand(command: NewCommand)
+                
+                return true
+            }
+        } else if (EAssetType.Barracks == actor.Type()) {
+            var AssetIterator = playerdata.AssetTypes()[DUnitName]
+            
+            if let AssetType = AssetIterator {
+                var NewAsset = playerdata.CreateAsset(assettypename: DUnitName)
+                var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+                var TilePosition = CTilePosition()
+                
+                TilePosition.SetFromPixel(pos: actor.Position())
+                NewAsset.TilePosition(pos: TilePosition)
+                NewAsset.HitPoints(hitpts: 1)
+                
+                NewCommand.DAction = EAssetAction.Capability
+                NewCommand.DCapability = AssetCapabilityType()
+                NewCommand.DAssetTarget = NewAsset
+                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: NewAsset, upgradingtype: actor.AssetType(), unitname: DUnitName, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency()*AssetType.DBuildTime)
+                actor.PushCommand(command: NewCommand)
+            }
+        }
+        return false
+    }
+    override func CanApply(actor : CPlayerAsset, playerdata : CPlayerData, target : CPlayerAsset) -> Bool {
+        return CanInitiate(actor: actor , playerdata: playerdata)
+    }
+    
+    override func CanInitiate(actor : CPlayerAsset, playerdata : CPlayerData) -> Bool {
+        
+        if EAssetType.LumberMill == actor.Type() {
+            var Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: "Build\(DUnitName)")
+            
+            if let found = Upgrade {
+                if found.DLumberCost > playerdata.DLumber {
+                    return false
+                }
+                if found.DGoldCost > playerdata.DGold {
+                    return false
+                }
+                if !playerdata.AssetRequirementsMet(assettypename: DUnitName) {
+                    return false
+                }
+        
+            }
+        } else if EAssetType.Barracks == actor.Type() {
+            var AssetIterator = playerdata.AssetTypes()[DUnitName]
+            
+            if let AssetType = AssetIterator {
+                if AssetType.DLumberCost > playerdata.DLumber {
+                    return false
+                }
+                if AssetType.DGoldCost > playerdata.DGold {
+                    return false
+                }
+                if AssetType.DFoodConsumption + playerdata.FoodConsumption() > playerdata.FoodProduction() {
+                    return false
+                }
+            }
+        }
+        return true
+    }
 }

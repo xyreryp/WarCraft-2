@@ -108,12 +108,20 @@ class CPlayerAsset {
         return DTurnOrder
     }
 
+    func AssetType() -> CPlayerAssetType {
+        return DType
+    }
+
     func Alive() -> Bool {
         return 0 < DHitPoints
     }
 
     func CreationCycle(cycle: Int) {
         return DCreationCycle = cycle
+    }
+
+    func ChangeType(type: CPlayerAssetType) {
+        DType = type
     }
 
     func IncrementHitPoints(hitpts: Int) -> Int {
@@ -431,10 +439,6 @@ class CPlayerAsset {
 
     func Type() -> EAssetType {
         return DType.DType
-    }
-
-    func ChangeType(type: CPlayerAssetType) {
-        DType = type
     }
 
     func Color() -> EPlayerColor {
