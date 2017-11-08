@@ -93,6 +93,7 @@
 		E1D5B4CC1FB22FDD007141F2 /* TrainCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5B4CB1FB22FDD007141F2 /* TrainCapabilities.swift */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
+		E1FCFDC11FB266570027C0CD /* UnitUpgradeCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FCFDC01FB266570027C0CD /* UnitUpgradeCapabilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -186,6 +187,7 @@
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		E1F589981F8A01C80072BE93 /* GraphicSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicSurface.swift; sourceTree = "<group>"; };
+		E1FCFDC01FB266570027C0CD /* UnitUpgradeCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitUpgradeCapabilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +381,8 @@
 				E1384EE41FAF1AB2008CED64 /* BasicCapabilities.swift */,
 				E1384EE01FAF0853008CED64 /* BuildCapabilities.swift */,
 				6B89CBB01FB233E90032AA61 /* BuildingUpgradeCapabilities.swift */,
+				E1FCFDC01FB266570027C0CD /* UnitUpgradeCapabilities.swift */,
+
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -529,6 +533,7 @@
 				DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
 				E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */,
+				E1FCFDC11FB266570027C0CD /* UnitUpgradeCapabilities.swift in Sources */,
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
