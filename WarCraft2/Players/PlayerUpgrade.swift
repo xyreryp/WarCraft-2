@@ -107,7 +107,7 @@ class CPlayerUpgrade {
         return CPlayerUpgrade()
     }
 
-    static func FindUpgradeFromName(name: String) -> CPlayerUpgrade {
+    static func FindUpgradeFromName(name: String) -> CPlayerUpgrade? {
         if let upgrade = DRegistryByName[name] {
             return upgrade
         }
