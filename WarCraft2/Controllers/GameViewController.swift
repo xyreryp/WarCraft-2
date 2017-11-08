@@ -20,7 +20,9 @@ protocol viewToController {
 
 class GameViewController: NSViewController, viewToController {
 
-    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 2000, height: 2000))
+    @IBOutlet weak var resourceRenderer: CResourceRenderer!
+
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 900, height: 500))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
@@ -50,10 +52,14 @@ class GameViewController: NSViewController, viewToController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        view.addSubview(skview)
+        //
         //                skview.showsFPS = true
         // skscene?.backgroundColor = NSColor.brown
-        skview.presentScene(skscene)
+
+        // FIXME: Uncomment this to put scene back
+        // view.addSubview(skview)
+        // skview.presentScene(skscene)
+
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
 
@@ -76,10 +82,38 @@ class GameViewController: NSViewController, viewToController {
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        let colorMap = CGraphicRecolorMap()
+        let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
         let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
+
+        let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 150, height: 150), mapRenderer: mapRenderer)
+        cgview.addSubview(miniMapView)
+
+        //        TempDataSource = ImageDirectory->DataSource("MiniIcons.dat");
+        //        DMiniIconTileset = std::make_shared< CGraphicTileset > ();
+        //        if(!DMiniIconTileset->LoadTileset(TempDataSource)){
+        //            PrintError("Failed to load mini icons.\n");
+        //            return;
+        //        }
+
+        let resourceRenderer = CResourceRenderer(icons: application.DMiniIconTileset, font: CFontTileset(), player: playerData)
+        let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
+        cgview.addSubview(resourceView)
+
+        let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
+        cgview.addSubview(bevelView)
+
+        let bevelView2 = CBevelView(frame: NSRect(x: 10, y: 180, width: 150, height: 180))
+        cgview.addSubview(bevelView2)
+
+        let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
+        cgview.addSubview(bevelView3)
+
+        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+        cgview.addSubview(bevelView4)
+
         view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
@@ -111,7 +145,8 @@ class GameViewController: NSViewController, viewToController {
     func movePeasant(x: Int, y: Int) {
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        let colorMap = CGraphicRecolorMap()
+        let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         //        let sklocation = convert(
         assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
         sound.playMusic(audioFileName: "selected4", audioType: "wav", numloops: 1)
@@ -179,9 +214,9 @@ class CGView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        let context = NSGraphicsContext.current!.cgContext
-        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        //        let context = NSGraphicsContext.current!.cgContext
+        //        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        //        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
     }
 }
 

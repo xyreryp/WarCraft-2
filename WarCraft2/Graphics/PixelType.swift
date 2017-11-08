@@ -38,8 +38,8 @@ class CPixelType {
         case Max
     }
 
-    var DColor: EPlayerColor = EPlayerColor.None
-    var DType: EAssetTerrainType = EAssetTerrainType.None
+    var DColor: EPlayerColor
+    var DType: EAssetTerrainType
 
     init(red: Int, green: Int, blue _: Int) {
         DColor = EPlayerColor(rawValue: red)!
@@ -48,7 +48,8 @@ class CPixelType {
     }
 
     init(type: CTerrainMap.ETileType) {
-        var DColor: EPlayerColor = EPlayerColor.None
+        DColor = EPlayerColor.None
+        DType = EAssetTerrainType.None
         switch type {
         case CTerrainMap.ETileType.LightGrass:
             DType = EAssetTerrainType.Grass
@@ -90,6 +91,8 @@ class CPixelType {
     }
 
     init(asset: CPlayerAsset) {
+        DColor = EPlayerColor.None
+        DType = EAssetTerrainType.None
         switch asset.Type() {
         case EAssetType.Peasant:
             DType = EAssetTerrainType.Peasant
@@ -147,7 +150,7 @@ class CPixelType {
     init(pixeltype: CPixelType) {
         DType = pixeltype.DType
         // TODO: Uncomment from PlayerAsset
-        // DColor = pixeltype.DColor
+        DColor = pixeltype.DColor
     }
 
     func Type() -> EAssetTerrainType {

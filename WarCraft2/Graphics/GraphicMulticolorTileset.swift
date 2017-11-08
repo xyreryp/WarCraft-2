@@ -9,14 +9,20 @@
 import Foundation
 
 class CGraphicMulticolorTileset: CGraphicTileset {
-    internal var DColoredTilesets = [CGraphicSurface]()
-    internal var DColorMap = CGraphicRecolorMap()
+    var DColoredTilesets: [CGraphicSurface]
+    var DColorMap: CGraphicRecolorMap
 
     override init() {
+        DColoredTilesets = []
+        DColorMap = CGraphicRecolorMap()
         super.init()
     }
 
     deinit {}
+
+    func FindColor(colorname: String) -> Int {
+        return DColorMap.FindColor(colorname: colorname)
+    }
 
     func TestLoadTileset(colormap: CGraphicRecolorMap, source: CDataSource, assetName: String) -> Bool {
 

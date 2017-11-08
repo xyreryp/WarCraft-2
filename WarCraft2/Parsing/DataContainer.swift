@@ -33,22 +33,3 @@ protocol CDataContainer {
     func Container() -> CDataContainer
     func DataContainer(name: String) -> CDataContainer
 }
-
-//
-// Experimenting with classes, optional return types
-// instead of protocols
-//
-// class CDataContainerIterator {
-//    func Name() -> String? {return nil}
-//    func IsContainer() -> Bool? {return nil}
-//    func IsValid() -> Bool? {return nil}
-//    func Next() {}
-// }
-//
-// class CDataContainer {
-//    func First() -> CDataContainerIterator? {return nil}
-//    func DataSource(name: String) -> CDataSource? {return nil}
-//    func DataSink(name: String) -> CDataSink? {return nil}
-//    func Container() -> CDataContainer? {return nil}
-//    func DataContainer(name: String) -> CDataContainer? {return nil}
-// }

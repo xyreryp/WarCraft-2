@@ -23,6 +23,20 @@ class CPlayerUpgrade {
     private(set) static var DRegistryByName: [String: CPlayerUpgrade] = [:]
     private(set) static var DRegistryByType: [Int: CPlayerUpgrade] = [:]
 
+    init() {
+        DArmor = 0
+        DSight = 0
+        DSpeed = 0
+        DBasicDamage = 0
+        DPiercingDamage = 0
+        DRange = 0
+        DGoldCost = 0
+        DLumberCost = 0
+        DResearchTime = 0
+        DName = ""
+        DAffectedAssets = []
+    }
+
     static func LoadUpgrades(container _: CDataContainer) -> Bool {
         //        var FileIterator = container.First()
         //        if FileIterator == nil {
@@ -93,7 +107,7 @@ class CPlayerUpgrade {
         return CPlayerUpgrade()
     }
 
-    static func FindUpgradeFromName(name: String) -> CPlayerUpgrade {
+    static func FindUpgradeFromName(name: String) -> CPlayerUpgrade? {
         if let upgrade = DRegistryByName[name] {
             return upgrade
         }
