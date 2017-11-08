@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 class CUnitActionRenderer {
     var DIconTileset: CGraphicTileset
@@ -92,5 +93,127 @@ class CUnitActionRenderer {
             return DDisplayedCommands[Index]
         }
         return EAssetCapabilityType.None
+    }
+    
+    // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
+    func drawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset?], currentAction: EAssetCapabilityType) {
+        var AllSame: Bool = true
+        var IsFirst: Bool = true
+        var Moveable: Bool = true
+        var HasCargo: Bool = false
+        var UnitType: EAssetType
+        
+        for var Command in DDisplayedCommands {
+            Command = EAssetCapabilityType.None
+        }
+        
+        if selectionlist.count == 0 {
+            return
+        }
+        
+        for Iterator: Int in selectionlist {
+            if let Asset = selectionlist[Iterator] { // FIXME, NOTE: This is weak_ptr lock()
+                if DPlayerColor != Asset.Color() {
+                    return
+                }
+                if IsFirst {
+                    UnitType = Asset.Type()
+                    IsFirst = false
+                    Moveable = 0 < Asset.Speed() // NOTE: Asset must be of type CPlayerAsset
+                }
+                else if UnitType != Asset.Type() {// NOTE: Asset is currently of <error> type
+                    AllSame = false
+                }
+                if (Asset.Lumber() > 0) || (Asset.Gold() > 0) {
+                    HasCargo = true
+                }
+            }
+        }
+        
+        if EAssetCapabilityType.None == currentAction {
+            if Moveable {
+                DDisplayedCommands[0] = HasCargo ? EAssetCapabilityType.Convey : EAssetCapabilityType.Move
+                DDisplayedCommands[1] = EAssetCapabilityType.StandGround
+                DDisplayedCommands[2] = EAssetCapabilityType.Attack
+                if let Asset: CPlayerAsset = selectionlist[0] {
+                    if Asset.HasCapability(capability: EAssetCapabilityType.Repair) {
+                        DDisplayedCommands[3] = EAssetCapabilityType.Repair
+                    }
+                    if Asset.HasCapability(capability: EAssetCapabilityType.Patrol) {
+                        DDisplayedCommands[3] = EAssetCapabilityType.Patrol
+                    }
+                    if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
+                        DDisplayedCommands[4] = EAssetCapabilityType.Mine
+                    }
+                    if (Asset.HasCapability(capability: EAssetCapabilityType.BuildSimple)) && (selectionlist.count == 1) {
+                        DDisplayedCommands[6] = EAssetCapabilityType.BuildSimple
+                    }
+                }
+            }
+            else {
+                if let Asset:CPlayerAsset = selectionlist[0] {
+                    if (EAssetAction.Construct == Asset.Action()) || (EAssetAction.Capability == Asset.Action()) {
+                        DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
+                    }
+                    else {
+                        var Index: Int = 0
+                        for Capability in Asset.Capabilities() {
+                            DDisplayedCommands[Index] = Capability
+                            Index += 1
+                            if DDisplayedCommands.count <= Index {
+                                break
+                            }
+                        }
+                    }
+                }
+                else if EAssetCapabilityType.BuildSimple == currentAction {
+                    if let Asset: CPlayerAsset = selectionlist[0] {
+                        var Index: Int = 0
+                        for Capability in [EAssetCapabilityType.BuildFarm, EAssetCapabilityType.BuildTownHall, EAssetCapabilityType.BuildBarracks, EAssetCapabilityType.BuildLumberMill, EAssetCapabilityType.BuildBlacksmith, EAssetCapabilityType.BuildKeep, EAssetCapabilityType.BuildCastle, EAssetCapabilityType.BuildScoutTower, EAssetCapabilityType.BuildGuardTower, EAssetCapabilityType.BuildCannonTower] {
+                            if Asset.HasCapability(capability: Capability) {
+                                DDisplayedCommands[Index] = Capability
+                                Index += 1
+                                if DDisplayedCommands.count <= Index {
+                                    break
+                                }
+                            }
+                        }
+                        DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
+                    }
+                    else {
+                        DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
+                    }
+                    var XOffset: Int = DBevel.Width()
+                    var YOffset: Int = DBevel.Width()
+                    var Index: Int = 0
+                    
+                    for IconType in DDisplayedCommands {
+                        if EAssetCapabilityType.None != IconType {
+                            var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
+                            DBevel.DrawBevel(surface: surface, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                            
+                            //FIX ME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
+                            // variable is casted right now, needs to change later
+                            DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
+                            
+                            if PlayerCapability != nil {
+                                // do something
+                                if(!PlayerCapability->CanInitiate(selectionlist.front().lock(), DPlayerData)) {
+                                // FIX ME: SKScene issue/ CGraphicSurface issue
+                                    DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
+                                }
+                            }
+                        }
+                        XOffset += DFullIconWidth + DBevel.Width()
+                        Index += 1
+                        if 0 == (Index % 3) {
+                            XOffset = DBevel.Width()
+                            YOffset += DFulliconHeight + DBevel.Width()
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
