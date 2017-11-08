@@ -90,6 +90,7 @@
 		E1D2FD4E1FA6AE0E00093313 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */; };
 		E1D47D9A1FA2EC3700EFA5E4 /* FogRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8812C1FE1FA1C5D700C9B73A /* FogRenderer.swift */; };
 		E1D47D9F1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */; };
+		E1D5B4CC1FB22FDD007141F2 /* TrainCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5B4CB1FB22FDD007141F2 /* TrainCapabilities.swift */; };
 		E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E1EEAEDD1F908172001001B9 /* Scene.sks */; };
 		E1F589991F8A01C80072BE93 /* GraphicSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F589981F8A01C80072BE93 /* GraphicSurface.swift */; };
 /* End PBXBuildFile section */
@@ -180,6 +181,7 @@
 		E1CB36BB1FA1A11500B18D06 /* AssetRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetRenderer.swift; sourceTree = "<group>"; };
 		E1D2FD4D1FA6AE0E00093313 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = WarCraft2/Data/Helpers.swift; sourceTree = SOURCE_ROOT; };
 		E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivatedPlayerCapability.swift; sourceTree = "<group>"; };
+		E1D5B4CB1FB22FDD007141F2 /* TrainCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainCapabilities.swift; sourceTree = "<group>"; };
 		E1E55CA61FA7BC0D000B9E65 /* bay.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = bay.map; sourceTree = "<group>"; };
 		E1EEAEDD1F908172001001B9 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 		E1B45E341F9D513D009D9BF1 /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				E1D5B4CB1FB22FDD007141F2 /* TrainCapabilities.swift */,
 				52A54EDD1FA3D9AA00995FF5 /* AIPlayer.swift */,
 				E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */,
 				9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */,
@@ -503,6 +506,7 @@
 				E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */,
 				52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */,
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
+				E1D5B4CC1FB22FDD007141F2 /* TrainCapabilities.swift in Sources */,
 				A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */,
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
