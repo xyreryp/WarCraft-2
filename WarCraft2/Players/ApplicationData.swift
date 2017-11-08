@@ -193,8 +193,8 @@ class CApplicationData {
 
     // hotkeys unordererd maps --> dictionaries
     var DUnitHotKeyMap: [uint32: EAssetCapabilityType]
-    //    var DBuildHotKeyMap: [uint32: EAssetCapabilityType]
-    //    var DTrainHotKeyMap: [uint32: EAssetCapabilityType]
+    var DBuildHotKeyMap: [uint32: EAssetCapabilityType]
+    var DTrainHotKeyMap: [uint32: EAssetCapabilityType]
 
     // asset capabilities things
     var DSelectedPlayerAssets: [CPlayerAsset]
@@ -424,15 +424,15 @@ class CApplicationData {
         DUnitHotKeyMap[SGUIKeyType.KeyR] = EAssetCapabilityType.Repair // R
         DUnitHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.StandGround // T
 
-        //        DBuildHotKeyMap = [uint32: EAssetCapabilityType]()
-        //        DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
-        //        DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
-        //        DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
-        //        DBuildHotKeyMap[SGUIKeyType.KeyL] = EAssetCapabilityType.BuildLumberMill // L
-        //        DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
-        //        DBuildHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.BuildScoutTower // T
-        //
-        //        DTrainHotKeyMap = [uint32: EAssetCapabilityType]()
+        DBuildHotKeyMap = [uint32: EAssetCapabilityType]()
+        DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
+        DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
+        DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
+        DBuildHotKeyMap[SGUIKeyType.KeyL] = EAssetCapabilityType.BuildLumberMill // L
+        DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
+        DBuildHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.BuildScoutTower // T
+
+        DTrainHotKeyMap = [uint32: EAssetCapabilityType]()
         //        DTrainHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildArcher // A
         //        DTrainHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFootman // F
         //        DTrainHotKeyMap[SGUIKeyType.KeyP] = EAssetCapabilityType.BuildPeasant // P

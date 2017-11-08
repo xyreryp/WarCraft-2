@@ -456,11 +456,12 @@ class CBattleMode: CApplicationMode {
             PanningDirection = EDirection.West
             Panning = true
         } else if CApplicationData.EUIComponentType.uictMiniMap == ComponentType {
-            if context.DLeftClick != 0 && !context.DLeftDown {
-                var TempPosition = CPixelPosition(pos: context.ScreenToMiniMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
-                TempPosition = context.MiniMapToDetailedMap(pos: TempPosition)
-                context.DViewportRenderer.CenterViewport(pos: TempPosition)
-            }
+            // FIXME: NOT CRUCIAL FOR NOW
+//            if context.DLeftClick != 0 && !context.DLeftDown {
+//                var TempPosition = CPixelPosition(pos: context.ScreenToMiniMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
+//                TempPosition = context.MiniMapToDetailedMap(pos: TempPosition)
+//                context.DViewportRenderer.CenterViewport(pos: TempPosition)
+//            }
         } else if CApplicationData.EUIComponentType.uictUserDescription == ComponentType {
             // FIXME: Need DUnitActionRenderer
             if context.DLeftClick != 0 && !context.DLeftDown {
@@ -583,9 +584,10 @@ class CBattleMode: CApplicationMode {
                 }
             }
             // give them a command to do
-            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
-            }
+            // FIXME: NOT CRUCIAL FOR NOW
+//            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+//                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
+//            }
         }
 
         // if game is oer
@@ -694,8 +696,8 @@ class CBattleMode: CApplicationMode {
 
         CurrentX = context.DCurrentX
         CurrentY = context.DCurrentY
-        BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
-        BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
+        //BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
+        //BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
         ViewWidth = Int(context.DViewportSurface.frame.width)
         ViewHeight = Int(context.DViewportSurface.frame.height)
         // FIXME: CGraphicResourceContext has no width or height
@@ -720,11 +722,12 @@ class CBattleMode: CApplicationMode {
             TempRectangle.DXPosition = TempPosition.X()
             TempRectangle.DYPosition = TempPosition.Y()
         }
-        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
-            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
-                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
-            }
-        }
+        // FIXME: NOT CRUCIAL FOR NOW
+//        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
+//            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
+//                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
+//            }
+//        }
         
         // FIXME: Bevel draw takes in CGraphicResourceContextCoreGraphics?
         // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
