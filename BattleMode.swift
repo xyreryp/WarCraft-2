@@ -487,9 +487,9 @@ class CBattleMode: CApplicationMode {
                 }
             }
         } else if CApplicationData.EUIComponentType.uictUserAction == ComponentType {
-            // FIXME: Need DUnitActionRenderer
+//             FIXME: Need DUnitActionRenderer
 
-//            if context.DLeftClick != 0 && !context.DLeftDown {
+            if context.DLeftClick != 0 && !context.DLeftDown {
 //                let CapabilityType: EAssetCapabilityType = context.DUnitActionRenderer.Selection(context.ScreenToUnitAction(CPixelPosition(x: CurrentX, y: CurrentY)))
 //                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: CapabilityType)
 //
@@ -516,7 +516,7 @@ class CBattleMode: CApplicationMode {
 //                } else {
 //                    context.DCurrentAssetCapability = CapabilityType
 //                }
-//            }
+            }
         } else if CApplicationData.EUIComponentType.uictMenuButton == ComponentType {
             // FIXME: Need ButtonRenderer
             // context.DMenuButtonState = context.DLeftDown ? CButtonRenderer.EButtonState.Pressed : CButtonRenderer.EButtonState.Hover
