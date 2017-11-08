@@ -96,7 +96,7 @@ class CUnitActionRenderer {
     }
 
     // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
-    func drawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset?], currentAction: EAssetCapabilityType) {
+    func DrawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
         var AllSame: Bool = true
         var IsFirst: Bool = true
         var Moveable: Bool = true
@@ -199,12 +199,12 @@ class CUnitActionRenderer {
                                 }
                             }
                         }
-                        XOffset += DFullIconWidth + DBevel.Width()
-                        Index += 1
-                        if 0 == (Index % 3) {
-                            XOffset = DBevel.Width()
-                            YOffset += DFulliconHeight + DBevel.Width()
-                        }
+                    }
+                    XOffset += DFullIconWidth + DBevel.Width()
+                    Index += 1
+                    if 0 == (Index % 3) {
+                        XOffset = DBevel.Width()
+                        YOffset += DFulliconHeight + DBevel.Width()
                     }
                 }
             }
