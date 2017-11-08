@@ -12,23 +12,18 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
     
     class CRegistrant {
         init() {
-            var keep = CPlayerCapabilityBuildingUpgrade(buildingname: "Keep")
-            var castle = CPlayerCapabilityBuildingUpgrade(buildingname: "Castle")
-            var guardtower = CPlayerCapabilityBuildingUpgrade(buildingname: "GuardTower")
-            var cannontower = CPlayerCapabilityBuildingUpgrade(buildingname: "CannonTower")
-            CPlayerCapability.Register(capability: keep)
-            CPlayerCapability.Register(capability: castle)
-            CPlayerCapability.Register(capability: guardtower)
-            CPlayerCapability.Register(capability: cannontower)
+            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "Keep"))
+            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "Castle"))
+            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "GuardTower"))
+            CPlayerCapability.Register(capability:  CPlayerCapabilityBuildingUpgrade(buildingname: "CannonTower"))
             
         }
     }
     
-    var DRegistrant = CPlayerCapabilityBuildingUpgrade.CRegistrant()
+    static var DRegistrant = CRegistrant()
     
     class CActivatedCapability : CActivatedPlayerCapability {
         var DTarget: CPlayerAsset
-        
         var DOriginalType : CPlayerAssetType
         var DUpgradeType : CPlayerAssetType
         var DActor : CPlayerAsset
@@ -39,9 +34,8 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
         var DGold : Int
         
         init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset, origtype: CPlayerAssetType, upgradetype: CPlayerAssetType, lumber: Int, gold: Int, steps: Int) {
+            var AssetCommand: SAssetCommand
             
-            var AssetCommand : SAssetCommand
-            //adding DActor, DPlayerData, and DTarget as a variable here
             DTarget = target
             DPlayerData = playerdata
             DActor = actor
@@ -51,9 +45,9 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
             DTotalSteps = steps
             DLumber = lumber
             DGold = gold
-            DLumber -= 1
+            DPlayerData.DecrementLumber(lumber: DLumber)
+            DPlayerData.DecrementGold(gold: DGold)
             DGold -= 1
-            
         }
         
         func PercentComplete(max: Int) -> Int {
@@ -64,8 +58,7 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
             var AddHitPoints : Int = ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints) * (DCurrentStep + 1) / DTotalSteps) - ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints * DCurrentStep / DTotalSteps))
             
             if(DCurrentStep == 0) {
-                //FIXME: Not sure if using correct actor var
-                var AssetCommand : SAssetCommand = DActor.CurrentCommand()
+                var AssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
                 AssetCommand.DAction = EAssetAction.Construct
                 DActor.PopCommand()
                 DActor.PushCommand(command: AssetCommand)
@@ -106,14 +99,14 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
     
     var DBuildingName : String
     
-    //FIXME: getting Super.init isn't called on all paths before returning from initializer error
     init(buildingname: String) {
         DBuildingName = buildingname
+        super.init(name: "Build\(buildingname)", targettype: ETargetType.None)
     }
 
     
     override func CanInitiate(actor : CPlayerAsset, playerdata : CPlayerData) -> Bool {
-        var Iterator = (playerdata.AssetTypes())[DBuildingName]
+        var Iterator = playerdata.AssetTypes()[DBuildingName]
         if let AssetType = Iterator {
             if AssetType.DLumberCost > playerdata.DLumber {
                 return false
@@ -144,10 +137,9 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
             NewCommand.DAction = EAssetAction.Capability
             NewCommand.DCapability = AssetCapabilityType()
             NewCommand.DAssetTarget = target
-            //Possibly FIXME: not sure if correctly ported
-            NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, origtype: actor.DType, upgradetype: AssetType, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
+            NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, origtype: actor.AssetType(), upgradetype: AssetType, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
             actor.PushCommand(command: NewCommand)
-            
+    
             return true
         }
         return false
