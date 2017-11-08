@@ -15,7 +15,7 @@ class CViewportRenderer {
     // c++ shared_ptr
     internal var DMapRenderer: CMapRenderer
     internal var DAssetRenderer: CAssetRenderer
-    internal var DFogRenderer: CFogRenderer
+    // internal var DFogRenderer: CFogRenderer
 
     // c++ protected variables
     internal var DViewportX: Int
@@ -24,10 +24,10 @@ class CViewportRenderer {
     internal var DLastViewportHeight: Int
 
     // constructor
-    init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer) {
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer /* , fogrender: CFogRenderer */ ) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
-        DFogRenderer = fogrender
+        //  DFogRenderer = fogrender
         DViewportX = 0
         DViewportY = 0
         DLastViewportWidth = maprender.DetailedMapWidth()
@@ -178,6 +178,6 @@ class CViewportRenderer {
         //        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
         //                                     pos: CPixelPosition(x: selectrect.DXPosition,
         //                                                         y: selectrect.DYPosition), type: PlaceType, builder: Builder)
-        DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
+        // DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
     }
 }

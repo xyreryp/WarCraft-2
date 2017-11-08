@@ -138,7 +138,7 @@ class CApplicationData {
     var DOuterBevelTileset: CGraphicTileset
     var DListViewIconTileset: CGraphicTileset
     var DTerrainTileset: CGraphicTileset
-    var DFogTileset: CGraphicTileset
+    // var DFogTileset: CGraphicTileset
 
     // bevel things
     var DMiniBevel: CBevel
@@ -164,10 +164,10 @@ class CApplicationData {
     // all renderer things
     var DAssetRenderer: CAssetRenderer
 
-    var DFogRenderer: CFogRenderer
+    //    var DFogRenderer: CFogRenderer
 
     var DViewportRenderer: CViewportRenderer
-    var DMiniMapRenderer: CMiniMapRenderer
+    // var DMiniMapRenderer: CMiniMapRenderer
 
     // TODO: finish these types of renderers
     var DUnitDescriptionRenderer: CUnitDescriptionRenderer
@@ -313,7 +313,7 @@ class CApplicationData {
         // more tileset things
         DMapRendererConfigurationData = [Character]()
         DTerrainTileset = CGraphicTileset()
-        DFogTileset = CGraphicTileset()
+        //        DFogTileset = CGraphicTileset()
 
         // recolor maps
         DAssetRecolorMap = CGraphicRecolorMap()
@@ -333,11 +333,13 @@ class CApplicationData {
         // all renderer things
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
 
-        DFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
+        // DFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
 
-        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
+        // MARK: Does this exist? Need to crosscheck with C++ code
+        //        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
 
-        DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
+        //        DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer)
 
         DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
         DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
@@ -711,26 +713,26 @@ class CApplicationData {
     }
 
     // FIXME: Need to pull from GameModel on richard's branch
-    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
-        var X = pos.X() * DGameModel.Map().Width() / DMiniMapRenderer.VisibleWidth()
-        var Y = pos.Y() * DGameModel.Map().Height() / DMiniMapRenderer.VisibleHeight()
-        if 0 > X {
-            X = 0
-        }
-        if DGameModel.Map().Width() <= X {
-            X = DGameModel.Map().Width() - 1
-        }
-        if 0 > Y {
-            Y = 0
-        }
-        if DGameModel.Map().Height() <= Y {
-            Y = DGameModel.Map().Height() - 1
-        }
-        var Temp: CPixelPosition = CPixelPosition()
-        Temp.SetXFromTile(x: X)
-        Temp.SetYFromTile(y: Y)
-        return Temp
-    }
+    //    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+    //        var X = pos.X() * DGameModel.Map().Width() / DMiniMapRenderer.VisibleWidth()
+    //        var Y = pos.Y() * DGameModel.Map().Height() / DMiniMapRenderer.VisibleHeight()
+    //        if 0 > X {
+    //            X = 0
+    //        }
+    //        if DGameModel.Map().Width() <= X {
+    //            X = DGameModel.Map().Width() - 1
+    //        }
+    //        if 0 > Y {
+    //            Y = 0
+    //        }
+    //        if DGameModel.Map().Height() <= Y {
+    //            Y = DGameModel.Map().Height() - 1
+    //        }
+    //        var Temp: CPixelPosition = CPixelPosition()
+    //        Temp.SetXFromTile(x: X)
+    //        Temp.SetYFromTile(y: Y)
+    //        return Temp
+    //    }
 
     // Output
     // MARK: Might need for menu
@@ -824,8 +826,8 @@ class CApplicationData {
         //        DMapRenderer = CMapRenderer(config: CDataSource(DMapRendererConfigurationData), tileset: DTerrainTileset, map: DGameModel.Player(color: DPlayerColor).PlayerMap())
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
-        DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
-        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
+        //  DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer)
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
