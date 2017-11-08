@@ -30,6 +30,11 @@ struct SGameEvent {
     var DAsset: CPlayerAsset
 }
 
+// extern int GAssetIDCount;
+// extern std::map< int, std::shared_ptr< CPlayerAsset > > GAssetIDMap;
+// extern std::shared_ptr< CPlayerAsset > FindAssetObj(int AssetID);
+// extern void MapNewAssetObj(std::shared_ptr< CPlayerAsset > CreatedAsset);
+
 // Function is exclusive to this file
 // TODO: Check if this workaround is correct
 fileprivate func RangeToDistanceSquared(range: Int) -> Int {
@@ -124,6 +129,14 @@ class CGameModel {
         return DPlayers[color.rawValue]
     }
 
+    func CompareTurnOrder(a: CPlayerAsset, b: CPlayerAsset) -> Bool {
+        if a.getTurnOrder() > b.getTurnOrder() {
+            return true
+        } else {
+            return false
+        }
+    }
+
     func Timestep() {
         var CurrentEvents: [SGameEvent] = [] // sound for each one
         var TempEvent: SGameEvent
@@ -151,8 +164,30 @@ class CGameModel {
                 DPlayers[PlayerIndex].UpdateVisibility()
             }
         }
-        var AllAssets = DActualMap.Assets()
+        var AllAssets = DActualMap.Assets() // AllAssets is of [CPlayerAsset] type
 
+        //        Following Code implements sorting the order of the asset turns.
+
+        //        var MobileAssets: [CPlayerAsset] = []
+        //        var ImmobileAssets: [CPlayerAsset] = []
+        //
+        //        for Asset in AllAssets {
+        //            Asset.AssignTurnOrder()
+        //            if(Asset.Speed() > 0){
+        //                MobileAssets.append(Asset)
+        //            }
+        //            else{
+        //                ImmobileAssets.append(Asset)
+        //            }
+        //        }
+        //
+        //        MobileAssets = MobileAssets.sorted(by: CompareTurnOrder)
+        //        ImmobileAssets = ImmobileAssets.sorted(by: CompareTurnOrder)
+        //        AllAssets = MobileAssets
+        //        for ImmobileAsset in ImmobileAssets {
+        //            AllAssets.append(ImmobileAsset)
+        //        }
+        
         // for all assets on the map.
         // position is where their turn order is. ???
         for Asset in AllAssets {
@@ -299,44 +334,46 @@ class CGameModel {
                 Asset.ResetStep()
             } else if EAssetAction.Repair == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
-                if let CurrentC = CurrentCommand.DAssetTarget?.Alive() {
-                    var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
-                    if EDirection.Max == RepairDirection {
-                        var NextCommand: SAssetCommand = Asset.NextCommand()
-                        CurrentCommand.DAction = EAssetAction.Walk
-                        Asset.PushCommand(command: CurrentCommand)
-                        Asset.ResetStep()
-                    } else {
-                        Asset.Direction(direction: RepairDirection)
-                        Asset.IncrementStep()
-                        // Assume same movement as attack
-                        if Asset.Step() == Asset.AttackSteps() {
-                            if (DPlayers[Asset.Color().rawValue].DGold > 0) && DPlayers[(Asset.Color().rawValue)].DLumber > 0 {
-                                var RepairPoints = (CurrentCommand.DAssetTarget!.MaxHitPoints() * (Asset.AttackSteps() + Asset.ReloadSteps())) / (CPlayerAsset.UpdateFrequency() * CurrentCommand.DAssetTarget!.BuildTime())
+                if let Alive = CurrentCommand.DAssetTarget?.Alive() { // doesn't actually check if alive.  Only checks if DAssetTarget exists.
+                    if Alive {
+                        var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
+                        if EDirection.Max == RepairDirection {
+                            var NextCommand: SAssetCommand = Asset.NextCommand()
+                            CurrentCommand.DAction = EAssetAction.Walk
+                            Asset.PushCommand(command: CurrentCommand)
+                            Asset.ResetStep()
+                        } else {
+                            Asset.Direction(direction: RepairDirection)
+                            Asset.IncrementStep()
+                            // Assume same movement as attack
+                            if Asset.Step() == Asset.AttackSteps() {
+                                if (DPlayers[Asset.Color().rawValue].DGold > 0) && DPlayers[(Asset.Color().rawValue)].DLumber > 0 {
+                                    var RepairPoints = (CurrentCommand.DAssetTarget!.MaxHitPoints() * (Asset.AttackSteps() + Asset.ReloadSteps())) / (CPlayerAsset.UpdateFrequency() * CurrentCommand.DAssetTarget!.BuildTime())
 
-                                if 0 == RepairPoints {
-                                    RepairPoints = 1
-                                }
+                                    if 0 == RepairPoints {
+                                        RepairPoints = 1
+                                    }
 
-                                DPlayers[Asset.Color().rawValue].DecrementGold(gold: 1)
-                                DPlayers[Asset.Color().rawValue].DecrementLumber(lumber: 1)
-                                CurrentCommand.DAssetTarget?.IncrementHitPoints(hitpts: RepairPoints)
-                                if CurrentCommand.DAssetTarget!.HitPoints() == CurrentCommand.DAssetTarget!.MaxHitPoints() {
-                                    TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: Asset)
-                                    DPlayers[Asset.Color().rawValue].AddGameEvent(event: TempEvent)
+                                    DPlayers[Asset.Color().rawValue].DecrementGold(gold: 1)
+                                    DPlayers[Asset.Color().rawValue].DecrementLumber(lumber: 1)
+                                    CurrentCommand.DAssetTarget?.IncrementHitPoints(hitpts: RepairPoints)
+                                    if CurrentCommand.DAssetTarget!.HitPoints() == CurrentCommand.DAssetTarget!.MaxHitPoints() {
+                                        TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: Asset)
+                                        DPlayers[Asset.Color().rawValue].AddGameEvent(event: TempEvent)
+                                        Asset.PopCommand()
+                                    }
+                                } else {
+                                    // Stop repair
                                     Asset.PopCommand()
                                 }
-                            } else {
-                                // Stop repair
-                                Asset.PopCommand()
+                            }
+                            if Asset.Step() >= (Asset.AttackSteps() + Asset.ReloadSteps()) {
+                                Asset.ResetStep()
                             }
                         }
-                        if Asset.Step() >= (Asset.AttackSteps() + Asset.ReloadSteps()) {
-                            Asset.ResetStep()
-                        }
+                    } else {
+                        Asset.PopCommand()
                     }
-                } else {
-                    Asset.PopCommand()
                 }
             } else if EAssetAction.Attack == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
@@ -357,7 +394,8 @@ class CGameModel {
                         TempEvent = SGameEvent(DType: EEventType.MissleHit, DAsset: Asset)
                         CurrentEvents.append(TempEvent)
 
-                        if let alive = CurrentCommand.DAssetTarget?.Alive() {
+                        if let Alive = CurrentCommand.DAssetTarget?.Alive() {
+                            if(Alive) { // same issue
                             let TargetCommand: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
                             TempEvent = SGameEvent(DType: EEventType.Attacked, DAsset: CurrentCommand.DAssetTarget!)
                             DPlayers[(CurrentCommand.DAssetTarget?.Color().rawValue)!].AddGameEvent(event: TempEvent)
@@ -394,6 +432,7 @@ class CGameModel {
                                     CurrentCommand.DAssetTarget?.ResetStep()
                                 }
                             }
+                        }
                         }
                         DPlayers[Asset.Color().rawValue].DeleteAsset(asset: Asset)
                     }
