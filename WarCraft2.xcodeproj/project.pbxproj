@@ -30,6 +30,8 @@
 		88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */; };
 		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
+		93C52EFF1FB2A24F0069E0E5 /* UnitActionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C52EFE1FB2A24F0069E0E5 /* UnitActionRenderer.swift */; };
+		93DED6321FB2A54F002FDF3B /* Bevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DED6311FB2A54F002FDF3B /* Bevel.swift */; };
 		9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */; };
 		9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */; };
 		9B64D6211FA05AEB00C39977 /* PlayerUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */; };
@@ -120,6 +122,8 @@
 		885B24361FA6B7A1004C1724 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
+		93C52EFE1FB2A24F0069E0E5 /* UnitActionRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitActionRenderer.swift; sourceTree = "<group>"; };
+		93DED6311FB2A54F002FDF3B /* Bevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bevel.swift; sourceTree = "<group>"; };
 		9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetDecoratedMap.swift; sourceTree = "<group>"; };
 		9B64D61B1FA05AEA00C39977 /* PlayerAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAsset.swift; sourceTree = "<group>"; };
 		9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerUpgrade.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
 				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
 				DD9744251FAFEA0C00AEC52F /* ButtonRenderer.swift */,
+				93C52EFE1FB2A24F0069E0E5 /* UnitActionRenderer.swift */,
+				93DED6311FB2A54F002FDF3B /* Bevel.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 				4BB118461F8A2511002DAB2B /* SoundOptionsMenuViewController.swift in Sources */,
 				4BB1184A1F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift in Sources */,
 				E1D2FD4E1FA6AE0E00093313 /* Helpers.swift in Sources */,
+				93DED6321FB2A54F002FDF3B /* Bevel.swift in Sources */,
 				4BBA309B1F88BC33006C46D5 /* MainMenuViewController.swift in Sources */,
 				4B3962601F8ACCE7003238AB /* SplashViewController.swift in Sources */,
 				4BB118481F8A297A002DAB2B /* NetworkOptionsMenuViewController.swift in Sources */,
@@ -528,6 +535,7 @@
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
+				93C52EFF1FB2A24F0069E0E5 /* UnitActionRenderer.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
 				DDAA9A151F9E77350062A337 /* RouterMap.swift in Sources */,
 				DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */,
