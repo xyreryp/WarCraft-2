@@ -380,11 +380,8 @@
 				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
 				E1384EE41FAF1AB2008CED64 /* BasicCapabilities.swift */,
 				E1384EE01FAF0853008CED64 /* BuildCapabilities.swift */,
-<<<<<<< HEAD
 				6B89CBB01FB233E90032AA61 /* BuildingUpgradeCapabilities.swift */,
-=======
 				E1FCFDC01FB266570027C0CD /* UnitUpgradeCapabilities.swift */,
->>>>>>> 23d17ec78a275f9507e4534f8d836026644b5517
 			);
 			path = Players;
 			sourceTree = "<group>";
