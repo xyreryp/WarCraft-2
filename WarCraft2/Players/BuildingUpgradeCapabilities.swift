@@ -12,7 +12,15 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
     
     class CRegistrant {
         init() {
-            CPlayerCapability.Register(capability: <#T##CPlayerCapability#>)
+            var keep = CPlayerCapabilityBuildingUpgrade(buildingname: "Keep")
+            var castle = CPlayerCapabilityBuildingUpgrade(buildingname: "Castle")
+            var guardtower = CPlayerCapabilityBuildingUpgrade(buildingname: "GuardTower")
+            var cannontower = CPlayerCapabilityBuildingUpgrade(buildingname: "CannonTower")
+            CPlayerCapability.Register(capability: keep)
+            CPlayerCapability.Register(capability: castle)
+            CPlayerCapability.Register(capability: guardtower)
+            CPlayerCapability.Register(capability: cannontower)
+            
         }
     }
     
@@ -73,15 +81,12 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
             DCurrentStep += 1
             DActor.IncrementStep()
             if(DCurrentStep >= DTotalSteps) {
-                var TempEvent : SGameEvent
-                
-                TempEvent.DType = EEventType.WorkComplete
-                TempEvent.DAsset = DActor
+                var TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
                 DPlayerData.AddGameEvent(event: TempEvent)
                 
                 DActor.PopCommand()
                 if(DActor.Range() > 0) {
-                    var Command : SAssetCommand
+                    var Command = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
                     Command.DAction = EAssetAction.StandGround
                     DActor.PushCommand(command: Command)
                 }
@@ -101,9 +106,11 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
     
     var DBuildingName : String
     
+    //FIXME: getting Super.init isn't called on all paths before returning from initializer error
     init(buildingname: String) {
         DBuildingName = buildingname
     }
+
     
     override func CanInitiate(actor : CPlayerAsset, playerdata : CPlayerData) -> Bool {
         var Iterator = (playerdata.AssetTypes())[DBuildingName]
@@ -131,7 +138,7 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
     override func ApplyCapability(actor : CPlayerAsset, playerdata : CPlayerData, target : CPlayerAsset) -> Bool {
         var Iterator = (playerdata.AssetTypes())[DBuildingName]
         if let AssetType = Iterator {
-            var NewCommand : SAssetCommand
+            var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
             
             actor.ClearCommand()
             NewCommand.DAction = EAssetAction.Capability
