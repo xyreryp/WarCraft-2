@@ -21,7 +21,7 @@ protocol viewToController {
 
 class GameViewController: NSViewController, viewToController {
 
-    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 1024, height: 1024))
+    var skview = GameView(frame: NSRect(x: 0, y: 0, width: 1024, height: 1024))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
@@ -53,10 +53,10 @@ class GameViewController: NSViewController, viewToController {
         // Do view setup here.
         view.addSubview(skview)
         //                skview.showsFPS = true
-        // skscene?.backgroundColor = NSColor.brown
+        skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
         skview.vc = self
-        skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
+        skscene?.anchorPoint = CGPoint(x: 0, y: 0.8)
 
         // entry point for program
         //        var application = CApplicationData()
@@ -69,20 +69,20 @@ class GameViewController: NSViewController, viewToController {
         } catch {
             print("cant load map")
         }
-        // skscene?.size.width = 300
-        // skscene?.size.height = 300
         skscene?.scaleMode = .fill
 
         map.RenderTerrain()
         let cgr = CGraphicResourceContext()
         application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 300, DHeight: 300))
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 10, DHeight: 10))
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         application.DAssetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
-        application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer)
+        var visMap = CVisibilityMap(width: 200, height: 200, maxvisibility: 1)
+        let fogrenderer = CFogRenderer(tileset: terrainTileset, map: visMap)
+        application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
         //  let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
         // view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
@@ -98,44 +98,9 @@ class GameViewController: NSViewController, viewToController {
         timer.x -= 1
         timer.y -= 1
         skscene?.removeAllChildren()
-        //        application.Activate()
-        //        var terrainTileset = application.DTerrainTileset
-        //        let map = CTerrainMap()
-        //        do {
-        //            try map.LoadMap(fileToRead: "mountain")
-        //        } catch {
-        //            print("cant load map")
-        //        }
-        //        map.RenderTerrain()
-        //        let mapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * terrainTileset.DTileWidth), DHeight: (map.Height() * terrainTileset.DTileHeight)))
-
-        //  skscene?.size.width = 300
-        //   skscene?.size.height = 300
         skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
-
-        if application.PreviousViewPortX + application.ViewportX > Int(skscene!.size.width) {
-            application.PreviousViewPortX = Int(skscene!.size.width)
-        } else if application.PreviousViewPortX + application.ViewportX < 0 {
-            application.PreviousViewPortX = 0
-        } else {
-            application.PreviousViewPortX = application.PreviousViewPortX + application.ViewportX
-            //            print("here")
-        }
-
-        if (application.PreviousViewPortY - application.ViewportY) > Int(skscene!.size.height) {
-            application.PreviousViewPortY = Int(skscene!.size.height)
-        } else if application.PreviousViewPortY - application.ViewportY < 0 {
-            application.PreviousViewPortY = 0
-        } else {
-            print("here")
-            application.PreviousViewPortY = application.PreviousViewPortY - application.ViewportY
-        }
-
-        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: SRectangle(DXPosition: application.PreviousViewPortX, DYPosition: application.PreviousViewPortY, DWidth: 300, DHeight: 300))
-        application.ViewportX = 0
-        application.ViewportY = 0
+        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
     }
 
     func movePeasant(x: Int, y: Int) {
@@ -169,8 +134,11 @@ class GameViewController: NSViewController, viewToController {
     }
 
     func scrollWheel(x: Int, y: Int) {
-        application.ViewportX += x
-        application.ViewportY -= y
+        if y != 0 {
+            application.DViewportRenderer.PanNorth(pan: y)
+        } else if x != 0 {
+            application.DViewportRenderer.PanWest(pan: x)
+        }
     }
 }
 
@@ -182,8 +150,8 @@ class GameView: SKView {
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
         let sklocation = convert(NSEvent.mouseLocation, to: skscene!)
-        print(NSEvent.mouseLocation.x)
-        print(NSEvent.mouseLocation.y)
+        //        print(NSEvent.mouseLocation.x)
+        //        print(NSEvent.mouseLocation.y)
 
         vc?.leftDown(x: Int(sklocation.x), y: Int(sklocation.y))
     }
@@ -195,8 +163,7 @@ class GameView: SKView {
     override func scrollWheel(with event: NSEvent) {
         let x = event.scrollingDeltaX
         let y = event.scrollingDeltaY
-        //   frame.origin.x += x
-        //  frame.origin.y -= y
+
         vc?.scrollWheel(x: Int(x), y: Int(y))
     }
 }

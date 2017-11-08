@@ -10,25 +10,21 @@ import Foundation
 import SpriteKit
 
 class CViewportRenderer {
-    // protected variables
+    var DMapRenderer: CMapRenderer
+    var DAssetRenderer: CAssetRenderer
+    var DFogRenderer: CFogRenderer
 
-    // c++ shared_ptr
-    internal var DMapRenderer: CMapRenderer
-    internal var DAssetRenderer: CAssetRenderer
-    // internal var DFogRenderer: CFogRenderer
-
-    // c++ protected variables
-    internal var DViewportX: Int
-    internal var DViewportY: Int
-    internal var DLastViewportWidth: Int
-    internal var DLastViewportHeight: Int
+    var DViewportX: Int
+    var DViewportY: Int
+    var DLastViewportWidth: Int
+    var DLastViewportHeight: Int
 
     // constructor
     // FIXME: taking out fog renderer
-    init(maprender: CMapRenderer, assetrender: CAssetRenderer /* fogrender _: CFogRenderer */ ) {
+    init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
-        //  DFogRenderer = fogrender
+        DFogRenderer = fogrender
         DViewportX = 0
         DViewportY = 0
         DLastViewportWidth = maprender.DetailedMapWidth()
@@ -128,13 +124,12 @@ class CViewportRenderer {
         DLastViewportWidth = Int(surface.frame.width)
         DLastViewportHeight = Int(surface.frame.height)
 
-        /* if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
-         DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
-         }
-         if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
-         DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
-         } */
-        // FIXME: hardcoding
+        if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
+            DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
+        }
+        if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {
+            DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
+        }
 
         TempRectangle.DXPosition = selectrect.DXPosition
         TempRectangle.DYPosition = selectrect.DYPosition
@@ -157,7 +152,7 @@ class CViewportRenderer {
          default:
          break // do nothing
          }*/
-        // FIXME:
+
         DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
         //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
