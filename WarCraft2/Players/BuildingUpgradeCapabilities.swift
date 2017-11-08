@@ -16,7 +16,7 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
         }
     }
     
-    var DRegistrant : CRegistrant
+    var DRegistrant = CPlayerCapabilityBuildingUpgrade.CRegistrant()
     
     class CActivatedCapability : CActivatedPlayerCapability {
         var DTarget: CPlayerAsset
@@ -99,7 +99,7 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
 
     }
     
-    var DBuildingName : String!
+    var DBuildingName : String
     
     init(buildingname: String) {
         DBuildingName = buildingname
@@ -148,7 +148,7 @@ class CPlayerCapabilityBuildingUpgrade : CPlayerCapability {
     
 }
 
-var DRegistrant = CPlayerCapabilityBuildingUpgrade.CRegistrant()
+
 
 
 
