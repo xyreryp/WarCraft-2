@@ -39,6 +39,7 @@ class CGraphicTileset {
         DTileNames = []
         DGroupNames = []
         DGroupSteps = [:]
+        DTileImageSet = []
     }
 
     deinit {}

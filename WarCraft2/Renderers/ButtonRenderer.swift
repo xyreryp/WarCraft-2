@@ -23,7 +23,7 @@ class CButtonRenderer {
     internal var DInnerBevel: CBevel
     internal var DLightIndices: [Int]
     internal var DDarkIndices: [Int]
-    internal var DFont: [CFontTileset]
+    internal var DFont: CFontTileset
     internal var DButtonColor: EPlayerColor
     internal var DText: String
     internal var DTextOffsetX: Int
@@ -44,6 +44,9 @@ class CButtonRenderer {
         DTextOffsetY = 0
         DWidth = DOuterBevel.Width() * 2
         DHeight = DWidth
+        DDarkIndices = [Int]()
+        DLightIndices = [Int]()
+        DText = String()
         CHelper.resize(array: &DLightIndices, size: EPlayerColor.Max.rawValue, defaultValue: Int())
         CHelper.resize(array: &DDarkIndices, size: EPlayerColor.Max.rawValue, defaultValue: Int())
         DDarkIndices[EPlayerColor.None.rawValue] = DColorMap.FindColor(colorname: "blue-dark")
@@ -66,9 +69,9 @@ class CButtonRenderer {
         DLightIndices[EPlayerColor.Black.rawValue] = DColorMap.FindColor(colorname: "black-light")
         DLightIndices[EPlayerColor.White.rawValue] = DColorMap.FindColor(colorname: "white-light")
 
-        DWhiteIndex = DFont.FindColor("white")
-        DGoldIndex = DFont.FindColor("gold")
-        DBlackIndex = DFont.FindColor("black")
+        DWhiteIndex = DFont.FindColor(colorname: "white")
+        DGoldIndex = DFont.FindColor(colorname: "gold")
+        DBlackIndex = DFont.FindColor(colorname: "black")
         //        PrintDebug(DEBUG_HIGH,"CButtonRenderer w = %d, g = %d, b = %d\n", DWhiteIndex, DGoldIndex, DBlackIndex);
     }
 
@@ -86,12 +89,12 @@ class CButtonRenderer {
     }
 
     func Text(text: String, minimize: Bool) -> String {
-        var TotalWidth: Int
-        var TotalHeight: Int
-        var Top: Int
-        var Bottom: Int
+        var TotalWidth: Int = Int()
+        var TotalHeight: Int = Int()
+        var Top: Int = Int()
+        var Bottom: Int = Int()
         DText = text
-        DFont.MeasureTextDetailed(DText, TotalWidth, TotalHeight, Top, Bottom)
+        DFont.MeasureTextDetailed(str: DText, width: &TotalWidth, height: &TotalHeight, top: &Top, bottom: &Bottom)
         TotalHeight = Bottom - Top + 1
         if TotalHeight + DOuterBevel.Width() * 2 > DHeight {
             DHeight = TotalHeight + DOuterBevel.Width() * 2
@@ -114,11 +117,11 @@ class CButtonRenderer {
 
     func Width(width: Int) -> Int {
         if width > DWidth {
-            var TotalWidth: Int
-            var TotalHeight: Int
-            var Top: Int
-            var Bottom: Int
-            DFont.MeasureTextDetailed(DText, TotalWidth, TotalHeight, Top, Bottom)
+            var TotalWidth: Int = Int()
+            var TotalHeight: Int = Int()
+            var Top: Int = Int()
+            var Bottom: Int = Int()
+            DFont.MeasureTextDetailed(str: DText, width: &TotalWidth, height: &TotalHeight, top: &Top, bottom: &Bottom)
             DWidth = width
             DTextOffsetX = DWidth / 2 - TotalWidth / 2
         }
@@ -131,11 +134,11 @@ class CButtonRenderer {
 
     func Height(height: Int) -> Int {
         if height > DHeight {
-            var TotalWidth: Int
-            var TotalHeight: Int
-            var Top: Int
-            var Bottom: Int
-            DFont.MeasureTextDetailed(DText, TotalWidth, TotalHeight, Top, Bottom)
+            var TotalWidth: Int = Int()
+            var TotalHeight: Int = Int()
+            var Top: Int = Int()
+            var Bottom: Int = Int()
+            DFont.MeasureTextDetailed(str: DText, width: &TotalWidth, height: &TotalHeight, top: &Top, bottom: &Bottom)
             TotalHeight = Bottom - Top + 1
             DHeight = height
             DTextOffsetY = DHeight / 2 - TotalHeight / 2 - Top
@@ -143,33 +146,36 @@ class CButtonRenderer {
         return DHeight
     }
 
-    func DrawButton(surface: CGraphicSurface, x: Int, y: Int, state: EButtonState) {
-        var ResourceContext = surface.CreateResourceContext()
+    //    func DrawButton(surface: CGraphicSurface, x: Int, y: Int, state: EButtonState) {
+    func DrawButton(surface: CGraphicResourceContext, x: Int, y: Int, state: EButtonState) {
+
+        var ResourceContext = surface
         if EButtonState.Pressed == state {
-            var BevelWidth: Int = DInnerBevel.Width()
+            let BevelWidth: Int = DInnerBevel.Width()
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
             ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
             ResourceContext.Fill()
             // DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DDarkIndices[DButtonColor]);
-            DFont.DrawTextWithShadow(surface, x + DTextOffsetX, y + DTextOffsetY, DWhiteIndex, DBlackIndex, 1, DText)
-            DInnerBevel.DrawBevel(surface, x + BevelWidth, y + BevelWidth, DWidth - BevelWidth * 2, DHeight - BevelWidth * 2)
+            // FIXME: DrawTextWithShadow needs GraphicSurface??
+            DFont.DrawTextWithShadow(surface: surface as! CGraphicSurface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: DWhiteIndex, shadowcol: DBlackIndex, shadowwidth: 1, str: DText)
+            DInnerBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: x + BevelWidth, ypos: y + BevelWidth, width: DWidth - BevelWidth * 2, height: DHeight - BevelWidth * 2)
         } else if EButtonState.Inactive == state {
-            var BevelWidth: Int = DOuterBevel.Width()
+            let BevelWidth: Int = DOuterBevel.Width()
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))
             ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
             ResourceContext.Fill()
             // DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DDarkIndices[pcBlack]);
-            DFont.DrawTextWithShadow(surface, x + DTextOffsetX, y + DTextOffsetY, DBlackIndex, DWhiteIndex, 1, DText)
-            DOuterBevel.DrawBevel(surface, x + BevelWidth, y + BevelWidth, DWidth - BevelWidth * 2, DHeight - BevelWidth * 2)
+            DFont.DrawTextWithShadow(surface: surface as! CGraphicSurface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: DBlackIndex, shadowcol: DWhiteIndex, shadowwidth: 1, str: DText)
+            DOuterBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: x + BevelWidth, ypos: y + BevelWidth, width: DWidth - BevelWidth * 2, height: DHeight - BevelWidth * 2)
         } else {
-            var BevelWidth: Int = DOuterBevel.Width()
+            let BevelWidth: Int = DOuterBevel.Width()
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DLightIndices[DButtonColor.rawValue], cindex: 0))
             ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
             ResourceContext.Fill()
             // DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DLightIndices[DButtonColor]);
-            DFont.DrawTextWithShadow(surface, x + DTextOffsetX, y + DTextOffsetY, EButtonState.Hover == state ? DWhiteIndex : DGoldIndex, DBlackIndex, 1, DText)
-            DOuterBevel.DrawBevel(surface, x + BevelWidth, y + BevelWidth, DWidth - BevelWidth * 2, DHeight - BevelWidth * 2)
+            DFont.DrawTextWithShadow(surface: surface as! CGraphicSurface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: EButtonState.Hover == state ? DWhiteIndex : DGoldIndex, shadowcol: DBlackIndex, shadowwidth: 1, str: DText)
+            DOuterBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: x + BevelWidth, ypos: y + BevelWidth, width: DWidth - BevelWidth * 2, height: DHeight - BevelWidth * 2)
         }
     }
 }
