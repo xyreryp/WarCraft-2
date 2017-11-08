@@ -125,7 +125,7 @@ class CGameModel {
     }
 
     func Timestep() {
-        var CurrentEvents: [SGameEvent] = []
+        var CurrentEvents: [SGameEvent] = [] // sound for each one
         var TempEvent: SGameEvent
 
         for RowIndex in 0 ..< DAssetOccupancyMap.count {
@@ -145,6 +145,7 @@ class CGameModel {
                 DAssetOccupancyMap[Asset.TilePositionY()][Asset.TilePositionX()] = Asset
             }
         }
+        // update visibility
         for PlayerIndex in 1 ..< EPlayerColor.Max.rawValue {
             if DPlayers[PlayerIndex].IsAlive() {
                 DPlayers[PlayerIndex].UpdateVisibility()
@@ -152,7 +153,10 @@ class CGameModel {
         }
         var AllAssets = DActualMap.Assets()
 
+        // for all assets on the map.
+        // position is where their turn order is. ???
         for Asset in AllAssets {
+            // if no action, then pop
             if EAssetAction.None == Asset.Action() {
                 Asset.PopCommand()
             }
@@ -163,8 +167,8 @@ class CGameModel {
                     command.IncrementStep()
                 } else {
                     var PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
-
                     Asset.PopCommand()
+
                     if PlayerCapability.CanApply(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!) {
                         PlayerCapability.ApplyCapability(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!)
                     } else {
@@ -175,12 +179,14 @@ class CGameModel {
                 var Command: SAssetCommand = Asset.CurrentCommand()
                 var TilePosition: CTilePosition = (Command.DAssetTarget?.TilePosition())!
                 var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
+                // if you told your peasasnt to harvest something from something that was not a forest
                 if CTerrainMap.ETileType.Forest != DActualMap.TileType(pos: TilePosition) {
                     HarvestDirection = EDirection.Max
                     TilePosition = Asset.TilePosition()
                 }
                 if EDirection.Max == HarvestDirection {
                     if TilePosition == Asset.TilePosition() {
+                        // want to harvest, but missed. find nearest of that type aka forest or mine or etc
                         var TilePosition: CTilePosition = DPlayers[Asset.Color().rawValue].DPlayerMap.FindNearestReachableTileType(pos: Asset.TilePosition(), type: CTerrainMap.ETileType.Forest)
                         // Find new lumber
                         Asset.PopCommand()
@@ -596,32 +602,44 @@ class CGameModel {
                 }
             }
 
+            // MARK: CRUCIALLLLLLLLLLLLLLL
             if EAssetAction.Walk == Asset.Action() {
+                // if asset is in this tile
                 if Asset.TileAligned() {
                     var Command: SAssetCommand = Asset.CurrentCommand()
+                    // grab next command from the stack
                     var NextCommand: SAssetCommand = Asset.NextCommand()
                     var TravelDirection: EDirection
                     var MapTarget: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
-
+                    // dont need
+                    // if after walking you need to attack. if attack is below move on the command stack
                     if EAssetAction.Attack == NextCommand.DAction {
                         // Check to see if can attack now
                         if NextCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position()).DistanceSquared(pos: Asset.Position()) <= RangeToDistanceSquared(range: Asset.EffectiveRange()) {
+                            // pop will stop walking
                             Asset.PopCommand()
+                            // tell it to stop doing its capablity(walking). reset it back to 0, havnet taken a step
                             Asset.ResetStep()
                             continue
                         }
                     }
+                    // CRUCIAL
+                    // find direction you're gonna walk to
                     TravelDirection = DRouterMap.FindRoute(resmap: DPlayers[Asset.Color().rawValue].DPlayerMap, asset: Asset, target: MapTarget)
+                    // checking for valid direction, from FindRoute()
                     if EDirection.Max != TravelDirection {
                         Asset.Direction(direction: TravelDirection)
                     } else {
                         var TilePosition: CTilePosition = CTilePosition()
                         TilePosition.SetFromPixel(pos: MapTarget)
+                        // if youre already at that tile return direction max
                         if TilePosition == Asset.TilePosition() || EDirection.Max != Asset.TilePosition().AdjacentTileDirection(pos: TilePosition) {
+                            // pop command and wiat for next step to do the action
                             Asset.PopCommand()
                             Asset.ResetStep()
                             continue
                         } else if EAssetAction.HarvestLumber == NextCommand.DAction {
+                            // if next action is harvest
                             TilePosition = DPlayers[Asset.Color().rawValue].DPlayerMap.FindNearestReachableTileType(pos: Asset.TilePosition(), type: CTerrainMap.ETileType.Forest)
                             // Find new lumber
                             Asset.PopCommand()

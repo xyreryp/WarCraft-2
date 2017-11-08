@@ -20,7 +20,6 @@ class CFontTileset: CGraphicMulticolorTileset {
     var DDeltaWidths: [[Int]]
     var DCharacterTops: [Int]
     var DCharacterBottoms: [Int]
-
     var DCharacterBaseline: Int
     var DSearchCall: Int
     var DTopOpaque: Int

@@ -24,11 +24,11 @@ class CBevelView: NSView {
     override init(frame frameRect: NSRect) {
         let outerTileset = CGraphicTileset()
         _ = outerTileset.TestLoadTileset(source: CDataSource(), assetName: "OuterBevel")
-        outerBevelRenderer = CBevel(tileSet: outerTileset)
+        outerBevelRenderer = CBevel(tileset: outerTileset)
 
         let innerTileset = CGraphicTileset()
         _ = innerTileset.TestLoadTileset(source: CDataSource(), assetName: "InnerBevel")
-        innerBevelRenderer = CBevel(tileSet: innerTileset)
+        innerBevelRenderer = CBevel(tileset: innerTileset)
 
         super.init(frame: frameRect)
     }

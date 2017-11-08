@@ -333,11 +333,11 @@ class CApplicationData {
         // more tileset things
         DIconTileset = CGraphicMulticolorTileset()
         DMiniIconTileset = CGraphicTileset()
-        DAssetTilesets = [CGraphicTileset]() // array of all asset tilesets
-        DFireTileset = [CGraphicTileset]() // needed for assetRenderer
-        DCorpseTileset = CGraphicTileset() // needed for assetRenderer
-        DBuildingDeathTileset = CGraphicTileset() // needed for assetRenderer
-        DArrowTileset = CGraphicTileset() // needed for assetRenderer
+        DAssetTilesets = [CGraphicTileset]()
+        DFireTileset = [CGraphicTileset]()
+        DCorpseTileset = CGraphicTileset()
+        DBuildingDeathTileset = CGraphicTileset()
+        DArrowTileset = CGraphicTileset()
 
         // all renderer things
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())

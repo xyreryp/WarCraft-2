@@ -20,11 +20,10 @@ class CGraphicMulticolorTileset: CGraphicTileset {
 
     deinit {}
 
-    
     func FindColor(colorname: String) -> Int {
-        return DColorMap.FindColor(colorname:colorname)
+        return DColorMap.FindColor(colorname: colorname)
     }
-    
+
     func TestLoadTileset(colormap: CGraphicRecolorMap, source: CDataSource, assetName: String) -> Bool {
 
         if !super.TestLoadTileset(source: source, assetName: assetName) {

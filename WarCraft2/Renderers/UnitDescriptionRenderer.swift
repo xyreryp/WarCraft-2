@@ -28,13 +28,13 @@ class CUnitDescriptionRenderer {
     var DIconTileset: CGraphicMulticolorTileset // shared ptr
     var DBevel: CBevel // shared ptr
     var DFonts: [CFontTileset] // NOTE: FontTileset is currently in progress
-    var DAssetIndices: [Int]// = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // NOTE: May not need to initialize as empty
+    var DAssetIndices: [Int] // = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // NOTE: May not need to initialize as empty
 
     var DResearchIndices: [Int] // = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // Note EAssetCapabilityType is enum of ints
 
     // var DResearchIndices = [Int](repeating: nil, count: EAssetCapabilityType.Max.rawValue) // NOTE: see above note, vector container
     var DFontColorIndices = Array(repeating: [Int](), count: EFontSize.Max.rawValue) // NOTE: This could be possible source of error
-    var DHealthColors:[UInt32]// = [UInt32?](repeating: nil, count: MAX_HP_COLOR)
+    var DHealthColors: [UInt32] // = [UInt32?](repeating: nil, count: MAX_HP_COLOR)
     var DPlayerColor: EPlayerColor
     var DHealthRectangleFG: UInt32
     var DHealthRectangleBG: UInt32
@@ -50,20 +50,37 @@ class CUnitDescriptionRenderer {
     var DDisplayedIcons: Int
 
     init(bevel: CBevel, icons: CGraphicMulticolorTileset, fonts: [CFontTileset], color: EPlayerColor) {
-        var TextWidth: Int
-        var TextHeight: Int
-
-        DPlayerColor = color
         DIconTileset = icons
         DBevel = bevel
+        DFonts = [CFontTileset]()
+        DAssetIndices = [Int]()
+        DResearchIndices = [Int]()
+        DFontColorIndices = Array(repeating: [Int](), count: EFontSize.Max.rawValue)
+        DHealthColors = [UInt32]()
+        DPlayerColor = color
+        DHealthRectangleFG = UInt32()
+        DHealthRectangleBG = UInt32()
+        DConstructionRectangleFG = UInt32()
+        DConstructionRectangleBG = UInt32()
+        DConstructionRectangleCompletion = UInt32()
+        DConstructionRectangleShadow = UInt32()
+        DFullIconWidth = Int()
+        DFullIconHeight = Int()
+        DDisplayWidth = Int()
+        DDisplayedWidth = Int()
+        DDisplayedHeight = Int()
+        DDisplayedIcons = Int()
+
+        var TextWidth: Int = Int()
+        var TextHeight: Int = Int()
 
         var index: Int = 0
         while index < EFontSize.Max.rawValue {
             DFonts[index] = fonts[index]
             // DFontColorIndices[index].resize(2) FIXME: need array of size 2
-            
-            DFontColorIndices[index][FG_COLOR] = DFonts[index].FindColor("white")
-            DFontColorIndices[index][BG_COLOR] = DFonts[index].FindColor("black")
+
+            DFontColorIndices[index][FG_COLOR] = DFonts[index].FindColor(colorname: "white")
+            DFontColorIndices[index][BG_COLOR] = DFonts[index].FindColor(colorname: "black")
             index = index + 1
         }
 
@@ -120,7 +137,7 @@ class CUnitDescriptionRenderer {
     // func AddAssetNameSpaces(name: inout String) -> String { // passing reference to string
     func AddAssetNameSpaces(name: String) -> String { // passing reference to string
 
-        var ReturnString: String
+        var ReturnString: String = String()
         for CurChar in name {
             if (!(ReturnString.isEmpty)) && (CurChar >= "A") && (CurChar <= "Z") {
                 ReturnString += " "
@@ -172,11 +189,11 @@ class CUnitDescriptionRenderer {
     // TODO: Check if CGraphicSurface is actually
     func DrawCompletionBar(surface: CGraphicSurface, percent: Int) {
         var ResourceContext = surface.CreateResourceContext()
-        var TextWidth: Int
-        var TextHeight: Int
-        var DisplayWidth: Int
-        var TextTop: Int
-        var TextBottom: Int
+        var TextWidth: Int = Int()
+        var TextHeight: Int = Int()
+        var DisplayWidth: Int = Int()
+        var TextTop: Int = Int()
+        var TextBottom: Int = Int()
 
         var BlackColor: UInt32 = 0x000000
         DFonts[EFontSize.Large.rawValue].MeasureTextDetailed(str: "% Complete", width: &TextWidth, height: &TextHeight, top: &TextTop, bottom: &TextBottom)
@@ -211,7 +228,7 @@ class CUnitDescriptionRenderer {
         //    func DrawUnitDescription(surface: SKScene, selectionlist: [CPlayerAsset?]) {
         DDisplayedIcons = 0
         if selectionlist.count > 0 {
-            var ResourceContext = surface.CreateResourceContext()
+            var ResourceContext = surface.CreateResourceContext() // -> CGraphicResourceContext
             var HorizontalIcons: Int
             var VerticalIcons: Int
             var HorizontalGap: Int
@@ -229,24 +246,24 @@ class CUnitDescriptionRenderer {
                 DDisplayedIcons = 1
                 if let Asset = selectionlist[0] { // not nil
                     var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
-                    var TextWidth: Int
-                    var TextHeight: Int
-                    var TextCenter: Int
-                    var TextTop: Int
+                    var TextWidth: Int = Int()
+                    var TextHeight: Int = Int()
+                    var TextCenter: Int = Int()
+                    var TextTop: Int = Int()
                     var AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
 
-                    var TempString: String
+                    var TempString: String = String()
 
-                    // NOTE: Changed to skscene
-                    DBevel.DrawBevel(surface: surface as! SKScene, xpos: DBevel.Width(), ypos: DBevel.Width(), width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                    // FIXME: needs CGraphicResourceContextCoreGraphics
+                    DBevel.DrawBevel(context: ResourceContext as! CGraphicResourceContextCoreGraphics, xpos: DBevel.Width(), ypos: DBevel.Width(), width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
 
-                    // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
-                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: DBevel.Width(), ypos: DBevel.Width(), tileindex: DAssetIndices[Asset.Type().rawValue]!, colorindex: (Asset.Color().rawValue != 0) ? Asset.Color().rawValue - 1 : 0)
+                    // FIXME: should take in skscene
+                    DIconTileset.DrawTile(surface: surface, xpos: DBevel.Width(), ypos: DBevel.Width(), tileindex: DAssetIndices[Asset.Type().rawValue], colorindex: (Asset.Color().rawValue != 0) ? Asset.Color().rawValue - 1 : 0)
 
                     DFonts[EFontSize.Medium.rawValue].MeasureText(str: AssetName, width: &TextWidth, height: &TextHeight)
                     TextCenter = (DDisplayedWidth + DIconTileset.TileWidth() + DBevel.Width() * 2) / 2
 
-                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth / 2, ypos: (DIconTileset.TileHeight() / 2 + DBevel.Width()) - TextHeight / 2, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium][BG_COLOR], shadowwidth: 1, str: AssetName)
+                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth / 2, ypos: (DIconTileset.TileHeight() / 2 + DBevel.Width()) - TextHeight / 2, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: AssetName)
 
                     if EPlayerColor.None != Asset.Color() {
                         ResourceContext.SetSourceRGB(rgb: DHealthRectangleFG)
@@ -262,7 +279,7 @@ class CUnitDescriptionRenderer {
 
                         TextTop = DIconTileset.TileHeight() + DBevel.Width() * 4 + HEALTH_HEIGHT + 2
                         DFonts[EFontSize.Small.rawValue].DrawTextWithShadow(surface: surface,
-                                                                            xpos: (DIconTileset.TileWidth() / 2 + DBevel.Width()) - TextWidth.2,
+                                                                            xpos: (DIconTileset.TileWidth() / 2 + DBevel.Width()) - TextWidth / 2,
                                                                             ypos: TextTop,
                                                                             color: DFontColorIndices[EFontSize.Small.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Small.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
 
@@ -271,8 +288,8 @@ class CUnitDescriptionRenderer {
 
                     if DPlayerColor == Asset.Color() {
                         if Asset.Speed() != nil { // issues
-                            var TextLineHeight: Int
-                            var UpgradeValue: Int
+                            var TextLineHeight: Int = Int()
+                            var UpgradeValue: Int = Int()
 
                             TempString = "Armor: "
                             DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
@@ -324,8 +341,8 @@ class CUnitDescriptionRenderer {
                                 TempString += " + "
                                 TempString += String(UpgradeValue)
                             }
-                            // FIXME: This one is mega broken
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+
+                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
 
                             TextTop += TextLineHeight
                             TempString = "Speed: "
@@ -364,32 +381,34 @@ class CUnitDescriptionRenderer {
                                     HorizontalOffset += 2 * (DFullIconWidth + HorizontalGap)
                                     VerticalOffset += DFullIconHeight + VerticalGap
 
-                                    DBevel.DrawBevel(surface: surface as! SKScene, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                                    // FIXME: DrawBevel takes in what kind of surface?
+                                    DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
                                     // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
-                                    DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Command.DAssetTarget!.Type().rawValue]!, colorindex: Command.DAssetTarget!.Color().rawValue != 0 ? Command.DAssetTarget!.Color().rawValue - 1 : 0)
+                                    DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Command.DAssetTarget!.Type().rawValue], colorindex: Command.DAssetTarget!.Color().rawValue != 0 ? Command.DAssetTarget!.Color().rawValue - 1 : 0)
 
                                     TempString = "Training: "
                                     DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface, HorizontalOffset - TextWidth - DBevel.Width(), (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2, DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], 1, TempString)
+                                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: HorizontalOffset - TextWidth - DBevel.Width(), ypos: (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
                                 } else {
                                     var HorizontalOffset: Int = DBevel.Width(), VerticalOffset = DBevel.Width()
 
                                     HorizontalOffset += 2 * (DFullIconWidth + HorizontalGap)
                                     VerticalOffset += DFullIconHeight + VerticalGap
 
-                                    DBevel.DrawBevel(surface: surface as! SKScene, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                                    // FIXME: DrawBevel takes in what kind of surface?
+                                    DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
 
                                     // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
                                     //                                    DIconTileset->DrawTile(surface, HorizontalOffset, VerticalOffset, DResearchIndices[to_underlying(Command.DCapability)], to_underlying(Asset->Color()) ? to_underlying(Asset->Color()) - 1 : 0);
-                                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DResearchIndices[Command.DCapability.rawValue]!, colorindex: Asset.Color().rawValue != 0 ?
+                                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DResearchIndices[Command.DCapability.rawValue], colorindex: Asset.Color().rawValue != 0 ?
                                         Asset.Color().rawValue - 1 : 0)
 
                                     TempString = "Researching: "
                                     DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface,
-                                                                                         HorizontalOffset - TextWidth - DBevel.Width(),
-                                                                                         (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2,
-                                                                                         DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], 1, TempString)
+                                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface,
+                                                                                         xpos: HorizontalOffset - TextWidth - DBevel.Width(),
+                                                                                         ypos: (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2,
+                                                                                         color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
                                 }
                                 // FIXME: should DrawCompletionBar take in GraphicSurface or SKScene or GraphicResourceContext
                                 DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
@@ -418,20 +437,21 @@ class CUnitDescriptionRenderer {
                 for var Item in selectionlist {
                     if let Asset = Item {
                         var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
-                        var TextWidth: Int
-                        var TextHeight: Int
-                        var TextTop: Int
-                        var TempString: String
+                        var TextWidth: Int = Int()
+                        var TextHeight: Int = Int()
+                        var TextTop: Int = Int()
+                        var TempString: String = String()
 
-                        DBevel.DrawBevel(surface: surface as! SKScene, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-                        // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
-                        DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Asset.Type().rawValue]!, colorindex: Asset.Color().rawValue > 0 ? Asset.Color().rawValue - 1 : 0)
+                        // FIXME: DrawBevel takes in what kind of surface?
+                        DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                        // FIXME: DrawTile takes in what kind of surface?
+                        DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Asset.Type().rawValue], colorindex: Asset.Color().rawValue > 0 ? Asset.Color().rawValue - 1 : 0)
 
                         ResourceContext.SetSourceRGB(rgb: DHealthRectangleFG)
                         ResourceContext.Rectangle(xpos: HorizontalOffset - DBevel.Width(), ypos: VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3, width: DIconTileset.TileWidth() + DBevel.Width() * 2, height: HEALTH_HEIGHT + 2)
                         ResourceContext.Fill()
 
-                        ResourceContext.SetSourceRGB(rgb: DHealthColors[HPColor]!)
+                        ResourceContext.SetSourceRGB(rgb: DHealthColors[HPColor])
                         ResourceContext.Rectangle(xpos: HorizontalOffset - DBevel.Width() + 1, ypos: VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3 + 1, width: (DIconTileset.TileWidth() + DBevel.Width() * 2 - 2) * Asset.DHitPoints / Asset.MaxHitPoints(), height: HEALTH_HEIGHT)
                         ResourceContext.Fill()
 

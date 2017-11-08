@@ -56,6 +56,7 @@ class CBattleMode: CApplicationMode {
 //        context.DSoundLibraryMixer.PlaySong(context.DSoundLibraryMixer.FindSong("game1"), context.DMusicVolume)
     }
 
+    // get inputs, set commands
     override func Input(context: CApplicationData) {
         var CurrentX: Int = context.DCurrentX
         var CurrentY: Int = context.DCurrentY
@@ -63,8 +64,12 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
 
+        // certain events pushed on to stack in game model
+        // sound renderer looks at events and plays sounds -> called at end of render()
+        // generate events in input(), handle in render()
+        
         context.DGameModel.ClearGameEvents() // could be irrelevant to use, need to check later
-        for Key in context.DPressedKeys {
+        for Key in context.DPressedKeys { // record all keys hit in 15 ms into a buffer
             if SGUIKeyType.UpArrow == Key {
                 PanningDirection = EDirection.North
                 Panning = true
@@ -81,7 +86,7 @@ class CBattleMode: CApplicationMode {
                 ShiftPressed = true
             }
         }
-
+        // go through all keys pressed and do an action
         for Key in context.DReleasedKeys {
             // Handle releases
             if context.DSelectedPlayerAssets.count != 0 {
@@ -192,43 +197,59 @@ class CBattleMode: CApplicationMode {
             }
         }
 
+        // by here, you have gone through all keys.
+        // delete events after you handle
         context.DReleasedKeys.removeAll()
+        // set to default state: nothing! before doing anything
+        context.DMenuButtonState = CButtonRenderer.EButtonState.None
 
-         context.DMenuButtonState = CButtonRenderer.EButtonState.None
-
+        // figure out which UI componenets you've interacted with
+        // find component of where current X and Y of mouse is
+        // check component type
         var ComponentType = context.FindUIComponentType(pos: CPixelPosition(x: CurrentX, y: CurrentY))
+        // if interacting with viewport
         if CApplicationData.EUIComponentType.uictViewport == ComponentType {
+            // where mouse actually is, to map
             var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY))
+            // where mouse is on viewport
             var ViewPortPosition: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
             // FIXME: passing in context.DViewportTypeSurface as CGraphic Surface. May need to change PixelType to take in skscene>
+            // type of the tile||asset you've clicked on, or color of it if it is something a player owns
             var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface,pos: ViewPortPosition)
-
+            // did you right click, and while its not held down, and if selected
             if context.DRightClick != 0 && !context.DRightDown && context.DSelectedPlayerAssets.count > 0 {
                 var CanMove: Bool = true
-
+                // for all assets
                 for Asset in context.DSelectedPlayerAssets {
-                    if let LockedAsset:CPlayerAsset? = Asset {
+                    if let LockedAsset:CPlayerAsset? = Asset { // if pointer to weak asset still exists
+                        // does your asset color match your color?
                         if context.DPlayerColor != LockedAsset?.Color() {
                             return
                         }
+                        // can this asset move?
                         if 0 == LockedAsset?.Speed() {
                             CanMove = false
                             break
                         }
                     }
                 }
-                if CanMove {
-                    if EPlayerColor.None != PixelType.Color() {
+                
+                if CanMove {    // true by defaut, && right clicked. Assets should move
+                    if EPlayerColor.None != PixelType.Color() { // if its not neutral color
                         // Command is either walk/deliver, repair, or attack
+                        // generate commmand for asset based on input
+                        // assign move command
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = PixelType.Color()
+                        // type of the asset
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = PixelType.AssetType()
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = TempPosition
+                        
                         if PixelType.Color() == context.DPlayerColor {
                             var HaveLumber: Bool = false
                             var HaveGold: Bool = false
-
+                            // FIXME: have stone??????
                             for Asset in context.DSelectedPlayerAssets {
                                 if let LockedAsset:CPlayerAsset? = Asset {
                                     if (LockedAsset?.Lumber())! > 0 {
@@ -237,8 +258,12 @@ class CBattleMode: CApplicationMode {
                                     if (LockedAsset?.Gold())! > 0 {
                                         HaveGold = true
                                     }
+                                    // FIXME: Have stone???
                                 }
                             }
+                            // if they have a resouce, set command type to convey to which building
+                            // convey has peasant move resources back to townhall or whatever
+                            // peasant selected?
                             if HaveGold {
                                 if (EAssetType.TownHall == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) || (EAssetType.Keep == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) || (EAssetType.Castle == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) {
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Convey
@@ -247,29 +272,33 @@ class CBattleMode: CApplicationMode {
                                 if (EAssetType.TownHall == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) || (EAssetType.Keep == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) || (EAssetType.Castle == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) || (EAssetType.LumberMill == context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType) {
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Convey
                                 }
-                            } else {
+                            } else { // if no lumber, then that means repair the building
                                 let TargetAsset = context.DGameModel.Player(color: context.DPlayerColor)?.SelectAsset(pos: TempPosition, assettype: PixelType.AssetType())
                                 if (0 == TargetAsset?.Speed()) && ((TargetAsset?.MaxHitPoints())! > (TargetAsset?.HitPoints())!) {
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Repair
                                 }
                             }
+                            // if building not your color, then attack
                         } else {
                             context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Attack
                         }
+                        // after it can move, always called. not sure why
                         context.DCurrentAssetCapability = EAssetCapabilityType.None
-                    } else {
+                    } else { // not a color so you dont attack, or repair or convey
                         // Command is either walk, mine, harvest
+                        
                         var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY))
                         var CanHarvest: Bool = true
-
+                        // neutral location, neutral type and target locaiton is Templocation
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
-                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = TempPosition
+                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = TempPosition // where you clicked
 
                         for Asset in context.DSelectedPlayerAssets {
                             if let LockedAsset:CPlayerAsset? = Asset {
+                                // check harvest for all types of resources
                                 if !(LockedAsset?.HasCapability(capability: EAssetCapabilityType.Mine))! {
                                     CanHarvest = false
                                     break
@@ -279,12 +308,15 @@ class CBattleMode: CApplicationMode {
                         if CanHarvest {
                             if CPixelType.EAssetTerrainType.Tree == PixelType.Type() {
                                 var TempTilePosition: CTilePosition = CTilePosition()
-
+                                // if type is tree, and equls where u clicked. then you mine.
                                 context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Mine
+                                // set location of which tile to go to.
                                 TempTilePosition.SetFromPixel(pos: context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation)
+                                // if target tile is not forest, comparing to current tile
                                 if CTerrainMap.ETileType.Forest != context.DGameModel.Player(color: context.DPlayerColor)?.DPlayerMap.TileType(pos: TempTilePosition) {
                                     // Could be tree pixel, but tops of next row
                                     TempTilePosition.IncrementY(y: 1)
+                                    // after increment by 1, check again if it is forest
                                     if CTerrainMap.ETileType.Forest == context.DGameModel.Player(color: context.DPlayerColor)?.DPlayerMap.TileType(pos: TempTilePosition) {
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation.SetFromTile(pos: TempTilePosition)
                                     }
@@ -297,11 +329,15 @@ class CBattleMode: CApplicationMode {
                         context.DCurrentAssetCapability = EAssetCapabilityType.None
                     }
                 }
-            } else if context.DLeftClick != 0 {
+            }
+            // handle left clicks
+            else if context.DLeftClick != 0 {
+                // when you select a unit, then select an action for it to do --> DCurrentAssetCapability
                 if (EAssetCapabilityType.None == context.DCurrentAssetCapability) || (EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability) {
-                    if context.DLeftDown {
+                    if context.DLeftDown { // if you let go of left
                         context.DMouseDown = TempPosition
                     } else {
+                        // if mouse is dragged, check all the things in the square. add selected things to previous selections
                         var TempRectangle: SRectangle = SRectangle(DXPosition: Int(), DYPosition: Int(), DWidth: Int(), DHeight: Int())
                         var SearchColor: EPlayerColor = context.DPlayerColor
                         var PreviousSelections: [CPlayerAsset] = [CPlayerAsset]()
@@ -365,8 +401,7 @@ class CBattleMode: CApplicationMode {
                         context.DMouseDown = CPixelPosition(x: -1, y: -1)
                     }
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
-                } else {
-                    // FIXME: Player Capability
+                } else { // you have a current assetCapability selected. Apply to next clicked
                     if let PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability) {
                         if PlayerCapability != nil && !context.DLeftDown {
                             if ((CPlayerCapability.ETargetType.Asset == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType)) && (EAssetType.None != PixelType.AssetType()) { // No TargetType ask Alex for PlayerCapability
@@ -526,6 +561,7 @@ class CBattleMode: CApplicationMode {
      * @return Nothing
      *
      */
+    // tell game to actuall do the actions from input
     override func Calculate(context: CApplicationData) {
         // PrintDebug(DEBUG_LOW, "Started CBattleMode::Calculate\n")
 
@@ -533,9 +569,9 @@ class CBattleMode: CApplicationMode {
         var PlayerLeft = 0
 
         // PrintDebug(DEBUG_LOW, "Started 1st for loop\n")
-
+        
+        // calculate the total number of players left in the battle
         for Index in 1 ..< EPlayerColor.Max.rawValue {
-            // calculate the total number of players left in the battle
             if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAlive())! {
                 PlayerLeft += 1
 
@@ -546,44 +582,57 @@ class CBattleMode: CApplicationMode {
                     CBattleMode.DBattleWon = true
                 }
             }
+            // give them a command to do
             if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
                 context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
             }
         }
 
+        // if game is oer
         // if there is only one player left in battle, battle ends
         // if PlayerLeft == 1 {
         //     context.ChangeApplicationMode(CEndOfBattleMode.Instance())
         // }
 
+        // go through all the players, check all their current commands
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
+                // find capability of the command
                 if let PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction) {
                     if PlayerCapability != nil {
                         var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-                        
+                        // if traget type is not none
                         if (CPlayerCapability.ETargetType.None != PlayerCapability!.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability!.DTargetType) {
+                            // if no target type command, then create a marker aka if you clicked on grass
                             if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
                                 NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
                             } else {
                                 // Not sure if need a let; got rid of a lock()
+                                // if you clicked on an asset, then select the asset
                                 NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
                             }
                         }
+                        // for all units that are selected for that player
                         for WeakActor in context.DPlayerCommands[Index].DActors {
                             if let Actor:CPlayerAsset? = WeakActor {
+                                // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
                                 if PlayerCapability!.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
+                                    // start the action if you can do it
+                                    // increment step for each action in basic cap
                                     PlayerCapability?.ApplyCapability(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
                                 }
                             }
                         }
                     }
                 }
+                // handled action, so set it back to none
                 context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }
         }
 
         // MARK: - Timestep()
+        // all assets increment their time step
+        // do a step of their command
         context.DGameModel.Timestep()
         //        PrintDebug(DEBUG_LOW, "Started 1st while (4th loop)\n")
 
@@ -706,6 +755,7 @@ class CBattleMode: CApplicationMode {
                 SelectedAndMarkerAssets.append(Asset)
             }
         }
+        // MARK: Draw Viewport
         // FIXME: Richard's working on making DrawViewport take in SKScene
         // context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
         // context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface )
