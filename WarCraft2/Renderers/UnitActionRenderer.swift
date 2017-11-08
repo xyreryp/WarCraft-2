@@ -14,7 +14,7 @@ class CUnitActionRenderer {
     var DBevel: CBevel
     var DPlayerData: CPlayerData
     var DCommandIndices: [Int] = [] // need to initalize to empty to avoid error for resize()
-    var DDisplayedCommands: [EAssetCapabilityType] = []// vector
+    var DDisplayedCommands: [EAssetCapabilityType] = [] // vector
     var DPlayerColor: EPlayerColor
     var DFullIconWidth: Int
     var DFulliconHeight: Int
@@ -25,15 +25,15 @@ class CUnitActionRenderer {
         DBevel = bevel
         DPlayerData = player
         DPlayerColor = color
-        
+
         CHelper.resize(array: &DCommandIndices, size: (EAssetCapabilityType.Max.rawValue), defaultValue: 0)
 
         DFullIconWidth = DIconTileset.TileWidth() + DBevel.Width() * 2
         DFulliconHeight = DIconTileset.TileHeight() + DBevel.Width() * 2
-    
+
         // FIX ME: syntax for calling this method is incorrect
-       //  CHelper.resize(array: &DDisplayedCommands, size: 9, defaultValue: EAssetCapabilityType.Max.rawValue)
-    
+        //  CHelper.resize(array: &DDisplayedCommands, size: 9, defaultValue: EAssetCapabilityType.Max.rawValue)
+
         for var Commands in DDisplayedCommands {
             Commands = EAssetCapabilityType.None
         }
@@ -75,18 +75,18 @@ class CUnitActionRenderer {
         DCommandIndices[EAssetCapabilityType.Longbow.rawValue] = DIconTileset.FindTile(tilename: "longbow")
         DCommandIndices[EAssetCapabilityType.RangerScouting.rawValue] = DIconTileset.FindTile(tilename: "ranger-scouting")
         DCommandIndices[EAssetCapabilityType.Marksmanship.rawValue] = DIconTileset.FindTile(tilename: "marksmanship")
-    
+
         DDisabledIndex = DIconTileset.FindTile(tilename: "disabled")
     }
-    
+
     func MinimumWidth() -> Int {
         return DFullIconWidth * 3 + DBevel.Width() * 2
     }
-    
+
     func MinimumHeight() -> Int {
         return DFulliconHeight * 3 + DBevel.Width() * 2
     }
-    
+
     func Selection(pos: CPosition) -> EAssetCapabilityType {
         if ((pos.X() % (DFullIconWidth + DBevel.Width())) < DFullIconWidth) && ((pos.Y() % (DFulliconHeight + DBevel.Width()) < DFulliconHeight)) {
             var Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
@@ -94,7 +94,7 @@ class CUnitActionRenderer {
         }
         return EAssetCapabilityType.None
     }
-    
+
     // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
     func drawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset?], currentAction: EAssetCapabilityType) {
         var AllSame: Bool = true
@@ -102,15 +102,15 @@ class CUnitActionRenderer {
         var Moveable: Bool = true
         var HasCargo: Bool = false
         var UnitType: EAssetType
-        
+
         for var Command in DDisplayedCommands {
             Command = EAssetCapabilityType.None
         }
-        
+
         if selectionlist.count == 0 {
             return
         }
-        
+
         for Iterator: Int in selectionlist {
             if let Asset = selectionlist[Iterator] { // FIXME, NOTE: This is weak_ptr lock()
                 if DPlayerColor != Asset.Color() {
@@ -120,8 +120,7 @@ class CUnitActionRenderer {
                     UnitType = Asset.Type()
                     IsFirst = false
                     Moveable = 0 < Asset.Speed() // NOTE: Asset must be of type CPlayerAsset
-                }
-                else if UnitType != Asset.Type() {// NOTE: Asset is currently of <error> type
+                } else if UnitType != Asset.Type() { // NOTE: Asset is currently of <error> type
                     AllSame = false
                 }
                 if (Asset.Lumber() > 0) || (Asset.Gold() > 0) {
@@ -129,7 +128,7 @@ class CUnitActionRenderer {
                 }
             }
         }
-        
+
         if EAssetCapabilityType.None == currentAction {
             if Moveable {
                 DDisplayedCommands[0] = HasCargo ? EAssetCapabilityType.Convey : EAssetCapabilityType.Move
@@ -149,13 +148,11 @@ class CUnitActionRenderer {
                         DDisplayedCommands[6] = EAssetCapabilityType.BuildSimple
                     }
                 }
-            }
-            else {
-                if let Asset:CPlayerAsset = selectionlist[0] {
+            } else {
+                if let Asset: CPlayerAsset = selectionlist[0] {
                     if (EAssetAction.Construct == Asset.Action()) || (EAssetAction.Capability == Asset.Action()) {
                         DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
-                    }
-                    else {
+                    } else {
                         var Index: Int = 0
                         for Capability in Asset.Capabilities() {
                             DDisplayedCommands[Index] = Capability
@@ -165,8 +162,7 @@ class CUnitActionRenderer {
                             }
                         }
                     }
-                }
-                else if EAssetCapabilityType.BuildSimple == currentAction {
+                } else if EAssetCapabilityType.BuildSimple == currentAction {
                     if let Asset: CPlayerAsset = selectionlist[0] {
                         var Index: Int = 0
                         for Capability in [EAssetCapabilityType.BuildFarm, EAssetCapabilityType.BuildTownHall, EAssetCapabilityType.BuildBarracks, EAssetCapabilityType.BuildLumberMill, EAssetCapabilityType.BuildBlacksmith, EAssetCapabilityType.BuildKeep, EAssetCapabilityType.BuildCastle, EAssetCapabilityType.BuildScoutTower, EAssetCapabilityType.BuildGuardTower, EAssetCapabilityType.BuildCannonTower] {
@@ -179,27 +175,26 @@ class CUnitActionRenderer {
                             }
                         }
                         DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
-                    }
-                    else {
+                    } else {
                         DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
                     }
                     var XOffset: Int = DBevel.Width()
                     var YOffset: Int = DBevel.Width()
                     var Index: Int = 0
-                    
+
                     for IconType in DDisplayedCommands {
                         if EAssetCapabilityType.None != IconType {
                             var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
                             DBevel.DrawBevel(surface: surface, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-                            
-                            //FIX ME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
+
+                            // FIX ME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
                             // variable is casted right now, needs to change later
                             DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
-                            
+
                             if PlayerCapability != nil {
                                 // do something
-                                if(!PlayerCapability->CanInitiate(selectionlist.front().lock(), DPlayerData)) {
-                                // FIX ME: SKScene issue/ CGraphicSurface issue
+                                if !PlayerCapability -> CanInitiate(selectionlist.front().lock(), DPlayerData) {
+                                    // FIX ME: SKScene issue/ CGraphicSurface issue
                                     DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
                                 }
                             }
@@ -214,6 +209,5 @@ class CUnitActionRenderer {
                 }
             }
         }
-        
     }
 }
