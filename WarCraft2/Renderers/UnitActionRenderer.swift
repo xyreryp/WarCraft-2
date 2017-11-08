@@ -13,8 +13,8 @@ class CUnitActionRenderer {
     var DIconTileset: CGraphicTileset
     var DBevel: CBevel
     var DPlayerData: CPlayerData
-    var DCommandIndices: [Int] = [] // need to initalize to empty to avoid error for resize()
-    var DDisplayedCommands: [EAssetCapabilityType] = [] // vector
+    var DCommandIndices: [Int] // need to initalize to empty to avoid error for resize()
+    var DDisplayedCommands: [EAssetCapabilityType] // vector
     var DPlayerColor: EPlayerColor
     var DFullIconWidth: Int
     var DFulliconHeight: Int
@@ -26,14 +26,11 @@ class CUnitActionRenderer {
         DPlayerData = player
         DPlayerColor = color
 
-        CHelper.resize(array: &DCommandIndices, size: (EAssetCapabilityType.Max.rawValue), defaultValue: 0)
-
+        DCommandIndices = [Int](repeating: 0, count: EAssetCapabilityType.Max.rawValue)
         DFullIconWidth = DIconTileset.TileWidth() + DBevel.Width() * 2
         DFulliconHeight = DIconTileset.TileHeight() + DBevel.Width() * 2
 
-        // FIX ME: syntax for calling this method is incorrect
-        //  CHelper.resize(array: &DDisplayedCommands, size: 9, defaultValue: EAssetCapabilityType.Max.rawValue)
-
+        DDisplayedCommands = [EAssetCapabilityType](repeating: EAssetCapabilityType.None, count: 9)
         for var Commands in DDisplayedCommands {
             Commands = EAssetCapabilityType.None
         }
@@ -101,7 +98,7 @@ class CUnitActionRenderer {
         var IsFirst: Bool = true
         var Moveable: Bool = true
         var HasCargo: Bool = false
-        var UnitType: EAssetType
+        var UnitType: EAssetType = EAssetType.None
 
         for var Command in DDisplayedCommands {
             Command = EAssetCapabilityType.None
@@ -111,8 +108,9 @@ class CUnitActionRenderer {
             return
         }
 
-        for Iterator: Int in selectionlist {
-            if let Asset = selectionlist[Iterator] { // FIXME, NOTE: This is weak_ptr lock()
+        for var Iterator: CPlayerAsset in selectionlist {
+            // for Iterator: Int in selectionlist {
+            if let Asset: CPlayerAsset = Iterator { // FIXME, NOTE: This is weak_ptr lock()
                 if DPlayerColor != Asset.Color() {
                     return
                 }
@@ -193,7 +191,9 @@ class CUnitActionRenderer {
 
                             if PlayerCapability != nil {
                                 // do something
-                                if !PlayerCapability -> CanInitiate(selectionlist.front().lock(), DPlayerData) {
+                                // FIX ME:
+                                if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
+                                    // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
                                     // FIX ME: SKScene issue/ CGraphicSurface issue
                                     DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
                                 }
