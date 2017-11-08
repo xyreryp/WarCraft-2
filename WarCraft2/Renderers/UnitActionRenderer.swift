@@ -96,7 +96,7 @@ class CUnitActionRenderer {
     }
     
     // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
-    func drawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset?], currentAction: EAssetCapabilityType) {
+    func DrawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
         var AllSame: Bool = true
         var IsFirst: Bool = true
         var Moveable: Bool = true
@@ -111,8 +111,9 @@ class CUnitActionRenderer {
             return
         }
         
-        for Iterator: Int in selectionlist {
-            if let Asset = selectionlist[Iterator] { // FIXME, NOTE: This is weak_ptr lock()
+        for var Iterator: CPlayerAsset in selectionlist {
+        //for Iterator: Int in selectionlist {
+            if let Asset: CPlayerAsset = selectionlist[Iterator] { // FIXME, NOTE: This is weak_ptr lock()
                 if DPlayerColor != Asset.Color() {
                     return
                 }
@@ -151,7 +152,7 @@ class CUnitActionRenderer {
                 }
             }
             else {
-                if let Asset:CPlayerAsset = selectionlist[0] {
+                if let Asset: CPlayerAsset = selectionlist[0] {
                     if (EAssetAction.Construct == Asset.Action()) || (EAssetAction.Capability == Asset.Action()) {
                         DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
                     }
@@ -198,22 +199,23 @@ class CUnitActionRenderer {
                             
                             if PlayerCapability != nil {
                                 // do something
-                                if(!PlayerCapability->CanInitiate(selectionlist.front().lock(), DPlayerData)) {
+                                //FIX ME:
+                                if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
+                                //if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
                                 // FIX ME: SKScene issue/ CGraphicSurface issue
                                     DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
                                 }
                             }
                         }
-                        XOffset += DFullIconWidth + DBevel.Width()
-                        Index += 1
-                        if 0 == (Index % 3) {
-                            XOffset = DBevel.Width()
-                            YOffset += DFulliconHeight + DBevel.Width()
-                        }
+                    }
+                    XOffset += DFullIconWidth + DBevel.Width()
+                    Index += 1
+                    if 0 == (Index % 3) {
+                        XOffset = DBevel.Width()
+                        YOffset += DFulliconHeight + DBevel.Width()
                     }
                 }
             }
         }
-        
     }
 }
