@@ -58,16 +58,20 @@ class CTerrainMap {
             [true, false, false, false, true, false, false, false, false, true, true],
         ]
 
-    var DTerrainMap = [[ETerrainTileType]]() // initialized variables
-    var DPartials = [[UInt8]]()
-    var DMap = [[ETileType]]()
-    var DMapIndices = [[Int]]()
+    var DTerrainMap: [[ETerrainTileType]] // initialized variables
+    var DPartials: [[UInt8]]
+    var DMap: [[ETileType]]
+    var DMapIndices: [[Int]]
     var DMapName: String
     var DRendered: Bool
 
     init() {
         DMapName = "not rendered"
         DRendered = false
+        DTerrainMap = [[]]
+        DPartials = [[]]
+        DMap = [[]]
+        DMapIndices = [[]]
     }
 
     init(map: CTerrainMap) {

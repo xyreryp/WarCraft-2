@@ -14,54 +14,26 @@ class CFogRenderer {
 
     var DTileset: CGraphicTileset
     var DDMap: CVisibilityMap
-    var DNoneIndex: Int = -1
-    var DSeenIndex: Int = -1
+    var DNoneIndex: Int
+    var DSeenIndex: Int
     var DPartialIndex: Int
-    var DFogIndices: [Int] = []
-    var DBlackIndices: [Int] = []
+    var DFogIndices: [Int]
+    var DBlackIndices: [Int]
 
     init(tileset: CGraphicTileset, map: CVisibilityMap) {
         DTileset = tileset
         DDMap = map
-        // var s: String = "partial"
-        // DPartialIndex = DTileset.FindTile(tilename: &s)
-        var selectIndex: Int = 0
-        for i in 0 ..< DTileset.TileCount() {
-            // in CGraphicTileset, make DTilenames protected instead of private?
-            if DTileset.DTileNames[i] == "Partial" {
-                selectIndex = i
-                break
-            }
+        DPartialIndex = DTileset.FindTile(tilename: "partial")
+        DFogIndices = [Int]()
+        DBlackIndices = [Int]()
+        for Index in 0 ..< 0x100 {
+            let hexIndex = String(Index, radix: 16, uppercase: true)
+            DFogIndices.append(DTileset.FindTile(tilename: "pf-\(hexIndex)"))
+            DBlackIndices.append(DTileset.FindTile(tilename: "pb-\(hexIndex)"))
         }
 
-        DPartialIndex = DTileset.FindTile(tilename: DTileset.DTileNames[selectIndex])
-
-        //
-        for Index in 0 ... 255 {
-            var TempString: String = "00"
-            let TempIndex = String(Index, radix: 16, uppercase: true)
-            TempString = TempString + TempIndex
-            var fogIndex: Int = -1
-            var blackIndex: Int = -1
-
-            for i in 0 ... DTileset.TileCount() - 1 {
-                // in CGraphicTileset, make DTilenames protected instead of private?
-                if fogIndex < 0 && DTileset.DTileNames[i] == "pf-" + TempString {
-                    fogIndex = i
-                }
-                if blackIndex < 0 && DTileset.DTileNames[i] == "pb-" + TempString {
-                    blackIndex = i
-                }
-                if blackIndex >= 0 && fogIndex >= 0 {
-                    break
-                }
-            }
-
-            DFogIndices.append(fogIndex)
-            DBlackIndices.append(blackIndex)
-        }
-        DSeenIndex = DFogIndices[0]
-        DNoneIndex = DBlackIndices[0]
+        DSeenIndex = DFogIndices[0x00]
+        DNoneIndex = DBlackIndices[0x00]
     }
 
     func DrawMap(surface: SKScene, rect: SRectangle) {

@@ -9,9 +9,13 @@
 import Foundation
 
 class RandomNumberGenerator {
+    var DRandomSeedHigh: UInt32
+    var DRandomSeedLow: UInt32
 
-    var DRandomSeedHigh: UInt32 = 0x0123_4567
-    var DRandomSeedLow: UInt32 = 0x89AB_CDEF
+    init() {
+        DRandomSeedHigh = 0x0123_4567
+        DRandomSeedLow = 0x89AB_CDEF
+    }
 
     // breaks the 64 int value into 2 32 bit numbers, and seeds
     func Seed(seed: UInt64) {

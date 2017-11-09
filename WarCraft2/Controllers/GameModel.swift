@@ -42,12 +42,12 @@ fileprivate func RangeToDistanceSquared(range: Int) -> Int {
 
 class CGameModel {
 
-    var DRandomNumberGenerator: RandomNumberGenerator = RandomNumberGenerator()
-    var DActualMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    var DAssetOccupancyMap: [[CPlayerAsset?]] = [[]]
-    var DDiagonalOccupancyMap: [[Bool]] = [[true, false]]
-    var DRouterMap: CRouterMap = CRouterMap()
-    var DPlayers: [CPlayerData] = []
+    var DRandomNumberGenerator: RandomNumberGenerator
+    var DActualMap: CAssetDecoratedMap
+    var DAssetOccupancyMap: [[CPlayerAsset?]]
+    var DDiagonalOccupancyMap: [[Bool]] // = [[true, false]]
+    var DRouterMap: CRouterMap
+    var DPlayers: [CPlayerData]
     var DGameCycle: Int = 0
     var DHarvestTime: Int
     var DHarvestSteps: Int
@@ -77,11 +77,13 @@ class CGameModel {
         DDecaySteps = CPlayerAsset.UpdateFrequency() * DDecayTime
         DLumberPerHarvest = 100
         DGoldPerMining = 100
-
+        DRandomNumberGenerator = RandomNumberGenerator()
         DRandomNumberGenerator.Seed(seed: seed)
-
+        DDiagonalOccupancyMap = [[]]
         DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: newcolors)
-
+        DPlayers = []
+        DAssetOccupancyMap = []
+        DRouterMap = CRouterMap()
         for PlayerIndex in 0 ..< EPlayerColor.Max.rawValue {
             DPlayers.append(CPlayerData(map: DActualMap, color: EPlayerColor(rawValue: PlayerIndex)!))
         }

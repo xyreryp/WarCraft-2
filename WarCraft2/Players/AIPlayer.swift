@@ -22,7 +22,7 @@ class CAIPlayer {
     var DCycle: Int
     var DDownSample: Int
 
-    public init(playerdata: CPlayerData, downsample: Int) {
+    init(playerdata: CPlayerData, downsample: Int) {
         DPlayerData = playerdata
         DCycle = 0
         DDownSample = downsample

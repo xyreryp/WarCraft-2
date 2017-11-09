@@ -9,19 +9,22 @@
 import Foundation
 
 class CGraphicRecolorMap {
+    var DState: Int
+    var DMapping: [String: Int]
+    var DColorNames: [String]
+    var DColors: [[UInt32]]
+    var DOriginalColors: [[UInt32]]
 
-    // CGraphicRecolorMap.h has empty constructor
-    //    init() {
-    //    }
+    init() {
+        DState = 0
+        DMapping = [:]
+        DColorNames = []
+        DColors = [[]]
+        DOriginalColors = [[]]
+    }
 
-    //    deinit {
-    //    }
-
-    var DState: Int = 0 // had to set this to zero otherwise would get "no initializer" error
-    var DMapping = [String: Int]()
-    var DColorNames = [String]()
-    var DColors = [[UInt32]]()
-    var DOriginalColors = [[UInt32]]()
+    deinit {
+    }
 
     func GroupCount() -> Int {
         return DColors.count

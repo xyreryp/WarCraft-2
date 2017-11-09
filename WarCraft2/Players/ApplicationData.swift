@@ -73,48 +73,59 @@ class CApplicationData {
     var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
 
     // Data Source, used for all reading of files
-    var TempDataSource: CDataSource = CDataSource()
+    var TempDataSource: CDataSource
 
     // tileset for the terrain
-    var DTerrainTileset = CGraphicTileset()
+    var DTerrainTileset: CGraphicTileset
 
     // tilesets needed for assetRenderer's init()
-    var DMarkerTileset = CGraphicTileset()
-    var DCorpseTileset = CGraphicTileset()
-    var DFireTileset = [CGraphicTileset]()
-    var DBuildingDeathTileset = CGraphicTileset()
-    var DArrowTileset = CGraphicTileset()
+    var DMarkerTileset: CGraphicTileset
+    var DCorpseTileset: CGraphicTileset
+    var DFireTileset: [CGraphicTileset]
+    var DBuildingDeathTileset: CGraphicTileset
+    var DArrowTileset: CGraphicTileset
 
     var DAssetMap = CAssetDecoratedMap()
     // playerData needed for assetRenderer
-    //    var DPlayer: CPlayerData
+    var DPlayer: CPlayerData
     // array of tilesets for all the assset
-    //    var DAssetTilesets: [CGraphicMulticolorTileset] = [CGraphicMulticolorTileset]()
-    var DAssetTilesets: [CGraphicTileset] = [CGraphicTileset]()
-
+    // FIXME:
+    //    var DAssetTilesets: [CGraphicMulticolorTileset]
+    var DAssetTilesets: [CGraphicTileset]
     // map for drawing player
-    var DPlayerRecolorMap: CGraphicRecolorMap = CGraphicRecolorMap()
+    var DPlayerRecolorMap: CGraphicRecolorMap
 
-    //    var DAssetRenderer: CAssetRenderer
+    var DAssetRenderer: CAssetRenderer
 
     init() {
-        //        DMarkerTileset = CGraphicTileset()
-        //        DCorpseTileset = CGraphicTileset()
-        //        DFireTileset = [CGraphicTileset]()
-        //        DBuildingDeathTileset = CGraphicTileset()
-        //        DArrowTileset = CGraphicTileset()
-        //
-        //        DAssetMap = CAssetDecoratedMap()
-        //        // playerData needed for assetRenderer
-        //        DPlayer = CPlayerData(map: DAssetMap, color: EPlayerColor.Red)
-        //        // array of tilesets for all the assset
-        //        DAssetTilesets = [CGraphicMulticolorTileset]()
-        //
-        //        // map for drawing player
-        //        DPlayerRecolorMap = CGraphicRecolorMap()
-        //
-        //
-        //        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
+
+        DLeftClicked = false
+        DRightClicked = false
+        X = 0
+        Y = 0
+        DMarkerTileset = CGraphicTileset()
+        DCorpseTileset = CGraphicTileset()
+        DFireTileset = []
+        DBuildingDeathTileset = CGraphicTileset()
+        DArrowTileset = CGraphicTileset()
+
+        DAssetMap = CAssetDecoratedMap()
+        // playerData needed for assetRenderer
+        DPlayer = CPlayerData(map: DAssetMap, color: EPlayerColor.Red)
+        DPlayerRecolorMap = CGraphicRecolorMap()
+        // array of tilesets for all the assset
+        DAssetTilesets = []
+
+        // map for drawing player
+        DPlayerRecolorMap = CGraphicRecolorMap()
+
+        ECursorTypeRef = .ctPointer
+        EUIComponentTypeRef = .uictNone
+        EGameSessionTypeRef = .gstSinglePlayer
+        EPlayerTypeRef = .ptNone
+        TempDataSource = CDataSource()
+        DTerrainTileset = CGraphicTileset()
+        DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
     func Activate() {

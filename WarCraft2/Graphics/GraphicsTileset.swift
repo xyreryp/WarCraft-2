@@ -12,20 +12,18 @@ import Cocoa
 import AppKit
 
 class CGraphicTileset {
-    // C++ protected functions
-    var DSurfaceTileset: CGraphicSurface? // shared pointer variable, strong variable
-    private var DClippingMasks = [CGraphicSurface]()
-    // vector of shared pointers in C++
-    private var DMapping = [String: Int]()
-    var DTileNames = [String]()
-    private var DGroupNames = [String]()
-    private var DGroupSteps = [String: Int]()
+    var DSurfaceTileset: CGraphicSurface?
+    var DClippingMasks: [CGraphicSurface]
+    var DMapping: [String: Int]
+    var DTileNames: [String]
+    var DGroupNames: [String]
+    var DGroupSteps: [String: Int]
     var DTileCount: Int
     var DTileWidth: Int
     var DTileHeight: Int
-    private var DTileHalfWidth: Int
-    private var DTileHalfHeight: Int
-    var DTileSet: [SKTexture] = []
+    var DTileHalfWidth: Int
+    var DTileHalfHeight: Int
+    var DTileSet: [SKTexture]
 
     init() {
         DSurfaceTileset = nil
@@ -34,7 +32,13 @@ class CGraphicTileset {
         DTileHeight = 0
         DTileHalfWidth = 0
         DTileHalfHeight = 0
-    } // still not sure about error
+        DTileSet = []
+        DClippingMasks = []
+        DMapping = [:]
+        DTileNames = []
+        DGroupNames = []
+        DGroupSteps = [:]
+    }
 
     deinit {}
 
