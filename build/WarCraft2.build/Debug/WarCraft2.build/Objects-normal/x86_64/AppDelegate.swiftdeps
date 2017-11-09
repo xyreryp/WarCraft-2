@@ -1,0 +1,308 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "AppDelegate"
+provides-nominal:
+- "9WarCraft211AppDelegateC"
+provides-member:
+- ["9WarCraft211AppDelegateC", ""]
+provides-dynamic-lookup:
+- "applicationDidFinishLaunching"
+- "applicationWillTerminate"
+depends-top-level:
+- "AppDelegate"
+- "NSApplicationDelegate"
+- "NSObject"
+- "Notification"
+depends-member:
+- ["9WarCraft211AppDelegateC", "Notification"]
+- ["9WarCraft211AppDelegateC", "application"]
+- ["9WarCraft211AppDelegateC", "applicationDidBecomeActive"]
+- ["9WarCraft211AppDelegateC", "applicationDidChangeOcclusionState"]
+- ["9WarCraft211AppDelegateC", "applicationDidChangeScreenParameters"]
+- ["9WarCraft211AppDelegateC", "applicationDidFinishLaunching"]
+- ["9WarCraft211AppDelegateC", "applicationDidHide"]
+- ["9WarCraft211AppDelegateC", "applicationDidResignActive"]
+- ["9WarCraft211AppDelegateC", "applicationDidUnhide"]
+- ["9WarCraft211AppDelegateC", "applicationDidUpdate"]
+- ["9WarCraft211AppDelegateC", "applicationDockMenu"]
+- ["9WarCraft211AppDelegateC", "applicationOpenUntitledFile"]
+- ["9WarCraft211AppDelegateC", "applicationShouldHandleReopen"]
+- ["9WarCraft211AppDelegateC", "applicationShouldOpenUntitledFile"]
+- ["9WarCraft211AppDelegateC", "applicationShouldTerminate"]
+- ["9WarCraft211AppDelegateC", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["9WarCraft211AppDelegateC", "applicationWillBecomeActive"]
+- ["9WarCraft211AppDelegateC", "applicationWillFinishLaunching"]
+- ["9WarCraft211AppDelegateC", "applicationWillHide"]
+- ["9WarCraft211AppDelegateC", "applicationWillResignActive"]
+- ["9WarCraft211AppDelegateC", "applicationWillTerminate"]
+- ["9WarCraft211AppDelegateC", "applicationWillUnhide"]
+- ["9WarCraft211AppDelegateC", "applicationWillUpdate"]
+- ["9WarCraft211AppDelegateC", "deinit"]
+- ["9WarCraft211AppDelegateC", "init"]
+- ["s7CVarArgP", "application"]
+- ["s7CVarArgP", "applicationDidBecomeActive"]
+- ["s7CVarArgP", "applicationDidChangeOcclusionState"]
+- ["s7CVarArgP", "applicationDidChangeScreenParameters"]
+- ["s7CVarArgP", "applicationDidFinishLaunching"]
+- ["s7CVarArgP", "applicationDidHide"]
+- ["s7CVarArgP", "applicationDidResignActive"]
+- ["s7CVarArgP", "applicationDidUnhide"]
+- ["s7CVarArgP", "applicationDidUpdate"]
+- ["s7CVarArgP", "applicationDockMenu"]
+- ["s7CVarArgP", "applicationOpenUntitledFile"]
+- ["s7CVarArgP", "applicationShouldHandleReopen"]
+- ["s7CVarArgP", "applicationShouldOpenUntitledFile"]
+- ["s7CVarArgP", "applicationShouldTerminate"]
+- ["s7CVarArgP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["s7CVarArgP", "applicationWillBecomeActive"]
+- ["s7CVarArgP", "applicationWillFinishLaunching"]
+- ["s7CVarArgP", "applicationWillHide"]
+- ["s7CVarArgP", "applicationWillResignActive"]
+- ["s7CVarArgP", "applicationWillTerminate"]
+- ["s7CVarArgP", "applicationWillUnhide"]
+- ["s7CVarArgP", "applicationWillUpdate"]
+- !private ["s7CVarArgP", "init"]
+- ["s7CVarArgP", ""]
+- ["s28CustomDebugStringConvertibleP", "application"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidBecomeActive"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidChangeOcclusionState"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidChangeScreenParameters"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidFinishLaunching"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidHide"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidResignActive"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidUnhide"]
+- ["s28CustomDebugStringConvertibleP", "applicationDidUpdate"]
+- ["s28CustomDebugStringConvertibleP", "applicationDockMenu"]
+- ["s28CustomDebugStringConvertibleP", "applicationOpenUntitledFile"]
+- ["s28CustomDebugStringConvertibleP", "applicationShouldHandleReopen"]
+- ["s28CustomDebugStringConvertibleP", "applicationShouldOpenUntitledFile"]
+- ["s28CustomDebugStringConvertibleP", "applicationShouldTerminate"]
+- ["s28CustomDebugStringConvertibleP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillBecomeActive"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillFinishLaunching"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillHide"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillResignActive"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillTerminate"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillUnhide"]
+- ["s28CustomDebugStringConvertibleP", "applicationWillUpdate"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- ["s23CustomStringConvertibleP", "application"]
+- ["s23CustomStringConvertibleP", "applicationDidBecomeActive"]
+- ["s23CustomStringConvertibleP", "applicationDidChangeOcclusionState"]
+- ["s23CustomStringConvertibleP", "applicationDidChangeScreenParameters"]
+- ["s23CustomStringConvertibleP", "applicationDidFinishLaunching"]
+- ["s23CustomStringConvertibleP", "applicationDidHide"]
+- ["s23CustomStringConvertibleP", "applicationDidResignActive"]
+- ["s23CustomStringConvertibleP", "applicationDidUnhide"]
+- ["s23CustomStringConvertibleP", "applicationDidUpdate"]
+- ["s23CustomStringConvertibleP", "applicationDockMenu"]
+- ["s23CustomStringConvertibleP", "applicationOpenUntitledFile"]
+- ["s23CustomStringConvertibleP", "applicationShouldHandleReopen"]
+- ["s23CustomStringConvertibleP", "applicationShouldOpenUntitledFile"]
+- ["s23CustomStringConvertibleP", "applicationShouldTerminate"]
+- ["s23CustomStringConvertibleP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["s23CustomStringConvertibleP", "applicationWillBecomeActive"]
+- ["s23CustomStringConvertibleP", "applicationWillFinishLaunching"]
+- ["s23CustomStringConvertibleP", "applicationWillHide"]
+- ["s23CustomStringConvertibleP", "applicationWillResignActive"]
+- ["s23CustomStringConvertibleP", "applicationWillTerminate"]
+- ["s23CustomStringConvertibleP", "applicationWillUnhide"]
+- ["s23CustomStringConvertibleP", "applicationWillUpdate"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- ["s23CustomStringConvertibleP", ""]
+- ["s9EquatableP", "application"]
+- ["s9EquatableP", "applicationDidBecomeActive"]
+- ["s9EquatableP", "applicationDidChangeOcclusionState"]
+- ["s9EquatableP", "applicationDidChangeScreenParameters"]
+- ["s9EquatableP", "applicationDidFinishLaunching"]
+- ["s9EquatableP", "applicationDidHide"]
+- ["s9EquatableP", "applicationDidResignActive"]
+- ["s9EquatableP", "applicationDidUnhide"]
+- ["s9EquatableP", "applicationDidUpdate"]
+- ["s9EquatableP", "applicationDockMenu"]
+- ["s9EquatableP", "applicationOpenUntitledFile"]
+- ["s9EquatableP", "applicationShouldHandleReopen"]
+- ["s9EquatableP", "applicationShouldOpenUntitledFile"]
+- ["s9EquatableP", "applicationShouldTerminate"]
+- ["s9EquatableP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["s9EquatableP", "applicationWillBecomeActive"]
+- ["s9EquatableP", "applicationWillFinishLaunching"]
+- ["s9EquatableP", "applicationWillHide"]
+- ["s9EquatableP", "applicationWillResignActive"]
+- ["s9EquatableP", "applicationWillTerminate"]
+- ["s9EquatableP", "applicationWillUnhide"]
+- ["s9EquatableP", "applicationWillUpdate"]
+- !private ["s9EquatableP", "init"]
+- ["s9EquatableP", ""]
+- ["s8HashableP", "application"]
+- ["s8HashableP", "applicationDidBecomeActive"]
+- ["s8HashableP", "applicationDidChangeOcclusionState"]
+- ["s8HashableP", "applicationDidChangeScreenParameters"]
+- ["s8HashableP", "applicationDidFinishLaunching"]
+- ["s8HashableP", "applicationDidHide"]
+- ["s8HashableP", "applicationDidResignActive"]
+- ["s8HashableP", "applicationDidUnhide"]
+- ["s8HashableP", "applicationDidUpdate"]
+- ["s8HashableP", "applicationDockMenu"]
+- ["s8HashableP", "applicationOpenUntitledFile"]
+- ["s8HashableP", "applicationShouldHandleReopen"]
+- ["s8HashableP", "applicationShouldOpenUntitledFile"]
+- ["s8HashableP", "applicationShouldTerminate"]
+- ["s8HashableP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["s8HashableP", "applicationWillBecomeActive"]
+- ["s8HashableP", "applicationWillFinishLaunching"]
+- ["s8HashableP", "applicationWillHide"]
+- ["s8HashableP", "applicationWillResignActive"]
+- ["s8HashableP", "applicationWillTerminate"]
+- ["s8HashableP", "applicationWillUnhide"]
+- ["s8HashableP", "applicationWillUpdate"]
+- !private ["s8HashableP", "init"]
+- ["s8HashableP", ""]
+- ["So21NSApplicationDelegateP", "application"]
+- ["So21NSApplicationDelegateP", "applicationDidBecomeActive"]
+- ["So21NSApplicationDelegateP", "applicationDidChangeOcclusionState"]
+- ["So21NSApplicationDelegateP", "applicationDidChangeScreenParameters"]
+- ["So21NSApplicationDelegateP", "applicationDidFinishLaunching"]
+- ["So21NSApplicationDelegateP", "applicationDidHide"]
+- ["So21NSApplicationDelegateP", "applicationDidResignActive"]
+- ["So21NSApplicationDelegateP", "applicationDidUnhide"]
+- ["So21NSApplicationDelegateP", "applicationDidUpdate"]
+- ["So21NSApplicationDelegateP", "applicationDockMenu"]
+- ["So21NSApplicationDelegateP", "applicationOpenUntitledFile"]
+- ["So21NSApplicationDelegateP", "applicationShouldHandleReopen"]
+- ["So21NSApplicationDelegateP", "applicationShouldOpenUntitledFile"]
+- ["So21NSApplicationDelegateP", "applicationShouldTerminate"]
+- ["So21NSApplicationDelegateP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["So21NSApplicationDelegateP", "applicationWillBecomeActive"]
+- ["So21NSApplicationDelegateP", "applicationWillFinishLaunching"]
+- ["So21NSApplicationDelegateP", "applicationWillHide"]
+- ["So21NSApplicationDelegateP", "applicationWillResignActive"]
+- ["So21NSApplicationDelegateP", "applicationWillTerminate"]
+- ["So21NSApplicationDelegateP", "applicationWillUnhide"]
+- ["So21NSApplicationDelegateP", "applicationWillUpdate"]
+- ["So21NSApplicationDelegateP", ""]
+- ["So8NSObjectC", "Notification"]
+- ["So8NSObjectC", "application"]
+- ["So8NSObjectC", "applicationDidBecomeActive"]
+- ["So8NSObjectC", "applicationDidChangeOcclusionState"]
+- ["So8NSObjectC", "applicationDidChangeScreenParameters"]
+- ["So8NSObjectC", "applicationDidFinishLaunching"]
+- ["So8NSObjectC", "applicationDidHide"]
+- ["So8NSObjectC", "applicationDidResignActive"]
+- ["So8NSObjectC", "applicationDidUnhide"]
+- ["So8NSObjectC", "applicationDidUpdate"]
+- ["So8NSObjectC", "applicationDockMenu"]
+- ["So8NSObjectC", "applicationOpenUntitledFile"]
+- ["So8NSObjectC", "applicationShouldHandleReopen"]
+- ["So8NSObjectC", "applicationShouldOpenUntitledFile"]
+- ["So8NSObjectC", "applicationShouldTerminate"]
+- ["So8NSObjectC", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["So8NSObjectC", "applicationWillBecomeActive"]
+- ["So8NSObjectC", "applicationWillFinishLaunching"]
+- ["So8NSObjectC", "applicationWillHide"]
+- ["So8NSObjectC", "applicationWillResignActive"]
+- ["So8NSObjectC", "applicationWillTerminate"]
+- ["So8NSObjectC", "applicationWillUnhide"]
+- ["So8NSObjectC", "applicationWillUpdate"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", ""]
+- ["So16NSObjectProtocolP", "application"]
+- ["So16NSObjectProtocolP", "applicationDidBecomeActive"]
+- ["So16NSObjectProtocolP", "applicationDidChangeOcclusionState"]
+- ["So16NSObjectProtocolP", "applicationDidChangeScreenParameters"]
+- ["So16NSObjectProtocolP", "applicationDidFinishLaunching"]
+- ["So16NSObjectProtocolP", "applicationDidHide"]
+- ["So16NSObjectProtocolP", "applicationDidResignActive"]
+- ["So16NSObjectProtocolP", "applicationDidUnhide"]
+- ["So16NSObjectProtocolP", "applicationDidUpdate"]
+- ["So16NSObjectProtocolP", "applicationDockMenu"]
+- ["So16NSObjectProtocolP", "applicationOpenUntitledFile"]
+- ["So16NSObjectProtocolP", "applicationShouldHandleReopen"]
+- ["So16NSObjectProtocolP", "applicationShouldOpenUntitledFile"]
+- ["So16NSObjectProtocolP", "applicationShouldTerminate"]
+- ["So16NSObjectProtocolP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["So16NSObjectProtocolP", "applicationWillBecomeActive"]
+- ["So16NSObjectProtocolP", "applicationWillFinishLaunching"]
+- ["So16NSObjectProtocolP", "applicationWillHide"]
+- ["So16NSObjectProtocolP", "applicationWillResignActive"]
+- ["So16NSObjectProtocolP", "applicationWillTerminate"]
+- ["So16NSObjectProtocolP", "applicationWillUnhide"]
+- ["So16NSObjectProtocolP", "applicationWillUpdate"]
+- !private ["So16NSObjectProtocolP", "init"]
+- ["So16NSObjectProtocolP", ""]
+- ["10Foundation27_KeyValueCodingAndObservingP", "application"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidBecomeActive"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidChangeOcclusionState"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidChangeScreenParameters"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidFinishLaunching"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidHide"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidResignActive"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidUnhide"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDidUpdate"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationDockMenu"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationOpenUntitledFile"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationShouldHandleReopen"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationShouldOpenUntitledFile"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationShouldTerminate"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationShouldTerminateAfterLastWindowClosed"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillBecomeActive"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillFinishLaunching"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillHide"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillResignActive"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillTerminate"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillUnhide"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "applicationWillUpdate"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+depends-nominal:
+- "9WarCraft211AppDelegateC"
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- "s23CustomStringConvertibleP"
+- "s9EquatableP"
+- "s8HashableP"
+- "So21NSApplicationDelegateP"
+- "So8NSObjectC"
+- "So16NSObjectProtocolP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "f83ec4382db5e182e97fa520801c86b4"

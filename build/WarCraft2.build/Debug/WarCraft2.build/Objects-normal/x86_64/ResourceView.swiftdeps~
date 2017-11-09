@@ -1,0 +1,404 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ResourceView"
+provides-nominal:
+- "9WarCraft212ResourceViewC"
+provides-member:
+- ["9WarCraft212ResourceViewC", ""]
+provides-dynamic-lookup:
+- "draw"
+depends-top-level:
+- "AssignmentPrecedence"
+- !private "CBevelView"
+- !private "CGraphicResourceContextCoreGraphics"
+- "CResourceRenderer"
+- "NSCoder"
+- !private "NSGraphicsContext"
+- "NSRect"
+- "NSView"
+- "ResourceView"
+- !private "StringLiteralType"
+- !private "fatalError"
+depends-member:
+- !private ["s23BidirectionalCollectionP", "init"]
+- !private ["9WarCraft210CBevelViewC", "init"]
+- !private ["9WarCraft235CGraphicResourceContextCoreGraphicsC", "init"]
+- !private ["9WarCraft217CResourceRendererC", "DrawResources"]
+- !private ["s7CVarArgP", "CBevelView"]
+- !private ["s7CVarArgP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s7CVarArgP", "DrawResources"]
+- !private ["s7CVarArgP", "NSGraphicsContext"]
+- !private ["s7CVarArgP", "addSubview"]
+- !private ["s7CVarArgP", "cgContext"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "draw"]
+- !private ["s7CVarArgP", "fatalError"]
+- !private ["s7CVarArgP", "frame"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "resourceRenderer"]
+- ["s7CVarArgP", ""]
+- !private ["s10CollectionP", "init"]
+- !private ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "CBevelView"]
+- !private ["s28CustomDebugStringConvertibleP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s28CustomDebugStringConvertibleP", "DrawResources"]
+- !private ["s28CustomDebugStringConvertibleP", "NSGraphicsContext"]
+- !private ["s28CustomDebugStringConvertibleP", "addSubview"]
+- !private ["s28CustomDebugStringConvertibleP", "cgContext"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "draw"]
+- !private ["s28CustomDebugStringConvertibleP", "fatalError"]
+- !private ["s28CustomDebugStringConvertibleP", "frame"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "resourceRenderer"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s23CustomStringConvertibleP", "CBevelView"]
+- !private ["s23CustomStringConvertibleP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s23CustomStringConvertibleP", "DrawResources"]
+- !private ["s23CustomStringConvertibleP", "NSGraphicsContext"]
+- !private ["s23CustomStringConvertibleP", "addSubview"]
+- !private ["s23CustomStringConvertibleP", "cgContext"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "draw"]
+- !private ["s23CustomStringConvertibleP", "fatalError"]
+- !private ["s23CustomStringConvertibleP", "frame"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "resourceRenderer"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s9DecodableP", "init"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EquatableP", "CBevelView"]
+- !private ["s9EquatableP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s9EquatableP", "DrawResources"]
+- !private ["s9EquatableP", "NSGraphicsContext"]
+- !private ["s9EquatableP", "addSubview"]
+- !private ["s9EquatableP", "cgContext"]
+- !private ["s9EquatableP", "current"]
+- !private ["s9EquatableP", "draw"]
+- !private ["s9EquatableP", "fatalError"]
+- !private ["s9EquatableP", "frame"]
+- !private ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "resourceRenderer"]
+- ["s9EquatableP", ""]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s8HashableP", "CBevelView"]
+- !private ["s8HashableP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s8HashableP", "DrawResources"]
+- !private ["s8HashableP", "NSGraphicsContext"]
+- !private ["s8HashableP", "addSubview"]
+- !private ["s8HashableP", "cgContext"]
+- !private ["s8HashableP", "current"]
+- !private ["s8HashableP", "draw"]
+- !private ["s8HashableP", "fatalError"]
+- !private ["s8HashableP", "frame"]
+- !private ["s8HashableP", "init"]
+- !private ["s8HashableP", "resourceRenderer"]
+- ["s8HashableP", ""]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["So15NSAccessibilityP", "CBevelView"]
+- !private ["So15NSAccessibilityP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So15NSAccessibilityP", "NSGraphicsContext"]
+- !private ["So15NSAccessibilityP", "addSubview"]
+- !private ["So15NSAccessibilityP", "draw"]
+- !private ["So15NSAccessibilityP", "fatalError"]
+- !private ["So15NSAccessibilityP", "frame"]
+- !private ["So15NSAccessibilityP", "init"]
+- !private ["So15NSAccessibilityP", "resourceRenderer"]
+- ["So15NSAccessibilityP", ""]
+- !private ["So30NSAccessibilityElementProtocolP", "CBevelView"]
+- !private ["So30NSAccessibilityElementProtocolP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So30NSAccessibilityElementProtocolP", "NSGraphicsContext"]
+- !private ["So30NSAccessibilityElementProtocolP", "addSubview"]
+- !private ["So30NSAccessibilityElementProtocolP", "draw"]
+- !private ["So30NSAccessibilityElementProtocolP", "fatalError"]
+- !private ["So30NSAccessibilityElementProtocolP", "frame"]
+- !private ["So30NSAccessibilityElementProtocolP", "init"]
+- !private ["So30NSAccessibilityElementProtocolP", "resourceRenderer"]
+- ["So30NSAccessibilityElementProtocolP", ""]
+- !private ["So29NSAnimatablePropertyContainerP", "CBevelView"]
+- !private ["So29NSAnimatablePropertyContainerP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So29NSAnimatablePropertyContainerP", "NSGraphicsContext"]
+- !private ["So29NSAnimatablePropertyContainerP", "addSubview"]
+- !private ["So29NSAnimatablePropertyContainerP", "draw"]
+- !private ["So29NSAnimatablePropertyContainerP", "fatalError"]
+- !private ["So29NSAnimatablePropertyContainerP", "frame"]
+- !private ["So29NSAnimatablePropertyContainerP", "init"]
+- !private ["So29NSAnimatablePropertyContainerP", "resourceRenderer"]
+- ["So29NSAnimatablePropertyContainerP", ""]
+- !private ["So25NSAppearanceCustomizationP", "CBevelView"]
+- !private ["So25NSAppearanceCustomizationP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So25NSAppearanceCustomizationP", "NSGraphicsContext"]
+- !private ["So25NSAppearanceCustomizationP", "addSubview"]
+- !private ["So25NSAppearanceCustomizationP", "draw"]
+- !private ["So25NSAppearanceCustomizationP", "fatalError"]
+- !private ["So25NSAppearanceCustomizationP", "frame"]
+- !private ["So25NSAppearanceCustomizationP", "init"]
+- !private ["So25NSAppearanceCustomizationP", "resourceRenderer"]
+- ["So25NSAppearanceCustomizationP", ""]
+- !private ["So8NSCodingP", "CBevelView"]
+- !private ["So8NSCodingP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So8NSCodingP", "NSGraphicsContext"]
+- !private ["So8NSCodingP", "addSubview"]
+- !private ["So8NSCodingP", "draw"]
+- !private ["So8NSCodingP", "fatalError"]
+- !private ["So8NSCodingP", "frame"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "resourceRenderer"]
+- ["So8NSCodingP", ""]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So21NSDraggingDestinationP", "CBevelView"]
+- !private ["So21NSDraggingDestinationP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So21NSDraggingDestinationP", "NSGraphicsContext"]
+- !private ["So21NSDraggingDestinationP", "addSubview"]
+- !private ["So21NSDraggingDestinationP", "draw"]
+- !private ["So21NSDraggingDestinationP", "fatalError"]
+- !private ["So21NSDraggingDestinationP", "frame"]
+- !private ["So21NSDraggingDestinationP", "init"]
+- !private ["So21NSDraggingDestinationP", "resourceRenderer"]
+- ["So21NSDraggingDestinationP", ""]
+- !private ["So17NSGraphicsContextC", "cgContext"]
+- !private ["So17NSGraphicsContextC", "current"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So16NSMutableCopyingP", "init"]
+- !private ["So8NSObjectC", "CBevelView"]
+- !private ["So8NSObjectC", "CGraphicResourceContextCoreGraphics"]
+- ["So8NSObjectC", "CResourceRenderer"]
+- !private ["So8NSObjectC", "DrawResources"]
+- ["So8NSObjectC", "NSCoder"]
+- !private ["So8NSObjectC", "NSGraphicsContext"]
+- ["So8NSObjectC", "NSRect"]
+- !private ["So8NSObjectC", "addSubview"]
+- !private ["So8NSObjectC", "cgContext"]
+- !private ["So8NSObjectC", "current"]
+- ["So8NSObjectC", "draw"]
+- !private ["So8NSObjectC", "fatalError"]
+- !private ["So8NSObjectC", "frame"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "resourceRenderer"]
+- !private ["So16NSObjectProtocolP", "CBevelView"]
+- !private ["So16NSObjectProtocolP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So16NSObjectProtocolP", "DrawResources"]
+- !private ["So16NSObjectProtocolP", "NSGraphicsContext"]
+- !private ["So16NSObjectProtocolP", "addSubview"]
+- !private ["So16NSObjectProtocolP", "cgContext"]
+- !private ["So16NSObjectProtocolP", "current"]
+- !private ["So16NSObjectProtocolP", "draw"]
+- !private ["So16NSObjectProtocolP", "fatalError"]
+- !private ["So16NSObjectProtocolP", "frame"]
+- !private ["So16NSObjectProtocolP", "init"]
+- !private ["So16NSObjectProtocolP", "resourceRenderer"]
+- ["So16NSObjectProtocolP", ""]
+- !private ["So19NSPasteboardReadingP", "init"]
+- !private ["So19NSPasteboardWritingP", "init"]
+- !private ["So11NSResponderC", "CBevelView"]
+- !private ["So11NSResponderC", "CGraphicResourceContextCoreGraphics"]
+- ["So11NSResponderC", "CResourceRenderer"]
+- ["So11NSResponderC", "NSCoder"]
+- !private ["So11NSResponderC", "NSGraphicsContext"]
+- ["So11NSResponderC", "NSRect"]
+- !private ["So11NSResponderC", "addSubview"]
+- ["So11NSResponderC", "draw"]
+- !private ["So11NSResponderC", "fatalError"]
+- !private ["So11NSResponderC", "frame"]
+- ["So11NSResponderC", "init"]
+- ["So11NSResponderC", "resourceRenderer"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So8NSStringC", "init"]
+- !private ["So18NSTouchBarProviderP", "CBevelView"]
+- !private ["So18NSTouchBarProviderP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So18NSTouchBarProviderP", "NSGraphicsContext"]
+- !private ["So18NSTouchBarProviderP", "addSubview"]
+- !private ["So18NSTouchBarProviderP", "draw"]
+- !private ["So18NSTouchBarProviderP", "fatalError"]
+- !private ["So18NSTouchBarProviderP", "frame"]
+- !private ["So18NSTouchBarProviderP", "init"]
+- !private ["So18NSTouchBarProviderP", "resourceRenderer"]
+- ["So18NSTouchBarProviderP", ""]
+- !private ["So33NSUserInterfaceItemIdentificationP", "CBevelView"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "NSGraphicsContext"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "addSubview"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "draw"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "fatalError"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "frame"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "init"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "resourceRenderer"]
+- ["So33NSUserInterfaceItemIdentificationP", ""]
+- !private ["So6NSViewC", "CBevelView"]
+- !private ["So6NSViewC", "CGraphicResourceContextCoreGraphics"]
+- ["So6NSViewC", "CResourceRenderer"]
+- ["So6NSViewC", "NSCoder"]
+- !private ["So6NSViewC", "NSGraphicsContext"]
+- ["So6NSViewC", "NSRect"]
+- !private ["So6NSViewC", "addSubview"]
+- ["So6NSViewC", "draw"]
+- !private ["So6NSViewC", "fatalError"]
+- !private ["So6NSViewC", "frame"]
+- ["So6NSViewC", "init"]
+- ["So6NSViewC", "resourceRenderer"]
+- ["So6NSViewC", ""]
+- !private ["s26RangeReplaceableCollectionP", "init"]
+- !private ["9WarCraft212ResourceViewC", "CBevelView"]
+- !private ["9WarCraft212ResourceViewC", "CGraphicResourceContextCoreGraphics"]
+- ["9WarCraft212ResourceViewC", "CResourceRenderer"]
+- ["9WarCraft212ResourceViewC", "NSCoder"]
+- !private ["9WarCraft212ResourceViewC", "NSGraphicsContext"]
+- ["9WarCraft212ResourceViewC", "NSRect"]
+- !private ["9WarCraft212ResourceViewC", "addSubview"]
+- ["9WarCraft212ResourceViewC", "deinit"]
+- ["9WarCraft212ResourceViewC", "draw"]
+- !private ["9WarCraft212ResourceViewC", "fatalError"]
+- !private ["9WarCraft212ResourceViewC", "frame"]
+- ["9WarCraft212ResourceViewC", "init"]
+- ["9WarCraft212ResourceViewC", "resourceRenderer"]
+- !private ["s8SequenceP", "init"]
+- !private ["s12StaticStringV", "init"]
+- !private ["SS", "init"]
+- !private ["s14StringProtocolP", "init"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["s23_BidirectionalIndexableP", "init"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "CBevelView"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "NSGraphicsContext"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "addSubview"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "draw"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "fatalError"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "frame"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "init"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "resourceRenderer"]
+- ["s37_DefaultCustomPlaygroundQuickLookableP", ""]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s39_ExpressibleByBuiltinUTF16StringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s33_ExpressibleByStringInterpolationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s10_IndexableP", "init"]
+- !private ["s14_IndexableBaseP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CBevelView"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CGraphicResourceContextCoreGraphics"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DrawResources"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NSGraphicsContext"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "addSubview"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "cgContext"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "draw"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fatalError"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "frame"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "resourceRenderer"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s16_SwiftStringViewP", "init"]
+depends-nominal:
+- !private "s23BidirectionalCollectionP"
+- !private "9WarCraft210CBevelViewC"
+- !private "9WarCraft235CGraphicResourceContextCoreGraphicsC"
+- !private "9WarCraft217CResourceRendererC"
+- "s7CVarArgP"
+- !private "s10CollectionP"
+- !private "s10ComparableP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- !private "s9EncodableP"
+- "s9EquatableP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- "s8HashableP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- "So15NSAccessibilityP"
+- "So30NSAccessibilityElementProtocolP"
+- "So29NSAnimatablePropertyContainerP"
+- "So25NSAppearanceCustomizationP"
+- "So8NSCodingP"
+- !private "So9NSCopyingP"
+- "So21NSDraggingDestinationP"
+- !private "So17NSGraphicsContextC"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So16NSObjectProtocolP"
+- !private "So19NSPasteboardReadingP"
+- !private "So19NSPasteboardWritingP"
+- "So11NSResponderC"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- "So18NSTouchBarProviderP"
+- "So33NSUserInterfaceItemIdentificationP"
+- "So6NSViewC"
+- !private "s26RangeReplaceableCollectionP"
+- "9WarCraft212ResourceViewC"
+- !private "s8SequenceP"
+- !private "s12StaticStringV"
+- !private "SS"
+- !private "s14StringProtocolP"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "s23_BidirectionalIndexableP"
+- "s37_DefaultCustomPlaygroundQuickLookableP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s39_ExpressibleByBuiltinUTF16StringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s33_ExpressibleByStringInterpolationP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "s10_IndexableP"
+- !private "s14_IndexableBaseP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s26_RangeReplaceableIndexableP"
+- !private "s16_SwiftStringViewP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "087790c6e8e9059ff425678825734627"

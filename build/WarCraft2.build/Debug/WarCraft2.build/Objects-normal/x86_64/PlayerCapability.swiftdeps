@@ -1,0 +1,476 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "CPlayerCapability"
+provides-nominal:
+- "9WarCraft217CPlayerCapabilityC"
+- "9WarCraft217CPlayerCapabilityC11ETargetTypeO"
+provides-member:
+- ["9WarCraft217CPlayerCapabilityC", ""]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "+"
+- "=="
+- !private ">"
+- !private ">="
+- "AssignmentPrecedence"
+- "Bool"
+- !private "BooleanLiteralType"
+- "CPlayerAsset"
+- "CPlayerCapability"
+- "CPlayerData"
+- "EAssetCapabilityType"
+- "FloatLiteralType"
+- "Int"
+- "IntegerLiteralType"
+- "String"
+- !private "StringLiteralType"
+- !private "print"
+- !private "||"
+- !private "~="
+depends-member:
+- !private ["Sa", "count"]
+- !private ["Sa", "subscript"]
+- !private ["s23BidirectionalCollectionP", "count"]
+- !private ["s23BidirectionalCollectionP", "init"]
+- !private ["s23BidirectionalCollectionP", "subscript"]
+- !private ["s13BinaryIntegerP", "hashValue"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- ["9WarCraft217CPlayerCapabilityC", "ApplyCapability"]
+- ["9WarCraft217CPlayerCapabilityC", "AssetCapabilityType"]
+- ["9WarCraft217CPlayerCapabilityC", "Bool"]
+- ["9WarCraft217CPlayerCapabilityC", "CPlayerAsset"]
+- ["9WarCraft217CPlayerCapabilityC", "CPlayerCapability"]
+- ["9WarCraft217CPlayerCapabilityC", "CPlayerData"]
+- ["9WarCraft217CPlayerCapabilityC", "CanApply"]
+- ["9WarCraft217CPlayerCapabilityC", "CanInitiate"]
+- ["9WarCraft217CPlayerCapabilityC", "DAssetCapabilityType"]
+- ["9WarCraft217CPlayerCapabilityC", "DName"]
+- ["9WarCraft217CPlayerCapabilityC", "DTargetType"]
+- ["9WarCraft217CPlayerCapabilityC", "EAssetCapabilityType"]
+- ["9WarCraft217CPlayerCapabilityC", "ETargetType"]
+- ["9WarCraft217CPlayerCapabilityC", "FindCapability"]
+- ["9WarCraft217CPlayerCapabilityC", "Int"]
+- ["9WarCraft217CPlayerCapabilityC", "NameRegistry"]
+- ["9WarCraft217CPlayerCapabilityC", "NameToType"]
+- ["9WarCraft217CPlayerCapabilityC", "Register"]
+- ["9WarCraft217CPlayerCapabilityC", "String"]
+- ["9WarCraft217CPlayerCapabilityC", "TargetType"]
+- ["9WarCraft217CPlayerCapabilityC", "TypeRegistry"]
+- ["9WarCraft217CPlayerCapabilityC", "TypeToName"]
+- ["9WarCraft217CPlayerCapabilityC", "deinit"]
+- ["9WarCraft217CPlayerCapabilityC", "init"]
+- !private ["9WarCraft217CPlayerCapabilityC", "print"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "hashValue"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s10CollectionP", "count"]
+- !private ["s10CollectionP", "init"]
+- !private ["s10CollectionP", "subscript"]
+- !private ["s10ComparableP", "hashValue"]
+- !private ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s29CustomPlaygroundQuickLookableP", "_getBuiltinLogicValue"]
+- !private ["s29CustomPlaygroundQuickLookableP", "hashValue"]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "_getBuiltinLogicValue"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "hashValue"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "hashValue"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s9DecodableP", "_getBuiltinLogicValue"]
+- !private ["s9DecodableP", "count"]
+- !private ["s9DecodableP", "hashValue"]
+- !private ["s9DecodableP", "init"]
+- !private ["s9DecodableP", "subscript"]
+- !private ["s10DictionaryV", "subscript"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "ArmorUpgrade1"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "ArmorUpgrade2"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "ArmorUpgrade3"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "ArrowUpgrade1"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "ArrowUpgrade2"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "ArrowUpgrade3"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Attack"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildAdvanced"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildArcher"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildBarracks"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildBlacksmith"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildCannonTower"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildCastle"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildFarm"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildFootman"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildGuardTower"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildKeep"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildLumberMill"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildPeasant"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildRanger"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildScoutTower"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildSimple"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildTownHall"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "BuildWall"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Cancel"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Convey"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Longbow"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Marksmanship"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Mine"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Move"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "None"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Patrol"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "RangerScouting"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "Repair"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "StandGround"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "WeaponUpgrade1"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "WeaponUpgrade2"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "WeaponUpgrade3"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "deinit"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "rawValue"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "Asset"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "None"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "Player"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "RawValue"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "Terrain"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "TerrainOrAsset"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "deinit"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "hashValue"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "init"]
+- ["9WarCraft217CPlayerCapabilityC11ETargetTypeO", "rawValue"]
+- !private ["s9EncodableP", "_getBuiltinLogicValue"]
+- !private ["s9EncodableP", "count"]
+- !private ["s9EncodableP", "hashValue"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EncodableP", "subscript"]
+- !private ["s9EquatableP", "ArmorUpgrade1"]
+- !private ["s9EquatableP", "ArmorUpgrade2"]
+- !private ["s9EquatableP", "ArmorUpgrade3"]
+- !private ["s9EquatableP", "ArrowUpgrade1"]
+- !private ["s9EquatableP", "ArrowUpgrade2"]
+- !private ["s9EquatableP", "ArrowUpgrade3"]
+- !private ["s9EquatableP", "Attack"]
+- !private ["s9EquatableP", "BuildAdvanced"]
+- !private ["s9EquatableP", "BuildArcher"]
+- !private ["s9EquatableP", "BuildBarracks"]
+- !private ["s9EquatableP", "BuildBlacksmith"]
+- !private ["s9EquatableP", "BuildCannonTower"]
+- !private ["s9EquatableP", "BuildCastle"]
+- !private ["s9EquatableP", "BuildFarm"]
+- !private ["s9EquatableP", "BuildFootman"]
+- !private ["s9EquatableP", "BuildGuardTower"]
+- !private ["s9EquatableP", "BuildKeep"]
+- !private ["s9EquatableP", "BuildLumberMill"]
+- !private ["s9EquatableP", "BuildPeasant"]
+- !private ["s9EquatableP", "BuildRanger"]
+- !private ["s9EquatableP", "BuildScoutTower"]
+- !private ["s9EquatableP", "BuildSimple"]
+- !private ["s9EquatableP", "BuildTownHall"]
+- !private ["s9EquatableP", "BuildWall"]
+- !private ["s9EquatableP", "Cancel"]
+- !private ["s9EquatableP", "Convey"]
+- !private ["s9EquatableP", "Longbow"]
+- !private ["s9EquatableP", "Marksmanship"]
+- !private ["s9EquatableP", "Mine"]
+- !private ["s9EquatableP", "Move"]
+- !private ["s9EquatableP", "None"]
+- !private ["s9EquatableP", "Patrol"]
+- !private ["s9EquatableP", "RangerScouting"]
+- ["s9EquatableP", "RawValue"]
+- !private ["s9EquatableP", "Repair"]
+- !private ["s9EquatableP", "StandGround"]
+- !private ["s9EquatableP", "WeaponUpgrade1"]
+- !private ["s9EquatableP", "WeaponUpgrade2"]
+- !private ["s9EquatableP", "WeaponUpgrade3"]
+- !private ["s9EquatableP", "_getBuiltinLogicValue"]
+- ["s9EquatableP", "hashValue"]
+- ["s9EquatableP", "init"]
+- ["s9EquatableP", "rawValue"]
+- ["s9EquatableP", ""]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "subscript"]
+- !private ["s27ExpressibleByBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s30ExpressibleByDictionaryLiteralP", "subscript"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "hashValue"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s17FixedWidthIntegerP", "hashValue"]
+- !private ["s8HashableP", "ArmorUpgrade1"]
+- !private ["s8HashableP", "ArmorUpgrade2"]
+- !private ["s8HashableP", "ArmorUpgrade3"]
+- !private ["s8HashableP", "ArrowUpgrade1"]
+- !private ["s8HashableP", "ArrowUpgrade2"]
+- !private ["s8HashableP", "ArrowUpgrade3"]
+- !private ["s8HashableP", "Attack"]
+- !private ["s8HashableP", "BuildAdvanced"]
+- !private ["s8HashableP", "BuildArcher"]
+- !private ["s8HashableP", "BuildBarracks"]
+- !private ["s8HashableP", "BuildBlacksmith"]
+- !private ["s8HashableP", "BuildCannonTower"]
+- !private ["s8HashableP", "BuildCastle"]
+- !private ["s8HashableP", "BuildFarm"]
+- !private ["s8HashableP", "BuildFootman"]
+- !private ["s8HashableP", "BuildGuardTower"]
+- !private ["s8HashableP", "BuildKeep"]
+- !private ["s8HashableP", "BuildLumberMill"]
+- !private ["s8HashableP", "BuildPeasant"]
+- !private ["s8HashableP", "BuildRanger"]
+- !private ["s8HashableP", "BuildScoutTower"]
+- !private ["s8HashableP", "BuildSimple"]
+- !private ["s8HashableP", "BuildTownHall"]
+- !private ["s8HashableP", "BuildWall"]
+- !private ["s8HashableP", "Cancel"]
+- !private ["s8HashableP", "Convey"]
+- !private ["s8HashableP", "Longbow"]
+- !private ["s8HashableP", "Marksmanship"]
+- !private ["s8HashableP", "Mine"]
+- !private ["s8HashableP", "Move"]
+- !private ["s8HashableP", "None"]
+- !private ["s8HashableP", "Patrol"]
+- !private ["s8HashableP", "RangerScouting"]
+- ["s8HashableP", "RawValue"]
+- !private ["s8HashableP", "Repair"]
+- !private ["s8HashableP", "StandGround"]
+- !private ["s8HashableP", "WeaponUpgrade1"]
+- !private ["s8HashableP", "WeaponUpgrade2"]
+- !private ["s8HashableP", "WeaponUpgrade3"]
+- !private ["s8HashableP", "_getBuiltinLogicValue"]
+- ["s8HashableP", "hashValue"]
+- ["s8HashableP", "init"]
+- ["s8HashableP", "rawValue"]
+- ["s8HashableP", ""]
+- !private ["Si", "hashValue"]
+- !private ["s25LosslessStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s25LosslessStringConvertibleP", "hashValue"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "hashValue"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["s17MutableCollectionP", "count"]
+- !private ["s17MutableCollectionP", "subscript"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So16NSMutableCopyingP", "init"]
+- !private ["So16NSObjectProtocolP", "init"]
+- !private ["So19NSPasteboardReadingP", "init"]
+- !private ["So19NSPasteboardWritingP", "init"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So8NSStringC", "init"]
+- !private ["s7NumericP", "hashValue"]
+- !private ["s22RandomAccessCollectionP", "count"]
+- !private ["s22RandomAccessCollectionP", "subscript"]
+- !private ["s26RangeReplaceableCollectionP", "count"]
+- !private ["s26RangeReplaceableCollectionP", "init"]
+- !private ["s26RangeReplaceableCollectionP", "subscript"]
+- !private ["s16RawRepresentableP", "ArmorUpgrade1"]
+- !private ["s16RawRepresentableP", "ArmorUpgrade2"]
+- !private ["s16RawRepresentableP", "ArmorUpgrade3"]
+- !private ["s16RawRepresentableP", "ArrowUpgrade1"]
+- !private ["s16RawRepresentableP", "ArrowUpgrade2"]
+- !private ["s16RawRepresentableP", "ArrowUpgrade3"]
+- !private ["s16RawRepresentableP", "Attack"]
+- !private ["s16RawRepresentableP", "BuildAdvanced"]
+- !private ["s16RawRepresentableP", "BuildArcher"]
+- !private ["s16RawRepresentableP", "BuildBarracks"]
+- !private ["s16RawRepresentableP", "BuildBlacksmith"]
+- !private ["s16RawRepresentableP", "BuildCannonTower"]
+- !private ["s16RawRepresentableP", "BuildCastle"]
+- !private ["s16RawRepresentableP", "BuildFarm"]
+- !private ["s16RawRepresentableP", "BuildFootman"]
+- !private ["s16RawRepresentableP", "BuildGuardTower"]
+- !private ["s16RawRepresentableP", "BuildKeep"]
+- !private ["s16RawRepresentableP", "BuildLumberMill"]
+- !private ["s16RawRepresentableP", "BuildPeasant"]
+- !private ["s16RawRepresentableP", "BuildRanger"]
+- !private ["s16RawRepresentableP", "BuildScoutTower"]
+- !private ["s16RawRepresentableP", "BuildSimple"]
+- !private ["s16RawRepresentableP", "BuildTownHall"]
+- !private ["s16RawRepresentableP", "BuildWall"]
+- !private ["s16RawRepresentableP", "Cancel"]
+- !private ["s16RawRepresentableP", "Convey"]
+- !private ["s16RawRepresentableP", "Longbow"]
+- !private ["s16RawRepresentableP", "Marksmanship"]
+- !private ["s16RawRepresentableP", "Mine"]
+- !private ["s16RawRepresentableP", "Move"]
+- !private ["s16RawRepresentableP", "None"]
+- !private ["s16RawRepresentableP", "Patrol"]
+- !private ["s16RawRepresentableP", "RangerScouting"]
+- ["s16RawRepresentableP", "RawValue"]
+- !private ["s16RawRepresentableP", "Repair"]
+- !private ["s16RawRepresentableP", "StandGround"]
+- !private ["s16RawRepresentableP", "WeaponUpgrade1"]
+- !private ["s16RawRepresentableP", "WeaponUpgrade2"]
+- !private ["s16RawRepresentableP", "WeaponUpgrade3"]
+- ["s16RawRepresentableP", "hashValue"]
+- ["s16RawRepresentableP", "init"]
+- ["s16RawRepresentableP", "rawValue"]
+- ["s16RawRepresentableP", ""]
+- !private ["s8SequenceP", "count"]
+- !private ["s8SequenceP", "init"]
+- !private ["s8SequenceP", "subscript"]
+- !private ["s13SignedIntegerP", "hashValue"]
+- !private ["s13SignedNumericP", "hashValue"]
+- !private ["s10StrideableP", "hashValue"]
+- !private ["SS", "init"]
+- !private ["s14StringProtocolP", "init"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "subscript"]
+- !private ["s23_BidirectionalIndexableP", "count"]
+- !private ["s23_BidirectionalIndexableP", "init"]
+- !private ["s23_BidirectionalIndexableP", "subscript"]
+- !private ["s18_BitwiseOperationsP", "hashValue"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "subscript"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "hashValue"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s39_ExpressibleByBuiltinUTF16StringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s33_ExpressibleByStringInterpolationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s10_IndexableP", "count"]
+- !private ["s10_IndexableP", "init"]
+- !private ["s10_IndexableP", "subscript"]
+- !private ["s14_IndexableBaseP", "count"]
+- !private ["s14_IndexableBaseP", "init"]
+- !private ["s14_IndexableBaseP", "subscript"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["s17_MutableIndexableP", "count"]
+- !private ["s17_MutableIndexableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "_getBuiltinLogicValue"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "hashValue"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s22_RandomAccessIndexableP", "count"]
+- !private ["s22_RandomAccessIndexableP", "subscript"]
+- !private ["s26_RangeReplaceableIndexableP", "count"]
+- !private ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s26_RangeReplaceableIndexableP", "subscript"]
+- !private ["s11_StrideableP", "hashValue"]
+- !private ["s16_SwiftStringViewP", "init"]
+depends-nominal:
+- !private "Sa"
+- !private "s23BidirectionalCollectionP"
+- !private "s13BinaryIntegerP"
+- !private "Sb"
+- "9WarCraft217CPlayerCapabilityC"
+- !private "s7CVarArgP"
+- !private "s10CollectionP"
+- !private "s10ComparableP"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- !private "s10DictionaryV"
+- !private "9WarCraft220EAssetCapabilityTypeO"
+- "9WarCraft217CPlayerCapabilityC11ETargetTypeO"
+- !private "s9EncodableP"
+- "s9EquatableP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s30ExpressibleByDictionaryLiteralP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "s8HashableP"
+- !private "Si"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "s17MutableCollectionP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- !private "So16NSObjectProtocolP"
+- !private "So19NSPasteboardReadingP"
+- !private "So19NSPasteboardWritingP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- !private "s7NumericP"
+- !private "s22RandomAccessCollectionP"
+- !private "s26RangeReplaceableCollectionP"
+- "s16RawRepresentableP"
+- !private "s8SequenceP"
+- !private "s13SignedIntegerP"
+- !private "s13SignedNumericP"
+- !private "s10StrideableP"
+- !private "SS"
+- !private "s14StringProtocolP"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "s14_ArrayProtocolP"
+- !private "s23_BidirectionalIndexableP"
+- !private "s18_BitwiseOperationsP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s39_ExpressibleByBuiltinUTF16StringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s33_ExpressibleByStringInterpolationP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "s10_IndexableP"
+- !private "s14_IndexableBaseP"
+- !private "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s17_MutableIndexableP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s22_RandomAccessIndexableP"
+- !private "s26_RangeReplaceableIndexableP"
+- !private "s11_StrideableP"
+- !private "s16_SwiftStringViewP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "3d9708794c623d6db150431febad4c6b"

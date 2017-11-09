@@ -1,0 +1,611 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "SAssetCommand"
+- "CPlayerAsset"
+- "!="
+- "=="
+- "<"
+- ">"
+provides-nominal:
+- "9WarCraft213SAssetCommandV"
+- "9WarCraft212CPlayerAssetC"
+provides-member:
+- ["9WarCraft213SAssetCommandV", ""]
+- ["9WarCraft212CPlayerAssetC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- "!="
+- !private "%"
+- !private "&&"
+- !private "*"
+- !private "+"
+- !private "+="
+- !private "-"
+- !private "-="
+- !private "/"
+- "<"
+- "=="
+- ">"
+- !private "Array"
+- "AssignmentPrecedence"
+- "Bool"
+- !private "BooleanLiteralType"
+- "CActivatedPlayerCapability"
+- "CPixelPosition"
+- "CPlayerAsset"
+- "CPlayerAssetType"
+- !private "CPosition"
+- "CTilePosition"
+- "EAssetAction"
+- "EAssetCapabilityType"
+- "EAssetType"
+- "EDirection"
+- "EPlayerColor"
+- "FloatLiteralType"
+- "Int"
+- "IntegerLiteralType"
+- "RandomNumberGenerator"
+- "SAssetCommand"
+- "TernaryPrecedence"
+- "UInt"
+- !private "min"
+- !private "||"
+depends-member:
+- !private ["Sa", "append"]
+- !private ["Sa", "count"]
+- !private ["Sa", "init"]
+- !private ["Sa", "insert"]
+- !private ["Sa", "isEmpty"]
+- !private ["Sa", "last"]
+- !private ["Sa", "removeLast"]
+- !private ["Sa", "startIndex"]
+- !private ["Sa", "subscript"]
+- !private ["s10ArraySliceV", "subscript"]
+- !private ["s23BidirectionalCollectionP", "append"]
+- !private ["s23BidirectionalCollectionP", "count"]
+- !private ["s23BidirectionalCollectionP", "init"]
+- !private ["s23BidirectionalCollectionP", "insert"]
+- !private ["s23BidirectionalCollectionP", "isEmpty"]
+- !private ["s23BidirectionalCollectionP", "last"]
+- !private ["s23BidirectionalCollectionP", "removeLast"]
+- !private ["s23BidirectionalCollectionP", "startIndex"]
+- !private ["s23BidirectionalCollectionP", "subscript"]
+- !private ["s13BinaryIntegerP", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["9WarCraft214CPixelPositionC", "ClosestPosition"]
+- !private ["9WarCraft214CPixelPositionC", "IncrementX"]
+- !private ["9WarCraft214CPixelPositionC", "IncrementY"]
+- !private ["9WarCraft214CPixelPositionC", "SetFromTile"]
+- !private ["9WarCraft214CPixelPositionC", "SetXFromTile"]
+- !private ["9WarCraft214CPixelPositionC", "SetYFromTile"]
+- !private ["9WarCraft214CPixelPositionC", "TileAligned"]
+- !private ["9WarCraft214CPixelPositionC", "TileOctant"]
+- !private ["9WarCraft214CPixelPositionC", "X"]
+- !private ["9WarCraft214CPixelPositionC", "Y"]
+- !private ["9WarCraft214CPixelPositionC", "init"]
+- ["9WarCraft212CPlayerAssetC", "!="]
+- ["9WarCraft212CPlayerAssetC", "<"]
+- ["9WarCraft212CPlayerAssetC", "=="]
+- ["9WarCraft212CPlayerAssetC", ">"]
+- ["9WarCraft212CPlayerAssetC", "Action"]
+- ["9WarCraft212CPlayerAssetC", "Alive"]
+- ["9WarCraft212CPlayerAssetC", "Armor"]
+- ["9WarCraft212CPlayerAssetC", "ArmorUpgrade"]
+- ["9WarCraft212CPlayerAssetC", "AssetType"]
+- ["9WarCraft212CPlayerAssetC", "AssignTurnOrder"]
+- ["9WarCraft212CPlayerAssetC", "AttackSteps"]
+- ["9WarCraft212CPlayerAssetC", "BasicDamage"]
+- ["9WarCraft212CPlayerAssetC", "BasicDamageUpgrade"]
+- ["9WarCraft212CPlayerAssetC", "Bool"]
+- ["9WarCraft212CPlayerAssetC", "BuildTime"]
+- ["9WarCraft212CPlayerAssetC", "CPixelPosition"]
+- ["9WarCraft212CPlayerAssetC", "CPlayerAsset"]
+- ["9WarCraft212CPlayerAssetC", "CPlayerAssetType"]
+- !private ["9WarCraft212CPlayerAssetC", "CPosition"]
+- ["9WarCraft212CPlayerAssetC", "CTilePosition"]
+- ["9WarCraft212CPlayerAssetC", "Capabilities"]
+- ["9WarCraft212CPlayerAssetC", "ChangeType"]
+- ["9WarCraft212CPlayerAssetC", "ClearCommand"]
+- ["9WarCraft212CPlayerAssetC", "ClosestPosition"]
+- ["9WarCraft212CPlayerAssetC", "Color"]
+- ["9WarCraft212CPlayerAssetC", "CommandCount"]
+- ["9WarCraft212CPlayerAssetC", "CreationCycle"]
+- ["9WarCraft212CPlayerAssetC", "CurrentCommand"]
+- ["9WarCraft212CPlayerAssetC", "DCommands"]
+- ["9WarCraft212CPlayerAssetC", "DCreationCycle"]
+- ["9WarCraft212CPlayerAssetC", "DDirection"]
+- ["9WarCraft212CPlayerAssetC", "DGenerateRandomNum"]
+- ["9WarCraft212CPlayerAssetC", "DGold"]
+- ["9WarCraft212CPlayerAssetC", "DHitPoints"]
+- ["9WarCraft212CPlayerAssetC", "DLumber"]
+- ["9WarCraft212CPlayerAssetC", "DMoveRemainderX"]
+- ["9WarCraft212CPlayerAssetC", "DMoveRemainderY"]
+- ["9WarCraft212CPlayerAssetC", "DPosition"]
+- ["9WarCraft212CPlayerAssetC", "DStep"]
+- ["9WarCraft212CPlayerAssetC", "DTurnOrder"]
+- ["9WarCraft212CPlayerAssetC", "DType"]
+- ["9WarCraft212CPlayerAssetC", "DUpdateDivisor"]
+- ["9WarCraft212CPlayerAssetC", "DUpdateFrequency"]
+- ["9WarCraft212CPlayerAssetC", "DecrementGold"]
+- ["9WarCraft212CPlayerAssetC", "DecrementHitPoints"]
+- ["9WarCraft212CPlayerAssetC", "DecrementLumber"]
+- ["9WarCraft212CPlayerAssetC", "Direction"]
+- ["9WarCraft212CPlayerAssetC", "EAssetAction"]
+- ["9WarCraft212CPlayerAssetC", "EAssetCapabilityType"]
+- ["9WarCraft212CPlayerAssetC", "EAssetType"]
+- ["9WarCraft212CPlayerAssetC", "EDirection"]
+- ["9WarCraft212CPlayerAssetC", "EPlayerColor"]
+- ["9WarCraft212CPlayerAssetC", "EffectiveArmor"]
+- ["9WarCraft212CPlayerAssetC", "EffectiveBasicDamage"]
+- ["9WarCraft212CPlayerAssetC", "EffectivePiercingDamage"]
+- ["9WarCraft212CPlayerAssetC", "EffectiveRange"]
+- ["9WarCraft212CPlayerAssetC", "EffectiveSight"]
+- ["9WarCraft212CPlayerAssetC", "EffectiveSpeed"]
+- ["9WarCraft212CPlayerAssetC", "EnqueueCommand"]
+- ["9WarCraft212CPlayerAssetC", "FoodConsumption"]
+- ["9WarCraft212CPlayerAssetC", "Gold"]
+- ["9WarCraft212CPlayerAssetC", "GoldCost"]
+- ["9WarCraft212CPlayerAssetC", "HasAction"]
+- ["9WarCraft212CPlayerAssetC", "HasActiveCapability"]
+- ["9WarCraft212CPlayerAssetC", "HasCapability"]
+- ["9WarCraft212CPlayerAssetC", "HitPoints"]
+- ["9WarCraft212CPlayerAssetC", "IncrementGold"]
+- ["9WarCraft212CPlayerAssetC", "IncrementHitPoints"]
+- ["9WarCraft212CPlayerAssetC", "IncrementLumber"]
+- ["9WarCraft212CPlayerAssetC", "IncrementStep"]
+- ["9WarCraft212CPlayerAssetC", "Int"]
+- ["9WarCraft212CPlayerAssetC", "Interruptible"]
+- ["9WarCraft212CPlayerAssetC", "Lumber"]
+- ["9WarCraft212CPlayerAssetC", "LumberCost"]
+- ["9WarCraft212CPlayerAssetC", "MaxHitPoints"]
+- ["9WarCraft212CPlayerAssetC", "MoveStep"]
+- ["9WarCraft212CPlayerAssetC", "NextCommand"]
+- ["9WarCraft212CPlayerAssetC", "PiercingDamage"]
+- ["9WarCraft212CPlayerAssetC", "PiercingDamageUpgrade"]
+- ["9WarCraft212CPlayerAssetC", "PopCommand"]
+- ["9WarCraft212CPlayerAssetC", "Position"]
+- ["9WarCraft212CPlayerAssetC", "PositionX"]
+- ["9WarCraft212CPlayerAssetC", "PositionY"]
+- ["9WarCraft212CPlayerAssetC", "PushCommand"]
+- ["9WarCraft212CPlayerAssetC", "RandomNumberGenerator"]
+- ["9WarCraft212CPlayerAssetC", "Range"]
+- ["9WarCraft212CPlayerAssetC", "RangeUpgrade"]
+- ["9WarCraft212CPlayerAssetC", "ReloadSteps"]
+- ["9WarCraft212CPlayerAssetC", "ResetStep"]
+- ["9WarCraft212CPlayerAssetC", "SAssetCommand"]
+- ["9WarCraft212CPlayerAssetC", "Sight"]
+- ["9WarCraft212CPlayerAssetC", "SightUpgrade"]
+- ["9WarCraft212CPlayerAssetC", "Size"]
+- ["9WarCraft212CPlayerAssetC", "Speed"]
+- ["9WarCraft212CPlayerAssetC", "SpeedUpgrade"]
+- ["9WarCraft212CPlayerAssetC", "Step"]
+- ["9WarCraft212CPlayerAssetC", "TileAligned"]
+- ["9WarCraft212CPlayerAssetC", "TilePosition"]
+- ["9WarCraft212CPlayerAssetC", "TilePositionX"]
+- ["9WarCraft212CPlayerAssetC", "TilePositionY"]
+- ["9WarCraft212CPlayerAssetC", "Type"]
+- ["9WarCraft212CPlayerAssetC", "UInt"]
+- ["9WarCraft212CPlayerAssetC", "UpdateFrequency"]
+- ["9WarCraft212CPlayerAssetC", "deinit"]
+- ["9WarCraft212CPlayerAssetC", "getTurnOrder"]
+- ["9WarCraft212CPlayerAssetC", "init"]
+- !private ["9WarCraft212CPlayerAssetC", "min"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "ArmorUpgrade"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "BasicDamageUpgrade"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "Capabilities"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DArmor"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DAttackSteps"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DBasicDamage"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DBuildTime"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DColor"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DConstructionSight"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DFoodConsumption"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DGoldCost"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DHitPoints"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DLumberCost"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DPiercingDamage"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DRange"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DReloadSteps"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DSight"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DSize"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DSpeed"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "DType"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "HasCapability"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "PiercingDamageUpgrade"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "RangeUpgrade"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "SightUpgrade"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "SpeedUpgrade"]
+- !private ["9WarCraft216CPlayerAssetTypeC", "init"]
+- !private ["9WarCraft29CPositionC", "ClosestPosition"]
+- !private ["9WarCraft29CPositionC", "IncrementX"]
+- !private ["9WarCraft29CPositionC", "IncrementY"]
+- !private ["9WarCraft29CPositionC", "SetFromPixel"]
+- !private ["9WarCraft29CPositionC", "SetFromTile"]
+- !private ["9WarCraft29CPositionC", "SetXFromTile"]
+- !private ["9WarCraft29CPositionC", "SetYFromTile"]
+- !private ["9WarCraft29CPositionC", "TileAligned"]
+- !private ["9WarCraft29CPositionC", "TileHeight"]
+- !private ["9WarCraft29CPositionC", "TileOctant"]
+- !private ["9WarCraft29CPositionC", "TileWidth"]
+- !private ["9WarCraft29CPositionC", "X"]
+- !private ["9WarCraft29CPositionC", "Y"]
+- !private ["9WarCraft213CTilePositionC", "SetFromPixel"]
+- !private ["9WarCraft213CTilePositionC", "X"]
+- !private ["9WarCraft213CTilePositionC", "Y"]
+- !private ["9WarCraft213CTilePositionC", "init"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "count"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "insert"]
+- !private ["s7CVarArgP", "isEmpty"]
+- !private ["s7CVarArgP", "last"]
+- !private ["s7CVarArgP", "removeLast"]
+- !private ["s7CVarArgP", "startIndex"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s10CollectionP", "append"]
+- !private ["s10CollectionP", "count"]
+- !private ["s10CollectionP", "init"]
+- !private ["s10CollectionP", "insert"]
+- !private ["s10CollectionP", "isEmpty"]
+- !private ["s10CollectionP", "last"]
+- !private ["s10CollectionP", "removeLast"]
+- !private ["s10CollectionP", "startIndex"]
+- !private ["s10CollectionP", "subscript"]
+- !private ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "insert"]
+- !private ["s28CustomDebugStringConvertibleP", "isEmpty"]
+- !private ["s28CustomDebugStringConvertibleP", "last"]
+- !private ["s28CustomDebugStringConvertibleP", "removeLast"]
+- !private ["s28CustomDebugStringConvertibleP", "startIndex"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s29CustomPlaygroundQuickLookableP", "_getBuiltinLogicValue"]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "_getBuiltinLogicValue"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "count"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "insert"]
+- !private ["s17CustomReflectableP", "isEmpty"]
+- !private ["s17CustomReflectableP", "last"]
+- !private ["s17CustomReflectableP", "removeLast"]
+- !private ["s17CustomReflectableP", "startIndex"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "insert"]
+- !private ["s23CustomStringConvertibleP", "isEmpty"]
+- !private ["s23CustomStringConvertibleP", "last"]
+- !private ["s23CustomStringConvertibleP", "removeLast"]
+- !private ["s23CustomStringConvertibleP", "startIndex"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s9DecodableP", "_getBuiltinLogicValue"]
+- !private ["s9DecodableP", "append"]
+- !private ["s9DecodableP", "count"]
+- !private ["s9DecodableP", "init"]
+- !private ["s9DecodableP", "insert"]
+- !private ["s9DecodableP", "isEmpty"]
+- !private ["s9DecodableP", "last"]
+- !private ["s9DecodableP", "removeLast"]
+- !private ["s9DecodableP", "startIndex"]
+- !private ["s9DecodableP", "subscript"]
+- ["9WarCraft212EAssetActionO", "Build"]
+- ["9WarCraft212EAssetActionO", "Capability"]
+- ["9WarCraft212EAssetActionO", "Construct"]
+- ["9WarCraft212EAssetActionO", "ConveyGold"]
+- ["9WarCraft212EAssetActionO", "ConveyLumber"]
+- ["9WarCraft212EAssetActionO", "Death"]
+- ["9WarCraft212EAssetActionO", "Decay"]
+- ["9WarCraft212EAssetActionO", "MineGold"]
+- !private ["9WarCraft212EAssetActionO", "None"]
+- !private ["9WarCraft212EAssetActionO", "Walk"]
+- !private ["9WarCraft212EAssetActionO", "deinit"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "None"]
+- !private ["9WarCraft220EAssetCapabilityTypeO", "deinit"]
+- !private ["9WarCraft210EDirectionO", "Max"]
+- !private ["9WarCraft210EDirectionO", "South"]
+- !private ["9WarCraft210EDirectionO", "deinit"]
+- !private ["9WarCraft210EDirectionO", "rawValue"]
+- !private ["s9EncodableP", "_getBuiltinLogicValue"]
+- !private ["s9EncodableP", "append"]
+- !private ["s9EncodableP", "count"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EncodableP", "insert"]
+- !private ["s9EncodableP", "isEmpty"]
+- !private ["s9EncodableP", "last"]
+- !private ["s9EncodableP", "removeLast"]
+- !private ["s9EncodableP", "startIndex"]
+- !private ["s9EncodableP", "subscript"]
+- ["s9EquatableP", "Build"]
+- ["s9EquatableP", "Capability"]
+- ["s9EquatableP", "Construct"]
+- ["s9EquatableP", "ConveyGold"]
+- ["s9EquatableP", "ConveyLumber"]
+- ["s9EquatableP", "Death"]
+- ["s9EquatableP", "Decay"]
+- !private ["s9EquatableP", "Max"]
+- ["s9EquatableP", "MineGold"]
+- !private ["s9EquatableP", "None"]
+- !private ["s9EquatableP", "South"]
+- !private ["s9EquatableP", "Walk"]
+- !private ["s9EquatableP", "_getBuiltinLogicValue"]
+- !private ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "rawValue"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- !private ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s25ExpressibleByArrayLiteralP", "insert"]
+- !private ["s25ExpressibleByArrayLiteralP", "isEmpty"]
+- !private ["s25ExpressibleByArrayLiteralP", "last"]
+- !private ["s25ExpressibleByArrayLiteralP", "removeLast"]
+- !private ["s25ExpressibleByArrayLiteralP", "startIndex"]
+- !private ["s25ExpressibleByArrayLiteralP", "subscript"]
+- !private ["s27ExpressibleByBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s17FixedWidthIntegerP", "init"]
+- ["s8HashableP", "Build"]
+- ["s8HashableP", "Capability"]
+- ["s8HashableP", "Construct"]
+- ["s8HashableP", "ConveyGold"]
+- ["s8HashableP", "ConveyLumber"]
+- ["s8HashableP", "Death"]
+- ["s8HashableP", "Decay"]
+- !private ["s8HashableP", "Max"]
+- ["s8HashableP", "MineGold"]
+- !private ["s8HashableP", "None"]
+- !private ["s8HashableP", "South"]
+- !private ["s8HashableP", "Walk"]
+- !private ["s8HashableP", "_getBuiltinLogicValue"]
+- !private ["s8HashableP", "init"]
+- !private ["s8HashableP", "rawValue"]
+- !private ["s25LosslessStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s17MutableCollectionP", "append"]
+- !private ["s17MutableCollectionP", "count"]
+- !private ["s17MutableCollectionP", "init"]
+- !private ["s17MutableCollectionP", "insert"]
+- !private ["s17MutableCollectionP", "isEmpty"]
+- !private ["s17MutableCollectionP", "last"]
+- !private ["s17MutableCollectionP", "removeLast"]
+- !private ["s17MutableCollectionP", "startIndex"]
+- !private ["s17MutableCollectionP", "subscript"]
+- !private ["s7NumericP", "init"]
+- !private ["s22RandomAccessCollectionP", "append"]
+- !private ["s22RandomAccessCollectionP", "count"]
+- !private ["s22RandomAccessCollectionP", "init"]
+- !private ["s22RandomAccessCollectionP", "insert"]
+- !private ["s22RandomAccessCollectionP", "isEmpty"]
+- !private ["s22RandomAccessCollectionP", "last"]
+- !private ["s22RandomAccessCollectionP", "removeLast"]
+- !private ["s22RandomAccessCollectionP", "startIndex"]
+- !private ["s22RandomAccessCollectionP", "subscript"]
+- !private ["9WarCraft221RandomNumberGeneratorC", "Random"]
+- ["9WarCraft221RandomNumberGeneratorC", "init"]
+- !private ["s26RangeReplaceableCollectionP", "append"]
+- !private ["s26RangeReplaceableCollectionP", "count"]
+- !private ["s26RangeReplaceableCollectionP", "init"]
+- !private ["s26RangeReplaceableCollectionP", "insert"]
+- !private ["s26RangeReplaceableCollectionP", "isEmpty"]
+- !private ["s26RangeReplaceableCollectionP", "last"]
+- !private ["s26RangeReplaceableCollectionP", "removeLast"]
+- !private ["s26RangeReplaceableCollectionP", "startIndex"]
+- !private ["s26RangeReplaceableCollectionP", "subscript"]
+- ["s16RawRepresentableP", "Build"]
+- ["s16RawRepresentableP", "Capability"]
+- ["s16RawRepresentableP", "Construct"]
+- ["s16RawRepresentableP", "ConveyGold"]
+- ["s16RawRepresentableP", "ConveyLumber"]
+- ["s16RawRepresentableP", "Death"]
+- ["s16RawRepresentableP", "Decay"]
+- !private ["s16RawRepresentableP", "Max"]
+- ["s16RawRepresentableP", "MineGold"]
+- !private ["s16RawRepresentableP", "None"]
+- !private ["s16RawRepresentableP", "South"]
+- !private ["s16RawRepresentableP", "Walk"]
+- !private ["s16RawRepresentableP", "rawValue"]
+- ["9WarCraft213SAssetCommandV", "CActivatedPlayerCapability"]
+- ["9WarCraft213SAssetCommandV", "CPlayerAsset"]
+- ["9WarCraft213SAssetCommandV", "DAction"]
+- ["9WarCraft213SAssetCommandV", "DActivatedCapability"]
+- ["9WarCraft213SAssetCommandV", "DAssetTarget"]
+- ["9WarCraft213SAssetCommandV", "DCapability"]
+- ["9WarCraft213SAssetCommandV", "EAssetAction"]
+- ["9WarCraft213SAssetCommandV", "EAssetCapabilityType"]
+- ["9WarCraft213SAssetCommandV", "init"]
+- !private ["s8SequenceP", "append"]
+- !private ["s8SequenceP", "count"]
+- !private ["s8SequenceP", "init"]
+- !private ["s8SequenceP", "insert"]
+- !private ["s8SequenceP", "isEmpty"]
+- !private ["s8SequenceP", "last"]
+- !private ["s8SequenceP", "removeLast"]
+- !private ["s8SequenceP", "startIndex"]
+- !private ["s8SequenceP", "subscript"]
+- !private ["s10StrideableP", "init"]
+- !private ["Su", "init"]
+- !private ["s15UnsignedIntegerP", "init"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "count"]
+- !private ["s14_ArrayProtocolP", "init"]
+- !private ["s14_ArrayProtocolP", "insert"]
+- !private ["s14_ArrayProtocolP", "isEmpty"]
+- !private ["s14_ArrayProtocolP", "last"]
+- !private ["s14_ArrayProtocolP", "removeLast"]
+- !private ["s14_ArrayProtocolP", "startIndex"]
+- !private ["s14_ArrayProtocolP", "subscript"]
+- !private ["s23_BidirectionalIndexableP", "append"]
+- !private ["s23_BidirectionalIndexableP", "count"]
+- !private ["s23_BidirectionalIndexableP", "init"]
+- !private ["s23_BidirectionalIndexableP", "insert"]
+- !private ["s23_BidirectionalIndexableP", "isEmpty"]
+- !private ["s23_BidirectionalIndexableP", "last"]
+- !private ["s23_BidirectionalIndexableP", "removeLast"]
+- !private ["s23_BidirectionalIndexableP", "startIndex"]
+- !private ["s23_BidirectionalIndexableP", "subscript"]
+- !private ["s18_BitwiseOperationsP", "init"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- !private ["s24_DestructorSafeContainerP", "init"]
+- !private ["s24_DestructorSafeContainerP", "insert"]
+- !private ["s24_DestructorSafeContainerP", "isEmpty"]
+- !private ["s24_DestructorSafeContainerP", "last"]
+- !private ["s24_DestructorSafeContainerP", "removeLast"]
+- !private ["s24_DestructorSafeContainerP", "startIndex"]
+- !private ["s24_DestructorSafeContainerP", "subscript"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s10_IndexableP", "append"]
+- !private ["s10_IndexableP", "count"]
+- !private ["s10_IndexableP", "init"]
+- !private ["s10_IndexableP", "insert"]
+- !private ["s10_IndexableP", "isEmpty"]
+- !private ["s10_IndexableP", "last"]
+- !private ["s10_IndexableP", "removeLast"]
+- !private ["s10_IndexableP", "startIndex"]
+- !private ["s10_IndexableP", "subscript"]
+- !private ["s14_IndexableBaseP", "append"]
+- !private ["s14_IndexableBaseP", "count"]
+- !private ["s14_IndexableBaseP", "init"]
+- !private ["s14_IndexableBaseP", "insert"]
+- !private ["s14_IndexableBaseP", "isEmpty"]
+- !private ["s14_IndexableBaseP", "last"]
+- !private ["s14_IndexableBaseP", "removeLast"]
+- !private ["s14_IndexableBaseP", "startIndex"]
+- !private ["s14_IndexableBaseP", "subscript"]
+- !private ["s17_MutableIndexableP", "append"]
+- !private ["s17_MutableIndexableP", "count"]
+- !private ["s17_MutableIndexableP", "init"]
+- !private ["s17_MutableIndexableP", "insert"]
+- !private ["s17_MutableIndexableP", "isEmpty"]
+- !private ["s17_MutableIndexableP", "last"]
+- !private ["s17_MutableIndexableP", "removeLast"]
+- !private ["s17_MutableIndexableP", "startIndex"]
+- !private ["s17_MutableIndexableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "_getBuiltinLogicValue"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "insert"]
+- !private ["s21_ObjectiveCBridgeableP", "isEmpty"]
+- !private ["s21_ObjectiveCBridgeableP", "last"]
+- !private ["s21_ObjectiveCBridgeableP", "removeLast"]
+- !private ["s21_ObjectiveCBridgeableP", "startIndex"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s22_RandomAccessIndexableP", "append"]
+- !private ["s22_RandomAccessIndexableP", "count"]
+- !private ["s22_RandomAccessIndexableP", "init"]
+- !private ["s22_RandomAccessIndexableP", "insert"]
+- !private ["s22_RandomAccessIndexableP", "isEmpty"]
+- !private ["s22_RandomAccessIndexableP", "last"]
+- !private ["s22_RandomAccessIndexableP", "removeLast"]
+- !private ["s22_RandomAccessIndexableP", "startIndex"]
+- !private ["s22_RandomAccessIndexableP", "subscript"]
+- !private ["s26_RangeReplaceableIndexableP", "append"]
+- !private ["s26_RangeReplaceableIndexableP", "count"]
+- !private ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s26_RangeReplaceableIndexableP", "insert"]
+- !private ["s26_RangeReplaceableIndexableP", "isEmpty"]
+- !private ["s26_RangeReplaceableIndexableP", "last"]
+- !private ["s26_RangeReplaceableIndexableP", "removeLast"]
+- !private ["s26_RangeReplaceableIndexableP", "startIndex"]
+- !private ["s26_RangeReplaceableIndexableP", "subscript"]
+- !private ["s11_StrideableP", "init"]
+depends-nominal:
+- !private "Sa"
+- !private "s10ArraySliceV"
+- !private "s23BidirectionalCollectionP"
+- !private "s13BinaryIntegerP"
+- !private "Sb"
+- !private "9WarCraft214CPixelPositionC"
+- "9WarCraft212CPlayerAssetC"
+- !private "9WarCraft216CPlayerAssetTypeC"
+- !private "9WarCraft29CPositionC"
+- !private "9WarCraft213CTilePositionC"
+- !private "s7CVarArgP"
+- !private "s10CollectionP"
+- !private "s10ComparableP"
+- !private "s28CustomDebugStringConvertibleP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- "9WarCraft212EAssetActionO"
+- !private "9WarCraft220EAssetCapabilityTypeO"
+- !private "9WarCraft210EDirectionO"
+- !private "s9EncodableP"
+- "s9EquatableP"
+- !private "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "s8HashableP"
+- !private "s25LosslessStringConvertibleP"
+- !private "s17MutableCollectionP"
+- !private "s7NumericP"
+- !private "s22RandomAccessCollectionP"
+- "9WarCraft221RandomNumberGeneratorC"
+- !private "s26RangeReplaceableCollectionP"
+- "s16RawRepresentableP"
+- "9WarCraft213SAssetCommandV"
+- !private "s8SequenceP"
+- !private "s10StrideableP"
+- !private "Su"
+- !private "s15UnsignedIntegerP"
+- !private "s14_ArrayProtocolP"
+- !private "s23_BidirectionalIndexableP"
+- !private "s18_BitwiseOperationsP"
+- !private "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s10_IndexableP"
+- !private "s14_IndexableBaseP"
+- !private "s17_MutableIndexableP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s22_RandomAccessIndexableP"
+- !private "s26_RangeReplaceableIndexableP"
+- !private "s11_StrideableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "b16dae2945047b08f22f0422dafadc52"

@@ -1,0 +1,198 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "CMiniMapRenderer"
+provides-nominal:
+- "9WarCraft216CMiniMapRendererC"
+provides-member:
+- ["9WarCraft216CMiniMapRendererC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "*"
+- !private "/"
+- !private "<"
+- !private "=="
+- !private ">"
+- "AssignmentPrecedence"
+- "CAssetRenderer"
+- "CFogRenderer"
+- !private "CGFloat"
+- !private "CGraphicFactory"
+- "CGraphicSurface"
+- "CMapRenderer"
+- "CMiniMapRenderer"
+- "CViewportRenderer"
+- "ESurfaceFormat"
+- !private "FloatLiteralType"
+- "Int"
+- !private "IntegerLiteralType"
+- "UInt32"
+depends-member:
+- !private ["s19BinaryFloatingPointP", "init"]
+- !private ["s13BinaryIntegerP", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["9WarCraft214CAssetRendererC", "DrawMiniAssets"]
+- !private ["9WarCraft212CFogRendererC", "DrawMiniMap"]
+- !private ["12CoreGraphics7CGFloatV", "init"]
+- !private ["9WarCraft215CGraphicFactoryC", "CreateSurface"]
+- !private ["9WarCraft223CGraphicResourceContextC", "Fill"]
+- !private ["9WarCraft223CGraphicResourceContextC", "Rectangle"]
+- !private ["9WarCraft223CGraphicResourceContextC", "Restore"]
+- !private ["9WarCraft223CGraphicResourceContextC", "Save"]
+- !private ["9WarCraft223CGraphicResourceContextC", "Scale"]
+- !private ["9WarCraft223CGraphicResourceContextC", "SetSourceRGB"]
+- !private ["9WarCraft223CGraphicResourceContextC", "SetSourceSurface"]
+- !private ["9WarCraft223CGraphicResourceContextC", "Stroke"]
+- !private ["9WarCraft215CGraphicSurfaceP", "CreateResourceContext"]
+- !private ["9WarCraft215CGraphicSurfaceP", "Height"]
+- !private ["9WarCraft215CGraphicSurfaceP", "Width"]
+- !private ["9WarCraft212CMapRendererC", "DetailedMapHeight"]
+- !private ["9WarCraft212CMapRendererC", "DetailedMapWidth"]
+- !private ["9WarCraft212CMapRendererC", "MapHeight"]
+- !private ["9WarCraft212CMapRendererC", "MapWidth"]
+- ["9WarCraft216CMiniMapRendererC", "CAssetRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "CFogRenderer"]
+- !private ["9WarCraft216CMiniMapRendererC", "CGFloat"]
+- !private ["9WarCraft216CMiniMapRendererC", "CGraphicFactory"]
+- ["9WarCraft216CMiniMapRendererC", "CGraphicSurface"]
+- ["9WarCraft216CMiniMapRendererC", "CMapRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "CViewportRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "DAssetRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "DFogRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "DMapRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "DViewportColor"]
+- ["9WarCraft216CMiniMapRendererC", "DViewportRenderer"]
+- ["9WarCraft216CMiniMapRendererC", "DVisibleHeight"]
+- ["9WarCraft216CMiniMapRendererC", "DVisibleWidth"]
+- ["9WarCraft216CMiniMapRendererC", "DWorkingSurface"]
+- ["9WarCraft216CMiniMapRendererC", "DrawMiniMap"]
+- ["9WarCraft216CMiniMapRendererC", "ESurfaceFormat"]
+- ["9WarCraft216CMiniMapRendererC", "Int"]
+- ["9WarCraft216CMiniMapRendererC", "UInt32"]
+- ["9WarCraft216CMiniMapRendererC", "ViewportColor"]
+- ["9WarCraft216CMiniMapRendererC", "VisibleHeight"]
+- ["9WarCraft216CMiniMapRendererC", "VisibleWidth"]
+- ["9WarCraft216CMiniMapRendererC", "deinit"]
+- ["9WarCraft216CMiniMapRendererC", "init"]
+- !private ["s7CVarArgP", "init"]
+- !private ["9WarCraft217CViewportRendererC", "DViewportX"]
+- !private ["9WarCraft217CViewportRendererC", "DViewportY"]
+- !private ["9WarCraft217CViewportRendererC", "LastViewportHeight"]
+- !private ["9WarCraft217CViewportRendererC", "LastViewportWidth"]
+- !private ["s10ComparableP", "init"]
+- !private ["s29CustomPlaygroundQuickLookableP", "_getBuiltinLogicValue"]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "_getBuiltinLogicValue"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s23CustomStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s9DecodableP", "_getBuiltinLogicValue"]
+- !private ["s9DecodableP", "init"]
+- !private ["s9EncodableP", "_getBuiltinLogicValue"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EquatableP", "_getBuiltinLogicValue"]
+- !private ["s9EquatableP", "init"]
+- !private ["s27ExpressibleByBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s17FixedWidthIntegerP", "init"]
+- !private ["s13FloatingPointP", "init"]
+- !private ["s8HashableP", "_getBuiltinLogicValue"]
+- !private ["s8HashableP", "init"]
+- !private ["Si", "init"]
+- !private ["s25LosslessStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["s7NumericP", "init"]
+- !private ["s13SignedIntegerP", "init"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["s10StrideableP", "init"]
+- !private ["s18_BitwiseOperationsP", "init"]
+- !private ["s15_CVarArgAlignedP", "init"]
+- !private ["s22_CVarArgPassedAsDoubleP", "init"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "_getBuiltinLogicValue"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s11_StrideableP", "init"]
+depends-nominal:
+- !private "s19BinaryFloatingPointP"
+- !private "s13BinaryIntegerP"
+- !private "Sb"
+- !private "9WarCraft214CAssetRendererC"
+- !private "9WarCraft212CFogRendererC"
+- !private "12CoreGraphics7CGFloatV"
+- !private "9WarCraft215CGraphicFactoryC"
+- !private "9WarCraft223CGraphicResourceContextC"
+- !private "9WarCraft215CGraphicSurfaceP"
+- !private "9WarCraft212CMapRendererC"
+- "9WarCraft216CMiniMapRendererC"
+- !private "s7CVarArgP"
+- !private "9WarCraft217CViewportRendererC"
+- !private "s10ComparableP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- !private "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- !private "s9EncodableP"
+- !private "s9EquatableP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s17FixedWidthIntegerP"
+- !private "s13FloatingPointP"
+- !private "s8HashableP"
+- !private "Si"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- !private "s7NumericP"
+- !private "s13SignedIntegerP"
+- !private "s13SignedNumericP"
+- !private "s10StrideableP"
+- !private "s18_BitwiseOperationsP"
+- !private "s15_CVarArgAlignedP"
+- !private "s22_CVarArgPassedAsDoubleP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s11_StrideableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "e7e5d10215c79ff98cafa2a852e4adc8"

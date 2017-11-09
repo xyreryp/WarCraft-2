@@ -1,0 +1,17 @@
+# Path to frames
+./MiniBevel.png
+# Number of frames
+12
+# Frame names
+tl
+tr
+bl
+br
+t1
+tf
+l1
+lf
+r1
+rf
+b1
+bf

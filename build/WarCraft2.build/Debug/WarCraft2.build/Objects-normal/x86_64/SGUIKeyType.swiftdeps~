@@ -1,0 +1,117 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "SGUIKeyType"
+provides-nominal:
+- "9WarCraft211SGUIKeyTypeV"
+provides-member:
+- ["9WarCraft211SGUIKeyTypeV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "&&"
+- !private "<="
+- !private ">="
+- "Bool"
+- "FloatLiteralType"
+- "IntegerLiteralType"
+- "SGUIKeyType"
+- "UInt32"
+depends-member:
+- ["9WarCraft211SGUIKeyTypeV", "BackSpace"]
+- ["9WarCraft211SGUIKeyTypeV", "Bool"]
+- ["9WarCraft211SGUIKeyTypeV", "DValue"]
+- ["9WarCraft211SGUIKeyTypeV", "Delete"]
+- ["9WarCraft211SGUIKeyTypeV", "DownArrow"]
+- ["9WarCraft211SGUIKeyTypeV", "Escape"]
+- ["9WarCraft211SGUIKeyTypeV", "IsASCII"]
+- ["9WarCraft211SGUIKeyTypeV", "IsDigit"]
+- ["9WarCraft211SGUIKeyTypeV", "Key0"]
+- ["9WarCraft211SGUIKeyTypeV", "Key1"]
+- ["9WarCraft211SGUIKeyTypeV", "Key2"]
+- ["9WarCraft211SGUIKeyTypeV", "Key3"]
+- ["9WarCraft211SGUIKeyTypeV", "Key4"]
+- ["9WarCraft211SGUIKeyTypeV", "Key5"]
+- ["9WarCraft211SGUIKeyTypeV", "Key6"]
+- ["9WarCraft211SGUIKeyTypeV", "Key7"]
+- ["9WarCraft211SGUIKeyTypeV", "Key8"]
+- ["9WarCraft211SGUIKeyTypeV", "Key9"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyA"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyB"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyC"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyD"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyE"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyF"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyG"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyH"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyI"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyJ"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyK"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyL"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyM"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyN"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyO"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyP"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyQ"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyR"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyS"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyT"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyU"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyV"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyW"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyX"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyY"]
+- ["9WarCraft211SGUIKeyTypeV", "KeyZ"]
+- ["9WarCraft211SGUIKeyTypeV", "LeftAlt"]
+- ["9WarCraft211SGUIKeyTypeV", "LeftArrow"]
+- ["9WarCraft211SGUIKeyTypeV", "LeftControl"]
+- ["9WarCraft211SGUIKeyTypeV", "LeftShift"]
+- ["9WarCraft211SGUIKeyTypeV", "Period"]
+- ["9WarCraft211SGUIKeyTypeV", "RightAlt"]
+- ["9WarCraft211SGUIKeyTypeV", "RightArrow"]
+- ["9WarCraft211SGUIKeyTypeV", "RightControl"]
+- ["9WarCraft211SGUIKeyTypeV", "RightShift"]
+- ["9WarCraft211SGUIKeyTypeV", "Space"]
+- ["9WarCraft211SGUIKeyTypeV", "UInt32"]
+- ["9WarCraft211SGUIKeyTypeV", "UpArrow"]
+- ["9WarCraft211SGUIKeyTypeV", "init"]
+depends-nominal:
+- "9WarCraft211SGUIKeyTypeV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "afd9ab1cdddba19ee26be1bc0dcb3cd8"

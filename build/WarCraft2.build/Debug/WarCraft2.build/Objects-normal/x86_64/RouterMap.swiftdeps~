@@ -1,0 +1,476 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "SEARCH_STATUS_UNVISITED"
+- "SEARCH_STATUS_VISITED"
+- "SEARCH_STATUS_OCCUPIED"
+- "Queue"
+- "CRouterMap"
+provides-nominal:
+- "9WarCraft25QueueV"
+- "9WarCraft210CRouterMapC"
+- "9WarCraft210CRouterMapC16SEARCHTARGET_TAGV"
+provides-member:
+- ["9WarCraft25QueueV", ""]
+- ["9WarCraft210CRouterMapC", ""]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "%"
+- !private "&&"
+- !private "+"
+- !private "+="
+- !private "-"
+- !private "..<"
+- !private "/"
+- !private "/="
+- !private "<"
+- !private "<="
+- !private "=="
+- !private ">"
+- !private ">="
+- !private "Array"
+- "AssignmentPrecedence"
+- "Bool"
+- !private "BooleanLiteralType"
+- "CAssetDecoratedMap"
+- !private "CHelper"
+- "CPixelPosition"
+- "CPlayerAsset"
+- "CRouterMap"
+- "CTerrainMap"
+- !private "CTilePosition"
+- !private "Double"
+- !private "EAssetAction"
+- !private "EAssetType"
+- "EDirection"
+- "FloatLiteralType"
+- "Int"
+- "IntegerLiteralType"
+- "Queue"
+- "SEARCH_STATUS_OCCUPIED"
+- "SEARCH_STATUS_UNVISITED"
+- "SEARCH_STATUS_VISITED"
+- !private "exit"
+- !private "||"
+depends-member:
+- !private ["Sa", "append"]
+- !private ["Sa", "count"]
+- ["Sa", "init"]
+- !private ["Sa", "removeFirst"]
+- !private ["Sa", "subscript"]
+- !private ["s10ArraySliceV", "subscript"]
+- !private ["s23BidirectionalCollectionP", "append"]
+- !private ["s23BidirectionalCollectionP", "count"]
+- ["s23BidirectionalCollectionP", "init"]
+- !private ["s23BidirectionalCollectionP", "removeFirst"]
+- !private ["s23BidirectionalCollectionP", "subscript"]
+- !private ["s19BinaryFloatingPointP", "init"]
+- ["s13BinaryIntegerP", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["9WarCraft218CAssetDecoratedMapC", "DAssets"]
+- !private ["9WarCraft218CAssetDecoratedMapC", "Height"]
+- !private ["9WarCraft218CAssetDecoratedMapC", "TileType"]
+- !private ["9WarCraft218CAssetDecoratedMapC", "Width"]
+- !private ["9WarCraft27CHelperC", "resize"]
+- !private ["9WarCraft214CPixelPositionC", "X"]
+- !private ["9WarCraft214CPixelPositionC", "Y"]
+- !private ["9WarCraft212CPlayerAssetC", "Action"]
+- !private ["9WarCraft212CPlayerAssetC", "Color"]
+- !private ["9WarCraft212CPlayerAssetC", "DDirection"]
+- !private ["9WarCraft212CPlayerAssetC", "PositionX"]
+- !private ["9WarCraft212CPlayerAssetC", "PositionY"]
+- !private ["9WarCraft212CPlayerAssetC", "Size"]
+- !private ["9WarCraft212CPlayerAssetC", "TilePosition"]
+- !private ["9WarCraft212CPlayerAssetC", "TilePositionX"]
+- !private ["9WarCraft212CPlayerAssetC", "TilePositionY"]
+- !private ["9WarCraft212CPlayerAssetC", "Type"]
+- !private ["9WarCraft29CPositionC", "DecrementX"]
+- !private ["9WarCraft29CPositionC", "DecrementY"]
+- !private ["9WarCraft29CPositionC", "DistanceSquared"]
+- !private ["9WarCraft29CPositionC", "SetFromPixel"]
+- !private ["9WarCraft29CPositionC", "X"]
+- !private ["9WarCraft29CPositionC", "Y"]
+- ["9WarCraft210CRouterMapC", "Bool"]
+- ["9WarCraft210CRouterMapC", "CAssetDecoratedMap"]
+- !private ["9WarCraft210CRouterMapC", "CHelper"]
+- ["9WarCraft210CRouterMapC", "CPixelPosition"]
+- ["9WarCraft210CRouterMapC", "CPlayerAsset"]
+- !private ["9WarCraft210CRouterMapC", "CRouterMap"]
+- ["9WarCraft210CRouterMapC", "CTerrainMap"]
+- !private ["9WarCraft210CRouterMapC", "CTilePosition"]
+- ["9WarCraft210CRouterMapC", "DIdealSearchDirection"]
+- ["9WarCraft210CRouterMapC", "DMap"]
+- ["9WarCraft210CRouterMapC", "DMapWidth"]
+- ["9WarCraft210CRouterMapC", "DSearchTargets"]
+- !private ["9WarCraft210CRouterMapC", "EAssetAction"]
+- !private ["9WarCraft210CRouterMapC", "EAssetType"]
+- ["9WarCraft210CRouterMapC", "EDirection"]
+- ["9WarCraft210CRouterMapC", "FindRoute"]
+- ["9WarCraft210CRouterMapC", "Int"]
+- ["9WarCraft210CRouterMapC", "MovingAway"]
+- !private ["9WarCraft210CRouterMapC", "Queue"]
+- ["9WarCraft210CRouterMapC", "SEARCHTARGET_TAG"]
+- !private ["9WarCraft210CRouterMapC", "SEARCH_STATUS_OCCUPIED"]
+- !private ["9WarCraft210CRouterMapC", "SEARCH_STATUS_UNVISITED"]
+- !private ["9WarCraft210CRouterMapC", "SEARCH_STATUS_VISITED"]
+- ["9WarCraft210CRouterMapC", "SSearchTarget"]
+- ["9WarCraft210CRouterMapC", "deinit"]
+- !private ["9WarCraft210CRouterMapC", "exit"]
+- ["9WarCraft210CRouterMapC", "init"]
+- !private ["9WarCraft211CTerrainMapC", "DAssets"]
+- ["9WarCraft211CTerrainMapC", "ETileType"]
+- !private ["9WarCraft211CTerrainMapC", "Height"]
+- !private ["9WarCraft211CTerrainMapC", "IsTraversable"]
+- !private ["9WarCraft211CTerrainMapC", "TileType"]
+- !private ["9WarCraft211CTerrainMapC", "Width"]
+- !private ["9WarCraft213CTilePositionC", "DecrementX"]
+- !private ["9WarCraft213CTilePositionC", "DecrementY"]
+- !private ["9WarCraft213CTilePositionC", "DistanceSquared"]
+- !private ["9WarCraft213CTilePositionC", "SetFromPixel"]
+- !private ["9WarCraft213CTilePositionC", "X"]
+- !private ["9WarCraft213CTilePositionC", "Y"]
+- !private ["9WarCraft213CTilePositionC", "init"]
+- !private ["s7CVarArgP", "append"]
+- !private ["s7CVarArgP", "count"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "removeFirst"]
+- !private ["s7CVarArgP", "subscript"]
+- !private ["s10CollectionP", "append"]
+- !private ["s10CollectionP", "count"]
+- ["s10CollectionP", "init"]
+- !private ["s10CollectionP", "removeFirst"]
+- !private ["s10CollectionP", "subscript"]
+- ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "append"]
+- !private ["s28CustomDebugStringConvertibleP", "count"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "removeFirst"]
+- !private ["s28CustomDebugStringConvertibleP", "subscript"]
+- !private ["s29CustomPlaygroundQuickLookableP", "_getBuiltinLogicValue"]
+- ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s17CustomReflectableP", "_getBuiltinLogicValue"]
+- !private ["s17CustomReflectableP", "append"]
+- !private ["s17CustomReflectableP", "count"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "removeFirst"]
+- !private ["s17CustomReflectableP", "subscript"]
+- !private ["s23CustomStringConvertibleP", "_getBuiltinLogicValue"]
+- !private ["s23CustomStringConvertibleP", "append"]
+- !private ["s23CustomStringConvertibleP", "count"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "removeFirst"]
+- !private ["s23CustomStringConvertibleP", "subscript"]
+- !private ["s9DecodableP", "_getBuiltinLogicValue"]
+- !private ["s9DecodableP", "append"]
+- !private ["s9DecodableP", "count"]
+- ["s9DecodableP", "init"]
+- !private ["s9DecodableP", "removeFirst"]
+- !private ["s9DecodableP", "subscript"]
+- !private ["Sd", "init"]
+- !private ["9WarCraft212EAssetActionO", "ConveyGold"]
+- !private ["9WarCraft212EAssetActionO", "ConveyLumber"]
+- !private ["9WarCraft212EAssetActionO", "MineGold"]
+- !private ["9WarCraft212EAssetActionO", "Walk"]
+- !private ["9WarCraft212EAssetActionO", "deinit"]
+- !private ["9WarCraft210EAssetTypeO", "None"]
+- !private ["9WarCraft210EAssetTypeO", "deinit"]
+- !private ["9WarCraft210EDirectionO", "East"]
+- !private ["9WarCraft210EDirectionO", "Max"]
+- ["9WarCraft210EDirectionO", "North"]
+- !private ["9WarCraft210EDirectionO", "NorthEast"]
+- !private ["9WarCraft210EDirectionO", "NorthWest"]
+- !private ["9WarCraft210EDirectionO", "South"]
+- !private ["9WarCraft210EDirectionO", "SouthEast"]
+- !private ["9WarCraft210EDirectionO", "SouthWest"]
+- !private ["9WarCraft210EDirectionO", "West"]
+- ["9WarCraft210EDirectionO", "deinit"]
+- ["9WarCraft210EDirectionO", "init"]
+- !private ["9WarCraft210EDirectionO", "rawValue"]
+- !private ["9WarCraft212EPlayerColorO", "deinit"]
+- ["9WarCraft211CTerrainMapC9ETileTypeO", "None"]
+- !private ["s9EncodableP", "_getBuiltinLogicValue"]
+- !private ["s9EncodableP", "append"]
+- !private ["s9EncodableP", "count"]
+- ["s9EncodableP", "init"]
+- !private ["s9EncodableP", "removeFirst"]
+- !private ["s9EncodableP", "subscript"]
+- !private ["s9EquatableP", "ConveyGold"]
+- !private ["s9EquatableP", "ConveyLumber"]
+- !private ["s9EquatableP", "East"]
+- !private ["s9EquatableP", "Max"]
+- !private ["s9EquatableP", "MineGold"]
+- ["s9EquatableP", "None"]
+- ["s9EquatableP", "North"]
+- !private ["s9EquatableP", "NorthEast"]
+- !private ["s9EquatableP", "NorthWest"]
+- !private ["s9EquatableP", "South"]
+- !private ["s9EquatableP", "SouthEast"]
+- !private ["s9EquatableP", "SouthWest"]
+- !private ["s9EquatableP", "Walk"]
+- !private ["s9EquatableP", "West"]
+- !private ["s9EquatableP", "_getBuiltinLogicValue"]
+- ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "rawValue"]
+- !private ["s25ExpressibleByArrayLiteralP", "append"]
+- !private ["s25ExpressibleByArrayLiteralP", "count"]
+- ["s25ExpressibleByArrayLiteralP", "init"]
+- !private ["s25ExpressibleByArrayLiteralP", "removeFirst"]
+- !private ["s25ExpressibleByArrayLiteralP", "subscript"]
+- !private ["s27ExpressibleByBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s25ExpressibleByFloatLiteralP", "init"]
+- ["s27ExpressibleByIntegerLiteralP", "init"]
+- ["s17FixedWidthIntegerP", "init"]
+- !private ["s13FloatingPointP", "init"]
+- !private ["s8HashableP", "ConveyGold"]
+- !private ["s8HashableP", "ConveyLumber"]
+- !private ["s8HashableP", "East"]
+- !private ["s8HashableP", "Max"]
+- !private ["s8HashableP", "MineGold"]
+- ["s8HashableP", "None"]
+- ["s8HashableP", "North"]
+- !private ["s8HashableP", "NorthEast"]
+- !private ["s8HashableP", "NorthWest"]
+- !private ["s8HashableP", "South"]
+- !private ["s8HashableP", "SouthEast"]
+- !private ["s8HashableP", "SouthWest"]
+- !private ["s8HashableP", "Walk"]
+- !private ["s8HashableP", "West"]
+- !private ["s8HashableP", "_getBuiltinLogicValue"]
+- ["s8HashableP", "init"]
+- !private ["s8HashableP", "rawValue"]
+- ["Si", "init"]
+- !private ["s25LosslessStringConvertibleP", "_getBuiltinLogicValue"]
+- ["s25LosslessStringConvertibleP", "init"]
+- ["s10MirrorPathP", "init"]
+- !private ["s25MutableBidirectionalSliceV", "subscript"]
+- !private ["s17MutableCollectionP", "append"]
+- !private ["s17MutableCollectionP", "count"]
+- ["s17MutableCollectionP", "init"]
+- !private ["s17MutableCollectionP", "removeFirst"]
+- !private ["s17MutableCollectionP", "subscript"]
+- !private ["s24MutableRandomAccessSliceV", "subscript"]
+- !private ["s12MutableSliceV", "subscript"]
+- ["s7NumericP", "init"]
+- ["9WarCraft25QueueV", "Bool"]
+- !private ["9WarCraft25QueueV", "Double"]
+- ["9WarCraft25QueueV", "Int"]
+- ["9WarCraft25QueueV", "T"]
+- !private ["9WarCraft25QueueV", "array"]
+- ["9WarCraft25QueueV", "count"]
+- ["9WarCraft25QueueV", "dequeue"]
+- ["9WarCraft25QueueV", "enqueue"]
+- ["9WarCraft25QueueV", "front"]
+- !private ["9WarCraft25QueueV", "head"]
+- ["9WarCraft25QueueV", "init"]
+- ["9WarCraft25QueueV", "isEmpty"]
+- !private ["s22RandomAccessCollectionP", "append"]
+- !private ["s22RandomAccessCollectionP", "count"]
+- ["s22RandomAccessCollectionP", "init"]
+- !private ["s22RandomAccessCollectionP", "removeFirst"]
+- !private ["s22RandomAccessCollectionP", "subscript"]
+- !private ["s26RangeReplaceableCollectionP", "append"]
+- !private ["s26RangeReplaceableCollectionP", "count"]
+- ["s26RangeReplaceableCollectionP", "init"]
+- !private ["s26RangeReplaceableCollectionP", "removeFirst"]
+- !private ["s26RangeReplaceableCollectionP", "subscript"]
+- !private ["s21RangeReplaceableSliceV", "subscript"]
+- !private ["s16RawRepresentableP", "ConveyGold"]
+- !private ["s16RawRepresentableP", "ConveyLumber"]
+- !private ["s16RawRepresentableP", "East"]
+- !private ["s16RawRepresentableP", "Max"]
+- !private ["s16RawRepresentableP", "MineGold"]
+- ["s16RawRepresentableP", "None"]
+- ["s16RawRepresentableP", "North"]
+- !private ["s16RawRepresentableP", "NorthEast"]
+- !private ["s16RawRepresentableP", "NorthWest"]
+- !private ["s16RawRepresentableP", "South"]
+- !private ["s16RawRepresentableP", "SouthEast"]
+- !private ["s16RawRepresentableP", "SouthWest"]
+- !private ["s16RawRepresentableP", "Walk"]
+- !private ["s16RawRepresentableP", "West"]
+- ["s16RawRepresentableP", "init"]
+- !private ["s16RawRepresentableP", "rawValue"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "CTerrainMap"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "DInDirection"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "DSteps"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "DTargetDistanceSquared"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "DTileType"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "DX"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "DY"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "EDirection"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "Int"]
+- ["9WarCraft210CRouterMapC16SEARCHTARGET_TAGV", "init"]
+- !private ["s8SequenceP", "append"]
+- !private ["s8SequenceP", "count"]
+- ["s8SequenceP", "init"]
+- !private ["s8SequenceP", "removeFirst"]
+- !private ["s8SequenceP", "subscript"]
+- ["s13SignedIntegerP", "init"]
+- ["s13SignedNumericP", "init"]
+- ["s10StrideableP", "init"]
+- !private ["s14_ArrayProtocolP", "append"]
+- !private ["s14_ArrayProtocolP", "count"]
+- ["s14_ArrayProtocolP", "init"]
+- !private ["s14_ArrayProtocolP", "removeFirst"]
+- !private ["s14_ArrayProtocolP", "subscript"]
+- !private ["s23_BidirectionalIndexableP", "append"]
+- !private ["s23_BidirectionalIndexableP", "count"]
+- ["s23_BidirectionalIndexableP", "init"]
+- !private ["s23_BidirectionalIndexableP", "removeFirst"]
+- !private ["s23_BidirectionalIndexableP", "subscript"]
+- ["s18_BitwiseOperationsP", "init"]
+- !private ["s15_CVarArgAlignedP", "init"]
+- !private ["s22_CVarArgPassedAsDoubleP", "init"]
+- !private ["s24_DestructorSafeContainerP", "append"]
+- !private ["s24_DestructorSafeContainerP", "count"]
+- ["s24_DestructorSafeContainerP", "init"]
+- !private ["s24_DestructorSafeContainerP", "removeFirst"]
+- !private ["s24_DestructorSafeContainerP", "subscript"]
+- !private ["s35_ExpressibleByBuiltinBooleanLiteralP", "_getBuiltinLogicValue"]
+- !private ["s33_ExpressibleByBuiltinFloatLiteralP", "init"]
+- ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s10_IndexableP", "append"]
+- !private ["s10_IndexableP", "count"]
+- ["s10_IndexableP", "init"]
+- !private ["s10_IndexableP", "removeFirst"]
+- !private ["s10_IndexableP", "subscript"]
+- !private ["s14_IndexableBaseP", "append"]
+- !private ["s14_IndexableBaseP", "count"]
+- ["s14_IndexableBaseP", "init"]
+- !private ["s14_IndexableBaseP", "removeFirst"]
+- !private ["s14_IndexableBaseP", "subscript"]
+- !private ["s17_MutableIndexableP", "append"]
+- !private ["s17_MutableIndexableP", "count"]
+- ["s17_MutableIndexableP", "init"]
+- !private ["s17_MutableIndexableP", "removeFirst"]
+- !private ["s17_MutableIndexableP", "subscript"]
+- !private ["s21_ObjectiveCBridgeableP", "_getBuiltinLogicValue"]
+- !private ["s21_ObjectiveCBridgeableP", "append"]
+- !private ["s21_ObjectiveCBridgeableP", "count"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "removeFirst"]
+- !private ["s21_ObjectiveCBridgeableP", "subscript"]
+- !private ["s22_RandomAccessIndexableP", "append"]
+- !private ["s22_RandomAccessIndexableP", "count"]
+- ["s22_RandomAccessIndexableP", "init"]
+- !private ["s22_RandomAccessIndexableP", "removeFirst"]
+- !private ["s22_RandomAccessIndexableP", "subscript"]
+- !private ["s26_RangeReplaceableIndexableP", "append"]
+- !private ["s26_RangeReplaceableIndexableP", "count"]
+- ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s26_RangeReplaceableIndexableP", "removeFirst"]
+- !private ["s26_RangeReplaceableIndexableP", "subscript"]
+- ["s11_StrideableP", "init"]
+depends-nominal:
+- "Sa"
+- !private "s10ArraySliceV"
+- "s23BidirectionalCollectionP"
+- !private "s19BinaryFloatingPointP"
+- "s13BinaryIntegerP"
+- !private "Sb"
+- !private "9WarCraft218CAssetDecoratedMapC"
+- !private "9WarCraft27CHelperC"
+- !private "9WarCraft214CPixelPositionC"
+- !private "9WarCraft212CPlayerAssetC"
+- !private "9WarCraft29CPositionC"
+- "9WarCraft210CRouterMapC"
+- "9WarCraft211CTerrainMapC"
+- !private "9WarCraft213CTilePositionC"
+- "s7CVarArgP"
+- "s10CollectionP"
+- "s10ComparableP"
+- "s28CustomDebugStringConvertibleP"
+- "s29CustomPlaygroundQuickLookableP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "s9DecodableP"
+- !private "Sd"
+- !private "9WarCraft212EAssetActionO"
+- !private "9WarCraft210EAssetTypeO"
+- "9WarCraft210EDirectionO"
+- !private "9WarCraft212EPlayerColorO"
+- "9WarCraft211CTerrainMapC9ETileTypeO"
+- "s9EncodableP"
+- "s9EquatableP"
+- "s25ExpressibleByArrayLiteralP"
+- !private "s27ExpressibleByBooleanLiteralP"
+- !private "s25ExpressibleByFloatLiteralP"
+- "s27ExpressibleByIntegerLiteralP"
+- "s17FixedWidthIntegerP"
+- !private "s13FloatingPointP"
+- "s8HashableP"
+- "Si"
+- "s25LosslessStringConvertibleP"
+- "s10MirrorPathP"
+- !private "s25MutableBidirectionalSliceV"
+- "s17MutableCollectionP"
+- !private "s24MutableRandomAccessSliceV"
+- !private "s12MutableSliceV"
+- "s7NumericP"
+- "9WarCraft25QueueV"
+- "s22RandomAccessCollectionP"
+- "s26RangeReplaceableCollectionP"
+- !private "s21RangeReplaceableSliceV"
+- "s16RawRepresentableP"
+- "9WarCraft210CRouterMapC16SEARCHTARGET_TAGV"
+- "s8SequenceP"
+- "s13SignedIntegerP"
+- "s13SignedNumericP"
+- "s10StrideableP"
+- "s14_ArrayProtocolP"
+- "s23_BidirectionalIndexableP"
+- "s18_BitwiseOperationsP"
+- !private "s15_CVarArgAlignedP"
+- !private "s22_CVarArgPassedAsDoubleP"
+- "s24_DestructorSafeContainerP"
+- !private "s35_ExpressibleByBuiltinBooleanLiteralP"
+- !private "s33_ExpressibleByBuiltinFloatLiteralP"
+- "s35_ExpressibleByBuiltinIntegerLiteralP"
+- "s10_IndexableP"
+- "s14_IndexableBaseP"
+- "s17_MutableIndexableP"
+- "s21_ObjectiveCBridgeableP"
+- "s22_RandomAccessIndexableP"
+- "s26_RangeReplaceableIndexableP"
+- "s11_StrideableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "c57c4e5147a001ce5cb98c953d25441e"

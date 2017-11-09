@@ -15,7 +15,7 @@ class CBevel: NSObject {
     var DLeftIndices: [Int]
     var DRightIndices: [Int]
     var DCornerIndices: [Int]
-    var DWidth = 0
+    var DWidth:Int
 
     init(tileset: CGraphicTileset) {
         DTileset = tileset

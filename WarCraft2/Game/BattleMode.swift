@@ -53,7 +53,7 @@ class CBattleMode: CApplicationMode {
     override func InitializeChange(context: CApplicationData) {
         context.LoadGameMap(index: context.DSelectedMapIndex)
         // FIXME: Need DSoundLibraryMixer
-//        context.DSoundLibraryMixer.PlaySong(context.DSoundLibraryMixer.FindSong("game1"), context.DMusicVolume)
+        //        context.DSoundLibraryMixer.PlaySong(context.DSoundLibraryMixer.FindSong("game1"), context.DMusicVolume)
     }
 
     // get inputs, set commands
@@ -67,7 +67,7 @@ class CBattleMode: CApplicationMode {
         // certain events pushed on to stack in game model
         // sound renderer looks at events and plays sounds -> called at end of render()
         // generate events in input(), handle in render()
-        
+
         context.DGameModel.ClearGameEvents() // could be irrelevant to use, need to check later
         for Key in context.DPressedKeys { // record all keys hit in 15 ms into a buffer
             if SGUIKeyType.UpArrow == Key {
@@ -92,7 +92,7 @@ class CBattleMode: CApplicationMode {
             if context.DSelectedPlayerAssets.count != 0 {
                 var CanMove: Bool = true
                 for Asset in context.DSelectedPlayerAssets {
-                    if let LockedAsset:CPlayerAsset = Asset {
+                    if let LockedAsset: CPlayerAsset = Asset {
                         if context.DPlayerColor != LockedAsset.Color() {
                             context.DReleasedKeys.removeAll()
                             return
@@ -109,7 +109,7 @@ class CBattleMode: CApplicationMode {
                 if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability {
                     // check build
                     if let KeyLookup = context.DBuildHotKeyMap[Key] {
-                        var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                        var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
                         if PlayerCapability != nil {
                             let ActorTarget = context.DSelectedPlayerAssets.first
                             if (PlayerCapability?.CanInitiate(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!))! {
@@ -124,7 +124,7 @@ class CBattleMode: CApplicationMode {
                     if let KeyLookup = context.DUnitHotKeyMap[Key] {
                         var HasCapability: Bool = true
                         for Asset in context.DSelectedPlayerAssets {
-                            if let LockedAsset:CPlayerAsset = Asset {
+                            if let LockedAsset: CPlayerAsset = Asset {
                                 if !LockedAsset.HasCapability(capability: KeyLookup) {
                                     HasCapability = false
                                     break
@@ -132,7 +132,7 @@ class CBattleMode: CApplicationMode {
                             }
                         }
                         if HasCapability {
-                            var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                            var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
                             var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
                             TempEvent.DType = EEventType.ButtonTick
                             context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
@@ -140,7 +140,7 @@ class CBattleMode: CApplicationMode {
                                 if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
                                     let ActorTarget = context.DSelectedPlayerAssets.first
 
-                                    if (PlayerCapability?.CanApply(actor: (ActorTarget)!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
+                                    if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
 
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
@@ -161,7 +161,7 @@ class CBattleMode: CApplicationMode {
                     if let KeyLookup = context.DTrainHotKeyMap[Key] {
                         var HasCapability: Bool = true
                         for Asset in context.DSelectedPlayerAssets {
-                            if let LockedAsset:CPlayerAsset? = Asset {
+                            if let LockedAsset: CPlayerAsset? = Asset {
                                 if !LockedAsset!.HasCapability(capability: KeyLookup) {
                                     HasCapability = false
                                     break
@@ -169,12 +169,12 @@ class CBattleMode: CApplicationMode {
                             }
                         }
                         if HasCapability {
-                            var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                            var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
                             var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
                             TempEvent.DType = EEventType.ButtonTick
                             context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
 
-                            if PlayerCapability != nil{
+                            if PlayerCapability != nil {
                                 if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
                                     let ActorTarget = context.DSelectedPlayerAssets.first
                                     if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
@@ -215,13 +215,13 @@ class CBattleMode: CApplicationMode {
             var ViewPortPosition: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
             // FIXME: passing in context.DViewportTypeSurface as CGraphic Surface. May need to change PixelType to take in skscene>
             // type of the tile||asset you've clicked on, or color of it if it is something a player owns
-            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface,pos: ViewPortPosition)
+            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface, pos: ViewPortPosition)
             // did you right click, and while its not held down, and if selected
             if context.DRightClick != 0 && !context.DRightDown && context.DSelectedPlayerAssets.count > 0 {
                 var CanMove: Bool = true
                 // for all assets
                 for Asset in context.DSelectedPlayerAssets {
-                    if let LockedAsset:CPlayerAsset? = Asset { // if pointer to weak asset still exists
+                    if let LockedAsset: CPlayerAsset? = Asset { // if pointer to weak asset still exists
                         // does your asset color match your color?
                         if context.DPlayerColor != LockedAsset?.Color() {
                             return
@@ -233,8 +233,8 @@ class CBattleMode: CApplicationMode {
                         }
                     }
                 }
-                
-                if CanMove {    // true by defaut, && right clicked. Assets should move
+
+                if CanMove { // true by defaut, && right clicked. Assets should move
                     if EPlayerColor.None != PixelType.Color() { // if its not neutral color
                         // Command is either walk/deliver, repair, or attack
                         // generate commmand for asset based on input
@@ -245,13 +245,13 @@ class CBattleMode: CApplicationMode {
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = PixelType.AssetType()
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = TempPosition
-                        
+
                         if PixelType.Color() == context.DPlayerColor {
                             var HaveLumber: Bool = false
                             var HaveGold: Bool = false
                             // FIXME: have stone??????
                             for Asset in context.DSelectedPlayerAssets {
-                                if let LockedAsset:CPlayerAsset? = Asset {
+                                if let LockedAsset: CPlayerAsset? = Asset {
                                     if (LockedAsset?.Lumber())! > 0 {
                                         HaveLumber = true
                                     }
@@ -286,7 +286,7 @@ class CBattleMode: CApplicationMode {
                         context.DCurrentAssetCapability = EAssetCapabilityType.None
                     } else { // not a color so you dont attack, or repair or convey
                         // Command is either walk, mine, harvest
-                        
+
                         var TempPosition: CPixelPosition = context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY))
                         var CanHarvest: Bool = true
                         // neutral location, neutral type and target locaiton is Templocation
@@ -297,7 +297,7 @@ class CBattleMode: CApplicationMode {
                         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = TempPosition // where you clicked
 
                         for Asset in context.DSelectedPlayerAssets {
-                            if let LockedAsset:CPlayerAsset? = Asset {
+                            if let LockedAsset: CPlayerAsset? = Asset {
                                 // check harvest for all types of resources
                                 if !(LockedAsset?.HasCapability(capability: EAssetCapabilityType.Mine))! {
                                     CanHarvest = false
@@ -329,9 +329,7 @@ class CBattleMode: CApplicationMode {
                         context.DCurrentAssetCapability = EAssetCapabilityType.None
                     }
                 }
-            }
-            // handle left clicks
-            else if context.DLeftClick != 0 {
+            } else if context.DLeftClick != 0 {
                 // when you select a unit, then select an action for it to do --> DCurrentAssetCapability
                 if (EAssetCapabilityType.None == context.DCurrentAssetCapability) || (EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability) {
                     if context.DLeftDown { // if you let go of left
@@ -343,7 +341,7 @@ class CBattleMode: CApplicationMode {
                         var PreviousSelections: [CPlayerAsset] = [CPlayerAsset]()
 
                         for WeakAsset in context.DSelectedPlayerAssets {
-                            if let LockedAsset:CPlayerAsset? = WeakAsset {
+                            if let LockedAsset: CPlayerAsset? = WeakAsset {
                                 PreviousSelections.append(LockedAsset!)
                             }
                         }
@@ -367,7 +365,7 @@ class CBattleMode: CApplicationMode {
                             if !(context.DSelectedPlayerAssets.count > 0) {
                                 if let TempAsset = context.DSelectedPlayerAssets.first {
                                     if TempAsset.Color() != context.DPlayerColor {
-//                                        context.DSelectedPlayerAssets.clear()
+                                        //                                        context.DSelectedPlayerAssets.clear()
                                         context.DSelectedPlayerAssets.removeAll()
                                     }
                                 }
@@ -381,7 +379,7 @@ class CBattleMode: CApplicationMode {
                             context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)!.SelectAssets(selectarea: TempRectangle, assettype: PixelType.AssetType(), selectidentical: 2 == context.DLeftClick)
                         }
                         for WeakAsset in context.DSelectedPlayerAssets {
-                            if let LockedAsset:CPlayerAsset = WeakAsset {
+                            if let LockedAsset: CPlayerAsset = WeakAsset {
                                 var FoundPrevious: Bool = false
                                 for PrevAsset in PreviousSelections {
                                     if PrevAsset == LockedAsset {
@@ -406,14 +404,14 @@ class CBattleMode: CApplicationMode {
                         if PlayerCapability != nil && !context.DLeftDown {
                             if ((CPlayerCapability.ETargetType.Asset == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType)) && (EAssetType.None != PixelType.AssetType()) { // No TargetType ask Alex for PlayerCapability
                                 let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: TempPosition, assettype: PixelType.AssetType())
-                                
+
                                 if (PlayerCapability?.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!))! {
                                     // FIXME: lol
                                     var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
                                     TempEvent.DType = EEventType.PlaceAction
                                     TempEvent.DAsset = NewTarget!
                                     context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                                    
+
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = context.DCurrentAssetCapability
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = PixelType.Color()
@@ -429,7 +427,7 @@ class CBattleMode: CApplicationMode {
                                     TempEvent.DType = EEventType.PlaceAction
                                     TempEvent.DAsset = NewTarget!
                                     context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                                    
+
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = context.DCurrentAssetCapability
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
@@ -457,66 +455,66 @@ class CBattleMode: CApplicationMode {
             Panning = true
         } else if CApplicationData.EUIComponentType.uictMiniMap == ComponentType {
             // FIXME: NOT CRUCIAL FOR NOW
-//            if context.DLeftClick != 0 && !context.DLeftDown {
-//                var TempPosition = CPixelPosition(pos: context.ScreenToMiniMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
-//                TempPosition = context.MiniMapToDetailedMap(pos: TempPosition)
-//                context.DViewportRenderer.CenterViewport(pos: TempPosition)
-//            }
+            //            if context.DLeftClick != 0 && !context.DLeftDown {
+            //                var TempPosition = CPixelPosition(pos: context.ScreenToMiniMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
+            //                TempPosition = context.MiniMapToDetailedMap(pos: TempPosition)
+            //                context.DViewportRenderer.CenterViewport(pos: TempPosition)
+            //            }
         } else if CApplicationData.EUIComponentType.uictUserDescription == ComponentType {
             // FIXME: Need DUnitActionRenderer
-            if context.DLeftClick != 0 && !context.DLeftDown {
-                var IconPressed = context.DUnitDescriptionRenderer.Selection(pos: context.ScreenToUnitDescription(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
-                if 1 == context.DSelectedPlayerAssets.count {
-                    if 0 == IconPressed {
-                        if var Asset:CPlayerAsset? = context.DSelectedPlayerAssets.first {
-                            context.DViewportRenderer.CenterViewport(pos: Asset!.Position())
-                        }
-                    }
-                } else if 0 <= IconPressed {
-                    while IconPressed > 0 {
-                        IconPressed -= 1
-                        context.DSelectedPlayerAssets.remove(at: 0)
-                    }
-                    while 1 < context.DSelectedPlayerAssets.count {
-                        context.DSelectedPlayerAssets.removeLast()
-                    }
-                    // START HERE
-                    var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-                    TempEvent.DType = EEventType.Selection
-                    TempEvent.DAsset = context.DSelectedPlayerAssets.first!
-                    context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                }
-            }
+            //            if context.DLeftClick != 0 && !context.DLeftDown {
+            //                var IconPressed = context.DUnitDescriptionRenderer.Selection(pos: context.ScreenToUnitDescription(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
+            //                if 1 == context.DSelectedPlayerAssets.count {
+            //                    if 0 == IconPressed {
+            //                        if var Asset: CPlayerAsset? = context.DSelectedPlayerAssets.first {
+            //                            context.DViewportRenderer.CenterViewport(pos: Asset!.Position())
+            //                        }
+            //                    }
+            //                } else if 0 <= IconPressed {
+            //                    while IconPressed > 0 {
+            //                        IconPressed -= 1
+            //                        context.DSelectedPlayerAssets.remove(at: 0)
+            //                    }
+            //                    while 1 < context.DSelectedPlayerAssets.count {
+            //                        context.DSelectedPlayerAssets.removeLast()
+            //                    }
+            //                    // START HERE
+            //                    var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
+            //                    TempEvent.DType = EEventType.Selection
+            //                    TempEvent.DAsset = context.DSelectedPlayerAssets.first!
+            //                    context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+            //                }
+            //            }
         } else if CApplicationData.EUIComponentType.uictUserAction == ComponentType {
-//             FIXME: Need DUnitActionRenderer
+            //             FIXME: Need DUnitActionRenderer
 
             if context.DLeftClick != 0 && !context.DLeftDown {
-//                let CapabilityType: EAssetCapabilityType = context.DUnitActionRenderer.Selection(context.ScreenToUnitAction(CPixelPosition(x: CurrentX, y: CurrentY)))
-//                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: CapabilityType)
-//
-//                if EAssetCapabilityType.None != CapabilityType {
-//                    var TempEvent: SGameEvent
-//                    TempEvent.DType = EEventType.ButtonTick
-//                    context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-//                }
-//                if PlayerCapability != nil {
-//                    if (CPlayerCapability.ETargetType.None == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability!.DTargetType) {
-//                        let ActorTarget = context.DSelectedPlayerAssets.first
-//
-//                        if PlayerCapability!.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!) {
-//                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = CapabilityType
-//                            context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
-//                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
-//                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
-//                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = (ActorTarget?.Position())!
-//                            context.DCurrentAssetCapability = EAssetCapabilityType.None
-//                        }
-//                    } else {
-//                        context.DCurrentAssetCapability = CapabilityType
-//                    }
-//                } else {
-//                    context.DCurrentAssetCapability = CapabilityType
-//                }
+                //                let CapabilityType: EAssetCapabilityType = context.DUnitActionRenderer.Selection(context.ScreenToUnitAction(CPixelPosition(x: CurrentX, y: CurrentY)))
+                //                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: CapabilityType)
+                //
+                //                if EAssetCapabilityType.None != CapabilityType {
+                //                    var TempEvent: SGameEvent
+                //                    TempEvent.DType = EEventType.ButtonTick
+                //                    context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                //                }
+                //                if PlayerCapability != nil {
+                //                    if (CPlayerCapability.ETargetType.None == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability!.DTargetType) {
+                //                        let ActorTarget = context.DSelectedPlayerAssets.first
+                //
+                //                        if PlayerCapability!.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!) {
+                //                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = CapabilityType
+                //                            context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
+                //                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
+                //                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
+                //                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = (ActorTarget?.Position())!
+                //                            context.DCurrentAssetCapability = EAssetCapabilityType.None
+                //                        }
+                //                    } else {
+                //                        context.DCurrentAssetCapability = CapabilityType
+                //                    }
+                //                } else {
+                //                    context.DCurrentAssetCapability = CapabilityType
+                //                }
             }
         } else if CApplicationData.EUIComponentType.uictMenuButton == ComponentType {
             // FIXME: Need ButtonRenderer
@@ -570,7 +568,7 @@ class CBattleMode: CApplicationMode {
         var PlayerLeft = 0
 
         // PrintDebug(DEBUG_LOW, "Started 1st for loop\n")
-        
+
         // calculate the total number of players left in the battle
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAlive())! {
@@ -585,9 +583,9 @@ class CBattleMode: CApplicationMode {
             }
             // give them a command to do
             // FIXME: NOT CRUCIAL FOR NOW
-//            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-//                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
-//            }
+            //            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+            //                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
+            //            }
         }
 
         // if game is oer
@@ -600,7 +598,7 @@ class CBattleMode: CApplicationMode {
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
                 // find capability of the command
-                if let PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction) {
+                if let PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction) {
                     if PlayerCapability != nil {
                         var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
                         // if traget type is not none
@@ -616,7 +614,7 @@ class CBattleMode: CApplicationMode {
                         }
                         // for all units that are selected for that player
                         for WeakActor in context.DPlayerCommands[Index].DActors {
-                            if let Actor:CPlayerAsset? = WeakActor {
+                            if let Actor: CPlayerAsset? = WeakActor {
                                 // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
                                 if PlayerCapability!.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
                                     // start the action if you can do it
@@ -640,7 +638,7 @@ class CBattleMode: CApplicationMode {
 
         // MARK: PLEASE CHECK. TRYING TO MAKE SURE REMOVAL OF ITEM IS SAFE
         for (Index, AssetItem) in context.DSelectedPlayerAssets.enumerated().reversed() {
-            if let Asset:CPlayerAsset? = AssetItem { // WeakAsset should never return nil?
+            if let Asset: CPlayerAsset? = AssetItem { // WeakAsset should never return nil?
                 if context.DGameModel.ValidAsset(asset: Asset!) && Asset!.Alive() {
                     if Asset!.Speed() != 0 && (EAssetAction.Capability == Asset!.Action()) {
                         var Command = Asset!.CurrentCommand()
@@ -677,7 +675,7 @@ class CBattleMode: CApplicationMode {
     override func Render(context: CApplicationData) {
         // PrintDebug(DEBUG_LOW, "Started CBatleMode::Render\n")
         // FIXME: SRectangle doesn't exist
-        var TempRectangle = SRectangle(DXPosition: 0,DYPosition: 0,DWidth: 0,DHeight: 0)
+        var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         var CurrentX: Int = Int()
         var CurrentY: Int = Int()
         var BufferWidth: Int = Int()
@@ -696,8 +694,8 @@ class CBattleMode: CApplicationMode {
 
         CurrentX = context.DCurrentX
         CurrentY = context.DCurrentY
-        //BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
-        //BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
+        // BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
+        // BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
         ViewWidth = Int(context.DViewportSurface.frame.width)
         ViewHeight = Int(context.DViewportSurface.frame.height)
         // FIXME: CGraphicResourceContext has no width or height
@@ -723,12 +721,12 @@ class CBattleMode: CApplicationMode {
             TempRectangle.DYPosition = TempPosition.Y()
         }
         // FIXME: NOT CRUCIAL FOR NOW
-//        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
-//            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
-//                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
-//            }
-//        }
-        
+        //        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
+        //            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
+        //                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
+        //            }
+        //        }
+
         // FIXME: Bevel draw takes in CGraphicResourceContextCoreGraphics?
         // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
         // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
@@ -762,7 +760,7 @@ class CBattleMode: CApplicationMode {
         // FIXME: Richard's working on making DrawViewport take in SKScene
         // context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
         // context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface )
-        
+
         // FIXME: SKSCENE.draw?
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
         // context.DWorkingBufferSurface.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
@@ -779,7 +777,7 @@ class CBattleMode: CApplicationMode {
                     context.DCursorType = CApplicationData.ECursorType.ctInspect
                 }
             } else {
-                var PlayerCapability:CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
+                var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
                 if PlayerCapability != nil {
                     var CanApply: Bool = false
                     if EAssetType.None == PixelType.AssetType() {
@@ -816,8 +814,8 @@ class CBattleMode: CApplicationMode {
             context.DCursorType = CApplicationData.ECursorType.ctPointer
             break
         }
-        var ViewportRectangle: SRectangle = SRectangle(DXPosition: context.DViewportRenderer.ViewPortX(), DYPosition:  context.DViewportRenderer.ViewPortY(), DWidth: context.DViewportRenderer.LastViewportWidth(), DHeight:context.DViewportRenderer.LastViewportHeight())
-        
+        var ViewportRectangle: SRectangle = SRectangle(DXPosition: context.DViewportRenderer.ViewPortX(), DYPosition: context.DViewportRenderer.ViewPortY(), DWidth: context.DViewportRenderer.LastViewportWidth(), DHeight: context.DViewportRenderer.LastViewportHeight())
+
         // FIXME: SoundEventRenderer
         // context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
         // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Render\n")
@@ -830,6 +828,3 @@ class CBattleMode: CApplicationMode {
         return CBattleMode.DBattleModePointer!
     }
 }
-
-
-

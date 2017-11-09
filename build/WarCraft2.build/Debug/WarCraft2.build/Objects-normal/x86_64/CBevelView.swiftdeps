@@ -1,0 +1,506 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "CBevelView"
+provides-nominal:
+- "9WarCraft210CBevelViewC"
+provides-member:
+- ["9WarCraft210CBevelViewC", ""]
+provides-dynamic-lookup:
+- "draw"
+depends-top-level:
+- !private "-"
+- "AssignmentPrecedence"
+- "CBevel"
+- "CBevelView"
+- !private "CDataSource"
+- !private "CGraphicResourceContextCoreGraphics"
+- !private "CGraphicTileset"
+- !private "Int"
+- "NSCoder"
+- !private "NSGraphicsContext"
+- "NSRect"
+- "NSView"
+- !private "StringLiteralType"
+- !private "fatalError"
+depends-member:
+- !private ["s23BidirectionalCollectionP", "init"]
+- !private ["s13BinaryIntegerP", "init"]
+- !private ["9WarCraft26CBevelC", "DrawBevel"]
+- !private ["9WarCraft26CBevelC", "init"]
+- ["9WarCraft210CBevelViewC", "CBevel"]
+- !private ["9WarCraft210CBevelViewC", "CDataSource"]
+- !private ["9WarCraft210CBevelViewC", "CGraphicResourceContextCoreGraphics"]
+- !private ["9WarCraft210CBevelViewC", "CGraphicTileset"]
+- !private ["9WarCraft210CBevelViewC", "Int"]
+- ["9WarCraft210CBevelViewC", "NSCoder"]
+- !private ["9WarCraft210CBevelViewC", "NSGraphicsContext"]
+- ["9WarCraft210CBevelViewC", "NSRect"]
+- ["9WarCraft210CBevelViewC", "deinit"]
+- ["9WarCraft210CBevelViewC", "draw"]
+- !private ["9WarCraft210CBevelViewC", "fatalError"]
+- !private ["9WarCraft210CBevelViewC", "frame"]
+- ["9WarCraft210CBevelViewC", "init"]
+- ["9WarCraft210CBevelViewC", "innerBevelRenderer"]
+- ["9WarCraft210CBevelViewC", "outerBevelRenderer"]
+- !private ["9WarCraft211CDataSourceC", "init"]
+- !private ["SC6CGRectV", "height"]
+- !private ["SC6CGRectV", "width"]
+- !private ["9WarCraft235CGraphicResourceContextCoreGraphicsC", "init"]
+- !private ["9WarCraft215CGraphicTilesetC", "TestLoadTileset"]
+- !private ["9WarCraft215CGraphicTilesetC", "init"]
+- !private ["s7CVarArgP", "CBevel"]
+- !private ["s7CVarArgP", "CDataSource"]
+- !private ["s7CVarArgP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s7CVarArgP", "CGraphicTileset"]
+- !private ["s7CVarArgP", "DrawBevel"]
+- !private ["s7CVarArgP", "Int"]
+- !private ["s7CVarArgP", "NSGraphicsContext"]
+- !private ["s7CVarArgP", "cgContext"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "draw"]
+- !private ["s7CVarArgP", "fatalError"]
+- !private ["s7CVarArgP", "frame"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "innerBevelRenderer"]
+- !private ["s7CVarArgP", "outerBevelRenderer"]
+- ["s7CVarArgP", ""]
+- !private ["s10CollectionP", "init"]
+- !private ["s10ComparableP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "CBevel"]
+- !private ["s28CustomDebugStringConvertibleP", "CDataSource"]
+- !private ["s28CustomDebugStringConvertibleP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s28CustomDebugStringConvertibleP", "CGraphicTileset"]
+- !private ["s28CustomDebugStringConvertibleP", "DrawBevel"]
+- !private ["s28CustomDebugStringConvertibleP", "Int"]
+- !private ["s28CustomDebugStringConvertibleP", "NSGraphicsContext"]
+- !private ["s28CustomDebugStringConvertibleP", "cgContext"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "draw"]
+- !private ["s28CustomDebugStringConvertibleP", "fatalError"]
+- !private ["s28CustomDebugStringConvertibleP", "frame"]
+- !private ["s28CustomDebugStringConvertibleP", "height"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "innerBevelRenderer"]
+- !private ["s28CustomDebugStringConvertibleP", "outerBevelRenderer"]
+- !private ["s28CustomDebugStringConvertibleP", "width"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s29CustomPlaygroundQuickLookableP", "height"]
+- !private ["s29CustomPlaygroundQuickLookableP", "init"]
+- !private ["s29CustomPlaygroundQuickLookableP", "width"]
+- !private ["s17CustomReflectableP", "height"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "width"]
+- !private ["s23CustomStringConvertibleP", "CBevel"]
+- !private ["s23CustomStringConvertibleP", "CDataSource"]
+- !private ["s23CustomStringConvertibleP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s23CustomStringConvertibleP", "CGraphicTileset"]
+- !private ["s23CustomStringConvertibleP", "DrawBevel"]
+- !private ["s23CustomStringConvertibleP", "Int"]
+- !private ["s23CustomStringConvertibleP", "NSGraphicsContext"]
+- !private ["s23CustomStringConvertibleP", "cgContext"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "draw"]
+- !private ["s23CustomStringConvertibleP", "fatalError"]
+- !private ["s23CustomStringConvertibleP", "frame"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "innerBevelRenderer"]
+- !private ["s23CustomStringConvertibleP", "outerBevelRenderer"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s9DecodableP", "height"]
+- !private ["s9DecodableP", "init"]
+- !private ["s9DecodableP", "width"]
+- !private ["s9EncodableP", "height"]
+- !private ["s9EncodableP", "init"]
+- !private ["s9EncodableP", "width"]
+- !private ["s9EquatableP", "CBevel"]
+- !private ["s9EquatableP", "CDataSource"]
+- !private ["s9EquatableP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s9EquatableP", "CGraphicTileset"]
+- !private ["s9EquatableP", "DrawBevel"]
+- !private ["s9EquatableP", "Int"]
+- !private ["s9EquatableP", "NSGraphicsContext"]
+- !private ["s9EquatableP", "cgContext"]
+- !private ["s9EquatableP", "current"]
+- !private ["s9EquatableP", "draw"]
+- !private ["s9EquatableP", "fatalError"]
+- !private ["s9EquatableP", "frame"]
+- !private ["s9EquatableP", "height"]
+- !private ["s9EquatableP", "init"]
+- !private ["s9EquatableP", "innerBevelRenderer"]
+- !private ["s9EquatableP", "outerBevelRenderer"]
+- !private ["s9EquatableP", "width"]
+- ["s9EquatableP", ""]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s27ExpressibleByIntegerLiteralP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s17FixedWidthIntegerP", "init"]
+- !private ["s8HashableP", "CBevel"]
+- !private ["s8HashableP", "CDataSource"]
+- !private ["s8HashableP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s8HashableP", "CGraphicTileset"]
+- !private ["s8HashableP", "DrawBevel"]
+- !private ["s8HashableP", "Int"]
+- !private ["s8HashableP", "NSGraphicsContext"]
+- !private ["s8HashableP", "cgContext"]
+- !private ["s8HashableP", "current"]
+- !private ["s8HashableP", "draw"]
+- !private ["s8HashableP", "fatalError"]
+- !private ["s8HashableP", "frame"]
+- !private ["s8HashableP", "init"]
+- !private ["s8HashableP", "innerBevelRenderer"]
+- !private ["s8HashableP", "outerBevelRenderer"]
+- ["s8HashableP", ""]
+- !private ["Si", "init"]
+- !private ["s25LosslessStringConvertibleP", "init"]
+- !private ["s10MirrorPathP", "init"]
+- !private ["So15NSAccessibilityP", "CBevel"]
+- !private ["So15NSAccessibilityP", "CDataSource"]
+- !private ["So15NSAccessibilityP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So15NSAccessibilityP", "CGraphicTileset"]
+- !private ["So15NSAccessibilityP", "Int"]
+- !private ["So15NSAccessibilityP", "NSGraphicsContext"]
+- !private ["So15NSAccessibilityP", "draw"]
+- !private ["So15NSAccessibilityP", "fatalError"]
+- !private ["So15NSAccessibilityP", "frame"]
+- !private ["So15NSAccessibilityP", "init"]
+- !private ["So15NSAccessibilityP", "innerBevelRenderer"]
+- !private ["So15NSAccessibilityP", "outerBevelRenderer"]
+- ["So15NSAccessibilityP", ""]
+- !private ["So30NSAccessibilityElementProtocolP", "CBevel"]
+- !private ["So30NSAccessibilityElementProtocolP", "CDataSource"]
+- !private ["So30NSAccessibilityElementProtocolP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So30NSAccessibilityElementProtocolP", "CGraphicTileset"]
+- !private ["So30NSAccessibilityElementProtocolP", "Int"]
+- !private ["So30NSAccessibilityElementProtocolP", "NSGraphicsContext"]
+- !private ["So30NSAccessibilityElementProtocolP", "draw"]
+- !private ["So30NSAccessibilityElementProtocolP", "fatalError"]
+- !private ["So30NSAccessibilityElementProtocolP", "frame"]
+- !private ["So30NSAccessibilityElementProtocolP", "init"]
+- !private ["So30NSAccessibilityElementProtocolP", "innerBevelRenderer"]
+- !private ["So30NSAccessibilityElementProtocolP", "outerBevelRenderer"]
+- ["So30NSAccessibilityElementProtocolP", ""]
+- !private ["So29NSAnimatablePropertyContainerP", "CBevel"]
+- !private ["So29NSAnimatablePropertyContainerP", "CDataSource"]
+- !private ["So29NSAnimatablePropertyContainerP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So29NSAnimatablePropertyContainerP", "CGraphicTileset"]
+- !private ["So29NSAnimatablePropertyContainerP", "Int"]
+- !private ["So29NSAnimatablePropertyContainerP", "NSGraphicsContext"]
+- !private ["So29NSAnimatablePropertyContainerP", "draw"]
+- !private ["So29NSAnimatablePropertyContainerP", "fatalError"]
+- !private ["So29NSAnimatablePropertyContainerP", "frame"]
+- !private ["So29NSAnimatablePropertyContainerP", "init"]
+- !private ["So29NSAnimatablePropertyContainerP", "innerBevelRenderer"]
+- !private ["So29NSAnimatablePropertyContainerP", "outerBevelRenderer"]
+- ["So29NSAnimatablePropertyContainerP", ""]
+- !private ["So25NSAppearanceCustomizationP", "CBevel"]
+- !private ["So25NSAppearanceCustomizationP", "CDataSource"]
+- !private ["So25NSAppearanceCustomizationP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So25NSAppearanceCustomizationP", "CGraphicTileset"]
+- !private ["So25NSAppearanceCustomizationP", "Int"]
+- !private ["So25NSAppearanceCustomizationP", "NSGraphicsContext"]
+- !private ["So25NSAppearanceCustomizationP", "draw"]
+- !private ["So25NSAppearanceCustomizationP", "fatalError"]
+- !private ["So25NSAppearanceCustomizationP", "frame"]
+- !private ["So25NSAppearanceCustomizationP", "init"]
+- !private ["So25NSAppearanceCustomizationP", "innerBevelRenderer"]
+- !private ["So25NSAppearanceCustomizationP", "outerBevelRenderer"]
+- ["So25NSAppearanceCustomizationP", ""]
+- !private ["So8NSCodingP", "CBevel"]
+- !private ["So8NSCodingP", "CDataSource"]
+- !private ["So8NSCodingP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So8NSCodingP", "CGraphicTileset"]
+- !private ["So8NSCodingP", "Int"]
+- !private ["So8NSCodingP", "NSGraphicsContext"]
+- !private ["So8NSCodingP", "draw"]
+- !private ["So8NSCodingP", "fatalError"]
+- !private ["So8NSCodingP", "frame"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "innerBevelRenderer"]
+- !private ["So8NSCodingP", "outerBevelRenderer"]
+- ["So8NSCodingP", ""]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So21NSDraggingDestinationP", "CBevel"]
+- !private ["So21NSDraggingDestinationP", "CDataSource"]
+- !private ["So21NSDraggingDestinationP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So21NSDraggingDestinationP", "CGraphicTileset"]
+- !private ["So21NSDraggingDestinationP", "Int"]
+- !private ["So21NSDraggingDestinationP", "NSGraphicsContext"]
+- !private ["So21NSDraggingDestinationP", "draw"]
+- !private ["So21NSDraggingDestinationP", "fatalError"]
+- !private ["So21NSDraggingDestinationP", "frame"]
+- !private ["So21NSDraggingDestinationP", "init"]
+- !private ["So21NSDraggingDestinationP", "innerBevelRenderer"]
+- !private ["So21NSDraggingDestinationP", "outerBevelRenderer"]
+- ["So21NSDraggingDestinationP", ""]
+- !private ["So17NSGraphicsContextC", "cgContext"]
+- !private ["So17NSGraphicsContextC", "current"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So16NSMutableCopyingP", "init"]
+- ["So8NSObjectC", "CBevel"]
+- !private ["So8NSObjectC", "CDataSource"]
+- !private ["So8NSObjectC", "CGraphicResourceContextCoreGraphics"]
+- !private ["So8NSObjectC", "CGraphicTileset"]
+- !private ["So8NSObjectC", "DrawBevel"]
+- !private ["So8NSObjectC", "Int"]
+- ["So8NSObjectC", "NSCoder"]
+- !private ["So8NSObjectC", "NSGraphicsContext"]
+- ["So8NSObjectC", "NSRect"]
+- !private ["So8NSObjectC", "cgContext"]
+- !private ["So8NSObjectC", "current"]
+- ["So8NSObjectC", "draw"]
+- !private ["So8NSObjectC", "fatalError"]
+- !private ["So8NSObjectC", "frame"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "innerBevelRenderer"]
+- ["So8NSObjectC", "outerBevelRenderer"]
+- !private ["So16NSObjectProtocolP", "CBevel"]
+- !private ["So16NSObjectProtocolP", "CDataSource"]
+- !private ["So16NSObjectProtocolP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So16NSObjectProtocolP", "CGraphicTileset"]
+- !private ["So16NSObjectProtocolP", "DrawBevel"]
+- !private ["So16NSObjectProtocolP", "Int"]
+- !private ["So16NSObjectProtocolP", "NSGraphicsContext"]
+- !private ["So16NSObjectProtocolP", "cgContext"]
+- !private ["So16NSObjectProtocolP", "current"]
+- !private ["So16NSObjectProtocolP", "draw"]
+- !private ["So16NSObjectProtocolP", "fatalError"]
+- !private ["So16NSObjectProtocolP", "frame"]
+- !private ["So16NSObjectProtocolP", "init"]
+- !private ["So16NSObjectProtocolP", "innerBevelRenderer"]
+- !private ["So16NSObjectProtocolP", "outerBevelRenderer"]
+- ["So16NSObjectProtocolP", ""]
+- !private ["So19NSPasteboardReadingP", "init"]
+- !private ["So19NSPasteboardWritingP", "init"]
+- ["So11NSResponderC", "CBevel"]
+- !private ["So11NSResponderC", "CDataSource"]
+- !private ["So11NSResponderC", "CGraphicResourceContextCoreGraphics"]
+- !private ["So11NSResponderC", "CGraphicTileset"]
+- !private ["So11NSResponderC", "Int"]
+- ["So11NSResponderC", "NSCoder"]
+- !private ["So11NSResponderC", "NSGraphicsContext"]
+- ["So11NSResponderC", "NSRect"]
+- ["So11NSResponderC", "draw"]
+- !private ["So11NSResponderC", "fatalError"]
+- !private ["So11NSResponderC", "frame"]
+- ["So11NSResponderC", "init"]
+- ["So11NSResponderC", "innerBevelRenderer"]
+- ["So11NSResponderC", "outerBevelRenderer"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So8NSStringC", "init"]
+- !private ["So18NSTouchBarProviderP", "CBevel"]
+- !private ["So18NSTouchBarProviderP", "CDataSource"]
+- !private ["So18NSTouchBarProviderP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So18NSTouchBarProviderP", "CGraphicTileset"]
+- !private ["So18NSTouchBarProviderP", "Int"]
+- !private ["So18NSTouchBarProviderP", "NSGraphicsContext"]
+- !private ["So18NSTouchBarProviderP", "draw"]
+- !private ["So18NSTouchBarProviderP", "fatalError"]
+- !private ["So18NSTouchBarProviderP", "frame"]
+- !private ["So18NSTouchBarProviderP", "init"]
+- !private ["So18NSTouchBarProviderP", "innerBevelRenderer"]
+- !private ["So18NSTouchBarProviderP", "outerBevelRenderer"]
+- ["So18NSTouchBarProviderP", ""]
+- !private ["So33NSUserInterfaceItemIdentificationP", "CBevel"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "CDataSource"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "CGraphicResourceContextCoreGraphics"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "CGraphicTileset"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "Int"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "NSGraphicsContext"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "draw"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "fatalError"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "frame"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "init"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "innerBevelRenderer"]
+- !private ["So33NSUserInterfaceItemIdentificationP", "outerBevelRenderer"]
+- ["So33NSUserInterfaceItemIdentificationP", ""]
+- ["So6NSViewC", "CBevel"]
+- !private ["So6NSViewC", "CDataSource"]
+- !private ["So6NSViewC", "CGraphicResourceContextCoreGraphics"]
+- !private ["So6NSViewC", "CGraphicTileset"]
+- !private ["So6NSViewC", "Int"]
+- ["So6NSViewC", "NSCoder"]
+- !private ["So6NSViewC", "NSGraphicsContext"]
+- ["So6NSViewC", "NSRect"]
+- ["So6NSViewC", "draw"]
+- !private ["So6NSViewC", "fatalError"]
+- !private ["So6NSViewC", "frame"]
+- ["So6NSViewC", "init"]
+- ["So6NSViewC", "innerBevelRenderer"]
+- ["So6NSViewC", "outerBevelRenderer"]
+- ["So6NSViewC", ""]
+- !private ["s7NumericP", "init"]
+- !private ["s26RangeReplaceableCollectionP", "init"]
+- !private ["s8SequenceP", "init"]
+- !private ["s13SignedIntegerP", "init"]
+- !private ["s13SignedNumericP", "init"]
+- !private ["s12StaticStringV", "init"]
+- !private ["s10StrideableP", "init"]
+- !private ["SS", "init"]
+- !private ["s14StringProtocolP", "init"]
+- !private ["s16TextOutputStreamP", "init"]
+- !private ["s20TextOutputStreamableP", "init"]
+- !private ["s23_BidirectionalIndexableP", "init"]
+- !private ["s18_BitwiseOperationsP", "init"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "CBevel"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "CDataSource"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "CGraphicResourceContextCoreGraphics"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "CGraphicTileset"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "Int"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "NSGraphicsContext"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "draw"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "fatalError"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "frame"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "init"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "innerBevelRenderer"]
+- !private ["s37_DefaultCustomPlaygroundQuickLookableP", "outerBevelRenderer"]
+- ["s37_DefaultCustomPlaygroundQuickLookableP", ""]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s39_ExpressibleByBuiltinUTF16StringLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s33_ExpressibleByStringInterpolationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s10_IndexableP", "init"]
+- !private ["s14_IndexableBaseP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CBevel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CDataSource"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CGraphicResourceContextCoreGraphics"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CGraphicTileset"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "DrawBevel"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "Int"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NSGraphicsContext"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "cgContext"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "draw"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "fatalError"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "frame"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "innerBevelRenderer"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "outerBevelRenderer"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["s21_ObjectiveCBridgeableP", "height"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "width"]
+- !private ["s26_RangeReplaceableIndexableP", "init"]
+- !private ["s11_StrideableP", "init"]
+- !private ["s16_SwiftStringViewP", "init"]
+depends-nominal:
+- !private "s23BidirectionalCollectionP"
+- !private "s13BinaryIntegerP"
+- !private "9WarCraft26CBevelC"
+- "9WarCraft210CBevelViewC"
+- !private "9WarCraft211CDataSourceC"
+- !private "SC6CGRectV"
+- !private "9WarCraft235CGraphicResourceContextCoreGraphicsC"
+- !private "9WarCraft215CGraphicTilesetC"
+- "s7CVarArgP"
+- !private "s10CollectionP"
+- !private "s10ComparableP"
+- "s28CustomDebugStringConvertibleP"
+- !private "s29CustomPlaygroundQuickLookableP"
+- !private "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- !private "s9DecodableP"
+- !private "s9EncodableP"
+- "s9EquatableP"
+- !private "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- !private "s27ExpressibleByIntegerLiteralP"
+- !private "s26ExpressibleByStringLiteralP"
+- !private "s33ExpressibleByUnicodeScalarLiteralP"
+- !private "s17FixedWidthIntegerP"
+- "s8HashableP"
+- !private "Si"
+- !private "s25LosslessStringConvertibleP"
+- !private "s10MirrorPathP"
+- "So15NSAccessibilityP"
+- "So30NSAccessibilityElementProtocolP"
+- "So29NSAnimatablePropertyContainerP"
+- "So25NSAppearanceCustomizationP"
+- "So8NSCodingP"
+- !private "So9NSCopyingP"
+- "So21NSDraggingDestinationP"
+- !private "So17NSGraphicsContextC"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So16NSObjectProtocolP"
+- !private "So19NSPasteboardReadingP"
+- !private "So19NSPasteboardWritingP"
+- "So11NSResponderC"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- "So18NSTouchBarProviderP"
+- "So33NSUserInterfaceItemIdentificationP"
+- "So6NSViewC"
+- !private "s7NumericP"
+- !private "s26RangeReplaceableCollectionP"
+- !private "s8SequenceP"
+- !private "s13SignedIntegerP"
+- !private "s13SignedNumericP"
+- !private "s12StaticStringV"
+- !private "s10StrideableP"
+- !private "SS"
+- !private "s14StringProtocolP"
+- !private "s16TextOutputStreamP"
+- !private "s20TextOutputStreamableP"
+- !private "s23_BidirectionalIndexableP"
+- !private "s18_BitwiseOperationsP"
+- "s37_DefaultCustomPlaygroundQuickLookableP"
+- !private "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- !private "s35_ExpressibleByBuiltinIntegerLiteralP"
+- !private "s34_ExpressibleByBuiltinStringLiteralP"
+- !private "s39_ExpressibleByBuiltinUTF16StringLiteralP"
+- !private "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- !private "s33_ExpressibleByStringInterpolationP"
+- !private "s35_HasCustomAnyHashableRepresentationP"
+- !private "s10_IndexableP"
+- !private "s14_IndexableBaseP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- !private "s21_ObjectiveCBridgeableP"
+- !private "s26_RangeReplaceableIndexableP"
+- !private "s11_StrideableP"
+- !private "s16_SwiftStringViewP"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/XPC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ModelIO.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreMedia.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreData.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/simd.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Metal.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AVFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreAudio.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/GLKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SpriteKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/AppKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/ModelIO.framework/Headers/ModelIO.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/GLKit.framework/Headers/GLKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/SpriteKit.framework/Headers/SpriteKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+interface-hash: "daa8607631d187282fbd450fa20b0f21"

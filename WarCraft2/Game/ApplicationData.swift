@@ -122,7 +122,7 @@ class CApplicationData {
     // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
     // var DSoundEventRenderer: CSoundEventRenderer? = nil
 
-    // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
+    // var DFonts: [CFontTileset]// = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
 
     // loading steps things
     //    var DTotalLoadingSteps: Int
@@ -170,12 +170,12 @@ class CApplicationData {
     // var DMiniMapRenderer: CMiniMapRenderer
 
     // TODO: finish these types of renderers
-    var DUnitDescriptionRenderer: CUnitDescriptionRenderer
-    var DUnitActionRenderer: CUnitActionRenderer
-    var DResourceRenderer: CResourceRenderer
-    var DMenuButtonRenderer: CButtonRenderer
-    var DButtonRenderer: CButtonRenderer
-    var DMapSelectListRenderer: CListViewRenderer
+    // var DUnitDescriptionRenderer: CUnitDescriptionRenderer
+    // var DUnitActionRenderer: CUnitActionRenderer
+    // var DResourceRenderer: CResourceRenderer
+    // var DMenuButtonRenderer: CButtonRenderer
+    // var DButtonRenderer: CButtonRenderer
+    // var DMapSelectListRenderer: CListViewRenderer
     // var DOptionsEditRenderer: CEditRenderer? = nil
 
     // game model things
@@ -289,7 +289,7 @@ class CApplicationData {
         // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
         // var DSoundEventRenderer: CSoundEventRenderer? = nil
 
-        // var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
+        //         DFonts = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
 
         // loading steps things
         //        DTotalLoadingSteps = Int()
@@ -306,9 +306,27 @@ class CApplicationData {
         DListViewIconTileset = CGraphicTileset()
 
         // bevel things
-        DMiniBevel = CBevel(tileset: CGraphicTileset())
-        DInnerBevel = CBevel(tileset: CGraphicTileset())
-        DOuterBevel = CBevel(tileset: CGraphicTileset())
+        //        DBuildingDeathTileset = CGraphicTileset()
+        //        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
+        //            print("Failed to lead BuildingDeath tileset")
+        //        }
+        var bevelDataSource = CDataSource()
+        var MiniBevelTileset = CGraphicTileset()
+        if !MiniBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
+            print("Failed to lead MiniBevel tileset")
+        }
+        var InnerBevelTileset = CGraphicTileset()
+        if !InnerBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
+            print("Failed to lead InnerBevel tileset")
+        }
+        var OuterBevelTileset = CGraphicTileset()
+        if !OuterBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
+            print("Failed to lead OuterBevel tileset")
+        }
+        DMiniBevel = CBevel(tileset: MiniBevelTileset)
+        DInnerBevel = CBevel(tileset: InnerBevelTileset) //tileset: InnerBevelTileset)
+        DOuterBevel = CBevel(tileset: OuterBevelTileset)
+        //tileset: OuterBevelTileset)
 
         // more tileset things
         DMapRendererConfigurationData = [Character]()
@@ -341,12 +359,12 @@ class CApplicationData {
         //        DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer)
 
-        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
-        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: CGraphicTileset()), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), font: CFontTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
-        DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: CGraphicTileset()), outerbevel: CBevel(tileset: CGraphicTileset()), font: CFontTileset())
-        DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: CGraphicTileset()), outerbevel: CBevel(tileset: CGraphicTileset()), font: CFontTileset())
-        DMapSelectListRenderer = CListViewRenderer(icons: Int(), font: Int())
+        // DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
+        // DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+        // DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), font: CFontTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+        // DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: InnerBevelTileset), outerbevel: CBevel(tileset: OuterBevelTileset), font: CFontTileset())
+        // DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: InnerBevelTileset), outerbevel: CBevel(tileset: OuterBevelTileset), font: CFontTileset())
+        // DMapSelectListRenderer = CListViewRenderer(icons: Int(), font: Int())
 
         // TODO: finish these types of renderers
         // var DOptionsEditRenderer: CEditRenderer? = nil
