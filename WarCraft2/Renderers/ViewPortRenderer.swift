@@ -113,7 +113,7 @@ class CViewportRenderer {
     // FIXME: took out parameters
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
                       /* selectionmarkerlist: inout [CPlayerAsset],*/
-                      selectrect: SRectangle /* ,curcapability: EAssetCapabilityType */ ) {
+                      selectrect _: SRectangle /* ,curcapability: EAssetCapabilityType */ ) {
 
         // need to initialize with parameters to avoid xcode error
         // initially all values are zero, values are assigned a few lines below
@@ -131,8 +131,8 @@ class CViewportRenderer {
             DViewportY = DMapRenderer.DetailedMapHeight() - DLastViewportHeight
         }
 
-        TempRectangle.DXPosition = selectrect.DXPosition
-        TempRectangle.DYPosition = selectrect.DYPosition
+        TempRectangle.DXPosition = DViewportX
+        TempRectangle.DYPosition = DViewportY
         TempRectangle.DWidth = Int(surface.frame.width)
         TempRectangle.DHeight = Int(surface.frame.height)
 

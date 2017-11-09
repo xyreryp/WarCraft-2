@@ -28,39 +28,16 @@ class GameViewController: NSViewController, viewToController {
     var application = CApplicationData()
     var timer = CGPoint(x: 500, y: -200)
     var time = Timer()
-    //    override func viewDidLoad() {
-    //        super.viewDidLoad()
-    //        // Do view setup here.
-    //        view.addSubview(skview)
-    //        //                skview.showsFPS = true
-    //        // skscene?.backgroundColor = NSColor.brown
-    //        skview.presentScene(skscene)
-    //        skscene?.anchorPoint = CGPoint(x: 0.1, y: 0.8)
-    //        let graphicTileSet = CGraphicTileset()
-    //        graphicTileSet.LoadTileset(source: nil)
-    //        let map = CTerrainMap()
-    //        try! map.LoadMap(fileToRead: "mountain")
-    //        map.RenderTerrain()
-    //        let mapRenderer = CMapRenderer(config: nil, tileset: graphicTileSet, map: map)
-    //        mapRenderer.DrawMap(surface: skscene!, typesurface: skscene!, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: (map.Width() * graphicTileSet.DTileWidth), DHeight: (map.Height() * graphicTileSet.DTileHeight)))
-    //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
-    //        // TODO:
-    //        //        graphicTileSet.LoadTileset(source: nil)
-    //        //        graphicTileSet.DrawTest(skscene: skscene!, xpos: -700, ypos: 330)
-    //    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         view.addSubview(skview)
-        //                skview.showsFPS = true
+
         skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0, y: 0.8)
 
-        // entry point for program
-        //        var application = CApplicationData()
-        // load tile sets
         application.Activate()
         var terrainTileset = application.DTerrainTileset
         let map = CTerrainMap()
@@ -69,7 +46,7 @@ class GameViewController: NSViewController, viewToController {
         } catch {
             print("cant load map")
         }
-        skscene?.scaleMode = .fill
+        //        skscene?.scaleMode = .fill
 
         map.RenderTerrain()
         let cgr = CGraphicResourceContext()
@@ -101,13 +78,14 @@ class GameViewController: NSViewController, viewToController {
         skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
         application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
+        print("DViewportX: \(application.DViewportRenderer.DViewportX)")
+        print("DViewportY: \(application.DViewportRenderer.DViewportY)")
     }
 
     func movePeasant(x: Int, y: Int) {
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-        //        let sklocation = convert(
         assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
         sound.playMusic(audioFileName: "selected4", audioType: "wav", numloops: 1)
     }
@@ -118,8 +96,6 @@ class GameViewController: NSViewController, viewToController {
         application.X = x
         application.Y = y
         if peasantSelected {
-            print(x)
-            print(y)
 
             movePeasant(x: x + 500, y: y - 400)
             peasantSelected = false
@@ -136,6 +112,7 @@ class GameViewController: NSViewController, viewToController {
     func scrollWheel(x: Int, y: Int) {
         if y != 0 {
             application.DViewportRenderer.PanNorth(pan: y)
+
         } else if x != 0 {
             application.DViewportRenderer.PanWest(pan: x)
         }
@@ -150,8 +127,6 @@ class GameView: SKView {
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
         let sklocation = convert(NSEvent.mouseLocation, to: skscene!)
-        //        print(NSEvent.mouseLocation.x)
-        //        print(NSEvent.mouseLocation.y)
 
         vc?.leftDown(x: Int(sklocation.x), y: Int(sklocation.y))
     }
@@ -164,6 +139,8 @@ class GameView: SKView {
         let x = event.scrollingDeltaX
         let y = event.scrollingDeltaY
 
+        print("x: \(x)")
+        print("y: \(y)")
         vc?.scrollWheel(x: Int(x), y: Int(y))
     }
 }
