@@ -28,6 +28,8 @@
 		8834FBD31FA1BE46003E81E5 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */; };
 		8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B24361FA6B7A1004C1724 /* GameModel.swift */; };
 		88AF0B5B1FA4FC1F00DDD6A0 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */; };
+		88B9660E1FB4BFD6006748DD /* BattleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9660C1FB4BFD5006748DD /* BattleMode.swift */; };
+		88B9660F1FB4BFD6006748DD /* ApplicationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B9660D1FB4BFD6006748DD /* ApplicationMode.swift */; };
 		93852AF71FA3BAAD002A87F3 /* ViewPortRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */; };
 		93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A955BC1F8D312100226455 /* GraphicsTileset.swift */; };
 		9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64D6191FA05A4100C39977 /* AssetDecoratedMap.swift */; };
@@ -133,6 +135,8 @@
 		8834FBCF1FA1BE46003E81E5 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
 		885B24361FA6B7A1004C1724 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
+		88B9660C1FB4BFD5006748DD /* BattleMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattleMode.swift; sourceTree = "<group>"; };
+		88B9660D1FB4BFD6006748DD /* ApplicationMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationMode.swift; sourceTree = "<group>"; };
 		93A955BC1F8D312100226455 /* GraphicsTileset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsTileset.swift; sourceTree = "<group>"; };
 		93C52EFE1FB2A24F0069E0E5 /* UnitActionRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitActionRenderer.swift; sourceTree = "<group>"; };
 		93DED6311FB2A54F002FDF3B /* Bevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bevel.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 		88B9660B1FB4253A006748DD /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				88B9660D1FB4BFD6006748DD /* ApplicationMode.swift */,
+				88B9660C1FB4BFD5006748DD /* BattleMode.swift */,
 				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
 				885B24361FA6B7A1004C1724 /* GameModel.swift */,
 			);
@@ -573,6 +579,7 @@
 				E14136B71F97F8530086A0A6 /* Scene.sks in Sources */,
 				E14136B41F9735530086A0A6 /* TerrainMap.swift in Sources */,
 				52F39C331F995A0B0099329A /* TextFormatter.swift in Sources */,
+				88B9660F1FB4BFD6006748DD /* ApplicationMode.swift in Sources */,
 				E10BA0921F8A13D70097867A /* VisibilityMap.swift in Sources */,
 				E1D5B4CC1FB22FDD007141F2 /* TrainCapabilities.swift in Sources */,
 				A1AE6E611F92A95200D40A86 /* PixelType.swift in Sources */,
@@ -606,6 +613,7 @@
 				4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */,
 				8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */,
 				E1384EDF1FAEE864008CED64 /* ResourceRenderer.swift in Sources */,
+				88B9660E1FB4BFD6006748DD /* BattleMode.swift in Sources */,
 				DDC38C7A1F9300CE00967EA6 /* GraphicFactory.swift in Sources */,
 				9B64D6231FA05AEB00C39977 /* PlayerAssetType.swift in Sources */,
 				9B64D61A1FA05A4100C39977 /* AssetDecoratedMap.swift in Sources */,
