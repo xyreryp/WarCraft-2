@@ -10,6 +10,8 @@ import Foundation
 import Cocoa
 import SpriteKit
 import AppKit
+import OpenGL
+import GLKit
 
 var peasantSelected = false
 
@@ -55,12 +57,11 @@ class GameViewController: NSViewController, viewToController {
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colors = CGraphicRecolorMap()
         application.DAssetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-        // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
         var visMap = CVisibilityMap(width: 200, height: 200, maxvisibility: 1)
         let fogrenderer = CFogRenderer(tileset: terrainTileset, map: visMap)
         application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
-        //  let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
-        // view.addSubview(cgview, positioned: .above, relativeTo: skview)
+        let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
+        view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
         time = Timer.scheduledTimer(timeInterval: 0.10, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
@@ -163,9 +164,68 @@ class CGView: NSView {
     }
 }
 
-extension NSView {
-    func backgroundColor(color: NSColor) {
-        wantsLayer = true
-        layer?.backgroundColor = color.cgColor
+class OpenGLView: NSView {
+    var displaylink: CVDisplayLink?
+    var pixelFormat: NSOpenGLPixelFormat?
+    var openGLContext: NSOpenGLContext?
+
+    init?(coder: NSCoder, context _: NSOpenGLContext?) {
+        // Set up pixel format and context...
+
+        super.init(coder: coder)
+        openGLContext!.makeCurrentContext()
+        setupDisplayLink()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reshape), name: NSView.globalFrameDidChangeNotification, object: self)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
+        let attributes: [NSOpenGLPixelFormatAttribute] = [
+            UInt32(NSOpenGLPFAAccelerated),
+            UInt32(NSOpenGLPFAColorSize), UInt32(32),
+            UInt32(NSOpenGLPFADoubleBuffer),
+            UInt32(NSOpenGLPFAOpenGLProfile),
+            UInt32(NSOpenGLProfileVersion3_2Core),
+            UInt32(0),
+        ]
+        pixelFormat = NSOpenGLPixelFormat(attributes: attributes)
+        openGLContext = NSOpenGLContext(format: pixelFormat!, share: nil)
+        openGLContext?.setValues([1], for: NSOpenGL)
+    }
+
+    @objc func reshape() {
+    }
+
+    func setupDisplayLink() {
+    }
+
+    override func lockFocus() {
+        super.lockFocus()
+        if openGLContext!.view != self {
+            openGLContext!.view = self
+        }
+    }
+
+    override func draw(_: NSRect) {
+        if openGLContext!.view != self {
+            openGLContext!.view = self
+        }
+
+        // Actually draw something...
+        if !CVDisplayLinkIsRunning(displaylink!) {
+            drawView()
+        }
+    }
+
+    func drawView() {
+        CGLLockContext(openGLContext!.cglContextObj!)
+        openGLContext!.makeCurrentContext()
+
+        // Draw things...
+
+        openGLContext!.flushBuffer()
+        CGLUnlockContext(openGLContext!.cglContextObj!)
     }
 }
