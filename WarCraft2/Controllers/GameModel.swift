@@ -187,7 +187,7 @@ class CGameModel {
         //        for ImmobileAsset in ImmobileAssets {
         //            AllAssets.append(ImmobileAsset)
         //        }
-        
+
         // for all assets on the map.
         // position is where their turn order is. ???
         for Asset in AllAssets {
@@ -395,44 +395,44 @@ class CGameModel {
                         CurrentEvents.append(TempEvent)
 
                         if let Alive = CurrentCommand.DAssetTarget?.Alive() {
-                            if(Alive) { // same issue
-                            let TargetCommand: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
-                            TempEvent = SGameEvent(DType: EEventType.Attacked, DAsset: CurrentCommand.DAssetTarget!)
-                            DPlayers[(CurrentCommand.DAssetTarget?.Color().rawValue)!].AddGameEvent(event: TempEvent)
+                            if Alive { // same issue
+                                let TargetCommand: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
+                                TempEvent = SGameEvent(DType: EEventType.Attacked, DAsset: CurrentCommand.DAssetTarget!)
+                                DPlayers[(CurrentCommand.DAssetTarget?.Color().rawValue)!].AddGameEvent(event: TempEvent)
 
-                            if EAssetAction.MineGold != TargetCommand.DAction {
-                                if (EAssetAction.ConveyGold == TargetCommand.DAction) || (EAssetAction.ConveyLumber == TargetCommand.DAction) {
-                                    // Damage the target
-                                    CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
-                                } else if (EAssetAction.Capability == TargetCommand.DAction) && TargetCommand.DAssetTarget != nil {
-                                    if CurrentCommand.DAssetTarget!.Speed() != 0 && (EAssetAction.Construct == TargetCommand.DAssetTarget!.Action()) {
+                                if EAssetAction.MineGold != TargetCommand.DAction {
+                                    if (EAssetAction.ConveyGold == TargetCommand.DAction) || (EAssetAction.ConveyLumber == TargetCommand.DAction) {
+                                        // Damage the target
                                         CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
-                                    }
-                                }
-                                CurrentCommand.DAssetTarget!.DecrementHitPoints(hitpts: Asset.HitPoints())
-                                if !CurrentCommand.DAssetTarget!.Alive() {
-                                    var Command: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
-                                    TempEvent.DType = EEventType.Death
-                                    TempEvent.DAsset = CurrentCommand.DAssetTarget!
-                                    CurrentEvents.append(TempEvent)
-                                    // Remove constructing
-                                    if (EAssetAction.Capability == Command.DAction) && (Command.DAssetTarget != nil) {
-                                        if EAssetAction.Construct == Command.DAssetTarget!.Action() {
-                                            DPlayers[Command.DAssetTarget!.Color().rawValue].DeleteAsset(asset: Command.DAssetTarget!)
-                                        }
-                                    } else if EAssetAction.Construct == Command.DAction {
-                                        if Command.DAssetTarget != nil {
-                                            Command.DAssetTarget!.ClearCommand()
+                                    } else if (EAssetAction.Capability == TargetCommand.DAction) && TargetCommand.DAssetTarget != nil {
+                                        if CurrentCommand.DAssetTarget!.Speed() != 0 && (EAssetAction.Construct == TargetCommand.DAssetTarget!.Action()) {
+                                            CurrentCommand.DAssetTarget = TargetCommand.DAssetTarget
                                         }
                                     }
-                                    CurrentCommand.DAssetTarget!.Direction(direction: DirectionOpposite(dir: Asset.Direction()))
-                                    Command.DAction = EAssetAction.Death
-                                    CurrentCommand.DAssetTarget!.ClearCommand()
-                                    CurrentCommand.DAssetTarget!.PushCommand(command: Command)
-                                    CurrentCommand.DAssetTarget?.ResetStep()
+                                    CurrentCommand.DAssetTarget!.DecrementHitPoints(hitpts: Asset.HitPoints())
+                                    if !CurrentCommand.DAssetTarget!.Alive() {
+                                        var Command: SAssetCommand = CurrentCommand.DAssetTarget!.CurrentCommand()
+                                        TempEvent.DType = EEventType.Death
+                                        TempEvent.DAsset = CurrentCommand.DAssetTarget!
+                                        CurrentEvents.append(TempEvent)
+                                        // Remove constructing
+                                        if (EAssetAction.Capability == Command.DAction) && (Command.DAssetTarget != nil) {
+                                            if EAssetAction.Construct == Command.DAssetTarget!.Action() {
+                                                DPlayers[Command.DAssetTarget!.Color().rawValue].DeleteAsset(asset: Command.DAssetTarget!)
+                                            }
+                                        } else if EAssetAction.Construct == Command.DAction {
+                                            if Command.DAssetTarget != nil {
+                                                Command.DAssetTarget!.ClearCommand()
+                                            }
+                                        }
+                                        CurrentCommand.DAssetTarget!.Direction(direction: DirectionOpposite(dir: Asset.Direction()))
+                                        Command.DAction = EAssetAction.Death
+                                        CurrentCommand.DAssetTarget!.ClearCommand()
+                                        CurrentCommand.DAssetTarget!.PushCommand(command: Command)
+                                        CurrentCommand.DAssetTarget?.ResetStep()
+                                    }
                                 }
                             }
-                        }
                         }
                         DPlayers[Asset.Color().rawValue].DeleteAsset(asset: Asset)
                     }
