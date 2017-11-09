@@ -240,10 +240,20 @@
 			path = "Render Views";
 			sourceTree = "<group>";
 		};
+		88B9660B1FB4253A006748DD /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
+				885B24361FA6B7A1004C1724 /* GameModel.swift */,
+				A1B0E5311FA68DF6008959C9 /* ApplicationMode.swift */,
+				4BCEA2191F9D587D0098A539 /* BattleMode.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
 		CE4F77E91F85DF8F004379F5 = {
 			isa = PBXGroup;
 			children = (
-				4BCEA2191F9D587D0098A539 /* BattleMode.swift */,
 				CE4F77F41F85DF8F004379F5 /* WarCraft2 */,
 				CE4F77F31F85DF8F004379F5 /* Products */,
 				E18B688D1F8B3C8700962891 /* Recovered References */,
@@ -261,6 +271,7 @@
 		CE4F77F41F85DF8F004379F5 /* WarCraft2 */ = {
 			isa = PBXGroup;
 			children = (
+				88B9660B1FB4253A006748DD /* Game */,
 				E1B45E321F9D500E009D9BF1 /* Renderers */,
 				E1B45E2E1F9D4DA0009D9BF1 /* Parsing */,
 				CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */,
@@ -333,7 +344,6 @@
 				4BB118451F8A2511002DAB2B /* SoundOptionsMenuViewController.swift */,
 				E1EEAEDF1F909B5D001001B9 /* GameViewController.swift */,
 				4BB118491F8A3096002DAB2B /* MultiPlayerGameOptionsViewController.swift */,
-				885B24361FA6B7A1004C1724 /* GameModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -425,8 +435,6 @@
 				9B64D61D1FA05AEB00C39977 /* PlayerData.swift */,
 				9B64D61C1FA05AEB00C39977 /* PlayerUpgrade.swift */,
 				DD3F34021F8C13D3006A805B /* PlayerCommand.swift */,
-				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
-				A1B0E5311FA68DF6008959C9 /* ApplicationMode.swift */,
 				E1384EE41FAF1AB2008CED64 /* BasicCapabilities.swift */,
 				E1384EE01FAF0853008CED64 /* BuildCapabilities.swift */,
 				6B89CBB01FB233E90032AA61 /* BuildingUpgradeCapabilities.swift */,
