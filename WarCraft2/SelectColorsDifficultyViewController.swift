@@ -15,13 +15,13 @@ class SelectColorsDifficultyViewController: NSViewController {
     @IBOutlet weak var yellowX4: NSImageView!
     @IBOutlet weak var yellowX5: NSImageView!
     @IBOutlet weak var yellowX6: NSImageView!
-    
+
     struct mark {
         var X: NSImageView
         var row: Int
         var col: Int
     }
-    
+
     var mark1: mark
     var mark2: mark
     var mark3: mark
@@ -390,13 +390,11 @@ class SelectColorsDifficultyViewController: NSViewController {
 
     // the current YellowX is passed in.  Compare it to every other Y and look for matching X value.  Also check that this is not
     // the same YellowY.  Also check that the row of the YellowX is allowed.
-    
-    func resolveConflict(yellowX _: NSImageView) {
-        //if yellowX.frame.origin.x == yellowX1.frame.origin.x {
-            
-        //}
 
-        
+    func resolveConflict(yellowX _: NSImageView) {
+        // if yellowX.frame.origin.x == yellowX1.frame.origin.x {
+
+        // }
     }
 
     func moveYellowX(button: NSButton) {
@@ -406,8 +404,8 @@ class SelectColorsDifficultyViewController: NSViewController {
 
         resolveConflict(yellowX: yellowX)
     }
-    
-    required init?(coder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         mark1 = mark(X: yellowX1, row: 1, col: 1)
         mark2 = mark(X: yellowX2, row: 2, col: 2)
         mark3 = mark(X: yellowX3, row: 3, col: 3)
@@ -416,12 +414,12 @@ class SelectColorsDifficultyViewController: NSViewController {
         mark6 = mark(X: yellowX6, row: 6, col: 6)
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidAppear() {
         if let mainWC = view.window?.windowController as? MainWindowController {
             let numPlayers: Int = mainWC.selectMapMenuVC!.numPlayers
             setRows()
-            
+
             moveYellowX(button: red1)
             moveYellowX(button: blue2)
             moveYellowX(button: green3)
