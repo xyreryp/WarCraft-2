@@ -192,7 +192,7 @@ class OpenGLView: NSView {
         ]
         pixelFormat = NSOpenGLPixelFormat(attributes: attributes)
         openGLContext = NSOpenGLContext(format: pixelFormat!, share: nil)
-        openGLContext?.setValues([1], for: NSOpenGL)
+        openGLContext?.setValues([1], for: NSOpenGLContext.Parameter.swapInterval)
     }
 
     @objc func reshape() {
