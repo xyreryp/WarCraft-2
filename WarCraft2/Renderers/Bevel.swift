@@ -1,12 +1,12 @@
 //
-//  Bevel.swift
+//  CBevel.swift
 //  WarCraft2
 //
-//  Created by Richard Gao on 10/25/17.
+//  Created by Andrew Cope on 11/5/17.
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 class CBevel {
     var DTileset: CGraphicTileset
@@ -29,22 +29,22 @@ class CBevel {
         CHelper.resize(array: &DTopIndices, size: DWidth, defaultValue: 0)
         DTopIndices[0] = DTileset.FindTile(tilename: "tf")
         for Index in 1 ..< DWidth {
-            DTopIndices[Index] = DTileset.FindTile(tilename: ("t" + String(Index)))
+            DTopIndices[Index] = DTileset.FindTile(tilename: "t\(Index)")
         }
         CHelper.resize(array: &DBottomIndices, size: DWidth, defaultValue: 0)
         DBottomIndices[0] = DTileset.FindTile(tilename: "bf")
         for Index in 1 ..< DWidth {
-            DTopIndices[Index] = DTileset.FindTile(tilename: ("b" + String(Index)))
+            DBottomIndices[Index] = DTileset.FindTile(tilename: "b\(Index)")
         }
         CHelper.resize(array: &DLeftIndices, size: DWidth, defaultValue: 0)
         DLeftIndices[0] = DTileset.FindTile(tilename: "lf")
         for Index in 1 ..< DWidth {
-            DTopIndices[Index] = DTileset.FindTile(tilename: ("l" + String(Index)))
+            DLeftIndices[Index] = DTileset.FindTile(tilename: "l\(Index)")
         }
         CHelper.resize(array: &DRightIndices, size: DWidth, defaultValue: 0)
         DRightIndices[0] = DTileset.FindTile(tilename: "rf")
         for Index in 1 ..< DWidth {
-            DTopIndices[Index] = DTileset.FindTile(tilename: ("r" + String(Index)))
+            DBottomIndices[Index] = DTileset.FindTile(tilename: "r\(Index)")
         }
         CHelper.resize(array: &DCornerIndices, size: 4, defaultValue: 0)
         DCornerIndices[0] = DTileset.FindTile(tilename: "tl")
@@ -53,7 +53,8 @@ class CBevel {
         DCornerIndices[3] = DTileset.FindTile(tilename: "br")
     }
 
-    deinit {
+    func Width() -> Int {
+        return DWidth
     }
 
     func Width() -> Int {
@@ -72,16 +73,20 @@ class CBevel {
         //       DTileset.DrawTile(skscene: surface, xpos: RightX, ypos: BottomY, tileindex: DCornerIndices[3])
         for Value in stride(from: 0, through: width, by: DWidth) {
             var Index = 0
-            if (Value + DWidth) > width {
-                Index = width - Value
+            if XOff + DWidth > width {
+                Index = width - XOff
             }
-            // FIX ME DTileset.DrawTile(skscene: surface, xpos: xpos + Value, ypos: TopY, tileindex: DTopIndices[Index])
-            // FIX ME DTileset.DrawTile(skscene: surface, xpos: xpos + Value, ypos: BottomY, tileindex: DBottomIndices[Index])
+            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: TopY, width: tileWidth, height: tileWidth, tileindex: DTopIndices[Index])
+            DTileset.DrawTile(context: context, xpos: xpos + XOff, ypos: BottomY, width: tileWidth, height: tileWidth, tileindex: DBottomIndices[Index])
+
+            YOff -= DWidth
         }
-        for Value1 in stride(from: 0, through: height, by: DWidth) {
-            var Index1 = 0
-            if (Value1 + DWidth) > height {
-                Index1 = height - Value1
+
+        YOff = 0
+        while YOff < height {
+            var Index = 0
+            if YOff + DWidth > height {
+                Index = height - YOff
             }
             // fixme:
             //           DTileset.DrawTile(skscene: surface, xpos: LeftX, ypos: ypos + Value1, tileindex: DLeftIndices[Index1])

@@ -9,10 +9,18 @@
 import Cocoa
 
 class MultiPlayerGameOptionsViewController: NSViewController {
+    var isMultiplayerGame: Bool = false
+
+    @IBAction func hostMultiPlayerGameBtnClicked(_: Any) {
+        if let mainWC = view.window?.windowController as? MainWindowController {
+            isMultiplayerGame = true
+            mainWC.move(newMenu: "SelectMapMenu")
+        }
+    }
 
     @IBAction func backBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
-            mainWC.move(newMenu: "OptionsMenu")
+            mainWC.move(newMenu: "MainMenu")
         }
     }
 
