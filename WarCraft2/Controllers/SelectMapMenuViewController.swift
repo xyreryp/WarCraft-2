@@ -52,7 +52,7 @@ class SelectMapMenuViewController: NSViewController {
 
     @IBAction func SelectBtnClicked(_: Any) {
         if let mainWC = view.window?.windowController as? MainWindowController {
-            mainWC.move(newMenu: "SelectColorsDifficultyMenu")
+            mainWC.move(newMenu: "Game")
         }
     }
 
