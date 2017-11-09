@@ -44,7 +44,7 @@ class GameViewController: NSViewController, viewToController {
         } catch {
             print("cant load map")
         }
-        //        skscene?.scaleMode = .fill
+        skscene?.scaleMode = .fill
 
         map.RenderTerrain()
         let cgr = CGraphicResourceContext()
@@ -53,7 +53,8 @@ class GameViewController: NSViewController, viewToController {
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        application.DAssetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        let colors = CGraphicRecolorMap()
+        application.DAssetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
         var visMap = CVisibilityMap(width: 200, height: 200, maxvisibility: 1)
         let fogrenderer = CFogRenderer(tileset: terrainTileset, map: visMap)
@@ -81,7 +82,8 @@ class GameViewController: NSViewController, viewToController {
     func movePeasant(x: Int, y: Int) {
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        let assetRenderer = CAssetRenderer(tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        let colors = CGraphicRecolorMap()
+        let assetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         assetRenderer.movePeasant(x: x, y: y, surface: skscene!, tileset: application.DAssetTilesets)
         sound.playMusic(audioFileName: "selected4", audioType: "wav", numloops: 1)
     }

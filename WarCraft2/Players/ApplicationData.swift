@@ -72,7 +72,10 @@ class CApplicationData {
     var DBuildingDeathTileset: CGraphicTileset
     var DArrowTileset: CGraphicTileset
 
-    var DAssetMap = CAssetDecoratedMap()
+    var DMapRenderer: CMapRenderer!
+    var DViewportRenderer: CViewportRenderer!
+
+    var DAssetMap: CAssetDecoratedMap
     // playerData needed for assetRenderer
     var DPlayer: CPlayerData
     // array of tilesets for all the assset
@@ -112,6 +115,7 @@ class CApplicationData {
         EPlayerTypeRef = .ptNone
         TempDataSource = CDataSource()
         DTerrainTileset = CGraphicTileset()
+
         DAssetRenderer = CAssetRenderer(colors: DPlayerRecolorMap, tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DPlayer, map: DAssetMap)
     }
 
