@@ -219,6 +219,7 @@ class CApplicationData {
     var Y: Int
 
     var DMenuButtonState: CButtonRenderer.EButtonState
+
     // end of member variables from ApplicationData.h
 
     var ECursorTypeRef: ECursorType
@@ -357,7 +358,9 @@ class CApplicationData {
         //        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
 
         //        DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
-        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer)
+        let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
+
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
 
         // DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
         // DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
@@ -845,7 +848,9 @@ class CApplicationData {
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
         //  DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
-        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer)
+        let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
+
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
