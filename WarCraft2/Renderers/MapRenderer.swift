@@ -284,7 +284,7 @@ class CMapRenderer {
             } while XPos < rect.DWidth
 
             XIndex = rect.DXPosition / TileWidth
-            XPos = -(rect.DYPosition % TileHeight)
+            XPos = -(rect.DXPosition % TileWidth)
             YIndex += 1
             YPos += TileHeight
         } while YPos < rect.DHeight
