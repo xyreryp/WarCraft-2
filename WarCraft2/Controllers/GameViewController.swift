@@ -34,7 +34,7 @@ class GameViewController: NSViewController, viewToController {
         view.addSubview(skview)
         skview.presentScene(skscene)
         skview.vc = self
-        skscene?.anchorPoint = CGPoint(x: 0.3, y: 0.4)
+        skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
 
         application.Activate()
         var terrainTileset = application.DTerrainTileset
