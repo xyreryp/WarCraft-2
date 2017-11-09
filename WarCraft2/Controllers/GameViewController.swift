@@ -44,19 +44,8 @@ class GameViewController: NSViewController, viewToController {
         skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
 
         application.Activate()
-        var terrainTileset = application.DTerrainTileset
-        let map = CTerrainMap()
-        do {
-            try map.LoadMap(fileToRead: "bay")
-        } catch {
-            print("cant load map")
-        }
-        skscene?.scaleMode = .fill
-
-        map.RenderTerrain()
         let cgr = CGraphicResourceContext()
-        application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: map.Width() * application.DTerrainTileset.TileWidth(), DHeight: map.Height() * application.DTerrainTileset.TileHeight()))
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
         //        let assetDecoratedMap = application.DAssetMap
         //        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
@@ -94,7 +83,7 @@ class GameViewController: NSViewController, viewToController {
         //
         //        view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
-        //  time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }

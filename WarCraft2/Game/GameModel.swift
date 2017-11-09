@@ -69,7 +69,7 @@ class CGameModel {
 
     // Public
     // TODO: newcolors is a fixed array of size EPlayer.Max.rawValue
-    init(mapindex: Int, seed: UInt64, newcolors: [EPlayerColor]) {
+    init(mapindex: Int, seed _: UInt64, newcolors: [EPlayerColor]) {
         DHarvestTime = 5
         DHarvestSteps = CPlayerAsset.UpdateFrequency() * DHarvestTime
         DMineTime = 5
@@ -83,7 +83,8 @@ class CGameModel {
         DLumberPerHarvest = 100
         DGoldPerMining = 100
         DRandomNumberGenerator = RandomNumberGenerator()
-        DRandomNumberGenerator.Seed(seed: seed)
+        // FIXME: Readd back in later
+        // DRandomNumberGenerator.Seed(seed: seed)
         DDiagonalOccupancyMap = [[]]
         DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: newcolors)
         DPlayers = []
