@@ -49,15 +49,28 @@ class CApplicationData {
         case ptAIHard
     }
 
-    var DLeftClicked: Bool
-    var DRightClicked: Bool
-    var X: Int
-    var Y: Int
+    // clicking on map information
+    var DLeftClicked: Bool = false
+    var DRightClicked: Bool = false
+    var X: Int = Int()
+    var Y: Int = Int()
 
-    var ECursorTypeRef: ECursorType
-    var EUIComponentTypeRef: EUIComponentType
-    var EGameSessionTypeRef: EGameSessionType
-    var EPlayerTypeRef: EPlayerType
+    // ViewPort hardcoding information
+    var scrollX: Int = Int()
+    var ViewportX: Int = Int()
+    var ViewportY: Int = Int()
+    var PreviousViewPortX: Int = 0
+    var PreviousViewPortY: Int = 0
+
+    // Renderer information
+    var DAssetRenderer: CAssetRenderer!
+    var DMapRenderer: CMapRenderer!
+    var DViewportRenderer: CViewportRenderer!
+
+    var ECursorTypeRef: ECursorType = ECursorType.ctPointer
+    var EUIComponentTypeRef: EUIComponentType = EUIComponentType.uictNone
+    var EGameSessionTypeRef: EGameSessionType = EGameSessionType.gstSinglePlayer
+    var EPlayerTypeRef: EPlayerType = EPlayerType.ptNone
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
