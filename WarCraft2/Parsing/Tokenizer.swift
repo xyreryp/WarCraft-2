@@ -8,25 +8,10 @@
 
 import Foundation
 
-// critical for MapRenderer
-protocol PTokenizer {
-
-    var DDataSource: CDataSource { get set }
-    var DDelimiters: String { get set }
-
-    // initializer
-    init(source: CDataSource, delimiters: String)
-    func Read(token: inout String) -> Bool
-
-    // Tokenize()
-
-    static func Tokenize(tokens: inout [String], data: String, delimiters: String)
-}
-
-final class CTokenizer: PTokenizer {
+class CTokenizer {
     var DDataSource: CDataSource
 
-    var DDelimiters: String = String()
+    var DDelimiters: String
 
     init(source: CDataSource, delimiters: String) {
         DDataSource = source
@@ -59,7 +44,7 @@ final class CTokenizer: PTokenizer {
 
     // reads in delimiters and writes back to token String
 
-    static func Tokenize(tokens: inout [String], data: String, delimiters: String = "\t\r\n") {
+    static func Tokenize(tokens: inout [String], data: String, delimiters: String = "") {
 
         var TempString: String = String()
         var Delimiters: String = String()
@@ -73,19 +58,14 @@ final class CTokenizer: PTokenizer {
 
         // tokens.clear()
         tokens = []
-        var Index: Int = 0
-        repeat {
-
-            if nil != Delimiters.range(of: data) {
-                let index: String.Index = data.index(data.startIndex, offsetBy: Index)
-                TempString += String(data[index])
+        for char in data {
+            if !Delimiters.contains(char) {
+                TempString.append(char)
             } else if TempString.count > 0 {
-                // pushback to tokens, clear tempString
                 tokens.append(TempString)
                 TempString = ""
             }
-            Index += 1
-        } while Index < data.count
+        }
         if TempString.count > 0 {
             tokens.append(TempString)
         }

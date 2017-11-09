@@ -10,20 +10,15 @@ import Foundation
 import SpriteKit
 
 class CViewportRenderer {
-    // protected variables
+    var DMapRenderer: CMapRenderer
+    var DAssetRenderer: CAssetRenderer
+    var DFogRenderer: CFogRenderer
 
-    // c++ shared_ptr
-    internal var DMapRenderer: CMapRenderer
-    internal var DAssetRenderer: CAssetRenderer
-    internal var DFogRenderer: CFogRenderer
+    var DViewportX: Int
+    var DViewportY: Int
+    var DLastViewportWidth: Int
+    var DLastViewportHeight: Int
 
-    // c++ protected variables
-    internal var DViewportX: Int
-    internal var DViewportY: Int
-    internal var DLastViewportWidth: Int
-    internal var DLastViewportHeight: Int
-
-    // constructor
     init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
@@ -38,17 +33,16 @@ class CViewportRenderer {
         // no statements
     }
 
-    func InitViewportDimensions(width: Int, height: Int) { // NOTE: there's no native swift api to set
-        // width and height
+    func InitViewportDimensions(width: Int, height: Int) {
         DLastViewportWidth = width
         DLastViewportHeight = height
     }
 
-    func ViewPortX() -> Int { // if function has no arguments
+    func ViewPortX() -> Int {
         return DViewportX
     }
 
-    func ViewPortX(x: Int) -> Int { // NOTE: unsure if there's a Swift API for this, SKView?
+    func ViewPortX(x: Int) -> Int {
         DViewportX = x
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
@@ -59,7 +53,7 @@ class CViewportRenderer {
         return DViewportX
     }
 
-    func ViewPortY() -> Int { // if function has no arguments
+    func ViewPortY() -> Int {
         return DViewportY
     }
 
@@ -113,18 +107,19 @@ class CViewportRenderer {
         }
     }
 
+    // FIXME: took out parameters
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
-                      selectionmarkerlist: inout [CPlayerAsset],
-                      selectrect _: inout SRectangle, curcapability: EAssetCapabilityType) {
-
-        // need to initialize with parameters to avoid xcode error
-        // initially all values are zero, values are assigned a few lines below
+                      /* selectionmarkerlist: inout [CPlayerAsset],*/
+                      selectrect _: SRectangle /* ,curcapability: EAssetCapabilityType */ ) {
         var TempRectangle: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         var PlaceType: EAssetType = EAssetType.None
         var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
-        DLastViewportWidth = Int(surface.frame.width)
-        DLastViewportHeight = Int(surface.frame.height)
+        // TODO: Uncomment after merging Andrew's hud
+        //        DLastViewportWidth = Int(surface.frame.width)
+        //        DLastViewportHeight = Int(surface.frame.height)
+        DLastViewportWidth = 500
+        DLastViewportHeight = 400
 
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
@@ -136,25 +131,25 @@ class CViewportRenderer {
         TempRectangle.DXPosition = DViewportX
         TempRectangle.DYPosition = DViewportY
         TempRectangle.DWidth = DLastViewportWidth
-        TempRectangle.DHeight = DLastViewportHeight
+        TempRectangle.DHeight = DLastViewportWidth
 
-        switch curcapability {
-        case EAssetCapabilityType.BuildFarm:
-            PlaceType = EAssetType.Farm
-        case EAssetCapabilityType.BuildTownHall:
-            PlaceType = EAssetType.TownHall
-        case EAssetCapabilityType.BuildBarracks:
-            PlaceType = EAssetType.Barracks
-        case EAssetCapabilityType.BuildLumberMill:
-            PlaceType = EAssetType.LumberMill
-        case EAssetCapabilityType.BuildBlacksmith:
-            PlaceType = EAssetType.Blacksmith
-        case EAssetCapabilityType.BuildScoutTower:
-            PlaceType = EAssetType.ScoutTower
-        default:
-            break // do nothing
-        }
-        // FIXME:
+        /*  switch curcapability {
+         case EAssetCapabilityType.BuildFarm:
+         PlaceType = EAssetType.Farm
+         case EAssetCapabilityType.BuildTownHall:
+         PlaceType = EAssetType.TownHall
+         case EAssetCapabilityType.BuildBarracks:
+         PlaceType = EAssetType.Barracks
+         case EAssetCapabilityType.BuildLumberMill:
+         PlaceType = EAssetType.LumberMill
+         case EAssetCapabilityType.BuildBlacksmith:
+         PlaceType = EAssetType.Blacksmith
+         case EAssetCapabilityType.BuildScoutTower:
+         PlaceType = EAssetType.ScoutTower
+         default:
+         break // do nothing
+         }*/
+
         DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
         //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
@@ -163,21 +158,21 @@ class CViewportRenderer {
 
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();
-        if selectionmarkerlist.count != 0 { // if list is not empty
+        /* if selectionmarkerlist.count != 0 { // if list is not empty
 
-            // type of selectionmarkerlist guarantees it cannot be a non-optional
-            Builder = selectionmarkerlist[0]
+         // type of selectionmarkerlist guarantees it cannot be a non-optional
+         Builder = selectionmarkerlist[0]
 
-            //            if let tempValue = selectionmarkerlist[0] {
-            //                Builder = tempValue
-            //            } else {
-            //                Builder = nil // cannot Builder assign to nil
-            //            }
-        }
+         //            if let tempValue = selectionmarkerlist[0] {
+         //                Builder = tempValue
+         //            } else {
+         //                Builder = nil // cannot Builder assign to nil
+         //            }
+         } */
 
         //        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
         //                                     pos: CPixelPosition(x: selectrect.DXPosition,
         //                                                         y: selectrect.DYPosition), type: PlaceType, builder: Builder)
-        DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
+        //  DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
     }
 }

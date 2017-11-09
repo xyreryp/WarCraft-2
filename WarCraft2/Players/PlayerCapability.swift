@@ -26,9 +26,9 @@ class CPlayerCapability {
     deinit {
     }
 
-    var DName: String = String()
-    var DAssetCapabilityType: EAssetCapabilityType = EAssetCapabilityType.None
-    var DTargetType: ETargetType = ETargetType.None
+    var DName: String
+    var DAssetCapabilityType: EAssetCapabilityType
+    var DTargetType: ETargetType
     static var NameRegistry: [String: CPlayerCapability] = [:]
     static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
@@ -41,6 +41,14 @@ class CPlayerCapability {
         TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
 
         return true
+    }
+
+    func AssetCapabilityType() -> EAssetCapabilityType {
+        return DAssetCapabilityType
+    }
+
+    func TargetType() -> ETargetType {
+        return DTargetType
     }
 
     // FIXME: Not sure about return type
