@@ -19,8 +19,6 @@ class CViewportRenderer {
     var DLastViewportWidth: Int
     var DLastViewportHeight: Int
 
-    // constructor
-    // FIXME: taking out fog renderer
     init(maprender: CMapRenderer, assetrender: CAssetRenderer, fogrender: CFogRenderer) {
         DMapRenderer = maprender
         DAssetRenderer = assetrender
@@ -35,17 +33,16 @@ class CViewportRenderer {
         // no statements
     }
 
-    func InitViewportDimensions(width: Int, height: Int) { // NOTE: there's no native swift api to set
-        // width and height
+    func InitViewportDimensions(width: Int, height: Int) {
         DLastViewportWidth = width
         DLastViewportHeight = height
     }
 
-    func ViewPortX() -> Int { // if function has no arguments
+    func ViewPortX() -> Int {
         return DViewportX
     }
 
-    func ViewPortX(x: Int) -> Int { // NOTE: unsure if there's a Swift API for this, SKView?
+    func ViewPortX(x: Int) -> Int {
         DViewportX = x
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
@@ -56,7 +53,7 @@ class CViewportRenderer {
         return DViewportX
     }
 
-    func ViewPortY() -> Int { // if function has no arguments
+    func ViewPortY() -> Int {
         return DViewportY
     }
 
@@ -114,15 +111,15 @@ class CViewportRenderer {
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
                       /* selectionmarkerlist: inout [CPlayerAsset],*/
                       selectrect _: SRectangle /* ,curcapability: EAssetCapabilityType */ ) {
-
-        // need to initialize with parameters to avoid xcode error
-        // initially all values are zero, values are assigned a few lines below
         var TempRectangle: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         var PlaceType: EAssetType = EAssetType.None
         var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
 
-        DLastViewportWidth = Int(surface.frame.width)
-        DLastViewportHeight = Int(surface.frame.height)
+        // TODO: Uncomment after merging Andrew's hud
+        //        DLastViewportWidth = Int(surface.frame.width)
+        //        DLastViewportHeight = Int(surface.frame.height)
+        DLastViewportWidth = 500
+        DLastViewportHeight = 400
 
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth
@@ -133,8 +130,8 @@ class CViewportRenderer {
 
         TempRectangle.DXPosition = DViewportX
         TempRectangle.DYPosition = DViewportY
-        TempRectangle.DWidth = Int(surface.frame.width)
-        TempRectangle.DHeight = Int(surface.frame.height)
+        TempRectangle.DWidth = DLastViewportWidth
+        TempRectangle.DHeight = DLastViewportWidth
 
         /*  switch curcapability {
          case EAssetCapabilityType.BuildFarm:

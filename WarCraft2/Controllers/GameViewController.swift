@@ -32,11 +32,9 @@ class GameViewController: NSViewController, viewToController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(skview)
-
-        skscene?.backgroundColor = NSColor.brown
         skview.presentScene(skscene)
         skview.vc = self
-        skscene?.anchorPoint = CGPoint(x: 0, y: 0.8)
+        skscene?.anchorPoint = CGPoint(x: 0.3, y: 0.4)
 
         application.Activate()
         var terrainTileset = application.DTerrainTileset
@@ -78,8 +76,6 @@ class GameViewController: NSViewController, viewToController {
         skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
         application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
-        print("DViewportX: \(application.DViewportRenderer.DViewportX)")
-        print("DViewportY: \(application.DViewportRenderer.DViewportY)")
     }
 
     func movePeasant(x: Int, y: Int) {
