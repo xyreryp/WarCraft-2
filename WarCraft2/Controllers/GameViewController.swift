@@ -51,6 +51,8 @@ class GameViewController: NSViewController, viewToController {
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colorMap = CGraphicRecolorMap()
         let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
+
         // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
         // let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
 
@@ -81,6 +83,7 @@ class GameViewController: NSViewController, viewToController {
         //        cgview.addSubview(bevelView4)
         //
         //        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+        //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
 
         time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
@@ -98,7 +101,7 @@ class GameViewController: NSViewController, viewToController {
         let cgr = CGraphicResourceContext()
         application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
         // this is the hardcoded testDrawAssets
-        application.DAssetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
+        // application.DAssetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
     }
 
     func movePeasant(x: Int, y: Int) {

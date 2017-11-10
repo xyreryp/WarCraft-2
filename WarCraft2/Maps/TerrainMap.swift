@@ -64,12 +64,6 @@ class CTerrainMap {
     var DMapIndices: [[Int]]
     var DMapName: String
     var DRendered: Bool
-    
-    // variables about the assets to load onto map
-    var DNumPlayers: Int
-    var DStartingResources: [String]
-    var DNumAssets: Int
-    var DStartingAssets: [String]
 
     init() {
         DMapName = "not rendered"
@@ -78,12 +72,6 @@ class CTerrainMap {
         DPartials = [[]]
         DMap = [[]]
         DMapIndices = [[]]
-        
-        // variables about the assets to load onto map
-        DNumPlayers = Int()
-        DStartingResources = []
-        DNumAssets = Int()
-        DStartingAssets = []
     }
 
     init(map: CTerrainMap) {
@@ -93,12 +81,6 @@ class CTerrainMap {
         DMap = map.DMap
         DMapIndices = map.DMapIndices
         DRendered = map.DRendered
-        
-        // variables about the assets to load onto map
-        DNumPlayers = Int()
-        DStartingResources = []
-        DNumAssets = Int()
-        DStartingAssets = []
     }
 
     deinit {}
@@ -466,24 +448,7 @@ class CTerrainMap {
                 }
             }
         }
-        
-        // numver of players for this map
-        DNumPlayers = Int(StringMap[7][0])
-        
-        // starting resources an array of array of ints
-        for resource in StringMap[8] {
-            DStartingResources.append(resource)
-        }
-        
-        // number of assets on the map
-        DNumAssets = Int(StringMap[9][0])!
-        
-        // read in an array, each line is the: Starting assets Type Owner X Y
-        for assetLine in StringMap[10] {
-            DStartingAssets.append(assetLine)
-        }
-        
-        // is here where we read the extra information?
+
         ReturnStatus = true
         return ReturnStatus
     }

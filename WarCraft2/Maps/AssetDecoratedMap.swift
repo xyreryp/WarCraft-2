@@ -85,7 +85,31 @@ class CAssetDecoratedMap: CTerrainMap {
 
     // constructors and destructors end
 
+    // MARK: RICHARD LOOKIE HERE
+    func TestLoadMaps() -> Bool {
+        // for each of the map names
+        
+        // call load map
+        let MapNames: [String] = ["bay"]
+
+        for map in MapNames {
+            let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
+            let FileName = map
+            // FIXME: index out of range when populating dterrainmap please step into to see!
+            if !TempMap.TestLoadMap(filename: FileName) {
+                print("Failed To Load \(FileName) map")
+            } else {
+                print("Loaded \(FileName) map")
+            }
+            TempMap.RenderTerrain()
+            DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
+            DAllMaps.append(TempMap)
+        }
+        return false
+    }
+
     func LoadMaps(container: CDataContainer) -> Bool {
+
         let FileIterator: CDataContainerIterator! = container.First()
         if FileIterator == nil {
             print("FileIterator == nullptr\n")
@@ -370,6 +394,67 @@ class CAssetDecoratedMap: CTerrainMap {
                 break
             }
         }
+    }
+
+    // MARK: RICHARD LOOKIE HERE
+    func TestLoadMap(filename: String) -> Bool {
+        let TempString = String()
+//        var Tokens = [String]()
+        var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
+        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
+        var ResourceCount = Int()
+        var AssetCount = Int()
+        var InitialLumber = 400
+        var ReturnStatus = false
+        let map = CDataSource.ReadMap(fileName: filename, extensionType: ".map")
+
+        let startingResources = map[8]
+        for Index in 1 ... startingResources.count - 2 {
+            var Tokens = startingResources[Index].split(separator: " ")
+            TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
+            TempResourceInit.DGold = Int(Tokens[1])!
+            TempResourceInit.DLumber = Int(Tokens[2])!
+            
+            if TempResourceInit.DColor == EPlayerColor.None {
+                InitialLumber = TempResourceInit.DLumber
+            }
+            DResourceInitializationList.append(TempResourceInit)
+        }
+        
+        let startingAssets = map[10]
+        
+        for Index in 1 ... startingAssets.count - 2 {
+            var Tokens = startingAssets[Index].split(separator: " ")
+            TempAssetInit.DType = String(Tokens[0])
+            TempAssetInit.DColor = EPlayerColor(rawValue: Int(Tokens[1])!)!
+            TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
+            TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
+
+            if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
+                print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+            }
+            
+            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()){
+               print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+            }
+            DAssetInitializationList.append(TempAssetInit)
+            
+            // FIXME : index out of range on line 448
+            CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+            for RowIndex in 0 ... DLumberAvailable.count {
+                CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+                for ColIndex in 0 ... DTerrainMap[RowIndex].count {
+                    if(ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex]){
+                        DLumberAvailable[RowIndex][ColIndex] =  DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0;
+                    }
+                    else{
+                        DLumberAvailable[RowIndex][ColIndex] =  0
+                    }
+                }
+            }
+            ReturnStatus = true
+        }
+        return ReturnStatus
     }
 
     func LoadMap(source _: CDataSource) -> Bool {
