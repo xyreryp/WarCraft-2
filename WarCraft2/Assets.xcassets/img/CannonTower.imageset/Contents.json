@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "CannonTower.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "CannonTower.png",
       "scale" : "2x"
     },
     {

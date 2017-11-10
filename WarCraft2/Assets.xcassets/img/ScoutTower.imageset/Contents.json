@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "ScoutTower.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ScoutTower.png",
       "scale" : "2x"
     },
     {

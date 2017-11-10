@@ -31,38 +31,59 @@ class GameViewController: NSViewController, viewToController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do view setup here.
+        //
+        //                skview.showsFPS = true
+        // skscene?.backgroundColor = NSColor.brown
+
+        // FIXME: Uncomment this to put scene back
         view.addSubview(skview)
         skview.presentScene(skscene)
+
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
 
         application.Activate()
-        var terrainTileset = application.DTerrainTileset
-        let map = CTerrainMap()
-        do {
-            try map.LoadMap(fileToRead: "bay")
-        } catch {
-            print("cant load map")
-        }
-        skscene?.scaleMode = .fill
-
-        map.RenderTerrain()
         let cgr = CGraphicResourceContext()
-        application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 10, DHeight: 10))
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
-        let assetDecoratedMap = application.DAssetMap
-        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        let colors = CGraphicRecolorMap()
-        application.DAssetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-        // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
-        var visMap = CVisibilityMap(width: 200, height: 200, maxvisibility: 1)
-        let fogrenderer = CFogRenderer(tileset: terrainTileset, map: visMap)
-        application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
-        //  let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
-        // view.addSubview(cgview, positioned: .above, relativeTo: skview)
+        //        let assetDecoratedMap = application.DAssetMap
+        //        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        //        let colorMap = CGraphicRecolorMap()
+        //        let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        //        assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
 
-        time = Timer.scheduledTimer(timeInterval: 0.10, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        // let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
+
+        // let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 150, height: 150), mapRenderer: mapRenderer)
+        // cgview.addSubview(miniMapView)
+
+        //        TempDataSource = ImageDirectory->DataSource("MiniIcons.dat");
+        //        DMiniIconTileset = std::make_shared< CGraphicTileset > ();
+        //        if(!DMiniIconTileset->LoadTileset(TempDataSource)){
+        //            PrintError("Failed to load mini icons.\n");
+        //            return;
+        //        }
+
+        // let resourceRenderer = CResourceRenderer(icons: application.DMiniIconTileset, font: CFontTileset(), player: playerData)
+        // let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
+        //        cgview.addSubview(resourceView)
+        //
+        //        let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
+        //        cgview.addSubview(bevelView)
+        //
+        //        let bevelView2 = CBevelView(frame: NSRect(x: 10, y: 180, width: 150, height: 180))
+        //        cgview.addSubview(bevelView2)
+        //
+        //        let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
+        //        cgview.addSubview(bevelView3)
+        //
+        //        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+        //        cgview.addSubview(bevelView4)
+        //
+        //        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+
+        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
     }
@@ -137,8 +158,6 @@ class GameView: SKView {
         let x = event.scrollingDeltaX
         let y = event.scrollingDeltaY
 
-        print("x: \(x)")
-        print("y: \(y)")
         vc?.scrollWheel(x: Int(x), y: Int(y))
     }
 }
@@ -157,9 +176,9 @@ class CGView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        let context = NSGraphicsContext.current!.cgContext
-        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        //        let context = NSGraphicsContext.current!.cgContext
+        //        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        //        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
     }
 }
 
