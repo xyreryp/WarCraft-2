@@ -842,10 +842,11 @@ class CApplicationData {
         }
         DCurrentAssetCapability = EAssetCapabilityType.None
 
+        // setup map dimensions and tiles
         DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
-        // FIXME: CDataSource needs to be CMemoryDataSource
+        // load the map file
         let map = CTerrainMap()
         do {
             try map.LoadMap(fileToRead: "bay")
@@ -860,6 +861,7 @@ class CApplicationData {
         let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
 
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
+
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))

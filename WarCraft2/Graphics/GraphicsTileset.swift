@@ -228,7 +228,7 @@ class CGraphicTileset {
         //        }
         for (k, v) in DMapping {
             if k == tilename {
-                print("Found \(tilename) of int \(v)")
+                //                print("Found \(tilename) of int \(v)")
                 return v
             }
         }
@@ -281,11 +281,11 @@ class CGraphicTileset {
             Tokens.append(TempTokens[i])
             DMapping[TempTokens[i]] = i - 5
             DTileNames.append(TempTokens[i])
+            //            print("TilesetName: \(TempTokens[i])")
         }
         DTileCount = Tokens.count - 1
 
         // load the actual image from Assets folder.
-
         let Tileset = NSImage(named: NSImage.Name(rawValue: assetName))!
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)
