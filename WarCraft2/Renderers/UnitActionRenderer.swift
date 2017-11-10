@@ -93,7 +93,7 @@ class CUnitActionRenderer {
     }
 
     // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
-    func DrawUnitAction(surface: CGraphicResourceContextCoreGraphics, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
+    func DrawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
         var AllSame: Bool = true
         var IsFirst: Bool = true
         var Moveable: Bool = true
@@ -183,7 +183,7 @@ class CUnitActionRenderer {
                     for IconType in DDisplayedCommands {
                         if EAssetCapabilityType.None != IconType {
                             var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
-                            DBevel.DrawBevel(context: surface, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                            DBevel.DrawBevel(surface: surface, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
 
                             // FIX ME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
                             // variable is casted right now, needs to change later

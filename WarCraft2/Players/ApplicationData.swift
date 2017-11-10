@@ -71,7 +71,6 @@ class CApplicationData {
     var DFireTileset: [CGraphicTileset]
     var DBuildingDeathTileset: CGraphicTileset
     var DArrowTileset: CGraphicTileset
-    var DMiniIconTileset = CGraphicTileset()
 
     var DMapRenderer: CMapRenderer!
     var DViewportRenderer: CViewportRenderer!
@@ -246,11 +245,6 @@ class CApplicationData {
         DArrowTileset = CGraphicTileset()
         if !DArrowTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow") {
             print("Failed to lead Arrow tileset")
-        }
-
-        DMiniIconTileset = CGraphicTileset()
-        if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
-            print("Failed to load Mini Icon tileset")
         }
     }
 }
