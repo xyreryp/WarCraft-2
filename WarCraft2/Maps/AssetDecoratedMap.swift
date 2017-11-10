@@ -8,9 +8,6 @@
 // Getters and setters all removed.
 import Foundation
 
-var DAllMaps: [CAssetDecoratedMap] = [CAssetDecoratedMap]()
-var DMapNameTranslation: [String: Int] = [String: Int]()
-
 class CAssetDecoratedMap: CTerrainMap {
     public struct SAssetInitialization {
         var DType: String
@@ -29,6 +26,8 @@ class CAssetDecoratedMap: CTerrainMap {
     var DResourceInitializationList: [SResourceInitialization]
     var DSearchMap: [[Int]]
     var DLumberAvailable: [[Int]]
+    static var DAllMaps: [CAssetDecoratedMap] = [CAssetDecoratedMap]()
+    static var DMapNameTranslation: [String: Int] = [String: Int]()
 
     // start of functions
 
@@ -59,8 +58,6 @@ class CAssetDecoratedMap: CTerrainMap {
         DSearchMap = [[Int]]()
         DLumberAvailable = [[Int]]()
 
-        DMapNameTranslation = [String: Int]()
-        DAllMaps = [CAssetDecoratedMap]()
         DAssets = map.DAssets
         DLumberAvailable = map.DLumberAvailable
         for InitVal in map.DAssetInitializationList {
@@ -83,28 +80,20 @@ class CAssetDecoratedMap: CTerrainMap {
     deinit {
     }
 
-    // constructors and destructors end
+    // FIXME: Hard coded to take in one map for now
+    static func TestLoadMaps(filename: String) -> Bool {
 
-    // MARK: RICHARD LOOKIE HERE
-    func TestLoadMaps() -> Bool {
-        // for each of the map names
-        
-        // call load map
-        let MapNames: [String] = ["bay"]
-
-        for map in MapNames {
-            let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
-            let FileName = map
-            // FIXME: index out of range when populating dterrainmap please step into to see!
-            if !TempMap.TestLoadMap(filename: FileName) {
-                print("Failed To Load \(FileName) map")
-            } else {
-                print("Loaded \(FileName) map")
-            }
-            TempMap.RenderTerrain()
-            DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
-            DAllMaps.append(TempMap)
+        let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
+        let FileName = filename
+        // FIXME: index out of range when populating dterrainmap please step into to see!
+        if !TempMap.TestLoadMap(filename: FileName) {
+            print("Failed To Load \(FileName) map")
+        } else {
+            print("Loaded \(FileName) map")
         }
+        TempMap.RenderTerrain()
+        CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
+        CAssetDecoratedMap.DAllMaps.append(TempMap)
         return false
     }
 
@@ -128,8 +117,8 @@ class CAssetDecoratedMap: CTerrainMap {
                     print("Loaded map \"%s\".\n", Filename)
                 }
                 TempMap.RenderTerrain()
-                DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
-                DAllMaps.append(TempMap)
+                CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = CAssetDecoratedMap.DAllMaps.count
+                CAssetDecoratedMap.DAllMaps.append(TempMap)
             }
         }
         print("Maps loaded\n")
@@ -141,7 +130,7 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func FindMapIndex(name: String) -> Int {
-        let Iterator: Int! = DMapNameTranslation[name]
+        let Iterator: Int! = CAssetDecoratedMap.DMapNameTranslation[name]
         if Iterator != nil {
             return Iterator
         }
@@ -399,7 +388,7 @@ class CAssetDecoratedMap: CTerrainMap {
     // MARK: RICHARD LOOKIE HERE
     func TestLoadMap(filename: String) -> Bool {
         let TempString = String()
-//        var Tokens = [String]()
+        //        var Tokens = [String]()
         var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
         var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
         var ResourceCount = Int()
@@ -414,15 +403,15 @@ class CAssetDecoratedMap: CTerrainMap {
             TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
             TempResourceInit.DGold = Int(Tokens[1])!
             TempResourceInit.DLumber = Int(Tokens[2])!
-            
+
             if TempResourceInit.DColor == EPlayerColor.None {
                 InitialLumber = TempResourceInit.DLumber
             }
             DResourceInitializationList.append(TempResourceInit)
         }
-        
+
         let startingAssets = map[10]
-        
+
         for Index in 1 ... startingAssets.count - 2 {
             var Tokens = startingAssets[Index].split(separator: " ")
             TempAssetInit.DType = String(Tokens[0])
@@ -433,22 +422,21 @@ class CAssetDecoratedMap: CTerrainMap {
             if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
                 print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
             }
-            
-            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()){
-               print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+
+            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
+                print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
             }
             DAssetInitializationList.append(TempAssetInit)
-            
-            // FIXME : index out of range on line 448
+
+            // FIXME: index out of range on line 448
             CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
             for RowIndex in 0 ... DLumberAvailable.count {
                 CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
                 for ColIndex in 0 ... DTerrainMap[RowIndex].count {
-                    if(ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex]){
-                        DLumberAvailable[RowIndex][ColIndex] =  DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0;
-                    }
-                    else{
-                        DLumberAvailable[RowIndex][ColIndex] =  0
+                    if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
+                        DLumberAvailable[RowIndex][ColIndex] = DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0
+                    } else {
+                        DLumberAvailable[RowIndex][ColIndex] = 0
                     }
                 }
             }

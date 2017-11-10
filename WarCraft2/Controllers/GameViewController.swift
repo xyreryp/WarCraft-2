@@ -36,7 +36,6 @@ class GameViewController: NSViewController, viewToController {
         //                skview.showsFPS = true
         // skscene?.backgroundColor = NSColor.brown
 
-        // FIXME: Uncomment this to put scene back
         view.addSubview(skview)
         skview.presentScene(skscene)
 
@@ -45,13 +44,14 @@ class GameViewController: NSViewController, viewToController {
 
         application.Activate()
         let cgr = CGraphicResourceContext()
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
-        let assetDecoratedMap = application.DAssetMap
+        // FIXME: hardcoded to bay map right now
+        let assetDecoratedMap = application.DSelectedMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colorMap = CGraphicRecolorMap()
         let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
         // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
         // let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
@@ -105,7 +105,7 @@ class GameViewController: NSViewController, viewToController {
     }
 
     func movePeasant(x: Int, y: Int) {
-        let assetDecoratedMap = application.DAssetMap
+        let assetDecoratedMap = application.DSelectedMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colors = CGraphicRecolorMap()
         let assetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)

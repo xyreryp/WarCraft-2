@@ -229,14 +229,9 @@ class CApplicationData {
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
-    var DAssetMap: CAssetDecoratedMap
     var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
 
     init() { // appName _: String, key _: SPrivateApplicationType) {
-        // DApplication = CGUIFactoryApplicationInstance(appname)
-        // DApplication.SetActivateCallback(self, ActivateCallback)
-
-        // MARK: If we use gameviewcontroller instance of ApplicationData, we can always pass it in. If our timer is inside the viewcontroller and not in activate() then we won't need this pointer.
         //        DApplicationPointer = CApplicationData()
         DGameSessionType = EGameSessionType.gstSinglePlayer
 
@@ -268,7 +263,6 @@ class CApplicationData {
         DUnitActionYOffset = Int()
         //        DMenuButtonXOffset = Int()
         //        DMenuButtonYOffset = Int()
-        DSelectedMap = CAssetDecoratedMap()
         //        DOptionsEditSelected = Int()
         //        DPotionsEditSelectedCharacter = Int()
         //        DOptionsEditLocations = [SRectangle]()
@@ -401,7 +395,6 @@ class CApplicationData {
 
         // Data Source, used for all reading of files
         TempDataSource = CDataSource()
-        DAssetMap = CAssetDecoratedMap()
 
         // playerData needed for assetRenderer
         DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
@@ -411,6 +404,8 @@ class CApplicationData {
         DCursorType = ECursorType.ctPointer
         DMapSelectListViewXOffset = 0
         DMapSelectListViewYOffset = 0
+        CAssetDecoratedMap.TestLoadMaps(filename: "bay")
+        DSelectedMap = CAssetDecoratedMap.DAllMaps[0]
         DSelectedMapIndex = 0
         //        DSoundVolume = 1.0
         //        DMusicVolume = 0.5
@@ -624,8 +619,9 @@ class CApplicationData {
         if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
             print("Failed to load Mini Icon tileset")
         }
+        // FIXME: Hardcoded for now for bay, waiting for datasource to change
+
         LoadGameMap(index: 0)
-        // MARK: don't need Bevel for now I believe
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }
@@ -860,11 +856,7 @@ class CApplicationData {
         //  DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
         let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
-        
-        // MARK: RICHARD LOOKIE HERE
-        DAssetMap.TestLoadMaps()
-        
-        
+
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
@@ -971,7 +963,7 @@ class CApplicationData {
 //        DMapSelectListViewXOffset = Int()
 //        DMapSelectListViewYOffset = Int()
 //        DSelectedMapIndex = Int()
-//        DSelectedMap = CAssetDecoratedMap()
+//  DSelectedMap = CAssetDecoratedMap()
 //        DOptionsEditSelected = Int()
 //        DPotionsEditSelectedCharacter = Int()
 //        DOptionsEditLocations = [SRectangle]()
