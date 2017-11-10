@@ -385,7 +385,6 @@ class CAssetDecoratedMap: CTerrainMap {
         }
     }
 
-    // MARK: RICHARD LOOKIE HERE
     func TestLoadMap(filename: String) -> Bool {
         let TempString = String()
         //        var Tokens = [String]()
@@ -420,11 +419,11 @@ class CAssetDecoratedMap: CTerrainMap {
             TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
 
             if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
-                print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+                // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
             }
 
             if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
-                print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+                // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
             }
             DAssetInitializationList.append(TempAssetInit)
 
