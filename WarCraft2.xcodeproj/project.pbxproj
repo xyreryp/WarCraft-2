@@ -468,6 +468,56 @@
 			path = Players;
 			sourceTree = "<group>";
 		};
+		E1C217971FB6C5020049C705 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				E1C217B81FB6C57D0049C705 /* Archer.dat */,
+				E1C217BF1FB6C57D0049C705 /* Barracks.dat */,
+				E1C217B61FB6C57D0049C705 /* Blacksmith.dat */,
+				E1C217BD1FB6C57D0049C705 /* CannonTower.dat */,
+				E1C217BC1FB6C57D0049C705 /* Castle.dat */,
+				E1C217B91FB6C57D0049C705 /* Farm.dat */,
+				E1C217C01FB6C57D0049C705 /* Footman.dat */,
+				E1C217B51FB6C57D0049C705 /* GoldMine.dat */,
+				E1C217BA1FB6C57D0049C705 /* GuardTower.dat */,
+				E1C217B41FB6C57D0049C705 /* Keep.dat */,
+				E1C217B21FB6C57D0049C705 /* LumberMill.dat */,
+				E1C217B71FB6C57D0049C705 /* Peasant.dat */,
+				E1C217B31FB6C57D0049C705 /* Ranger.dat */,
+				E1C217BB1FB6C57D0049C705 /* ScoutTower.dat */,
+				E1C217BE1FB6C57D0049C705 /* TownHall.dat */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		E1C217981FB6C50C0049C705 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				E1C217B01FB6C5600049C705 /* bay.map */,
+				E1C217AF1FB6C5600049C705 /* hedges.map */,
+				E1C217B11FB6C5600049C705 /* mountain.map */,
+				E1C217AE1FB6C5600049C705 /* nwhr2rn.map */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
+		E1C217991FB6C5120049C705 /* upg */ = {
+			isa = PBXGroup;
+			children = (
+				E1C2179A1FB6C5410049C705 /* Armor2.dat */,
+				E1C2179D1FB6C5410049C705 /* Armor3.dat */,
+				E1C2179C1FB6C5410049C705 /* Arrow2.dat */,
+				E1C217A21FB6C5410049C705 /* Arrow3.dat */,
+				E1C2179B1FB6C5410049C705 /* Longbow.dat */,
+				E1C217A11FB6C5410049C705 /* Marksmanship.dat */,
+				E1C217A31FB6C5410049C705 /* Ranger.dat */,
+				E1C2179E1FB6C5410049C705 /* Scouting.dat */,
+				E1C2179F1FB6C5410049C705 /* Weapon2.dat */,
+				E1C217A01FB6C5410049C705 /* Weapon3.dat */,
+			);
+			path = upg;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -529,42 +579,67 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */,
+				E1C217A91FB6C5410049C705 /* Weapon2.dat in Resources */,
 				E119FBEF1FB45EB600617B9B /* MiniBevel.dat in Resources */,
+				E1C217A61FB6C5410049C705 /* Arrow2.dat in Resources */,
+				E1C217CD1FB6C57E0049C705 /* TownHall.dat in Resources */,
 				A13E1EA11FA65963001589CE /* mountain.map in Resources */,
 				A10B59751FA650880035C1EB /* BuildingDeath.dat in Resources */,
+				E1C217C31FB6C57E0049C705 /* Keep.dat in Resources */,
 				A10B59761FA650880035C1EB /* FireLarge.dat in Resources */,
+				E1C217CA1FB6C57E0049C705 /* ScoutTower.dat in Resources */,
+				E1C217AC1FB6C5410049C705 /* Arrow3.dat in Resources */,
 				A10B59791FA650880035C1EB /* Peasant.dat in Resources */,
 				A10B59741FA650880035C1EB /* GuardTower.dat in Resources */,
 				A10B59781FA650880035C1EB /* Keep.dat in Resources */,
 				CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */,
 				E1C219B61FB6E7820049C705 /* map in Resources */,
+				E1C217C91FB6C57E0049C705 /* GuardTower.dat in Resources */,
+				E1C217C41FB6C57E0049C705 /* GoldMine.dat in Resources */,
+				E1C217AD1FB6C5410049C705 /* Ranger.dat in Resources */,
+				E1C217C21FB6C57E0049C705 /* Ranger.dat in Resources */,
 				E1EEAEDE1F908172001001B9 /* Scene.sks in Resources */,
 				A10B59701FA650880035C1EB /* FireSmall.dat in Resources */,
 				A10B59771FA650880035C1EB /* Castle.dat in Resources */,
 				A10B596E1FA650880035C1EB /* Marker.dat in Resources */,
 				E119FBF71FB45FBC00617B9B /* Assets.xcassets in Resources */,
 				E1C219B41FB6E74B0049C705 /* img in Resources */,
+				E1C217AB1FB6C5410049C705 /* Marksmanship.dat in Resources */,
+				E1C217CC1FB6C57E0049C705 /* CannonTower.dat in Resources */,
+				E1C217A81FB6C5410049C705 /* Scouting.dat in Resources */,
 				A10B59721FA650880035C1EB /* Farm.dat in Resources */,
 				A10B59691FA650880035C1EB /* Corpse.dat in Resources */,
 				A10B596D1FA650880035C1EB /* Barracks.dat in Resources */,
 				E119FBE81FB45E7B00617B9B /* InnerBevel.dat in Resources */,
 				E1C219BA1FB6E7980049C705 /* upg in Resources */,
 				E119FBE91FB45E7B00617B9B /* MiniBevel.dat in Resources */,
+				E1C217A71FB6C5410049C705 /* Armor3.dat in Resources */,
 				A10B596A1FA650880035C1EB /* CannonTower.dat in Resources */,
+				E1C217C71FB6C57E0049C705 /* Archer.dat in Resources */,
 				A10B597A1FA650880035C1EB /* Blacksmith.dat in Resources */,
 				A10B597C1FA650880035C1EB /* ScoutTower.dat in Resources */,
 				A10B59671FA650880035C1EB /* Ranger.dat in Resources */,
 				A10B59681FA650880035C1EB /* Footman.dat in Resources */,
+				E1C217CB1FB6C57E0049C705 /* Castle.dat in Resources */,
 				A10B597B1FA650880035C1EB /* GoldMine.dat in Resources */,
 				E119FBEA1FB45E7B00617B9B /* OuterBevel.dat in Resources */,
+				E1C217C81FB6C57E0049C705 /* Farm.dat in Resources */,
+				E1C217A41FB6C5410049C705 /* Armor2.dat in Resources */,
+				E1C217C11FB6C57E0049C705 /* LumberMill.dat in Resources */,
 				A10B59711FA650880035C1EB /* TownHall.dat in Resources */,
+				E1C217CF1FB6C57E0049C705 /* Footman.dat in Resources */,
+				E1C217C61FB6C57E0049C705 /* Peasant.dat in Resources */,
+				E1C217C51FB6C57E0049C705 /* Blacksmith.dat in Resources */,
 				A10B596C1FA650880035C1EB /* Arrow.dat in Resources */,
 				A10B596F1FA650880035C1EB /* Terrain.dat in Resources */,
 				6BD98D391F9010EE00EDC2ED /* HandlingMouseClicks.xib in Resources */,
+				E1C217A51FB6C5410049C705 /* Longbow.dat in Resources */,
 				E119FBEB1FB45E7B00617B9B /* MiniIcons.dat in Resources */,
 				E1C219CC1FB6E81C0049C705 /* res in Resources */,
 				A10B596B1FA650880035C1EB /* LumberMill.dat in Resources */,
 				A10B59731FA650880035C1EB /* Archer.dat in Resources */,
+				E1C217CE1FB6C57E0049C705 /* Barracks.dat in Resources */,
+				E1C217AA1FB6C5410049C705 /* Weapon3.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
