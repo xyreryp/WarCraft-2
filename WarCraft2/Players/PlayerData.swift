@@ -146,7 +146,6 @@ class CPlayerData {
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
         for (key, pair) in DAssetTypes {
-            print("Key in asset type name is: \(key)")
             if assettypename == key {
                 let CreatedAsset: CPlayerAsset = pair.Construct()
                 CreatedAsset.CreationCycle(cycle: DGameCycle)

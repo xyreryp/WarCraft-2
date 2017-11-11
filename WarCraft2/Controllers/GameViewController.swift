@@ -9,6 +9,8 @@
 import Foundation
 import Cocoa
 import SpriteKit
+import OpenGL
+import GLKit
 
 var peasantSelected = false
 
@@ -19,14 +21,14 @@ protocol viewToController {
 }
 
 class GameViewController: NSViewController, viewToController {
-    var skview = GameView(frame: NSRect(x: 0, y: 0, width: 1024, height: 1024))
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 1024, height: 1024))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
     var application = CApplicationData()
 
-    //    var timer = CGPoint(x: 500, y: -200)
-    //    var time = Timer()
+    var timer = CGPoint(x: 500, y: -200)
+    var time = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,37 +37,26 @@ class GameViewController: NSViewController, viewToController {
 
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
-
         application.Activate()
-        let cgr = CGraphicResourceContext()
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
+        let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
+        view.addSubview(minimap, positioned: .above, relativeTo: skview)
 
-        let assetDecoratedMap = CAssetDecoratedMap()
-        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        let colors = CGraphicRecolorMap()
-        application.DAssetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-        var visMap = CVisibilityMap(width: 200, height: 200, maxvisibility: 1)
-
-        let fogrenderer = CFogRenderer(tileset: application.DTerrainTileset, map: visMap)
-        application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
-
-        //        let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
-        //        view.addSubview(minimap, positioned: .above, relativeTo: skview)
-
+        let ogview = 
+        view.addSubview(CGView)
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
 
-    //    @objc func timerAction() {
-    //        if timer.x == 800 {
-    //            time.invalidate()
-    //        }
-    //        timer.x -= 1
-    //        timer.y -= 1
-    //        skscene?.removeAllChildren()
-    //        skscene?.scaleMode = .fill
-    //        let cgr = CGraphicResourceContext()
-    //        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
-    //    }
+    @objc func timerAction() {
+        if timer.x == 800 {
+            time.invalidate()
+        }
+        timer.x -= 1
+        timer.y -= 1
+        skscene?.removeAllChildren()
+        skscene?.scaleMode = .fill
+        let cgr = CGraphicResourceContext()
+        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
+    }
 
     func movePeasant(x: Int, y: Int) {
         let assetDecoratedMap = CAssetDecoratedMap.DAllMaps[0]

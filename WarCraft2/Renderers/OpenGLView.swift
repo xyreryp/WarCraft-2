@@ -15,17 +15,17 @@ import SpriteKit
 class OpenGLView: NSOpenGLView {
     var displayLink: CVDisplayLink?
     var currentTime: Int64
-    var application: CApplicationData
-    var skscene: SKScene
+    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 1024, height: 1024))
+    var skscene = SKScene(fileNamed: "Scene")
+    var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+    var sound = SoundManager()
+    var application = CApplicationData()
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    required init?(coder: NSCoder, application: CApplicationData, skscene: SKScene) {
+    required init?(coder: NSCoder) {
         currentTime = Int64(0.0)
-        self.application = application
-        self.skscene = skscene
+        //        self.application = application
+        //        self.skscene = skscene
+        application.Activate()
         super.init(coder: coder)
 
         let attributes: [NSOpenGLPixelFormatAttribute] = [
@@ -58,10 +58,10 @@ class OpenGLView: NSOpenGLView {
 
         super.prepareOpenGL()
 
-        skscene.scaleMode = .fill
+        skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
         let rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
-        application.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
+        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
 
         let displayLinkOutputCallback: CVDisplayLinkOutputCallback = { (_: CVDisplayLink, inNow: UnsafePointer<CVTimeStamp>, _: UnsafePointer<CVTimeStamp>, _: CVOptionFlags, _: UnsafeMutablePointer<CVOptionFlags>, displayLinkContext: UnsafeMutableRawPointer?) -> CVReturn in
 
@@ -97,10 +97,10 @@ class OpenGLView: NSOpenGLView {
         context.makeCurrentContext()
         CGLLockContext(context.cglContextObj!)
 
-        skscene.removeAllChildren()
+        skscene?.removeAllChildren()
         let cgr = CGraphicResourceContext()
         let rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
-        application.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
+        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
 
         //  glFlush() is replaced with CGLFlushDrawable() and swaps the buffer being displayed
         CGLFlushDrawable(context.cglContextObj!)
