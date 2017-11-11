@@ -183,9 +183,8 @@ class CUnitActionRenderer {
                     for IconType in DDisplayedCommands {
                         if EAssetCapabilityType.None != IconType {
                             var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
-                            DBevel.DrawBevel(surface: surface, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-
-                            // FIX ME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
+                            //FIXME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
+                            DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
                             // variable is casted right now, needs to change later
                             DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
 
