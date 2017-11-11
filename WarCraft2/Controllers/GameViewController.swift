@@ -9,9 +9,6 @@
 import Foundation
 import Cocoa
 import SpriteKit
-import AppKit
-import OpenGL
-import GLKit
 
 var peasantSelected = false
 
@@ -27,9 +24,8 @@ class GameViewController: NSViewController, viewToController {
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
     var application = CApplicationData()
-    var timer = CGPoint(x: 500, y: -200)
-    var time = Timer()
-    var cvdisplaylink: CVDisplayLink?
+    //    var timer = CGPoint(x: 500, y: -200)
+    //    var time = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,23 +47,26 @@ class GameViewController: NSViewController, viewToController {
 
         let fogrenderer = CFogRenderer(tileset: application.DTerrainTileset, map: visMap)
         application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
-        let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
-        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+        let coder = NSCoder()
+        let context = NSOpenGLContext()
+        let opengl = OpenGLView(coder: coder, context: context, application: application, skscene: skscene!)
+        //        let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
+        //        view.addSubview(minimap, positioned: .above, relativeTo: skview)
 
-        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
 
-    @objc func timerAction() {
-        if timer.x == 800 {
-            time.invalidate()
-        }
-        timer.x -= 1
-        timer.y -= 1
-        skscene?.removeAllChildren()
-        skscene?.scaleMode = .fill
-        let cgr = CGraphicResourceContext()
-        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
-    }
+    //    @objc func timerAction() {
+    //        if timer.x == 800 {
+    //            time.invalidate()
+    //        }
+    //        timer.x -= 1
+    //        timer.y -= 1
+    //        skscene?.removeAllChildren()
+    //        skscene?.scaleMode = .fill
+    //        let cgr = CGraphicResourceContext()
+    //        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
+    //    }
 
     func movePeasant(x: Int, y: Int) {
         let assetDecoratedMap = application.DAssetMap
@@ -128,91 +127,5 @@ class GameView: SKView {
         let y = event.scrollingDeltaY
 
         vc?.scrollWheel(x: Int(x), y: Int(y))
-    }
-}
-
-class CGView: NSView {
-    var mapRenderer: CMapRenderer
-
-    init(frame: NSRect, mapRenderer: CMapRenderer) {
-        self.mapRenderer = mapRenderer
-        super.init(frame: frame)
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        let context = NSGraphicsContext.current!.cgContext
-        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
-    }
-}
-
-class OpenGLView: NSView {
-    var displaylink: CVDisplayLink?
-    var pixelFormat: NSOpenGLPixelFormat?
-    var openGLContext: NSOpenGLContext?
-
-    init?(coder: NSCoder, context _: NSOpenGLContext?) {
-        // Set up pixel format and context...
-
-        super.init(coder: coder)
-        openGLContext!.makeCurrentContext()
-        setupDisplayLink()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(reshape), name: NSView.globalFrameDidChangeNotification, object: self)
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
-        let attributes: [NSOpenGLPixelFormatAttribute] = [
-            UInt32(NSOpenGLPFAAccelerated),
-            UInt32(NSOpenGLPFAColorSize), UInt32(32),
-            UInt32(NSOpenGLPFADoubleBuffer),
-            UInt32(NSOpenGLPFAOpenGLProfile),
-            UInt32(NSOpenGLProfileVersion3_2Core),
-            UInt32(0),
-        ]
-        pixelFormat = NSOpenGLPixelFormat(attributes: attributes)
-        openGLContext = NSOpenGLContext(format: pixelFormat!, share: nil)
-        openGLContext?.setValues([1], for: NSOpenGLContext.Parameter.swapInterval)
-    }
-
-    @objc func reshape() {
-    }
-
-    func setupDisplayLink() {
-    }
-
-    override func lockFocus() {
-        super.lockFocus()
-        if openGLContext!.view != self {
-            openGLContext!.view = self
-        }
-    }
-
-    override func draw(_: NSRect) {
-        if openGLContext!.view != self {
-            openGLContext!.view = self
-        }
-
-        // Actually draw something...
-        if !CVDisplayLinkIsRunning(displaylink!) {
-            drawView()
-        }
-    }
-
-    func drawView() {
-        CGLLockContext(openGLContext!.cglContextObj!)
-        openGLContext!.makeCurrentContext()
-
-        // Draw things...
-
-        openGLContext!.flushBuffer()
-        CGLUnlockContext(openGLContext!.cglContextObj!)
     }
 }

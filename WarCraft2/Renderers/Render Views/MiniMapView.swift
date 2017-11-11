@@ -9,19 +9,11 @@
 import Cocoa
 
 class MiniMapView: NSView {
-
     var mapRenderer: CMapRenderer
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-        let context = NSGraphicsContext.current!.cgContext
-        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
-    }
-
-    init(frame frameRect: NSRect, mapRenderer: CMapRenderer) {
+    init(frame: NSRect, mapRenderer: CMapRenderer) {
         self.mapRenderer = mapRenderer
-        super.init(frame: frameRect)
+        super.init(frame: frame)
 
         let bevel = CBevelView(frame: frame)
         addSubview(bevel)
@@ -29,5 +21,12 @@ class MiniMapView: NSView {
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        let context = NSGraphicsContext.current!.cgContext
+        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
     }
 }
