@@ -24,6 +24,7 @@ class GameViewController: NSViewController, viewToController {
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var sound = SoundManager()
     var application = CApplicationData()
+
     //    var timer = CGPoint(x: 500, y: -200)
     //    var time = Timer()
 
@@ -47,9 +48,7 @@ class GameViewController: NSViewController, viewToController {
 
         let fogrenderer = CFogRenderer(tileset: application.DTerrainTileset, map: visMap)
         application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
-        let coder = NSCoder()
-        let context = NSOpenGLContext()
-        let opengl = OpenGLView(coder: coder, context: context, application: application, skscene: skscene!)
+
         //        let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
         //        view.addSubview(minimap, positioned: .above, relativeTo: skview)
 
