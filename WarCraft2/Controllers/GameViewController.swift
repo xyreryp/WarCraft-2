@@ -33,22 +33,19 @@ class GameViewController: NSViewController, viewToController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do view setup here.
+        //
+        //                skview.showsFPS = true
+        // skscene?.backgroundColor = NSColor.brown
+
+        // FIXME: Uncomment this to put scene back
         view.addSubview(skview)
         skview.presentScene(skscene)
+
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
 
         application.Activate()
-        var terrainTileset = application.DTerrainTileset
-        let map = CTerrainMap()
-        do {
-            try map.LoadMap(fileToRead: "bay")
-        } catch {
-            print("cant load map")
-        }
-        skscene?.scaleMode = .fill
-
-        map.RenderTerrain()
         let cgr = CGraphicResourceContext()
         application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
         application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 10, DHeight: 10))
@@ -138,8 +135,6 @@ class GameView: SKView {
         let x = event.scrollingDeltaX
         let y = event.scrollingDeltaY
 
-        print("x: \(x)")
-        print("y: \(y)")
         vc?.scrollWheel(x: Int(x), y: Int(y))
     }
 }
@@ -158,9 +153,9 @@ class CGView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        let context = NSGraphicsContext.current!.cgContext
-        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        //        let context = NSGraphicsContext.current!.cgContext
+        //        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        //        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
     }
 }
 

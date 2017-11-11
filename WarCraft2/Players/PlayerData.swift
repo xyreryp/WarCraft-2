@@ -11,7 +11,7 @@ import Foundation
 class CPlayerData {
     var DIsAI: Bool
     var DColor: EPlayerColor
-    var DVisibilityMap: CVisibilityMap?
+    var DVisibilityMap: CVisibilityMap
     var DActualMap: CAssetDecoratedMap
     var DPlayerMap: CAssetDecoratedMap
     var DAssetTypes: [String: CPlayerAssetType]
@@ -169,6 +169,7 @@ class CPlayerData {
     }
 
     func AssetRequirementsMet(assettypename: String) -> Bool {
+
         var AssetCount: [Int] = [Int]()
         CHelper.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
 
@@ -195,12 +196,14 @@ class CPlayerData {
     }
 
     func UpdateVisibility() {
+
         var RemoveList: [CPlayerAsset] = [CPlayerAsset]()
-        DVisibilityMap?.Update(assets: DAssets)
-        DPlayerMap.UpdateMap(vismap: DVisibilityMap!, resmap: DActualMap)
+        DVisibilityMap.Update(assets: DAssets)
+        DPlayerMap.UpdateMap(vismap: DVisibilityMap, resmap: DActualMap)
         for Asset in DPlayerMap.DAssets {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
+
                 let cplayerasset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
                 if CPlayerAsset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
@@ -253,6 +256,7 @@ class CPlayerData {
     }
 
     func SelectAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
+
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared: Int = -1
 
@@ -273,6 +277,7 @@ class CPlayerData {
     }
 
     func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
+
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
@@ -294,6 +299,7 @@ class CPlayerData {
     }
 
     func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
+
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
@@ -310,6 +316,7 @@ class CPlayerData {
     }
 
     func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset {
+
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
         var r = range
@@ -347,6 +354,7 @@ class CPlayerData {
 
         var Distance = 0
         for Distance in Distance ..< MaxDistance {
+
             var BestPosition: CTilePosition = CTilePosition()
             var BestDistance: Int = -1
             var LeftX: Int = pos.X() - Distance

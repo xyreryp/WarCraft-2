@@ -43,6 +43,7 @@ class CPixelType {
 
     init(red: Int, green: Int, blue _: Int) {
         DColor = EPlayerColor(rawValue: red)!
+
         DType = EAssetTerrainType(rawValue: green)!
     }
 
@@ -156,10 +157,9 @@ class CPixelType {
         return DType
     }
 
-    // TODO: Uncomment from PlayerAsset
-    //    func Color() -> EPlayerColor {
-    //        return DColor
-    //    }
+    func Color() -> EPlayerColor {
+        return DColor
+    }
 
     func toPixelColor() -> uint32 {
         // TODO: Uncomment from PlayerAsset
@@ -228,11 +228,11 @@ class CPixelType {
         }
     }
 
-    func GetPixelType(surface: CGraphicSurface, pos: CPixelPosition) -> CPixelType {
+    static func GetPixelType(surface: CGraphicSurface, pos: CPixelPosition) -> CPixelType {
         return GetPixelType(surface: surface, xpos: pos.X(), ypos: pos.Y())
     }
 
-    func GetPixelType(surface: CGraphicSurface, xpos: Int, ypos: Int) -> CPixelType {
+    static func GetPixelType(surface: CGraphicSurface, xpos: Int, ypos: Int) -> CPixelType {
         let PixelColor: uint32 = surface.PixelAt(xpos: xpos, ypos: ypos)
         return CPixelType(red: Int((PixelColor >> 16) & 0xFF), green: Int((PixelColor >> 8) & 0xFF), blue: Int(PixelColor & 0xFF))
     }

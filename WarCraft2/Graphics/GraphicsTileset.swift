@@ -24,7 +24,7 @@ class CGraphicTileset {
     var DTileHalfWidth: Int
     var DTileHalfHeight: Int
     var DTileSet: [SKTexture]
-    var DTileImageSet = [NSImage]()
+    var DTileImageSet: [NSImage]
 
     init() {
         DSurfaceTileset = nil
@@ -39,6 +39,7 @@ class CGraphicTileset {
         DTileNames = []
         DGroupNames = []
         DGroupSteps = [:]
+        DTileImageSet = []
     }
 
     deinit {}
@@ -220,10 +221,16 @@ class CGraphicTileset {
     } // end DuplicateClippedTile()
 
     func FindTile(tilename: String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
-        let findTile = DMapping[tilename]
-
-        if findTile != nil { // if findTile exists
-            return findTile!
+        //        var findTile:Int? = DMapping[tilename]
+        //        print ("Found \(findTile) of tilename \(tilename)")
+        //        if findTile != nil { // if findTile exists
+        //            return findTile!
+        //        }
+        for (k, v) in DMapping {
+            if k == tilename {
+                print("Found \(tilename) of int \(v)")
+                return v
+            }
         }
         return -1
     } // end FindTile()
@@ -270,6 +277,7 @@ class CGraphicTileset {
         var TempTokens = source.Read(fileName: assetName, extensionType: "dat")
         var Tokens = [String]()
         for i in 5 ..< TempTokens.count {
+            //            print("loading \(assetName) tilenum \(i)")
             Tokens.append(TempTokens[i])
             DMapping[TempTokens[i]] = i - 5
             DTileNames.append(TempTokens[i])
@@ -294,7 +302,6 @@ class CGraphicTileset {
             let tempTexture = SKTexture(image: temp)
             DTileSet.append(tempTexture)
         }
-
         UpdateGroupName()
         return true
     }
@@ -353,6 +360,11 @@ class CGraphicTileset {
         let imageRect = CGRect(x: CGFloat(xpos), y: CGFloat(ypos), width: CGFloat(width), height: CGFloat(height))
         context.myContext.draw(image.CGImage, in: imageRect)
     }
+
+    //
+    //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
+    //    } // end LoadTileset()
+    //
 
     //    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
     //        if 0 > tileindex || tileindex >= DClippingMasks.count {
