@@ -1,0 +1,13 @@
+# Path to frames
+./Colors.png
+# Number of frames
+8
+# Frame names
+red
+blue
+green
+purple
+orange
+yellow
+black
+white
