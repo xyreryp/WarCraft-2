@@ -1,7 +1,12 @@
+v1.0
 # Map Name
 Three ways to cross
 # Map Dimensions W x H
 128 128
+# Map Description
+Test map format v1.0
+# Map Tileset
+../img/Terrain.dat
 # Map Terrain Data
 gggggggggdRRddddRRRdRRRdggggggggGGGgGGGGGgggggFFgFFFFFFFFFFgggggGGGGgGGGGGggFFFFFFgggggGGGGGGGGgdRRRRRRRRRRRRRdgggggggggggdRRRRRR
 gggggggggdRRRRddRRRRRRRdggggggggGGGGGGGGGgggggFFFFFFFFFFFFFFFgggGGGGGGGGGGgggFFFFFFFgggGGGGGGGGgdRRRRRddRRRRRRdggggddgggggdRRRRRR
@@ -274,19 +279,20 @@ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 # Starting assets Type Owner X Y
 GoldMine 0 28 0
 GoldMine 0 119 3
-TownHall 6 69 13
+TownHall 1 69 13
 GoldMine 0 7 19
 GoldMine 0 125 24
-Peasant 6 71 31
+Peasant 1 71 31
 GoldMine 0 68 32
 GoldMine 0 29 42
 Peasant 2 104 63
 GoldMine 0 105 64
 GoldMine 0 0 65
 TownHall 2 118 71
-Peasant 7 38 77
+Peasant 3 38 77
 GoldMine 0 37 78
-TownHall 7 21 82
+TownHall 3 21 82
 GoldMine 0 119 94
 GoldMine 0 0 99
 GoldMine 0 113 125
+
