@@ -616,13 +616,8 @@ class CApplicationData {
         }
         // FIXME: Hardcoded for now for bay, waiting for datasource to change
 
-        let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "Data/res", extensionType: "dat")
-        print("HFAOISDFUAOUDSFAOIDSFUOADSF")
-        for item in AssetFileNames {
-            print(item)
-        }
+        let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
-
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
         LoadGameMap(index: 0)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
