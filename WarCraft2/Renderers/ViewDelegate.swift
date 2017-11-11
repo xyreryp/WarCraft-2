@@ -12,7 +12,7 @@ import SpriteKit
 class ViewDelegate: NSObject, SKViewDelegate {
     var lastRenderTime: TimeInterval = 0
 
-    let fps: TimeInterval = 3
+    let fps: TimeInterval = 60
 
     public func view(_: SKView, shouldRenderAtTime time: TimeInterval) -> Bool {
 
