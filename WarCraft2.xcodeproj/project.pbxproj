@@ -101,7 +101,7 @@
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
 		E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */; };
-		E1A34C7B1FB7A1F2008D4639 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A34C7A1FB7A1F2008D4639 /* GameView.swift */; };
+		E1A34C7B1FB7A1F2008D4639 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A34C7A1FB7A1F2008D4639 /* GameScene.swift */; };
 		E1C219AE1FB6E6210049C705 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219AD1FB6E6210049C705 /* Helpers.swift */; };
 		E1C219B11FB6E62D0049C705 /* UnitActionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219AF1FB6E62D0049C705 /* UnitActionRenderer.swift */; };
 		E1C219B21FB6E62D0049C705 /* UnitDescriptionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219B01FB6E62D0049C705 /* UnitDescriptionRenderer.swift */; };
@@ -210,7 +210,7 @@
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiniMapRenderer.swift; path = WarCraft2/Renderers/MiniMapRenderer.swift; sourceTree = SOURCE_ROOT; };
 		E19A0AD21F959094001B569C /* TerrainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMap.swift; sourceTree = "<group>"; };
-		E1A34C7A1FB7A1F2008D4639 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		E1A34C7A1FB7A1F2008D4639 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactoryCoreGraphics.swift; sourceTree = "<group>"; };
 		E1C219AD1FB6E6210049C705 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		E1C219AF1FB6E62D0049C705 /* UnitActionRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitActionRenderer.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 				88B9660C1FB4BFD5006748DD /* BattleMode.swift */,
 				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
 				885B24361FA6B7A1004C1724 /* GameModel.swift */,
-				E1A34C7A1FB7A1F2008D4639 /* GameView.swift */,
+				E1A34C7A1FB7A1F2008D4639 /* GameScene.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -612,7 +612,7 @@
 				8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */,
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */,
-				E1A34C7B1FB7A1F2008D4639 /* GameView.swift in Sources */,
+				E1A34C7B1FB7A1F2008D4639 /* GameScene.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				52A54EDE1FA3D9AA00995FF5 /* AIPlayer.swift in Sources */,
 				E119FBE11FB45D1800617B9B /* ButtonRenderer.swift in Sources */,
