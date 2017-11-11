@@ -38,8 +38,9 @@ class GameViewController: NSViewController, viewToController {
 
         application.Activate()
         let cgr = CGraphicResourceContext()
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
-        let assetDecoratedMap = application.DAssetMap
+        let assetDecoratedMap = CAssetDecoratedMap()
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colors = CGraphicRecolorMap()
         application.DAssetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
