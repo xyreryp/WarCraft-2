@@ -180,7 +180,7 @@ class CApplicationData {
 
     // game model things
     var DPlayerColor: EPlayerColor
-    var DGameModel: CGameModel
+    var DGameModel: CGameModel!
     var DPlayerCommands: [PLAYERCOMMANDREQUEST_TAG]
     // var DAIPlayers: [CAIPlayer]
     var DLoadingPlayerTypes: [EPlayerType]
@@ -367,12 +367,9 @@ class CApplicationData {
         // TODO: finish these types of renderers
         // var DOptionsEditRenderer: CEditRenderer? = nil
 
-        // game model things
-        DGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         //        DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
-        DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
 
         // application mode things
         // FIXME: applicationMode
@@ -413,11 +410,10 @@ class CApplicationData {
         //        DMultiplayerPort = 55107 // Ascii WC = 0x5743 or'd with 0x8000
         DBorderWidth = 32
         DPanningSpeed = 0
-
-        var i = 0
-        for i in i ..< EPlayerColor.Max.rawValue {
-            DPlayerCommands[i].DAction = EAssetCapabilityType.None
-            DLoadingPlayerColors[i] = EPlayerColor(rawValue: i)!
+        DLoadingPlayerColors = []
+        for Index in 0 ..< EPlayerColor.Max.rawValue {
+            DPlayerCommands[Index].DAction = EAssetCapabilityType.None
+            DLoadingPlayerColors.append(EPlayerColor(rawValue: Index)!)
         }
         DCurrentX = 0
         DCurrentY = 0
@@ -813,28 +809,29 @@ class CApplicationData {
         var DetailedMapWidth: Int
         var DetailedMapHeight: Int
 
-        DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: DLoadingPlayerColors)
-        let Index = 1
-        for Index in Index ..< EPlayerColor.Max.rawValue {
-            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
-        }
-        for Index in Index ..< EPlayerColor.Max.rawValue {
-            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-                var Downsample: Int = 1
-                switch DLoadingPlayerTypes[Index] {
-                case EPlayerType.ptAIEasy:
-                    Downsample = CPlayerAsset.DUpdateFrequency
-                    break
-                case EPlayerType.ptAIMedium:
-                    Downsample = CPlayerAsset.DUpdateFrequency / 2
-                    break
-                default :
-                    Downsample = CPlayerAsset.DUpdateFrequency / 4
-                    break
-                }
-                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
-            }
-        }
+        DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: &DLoadingPlayerColors)
+        // AI INFORMATION
+        //        let Index = 1
+        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
+        //        }
+        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+        //                var Downsample: Int = 1
+        //                switch DLoadingPlayerTypes[Index] {
+        //                case EPlayerType.ptAIEasy:
+        //                    Downsample = CPlayerAsset.DUpdateFrequency
+        //                    break
+        //                case EPlayerType.ptAIMedium:
+        //                    Downsample = CPlayerAsset.DUpdateFrequency / 2
+        //                    break
+        //                default :
+        //                    Downsample = CPlayerAsset.DUpdateFrequency / 4
+        //                    break
+        //                }
+        //                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
+        //            }
+        //        }
         DCurrentAssetCapability = EAssetCapabilityType.None
 
         // setup map dimensions and tiles

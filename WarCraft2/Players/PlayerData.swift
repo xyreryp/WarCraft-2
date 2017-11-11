@@ -34,7 +34,7 @@ class CPlayerData {
         DLumber = 0
         DUpgrades = [Bool]()
         DGameEvents = [SGameEvent]()
-        DAssets = [CPlayerAsset]()
+        DAssets = []
         CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
@@ -145,11 +145,19 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
-        CreatedAsset.CreationCycle(cycle: DGameCycle)
-        DAssets.append(CreatedAsset)
-        DActualMap.AddAsset(asset: CreatedAsset)
-        return CreatedAsset
+        for (key, pair) in DAssetTypes {
+            print("Keys for DAssetTypes are:  \(key)")
+            if assettypename == key {
+                print("I AM HERE")
+                let CreatedAsset: CPlayerAsset = pair.Construct()
+                CreatedAsset.CreationCycle(cycle: DGameCycle)
+                DAssets.append(CreatedAsset)
+                DActualMap.AddAsset(asset: CreatedAsset)
+                return CreatedAsset
+            }
+        }
+        print("I DID NOT MAKE IT INSIDE THE LOOP")
+        return (DAssetTypes[assettypename]?.Construct())!
     }
 
     // TODO: DeleteAsset()

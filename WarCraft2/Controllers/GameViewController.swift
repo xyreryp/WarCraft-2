@@ -46,7 +46,7 @@ class GameViewController: NSViewController, viewToController {
         let cgr = CGraphicResourceContext()
 
         // FIXME: hardcoded to bay map right now
-        let assetDecoratedMap = application.DSelectedMap
+        let assetDecoratedMap = CAssetDecoratedMap.DAllMaps[0]
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colorMap = CGraphicRecolorMap()
         let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
@@ -105,7 +105,7 @@ class GameViewController: NSViewController, viewToController {
     }
 
     func movePeasant(x: Int, y: Int) {
-        let assetDecoratedMap = application.DSelectedMap
+        let assetDecoratedMap = CAssetDecoratedMap.DAllMaps[0]
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colors = CGraphicRecolorMap()
         let assetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)

@@ -51,7 +51,7 @@ class CAssetDecoratedMap: CTerrainMap {
         super.init()
     }
 
-    init(map: CAssetDecoratedMap, newcolors: [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
+    init(map: CAssetDecoratedMap, newcolors: inout [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
         DAssets = [CPlayerAsset]()
         DAssetInitializationList = [SAssetInitialization]()
         DResourceInitializationList = [SResourceInitialization]()
@@ -144,11 +144,11 @@ class CAssetDecoratedMap: CTerrainMap {
         return CAssetDecoratedMap(map: DAllMaps[index])
     }
 
-    static func DuplicateMap(index: Int, newcolors: [EPlayerColor]) -> CAssetDecoratedMap {
+    static func DuplicateMap(index: Int, newcolors: inout [EPlayerColor]) -> CAssetDecoratedMap {
         if (0 > index) || (DAllMaps.count <= index) {
             return CAssetDecoratedMap()
         }
-        return CAssetDecoratedMap(map: DAllMaps[index], newcolors: newcolors)
+        return CAssetDecoratedMap(map: DAllMaps[index], newcolors: &newcolors)
     }
 
     func AddAsset(asset: CPlayerAsset) -> Bool {
