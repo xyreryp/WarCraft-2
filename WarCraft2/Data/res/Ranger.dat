@@ -1,0 +1,43 @@
+# Resource Name
+Ranger
+# Hit Points
+50
+# Armor
+2
+# Sight
+5
+# Sight during construction
+0
+# Size
+1
+# Speed
+10
+# Gold Cost
+500
+# Lumber Cost
+50
+# Food Consumption (Negative Production)
+1
+# Build Time (s)
+70
+# Attack Steps
+10
+# Reload Steps
+10
+# Basic Damage
+3
+# Piercing Damage
+6
+# Range
+4
+# Capability Count
+4
+# Name of Capabilities
+Move
+Attack
+StandGround
+Patrol
+# Requirement Count
+1
+# List of Requirements
+Keep
