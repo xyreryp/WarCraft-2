@@ -15,7 +15,7 @@ class CMapRenderer {
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
-    //    // huge constructor
+    // FIXME: Hardcoded for one map
     init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         // additional var's
         // For the mini map rendering: @source
@@ -26,6 +26,8 @@ class CMapRenderer {
         // data members
         DTileset = tileset
         DMap = map
+        print("in maprend")
+        print(DMap.DMapName)
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 

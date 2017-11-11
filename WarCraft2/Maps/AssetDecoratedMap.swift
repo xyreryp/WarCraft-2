@@ -48,7 +48,7 @@ class CAssetDecoratedMap: CTerrainMap {
         DResourceInitializationList = map.DResourceInitializationList
         DSearchMap = [[Int]]()
         DLumberAvailable = [[Int]]()
-        super.init()
+        super.init(map: map)
     }
 
     init(map: CAssetDecoratedMap, newcolors: inout [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
@@ -74,7 +74,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             DResourceInitializationList.append(NewInitVal)
         }
-        super.init()
+        super.init(map: map)
     }
 
     deinit {
@@ -393,11 +393,8 @@ class CAssetDecoratedMap: CTerrainMap {
         var InitialLumber = 400
         var ReturnStatus = false
 
-        do {
-            try super.LoadMap(fileToRead: "bay")
-        } catch {
-            print("Could not load terrain bay map")
-        }
+        super.LoadMap(fileToRead: "bay")
+
         let map = CDataSource.ReadMap(fileName: filename, extensionType: ".map")
 
         let startingResources = map[8]

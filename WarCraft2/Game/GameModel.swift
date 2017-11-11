@@ -87,6 +87,7 @@ class CGameModel {
         // DRandomNumberGenerator.Seed(seed: seed)
         DDiagonalOccupancyMap = [[]]
         DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: &newcolors)
+
         DPlayers = []
         DAssetOccupancyMap = []
         DRouterMap = CRouterMap()

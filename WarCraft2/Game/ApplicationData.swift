@@ -355,7 +355,6 @@ class CApplicationData {
         let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
 
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
-        print("Initialized viewport")
 
         // DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
         // DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
@@ -614,8 +613,8 @@ class CApplicationData {
         if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
             print("Failed to load Mini Icon tileset")
         }
-        // FIXME: Hardcoded for now for bay, waiting for datasource to change
 
+        // FIXME: Hardcoded for now for bay, waiting for datasource to change
         let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
@@ -632,17 +631,6 @@ class CApplicationData {
         //            print("Failed to load Outer Bevel Tileset")
         //        }
     }
-
-    //    func Timeout() -> Bool {}
-    //    func MainWindowDeleteEvent(std::shared_ptr<CGUIWidget> widget) -> Bool{}
-    //    func MainWindowDestroy(std::shared_ptr<CGUIWidget> widget) {}
-    //    func MainWindowKeyPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
-    //    func MainWindowKeyReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIKeyEvent &event) -> Bool {}
-    //    func MainWindowConfigureEvent(std::shared_ptr<CGUIWidget> widget, SGUIConfigureEvent &event) -> Bool {}
-    //    func DrawingAreaDraw(std::shared_ptr<CGUIWidget> widget, std::shared_ptr<CGraphicResourceContext> rc) -> Bool {}
-    //    func DrawingAreaButtonPressEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
-    //    func DrawingAreaButtonReleaseEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event) -> Bool {}
-    //    func DrawingAreaMotionNotifyEvent(std::shared_ptr<CGUIWidget> widget, SGUIMotionEvent &event) -> Bool {}
 
     // functiones for going back and forth between screen and actions
     func FindUIComponentType(pos: CPixelPosition) -> EUIComponentType {
@@ -777,7 +765,7 @@ class CApplicationData {
     //        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].MeasureText(title, TitleWidth, titlebottomy)
     //        TextColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("white")
     //        ShadowColor = DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].FindColor("black")
-    //        DFonts[CUnitDescriptionRenderer.EFontSize.Giant.rawValue].DrawTextWithShadow(DWorkingBufferSurface, pagewidth/2 - TitleWidth/2, DOuterBevel.Width(), TextColor, ShadowColor, 1, title)
+    //        DFonts[CUnitDescriptionRenderer.EFontSiz  e.Giant.rawValue].DrawTextWithShadow(DWorkingBufferSurface, pagewidth/2 - TitleWidth/2, DOuterBevel.Width(), TextColor, ShadowColor, 1, title)
     // }
 
     //    func RenderSplashStep() {
@@ -836,20 +824,13 @@ class CApplicationData {
         //            }
         //        }
         DCurrentAssetCapability = EAssetCapabilityType.None
-
+        DPlayerColor = EPlayerColor.Red
         // setup map dimensions and tiles
         DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
         // load the map file
-        let map = CTerrainMap()
-        do {
-            try map.LoadMap(fileToRead: "bay")
-        } catch {
-            print("cant load map")
-        }
-        map.RenderTerrain()
-        DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: map)
+        DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
         //  DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)

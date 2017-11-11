@@ -378,11 +378,11 @@ class CAssetRenderer {
     //
     //    }
 
-    func DrawAssets(surface: SKScene, typesurface _: SKScene, rect: SRectangle) {
+    func DrawAssets(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
-
+        print(DPlayerMap.DAssets.count)
         for AssetIterator in DPlayerMap.DAssets {
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
@@ -516,6 +516,7 @@ class CAssetRenderer {
 
         FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
+            print("I AM HEREASDFASDFA")
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 DTilesets[RenderIterator.DType.rawValue].DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: RenderIterator.DY, tileindex: RenderIterator.DTileIndex) // , colorindex: RenderIterator.DColorIndex)
                 // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
