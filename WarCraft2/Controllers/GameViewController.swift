@@ -27,33 +27,34 @@ class GameViewController: NSViewController, viewToController {
 
     var timer = CGPoint(x: 500, y: -200)
     var time = Timer()
-
     let queue = DispatchQueue.global()
 
-    var makeNodeModifications = false
-
-    func backgroundComputation() {
-        queue.async {
-            // Perform background calculations but do not modify
-            // SpriteKit objects
-
-            // Set a flag for later modification within the
-            // SKScene or SKSceneDelegate callback of your choosing
-
-            self.makeNodeModifications = true
-        }
-    }
+    var makeNodeModifications = true
+    //
+    //    func backgroundComputation() {
+    //        queue.async {
+    //            // Perform background calculations but do not modify
+    //            // SpriteKit objects
+    //
+    //            // Set a flag for later modification within the
+    //            // SKScene or SKSceneDelegate callback of your choosing
+    //
+    //            self.makeNodeModifications = true
+    //        }
+    //    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(skview)
         skview.presentScene(skscene)
+        //        skview.presentScene(skscene!, transition: SKTransition.reveal(with: .down, duration: 1.0))
 
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
         application.Activate()
         let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
         view.addSubview(minimap, positioned: .above, relativeTo: skview)
+        update(1 / 60, for: skscene!)
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
 
@@ -118,6 +119,15 @@ extension GameViewController: SKSceneDelegate {
         }
     }
 }
+
+// class GameScene: SKScene {
+//    override func update(_: TimeInterval) {
+//        skscene?.removeAllChildren()
+//        skscene?.scaleMode = .fill
+//        let cgr = CGraphicResourceContext()
+//        application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
+//    }
+// }
 
 class GameView: SKView {
     var skscene = SKScene(fileNamed: "Scene")
