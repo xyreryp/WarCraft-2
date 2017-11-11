@@ -228,7 +228,6 @@ class CGraphicTileset {
         //        }
         for (k, v) in DMapping {
             if k == tilename {
-                print("Found \(tilename) of int \(v)")
                 return v
             }
         }

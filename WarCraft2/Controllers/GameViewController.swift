@@ -22,7 +22,6 @@ protocol viewToController {
 }
 
 class GameViewController: NSViewController, viewToController {
-
     var skview = GameView(frame: NSRect(x: 0, y: 0, width: 1024, height: 1024))
     var skscene = SKScene(fileNamed: "Scene")
     var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
@@ -30,15 +29,10 @@ class GameViewController: NSViewController, viewToController {
     var application = CApplicationData()
     var timer = CGPoint(x: 500, y: -200)
     var time = Timer()
+    var cvdisplaylink: CVDisplayLink?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
-        //
-        //                skview.showsFPS = true
-        // skscene?.backgroundColor = NSColor.brown
-
-        // FIXME: Uncomment this to put scene back
         view.addSubview(skview)
         skview.presentScene(skscene)
 
@@ -47,22 +41,20 @@ class GameViewController: NSViewController, viewToController {
 
         application.Activate()
         let cgr = CGraphicResourceContext()
-        application.DMapRenderer = CMapRenderer(config: nil, tileset: terrainTileset, map: map)
-        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 10, DHeight: 10))
+        application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
         let assetDecoratedMap = application.DAssetMap
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colors = CGraphicRecolorMap()
         application.DAssetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
         var visMap = CVisibilityMap(width: 200, height: 200, maxvisibility: 1)
-        let fogrenderer = CFogRenderer(tileset: terrainTileset, map: visMap)
+
+        let fogrenderer = CFogRenderer(tileset: application.DTerrainTileset, map: visMap)
         application.DViewportRenderer = CViewportRenderer(maprender: application.DMapRenderer, assetrender: application.DAssetRenderer, fogrender: fogrenderer)
         let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
         view.addSubview(cgview, positioned: .above, relativeTo: skview)
 
-        time = Timer.scheduledTimer(timeInterval: 0.10, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-
-        //        sound.playMusic(audioFileName: "game3", audioType: "mp3", numloops: 10)
+        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
 
     @objc func timerAction() {
@@ -118,7 +110,7 @@ class GameViewController: NSViewController, viewToController {
 class GameView: SKView {
     var skscene = SKScene(fileNamed: "Scene")
     var vc: viewToController?
-    //    \(NSEvent.mouseLocation)
+
     var sound = SoundManager()
     override func mouseDown(with _: NSEvent) {
         sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
@@ -153,9 +145,9 @@ class CGView: NSView {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
-        //        let context = NSGraphicsContext.current!.cgContext
-        //        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
-        //        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        let context = NSGraphicsContext.current!.cgContext
+        let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
     }
 }
 
