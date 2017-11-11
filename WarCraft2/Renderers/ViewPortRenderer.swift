@@ -149,11 +149,10 @@ class CViewportRenderer {
          default:
          break // do nothing
          }*/
-
         DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
         //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
-        // DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
+        DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
 
         // NOTE: May require possible fix later

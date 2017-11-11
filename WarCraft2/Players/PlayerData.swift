@@ -28,7 +28,8 @@ class CPlayerData {
         DColor = color
         DActualMap = map
         DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
-        DPlayerMap = DActualMap.CreateInitializeMap()
+        // FIXME: supposed to be a createInitializeMap(in this case it should be blank)
+        DPlayerMap = map
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
