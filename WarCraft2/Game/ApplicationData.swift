@@ -101,7 +101,7 @@ class CApplicationData {
     var DMapSelectListViewXOffset: Int
     var DMapSelectListViewYOffset: Int
     var DSelectedMapIndex: Int
-    var DSelectedMap: CAssetDecoratedMap
+    // var DSelectedMap: CAssetDecoratedMap
     //    var DOptionsEditSelected: Int
     //    var DPotionsEditSelectedCharacter: Int
     //    var DOptionsEditLocations: [SRectangle]
@@ -404,8 +404,7 @@ class CApplicationData {
         DCursorType = ECursorType.ctPointer
         DMapSelectListViewXOffset = 0
         DMapSelectListViewYOffset = 0
-        CAssetDecoratedMap.TestLoadMaps(filename: "bay")
-        DSelectedMap = CAssetDecoratedMap.DAllMaps[0]
+        // DSelectedMap = CAssetDecoratedMap.DAllMaps[0]
         DSelectedMapIndex = 0
         //        DSoundVolume = 1.0
         //        DMusicVolume = 0.5
@@ -620,7 +619,7 @@ class CApplicationData {
             print("Failed to load Mini Icon tileset")
         }
         // FIXME: Hardcoded for now for bay, waiting for datasource to change
-
+        CAssetDecoratedMap.TestLoadMaps(filename: "bay")
         LoadGameMap(index: 0)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")

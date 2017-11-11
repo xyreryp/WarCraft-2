@@ -394,6 +394,12 @@ class CAssetDecoratedMap: CTerrainMap {
         var AssetCount = Int()
         var InitialLumber = 400
         var ReturnStatus = false
+
+        do {
+            try super.LoadMap(fileToRead: "bay")
+        } catch {
+            print("Could not load terrain bay map")
+        }
         let map = CDataSource.ReadMap(fileName: filename, extensionType: ".map")
 
         let startingResources = map[8]
@@ -429,9 +435,9 @@ class CAssetDecoratedMap: CTerrainMap {
 
             // FIXME: index out of range on line 448
             CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
-            for RowIndex in 0 ... DLumberAvailable.count {
+            for RowIndex in 0 ... DLumberAvailable.count - 1 {
                 CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
-                for ColIndex in 0 ... DTerrainMap[RowIndex].count {
+                for ColIndex in 0 ... DTerrainMap[RowIndex].count - 1 {
                     if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                         DLumberAvailable[RowIndex][ColIndex] = DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0
                     } else {
