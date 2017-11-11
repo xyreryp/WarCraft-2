@@ -23,7 +23,6 @@ class GameScene: SKScene {
     }
 
     override func update(_: CFTimeInterval) {
-        applicationData.DViewportRenderer.PanNorth(pan: -4)
         clean()
         renderMap()
     }
