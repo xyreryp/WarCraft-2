@@ -1,0 +1,52 @@
+# Resource Name
+Peasant
+# Hit Points
+30
+# Armor
+0
+# Sight
+4
+# Sight during construction
+0
+# Size
+1
+# Speed
+10
+# Gold Cost
+400
+# Lumber Cost
+0
+# Food Consumption (Negative Production)
+1
+# Build Time (s)
+45
+# Attack Steps
+10
+# Reload Steps
+0
+# Basic Damage
+3
+# Piercing Damage
+2
+# Range
+1
+# Capability Count
+14
+# Name of Capabilities
+Move
+Mine
+Convey
+Repair
+Attack
+StandGround
+BuildSimple
+BuildTownHall
+BuildFarm
+BuildBarracks
+BuildLumberMill
+BuildScoutTower
+BuildBlacksmith
+BuildWall
+# Requirement Count
+0
+# List of Requirements

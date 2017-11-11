@@ -1,0 +1,42 @@
+# Resource Name
+Footman
+# Hit Points
+60
+# Armor
+2
+# Sight
+4
+# Sight during construction
+0
+# Size
+1
+# Speed
+10
+# Gold Cost
+600
+# Lumber Cost
+0
+# Food Consumption (Negative Production)
+1
+# Build Time (s)
+60
+# Attack Steps
+10
+# Reload Steps
+0
+# Basic Damage
+6
+# Piercing Damage
+3
+# Range
+1
+# Capability Count
+4
+# Name of Capabilities
+Move
+Attack
+StandGround
+Patrol
+# Requirement Count
+0
+# List of Requirements
