@@ -88,8 +88,6 @@ class CAssetDecoratedMap: CTerrainMap {
         // FIXME: index out of range when populating dterrainmap please step into to see!
         if !TempMap.TestLoadMap(filename: FileName) {
             print("Failed To Load \(FileName) map")
-        } else {
-            print("Loaded \(FileName) map")
         }
         TempMap.RenderTerrain()
         CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = DAllMaps.count

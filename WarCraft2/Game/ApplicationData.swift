@@ -615,6 +615,14 @@ class CApplicationData {
             print("Failed to load Mini Icon tileset")
         }
         // FIXME: Hardcoded for now for bay, waiting for datasource to change
+
+        let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "Data/res", extensionType: "dat")
+        print("HFAOISDFUAOUDSFAOIDSFUOADSF")
+        for item in AssetFileNames {
+            print(item)
+        }
+        CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
+
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
         LoadGameMap(index: 0)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {

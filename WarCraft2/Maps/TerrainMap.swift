@@ -373,9 +373,6 @@ class CTerrainMap {
     func LoadMap(fileToRead: String) throws -> Bool {
         var ReturnStatus: Bool = false
         let StringMap = CDataSource.ReadMap(fileName: fileToRead, extensionType: ".map")
-        for string in StringMap[10] {
-            print("line from Stringmap9: \(string)")
-        }
         DMapName = getMapName(fileText: StringMap[1])
         let dimensions: (Int, Int) = getMapWidthandHeight(fileText: StringMap[2])
         let MapWidth = dimensions.0

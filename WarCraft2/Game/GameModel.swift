@@ -91,7 +91,6 @@ class CGameModel {
         DAssetOccupancyMap = []
         DRouterMap = CRouterMap()
         for PlayerIndex in 0 ..< EPlayerColor.Max.rawValue {
-            print("here")
             DPlayers.append(CPlayerData(map: DActualMap, color: EPlayerColor(rawValue: PlayerIndex)!))
         }
 

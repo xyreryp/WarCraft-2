@@ -8,27 +8,27 @@
 
 import Foundation
 class CPlayerAssetType {
-    var DName: String
-    var DType: EAssetType
-    var DColor: EPlayerColor
-    var DCapabilities: [Bool]
-    var DAssetRequirements: [EAssetType]
-    var DAssetUpgrades: [CPlayerUpgrade]
-    var DHitPoints: Int
-    var DArmor: Int
-    var DSight: Int
-    var DConstructionSight: Int
-    var DSize: Int
-    var DSpeed: Int
-    var DGoldCost: Int
-    var DLumberCost: Int
-    var DFoodConsumption: Int
-    var DBuildTime: Int
-    var DAttackSteps: Int
-    var DReloadSteps: Int
-    var DBasicDamage: Int
-    var DPiercingDamage: Int
-    var DRange: Int
+    var DName: String = String()
+    var DType: EAssetType = EAssetType.None
+    var DColor: EPlayerColor = EPlayerColor.None
+    var DCapabilities: [Bool] = [Bool]()
+    var DAssetRequirements: [EAssetType] = [EAssetType]()
+    var DAssetUpgrades: [CPlayerUpgrade] = [CPlayerUpgrade]()
+    var DHitPoints: Int = Int()
+    var DArmor: Int = Int()
+    var DSight: Int = Int()
+    var DConstructionSight: Int = Int()
+    var DSize: Int = Int()
+    var DSpeed: Int = Int()
+    var DGoldCost: Int = Int()
+    var DLumberCost: Int = Int()
+    var DFoodConsumption: Int = Int()
+    var DBuildTime: Int = Int()
+    var DAttackSteps: Int = Int()
+    var DReloadSteps: Int = Int()
+    var DBasicDamage: Int = Int()
+    var DPiercingDamage: Int = Int()
+    var DRange: Int = Int()
     static var DRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
     static var DTypeStrings: [String] = [
         "None",
@@ -71,10 +71,7 @@ class CPlayerAssetType {
     // default constructor
     init() {
         //        DThis = CPlayerAssetType()
-        DName = ""
-        DType = EAssetType.None
         DCapabilities = [Bool]()
-        DColor = EPlayerColor.None
         CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
         DHitPoints = 1
         DArmor = 0
@@ -120,30 +117,31 @@ class CPlayerAssetType {
             DPiercingDamage = asset.DPiercingDamage
             DRange = asset.DRange
             DAssetUpgrades = [CPlayerUpgrade]()
-        } else {
-            DName = ""
-            DType = EAssetType.None
-            DCapabilities = [Bool]()
-            DColor = EPlayerColor.None
-            CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
-            DHitPoints = 1
-            DArmor = 0
-            DSight = 0
-            DConstructionSight = 0
-            DSize = 1
-            DSpeed = 0
-            DGoldCost = 0
-            DLumberCost = 0
-            DFoodConsumption = 0
-            DBuildTime = 0
-            DAttackSteps = 0
-            DReloadSteps = 0
-            DBasicDamage = 0
-            DPiercingDamage = 0
-            DRange = 0
-            DAssetRequirements = [EAssetType]()
-            DAssetUpgrades = [CPlayerUpgrade]()
         }
+        //     else {
+        //            DName = ""
+        //            DType = EAssetType.None
+        //            DCapabilities = [Bool]()
+        //            DColor = EPlayerColor.None
+        //            CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+        //            DHitPoints = 1
+        //            DArmor = 0
+        //            DSight = 0
+        //            DConstructionSight = 0
+        //            DSize = 1
+        //            DSpeed = 0
+        //            DGoldCost = 0
+        //            DLumberCost = 0
+        //            DFoodConsumption = 0
+        //            DBuildTime = 0
+        //            DAttackSteps = 0
+        //            DReloadSteps = 0
+        //            DBasicDamage = 0
+        //            DPiercingDamage = 0
+        //            DRange = 0
+        //            DAssetRequirements = [EAssetType]()
+        //            DAssetUpgrades = [CPlayerUpgrade]()
+        //        }
     }
 
     deinit {
@@ -284,32 +282,23 @@ class CPlayerAssetType {
         return 3
     }
 
-    static func LoadTypes(container: CDataContainer) -> Bool {
-        let fileItr = container.First()
-        if fileItr == nil {
-            print("fileItr is nil")
-            return false
+    /// Load the resources data from all the files in the "res" directory
+    ///
+    /// - Parameter filenames: List of all the filenames in the "res" directory
+    static func LoadTypes(filenames: [String]) -> Bool {
+        for Filename in filenames {
+            print(Filename)
+            let TempDataSource = CDataSource()
+            TempDataSource.LoadFile(named: Filename, extensionType: "dat", commentChar: "#", subdirectory: "res")
+            CPlayerAssetType.Load(source: TempDataSource)
         }
-
-        while fileItr != nil && (fileItr?.IsValid())! {
-            let FileName: String = fileItr!.Name()
-            let dat: String = ".dat"
-            fileItr?.Next()
-
-            if let range = FileName.range(of: dat) {
-                if FileName.distance(from: FileName.startIndex, to: range.lowerBound) == FileName.count - 4 {
-                    if !CPlayerAssetType.Load(source: container.DataSource(name: FileName)) {
-                        print("Failed to load source \(FileName)")
-                        continue
-                    } else {
-                        // Debug stuff
-                        print("Loaded source \(FileName)")
-                    }
-                }
-            }
-        }
-
-        let PlayerAssetType: CPlayerAssetType = CPlayerAssetType()
+        let PlayerAssetType = CPlayerAssetType()
+        //        PlayerAssetType.DThis = PlayerAssetType
+        PlayerAssetType.DName = "None"
+        PlayerAssetType.DType = EAssetType.None
+        PlayerAssetType.DColor = EPlayerColor.None
+        PlayerAssetType.DHitPoints = 256
+        DRegistry["None"] = PlayerAssetType
         //        PlayerAssetType.DThis = PlayerAssetType
         PlayerAssetType.DName = "None"
         PlayerAssetType.DType = EAssetType.None
@@ -320,9 +309,58 @@ class CPlayerAssetType {
     }
 
     //     TODO: After we for sure know how to read stuff in
-    static func Load(source _: CDataSource!) -> Bool {
-        // gonna re impleiment using string name of the files
-        return false
+    /// Load the data from a resources in the "res" directory
+    ///
+    /// - Parameter source: Contains the resources data
+    static func Load(source: CDataSource) {
+        var Name, TempString: String
+        var PlayerAssetType: CPlayerAssetType
+        var AssetType: EAssetType
+        var CapabilityCount, AssetRequirementCount: Int
+
+        Name = source.Read()
+        AssetType = NameToType(name: Name)
+
+        if let type = CPlayerAssetType.DRegistry[Name] {
+            PlayerAssetType = type
+        } else {
+            PlayerAssetType = CPlayerAssetType()
+            //            PlayerAssetType.DThis = PlayerAssetType
+            PlayerAssetType.DName = Name
+            DRegistry[Name] = PlayerAssetType
+        }
+
+        PlayerAssetType.DType = AssetType
+        PlayerAssetType.DColor = EPlayerColor.None
+        PlayerAssetType.DHitPoints = Int(source.Read())!
+        PlayerAssetType.DArmor = Int(source.Read())!
+        PlayerAssetType.DSight = Int(source.Read())!
+        PlayerAssetType.DConstructionSight = Int(source.Read())!
+        PlayerAssetType.DSize = Int(source.Read())!
+        PlayerAssetType.DSpeed = Int(source.Read())!
+        PlayerAssetType.DGoldCost = Int(source.Read())!
+        PlayerAssetType.DLumberCost = Int(source.Read())!
+        PlayerAssetType.DFoodConsumption = Int(source.Read())!
+        PlayerAssetType.DBuildTime = Int(source.Read())!
+        PlayerAssetType.DAttackSteps = Int(source.Read())!
+        PlayerAssetType.DReloadSteps = Int(source.Read())!
+        PlayerAssetType.DBasicDamage = Int(source.Read())!
+        PlayerAssetType.DPiercingDamage = Int(source.Read())!
+        PlayerAssetType.DRange = Int(source.Read())!
+
+        CapabilityCount = Int(source.Read())!
+        PlayerAssetType.DCapabilities = Array(repeating: false, count: PlayerAssetType.DCapabilities.count)
+        for _ in 0 ..< CapabilityCount {
+            TempString = source.Read()
+            // TODO: Add back in when CPlayerCapability works
+            //            PlayerAssetType.AddCapability(capability: CPlayerCapability.NameToType(name: TempString))
+        }
+
+        AssetRequirementCount = Int(source.Read())!
+        for _ in 0 ..< AssetRequirementCount {
+            TempString = source.Read()
+            PlayerAssetType.DAssetRequirements.append(NameToType(name: TempString))
+        }
     }
 
     static func FindDefaultFromName(name: String) -> CPlayerAssetType {

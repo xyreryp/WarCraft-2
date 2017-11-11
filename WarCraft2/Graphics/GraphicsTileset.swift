@@ -274,7 +274,7 @@ class CGraphicTileset {
 
     func TestLoadTileset(source: CDataSource!, assetName: String) -> Bool {
         // use DataSource to Read
-        var TempTokens = source.Read(fileName: assetName, extensionType: "dat")
+        var TempTokens = source.ReadInTiles(fileName: assetName, extensionType: "dat")
         var Tokens = [String]()
         for i in 5 ..< TempTokens.count {
             //            print("loading \(assetName) tilenum \(i)")
