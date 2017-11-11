@@ -1,0 +1,40 @@
+# Resource Name
+Blacksmith
+# Hit Points
+775
+# Armor
+20
+# Sight
+3
+# Sight during construction
+0
+# Size
+3
+# Speed
+0
+# Gold Cost
+800
+# Lumber Cost
+450
+# Food Consumption (Negative Production)
+0
+# Build Time (s)
+200
+# Attack Steps
+0
+# Reload Steps
+0
+# Basic Damage
+0
+# Piercing Damage
+0
+# Range
+0
+# Capability Count
+2
+# Name of Capabilities
+WeaponUpgrade2
+ArmorUpgrade2
+# Requirement Count
+0
+# List of Requirements

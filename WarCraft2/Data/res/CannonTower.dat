@@ -1,0 +1,39 @@
+# Resource Name
+CannonTower
+# Hit Points
+160
+# Armor
+20
+# Sight
+9
+# Sight during construction
+9
+# Size
+2
+# Speed
+0
+# Gold Cost
+500
+# Lumber Cost
+150
+# Food Consumption (Negative Production)
+0
+# Build Time (s)
+190
+# Attack Steps
+1
+# Reload Steps
+20
+# Basic Damage
+50
+# Piercing Damage
+0
+# Range
+7
+# Capability Count
+0
+# Name of Capabilities
+# Requirement Count
+1
+# List of Requirements
+Blacksmith
