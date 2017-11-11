@@ -1,0 +1,10 @@
+# Path to frames
+./ListViewIcons.png
+# Number of frames
+5
+# Frame names
+background
+up-active
+up-inactive
+down-active
+down-inactive

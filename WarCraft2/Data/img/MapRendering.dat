@@ -1,0 +1,13 @@
+# Number of MiniMap Colors
+10
+# List of colors and names
+light-grass 0xFF28540C
+dark-grass 0xFF144006
+light-dirt 0xFF744404
+dark-dirt 0xFF3A2202
+rock 0xFF424242
+forest 0xFF002C00
+stump 0xFF503000
+shallow-water 0xFF0A1F2B
+deep-water 0xFF051015
+rubble 0xFF3A512B
