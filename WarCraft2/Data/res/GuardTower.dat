@@ -1,0 +1,39 @@
+# Resource Name
+GuardTower
+# Hit Points
+130
+# Armor
+20
+# Sight
+9
+# Sight during construction
+9
+# Size
+2
+# Speed
+0
+# Gold Cost
+500
+# Lumber Cost
+150
+# Food Consumption (Negative Production)
+0
+# Build Time (s)
+140
+# Attack Steps
+1
+# Reload Steps
+20
+# Basic Damage
+4
+# Piercing Damage
+12
+# Range
+6
+# Capability Count
+0
+# Name of Capabilities
+# Requirement Count
+1
+# List of Requirements
+LumberMill

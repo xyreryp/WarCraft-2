@@ -1,0 +1,41 @@
+# Resource Name
+Keep
+# Hit Points
+1400
+# Armor
+0
+# Sight
+6
+# Sight during construction
+4
+# Size
+4
+# Speed
+0
+# Gold Cost
+2000
+# Lumber Cost
+1000
+# Food Consumption (Negative Production)
+-5
+# Build Time (s)
+60
+# Attack Steps
+0
+# Reload Steps
+0
+# Basic Damage
+0
+# Piercing Damage
+0
+# Range
+0
+# Capability Count
+2
+# Name of Capabilities
+BuildPeasant
+BuildCastle
+# Requirement Count
+1
+# List of Requirements
+Barracks

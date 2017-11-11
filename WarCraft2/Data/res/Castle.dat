@@ -1,0 +1,41 @@
+# Resource Name
+Castle
+# Hit Points
+1600
+# Armor
+0
+# Sight
+9
+# Sight during construction
+6
+# Size
+4
+# Speed
+0
+# Gold Cost
+2500
+# Lumber Cost
+1200
+# Food Consumption (Negative Production)
+-5
+# Build Time (s)
+60
+# Attack Steps
+0
+# Reload Steps
+0
+# Basic Damage
+0
+# Piercing Damage
+0
+# Range
+0
+# Capability Count
+1
+# Name of Capabilities
+BuildPeasant
+# Requirement Count
+2
+# List of Requirements
+LumberMill
+Blacksmith
