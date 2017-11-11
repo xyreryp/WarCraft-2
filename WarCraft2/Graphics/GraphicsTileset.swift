@@ -273,18 +273,18 @@ class CGraphicTileset {
 
     func TestLoadTileset(source: CDataSource!, assetName: String) -> Bool {
         // use DataSource to Read
-        var TempTokens = source.Read(fileName: assetName, extensionType: "dat")
+        var TempTokens = source.ReadInTiles(fileName: assetName, extensionType: "dat")
         var Tokens = [String]()
         for i in 5 ..< TempTokens.count {
             //            print("loading \(assetName) tilenum \(i)")
             Tokens.append(TempTokens[i])
             DMapping[TempTokens[i]] = i - 5
             DTileNames.append(TempTokens[i])
+            //            print("TilesetName: \(TempTokens[i])")
         }
         DTileCount = Tokens.count - 1
 
         // load the actual image from Assets folder.
-
         let Tileset = NSImage(named: NSImage.Name(rawValue: assetName))!
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)

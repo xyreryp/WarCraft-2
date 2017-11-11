@@ -445,6 +445,7 @@ class CTerrainMap {
                 }
             }
         }
+
         ReturnStatus = true
         return ReturnStatus
     }

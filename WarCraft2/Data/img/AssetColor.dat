@@ -1,0 +1,17 @@
+# Path to frames
+./AssetColor.png
+# Number of frames
+12
+# Frame names
+none
+self
+enemy
+building
+blue
+red
+green
+purple
+orange
+yellow
+black
+white

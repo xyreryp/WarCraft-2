@@ -34,7 +34,7 @@ class CPlayerData {
         DLumber = 0
         DUpgrades = [Bool]()
         DGameEvents = [SGameEvent]()
-        DAssets = [CPlayerAsset]()
+        DAssets = []
         CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
@@ -145,11 +145,18 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
-        CreatedAsset.CreationCycle(cycle: DGameCycle)
-        DAssets.append(CreatedAsset)
-        DActualMap.AddAsset(asset: CreatedAsset)
-        return CreatedAsset
+        for (key, pair) in DAssetTypes {
+            print("Key in asset type name is: \(key)")
+            if assettypename == key {
+                let CreatedAsset: CPlayerAsset = pair.Construct()
+                CreatedAsset.CreationCycle(cycle: DGameCycle)
+                DAssets.append(CreatedAsset)
+                DActualMap.AddAsset(asset: CreatedAsset)
+                return CreatedAsset
+            }
+        }
+        print("Did not find asset name")
+        return (DAssetTypes[assettypename]?.Construct())!
     }
 
     // TODO: DeleteAsset()

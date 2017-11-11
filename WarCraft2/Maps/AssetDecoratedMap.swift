@@ -8,9 +8,6 @@
 // Getters and setters all removed.
 import Foundation
 
-var DAllMaps: [CAssetDecoratedMap] = [CAssetDecoratedMap]()
-var DMapNameTranslation: [String: Int] = [String: Int]()
-
 class CAssetDecoratedMap: CTerrainMap {
     public struct SAssetInitialization {
         var DType: String
@@ -29,6 +26,8 @@ class CAssetDecoratedMap: CTerrainMap {
     var DResourceInitializationList: [SResourceInitialization]
     var DSearchMap: [[Int]]
     var DLumberAvailable: [[Int]]
+    static var DAllMaps: [CAssetDecoratedMap] = [CAssetDecoratedMap]()
+    static var DMapNameTranslation: [String: Int] = [String: Int]()
 
     // start of functions
 
@@ -52,15 +51,13 @@ class CAssetDecoratedMap: CTerrainMap {
         super.init()
     }
 
-    init(map: CAssetDecoratedMap, newcolors: [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
+    init(map: CAssetDecoratedMap, newcolors: inout [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
         DAssets = [CPlayerAsset]()
         DAssetInitializationList = [SAssetInitialization]()
         DResourceInitializationList = [SResourceInitialization]()
         DSearchMap = [[Int]]()
         DLumberAvailable = [[Int]]()
 
-        DMapNameTranslation = [String: Int]()
-        DAllMaps = [CAssetDecoratedMap]()
         DAssets = map.DAssets
         DLumberAvailable = map.DLumberAvailable
         for InitVal in map.DAssetInitializationList {
@@ -83,9 +80,23 @@ class CAssetDecoratedMap: CTerrainMap {
     deinit {
     }
 
-    // constructors and destructors end
+    // FIXME: Hard coded to take in one map for now
+    static func TestLoadMaps(filename: String) -> Bool {
+
+        let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
+        let FileName = filename
+        // FIXME: index out of range when populating dterrainmap please step into to see!
+        if !TempMap.TestLoadMap(filename: FileName) {
+            print("Failed To Load \(FileName) map")
+        }
+        TempMap.RenderTerrain()
+        CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
+        CAssetDecoratedMap.DAllMaps.append(TempMap)
+        return false
+    }
 
     func LoadMaps(container: CDataContainer) -> Bool {
+
         let FileIterator: CDataContainerIterator! = container.First()
         if FileIterator == nil {
             print("FileIterator == nullptr\n")
@@ -104,8 +115,8 @@ class CAssetDecoratedMap: CTerrainMap {
                     print("Loaded map \"%s\".\n", Filename)
                 }
                 TempMap.RenderTerrain()
-                DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
-                DAllMaps.append(TempMap)
+                CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = CAssetDecoratedMap.DAllMaps.count
+                CAssetDecoratedMap.DAllMaps.append(TempMap)
             }
         }
         print("Maps loaded\n")
@@ -117,7 +128,7 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func FindMapIndex(name: String) -> Int {
-        let Iterator: Int! = DMapNameTranslation[name]
+        let Iterator: Int! = CAssetDecoratedMap.DMapNameTranslation[name]
         if Iterator != nil {
             return Iterator
         }
@@ -131,11 +142,11 @@ class CAssetDecoratedMap: CTerrainMap {
         return CAssetDecoratedMap(map: DAllMaps[index])
     }
 
-    static func DuplicateMap(index: Int, newcolors: [EPlayerColor]) -> CAssetDecoratedMap {
+    static func DuplicateMap(index: Int, newcolors: inout [EPlayerColor]) -> CAssetDecoratedMap {
         if (0 > index) || (DAllMaps.count <= index) {
             return CAssetDecoratedMap()
         }
-        return CAssetDecoratedMap(map: DAllMaps[index], newcolors: newcolors)
+        return CAssetDecoratedMap(map: DAllMaps[index], newcolors: &newcolors)
     }
 
     func AddAsset(asset: CPlayerAsset) -> Bool {
@@ -370,6 +381,71 @@ class CAssetDecoratedMap: CTerrainMap {
                 break
             }
         }
+    }
+
+    func TestLoadMap(filename: String) -> Bool {
+        let TempString = String()
+        //        var Tokens = [String]()
+        var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
+        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
+        var ResourceCount = Int()
+        var AssetCount = Int()
+        var InitialLumber = 400
+        var ReturnStatus = false
+
+        do {
+            try super.LoadMap(fileToRead: "bay")
+        } catch {
+            print("Could not load terrain bay map")
+        }
+        let map = CDataSource.ReadMap(fileName: filename, extensionType: ".map")
+
+        let startingResources = map[8]
+        for Index in 1 ... startingResources.count - 2 {
+            var Tokens = startingResources[Index].split(separator: " ")
+            TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
+            TempResourceInit.DGold = Int(Tokens[1])!
+            TempResourceInit.DLumber = Int(Tokens[2])!
+
+            if TempResourceInit.DColor == EPlayerColor.None {
+                InitialLumber = TempResourceInit.DLumber
+            }
+            DResourceInitializationList.append(TempResourceInit)
+        }
+
+        let startingAssets = map[10]
+
+        for Index in 1 ... startingAssets.count - 2 {
+            var Tokens = startingAssets[Index].split(separator: " ")
+            TempAssetInit.DType = String(Tokens[0])
+            TempAssetInit.DColor = EPlayerColor(rawValue: Int(Tokens[1])!)!
+            TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
+            TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
+
+            if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
+                // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+            }
+
+            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
+                // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
+            }
+            DAssetInitializationList.append(TempAssetInit)
+
+            // FIXME: index out of range on line 448
+            CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+            for RowIndex in 0 ... DLumberAvailable.count - 1 {
+                CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+                for ColIndex in 0 ... DTerrainMap[RowIndex].count - 1 {
+                    if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
+                        DLumberAvailable[RowIndex][ColIndex] = DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0
+                    } else {
+                        DLumberAvailable[RowIndex][ColIndex] = 0
+                    }
+                }
+            }
+            ReturnStatus = true
+        }
+        return ReturnStatus
     }
 
     func LoadMap(source _: CDataSource) -> Bool {

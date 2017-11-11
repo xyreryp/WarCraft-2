@@ -101,7 +101,7 @@ class CApplicationData {
     var DMapSelectListViewXOffset: Int
     var DMapSelectListViewYOffset: Int
     var DSelectedMapIndex: Int
-    var DSelectedMap: CAssetDecoratedMap
+    // var DSelectedMap: CAssetDecoratedMap
     //    var DOptionsEditSelected: Int
     //    var DPotionsEditSelectedCharacter: Int
     //    var DOptionsEditLocations: [SRectangle]
@@ -180,7 +180,7 @@ class CApplicationData {
 
     // game model things
     var DPlayerColor: EPlayerColor
-    var DGameModel: CGameModel
+    var DGameModel: CGameModel!
     var DPlayerCommands: [PLAYERCOMMANDREQUEST_TAG]
     // var DAIPlayers: [CAIPlayer]
     var DLoadingPlayerTypes: [EPlayerType]
@@ -229,14 +229,9 @@ class CApplicationData {
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
-    var DAssetMap: CAssetDecoratedMap
     var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
 
     init() { // appName _: String, key _: SPrivateApplicationType) {
-        // DApplication = CGUIFactoryApplicationInstance(appname)
-        // DApplication.SetActivateCallback(self, ActivateCallback)
-
-        // MARK: If we use gameviewcontroller instance of ApplicationData, we can always pass it in. If our timer is inside the viewcontroller and not in activate() then we won't need this pointer.
         //        DApplicationPointer = CApplicationData()
         DGameSessionType = EGameSessionType.gstSinglePlayer
 
@@ -268,7 +263,6 @@ class CApplicationData {
         DUnitActionYOffset = Int()
         //        DMenuButtonXOffset = Int()
         //        DMenuButtonYOffset = Int()
-        DSelectedMap = CAssetDecoratedMap()
         //        DOptionsEditSelected = Int()
         //        DPotionsEditSelectedCharacter = Int()
         //        DOptionsEditLocations = [SRectangle]()
@@ -373,12 +367,9 @@ class CApplicationData {
         // TODO: finish these types of renderers
         // var DOptionsEditRenderer: CEditRenderer? = nil
 
-        // game model things
-        DGameModel = CGameModel(mapindex: Int(), seed: UInt64(), newcolors: [])
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         //        DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
-        DLoadingPlayerColors = [EPlayerColor](repeating: EPlayerColor.None, count: EPlayerColor.Max.rawValue)
 
         // application mode things
         // FIXME: applicationMode
@@ -401,7 +392,6 @@ class CApplicationData {
 
         // Data Source, used for all reading of files
         TempDataSource = CDataSource()
-        DAssetMap = CAssetDecoratedMap()
 
         // playerData needed for assetRenderer
         DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
@@ -411,6 +401,7 @@ class CApplicationData {
         DCursorType = ECursorType.ctPointer
         DMapSelectListViewXOffset = 0
         DMapSelectListViewYOffset = 0
+        // DSelectedMap = CAssetDecoratedMap.DAllMaps[0]
         DSelectedMapIndex = 0
         //        DSoundVolume = 1.0
         //        DMusicVolume = 0.5
@@ -419,11 +410,10 @@ class CApplicationData {
         //        DMultiplayerPort = 55107 // Ascii WC = 0x5743 or'd with 0x8000
         DBorderWidth = 32
         DPanningSpeed = 0
-
-        var i = 0
-        for i in i ..< EPlayerColor.Max.rawValue {
-            DPlayerCommands[i].DAction = EAssetCapabilityType.None
-            DLoadingPlayerColors[i] = EPlayerColor(rawValue: i)!
+        DLoadingPlayerColors = []
+        for Index in 0 ..< EPlayerColor.Max.rawValue {
+            DPlayerCommands[Index].DAction = EAssetCapabilityType.None
+            DLoadingPlayerColors.append(EPlayerColor(rawValue: Index)!)
         }
         DCurrentX = 0
         DCurrentY = 0
@@ -624,8 +614,12 @@ class CApplicationData {
         if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
             print("Failed to load Mini Icon tileset")
         }
+        // FIXME: Hardcoded for now for bay, waiting for datasource to change
+
+        let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
+        CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
+        CAssetDecoratedMap.TestLoadMaps(filename: "bay")
         LoadGameMap(index: 0)
-        // MARK: don't need Bevel for now I believe
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }
@@ -818,34 +812,36 @@ class CApplicationData {
         var DetailedMapWidth: Int
         var DetailedMapHeight: Int
 
-        DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: DLoadingPlayerColors)
-        let Index = 1
-        for Index in Index ..< EPlayerColor.Max.rawValue {
-            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
-        }
-        for Index in Index ..< EPlayerColor.Max.rawValue {
-            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-                var Downsample: Int = 1
-                switch DLoadingPlayerTypes[Index] {
-                case EPlayerType.ptAIEasy:
-                    Downsample = CPlayerAsset.DUpdateFrequency
-                    break
-                case EPlayerType.ptAIMedium:
-                    Downsample = CPlayerAsset.DUpdateFrequency / 2
-                    break
-                default :
-                    Downsample = CPlayerAsset.DUpdateFrequency / 4
-                    break
-                }
-                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
-            }
-        }
+        DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: &DLoadingPlayerColors)
+        // AI INFORMATION
+        //        let Index = 1
+        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
+        //        }
+        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+        //                var Downsample: Int = 1
+        //                switch DLoadingPlayerTypes[Index] {
+        //                case EPlayerType.ptAIEasy:
+        //                    Downsample = CPlayerAsset.DUpdateFrequency
+        //                    break
+        //                case EPlayerType.ptAIMedium:
+        //                    Downsample = CPlayerAsset.DUpdateFrequency / 2
+        //                    break
+        //                default :
+        //                    Downsample = CPlayerAsset.DUpdateFrequency / 4
+        //                    break
+        //                }
+        //                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
+        //            }
+        //        }
         DCurrentAssetCapability = EAssetCapabilityType.None
 
+        // setup map dimensions and tiles
         DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
-        // FIXME: CDataSource needs to be CMemoryDataSource
+        // load the map file
         let map = CTerrainMap()
         do {
             try map.LoadMap(fileToRead: "bay")
@@ -858,8 +854,8 @@ class CApplicationData {
 
         //  DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
         let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
-
         DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
+
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
@@ -966,7 +962,7 @@ class CApplicationData {
 //        DMapSelectListViewXOffset = Int()
 //        DMapSelectListViewYOffset = Int()
 //        DSelectedMapIndex = Int()
-//        DSelectedMap = CAssetDecoratedMap()
+//  DSelectedMap = CAssetDecoratedMap()
 //        DOptionsEditSelected = Int()
 //        DPotionsEditSelectedCharacter = Int()
 //        DOptionsEditLocations = [SRectangle]()

@@ -1,0 +1,21 @@
+# Path to frames
+./ButtonColors.png
+# Number of frames
+16
+# Frame names
+blue-dark
+red-dark
+green-dark
+purple-dark
+orange-dark
+yellow-dark
+black-dark
+white-dark
+blue-light
+red-light
+green-light
+purple-light
+orange-light
+yellow-light
+black-light
+white-light
