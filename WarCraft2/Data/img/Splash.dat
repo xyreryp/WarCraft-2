@@ -1,0 +1,7 @@
+# Path to frames
+./Splash.png
+# Number of frames
+2
+# Frame names
+splash
+splash-fade
