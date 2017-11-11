@@ -9,8 +9,6 @@
 import Foundation
 import Cocoa
 import SpriteKit
-import OpenGL
-import GLKit
 
 var peasantSelected = false
 
@@ -30,6 +28,22 @@ class GameViewController: NSViewController, viewToController {
     var timer = CGPoint(x: 500, y: -200)
     var time = Timer()
 
+    let queue = DispatchQueue.global()
+
+    var makeNodeModifications = false
+
+    func backgroundComputation() {
+        queue.async {
+            // Perform background calculations but do not modify
+            // SpriteKit objects
+
+            // Set a flag for later modification within the
+            // SKScene or SKSceneDelegate callback of your choosing
+
+            self.makeNodeModifications = true
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(skview)
@@ -40,9 +54,6 @@ class GameViewController: NSViewController, viewToController {
         application.Activate()
         let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
         view.addSubview(minimap, positioned: .above, relativeTo: skview)
-
-        let ogview = 
-        view.addSubview(CGView)
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
 
@@ -92,6 +103,18 @@ class GameViewController: NSViewController, viewToController {
 
         } else if x != 0 {
             application.DViewportRenderer.PanWest(pan: x)
+        }
+    }
+}
+
+extension GameViewController: SKSceneDelegate {
+    func update(_: TimeInterval, for _: SKScene) {
+        if makeNodeModifications {
+            makeNodeModifications = false
+            skscene?.removeAllChildren()
+            skscene?.scaleMode = .fill
+            let cgr = CGraphicResourceContext()
+            application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
         }
     }
 }
