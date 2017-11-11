@@ -1,4 +1,4 @@
-##Game: Flappy Nitta
+## Game: Flappy Nitta
 
 
 ### How to start:
