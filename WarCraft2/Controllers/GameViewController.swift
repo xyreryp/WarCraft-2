@@ -36,7 +36,6 @@ class GameViewController: NSViewController, viewToController {
         //                skview.showsFPS = true
         // skscene?.backgroundColor = NSColor.brown
 
-        // FIXME: Uncomment this to put scene back
         view.addSubview(skview)
         skview.presentScene(skscene)
 
@@ -45,14 +44,16 @@ class GameViewController: NSViewController, viewToController {
 
         application.Activate()
         let cgr = CGraphicResourceContext()
+
+        // FIXME: hardcoded to bay map right now
+        let assetDecoratedMap = CAssetDecoratedMap.DAllMaps[0]
+        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        let colorMap = CGraphicRecolorMap()
+        let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
+        //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
         application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
-        //        let assetDecoratedMap = application.DAssetMap
-        //        let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        //        let colorMap = CGraphicRecolorMap()
-        //        let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-        //        assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
-
+        // assetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
         // let cgview = CGView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: mapRenderer)
 
         // let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 150, height: 150), mapRenderer: mapRenderer)
@@ -82,6 +83,7 @@ class GameViewController: NSViewController, viewToController {
         //        cgview.addSubview(bevelView4)
         //
         //        view.addSubview(cgview, positioned: .above, relativeTo: skview)
+        //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
 
         time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
@@ -98,10 +100,12 @@ class GameViewController: NSViewController, viewToController {
         skscene?.scaleMode = .fill
         let cgr = CGraphicResourceContext()
         application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
+        // this is the hardcoded testDrawAssets
+        // application.DAssetRenderer.TestDrawAssets(surface: skscene!, tileset: application.DAssetTilesets)
     }
 
     func movePeasant(x: Int, y: Int) {
-        let assetDecoratedMap = application.DAssetMap
+        let assetDecoratedMap = CAssetDecoratedMap.DAllMaps[0]
         let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         let colors = CGraphicRecolorMap()
         let assetRenderer = CAssetRenderer(colors: colors, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
