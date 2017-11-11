@@ -22,6 +22,7 @@ class OpenGLView: NSView {
     init?(coder: NSCoder, context _: NSOpenGLContext?, application: CApplicationData, skscene: SKScene) {
         self.skscene = skscene
         self.application = application
+        //fixme:
         super.init(coder: coder)
         openGLContext!.makeCurrentContext()
         setupDisplayLink()
