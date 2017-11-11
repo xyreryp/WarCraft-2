@@ -18,11 +18,10 @@ protocol viewToController {
     func scrollWheel(x: Int, y: Int)
 }
 
-class GameViewController: NSViewController, viewToController {
-    var skview = GameView(frame: NSRect(x: 100, y: 0, width: 1024, height: 1024))
-    var skscene = SKScene(fileNamed: "Scene")
+class GameViewController: NSViewController /* , viewToController */ {
+    var skview: SKView!
+    var skscene: GameScene!
     var size: CGSize!
-    //    var rect: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     var application = CApplicationData()
 
     var timer = CGPoint(x: 500, y: -200)
@@ -32,10 +31,10 @@ class GameViewController: NSViewController, viewToController {
         super.viewDidLoad()
         size = view.frame.size
         skscene = GameScene(size: size)
+        skscene.renderMap()
+        skview = GameView(frame: NSRect(x: 0, y: 0, width: 1024, height: 1024))
         view.addSubview(skview)
         skview.presentScene(skscene)
-
-        //        skview.presentScene(skscene!, transition: SKTransition.reveal(with: .down, duration: 1.0))
 
         //        skview.vc = self
         //        skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
@@ -67,67 +66,34 @@ class GameViewController: NSViewController, viewToController {
         //        sound.playMusic(audioFileName: "selected4", audioType: "wav", numloops: 1)
     }
 
-    func leftDown(x: Int, y: Int) {
-        // do whatever with x and y
-        application.DLeftClicked = true
-        application.X = x
-        application.Y = y
-        if peasantSelected {
-
-            movePeasant(x: x + 500, y: y - 400)
-            peasantSelected = false
-        }
-        if (x > 95 || x < 105) && (y > -55 || y < -45) {
-            peasantSelected = true
-        }
-    }
-
-    func leftUp() {
-        application.DLeftClicked = false
-    }
-
-    func scrollWheel(x: Int, y: Int) {
-        if y != 0 {
-            application.DViewportRenderer.PanNorth(pan: y)
-
-        } else if x != 0 {
-            application.DViewportRenderer.PanWest(pan: x)
-        }
-    }
+    //    func leftDown(x: Int, y: Int) {
+    //        // do whatever with x and y
+    //        application.DLeftClicked = true
+    //        application.X = x
+    //        application.Y = y
+    //        if peasantSelected {
+    //
+    //            movePeasant(x: x + 500, y: y - 400)
+    //            peasantSelected = false
+    //        }
+    //        if (x > 95 || x < 105) && (y > -55 || y < -45) {
+    //            peasantSelected = true
+    //        }
+    //    }
+    //
+    //    func leftUp() {
+    //        application.DLeftClicked = false
+    //    }
+    //
+    //        func scrollWheel(x: Int, y: Int) {
+    //            if y != 0 {
+    //                application.DViewportRenderer.PanNorth(pan: y)
+    //
+    //            } else if x != 0 {
+    //                application.DViewportRenderer.PanWest(pan: x)
+    //            }
+    //        }
 }
 
-// extension GameViewController: SKSceneDelegate {
-//    func update(_: TimeInterval, for _: SKScene) {
-//        if makeNodeModifications {
-//            makeNodeModifications = false
-//            skscene?.removeAllChildren()
-//            skscene?.scaleMode = .fill
-//            let cgr = CGraphicResourceContext()
-//            application.DViewportRenderer.DrawViewport(surface: skscene!, typesurface: cgr, selectrect: rect)
-//        }
-//    }
-// }
-
 class GameView: SKView {
-    var skscene = SKScene(fileNamed: "Scene")
-    var vc: viewToController?
-
-    var sound = SoundManager()
-    override func mouseDown(with _: NSEvent) {
-        sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
-        let sklocation = convert(NSEvent.mouseLocation, to: skscene!)
-
-        vc?.leftDown(x: Int(sklocation.x), y: Int(sklocation.y))
-    }
-
-    override func mouseUp(with _: NSEvent) {
-        vc?.leftUp()
-    }
-
-    override func scrollWheel(with event: NSEvent) {
-        let x = event.scrollingDeltaX
-        let y = event.scrollingDeltaY
-
-        vc?.scrollWheel(x: Int(x), y: Int(y))
-    }
 }
