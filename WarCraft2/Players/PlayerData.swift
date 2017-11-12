@@ -261,8 +261,7 @@ class CPlayerData {
         var BestDistanceSquared: Int = -1
 
         if EAssetType.None != assettype {
-            for WeakAsset in DAssets {
-                let Asset = WeakAsset
+            for Asset in DAssets {
                 if Asset.Type() == assettype {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
 
@@ -281,8 +280,7 @@ class CPlayerData {
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
-        for WeakAsset in DAssets {
-            let Asset = WeakAsset
+        for Asset in DAssets {
             for AssetType in assettypes {
                 if Asset.Type() == AssetType && EAssetAction.Construct != Asset.Action() || EAssetType.Keep == AssetType || EAssetType.Castle == AssetType {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
@@ -327,7 +325,7 @@ class CPlayerData {
             if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
                 var Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
-                    if EAssetAction.Construct == Command.DAssetTarget?.Action() {
+                    if (Command.DAssetTarget != nil) && EAssetAction.Construct == Command.DAssetTarget?.Action() {
                         continue
                     }
                 }
@@ -352,9 +350,7 @@ class CPlayerData {
         let PlacementSize: Int = AssetType!.DSize + 2 * buffer
         let MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
 
-        var Distance = 0
-        for Distance in Distance ..< MaxDistance {
-
+        for Distance in 1 ..< MaxDistance {
             var BestPosition: CTilePosition = CTilePosition()
             var BestDistance: Int = -1
             var LeftX: Int = pos.X() - Distance
@@ -384,8 +380,7 @@ class CPlayerData {
             }
 
             if TopValid {
-                let Index = LeftX
-                for Index in Index ..< RightX {
+                for Index in LeftX ... RightX {
                     let TempPosition: CTilePosition = CTilePosition(x: Index, y: TopY)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -397,8 +392,7 @@ class CPlayerData {
                 }
             }
             if RightValid {
-                let Index = TopY
-                for Index in Index ..< BottomY {
+                for Index in TopY ... BottomY {
                     let TempPosition: CTilePosition = CTilePosition(x: RightX, y: Index)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -410,8 +404,7 @@ class CPlayerData {
                 }
             }
             if BottomValid {
-                let Index = LeftX
-                for Index in Index ..< RightX {
+                for Index in LeftX ... RightX {
                     let TempPosition: CTilePosition = CTilePosition(x: Index, y: BottomY)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -423,8 +416,7 @@ class CPlayerData {
                 }
             }
             if LeftValid {
-                let Index = LeftX
-                for Index in Index ..< BottomY {
+                for Index in TopY ... BottomY {
                     let TempPosition: CTilePosition = CTilePosition(x: LeftX, y: Index)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
