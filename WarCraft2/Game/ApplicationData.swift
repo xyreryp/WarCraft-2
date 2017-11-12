@@ -570,6 +570,7 @@ class CApplicationData {
         if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Terrain") {
             print("Failed to lead terrain tileset")
         }
+        CPosition.SetTileDimensions(width: DTerrainTileset.DTileWidth, height: DTerrainTileset.DTileHeight)
 
         // marker tileset needed for asset renderer
         DMarkerTileset = CGraphicTileset()
