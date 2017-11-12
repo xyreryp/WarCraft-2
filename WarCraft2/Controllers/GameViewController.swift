@@ -35,13 +35,10 @@ class GameViewController: NSViewController {
         //        view.addSubview(minimap, positioned: .above, relativeTo: skview)
 
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-   
-    
-    
     }
 
     //    override func mouseDown(with _: NSEvent) {
-    //        //        sound.playMusic(audioFileName: "annoyed2", audioType: "wav", numloops: 0)
+    //        //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
     //        let sklocation = convert(NSEvent.mouseLocation, to: self)
     //
     //        //        vc?.leftDown(x: Int(sklocation.x), y: Int(sklocation.y))
@@ -56,7 +53,6 @@ class GameViewController: NSViewController {
     //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
     // application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
-    
     override func keyDown(with event: NSEvent) {
         //        guard let keyCode = event.charactersIgnoringModifiers?.first?.asciiValue else {
         //            return
