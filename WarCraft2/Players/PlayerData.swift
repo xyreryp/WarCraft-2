@@ -97,8 +97,8 @@ class CPlayerData {
 
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
-        for WeakAsset in DAssets {
-            let AssetConsumption: Int = WeakAsset.FoodConsumption()
+        for Asset in DAssets {
+            let AssetConsumption: Int = Asset.FoodConsumption()
             if 0 < AssetConsumption {
                 TotalConsumption += AssetConsumption
             }
@@ -108,9 +108,9 @@ class CPlayerData {
 
     func FoodProduction() -> Int {
         var TotalProduction: Int = 0
-        for WeakAsset in DAssets {
-            let AssetConsumption: Int = WeakAsset.FoodConsumption()
-            if 0 < AssetConsumption {
+        for Asset in DAssets {
+            let AssetConsumption: Int = Asset.FoodConsumption()
+            if 0 > AssetConsumption && (EAssetAction.Construct != Asset.Action() || (Asset.CurrentCommand().DAssetTarget != nil)){
                 TotalProduction += AssetConsumption
             }
         }
@@ -145,6 +145,7 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
+        // FIXME: Why is this function so different than the .cpp?
         for (key, pair) in DAssetTypes {
             print("Key in asset type name is: \(key)")
             if assettypename == key {
@@ -159,12 +160,7 @@ class CPlayerData {
         return (DAssetTypes[assettypename]?.Construct())!
     }
 
-    // TODO: DeleteAsset()
     func DeleteAsset(asset: CPlayerAsset) {
-        //        var arr:[CPlayerAsset] = DAssets
-        //        if let a = arr.index(of: asset) {
-        ////            DAssets.remove(at: a)
-        //        }
         for i in 0 ..< DAssets.count {
             let currAsset = DAssets[i]
             if !(currAsset != asset) {
@@ -180,9 +176,9 @@ class CPlayerData {
         var AssetCount: [Int] = [Int]()
         CHelper.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
 
-        for WeakAsset in DAssets {
-            if EAssetAction.Construct != WeakAsset.Action() {
-                AssetCount[WeakAsset.Type().rawValue] += 1
+        for Asset in DAssets {
+            if EAssetAction.Construct != Asset.Action() {
+                AssetCount[Asset.Type().rawValue] += 1
             }
         }
         for Requirement in (DAssetTypes[assettypename]?.AssetRequirements())! {
@@ -211,7 +207,6 @@ class CPlayerData {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
 
-                let cplayerasset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
                 if CPlayerAsset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
                 }
