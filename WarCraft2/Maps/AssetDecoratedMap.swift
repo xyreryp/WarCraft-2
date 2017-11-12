@@ -48,7 +48,7 @@ class CAssetDecoratedMap: CTerrainMap {
         DResourceInitializationList = map.DResourceInitializationList
         DSearchMap = [[Int]]()
         DLumberAvailable = [[Int]]()
-        super.init()
+        super.init(map: map)
     }
 
     init(map: CAssetDecoratedMap, newcolors: inout [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
@@ -74,7 +74,8 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             DResourceInitializationList.append(NewInitVal)
         }
-        super.init()
+
+        super.init(map: map)
     }
 
     deinit {
@@ -386,23 +387,22 @@ class CAssetDecoratedMap: CTerrainMap {
     func TestLoadMap(filename: String) -> Bool {
         let TempString = String()
         //        var Tokens = [String]()
-        var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
-        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
+        // var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
+        //        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
         var ResourceCount = Int()
         var AssetCount = Int()
         var InitialLumber = 400
         var ReturnStatus = false
 
-        do {
-            try super.LoadMap(fileToRead: "bay")
-        } catch {
-            print("Could not load terrain bay map")
-        }
+        super.LoadMap(fileToRead: "bay")
+
         let map = CDataSource.ReadMap(fileName: filename, extensionType: ".map")
 
         let startingResources = map[8]
         for Index in 1 ... startingResources.count - 2 {
             var Tokens = startingResources[Index].split(separator: " ")
+            var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
+
             TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
             TempResourceInit.DGold = Int(Tokens[1])!
             TempResourceInit.DLumber = Int(Tokens[2])!
@@ -417,6 +417,8 @@ class CAssetDecoratedMap: CTerrainMap {
 
         for Index in 1 ... startingAssets.count - 2 {
             var Tokens = startingAssets[Index].split(separator: " ")
+            var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
+
             TempAssetInit.DType = String(Tokens[0])
             TempAssetInit.DColor = EPlayerColor(rawValue: Int(Tokens[1])!)!
             TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
@@ -445,6 +447,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             ReturnStatus = true
         }
+
         return ReturnStatus
     }
 

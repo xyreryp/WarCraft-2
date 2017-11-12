@@ -53,7 +53,7 @@ class CPixelPosition: CPosition {
     // calculate new tile position
     func SetFromTile(pos: CTilePosition) {
         DX = pos.X() * CPosition.DTileWidth + CPosition.DHalfTileWidth
-        DX = pos.Y() * CPosition.DTileHeight + CPosition.DHalfTileHeight
+        DY = pos.Y() * CPosition.DTileHeight + CPosition.DHalfTileHeight
     }
 
     // calculate new DX

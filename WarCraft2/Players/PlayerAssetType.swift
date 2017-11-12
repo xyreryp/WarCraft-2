@@ -287,7 +287,7 @@ class CPlayerAssetType {
     /// - Parameter filenames: List of all the filenames in the "res" directory
     static func LoadTypes(filenames: [String]) -> Bool {
         for Filename in filenames {
-            print(Filename)
+            print("filename: \(Filename)")
             let TempDataSource = CDataSource()
             TempDataSource.LoadFile(named: Filename, extensionType: "dat", commentChar: "#", subdirectory: "res")
             CPlayerAssetType.Load(source: TempDataSource)

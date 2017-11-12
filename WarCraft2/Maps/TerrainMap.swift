@@ -362,7 +362,7 @@ class CTerrainMap {
     }
 
     func getMapName(fileText: [String]) -> String {
-        return fileText[2]
+        return fileText[1]
     }
 
     func getMapWidthandHeight(fileText: [String]) -> (width: Int, height: Int) {
@@ -370,7 +370,7 @@ class CTerrainMap {
         return (Int(dimensions[0])!, Int(dimensions[1])!)
     }
 
-    func LoadMap(fileToRead: String) throws -> Bool {
+    func LoadMap(fileToRead: String) -> Bool {
         var ReturnStatus: Bool = false
         let StringMap = CDataSource.ReadMap(fileName: fileToRead, extensionType: ".map")
         DMapName = getMapName(fileText: StringMap[1])

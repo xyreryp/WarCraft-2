@@ -28,7 +28,8 @@ class CPlayerData {
         DColor = color
         DActualMap = map
         DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
-        DPlayerMap = DActualMap.CreateInitializeMap()
+        // FIXME: supposed to be a createInitializeMap(in this case it should be blank)
+        DPlayerMap = map
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
@@ -146,7 +147,6 @@ class CPlayerData {
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
         for (key, pair) in DAssetTypes {
-            print("Key in asset type name is: \(key)")
             if assettypename == key {
                 let CreatedAsset: CPlayerAsset = pair.Construct()
                 CreatedAsset.CreationCycle(cycle: DGameCycle)
@@ -155,7 +155,7 @@ class CPlayerData {
                 return CreatedAsset
             }
         }
-        print("Did not find asset name")
+        print("Did not find asset name, in PlayerData class")
         return (DAssetTypes[assettypename]?.Construct())!
     }
 

@@ -93,7 +93,7 @@ class CDataSource {
 
     func ReadInTiles(fileName: String, extensionType: String) -> [String] {
 
-        let path = Bundle.main.path(forResource: fileName, ofType: extensionType)
+        let path = Bundle.main.path(forResource: fileName, ofType: extensionType, inDirectory: "img")
         var lines = [String]() /// empty array of Strings
         do {
             // read the whole file

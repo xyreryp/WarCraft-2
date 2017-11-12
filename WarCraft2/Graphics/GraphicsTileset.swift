@@ -228,7 +228,6 @@ class CGraphicTileset {
         //        }
         for (k, v) in DMapping {
             if k == tilename {
-                //                print("Found \(tilename) of int \(v)")
                 return v
             }
         }
@@ -347,6 +346,7 @@ class CGraphicTileset {
         }
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }
