@@ -117,8 +117,10 @@ class CPosition {
             }
         }
 
-        for Y in stride(from: 0, to: DTileHeight, by: 1) {
-            for X in stride(from: 0, to: DTileWidth, by: 1) {
+        var Y: Int = 0
+        var X: Int = 0
+        repeat {
+            repeat {
                 var XDistance: Int = X - DHalfTileWidth
                 var YDistance: Int = Y - DHalfTileHeight
                 let NegativeX: Bool = XDistance < 0
@@ -161,8 +163,10 @@ class CPosition {
                         DOctant[Y][X] = EDirection.North // North
                     }
                 }
-            }
-        }
+                X += 1
+            } while X < DTileWidth
+            Y += 1
+        } while Y < DTileHeight
     }
 
     // getter for DX

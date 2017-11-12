@@ -53,7 +53,7 @@ class CPixelPosition: CPosition {
     // calculate new tile position
     func SetFromTile(pos: CTilePosition) {
         DX = pos.X() * CPosition.DTileWidth + CPosition.DHalfTileWidth
-        DY = -(pos.Y() * CPosition.DTileHeight + CPosition.DHalfTileHeight)
+        DX = pos.Y() * CPosition.DTileHeight + CPosition.DHalfTileHeight
     }
 
     // calculate new DX
@@ -63,7 +63,7 @@ class CPixelPosition: CPosition {
 
     // calculate new DY
     func SetYFromTile(y: Int) {
-        DY = -(y * CPosition.DTileHeight + CPosition.DHalfTileHeight)
+        DY = y * CPosition.DTileHeight + CPosition.DHalfTileHeight
     }
 
     // call CPositions's DistanceSquared()

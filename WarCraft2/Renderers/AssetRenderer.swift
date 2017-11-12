@@ -381,7 +381,7 @@ class CAssetRenderer {
 
     func DrawAssets(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
-        let ScreenBottomY: Int = rect.DYPosition - rect.DHeight + 1
+        let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
 
         for AssetIterator in DPlayerMap.DAssets {
@@ -395,7 +395,7 @@ class CAssetRenderer {
                 var RightX: Int
 
                 TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.HalfTileWidth() - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
-                TempRenderData.DY = AssetIterator.PositionY() - (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() + DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
+                TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.HalfTileHeight() - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
                 TempRenderData.DPixelColor = PixelType.toPixelColor()
 
                 RightX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileWidth() - 1
@@ -403,11 +403,11 @@ class CAssetRenderer {
                 var OnScreen: Bool = true
                 if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
                     OnScreen = false
-                    //                } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
-                    //                    OnScreen = false
+                } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
+                    OnScreen = false
                 }
                 TempRenderData.DX = TempRenderData.DX - rect.DXPosition
-                TempRenderData.DY = TempRenderData.DY + rect.DYPosition
+                TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                 TempRenderData.DColorIndex = (0 != AssetIterator.Color().rawValue) ? AssetIterator.Color().rawValue - 1 : AssetIterator.Color().rawValue
                 TempRenderData.DTileIndex = -1
                 if OnScreen {
