@@ -13,7 +13,7 @@ class CUnitActionRenderer {
     var DIconTileset: CGraphicTileset
     var DBevel: CBevel
     var DPlayerData: CPlayerData
-    var DCommandIndices: [Int] // need to initalize to empty to avoid error for resize()
+    var DCommandIndices: [Int]
     var DDisplayedCommands: [EAssetCapabilityType] // vector
     var DPlayerColor: EPlayerColor
     var DFullIconWidth: Int
