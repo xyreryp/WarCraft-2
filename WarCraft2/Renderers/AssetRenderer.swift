@@ -260,6 +260,7 @@ class CAssetRenderer {
                 if 0 <= TileIndex {
                     DNoneIndices[TypeIndex].append(TileIndex)
                 } else if DWalkIndices[TypeIndex].count > 0 {
+                    print("here")
                     DNoneIndices[TypeIndex].append(DWalkIndices[TypeIndex][DNoneIndices[TypeIndex].count * (DWalkIndices[TypeIndex].count / EDirection.Max.rawValue)])
                 } else {
                     TileIndex = Tileset.FindTile(tilename: "inactive")
