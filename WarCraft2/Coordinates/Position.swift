@@ -111,16 +111,14 @@ class CPosition {
             DHalfTileWidth = width / 2
             DHalfTileHeight = height / 2
 
-            CHelper.resize(array: &DOctant, size: DTileHeight, defaultValue: [EDirection.Max])
+            CHelper.resize(array: &DOctant, size: DTileHeight + 1, defaultValue: [EDirection.Max])
             for (i, _) in DOctant.enumerated() {
-                CHelper.resize(array: &DOctant[i], size: DTileWidth, defaultValue: EDirection.Max)
+                CHelper.resize(array: &DOctant[i], size: DTileWidth + 1, defaultValue: EDirection.Max)
             }
         }
 
-        var Y: Int = 0
-        var X: Int = 0
-        repeat {
-            repeat {
+        for Y in 0 ..< DTileHeight {
+            for X in 0 ..< DTileWidth {
                 var XDistance: Int = X - DHalfTileWidth
                 var YDistance: Int = Y - DHalfTileHeight
                 let NegativeX: Bool = XDistance < 0
@@ -134,7 +132,7 @@ class CPosition {
                     continue
                 }
 
-                let SinSquared: Double = Double(YDistance / (YDistance + XDistance))
+                let SinSquared: Double = Double(YDistance) / Double(YDistance + XDistance)
 
                 if 0.1464466094 > SinSquared { // East or West
                     if NegativeX { // West
@@ -163,10 +161,8 @@ class CPosition {
                         DOctant[Y][X] = EDirection.North // North
                     }
                 }
-                X += 1
-            } while X < DTileWidth
-            Y += 1
-        } while Y < DTileHeight
+            }
+        }
     }
 
     // getter for DX

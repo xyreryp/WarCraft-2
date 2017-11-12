@@ -347,6 +347,7 @@ class CGraphicTileset {
         }
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }
