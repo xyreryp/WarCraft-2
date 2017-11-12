@@ -224,8 +224,7 @@ class CPlayerData {
             let LockedAsset = BestAsset
             ReturnList.append(BestAsset)
             if selectidentical && LockedAsset.Speed() > 0 {
-                for WeakAsset in DAssets {
-                    let Asset = WeakAsset
+                for Asset in DAssets {
                     if LockedAsset != Asset && Asset.Type() == assettype {
                         ReturnList.append(Asset)
                     }
@@ -233,8 +232,7 @@ class CPlayerData {
             }
         } else {
             var AnyMovable: Bool = false
-            for WeakAsset in DAssets {
-                let Asset = WeakAsset
+            for Asset in DAssets {
                 if selectarea.DXPosition <= Asset.PositionX() && Asset.PositionX() < selectarea.DXPosition + selectarea.DWidth && selectarea.DYPosition <= Asset.PositionY() && Asset.PositionY() < selectarea.DYPosition + selectarea.DHeight {
                     if AnyMovable {
                         if Asset.Speed() > 0 {
