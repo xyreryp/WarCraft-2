@@ -138,13 +138,14 @@ class CAssetRenderer {
 
         for Tileset in DTilesets {
             // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
-
+            Tileset.printDMapping()
             for DirectionName in ["walk-n-", "walk-ne-", "walk-e-", "walk-se-", "walk-s-", "walk-sw-", "walk-w-", "walk-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
                 while true {
                     let directionNameStepIndex: String = DirectionName + String(StepIndex)
                     TileIndex = Tileset.FindTile(tilename: directionNameStepIndex)
+                    print("In walk, of direction: \(directionNameStepIndex) and @ imageIndex: \(TileIndex)")
 
                     if 0 <= TileIndex {
                         DWalkIndices[TypeIndex].append(TileIndex)
@@ -258,7 +259,7 @@ class CAssetRenderer {
                 var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
                 if 0 <= TileIndex {
                     DNoneIndices[TypeIndex].append(TileIndex)
-                } else if DWalkIndices[TypeIndex].count != 0 {
+                } else if DWalkIndices[TypeIndex].count > 0 {
                     DNoneIndices[TypeIndex].append(DWalkIndices[TypeIndex][DNoneIndices[TypeIndex].count * (DWalkIndices[TypeIndex].count / EDirection.Max.rawValue)])
                 } else {
                     TileIndex = Tileset.FindTile(tilename: "inactive")
