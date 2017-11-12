@@ -519,7 +519,7 @@ class CAssetRenderer {
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 // FIXME: Currently reversing height for rendering to make it render properly
-                //        This translation should probably be handled in asset code 
+                //        This translation should probably be handled in asset code
                 DTilesets[RenderIterator.DType.rawValue].DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: DPlayerMap.Height() - RenderIterator.DY, tileindex: RenderIterator.DTileIndex) // , colorindex: RenderIterator.DColorIndex)
                 // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
             } else {
