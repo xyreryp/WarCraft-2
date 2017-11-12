@@ -434,17 +434,6 @@ class CPlayerData {
         return CTilePosition(x: -1, y: -1)
     }
 
-    func IdleAssets() -> [CPlayerAsset] {
-        var AssetList: [CPlayerAsset] = [CPlayerAsset]()
-        for WeakAsset in DAssets {
-            let Asset = WeakAsset
-            if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
-                AssetList.append(Asset)
-            }
-        }
-        return AssetList
-    }
-
     func PlayerAssetCount(type: EAssetType) -> Int {
         var Count: Int = 0
         for Asset in DPlayerMap.DAssets {
@@ -464,9 +453,20 @@ class CPlayerData {
         }
         return Count
     }
+    
+    func IdleAssets() -> [CPlayerAsset] {
+        var AssetList: [CPlayerAsset] = [CPlayerAsset]()
+        for Asset in DAssets {
+            if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
+                AssetList.append(Asset)
+            }
+        }
+        return AssetList
+    }
+
 
     // TODO: start from here
-    func AddUpgrade(upgradename _: String) {
+    func AddUpgrade(upgradename: String) {
         //        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
         //        let Upgrade = playerUpgrade.FindUpgradeFromName(name:upgradename)
         //        for AssetType in Upgrade.DAffectedAssets {
@@ -477,6 +477,19 @@ class CPlayerData {
         //            var AssetIndex = DAssetTypes.index(of: AssetIterator)
         //
         //        }
+        var Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: upgradename)
+        if (nil != Upgrade) {
+            for AssetType in (Upgrade?.DAffectedAssets)! {
+                var AssetName: String = CPlayerAssetType.TypeToName(type: AssetType)
+                var AssetIterator = DAssetTypes[AssetName]
+                
+                if (AssetIterator != DAssetTypes[DAssetTypes.endIndex]) {
+                    AssetIterator.
+                }
+                
+            }
+        }
+        
     }
 
     func HasUpgrade(upgrade: EAssetCapabilityType) -> Bool {
