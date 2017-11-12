@@ -26,6 +26,10 @@ class GameViewController: NSViewController {
             self.keyDown(with: $0)
             return $0
         }
+        NSEvent.addLocalMonitorForEvents(matching: .scrollWheel) {
+            self.scrollWheel(with: $0)
+            return $0
+        }
         applicationData.Activate()
         skscene = GameScene(size: view.frame.size, applicationData: applicationData)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
@@ -52,6 +56,27 @@ class GameViewController: NSViewController {
     // let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
     //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
     // application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
+
+    func adjustPan(_ value: Int) -> Int {
+        if value < -1 {
+            return -16
+        } else if value > 1 {
+            return 16
+        }
+        return 0
+    }
+
+    override func scrollWheel(with event: NSEvent) {
+        let x = Int(event.scrollingDeltaX)
+        let y = Int(event.scrollingDeltaY)
+
+        if y != 0 {
+            applicationData.DViewportRenderer.PanNorth(pan: adjustPan(y))
+        }
+        if x != 0 {
+            applicationData.DViewportRenderer.PanWest(pan: adjustPan(x))
+        }
+    }
 
     override func keyDown(with event: NSEvent) {
         //        guard let keyCode = event.charactersIgnoringModifiers?.first?.asciiValue else {
