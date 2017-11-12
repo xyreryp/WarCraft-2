@@ -42,7 +42,7 @@ class GameViewController: NSViewController, viewToController {
         skview.vc = self
         skscene?.anchorPoint = CGPoint(x: 0.2, y: 0.4)
 
-        application.Activate()
+        application.Activate() // load asset types, load assetdecoratedmaps to dallmaps
         let cgr = CGraphicResourceContext()
 
         // FIXME: hardcoded to bay map right now
