@@ -22,6 +22,10 @@ class GameViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+            self.keyDown(with: $0)
+            return $0
+        }
         applicationData.Activate()
         skscene = GameScene(size: view.frame.size, applicationData: applicationData)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
@@ -44,14 +48,32 @@ class GameViewController: NSViewController {
     //        //        vc?.leftUp()
     //    }
 
-    override func scrollWheel(with event: NSEvent) {
-        let x = event.scrollingDeltaX
-        let y = event.scrollingDeltaY
+    //    override func scrollWheel(with event: NSEvent) {
+    //        let x = event.scrollingDeltaX
+    //        let y = event.scrollingDeltaY
+    //
+    //        if y != 0 {
+    //            applicationData.DViewportRenderer.PanNorth(pan: Int(y))
+    //        } else if x != 0 {
+    //            applicationData.DViewportRenderer.PanNorth(pan: Int(x))
+    //        }
+    //    }
 
-        if y != 0 {
-            applicationData.DViewportRenderer.PanNorth(pan: Int(y))
-        } else if x != 0 {
-            applicationData.DViewportRenderer.PanNorth(pan: Int(x))
+    override func keyDown(with event: NSEvent) {
+        //        guard let keyCode = event.charactersIgnoringModifiers?.first?.asciiValue else {
+        //            return
+        //        }
+        switch event.keyCode {
+        case 126: // NSUpArrowFunctionKey:
+            applicationData.DViewportRenderer.PanNorth(pan: 32)
+        case 125: // NSDownArrowFunctionKey:
+            applicationData.DViewportRenderer.PanSouth(pan: 32)
+        case 123: // NSLeftArrowFunctionKey:
+            applicationData.DViewportRenderer.PanWest(pan: 32)
+        case 124: // NSRightArrowFunctionKey:
+            applicationData.DViewportRenderer.PanEast(pan: 32)
+        default:
+            break
         }
     }
 }
