@@ -98,8 +98,8 @@ class CPlayerData {
 
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
-        for WeakAsset in DAssets {
-            let AssetConsumption: Int = WeakAsset.FoodConsumption()
+        for Asset in DAssets {
+            let AssetConsumption: Int = Asset.FoodConsumption()
             if 0 < AssetConsumption {
                 TotalConsumption += AssetConsumption
             }
@@ -109,9 +109,9 @@ class CPlayerData {
 
     func FoodProduction() -> Int {
         var TotalProduction: Int = 0
-        for WeakAsset in DAssets {
-            let AssetConsumption: Int = WeakAsset.FoodConsumption()
-            if 0 < AssetConsumption {
+        for Asset in DAssets {
+            let AssetConsumption: Int = Asset.FoodConsumption()
+            if 0 > AssetConsumption && (EAssetAction.Construct != Asset.Action() || (Asset.CurrentCommand().DAssetTarget != nil)){
                 TotalProduction += AssetConsumption
             }
         }
@@ -146,6 +146,7 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
+        // FIXME: Why is this function so different than the .cpp?
         for (key, pair) in DAssetTypes {
             if assettypename == key {
                 let CreatedAsset: CPlayerAsset = pair.Construct()
@@ -159,12 +160,7 @@ class CPlayerData {
         return (DAssetTypes[assettypename]?.Construct())!
     }
 
-    // TODO: DeleteAsset()
     func DeleteAsset(asset: CPlayerAsset) {
-        //        var arr:[CPlayerAsset] = DAssets
-        //        if let a = arr.index(of: asset) {
-        ////            DAssets.remove(at: a)
-        //        }
         for i in 0 ..< DAssets.count {
             let currAsset = DAssets[i]
             if !(currAsset != asset) {
@@ -180,9 +176,9 @@ class CPlayerData {
         var AssetCount: [Int] = [Int]()
         CHelper.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
 
-        for WeakAsset in DAssets {
-            if EAssetAction.Construct != WeakAsset.Action() {
-                AssetCount[WeakAsset.Type().rawValue] += 1
+        for Asset in DAssets {
+            if EAssetAction.Construct != Asset.Action() {
+                AssetCount[Asset.Type().rawValue] += 1
             }
         }
         for Requirement in (DAssetTypes[assettypename]?.AssetRequirements())! {
@@ -211,7 +207,6 @@ class CPlayerData {
             if EAssetType.None == Asset.Type() && EAssetAction.None == Asset.Action() {
                 Asset.IncrementStep()
 
-                let cplayerasset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
                 if CPlayerAsset.UpdateFrequency() < Asset.DStep * 2 {
                     RemoveList.append(Asset)
                 }
@@ -229,8 +224,7 @@ class CPlayerData {
             let LockedAsset = BestAsset
             ReturnList.append(BestAsset)
             if selectidentical && LockedAsset.Speed() > 0 {
-                for WeakAsset in DAssets {
-                    let Asset = WeakAsset
+                for Asset in DAssets {
                     if LockedAsset != Asset && Asset.Type() == assettype {
                         ReturnList.append(Asset)
                     }
@@ -238,8 +232,7 @@ class CPlayerData {
             }
         } else {
             var AnyMovable: Bool = false
-            for WeakAsset in DAssets {
-                let Asset = WeakAsset
+            for Asset in DAssets {
                 if selectarea.DXPosition <= Asset.PositionX() && Asset.PositionX() < selectarea.DXPosition + selectarea.DWidth && selectarea.DYPosition <= Asset.PositionY() && Asset.PositionY() < selectarea.DYPosition + selectarea.DHeight {
                     if AnyMovable {
                         if Asset.Speed() > 0 {
@@ -268,8 +261,7 @@ class CPlayerData {
         var BestDistanceSquared: Int = -1
 
         if EAssetType.None != assettype {
-            for WeakAsset in DAssets {
-                let Asset = WeakAsset
+            for Asset in DAssets {
                 if Asset.Type() == assettype {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
 
@@ -288,8 +280,7 @@ class CPlayerData {
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
-        for WeakAsset in DAssets {
-            let Asset = WeakAsset
+        for Asset in DAssets {
             for AssetType in assettypes {
                 if Asset.Type() == AssetType && EAssetAction.Construct != Asset.Action() || EAssetType.Keep == AssetType || EAssetType.Castle == AssetType {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
@@ -334,7 +325,7 @@ class CPlayerData {
             if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
                 var Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
-                    if EAssetAction.Construct == Command.DAssetTarget?.Action() {
+                    if (Command.DAssetTarget != nil) && EAssetAction.Construct == Command.DAssetTarget?.Action() {
                         continue
                     }
                 }
@@ -359,9 +350,7 @@ class CPlayerData {
         let PlacementSize: Int = AssetType!.DSize + 2 * buffer
         let MaxDistance: Int = max(DPlayerMap.Width(), DPlayerMap.Height())
 
-        var Distance = 0
-        for Distance in Distance ..< MaxDistance {
-
+        for Distance in 1 ..< MaxDistance {
             var BestPosition: CTilePosition = CTilePosition()
             var BestDistance: Int = -1
             var LeftX: Int = pos.X() - Distance
@@ -391,8 +380,7 @@ class CPlayerData {
             }
 
             if TopValid {
-                let Index = LeftX
-                for Index in Index ..< RightX {
+                for Index in LeftX ... RightX {
                     let TempPosition: CTilePosition = CTilePosition(x: Index, y: TopY)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -404,8 +392,7 @@ class CPlayerData {
                 }
             }
             if RightValid {
-                let Index = TopY
-                for Index in Index ..< BottomY {
+                for Index in TopY ... BottomY {
                     let TempPosition: CTilePosition = CTilePosition(x: RightX, y: Index)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -417,8 +404,7 @@ class CPlayerData {
                 }
             }
             if BottomValid {
-                let Index = LeftX
-                for Index in Index ..< RightX {
+                for Index in LeftX ... RightX {
                     let TempPosition: CTilePosition = CTilePosition(x: Index, y: BottomY)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -430,8 +416,7 @@ class CPlayerData {
                 }
             }
             if LeftValid {
-                let Index = LeftX
-                for Index in Index ..< BottomY {
+                for Index in TopY ... BottomY {
                     let TempPosition: CTilePosition = CTilePosition(x: LeftX, y: Index)
                     if DPlayerMap.CanPlaceAsset(pos: TempPosition, size: PlacementSize, ignoreasset: builder) {
                         let CurrentDistance: Int = builder.TilePosition().DistanceSquared(pos: TempPosition)
@@ -447,17 +432,6 @@ class CPlayerData {
             }
         }
         return CTilePosition(x: -1, y: -1)
-    }
-
-    func IdleAssets() -> [CPlayerAsset] {
-        var AssetList: [CPlayerAsset] = [CPlayerAsset]()
-        for WeakAsset in DAssets {
-            let Asset = WeakAsset
-            if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
-                AssetList.append(Asset)
-            }
-        }
-        return AssetList
     }
 
     func PlayerAssetCount(type: EAssetType) -> Int {
@@ -479,9 +453,20 @@ class CPlayerData {
         }
         return Count
     }
+    
+    func IdleAssets() -> [CPlayerAsset] {
+        var AssetList: [CPlayerAsset] = [CPlayerAsset]()
+        for Asset in DAssets {
+            if EAssetAction.None == Asset.Action() && EAssetType.None != Asset.Type() {
+                AssetList.append(Asset)
+            }
+        }
+        return AssetList
+    }
+
 
     // TODO: start from here
-    func AddUpgrade(upgradename _: String) {
+    func AddUpgrade(upgradename: String) {
         //        let playerUpgrade:CPlayerUpgrade = CPlayerUpgrade()
         //        let Upgrade = playerUpgrade.FindUpgradeFromName(name:upgradename)
         //        for AssetType in Upgrade.DAffectedAssets {
@@ -492,6 +477,17 @@ class CPlayerData {
         //            var AssetIndex = DAssetTypes.index(of: AssetIterator)
         //
         //        }
+        if let Upgrade: CPlayerUpgrade = CPlayerUpgrade.FindUpgradeFromName(name: upgradename) {
+            for AssetType in Upgrade.DAffectedAssets {
+                let AssetName: String = CPlayerAssetType.TypeToName(type: AssetType)
+                let AssetIterator: CPlayerAssetType = DAssetTypes[AssetName]!
+                
+                if AssetIterator != DAssetTypes[DAssetTypes.endIndex].value {
+                    AssetIterator.AddUpgrade(upgrade: Upgrade)
+                }
+            }
+        }
+        
     }
 
     func HasUpgrade(upgrade: EAssetCapabilityType) -> Bool {
