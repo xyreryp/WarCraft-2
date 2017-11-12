@@ -477,16 +477,14 @@ class CPlayerData {
         //            var AssetIndex = DAssetTypes.index(of: AssetIterator)
         //
         //        }
-        var Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: upgradename)
-        if (nil != Upgrade) {
-            for AssetType in (Upgrade?.DAffectedAssets)! {
-                var AssetName: String = CPlayerAssetType.TypeToName(type: AssetType)
-                var AssetIterator = DAssetTypes[AssetName]
+        if let Upgrade: CPlayerUpgrade = CPlayerUpgrade.FindUpgradeFromName(name: upgradename) {
+            for AssetType in Upgrade.DAffectedAssets {
+                let AssetName: String = CPlayerAssetType.TypeToName(type: AssetType)
+                let AssetIterator: CPlayerAssetType = DAssetTypes[AssetName]!
                 
-                if (AssetIterator != DAssetTypes[DAssetTypes.endIndex]) {
-                    AssetIterator.
+                if AssetIterator != DAssetTypes[DAssetTypes.endIndex].value {
+                    AssetIterator.AddUpgrade(upgrade: Upgrade)
                 }
-                
             }
         }
         
