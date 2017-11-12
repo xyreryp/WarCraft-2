@@ -101,6 +101,7 @@
 		E18B68911F8B3DCF00962891 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B68901F8B3DCF00962891 /* DataSource.swift */; };
 		E18B68921F8B3E1100962891 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1AAF57E1F87E650005007C4 /* Position.swift */; };
 		E19011681FA480DF0096AD53 /* MiniMapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */; };
+		E1A34C7B1FB7A1F2008D4639 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A34C7A1FB7A1F2008D4639 /* GameScene.swift */; };
 		E1C219AE1FB6E6210049C705 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219AD1FB6E6210049C705 /* Helpers.swift */; };
 		E1C219B11FB6E62D0049C705 /* UnitActionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219AF1FB6E62D0049C705 /* UnitActionRenderer.swift */; };
 		E1C219B21FB6E62D0049C705 /* UnitDescriptionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219B01FB6E62D0049C705 /* UnitDescriptionRenderer.swift */; };
@@ -108,6 +109,7 @@
 		E1C219B61FB6E7820049C705 /* map in Resources */ = {isa = PBXBuildFile; fileRef = E1C219B51FB6E7820049C705 /* map */; };
 		E1C219BA1FB6E7980049C705 /* upg in Resources */ = {isa = PBXBuildFile; fileRef = E1C219B91FB6E7970049C705 /* upg */; };
 		E1C219CC1FB6E81C0049C705 /* res in Resources */ = {isa = PBXBuildFile; fileRef = E1C219CB1FB6E81C0049C705 /* res */; };
+		E1C219D41FB70B7E0049C705 /* ViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C219D31FB70B7E0049C705 /* ViewDelegate.swift */; };
 		E1D47D9A1FA2EC3700EFA5E4 /* FogRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8812C1FE1FA1C5D700C9B73A /* FogRenderer.swift */; };
 		E1D47D9F1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D47D9E1FA3C96200EFA5E4 /* ActivatedPlayerCapability.swift */; };
 		E1D5B4CC1FB22FDD007141F2 /* TrainCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5B4CB1FB22FDD007141F2 /* TrainCapabilities.swift */; };
@@ -208,6 +210,7 @@
 		E18B68901F8B3DCF00962891 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E19011671FA480DF0096AD53 /* MiniMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MiniMapRenderer.swift; path = WarCraft2/Renderers/MiniMapRenderer.swift; sourceTree = SOURCE_ROOT; };
 		E19A0AD21F959094001B569C /* TerrainMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMap.swift; sourceTree = "<group>"; };
+		E1A34C7A1FB7A1F2008D4639 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		E1B8047E1F8EC79E00DE8C68 /* GraphicFactoryCoreGraphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicFactoryCoreGraphics.swift; sourceTree = "<group>"; };
 		E1C219AD1FB6E6210049C705 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		E1C219AF1FB6E62D0049C705 /* UnitActionRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitActionRenderer.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 		E1C219B51FB6E7820049C705 /* map */ = {isa = PBXFileReference; lastKnownFileType = folder; path = map; sourceTree = "<group>"; };
 		E1C219B91FB6E7970049C705 /* upg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = upg; sourceTree = "<group>"; };
 		E1C219CB1FB6E81C0049C705 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
+		E1C219D31FB70B7E0049C705 /* ViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDelegate.swift; sourceTree = "<group>"; };
 		E1CB36AD1FA19CFC00B18D06 /* ListViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewRenderer.swift; sourceTree = "<group>"; };
 		E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRenderer.swift; sourceTree = "<group>"; };
 		E1CB36B91FA1A10B00B18D06 /* ViewPortRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPortRenderer.swift; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 				88B9660C1FB4BFD5006748DD /* BattleMode.swift */,
 				88AF0B5A1FA4FC1F00DDD6A0 /* ApplicationData.swift */,
 				885B24361FA6B7A1004C1724 /* GameModel.swift */,
+				E1A34C7A1FB7A1F2008D4639 /* GameScene.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				E1CB36AE1FA19CFC00B18D06 /* MapRenderer.swift */,
 				E1384EDE1FAEE864008CED64 /* ResourceRenderer.swift */,
 				DD9744251FAFEA0C00AEC52F /* ButtonRenderer.swift */,
+				E1C219D31FB70B7E0049C705 /* ViewDelegate.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -606,6 +612,7 @@
 				8834FBD21FA1BE46003E81E5 /* DataSink.swift in Sources */,
 				4B12BCC81F8C376100F1E62D /* SoundManager.swift in Sources */,
 				4B45B0861FA2D4A600F2EEC8 /* AssetRenderer.swift in Sources */,
+				E1A34C7B1FB7A1F2008D4639 /* GameScene.swift in Sources */,
 				4BB118421F89EF94002DAB2B /* OptionsMenuViewController.swift in Sources */,
 				52A54EDE1FA3D9AA00995FF5 /* AIPlayer.swift in Sources */,
 				E119FBE11FB45D1800617B9B /* ButtonRenderer.swift in Sources */,
@@ -624,6 +631,7 @@
 				93A955BD1F8D312100226455 /* GraphicsTileset.swift in Sources */,
 				A1AAF5881F8A955D005007C4 /* TilePosition.swift in Sources */,
 				A1AAF58A1F8AD924005007C4 /* PixelPosition.swift in Sources */,
+				E1C219D41FB70B7E0049C705 /* ViewDelegate.swift in Sources */,
 				A1AAF57D1F872930005007C4 /* GameDataTypes.swift in Sources */,
 				4BBA30971F888C29006C46D5 /* MainWindowController.swift in Sources */,
 				8892CC301FAE5C7F00B5A12E /* GameModel.swift in Sources */,
