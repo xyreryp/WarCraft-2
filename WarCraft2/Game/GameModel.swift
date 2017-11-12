@@ -86,6 +86,8 @@ class CGameModel {
         // FIXME: Readd back in later
         // DRandomNumberGenerator.Seed(seed: seed)
         DDiagonalOccupancyMap = [[]]
+        var TestMap = CAssetDecoratedMap.DAllMaps[0]
+
         DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: &newcolors)
 
         DPlayers = []
