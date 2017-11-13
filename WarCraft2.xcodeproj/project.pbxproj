@@ -70,6 +70,7 @@
 		A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */ = {isa = PBXBuildFile; fileRef = E1E55CA61FA7BC0D000B9E65 /* bay.map */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
+		DD321A341FB9285F00DDA2F8 /* HUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD321A331FB9285F00DDA2F8 /* HUDViewController.swift */; };
 		DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3F34021F8C13D3006A805B /* PlayerCommand.swift */; };
 		DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC677471F8C186D00953C3A /* Rectangle.swift */; };
 		DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78FA0C1F94389100E0614B /* GraphicRecolorMap.swift */; };
@@ -183,6 +184,7 @@
 		CE4F77FC1F85DF8F004379F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE4F77FE1F85DF8F004379F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4F77FF1F85DF8F004379F5 /* WarCraft2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WarCraft2.entitlements; sourceTree = "<group>"; };
+		DD321A331FB9285F00DDA2F8 /* HUDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDViewController.swift; sourceTree = "<group>"; };
 		DD3F34021F8C13D3006A805B /* PlayerCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCommand.swift; sourceTree = "<group>"; };
 		DD78FA0C1F94389100E0614B /* GraphicRecolorMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicRecolorMap.swift; sourceTree = "<group>"; };
 		DD9744251FAFEA0C00AEC52F /* ButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonRenderer.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 		E1B45E2F1F9D4DB3009D9BF1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DD321A331FB9285F00DDA2F8 /* HUDViewController.swift */,
 				4BBA30961F888C28006C46D5 /* MainWindowController.swift */,
 				6B5A5CE91F8B387600A7B009 /* RandomNumberGenerator.swift */,
 				4B39625F1F8ACCE7003238AB /* SplashViewController.swift */,
@@ -621,6 +624,7 @@
 				6B89CBB11FB233E90032AA61 /* BuildingUpgradeCapabilities.swift in Sources */,
 				E1C219AE1FB6E6210049C705 /* Helpers.swift in Sources */,
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,
+				DD321A341FB9285F00DDA2F8 /* HUDViewController.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,
