@@ -34,18 +34,9 @@ class GameViewController: NSViewController {
         skview = SKView(frame: NSRect(x: 180, y: 30, width: mysize.width, height: mysize.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
-        //        skscene = GameScene(size: view.frame.size, applicationData: applicationData)
-        //        skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
-        //        skview.presentScene(skscene)
-        //        view.addSubview(skview)
-        //        let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)
-        //        view.addSubview(minimap, positioned: .above, relativeTo: skview)
 
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
-        //        let assetDecoratedMap = applicationData.DAssetMap
-        //        //       let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
-        //
         let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
         let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
         view.addSubview(resourceView)
