@@ -24,14 +24,14 @@ class CAssetRenderer {
     var DPlaceGoodIndex: Int?
     var DPlaceBadIndex: Int?
     var DNoneIndices: [[Int]]!
-    var DConstructIndices: [[Int]]
-    var DBuildIndices: [[Int]]
+    var DConstructIndices: [[Int]]!
+    var DBuildIndices: [[Int]]!
     var DWalkIndices: [[Int]]!
-    var DAttackIndices: [[Int]]
-    var DCarryGoldIndices: [[Int]]
-    var DCarryLumberIndices: [[Int]]
-    var DDeathIndices: [[Int]]
-    var DPlaceIndices: [[Int]]
+    var DAttackIndices: [[Int]]!
+    var DCarryGoldIndices: [[Int]]!
+    var DCarryLumberIndices: [[Int]]!
+    var DDeathIndices: [[Int]]!
+    var DPlaceIndices: [[Int]]!
     var DPixelColors: [UInt32]
 
     static var DAnimationDownsample: Int = 1
@@ -124,19 +124,15 @@ class CAssetRenderer {
             }
         }
 
-        CHelper.resize(array: &DConstructIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DBuildIndices, size: DTilesets.count, defaultValue: [Int()])
-
         DWalkIndices = [[Int]](repeating: [], count: DTilesets.count)
         DNoneIndices = [[Int]](repeating: [], count: DTilesets.count)
-
-        // CHelper.resize(array: &DWalkIndices, size: DTilesets.count, defaultValue: [Int()])
-        // CHelper.resize(array: &DNoneIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DCarryGoldIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DCarryLumberIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DAttackIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DDeathIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DPlaceIndices, size: DTilesets.count, defaultValue: [Int()])
+        DCarryGoldIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DCarryLumberIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DAttackIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DDeathIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DPlaceIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DConstructIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DBuildIndices = [[Int]](repeating: [], count: DTilesets.count)
 
         for Tileset in DTilesets {
             // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
