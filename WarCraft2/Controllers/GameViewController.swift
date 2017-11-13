@@ -16,7 +16,7 @@ class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
     var applicationData = CApplicationData()
-
+    var battleMode = CBattleMode()
     var timer = CGPoint(x: 500, y: -200)
     var time = Timer()
 
@@ -31,7 +31,7 @@ class GameViewController: NSViewController {
             return $0
         }
         applicationData.Activate()
-        skscene = GameScene(size: view.frame.size, applicationData: applicationData)
+        skscene = GameScene(size: view.frame.size, applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)
         view.addSubview(skview)

@@ -673,153 +673,158 @@ class CBattleMode: CApplicationMode {
      *
      */
     override func Render(context: CApplicationData) {
-        // PrintDebug(DEBUG_LOW, "Started CBatleMode::Render\n")
-        // FIXME: SRectangle doesn't exist
-        var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
-        var CurrentX: Int = Int()
-        var CurrentY: Int = Int()
-        var BufferWidth: Int = Int()
-        var BufferHeight: Int = Int()
-        var ViewWidth: Int = Int()
-        var ViewHeight: Int = Int()
-        var MiniMapWidth: Int = Int()
-        var MiniMapHeight: Int = Int()
-        var DescriptionWidth: Int = Int()
-        var DescriptionHeight: Int = Int()
-        var ActionWidth: Int = Int()
-        var ActionHeight: Int = Int()
-        var ResourceWidth: Int = Int()
-        var ResourceHeight: Int = Int()
-        var SelectedAndMarkerAssets: [CPlayerAsset] = context.DSelectedPlayerAssets
-
-        CurrentX = context.DCurrentX
-        CurrentY = context.DCurrentY
-        // BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
-        // BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
-        ViewWidth = Int(context.DViewportSurface.frame.width)
-        ViewHeight = Int(context.DViewportSurface.frame.height)
-        // FIXME: CGraphicResourceContext has no width or height
-        // MiniMapWidth = context.DMiniMapSurface.Width()
-        // MiniMapHeight = context.DMiniMapSurface.frame.Height()
-        DescriptionWidth = Int(context.DUnitDescriptionSurface.frame.width)
-        DescriptionHeight = Int(context.DUnitDescriptionSurface.frame.height)
-        ActionWidth = Int(context.DUnitActionSurface.frame.width)
-        ActionHeight = Int(context.DUnitActionSurface.frame.height)
-        ResourceWidth = Int(context.DResourceSurface.frame.width)
-        ResourceHeight = Int(context.DResourceSurface.frame.height)
-
-        if context.DLeftDown && 0 < context.DMouseDown.X() {
-            var TempPosition = CPixelPosition(pos: context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
-            // variables of SRectangle
-            TempRectangle.DXPosition = min(context.DMouseDown.X(), TempPosition.X())
-            TempRectangle.DYPosition = min(context.DMouseDown.Y(), TempPosition.Y())
-            TempRectangle.DWidth = max(context.DMouseDown.X(), TempPosition.X()) - TempRectangle.DXPosition
-            TempRectangle.DHeight = max(context.DMouseDown.Y(), TempPosition.Y()) - TempRectangle.DYPosition
-        } else {
-            var TempPosition = CPixelPosition(pos: context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
-            TempRectangle.DXPosition = TempPosition.X()
-            TempRectangle.DYPosition = TempPosition.Y()
-        }
-        // FIXME: NOT CRUCIAL FOR NOW
-        //        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
-        //            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
-        //                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
-        //            }
-        //        }
-
-        // FIXME: Bevel draw takes in CGraphicResourceContextCoreGraphics?
-        // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
-        // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
-
-        // FIXME: SKSCENE.draw?
-        // context.DResourceSurface.Draw(srcsurface: context.DWorkingBufferSurface, dxpos: 0, dypos: 0, width: ResourceWidth, height: ResourceHeight, sxpos: context.DViewportXOffset, sypos: 0)
-        // context.DResourceRenderer.DrawResources(context.DResourceSurface)
-        // context.DWorkingBufferSurface.Draw(srcsurface: context.DResourceSurface!, dxpos: context.DViewportXOffset, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
-
-        // FIXME: context or skscene?
-        // context.DOuterBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DUnitDescriptionXOffset, ypos: context.DUnitDescriptionYOffset, width: DescriptionWidth, height: DescriptionHeight)
-
-        // FIXME: SKSCENE.draw?
-        // context.DUnitDescriptionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: DescriptionWidth, height: DescriptionHeight, sxpos: context.DUnitDescriptionXOffset, sypos: context.DUnitDescriptionYOffset)
-        // context.DUnitDescriptionRenderer.DrawUnitDescription(context.DUnitDescriptionSurface, context.DSelectedPlayerAssets)
-        // context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitDescriptionSurface, dxpos: context.DUnitDescriptionXOffset, dypos: context.DUnitDescriptionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
-
-        // FIXME: context or skscene?
-        // context.DOuterBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DUnitActionXOffset, ypos: context.DUnitActionYOffset, width: ActionWidth, height: ActionHeight)
-        // FIXME: SKSCENE.draw?
-        // context.DUnitActionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ActionWidth, height: ActionHeight, sxpos: context.DUnitActionXOffset, sypos: context.DUnitActionYOffset)
-        // context.DUnitActionRenderer.DrawUnitAction(context.DUnitActionSurface!, context.DSelectedPlayerAssets, context.DCurrentAssetCapability)
-        // context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitActionSurface!, dxpos: context.DUnitActionXOffset, dypos: context.DUnitActionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
-
-        for Asset in (context.DGameModel.Player(color: context.DPlayerColor)?.DPlayerMap.DAssets)! {
-            if EAssetType.None == Asset.Type() {
-                SelectedAndMarkerAssets.append(Asset)
-            }
-        }
-        // MARK: Draw Viewport
-        // FIXME: Richard's working on making DrawViewport take in SKScene
-        // context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
-        // context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface )
-
-        // FIXME: SKSCENE.draw?
-        // context.DWorkingBufferSurface.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
-        // context.DWorkingBufferSurface.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
-        // context.DMenuButtonRenderer.DrawButton(context.DWorkingBufferSurface!, context.DMenuButtonXOffset, context.DMenuButtonYOffset, context.DMenuButtonState)
-
-        switch context.FindUIComponentType(pos: CPixelPosition(x: CurrentX, y: CurrentY)) {
-        case CApplicationData.EUIComponentType.uictViewport:
-            var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
-            //
-            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface, xpos: ViewportCursorLocation.X(), ypos: ViewportCursorLocation.Y())
-            context.DCursorType = CApplicationData.ECursorType.ctPointer
-            if EAssetCapabilityType.None == context.DCurrentAssetCapability {
-                if PixelType.Color() == context.DPlayerColor {
-                    context.DCursorType = CApplicationData.ECursorType.ctInspect
-                }
-            } else {
-                var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
-                if PlayerCapability != nil {
-                    var CanApply: Bool = false
-                    if EAssetType.None == PixelType.AssetType() {
-                        if (CPlayerCapability.ETargetType.Terrain == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
-                            var NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), addtomap: false)
-
-                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
-                        }
-                    } else {
-                        if (CPlayerCapability.ETargetType.Asset == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
-                            let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), assettype: PixelType.AssetType())
-
-                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
-                        }
-                    }
-
-                    context.DCursorType = CanApply ? CApplicationData.ECursorType.ctTargetOn : CApplicationData.ECursorType.ctTargetOff
-                }
-            }
-            break
-        case CApplicationData.EUIComponentType.uictViewportBevelN:
-            context.DCursorType = CApplicationData.ECursorType.ctArrowN
-            break
-        case CApplicationData.EUIComponentType.uictViewportBevelE:
-            context.DCursorType = CApplicationData.ECursorType.ctArrowE
-            break
-        case CApplicationData.EUIComponentType.uictViewportBevelS:
-            context.DCursorType = CApplicationData.ECursorType.ctArrowS
-            break
-        case CApplicationData.EUIComponentType.uictViewportBevelW:
-            context.DCursorType = CApplicationData.ECursorType.ctArrowW
-            break
-        default:
-            context.DCursorType = CApplicationData.ECursorType.ctPointer
-            break
-        }
-        var ViewportRectangle: SRectangle = SRectangle(DXPosition: context.DViewportRenderer.ViewPortX(), DYPosition: context.DViewportRenderer.ViewPortY(), DWidth: context.DViewportRenderer.LastViewportWidth(), DHeight: context.DViewportRenderer.LastViewportHeight())
-
-        // FIXME: SoundEventRenderer
-        // context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
-        // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Render\n")
+        let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+        let cgr = CGraphicResourceContext()
+        context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: cgr, selectrect: rect)
     }
+
+    //        // PrintDebug(DEBUG_LOW, "Started CBatleMode::Render\n")
+    //        // FIXME: SRectangle doesn't exist
+    //        var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+    //        var CurrentX: Int = Int()
+    //        var CurrentY: Int = Int()
+    //        var BufferWidth: Int = Int()
+    //        var BufferHeight: Int = Int()
+    //        var ViewWidth: Int = Int()
+    //        var ViewHeight: Int = Int()
+    //        var MiniMapWidth: Int = Int()
+    //        var MiniMapHeight: Int = Int()
+    //        var DescriptionWidth: Int = Int()
+    //        var DescriptionHeight: Int = Int()
+    //        var ActionWidth: Int = Int()
+    //        var ActionHeight: Int = Int()
+    //        var ResourceWidth: Int = Int()
+    //        var ResourceHeight: Int = Int()
+    //        var SelectedAndMarkerAssets: [CPlayerAsset] = context.DSelectedPlayerAssets
+    //
+    //        CurrentX = context.DCurrentX
+    //        CurrentY = context.DCurrentY
+    //        // BufferWidth = Int(context.DWorkingBufferSurface.frame.width)
+    //        // BufferHeight = Int(context.DWorkingBufferSurface.frame.height)
+    //        ViewWidth = Int(context.DViewportSurface.frame.width)
+    //        ViewHeight = Int(context.DViewportSurface.frame.height)
+    //        // FIXME: CGraphicResourceContext has no width or height
+    //        // MiniMapWidth = context.DMiniMapSurface.Width()
+    //        // MiniMapHeight = context.DMiniMapSurface.frame.Height()
+    //        DescriptionWidth = Int(context.DUnitDescriptionSurface.frame.width)
+    //        DescriptionHeight = Int(context.DUnitDescriptionSurface.frame.height)
+    //        ActionWidth = Int(context.DUnitActionSurface.frame.width)
+    //        ActionHeight = Int(context.DUnitActionSurface.frame.height)
+    //        ResourceWidth = Int(context.DResourceSurface.frame.width)
+    //        ResourceHeight = Int(context.DResourceSurface.frame.height)
+    //
+    //        if context.DLeftDown && 0 < context.DMouseDown.X() {
+    //            var TempPosition = CPixelPosition(pos: context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
+    //            // variables of SRectangle
+    //            TempRectangle.DXPosition = min(context.DMouseDown.X(), TempPosition.X())
+    //            TempRectangle.DYPosition = min(context.DMouseDown.Y(), TempPosition.Y())
+    //            TempRectangle.DWidth = max(context.DMouseDown.X(), TempPosition.X()) - TempRectangle.DXPosition
+    //            TempRectangle.DHeight = max(context.DMouseDown.Y(), TempPosition.Y()) - TempRectangle.DYPosition
+    //        } else {
+    //            var TempPosition = CPixelPosition(pos: context.ScreenToDetailedMap(pos: CPixelPosition(x: CurrentX, y: CurrentY)))
+    //            TempRectangle.DXPosition = TempPosition.X()
+    //            TempRectangle.DYPosition = TempPosition.Y()
+    //        }
+    //        // FIXME: NOT CRUCIAL FOR NOW
+    //        //        for YPos in stride(from: 0, through: BufferHeight, by: context.DBackgroundTileset.DTileHeight) {
+    //        //            for XPos in stride(from: 0, through: BufferWidth, by: context.DBackgroundTileset.DTileWidth) {
+    //        //                context.DBackgroundTileset.DrawTile(skscene: context.DWorkingBufferSurface, xpos: YPos, ypos: XPos, tileindex: 0)
+    //        //            }
+    //        //        }
+    //
+    //        // FIXME: Bevel draw takes in CGraphicResourceContextCoreGraphics?
+    //        // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DViewportXOffset, ypos: context.DViewportYOffset, width: ViewWidth, height: ViewHeight)
+    //        // context.DInnerBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DMiniMapXOffset, ypos: context.DMiniMapYOffset, width: MiniMapWidth, height: MiniMapHeight)
+    //
+    //        // FIXME: SKSCENE.draw?
+    //        // context.DResourceSurface.Draw(srcsurface: context.DWorkingBufferSurface, dxpos: 0, dypos: 0, width: ResourceWidth, height: ResourceHeight, sxpos: context.DViewportXOffset, sypos: 0)
+    //        // context.DResourceRenderer.DrawResources(context.DResourceSurface)
+    //        // context.DWorkingBufferSurface.Draw(srcsurface: context.DResourceSurface!, dxpos: context.DViewportXOffset, dypos: 0, width: -1, height: -1, sxpos: 0, sypos: 0)
+    //
+    //        // FIXME: context or skscene?
+    //        // context.DOuterBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DUnitDescriptionXOffset, ypos: context.DUnitDescriptionYOffset, width: DescriptionWidth, height: DescriptionHeight)
+    //
+    //        // FIXME: SKSCENE.draw?
+    //        // context.DUnitDescriptionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: DescriptionWidth, height: DescriptionHeight, sxpos: context.DUnitDescriptionXOffset, sypos: context.DUnitDescriptionYOffset)
+    //        // context.DUnitDescriptionRenderer.DrawUnitDescription(context.DUnitDescriptionSurface, context.DSelectedPlayerAssets)
+    //        // context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitDescriptionSurface, dxpos: context.DUnitDescriptionXOffset, dypos: context.DUnitDescriptionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+    //
+    //        // FIXME: context or skscene?
+    //        // context.DOuterBevel.DrawBevel(context: context.DWorkingBufferSurface, xpos: context.DUnitActionXOffset, ypos: context.DUnitActionYOffset, width: ActionWidth, height: ActionHeight)
+    //        // FIXME: SKSCENE.draw?
+    //        // context.DUnitActionSurface.Draw(srcsurface: context.DWorkingBufferSurface!, dxpos: 0, dypos: 0, width: ActionWidth, height: ActionHeight, sxpos: context.DUnitActionXOffset, sypos: context.DUnitActionYOffset)
+    //        // context.DUnitActionRenderer.DrawUnitAction(context.DUnitActionSurface!, context.DSelectedPlayerAssets, context.DCurrentAssetCapability)
+    //        // context.DWorkingBufferSurface.Draw(srcsurface: context.DUnitActionSurface!, dxpos: context.DUnitActionXOffset, dypos: context.DUnitActionYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+    //
+    //        for Asset in (context.DGameModel.Player(color: context.DPlayerColor)?.DPlayerMap.DAssets)! {
+    //            if EAssetType.None == Asset.Type() {
+    //                SelectedAndMarkerAssets.append(Asset)
+    //            }
+    //        }
+    //        // MARK: Draw Viewport
+    //        // FIXME: Richard's working on making DrawViewport take in SKScene
+    //        // context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: context.DViewportTypeSurface, selectionmarkerlist: SelectedAndMarkerAssets, selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
+    //        // context.DMiniMapRenderer.DrawMiniMap(surface: context.DMiniMapSurface )
+    //
+    //        // FIXME: SKSCENE.draw?
+    //        // context.DWorkingBufferSurface.Draw(srcsurface: context.DMiniMapSurface!, dxpos: context.DMiniMapXOffset, dypos: context.DMiniMapYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+    //        // context.DWorkingBufferSurface.Draw(srcsurface: context.DViewportSurface!, dxpos: context.DViewportXOffset, dypos: context.DViewportYOffset, width: -1, height: -1, sxpos: 0, sypos: 0)
+    //        // context.DMenuButtonRenderer.DrawButton(context.DWorkingBufferSurface!, context.DMenuButtonXOffset, context.DMenuButtonYOffset, context.DMenuButtonState)
+    //
+    //        switch context.FindUIComponentType(pos: CPixelPosition(x: CurrentX, y: CurrentY)) {
+    //        case CApplicationData.EUIComponentType.uictViewport:
+    //            var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
+    //            //
+    //            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface, xpos: ViewportCursorLocation.X(), ypos: ViewportCursorLocation.Y())
+    //            context.DCursorType = CApplicationData.ECursorType.ctPointer
+    //            if EAssetCapabilityType.None == context.DCurrentAssetCapability {
+    //                if PixelType.Color() == context.DPlayerColor {
+    //                    context.DCursorType = CApplicationData.ECursorType.ctInspect
+    //                }
+    //            } else {
+    //                var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DCurrentAssetCapability)
+    //                if PlayerCapability != nil {
+    //                    var CanApply: Bool = false
+    //                    if EAssetType.None == PixelType.AssetType() {
+    //                        if (CPlayerCapability.ETargetType.Terrain == PlayerCapability!.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
+    //                            var NewTarget = context.DGameModel.Player(color: context.DPlayerColor)?.CreateMarker(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), addtomap: false)
+    //
+    //                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
+    //                        }
+    //                    } else {
+    //                        if (CPlayerCapability.ETargetType.Asset == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.TerrainOrAsset == PlayerCapability?.DTargetType) {
+    //                            let NewTarget = context.DGameModel.Player(color: PixelType.Color())?.SelectAsset(pos: context.ViewportToDetailedMap(pos: ViewportCursorLocation), assettype: PixelType.AssetType())
+    //
+    //                            CanApply = PlayerCapability!.CanApply(actor: context.DSelectedPlayerAssets.first!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: NewTarget!)
+    //                        }
+    //                    }
+    //
+    //                    context.DCursorType = CanApply ? CApplicationData.ECursorType.ctTargetOn : CApplicationData.ECursorType.ctTargetOff
+    //                }
+    //            }
+    //            break
+    //        case CApplicationData.EUIComponentType.uictViewportBevelN:
+    //            context.DCursorType = CApplicationData.ECursorType.ctArrowN
+    //            break
+    //        case CApplicationData.EUIComponentType.uictViewportBevelE:
+    //            context.DCursorType = CApplicationData.ECursorType.ctArrowE
+    //            break
+    //        case CApplicationData.EUIComponentType.uictViewportBevelS:
+    //            context.DCursorType = CApplicationData.ECursorType.ctArrowS
+    //            break
+    //        case CApplicationData.EUIComponentType.uictViewportBevelW:
+    //            context.DCursorType = CApplicationData.ECursorType.ctArrowW
+    //            break
+    //        default:
+    //            context.DCursorType = CApplicationData.ECursorType.ctPointer
+    //            break
+    //        }
+    //        var ViewportRectangle: SRectangle = SRectangle(DXPosition: context.DViewportRenderer.ViewPortX(), DYPosition: context.DViewportRenderer.ViewPortY(), DWidth: context.DViewportRenderer.LastViewportWidth(), DHeight: context.DViewportRenderer.LastViewportHeight())
+    //
+    //        // FIXME: SoundEventRenderer
+    //        // context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
+    //        // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Render\n")
+    //    }
 
     func Instance() -> CApplicationMode {
         if CBattleMode.DBattleModePointer == nil {
