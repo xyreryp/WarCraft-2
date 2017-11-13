@@ -60,7 +60,7 @@ class CAssetRenderer {
         DArrowIndices = [Int]()
         DMarkerIndices = [Int]()
 
-        CHelper.resize(array: &DPixelColors, size: EPlayerColor.Max.rawValue + 3, defaultValue: 0)
+        DPixelColors = [UInt32](repeating: UInt32(), count: EPlayerColor.Max.rawValue + 3)
         //        DPixelColors[EPlayerColor.None.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "none"), cindex: 0)
         //        DPixelColors[EPlayerColor.Blue.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "blue"), cindex: 0)
         //        DPixelColors[EPlayerColor.Red.rawValue] = colors.ColorValue(gindex: colors.FindColor(colorname: "red"), cindex: 0)
@@ -795,10 +795,10 @@ class CAssetRenderer {
             TempTilePosition.SetFromPixel(pos: TempPosition)
             XOff = 0
             YOff = 0
-            CHelper.resize(array: &PlacementTiles, size: AssetType.DSize, defaultValue: [Int]())
+            PlacementTiles = [[Int]](repeating: [], count: AssetType.DSize)
             for Row in PlacementTiles {
                 var row = Row
-                CHelper.resize(array: &row, size: AssetType.DSize, defaultValue: Int())
+                row = [Int](repeating: Int(), count: AssetType.DSize)
                 for var Cell in row {
                     var TileType = DPlayerMap.TileType(xindex: TempTilePosition.X() + XOff, yindex: TempTilePosition.Y() + YOff)
                     let cterrainmap = CTerrainMap()
