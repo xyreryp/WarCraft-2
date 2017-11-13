@@ -319,8 +319,8 @@ class CTerrainMap {
     //terain being rendered
     // second for loop has index out of range
     func RenderTerrain() {
-        CHelper.resize(array: &DMap, size: DTerrainMap.count + 1, defaultValue: [])
-        CHelper.resize(array: &DMapIndices, size: DTerrainMap.count + 1, defaultValue: [])
+        DMap = [[ETileType]](repeating: [], count: DTerrainMap.count + 1)
+        DMapIndices = [[Int]](repeating: [], count: DTerrainMap.count + 1)
         for YPos in 0 ..< DMap.count {
             if (0 == YPos) || (DMap.count - 1 == YPos) {
                 for _ in 0 ..< DTerrainMap[0].count + 1 {
@@ -382,9 +382,9 @@ class CTerrainMap {
         }
 
         // Reading in DTerrainMap
-        CHelper.resize(array: &DTerrainMap, size: MapHeight + 1, defaultValue: [])
+        DTerrainMap = [[CTerrainMap.ETerrainTileType]](repeating: [], count: MapHeight + 1)
         for Index in 0 ..< DTerrainMap.count {
-            CHelper.resize(array: &DTerrainMap[Index], size: MapWidth + 1, defaultValue: ETerrainTileType.None)
+            DTerrainMap[Index] = [CTerrainMap.ETerrainTileType](repeating: ETerrainTileType.None, count: MapWidth + 1)
             for Inner in 0 ..< MapWidth + 1 {
                 let index1: String.Index = StringMap[5][Index + 1].index(StringMap[5][Index + 1].startIndex, offsetBy: Inner)
                 // fifth array in array of arrays, then first character of fifth array.
@@ -425,11 +425,11 @@ class CTerrainMap {
             }
         }
 
-        CHelper.resize(array: &DPartials, size: MapHeight + 1, defaultValue: [])
+        DPartials = [[UInt8]](repeating: [], count: MapHeight + 1)
         let valueStringValues: [Character] = ["0", "A"]
         var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
         for Index in 0 ..< DTerrainMap.count {
-            CHelper.resize(array: &DPartials[Index], size: MapWidth + 1, defaultValue: 0x0)
+            DPartials[Index] = [UInt8](repeating: 0x0, count: MapWidth + 1)
             for Inner in 0 ..< MapWidth + 1 {
                 // FIXME: change 7 to somehting
                 let index: String.Index = StringMap[6][Index + 1].index(StringMap[6][Index + 1].startIndex, offsetBy: Inner)

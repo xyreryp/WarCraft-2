@@ -434,9 +434,9 @@ class CAssetDecoratedMap: CTerrainMap {
             DAssetInitializationList.append(TempAssetInit)
 
             // FIXME: index out of range on line 448
-            CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+            DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
             for RowIndex in 0 ... DLumberAvailable.count - 1 {
-                CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+                DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
                 for ColIndex in 0 ... DTerrainMap[RowIndex].count - 1 {
                     if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                         DLumberAvailable[RowIndex][ColIndex] = DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0
@@ -526,9 +526,9 @@ class CAssetDecoratedMap: CTerrainMap {
             DAssetInitializationList.append(TempAssetInit)
         }
 
-        CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+        DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
         for RowIndex in stride(from: 0, to: DLumberAvailable.count, by: 1) {
-            CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+            DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
             for ColIndex in stride(from: 0, to: DTerrainMap[RowIndex].count, by: 1) {
                 if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                     DLumberAvailable[RowIndex][ColIndex] = DPartials.count <= RowIndex && DPartials[RowIndex].count <= ColIndex ? InitialLumber : 0
@@ -549,16 +549,17 @@ class CAssetDecoratedMap: CTerrainMap {
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            CHelper.resize(array: &ReturnMap.DMap, size: DMap.count, defaultValue: [])
+            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
             for var Row in ReturnMap.DMap {
-                CHelper.resize(array: &Row, size: DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
+                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = ETileType.None
                 }
             }
-            CHelper.resize(array: &ReturnMap.DMapIndices, size: DMap.count, defaultValue: [])
+            ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+
             for var Row in ReturnMap.DMapIndices {
-                CHelper.resize(array: &Row, size: DMapIndices[0].count, defaultValue: Int())
+                Row = [Int](repeating: Int(), count: DMapIndices[0].count)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = 0
                 }
@@ -577,16 +578,16 @@ class CAssetDecoratedMap: CTerrainMap {
         if DMap.count != resmap.DMap.count {
             DTerrainMap = resmap.DTerrainMap
             DPartials = resmap.DPartials
-            CHelper.resize(array: &DMap, size: resmap.DMap.count, defaultValue: [])
+            DMap = [[CTerrainMap.ETileType]](repeating: [], count: resmap.DMap.count)
             for var Row in DMap {
-                CHelper.resize(array: &Row, size: resmap.DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
+                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: resmap.DMap[0].count)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = ETileType.None
                 }
             }
-            CHelper.resize(array: &DMapIndices, size: resmap.DMapIndices.count, defaultValue: [])
+            DMapIndices = [[Int]](repeating: [], count: resmap.DMapIndices.count)
             for var Row in DMapIndices {
-                CHelper.resize(array: &Row, size: resmap.DMapIndices[0].count, defaultValue: Int())
+                Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = 0
                 }
@@ -689,9 +690,9 @@ class CAssetDecoratedMap: CTerrainMap {
         var SearchYOffsets: [Int] = [-1, 0, 1, 0]
 
         if DSearchMap.count != DMap.count {
-            CHelper.resize(array: &DSearchMap, size: DMap.count, defaultValue: [])
+            DSearchMap = [[Int]](repeating: [], count: DMap.count)
             for var Row in DSearchMap {
-                CHelper.resize(array: &Row, size: DMap[0].count, defaultValue: Int())
+                Row = [Int](repeating: Int(), count: DMap[0].count)
                 for index in stride(from: 0, to: Row.count, by: 1) {
                     Row[index] = 0
                 }

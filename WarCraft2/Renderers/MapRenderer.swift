@@ -29,7 +29,7 @@ class CMapRenderer {
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 
-        CHelper.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
+        DPixelIndices = [Int](repeating: Int(), count: CTerrainMap.ETileType.Max.rawValue)
 
         //        if !LineSource.Read(line: &TempString) {
         //            return
@@ -86,11 +86,14 @@ class CMapRenderer {
         DPixelIndices[CTerrainMap.ETileType.DeepWater.rawValue] = Int(0xFF05_1015)
         DPixelIndices[CTerrainMap.ETileType.Rubble.rawValue] = Int(0xFF3A_512B)
 
-        CHelper.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
+        DTileIndices = [[[Int]]](repeating: [[Int()]], count: CTerrainMap.ETileType.Max.rawValue)
         for (i, _) in DTileIndices.enumerated() {
+            //            DTileIndices[i] = [[Int]](repeating: [], count: 16)
             CHelper.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
         }
-
+        //        for Index in 0..<DTileIndices.count {
+        //            DTileIndices[Index] = [[Int]](repeating: [Int()], count: 16)
+        //        }
         var Index2: Int = 0
         while Index2 < 16 {
             let TempIndexString = String(Index2, radix: 16, uppercase: true)

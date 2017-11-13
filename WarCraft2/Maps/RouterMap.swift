@@ -117,9 +117,9 @@ class CRouterMap {
         if (DMap.count != MapHeight + 2) || (DMap[0].count != MapWidth + 2) {
             var LastYIndex: Int = MapHeight + 1
             var LastXIndex: Int = MapWidth + 1
-            CHelper.resize(array: &DMap, size: MapHeight + 2, defaultValue: [Int()])
+            DMap = [[Int]](repeating: [], count: MapHeight + 2)
             for var Row in DMap {
-                CHelper.resize(array: &Row, size: MapWidth + 2, defaultValue: Int())
+                Row = [Int](repeating: Int(), count: MapWidth + 2)
             }
             for Index in 0 ..< DMap.count {
                 DMap[Index][0] = SEARCH_STATUS_VISITED

@@ -72,7 +72,7 @@ class CPlayerAssetType {
     init() {
         //        DThis = CPlayerAssetType()
         DCapabilities = [Bool]()
-        CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+        DCapabilities = [Bool](repeating: false, count: EAssetCapabilityType.Max.rawValue)
         DHitPoints = 1
         DArmor = 0
         DSight = 0

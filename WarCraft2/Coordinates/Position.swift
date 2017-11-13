@@ -111,9 +111,9 @@ class CPosition {
             DHalfTileWidth = width / 2
             DHalfTileHeight = height / 2
 
-            CHelper.resize(array: &DOctant, size: DTileHeight + 1, defaultValue: [EDirection.Max])
+            DOctant = [[EDirection]](repeating: [], count: DTileHeight + 1)
             for (i, _) in DOctant.enumerated() {
-                CHelper.resize(array: &DOctant[i], size: DTileWidth + 1, defaultValue: EDirection.Max)
+                DOctant[i] = [EDirection](repeating: EDirection.Max, count: DTileWidth + 1)
             }
         }
 
