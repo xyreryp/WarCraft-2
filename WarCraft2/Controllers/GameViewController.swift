@@ -46,9 +46,9 @@ class GameViewController: NSViewController {
         //        let assetDecoratedMap = applicationData.DAssetMap
         //        //       let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
         //
-        //        let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
-        //        let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
-        //        view.addSubview(resourceView)
+        let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
+        let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
+        view.addSubview(resourceView)
         let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer)
         view.addSubview(miniMapView)
 

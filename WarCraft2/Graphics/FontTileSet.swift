@@ -20,20 +20,25 @@ class CFontTileset: CGraphicMulticolorTileset {
     var DDeltaWidths: [[Int]]
     var DCharacterTops: [Int]
     var DCharacterBottoms: [Int]
+
     var DCharacterBaseline: Int
     var DSearchCall: Int
     var DTopOpaque: Int
     var DBottomOpaque: Int
 
     override init() {
-        DCharacterWidths = [Int()]
-        DDeltaWidths = [[Int()]]
-        DCharacterTops = [Int()]
-        DCharacterBottoms = [Int()]
-        DCharacterBaseline = Int()
-        DSearchCall = Int()
-        DTopOpaque = Int()
-        DBottomOpaque = Int()
+        DCharacterWidths = [Int](repeating: 0, count: 50)
+        DDeltaWidths = [[Int]]()
+        for _ in 0 ..< 50 {
+            let innerArray = [Int](repeating: 0, count: 50)
+            DDeltaWidths.append(innerArray)
+        }
+        DCharacterTops = [Int](repeating: 0, count: 50)
+        DCharacterBottoms = [Int](repeating: 0, count: 50)
+        DCharacterBaseline = 50
+        DSearchCall = 0
+        DTopOpaque = 0
+        DBottomOpaque = 0
         super.init()
     }
 
@@ -66,7 +71,13 @@ class CFontTileset: CGraphicMulticolorTileset {
             return false
         }
 
-        // NOTE: resizes of arrays not neccesary
+        DCharacterWidths = [Int](repeating: 0, count: DTileCount)
+        for _ in 0 ..< DTileCount {
+            let innerArray = [Int](repeating: 0, count: DTileCount)
+            DDeltaWidths.append(innerArray)
+        }
+        DCharacterTops = [Int](repeating: 0, count: DTileCount)
+        DCharacterBottoms = [Int](repeating: 0, count: DTileCount)
         DCharacterBaseline = DTileHeight
 
         do {
