@@ -111,7 +111,7 @@ class CPlayerData {
         var TotalProduction: Int = 0
         for Asset in DAssets {
             let AssetConsumption: Int = Asset.FoodConsumption()
-            if 0 > AssetConsumption && (EAssetAction.Construct != Asset.Action() || (Asset.CurrentCommand().DAssetTarget != nil)){
+            if 0 > AssetConsumption && (EAssetAction.Construct != Asset.Action() || (Asset.CurrentCommand().DAssetTarget != nil)) {
                 TotalProduction += AssetConsumption
             }
         }
@@ -453,7 +453,7 @@ class CPlayerData {
         }
         return Count
     }
-    
+
     func IdleAssets() -> [CPlayerAsset] {
         var AssetList: [CPlayerAsset] = [CPlayerAsset]()
         for Asset in DAssets {
@@ -463,7 +463,6 @@ class CPlayerData {
         }
         return AssetList
     }
-
 
     // TODO: start from here
     func AddUpgrade(upgradename: String) {
@@ -481,13 +480,12 @@ class CPlayerData {
             for AssetType in Upgrade.DAffectedAssets {
                 let AssetName: String = CPlayerAssetType.TypeToName(type: AssetType)
                 let AssetIterator: CPlayerAssetType = DAssetTypes[AssetName]!
-                
+
                 if AssetIterator != DAssetTypes[DAssetTypes.endIndex].value {
                     AssetIterator.AddUpgrade(upgrade: Upgrade)
                 }
             }
         }
-        
     }
 
     func HasUpgrade(upgrade: EAssetCapabilityType) -> Bool {

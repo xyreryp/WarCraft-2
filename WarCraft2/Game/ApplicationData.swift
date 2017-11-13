@@ -162,11 +162,11 @@ class CApplicationData {
     var DArrowTileset: CGraphicTileset
 
     // all renderer things
-    var DAssetRenderer: CAssetRenderer
+    var DAssetRenderer: CAssetRenderer!
 
     //    var DFogRenderer: CFogRenderer
 
-    var DViewportRenderer: CViewportRenderer
+    var DViewportRenderer: CViewportRenderer!
     // var DMiniMapRenderer: CMiniMapRenderer
 
     // TODO: finish these types of renderers
