@@ -251,9 +251,9 @@ class CMapRenderer {
         //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
 
         var YIndex: Int = rect.DYPosition / TileHeight
-        var YPos: Int = -(rect.DYPosition % TileHeight)
+        var YPos: Int = -(rect.DYPosition % TileHeight) - 300 //FIXME: Janky
         var XIndex: Int = rect.DXPosition / TileWidth
-        var XPos: Int = -(rect.DXPosition % TileWidth)
+        var XPos: Int = -(rect.DXPosition % TileWidth) - 100 //FIXME: Janky
 
         repeat {
             repeat {
@@ -286,7 +286,7 @@ class CMapRenderer {
             } while XPos < rect.DWidth
 
             XIndex = rect.DXPosition / TileWidth
-            XPos = -(rect.DXPosition % TileWidth)
+            XPos = -(rect.DXPosition % TileWidth) - 100 //FIXME: Janky
             YIndex += 1
             YPos += TileHeight
         } while YPos < rect.DHeight
