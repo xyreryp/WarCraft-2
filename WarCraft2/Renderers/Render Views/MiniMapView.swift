@@ -30,6 +30,6 @@ class MiniMapView: NSView {
         let context = NSGraphicsContext.current!.cgContext
         let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
         mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
-        assetRenderer.DrawMiniAssets(surface: cgcontext)
+        assetRenderer.DrawMiniAssets(ResourceContext: cgcontext)
     }
 }
