@@ -376,7 +376,7 @@ class CBattleMode: CApplicationMode {
                             //                            context.DSelectedPlayerAssets.unique(WeakPtrEquals<CPlayerAsset>)
                         } else {
                             PreviousSelections.removeAll()
-                            //MARK: THIS IS VERY IMPORTANT, THIS IS WHERE DSELECTEDPLAYERASSETS IS SET.
+                            // MARK: THIS IS VERY IMPORTANT, THIS IS WHERE DSELECTEDPLAYERASSETS IS SET.
                             context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)!.SelectAssets(selectarea: TempRectangle, assettype: PixelType.AssetType(), selectidentical: 2 == context.DLeftClick)
                         }
                         for WeakAsset in context.DSelectedPlayerAssets {
