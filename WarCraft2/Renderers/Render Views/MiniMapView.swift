@@ -10,9 +10,11 @@ import Cocoa
 
 class MiniMapView: NSView {
     var mapRenderer: CMapRenderer
+    var assetRenderer: CAssetRenderer
 
-    init(frame: NSRect, mapRenderer: CMapRenderer) {
+    init(frame: NSRect, mapRenderer: CMapRenderer, assetRenderer: CAssetRenderer) {
         self.mapRenderer = mapRenderer
+        self.assetRenderer = assetRenderer
         super.init(frame: frame)
 
         let bevel = CBevelView(frame: frame)
@@ -28,5 +30,6 @@ class MiniMapView: NSView {
         let context = NSGraphicsContext.current!.cgContext
         let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
         mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
+        assetRenderer.DrawMiniAssets(surface: cgcontext)
     }
 }

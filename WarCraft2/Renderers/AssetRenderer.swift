@@ -874,8 +874,8 @@ class CAssetRenderer {
         }
     }
 
-    func DrawMiniAssets(surface: CGraphicSurface) {
-        var ResourceContext = surface.CreateResourceContext()
+    func DrawMiniAssets(surface: CGraphicResourceContext) {
+        var ResourceContext = surface
         if nil == DPlayerData {
             for AssetIterator in DPlayerMap.DAssets {
                 var AssetColor: EPlayerColor = AssetIterator.Color()

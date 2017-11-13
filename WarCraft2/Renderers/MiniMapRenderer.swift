@@ -101,7 +101,7 @@ class CMiniMapRenderer {
         }
 
         // DMapRenderer.DrawMiniMap(surface: DWorkingSurface)
-        DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
+        //        DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
 
         if DFogRenderer == nil {
             DFogRenderer.DrawMiniMap(ResourceContext: ResourceContext)
