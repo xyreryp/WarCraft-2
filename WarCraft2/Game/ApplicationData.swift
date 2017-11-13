@@ -482,9 +482,7 @@ class CApplicationData {
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        CHelper.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
-        // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        //        resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: [CGraphicMulticolorTileset]())
+        DAssetTilesets = [CGraphicTileset](repeating: CGraphicTileset(), count: EAssetType.Max.rawValue)
 
         //         load tileset for peasant
         //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
