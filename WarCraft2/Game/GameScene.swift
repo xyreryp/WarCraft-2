@@ -19,7 +19,7 @@ class GameScene: SKScene {
     init(size: CGSize, applicationData: CApplicationData) {
         self.applicationData = applicationData
         super.init(size: size)
-        anchorPoint = CGPoint(x: 0.2, y: 0.4)
+        anchorPoint = CGPoint(x: 0.1, y: 0.7)
     }
 
     override func update(_: CFTimeInterval) {
