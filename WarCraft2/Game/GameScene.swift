@@ -27,7 +27,9 @@ class GameScene: SKScene {
     override func update(_: CFTimeInterval) {
         clean()
         applicationData.DViewportSurface = self
+        battleMode.Input(context: applicationData)
         battleMode.Render(context: applicationData)
+        applicationData.DLeftClick = 0
     }
 
     func renderMap() {

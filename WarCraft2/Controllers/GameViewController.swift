@@ -10,6 +10,17 @@ import Foundation
 import Cocoa
 import SpriteKit
 
+var mouseLocation: NSPoint {
+    return NSEvent.mouseLocation
+}
+
+extension SKView {
+    open override func mouseDown(with _: NSEvent) {
+        print(mouseLocation.x)
+        print(mouseLocation.y)
+    }
+}
+
 var peasantSelected = false
 
 class GameViewController: NSViewController {
@@ -56,6 +67,13 @@ class GameViewController: NSViewController {
         if x != 0 {
             applicationData.DViewportRenderer.PanWest(pan: adjustPan(x))
         }
+    }
+
+    override func mouseDown(with _: NSEvent) {
+        // update application data .DX .DY
+        applicationData.DLeftClick = 1
+        applicationData.DCurrentX = Int(mouseLocation.x)
+        applicationData.DCurrentY = Int(mouseLocation.y)
     }
 
     override func keyDown(with event: NSEvent) {
