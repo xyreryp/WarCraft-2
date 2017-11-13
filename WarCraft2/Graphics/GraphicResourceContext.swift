@@ -13,6 +13,7 @@ import Foundation
 
 class CGraphicResourceContext {
 
+    func HackRGBA(rgb _: UInt32) {}
     func SetSourceRGB(rgb _: UInt32) {}
     func SetSourceRGB(r _: CGFloat, g _: CGFloat, b _: CGFloat) {}
     func SetSourceRGBA(rgba _: UInt32) {}

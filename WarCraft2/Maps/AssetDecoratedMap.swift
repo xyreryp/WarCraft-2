@@ -424,6 +424,11 @@ class CAssetDecoratedMap: CTerrainMap {
             TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
             TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
 
+            // HACK: makes goldMines "Yellow" color by default.
+            if TempAssetInit.DType == "GoldMine" {
+                TempAssetInit.DColor = EPlayerColor.Yellow
+            }
+
             if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
                 // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
             }
