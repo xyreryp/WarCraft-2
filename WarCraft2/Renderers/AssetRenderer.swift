@@ -23,10 +23,10 @@ class CAssetRenderer {
     var DArrowIndices: [Int]
     var DPlaceGoodIndex: Int?
     var DPlaceBadIndex: Int?
-    var DNoneIndices: [[Int]]
+    var DNoneIndices: [[Int]]!
     var DConstructIndices: [[Int]]
     var DBuildIndices: [[Int]]
-    var DWalkIndices: [[Int]]
+    var DWalkIndices: [[Int]]!
     var DAttackIndices: [[Int]]
     var DCarryGoldIndices: [[Int]]
     var DCarryLumberIndices: [[Int]]
@@ -49,10 +49,8 @@ class CAssetRenderer {
         DPlayerData = player
         DPlayerMap = map
         DPixelColors = [UInt32]()
-        DNoneIndices = [[Int]]()
         DConstructIndices = [[Int]]()
         DBuildIndices = [[Int]]()
-        DWalkIndices = [[Int]]()
         DAttackIndices = [[Int]]()
         DCarryGoldIndices = [[Int]]()
         DCarryLumberIndices = [[Int]]()
@@ -128,8 +126,12 @@ class CAssetRenderer {
 
         CHelper.resize(array: &DConstructIndices, size: DTilesets.count, defaultValue: [Int()])
         CHelper.resize(array: &DBuildIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DWalkIndices, size: DTilesets.count, defaultValue: [Int()])
-        CHelper.resize(array: &DNoneIndices, size: DTilesets.count, defaultValue: [Int()])
+
+        DWalkIndices = [[Int]](repeating: [], count: DTilesets.count)
+        DNoneIndices = [[Int]](repeating: [], count: DTilesets.count)
+
+        // CHelper.resize(array: &DWalkIndices, size: DTilesets.count, defaultValue: [Int()])
+        // CHelper.resize(array: &DNoneIndices, size: DTilesets.count, defaultValue: [Int()])
         CHelper.resize(array: &DCarryGoldIndices, size: DTilesets.count, defaultValue: [Int()])
         CHelper.resize(array: &DCarryLumberIndices, size: DTilesets.count, defaultValue: [Int()])
         CHelper.resize(array: &DAttackIndices, size: DTilesets.count, defaultValue: [Int()])
@@ -384,7 +386,7 @@ class CAssetRenderer {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
-
+        print(DNoneIndices)
         for AssetIterator in DPlayerMap.DAssets {
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
@@ -467,7 +469,9 @@ class CAssetRenderer {
                         TempRenderData.DTileIndex = DAttackIndices[TempRenderData.DType.rawValue][TileIndex]
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
-                         EAssetAction.None: TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
+                         EAssetAction.None:
+                        print("Asset is of type raw value: \(TempRenderData.DType.rawValue) and it's direction is: \(AssetIterator.DDirection.rawValue)")
+                        TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         if 0 != AssetIterator.Speed() {
                             if 0 != AssetIterator.DLumber {
                                 ActionSteps = DCarryLumberIndices[TempRenderData.DType.rawValue].count
