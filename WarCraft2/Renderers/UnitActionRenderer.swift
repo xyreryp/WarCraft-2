@@ -34,7 +34,7 @@ class CUnitActionRenderer {
         for var Commands in DDisplayedCommands {
             Commands = EAssetCapabilityType.None
         }
-        CHelper.resize(array: &DCommandIndices, size: EAssetCapabilityType.Max.rawValue, defaultValue: 0)
+        DCommandIndices = [Int](repeating: Int(), count: EAssetCapabilityType.Max.rawValue)
         DCommandIndices[EAssetCapabilityType.None.rawValue] = -1
         DCommandIndices[EAssetCapabilityType.BuildPeasant.rawValue] = DIconTileset.FindTile(tilename: "peasant")
         DCommandIndices[EAssetCapabilityType.BuildFootman.rawValue] = DIconTileset.FindTile(tilename: "footman")

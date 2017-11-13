@@ -97,15 +97,14 @@ class CGameModel {
             DPlayers.append(CPlayerData(map: DActualMap, color: EPlayerColor(rawValue: PlayerIndex)!))
         }
 
-        CHelper.resize(array: &DAssetOccupancyMap, size: DActualMap.Height(), defaultValue: [])
-
+        DAssetOccupancyMap = [[CPlayerAsset]](repeating: [], count: DActualMap.Height())
         for Index in 0 ..< DAssetOccupancyMap.count {
-            CHelper.resize(array: &DAssetOccupancyMap[Index], size: DActualMap.Width(), defaultValue: CPlayerAsset(type: CPlayerAssetType()))
+            DAssetOccupancyMap[Index] = [CPlayerAsset](repeating: CPlayerAsset(type: CPlayerAssetType()), count: DActualMap.Width())
         }
 
-        CHelper.resize(array: &DDiagonalOccupancyMap, size: DActualMap.Height(), defaultValue: [])
+        DDiagonalOccupancyMap = [[Bool]](repeating: [], count: DActualMap.Height())
         for Index in 0 ..< DDiagonalOccupancyMap.count {
-            CHelper.resize(array: &DDiagonalOccupancyMap[Index], size: DActualMap.Width(), defaultValue: Bool())
+            DDiagonalOccupancyMap[Index] = [Bool](repeating: Bool(), count: DActualMap.Width())
         }
     }
 

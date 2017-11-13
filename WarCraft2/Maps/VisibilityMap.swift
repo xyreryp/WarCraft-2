@@ -29,10 +29,10 @@ class CVisibilityMap {
     init(width: Int, height: Int, maxvisibility: Int) {
         DMaxVisibility = maxvisibility
         DMap = [[]]
-        CHelper.resize(array: &DMap, size: height + 2 * DMaxVisibility, defaultValue: [])
+        DMap = [[ETileVisibility]](repeating: [], count: height + 2 * DMaxVisibility)
         // FIXME:
         for (i, _) in DMap.enumerated() {
-            CHelper.resize(array: &DMap[i], size: width + 2 * DMaxVisibility, defaultValue: ETileVisibility.None)
+            DMap[i] = [ETileVisibility](repeating: ETileVisibility.None, count: width + 2 * DMaxVisibility)
             _ = ETileVisibility.None
         }
 

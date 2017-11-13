@@ -47,8 +47,10 @@ class CButtonRenderer {
         DDarkIndices = [Int]()
         DLightIndices = [Int]()
         DText = String()
-        CHelper.resize(array: &DLightIndices, size: EPlayerColor.Max.rawValue, defaultValue: Int())
-        CHelper.resize(array: &DDarkIndices, size: EPlayerColor.Max.rawValue, defaultValue: Int())
+
+        DLightIndices = [Int](repeating: Int(), count: EPlayerColor.Max.rawValue)
+        DDarkIndices = [Int](repeating: Int(), count: EPlayerColor.Max.rawValue)
+
         DDarkIndices[EPlayerColor.None.rawValue] = DColorMap.FindColor(colorname: "blue-dark")
         DDarkIndices[EPlayerColor.Blue.rawValue] = DColorMap.FindColor(colorname: "blue-dark")
         DDarkIndices[EPlayerColor.Red.rawValue] = DColorMap.FindColor(colorname: "red-dark")

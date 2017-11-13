@@ -31,7 +31,6 @@ class GameScene: SKScene {
     }
 
     func renderMap() {
-        backgroundColor = NSColor.blue
         let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         let cgr = CGraphicResourceContext()
         applicationData.DViewportRenderer.DrawViewport(surface: self, typesurface: cgr, selectrect: rect)
