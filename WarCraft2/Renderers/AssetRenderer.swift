@@ -882,7 +882,8 @@ class CAssetRenderer {
                 if AssetColor == DPlayerData?.DColor {
                     AssetColor = EPlayerColor.Max
                 }
-                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
+                //                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
+                ResourceContext.SetSourceRGBA(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
                 ResourceContext.Rectangle(xpos: AssetIterator.TilePositionX(), ypos: AssetIterator.TilePositionY(), width: Size, height: Size)
                 ResourceContext.Fill()
             }
@@ -891,7 +892,8 @@ class CAssetRenderer {
                 var AssetColor: EPlayerColor = AssetIterator.DColor
                 var Size: Int = CPlayerAssetType.FindDefaultFromName(name: AssetIterator.DType).DSize
 
-                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
+                ResourceContext.SetSourceRGBA(r: 1.0, g: 1.0, b: 0.0, a: 1.0)
+                //                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
                 ResourceContext.Rectangle(xpos: AssetIterator.DTilePosition.X(), ypos: AssetIterator.DTilePosition.Y(), width: Size, height: Size)
                 ResourceContext.Fill()
             }
