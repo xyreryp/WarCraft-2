@@ -39,6 +39,17 @@ class GameViewController: NSViewController {
         //        view.addSubview(minimap, positioned: .above, relativeTo: skview)
 
         //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+
+        //        let assetDecoratedMap = applicationData.DAssetMap
+        //        //       let playerData = CPlayerData(map: assetDecoratedMap, color: EPlayerColor.Blue)
+        //
+        //        let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
+        //        let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
+        //        view.addSubview(resourceView)
+        let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 420, width: 150, height: 150), mapRenderer: applicationData.DMapRenderer)
+        view.addSubview(miniMapView)
+
+        addBevels()
     }
 
     //    override func mouseDown(with _: NSEvent) {
@@ -57,21 +68,19 @@ class GameViewController: NSViewController {
     //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
     // application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
-}
+    func addBevels() {
+        let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
+        view.addSubview(bevelView)
 
-func addBevels() {
-    let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
-    view.addSubview(bevelView)
-    
-    let bevelView2 = CBevelView(frame: NSRect(x: 10, y: 180, width: 150, height: 180))
-    view.addSubview(bevelView2)
-    
-    let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
-    view.addSubview(bevelView3)
-    
-    let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
-    view.addSubview(bevelView4)
-}
+        let bevelView2 = CBevelView(frame: NSRect(x: 10, y: 180, width: 150, height: 180))
+        view.addSubview(bevelView2)
+
+        let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
+        view.addSubview(bevelView3)
+
+        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+        view.addSubview(bevelView4)
+    }
 
     func adjustPan(_ value: Int) -> Int {
         if value < -1 {

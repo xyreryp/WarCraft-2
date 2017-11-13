@@ -70,7 +70,6 @@
 		A1B0E55C1FA7C23E008959C9 /* bay.map in Resources */ = {isa = PBXBuildFile; fileRef = E1E55CA61FA7BC0D000B9E65 /* bay.map */; };
 		CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4F77F51F85DF8F004379F5 /* AppDelegate.swift */; };
 		CE4F77FD1F85DF8F004379F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4F77FB1F85DF8F004379F5 /* Main.storyboard */; };
-		DD321A341FB9285F00DDA2F8 /* HUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD321A331FB9285F00DDA2F8 /* HUDViewController.swift */; };
 		DD3F34031F8C13D3006A805B /* PlayerCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3F34021F8C13D3006A805B /* PlayerCommand.swift */; };
 		DD3F34051F8C5369006A805B /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC677471F8C186D00953C3A /* Rectangle.swift */; };
 		DD78FA0D1F94389100E0614B /* GraphicRecolorMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD78FA0C1F94389100E0614B /* GraphicRecolorMap.swift */; };
@@ -624,7 +623,6 @@
 				6B89CBB11FB233E90032AA61 /* BuildingUpgradeCapabilities.swift in Sources */,
 				E1C219AE1FB6E6210049C705 /* Helpers.swift in Sources */,
 				9B64D6201FA05AEB00C39977 /* PlayerAsset.swift in Sources */,
-				DD321A341FB9285F00DDA2F8 /* HUDViewController.swift in Sources */,
 				E18B68921F8B3E1100962891 /* Position.swift in Sources */,
 				E18B688F1F8B3DC300962891 /* GraphicResourceContext.swift in Sources */,
 				CE4F77F61F85DF8F004379F5 /* AppDelegate.swift in Sources */,

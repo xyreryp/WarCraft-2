@@ -231,10 +231,15 @@ class CApplicationData {
     var TempDataSource: CDataSource
     var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
 
+    var DAssetMap: CAssetDecoratedMap
+
     init() { // appName _: String, key _: SPrivateApplicationType) {
         //        DApplicationPointer = CApplicationData()
         DGameSessionType = EGameSessionType.gstSinglePlayer
 
+        DAssetMap = CAssetDecoratedMap()
+        // playerData needed for assetRenderer
+        DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.Red)
         // pretty sure dont need these
         //    std::shared_ptr<CGUIApplication> DApplication;
         //    std::shared_ptr<CGUIWindow> DMainWindow;
