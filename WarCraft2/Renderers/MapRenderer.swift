@@ -91,6 +91,9 @@ class CMapRenderer {
             //            DTileIndices[i] = [[Int]](repeating: [], count: 16)
             CHelper.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
         }
+        //        for Index in 0..<DTileIndices.count {
+        //            DTileIndices[Index] = [[Int]](repeating: [Int()], count: 16)
+        //        }
         var Index2: Int = 0
         while Index2 < 16 {
             let TempIndexString = String(Index2, radix: 16, uppercase: true)
