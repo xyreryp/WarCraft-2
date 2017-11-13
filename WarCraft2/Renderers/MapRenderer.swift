@@ -309,7 +309,7 @@ class CMapRenderer {
                 }
 
                 if CTerrainMap.ETileType.None != TileType {
-                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]) + 50)
+                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]))
                     ResourceContext.MoveTo(xpos: XAnchor, ypos: YPos)
                     ResourceContext.LineTo(xpos: XPos, ypos: YPos)
                     ResourceContext.Stroke()
