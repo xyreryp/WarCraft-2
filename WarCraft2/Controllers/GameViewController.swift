@@ -31,8 +31,10 @@ class GameViewController: NSViewController {
             return $0
         }
         applicationData.Activate()
-        skscene = GameScene(size: view.frame.size, applicationData: applicationData)
-        skview = SKView(frame: NSRect(x: 80, y: 20, width: view.frame.size.width - 300, height: view.frame.size.height - 300))
+
+        let mysize: CGSize = CGSize(width: 600, height: 500)
+        skscene = GameScene(size: mysize, applicationData: applicationData)
+        skview = SKView(frame: NSRect(x: 180, y: 30, width: mysize.width, height: mysize.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
         //        let minimap = MiniMapView(frame: NSRect(x: 0, y: 0, width: 1400, height: 900), mapRenderer: application.DMapRenderer)

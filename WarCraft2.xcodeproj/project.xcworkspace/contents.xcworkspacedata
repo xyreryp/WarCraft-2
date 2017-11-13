@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/aidan/Documents/GitHub/ECS160OSX/WarCraft2/Renderers/Main.storyboard">
-   </FileRef>
-   <FileRef
-      location = "self:WarCraft2.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
