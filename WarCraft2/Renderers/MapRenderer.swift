@@ -251,9 +251,9 @@ class CMapRenderer {
         //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
 
         var YIndex: Int = rect.DYPosition / TileHeight
-        var YPos: Int = -(rect.DYPosition % TileHeight) - 300 //FIXME: Janky
+        var YPos: Int = -(rect.DYPosition % TileHeight)
         var XIndex: Int = rect.DXPosition / TileWidth
-        var XPos: Int = -(rect.DXPosition % TileWidth) - 100 //FIXME: Janky
+        var XPos: Int = -(rect.DXPosition % TileWidth)
 
         repeat {
             repeat {
@@ -286,7 +286,7 @@ class CMapRenderer {
             } while XPos < rect.DWidth
 
             XIndex = rect.DXPosition / TileWidth
-            XPos = -(rect.DXPosition % TileWidth) - 100 //FIXME: Janky
+            XPos = -(rect.DXPosition % TileWidth)
             YIndex += 1
             YPos += TileHeight
         } while YPos < rect.DHeight
@@ -299,16 +299,17 @@ class CMapRenderer {
         for YPos in 0 ..< DMap.Height() {
             var XPos = 0
 
+            // Flipped the YPos by subtracting it from DMap.Height()
             while XPos < DMap.Width() {
-                var TileType = DMap.TileType(xindex: XPos, yindex: YPos)
-                var XAnchor = XPos
+                let TileType = DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos)
+                let XAnchor = XPos
 
-                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: YPos) == TileType {
+                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos) == TileType {
                     XPos += 1
                 }
 
                 if CTerrainMap.ETileType.None != TileType {
-                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]))
+                    ResourceContext.SetSourceRGB(rgb: UInt32(DPixelIndices[TileType.rawValue]) + 50)
                     ResourceContext.MoveTo(xpos: XAnchor, ypos: YPos)
                     ResourceContext.LineTo(xpos: XPos, ypos: YPos)
                     ResourceContext.Stroke()
