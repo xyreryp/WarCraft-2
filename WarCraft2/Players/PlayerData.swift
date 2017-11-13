@@ -36,7 +36,7 @@ class CPlayerData {
         DUpgrades = [Bool]()
         DGameEvents = [SGameEvent]()
         DAssets = []
-        CHelper.resize(array: &DUpgrades, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+        DUpgrades = [Bool](repeating: false, count: EAssetCapabilityType.Max.rawValue)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
             if ResourceInit.DColor == color {
@@ -174,7 +174,7 @@ class CPlayerData {
     func AssetRequirementsMet(assettypename: String) -> Bool {
 
         var AssetCount: [Int] = [Int]()
-        CHelper.resize(array: &AssetCount, size: EAssetType.Max.rawValue, defaultValue: Int())
+        AssetCount = [Int](repeating: Int(), count: EAssetType.Max.rawValue)
 
         for Asset in DAssets {
             if EAssetAction.Construct != Asset.Action() {
