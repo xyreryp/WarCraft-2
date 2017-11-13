@@ -57,6 +57,22 @@ class GameViewController: NSViewController {
     //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
     // application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
 
+}
+
+func addBevels() {
+    let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
+    view.addSubview(bevelView)
+    
+    let bevelView2 = CBevelView(frame: NSRect(x: 10, y: 180, width: 150, height: 180))
+    view.addSubview(bevelView2)
+    
+    let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
+    view.addSubview(bevelView3)
+    
+    let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+    view.addSubview(bevelView4)
+}
+
     func adjustPan(_ value: Int) -> Int {
         if value < -1 {
             return -16
