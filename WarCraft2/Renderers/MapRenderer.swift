@@ -26,8 +26,6 @@ class CMapRenderer {
         // data members
         DTileset = tileset
         DMap = map
-        print("in maprend")
-        print(DMap.DMapName)
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 

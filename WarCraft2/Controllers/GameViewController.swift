@@ -17,9 +17,6 @@ class GameViewController: NSViewController {
     var skscene: GameScene!
     var applicationData = CApplicationData()
 
-    var timer = CGPoint(x: 500, y: -200)
-    var time = Timer()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
@@ -110,9 +107,6 @@ class GameViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        //        guard let keyCode = event.charactersIgnoringModifiers?.first?.asciiValue else {
-        //            return
-        //        }
         switch event.keyCode {
         case 126: // NSUpArrowFunctionKey:
             applicationData.DViewportRenderer.PanNorth(pan: 32)
