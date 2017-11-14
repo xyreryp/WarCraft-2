@@ -27,6 +27,10 @@ class GameViewController: NSViewController {
             self.scrollWheel(with: $0)
             return $0
         }
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDragged) {
+            self.mouseDragged(with: $0)
+            return $0
+        }
         NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) {
             self.mouseDown(with: $0)
             return $0
@@ -50,11 +54,23 @@ class GameViewController: NSViewController {
         addBevels()
     }
 
+    override func mouseDragged(with event: NSEvent) {
+        //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
+        let x: Int = Int(event.locationInWindow.x)
+        let y: Int = Int(event.locationInWindow.y)
+        print("x: \(x), y: \(y)")
+        if x >= 20 && x <= 148 && y >= 410 && y <= 538 {
+            var tempPosition = applicationData.ScreenToMiniMap(pos: CPixelPosition(x: x, y: y))
+            tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
+            applicationData.DViewportRenderer.CenterViewport(pos: tempPosition)
+            let cgr = CGraphicResourceContext()
+            let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+            applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
+        }
+    }
+    
     override func mouseDown(with event: NSEvent) {
         //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
-        //        let sklocation = convert(NSEvent.mouseLocation, to: self)
-
-        //        vc?.leftDown(x: Int(sklocation.x), y: Int(sklocation.y))
         let x: Int = Int(event.locationInWindow.x)
         let y: Int = Int(event.locationInWindow.y)
         print("x: \(x), y: \(y)")
