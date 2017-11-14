@@ -21,6 +21,7 @@ class GameScene: SKScene {
         self.applicationData = applicationData
         self.battleMode = battleMode
         super.init(size: size)
+        scaleMode = .aspectFit
         anchorPoint = CGPoint(x: 0, y: 0.8)
     }
 
