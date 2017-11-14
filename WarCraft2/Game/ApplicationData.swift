@@ -715,9 +715,10 @@ class CApplicationData {
         return CPixelPosition(x: pos.X() - DViewportXOffset, y: pos.Y() - DViewportYOffset)
     }
 
-    //    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
-    //        return CPixelPosition(x: pos.X() - DMiniMapXOffset, y: pos.Y() - DMiniMapYOffset)
-    //    }
+    // Hardcoded to location of minimap in HUD.
+    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(x: pos.X() - 20, y: 538 - pos.Y())
+    }
 
     func ScreenToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
         return ViewportToDetailedMap(pos: ScreenToViewport(pos: pos))
@@ -737,26 +738,28 @@ class CApplicationData {
     }
 
     // FIXME: Need to pull from GameModel on richard's branch
-    //    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
-    //        var X = pos.X() * DGameModel.Map().Width() / DMiniMapRenderer.VisibleWidth()
-    //        var Y = pos.Y() * DGameModel.Map().Height() / DMiniMapRenderer.VisibleHeight()
-    //        if 0 > X {
-    //            X = 0
-    //        }
-    //        if DGameModel.Map().Width() <= X {
-    //            X = DGameModel.Map().Width() - 1
-    //        }
-    //        if 0 > Y {
-    //            Y = 0
-    //        }
-    //        if DGameModel.Map().Height() <= Y {
-    //            Y = DGameModel.Map().Height() - 1
-    //        }
-    //        var Temp: CPixelPosition = CPixelPosition()
-    //        Temp.SetXFromTile(x: X)
-    //        Temp.SetYFromTile(y: Y)
-    //        return Temp
-    //    }
+    func MiniMapToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        //        var X = pos.X() * DGameModel.Map().Width() / DMiniMapRenderer.VisibleWidth()
+        //        var Y = pos.Y() * DGameModel.Map().Height() / DMiniMapRenderer.VisibleHeight()
+        var X = pos.X()
+        var Y = pos.Y()
+        if 0 > X {
+            X = 0
+        }
+        if DGameModel.Map().Width() <= X {
+            X = DGameModel.Map().Width() - 1
+        }
+        if 0 > Y {
+            Y = 0
+        }
+        if DGameModel.Map().Height() <= Y {
+            Y = DGameModel.Map().Height() - 1
+        }
+        var Temp: CPixelPosition = CPixelPosition()
+        Temp.SetXFromTile(x: X)
+        Temp.SetYFromTile(y: Y)
+        return Temp
+    }
 
     // Output
     // MARK: Might need for menu
