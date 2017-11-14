@@ -10,23 +10,25 @@ import Foundation
 import Cocoa
 import SpriteKit
 
-var mouseLocation: NSPoint {
-    return NSEvent.mouseLocation
-}
+// var mouseLocation: NSPoint {
+//    return NSEvent.l
+// }
 
 extension SKView {
-    open override func mouseDown(with _: NSEvent) {
-        print(mouseLocation.x)
-        print(mouseLocation.y)
+    open override func mouseDown(with event: NSEvent) {
+        applicationData.DCurrentY = Int(event.locationInWindow.y)
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DLeftClick = 1
     }
 }
+
+var applicationData = CApplicationData()
 
 var peasantSelected = false
 
 class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
-    var applicationData = CApplicationData()
     var battleMode = CBattleMode()
 
     override func viewDidLoad() {
@@ -70,9 +72,9 @@ class GameViewController: NSViewController {
 
     override func mouseDown(with _: NSEvent) {
         // update application data .DX .DY
-        applicationData.DLeftClick = 1
-        applicationData.DCurrentX = Int(mouseLocation.x)
-        applicationData.DCurrentY = Int(mouseLocation.y)
+        //        applicationData.DLeftClick = 1
+        //        applicationData.DCurrentX = Int(mouseLocation.x)
+        //        applicationData.DCurrentY = Int(mouseLocation.y)
     }
 
     override func keyDown(with event: NSEvent) {

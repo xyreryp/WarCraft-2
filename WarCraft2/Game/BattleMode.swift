@@ -64,7 +64,7 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
         if context.DLeftClick == 1 {
-            print("You clicked at location X: \(CurrentX) and Y: \(CurrentY)")
+            print("You clicked at location X: \(CurrentX / context.DTerrainTileset.DTileWidth) and Y: \(CurrentY / context.DTerrainTileset.DTileHeight)")
         }
 
         // certain events pushed on to stack in game model
