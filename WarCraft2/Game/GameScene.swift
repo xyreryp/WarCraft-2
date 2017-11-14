@@ -16,10 +16,15 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func touchesBegan(with event: NSEvent) {
+        print("touch: \(event.absoluteX), \(event.absoluteY)")
+    }
+
     init(size: CGSize, applicationData: CApplicationData) {
         self.applicationData = applicationData
         super.init(size: size)
         anchorPoint = CGPoint(x: 0.1, y: 0.7)
+        isUserInteractionEnabled = true
     }
 
     override func update(_: CFTimeInterval) {
@@ -36,5 +41,11 @@ class GameScene: SKScene {
 
     func clean() {
         removeAllChildren()
+    }
+}
+
+extension SKSpriteNode {
+    open override func touchesBegan(with _: NSEvent) {
+        print("touch")
     }
 }

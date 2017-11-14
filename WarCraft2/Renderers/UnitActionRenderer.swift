@@ -93,7 +93,7 @@ class CUnitActionRenderer {
     }
 
     // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
-    func DrawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
+    func DrawUnitAction(surface: CGraphicResourceContextCoreGraphics, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
         var AllSame: Bool = true
         var IsFirst: Bool = true
         var Moveable: Bool = true
@@ -110,10 +110,11 @@ class CUnitActionRenderer {
 
         for var Iterator: CPlayerAsset in selectionlist {
             // for Iterator: Int in selectionlist {
-            if let Asset: CPlayerAsset = Iterator { // FIXME, NOTE: This is weak_ptr lock()
-                if DPlayerColor != Asset.Color() {
-                    return
-                }
+            if let Asset: CPlayerAsset = Iterator {
+                // FIXME: this is an important check
+                //                if DPlayerColor != Asset.Color() {
+                //                    return
+                //                }
                 if IsFirst {
                     UnitType = Asset.Type()
                     IsFirst = false
@@ -160,52 +161,53 @@ class CUnitActionRenderer {
                             }
                         }
                     }
-                } else if EAssetCapabilityType.BuildSimple == currentAction {
-                    if let Asset: CPlayerAsset = selectionlist[0] {
-                        var Index: Int = 0
-                        for Capability in [EAssetCapabilityType.BuildFarm, EAssetCapabilityType.BuildTownHall, EAssetCapabilityType.BuildBarracks, EAssetCapabilityType.BuildLumberMill, EAssetCapabilityType.BuildBlacksmith, EAssetCapabilityType.BuildKeep, EAssetCapabilityType.BuildCastle, EAssetCapabilityType.BuildScoutTower, EAssetCapabilityType.BuildGuardTower, EAssetCapabilityType.BuildCannonTower] {
-                            if Asset.HasCapability(capability: Capability) {
-                                DDisplayedCommands[Index] = Capability
-                                Index += 1
-                                if DDisplayedCommands.count <= Index {
-                                    break
-                                }
-                            }
+                }
+            }
+        } else if EAssetCapabilityType.BuildSimple == currentAction {
+            if let Asset: CPlayerAsset = selectionlist[0] {
+                var Index: Int = 0
+                for Capability in [EAssetCapabilityType.BuildFarm, EAssetCapabilityType.BuildTownHall, EAssetCapabilityType.BuildBarracks, EAssetCapabilityType.BuildLumberMill, EAssetCapabilityType.BuildBlacksmith, EAssetCapabilityType.BuildKeep, EAssetCapabilityType.BuildCastle, EAssetCapabilityType.BuildScoutTower, EAssetCapabilityType.BuildGuardTower, EAssetCapabilityType.BuildCannonTower] {
+                    if Asset.HasCapability(capability: Capability) {
+                        DDisplayedCommands[Index] = Capability
+                        Index += 1
+                        if DDisplayedCommands.count <= Index {
+                            break
                         }
-                        DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
-                    } else {
-                        DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
-                    }
-                    var XOffset: Int = DBevel.Width()
-                    var YOffset: Int = DBevel.Width()
-                    var Index: Int = 0
-
-                    for IconType in DDisplayedCommands {
-                        if EAssetCapabilityType.None != IconType {
-                            var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
-                            // FIXME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
-                            DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
-                            // variable is casted right now, needs to change later
-                            DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
-
-                            if PlayerCapability != nil {
-                                // do something
-                                // FIX ME:
-                                if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
-                                    // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
-                                    // FIX ME: SKScene issue/ CGraphicSurface issue
-                                    DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
-                                }
-                            }
-                        }
-                    }
-                    XOffset += DFullIconWidth + DBevel.Width()
-                    Index += 1
-                    if 0 == (Index % 3) {
-                        XOffset = DBevel.Width()
-                        YOffset += DFulliconHeight + DBevel.Width()
                     }
                 }
+                DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
+            }
+        } else {
+            DDisplayedCommands[DDisplayedCommands.count - 1] = EAssetCapabilityType.Cancel
+        }
+
+        var XOffset: Int = DBevel.Width()
+        var YOffset: Int = DBevel.Width()
+        var Index: Int = 0
+
+        for IconType in DDisplayedCommands {
+            if EAssetCapabilityType.None != IconType {
+                var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
+
+                DIconTileset.DrawTile(context: surface, xpos: XOffset, ypos: YOffset, width: 40, height: 40, tileindex: DCommandIndices[IconType.rawValue])
+
+                DBevel.DrawBevel(context: surface, xpos: XOffset, ypos: YOffset, width: 40, height: 40)
+
+                if PlayerCapability != nil {
+                    // do something
+                    // FIX ME:
+                    if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
+                        // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
+
+                        DIconTileset.DrawTile(context: surface, xpos: XOffset, ypos: YOffset, width: 10, height: 10, tileindex: DDisabledIndex)
+                    }
+                }
+            }
+            XOffset += DFullIconWidth + DBevel.Width()
+            Index += 1
+            if 0 == (Index % 3) {
+                XOffset = DBevel.Width()
+                YOffset += DFulliconHeight + DBevel.Width()
             }
         }
     }

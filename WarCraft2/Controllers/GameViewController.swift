@@ -43,6 +43,9 @@ class GameViewController: NSViewController {
         let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer)
         view.addSubview(miniMapView)
 
+        let unitActionView = UnitActionView(frame: NSRect(x: 15, y: 120, width: 145, height: 145), unitActionRenderer: applicationData.DUnitActionRenderer)
+        view.addSubview(unitActionView)
+
         addBevels()
     }
 

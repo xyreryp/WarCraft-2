@@ -171,7 +171,7 @@ class CApplicationData {
 
     // TODO: finish these types of renderers
     // var DUnitDescriptionRenderer: CUnitDescriptionRenderer
-    // var DUnitActionRenderer: CUnitActionRenderer
+    var DUnitActionRenderer: CUnitActionRenderer
     // var DResourceRenderer: CResourceRenderer
     // var DMenuButtonRenderer: CButtonRenderer
     // var DButtonRenderer: CButtonRenderer
@@ -360,7 +360,13 @@ class CApplicationData {
         let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
 
         // DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
-        // DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+
+        DIconTileset = CGraphicMulticolorTileset()
+        if !DIconTileset.TestLoadTileset(source: CDataSource(), assetName: "Icons") {
+            print("Failed to load Icon tileset")
+        }
+
+        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: DIconTileset, color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         // DResourceRenderer = CResourceRenderer(icons: CGraphicTileset(), font: CFontTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
         // DMenuButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: InnerBevelTileset), outerbevel: CBevel(tileset: OuterBevelTileset), font: CFontTileset())
         // DButtonRenderer = CButtonRenderer(colors: CGraphicRecolorMap(), innerbevel: CBevel(tileset: InnerBevelTileset), outerbevel: CBevel(tileset: OuterBevelTileset), font: CFontTileset())
@@ -619,6 +625,11 @@ class CApplicationData {
             print("Failed to load Mini Icon tileset")
         }
 
+        DIconTileset = CGraphicMulticolorTileset()
+        if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "Icons") {
+            print("Failed to load Icon tileset")
+        }
+
         // FIXME: Hardcoded for now for bay, waiting for datasource to change
         let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
@@ -849,7 +860,8 @@ class CApplicationData {
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
-        // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
+
+        //        DUnitActionRenderer = CUnitActionRenderer(bevel: DMiniBevel, icons: DIconTileset, color: DPlayerColor, player: DGameModel.Player(color: DPlayerColor)!)
         // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
         //        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
         //        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
