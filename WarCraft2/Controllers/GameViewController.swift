@@ -28,8 +28,6 @@ class GameViewController: NSViewController {
     var skscene: GameScene!
     var applicationData = CApplicationData()
     var battleMode = CBattleMode()
-    var timer = CGPoint(x: 500, y: -200)
-    var time = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +39,9 @@ class GameViewController: NSViewController {
             self.scrollWheel(with: $0)
             return $0
         }
+
         applicationData.Activate()
-        skscene = GameScene(size: view.frame.size, applicationData: applicationData, battleMode: battleMode)
+        skscene = GameScene(size: CGSize(width: 300, height: 450), applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)
         view.addSubview(skview)

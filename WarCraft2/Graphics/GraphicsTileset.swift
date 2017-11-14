@@ -220,13 +220,6 @@ class CGraphicTileset {
         return true
     } // end DuplicateClippedTile()
 
-    //    func printDMapping() {
-    //        print("DMapping values")
-    //        for (k, v) in DMapping {
-    //            print("key: \(k)")
-    //            print("value: \(v)")
-    //        }
-    //    }
     func FindTile(tilename: String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
         //        var findTile:Int? = DMapping[tilename]
         //        print ("Found \(findTile) of tilename \(tilename)")
@@ -235,7 +228,6 @@ class CGraphicTileset {
         //        }
         for (k, v) in DMapping {
             if String(k) == tilename {
-                print("Tilename was: \(tilename)")
                 return v
             }
         }
