@@ -19,7 +19,7 @@ class CResourceRenderer: NSObject {
     var DTextHeight = 5
     var DForegroundColor: NSColor
     var DBackgroundColor: NSColor
-    var DInsufficientColor : NSColor
+    var DInsufficientColor: NSColor
     var DLastGoldDisplay = 0
     var DLastLumberDisplay = 0
 

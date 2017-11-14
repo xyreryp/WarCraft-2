@@ -60,11 +60,24 @@ class CBattleMode: CApplicationMode {
     override func Input(context: CApplicationData) {
         var CurrentX: Int = context.DCurrentX
         var CurrentY: Int = context.DCurrentY
+        var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
+        var ViewportTile = CTilePosition()
+        var inScene = CPixelPosition(x: CurrentX, y: CurrentY)
+        var inSceneTile = CTilePosition()
+        inSceneTile.SetFromPixel(pos: inScene)
+        ViewportTile.SetFromPixel(pos: ViewportPixel)
+        // FIXME: may need to modify in the future :(
+        var ClickedTile = CTilePosition(x: inSceneTile.X() + ViewportTile.X(), y: inSceneTile.Y() + ViewportTile.Y() + 1)
+        var ClickedPixel = CPixelPosition()
+        ClickedPixel.SetFromTile(pos: ClickedTile)
         var Panning: Bool = false
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
+
         if context.DLeftClick == 1 {
-            print("You clicked at location X: \(CurrentX / context.DTerrainTileset.DTileWidth) and Y: \(CurrentY / context.DTerrainTileset.DTileHeight)")
+            print("ClickedTileX and Y: \(ClickedTile.X()), \(ClickedTile.Y())")
+            //            print("Viewport Pixel is: \(ViewportPixel.X()), \(ViewportPixel.Y())")
+            //            print("Viewport Tile is: \(ViewportTile.X()), \(ViewportTile.Y())")
         }
 
         // certain events pushed on to stack in game model

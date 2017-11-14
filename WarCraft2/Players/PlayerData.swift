@@ -217,19 +217,20 @@ class CPlayerData {
         }
     }
 
-    func SelectAssets(selectarea: SRectangle, assettype: EAssetType, selectidentical: Bool = false) -> [CPlayerAsset] {
-        var ReturnList: [CPlayerAsset] = [CPlayerAsset]()
-        if selectarea.DWidth < 0 || selectarea.DHeight < 0 {
+    // MARK: important functions
+    func SelectAssets(selectarea: SRectangle, assettype: EAssetType, selectidentical _: Bool = false) -> [CPlayerAsset] {
+        var ReturnList: [CPlayerAsset] = []
+        if selectarea.DWidth == 0 || selectarea.DHeight == 0 {
             let BestAsset: CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
-            let LockedAsset = BestAsset
             ReturnList.append(BestAsset)
-            if selectidentical && LockedAsset.Speed() > 0 {
-                for Asset in DAssets {
-                    if LockedAsset != Asset && Asset.Type() == assettype {
-                        ReturnList.append(Asset)
-                    }
-                }
-            }
+            /*
+             if selectidentical && LockedAsset.Speed() > 0 {
+             for Asset in DAssets {
+             if LockedAsset != Asset && Asset.Type() == assettype {
+             ReturnList.append(Asset)
+             }
+             }
+             }*/
         } else {
             var AnyMovable: Bool = false
             for Asset in DAssets {
@@ -255,6 +256,7 @@ class CPlayerData {
         return ReturnList
     }
 
+    // MARK: Important!
     func SelectAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
 
         var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())

@@ -11,13 +11,24 @@ import Cocoa
 import SpriteKit
 
 // var mouseLocation: NSPoint {
-//    return NSEvent.l
+//    return NSEvent.mouseLocation
 // }
 
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-        applicationData.DCurrentY = Int(event.locationInWindow.y)
+        //        applicationData.DCurrentY = Int(scene!.convertPoint(toView: event.locationInWindow).y)
+        //
+        //        applicationData.DCurrentX = Int(scene!.convertPoint(toView: event.locationInWindow).x)
         applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
+
+        //        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
+        //        let windowPoint = CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)
+        //        let scenePoint = viewPort.convert(windowPoint, to: scene!.view)
+        //        print("scenePoint + \(scenePoint)")
+
+        //        applicationData.DCurrentX = Int(NSEvent.mouseLocation.x)
+        //        applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
         applicationData.DLeftClick = 1
     }
 }
@@ -44,7 +55,7 @@ class GameViewController: NSViewController {
 
         applicationData.Activate()
         skscene = GameScene(size: CGSize(width: 450, height: 300), applicationData: applicationData, battleMode: battleMode)
-        skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.height, height: view.frame.size.width))
+        skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
     }
@@ -70,12 +81,14 @@ class GameViewController: NSViewController {
         }
     }
 
-    override func mouseDown(with _: NSEvent) {
-        // update application data .DX .DY
-        //        applicationData.DLeftClick = 1
-        //        applicationData.DCurrentX = Int(mouseLocation.x)
-        //        applicationData.DCurrentY = Int(mouseLocation.y)
-    }
+    //    override func mouseDown(with event: NSEvent) {
+    //        // update application data .DX .DY
+    //        applicationData.DLeftClick = 1
+    //        applicationData.DCurrentX = Int(mouseLocation.x)
+    //        applicationData.DCurrentY = Int(mouseLocation.y)
+    //
+    //        var eventPos = skscene!.convert(event.locationInWindow, to: skview!.scene!)
+    //    }
 
     override func keyDown(with event: NSEvent) {
         switch event.keyCode {
