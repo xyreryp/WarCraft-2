@@ -60,23 +60,29 @@ class CBattleMode: CApplicationMode {
     override func Input(context: CApplicationData) {
         // FIXME: this information is slightly off because of Viewport information and how clicks work. If you can figure out how to basically get the X/Y of the click that directly references the correct pixel, please fix it!
         var CurrentX: Int = context.DCurrentX
+
         var CurrentY: Int = context.DCurrentY
+
         var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
         var ViewportTile = CTilePosition()
-        var inScene = CPixelPosition(x: CurrentX, y: CurrentY)
-        var inSceneTile = CTilePosition()
-        inSceneTile.SetFromPixel(pos: inScene)
-        ViewportTile.SetFromPixel(pos: ViewportPixel)
+        var ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX(), y: CurrentY + context.DViewportRenderer.DViewportY)
+        var ClickedTile = CTilePosition()
+        ClickedTile.SetFromPixel(pos: ClickedPixel)
+        //        var inScene = CPixelPosition(x: CurrentX, y: CurrentY)
+        //        var inSceneTile = CTilePosition()
+        //        inSceneTile.SetFromPixel(pos: inScene)
+        //        ViewportTile.SetFromPixel(pos: ViewportPixel)
         // FIXME: may need to modify in the future :(
-        var ClickedTile = CTilePosition(x: inSceneTile.X() + ViewportTile.X(), y: inSceneTile.Y() + ViewportTile.Y() + 1)
-        var ClickedPixel = CPixelPosition()
-        ClickedPixel.SetFromTile(pos: ClickedTile)
+        //        var ClickedTile = CTilePosition(x: inSceneTile.X() + ViewportTile.X(), y: inSceneTile.Y() + ViewportTile.Y() + 1)
+        //        var ClickedPixel = CPixelPosition()
+        //        ClickedPixel.SetFromTile(pos: ClickedTile)
         var Panning: Bool = false
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
-
         // starting from line 432 of BattleMode.cpp
         if context.DLeftClick == 1 {
+            print(CurrentY)
+            print(CurrentX)
             // missing else statement
 
             // which player you are
@@ -103,11 +109,10 @@ class CBattleMode: CApplicationMode {
 
             } else {
                 PreviousSelections.removeAll()
-                for asset in CAssetDecoratedMap.DAllMaps[0].DAssets {
-                    print(asset.DType.DName)
-                }
-                context.DGameModel.DActualMap.FakeFindAsset(pos: ClickedPixel, color: SearchColor)
-  
+                var AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
+                //                print("X: \(ClickedTile.X()) and \(ClickedTile.Y())")
+                //   print(AssetType)
+
                 //  context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: EAssetType)
             }
         }

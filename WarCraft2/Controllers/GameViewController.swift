@@ -16,19 +16,19 @@ import SpriteKit
 
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-        //        applicationData.DCurrentY = Int(scene!.convertPoint(toView: event.locationInWindow).y)
+        //applicationData.DCurrentY = Int(scene!.convertPoint(toView: event.locationInWindow).y)
         //
-        //        applicationData.DCurrentX = Int(scene!.convertPoint(toView: event.locationInWindow).x)
-        applicationData.DCurrentX = Int(event.locationInWindow.x)
-        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
+        //applicationData.DCurrentX = Int(scene!.convertPoint(toView: event.locationInWindow).x)
+        // applicationData.DCurrentX = Int(event.locationInWindow.x)
+        // applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
 
         //        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
         //        let windowPoint = CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)
         //        let scenePoint = viewPort.convert(windowPoint, to: scene!.view)
         //        print("scenePoint + \(scenePoint)")
 
-        //        applicationData.DCurrentX = Int(NSEvent.mouseLocation.x)
-        //        applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
+                applicationData.DCurrentX = Int(NSEvent.mouseLocation.x)
+                applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
         applicationData.DLeftClick = 1
     }
 }

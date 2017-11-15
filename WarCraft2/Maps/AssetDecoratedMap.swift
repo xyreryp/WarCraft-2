@@ -310,14 +310,18 @@ class CAssetDecoratedMap: CTerrainMap {
         }
         return BestAsset!
     }
-    
-    func FakeFindAsset(pos: CPixelPosition, color: EPlayerColor) -> EAssetType {
-        var BestAsset: EAssetType
 
+    func FakeFindAsset(pos: CTilePosition) -> EAssetType {
+        var BestAsset: EAssetType
+        print("Clicked tile positions are: \(pos.X()) and \(pos.Y())")
         for Asset in DAssets {
-            if (abs(Asset.Position().X() - pos.X()) < 200 && abs(Asset.Position().Y() - pos.Y()) < 200 && Asset.Color() == color) {
+            var DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            //  print("Asset pixel location \(Asset.Position().X()) and \(Asset.Position().Y())")
+            // print("Clicked pixel location \(pos.X()) and \(pos.Y())")
+            if DTilePosition.X() == pos.X() && DTilePosition.Y() == DTilePosition.Y() {
                 BestAsset = Asset.AssetType().DType
-                
+                return BestAsset
             }
         }
         BestAsset = EAssetType.None
