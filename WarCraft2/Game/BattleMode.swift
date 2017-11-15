@@ -58,6 +58,7 @@ class CBattleMode: CApplicationMode {
 
     // get inputs, set commands
     override func Input(context: CApplicationData) {
+        // FIXME: this information is slightly off because of Viewport information and how clicks work. If you can figure out how to basically get the X/Y of the click that directly references the correct pixel, please fix it!
         var CurrentX: Int = context.DCurrentX
         var CurrentY: Int = context.DCurrentY
         var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
@@ -74,10 +75,41 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
 
+        // starting from line 432 of BattleMode.cpp
         if context.DLeftClick == 1 {
-            print("ClickedTileX and Y: \(ClickedTile.X()), \(ClickedTile.Y())")
-            //            print("Viewport Pixel is: \(ViewportPixel.X()), \(ViewportPixel.Y())")
-            //            print("Viewport Tile is: \(ViewportTile.X()), \(ViewportTile.Y())")
+            // missing else statement
+
+            // which player you are
+            var SearchColor = context.DPlayerColor
+            var PreviousSelections: [CPlayerAsset] = [CPlayerAsset]()
+
+            // change values for when selecting multiple units
+            var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+
+            // will need to check if this is being populated (most likely rectangle)
+            for WeakAsset in context.DSelectedPlayerAssets {
+                if let LockedAsset: CPlayerAsset? = WeakAsset {
+                    PreviousSelections.append(LockedAsset!)
+                }
+            }
+
+            // useless statement for now (multiplayer most likely)
+            if SearchColor != context.DPlayerColor {
+                context.DSelectedPlayerAssets.removeAll()
+            }
+
+            //to be filled out with shift pressed (this is for highlighting multiple peasants)
+            if false {
+
+            } else {
+                PreviousSelections.removeAll()
+                for asset in CAssetDecoratedMap.DAllMaps[0].DAssets {
+                    print(asset.DType.DName)
+                }
+                context.DGameModel.DActualMap.FakeFindAsset(pos: ClickedPixel, color: SearchColor)
+  
+                //  context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: EAssetType)
+            }
         }
 
         // certain events pushed on to stack in game model

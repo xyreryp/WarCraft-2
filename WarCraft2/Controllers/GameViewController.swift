@@ -33,6 +33,10 @@ extension SKView {
     }
 }
 
+class SpriteNode: SKSpriteNode {
+    var DPixelColor: CPixelType!
+}
+
 var applicationData = CApplicationData()
 
 var peasantSelected = false

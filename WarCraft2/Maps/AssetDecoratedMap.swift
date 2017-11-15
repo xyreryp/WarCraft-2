@@ -310,6 +310,19 @@ class CAssetDecoratedMap: CTerrainMap {
         }
         return BestAsset!
     }
+    
+    func FakeFindAsset(pos: CPixelPosition, color: EPlayerColor) -> EAssetType {
+        var BestAsset: EAssetType
+
+        for Asset in DAssets {
+            if (abs(Asset.Position().X() - pos.X()) < 200 && abs(Asset.Position().Y() - pos.Y()) < 200 && Asset.Color() == color) {
+                BestAsset = Asset.AssetType().DType
+                
+            }
+        }
+        BestAsset = EAssetType.None
+        return BestAsset
+    }
 
     func RemoveLumber(pos: CTilePosition, from: CTilePosition, amount: Int) {
         var Index: Int! = 0
