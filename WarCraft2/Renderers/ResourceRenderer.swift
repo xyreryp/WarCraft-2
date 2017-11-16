@@ -17,9 +17,9 @@ class CResourceRenderer: NSObject {
     var DPlayer: CPlayerData?
     var DIconIndices = [Int]()
     var DTextHeight = 5
-    var DForegroundColor = NSColor.white
-    var DBackgroundColor = NSColor.black
-    var DInsufficientColor = NSColor.red
+    var DForegroundColor: Int
+    var DBackgroundColor: Int
+    var DInsufficientColor: Int
     var DLastGoldDisplay = 0
     var DLastLumberDisplay = 0
 
@@ -29,9 +29,9 @@ class CResourceRenderer: NSObject {
         DIconTileset = icons
         DFont = font
         DPlayer = player
-        DForegroundColor = NSColor.white
-        DBackgroundColor = NSColor.black
-        DInsufficientColor = NSColor.red
+        DForegroundColor = 8
+        DBackgroundColor = 7
+        DInsufficientColor = 2
         DLastGoldDisplay = 0
         DLastLumberDisplay = 0
 
@@ -82,7 +82,9 @@ class CResourceRenderer: NSObject {
 
             let iconWidth = 20
             DIconTileset.DrawTile(context: context, xpos: XOffset, ypos: ImageYOffset, width: iconWidth, height: iconWidth, tileindex: EMiniIconTypes.Gold.rawValue)
-            // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DLastGoldDisplay)")
+
+            DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: " \(DLastGoldDisplay)")
+
             XOffset += WidthSeparation
 
             DIconTileset.DrawTile(context: context, xpos: XOffset, ypos: ImageYOffset, width: iconWidth, height: iconWidth, tileindex: DIconIndices[EMiniIconTypes.Lumber.rawValue])

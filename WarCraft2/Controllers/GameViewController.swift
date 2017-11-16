@@ -16,6 +16,7 @@ class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
     var applicationData = CApplicationData()
+    var battleMode = CBattleMode()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,7 @@ class GameViewController: NSViewController {
         applicationData.Activate()
 
         let mysize: CGSize = CGSize(width: 600, height: 500)
-        skscene = GameScene(size: mysize, applicationData: applicationData)
+        skscene = GameScene(size: mysize, applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 180, y: 30, width: mysize.width, height: mysize.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
@@ -52,7 +53,12 @@ class GameViewController: NSViewController {
         view.addSubview(miniMapView)
 
         let unitActionView = UnitActionView(frame: NSRect(x: 15, y: 120, width: 145, height: 145), unitActionRenderer: applicationData.DUnitActionRenderer)
+        skscene.applicationData.DUnitActionSurface = unitActionView
         view.addSubview(unitActionView)
+
+        let unitDescView = UnitDescriptionView(frame: NSRect(x: 10, y: 180, width: 150, height: 180), unitDescRenderer: applicationData.DUnitDescriptionRenderer)
+        skscene.applicationData.DUnitDescriptionSurface = unitActionView
+        view.addSubview(unitDescView)
 
         addBevels()
     }
@@ -71,7 +77,7 @@ class GameViewController: NSViewController {
             applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
         }
     }
-    
+
     override func mouseDown(with event: NSEvent) {
         //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
         let x: Int = Int(event.locationInWindow.x)
@@ -85,6 +91,9 @@ class GameViewController: NSViewController {
             let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
             applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
         }
+
+        applicationData.DCurrentX = x
+        applicationData.DCurrentY = y
     }
 
     //
