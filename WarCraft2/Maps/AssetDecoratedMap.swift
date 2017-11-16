@@ -313,13 +313,10 @@ class CAssetDecoratedMap: CTerrainMap {
 
     func FakeFindAsset(pos: CTilePosition) -> EAssetType {
         var BestAsset: EAssetType
-        print("Clicked tile positions are: \(pos.X()) and \(pos.Y())")
         for Asset in DAssets {
             var DTilePosition = CTilePosition()
             DTilePosition.SetFromPixel(pos: Asset.Position())
-            //  print("Asset pixel location \(Asset.Position().X()) and \(Asset.Position().Y())")
-            // print("Clicked pixel location \(pos.X()) and \(pos.Y())")
-            if DTilePosition.X() == pos.X() && DTilePosition.Y() == DTilePosition.Y() {
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
                 BestAsset = Asset.AssetType().DType
                 return BestAsset
             }

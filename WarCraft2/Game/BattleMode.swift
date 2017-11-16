@@ -65,24 +65,16 @@ class CBattleMode: CApplicationMode {
 
         var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
         var ViewportTile = CTilePosition()
-        var ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX(), y: CurrentY + context.DViewportRenderer.DViewportY)
+
+        // FIXME: hardcoded to be 4 tiles up for testing purposes
+        var ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX(), y: CurrentY + context.DViewportRenderer.DViewportY + 128)
         var ClickedTile = CTilePosition()
         ClickedTile.SetFromPixel(pos: ClickedPixel)
-        //        var inScene = CPixelPosition(x: CurrentX, y: CurrentY)
-        //        var inSceneTile = CTilePosition()
-        //        inSceneTile.SetFromPixel(pos: inScene)
-        //        ViewportTile.SetFromPixel(pos: ViewportPixel)
-        // FIXME: may need to modify in the future :(
-        //        var ClickedTile = CTilePosition(x: inSceneTile.X() + ViewportTile.X(), y: inSceneTile.Y() + ViewportTile.Y() + 1)
-        //        var ClickedPixel = CPixelPosition()
-        //        ClickedPixel.SetFromTile(pos: ClickedTile)
         var Panning: Bool = false
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
         // starting from line 432 of BattleMode.cpp
         if context.DLeftClick == 1 {
-            print(CurrentY)
-            print(CurrentX)
             // missing else statement
 
             // which player you are
@@ -109,11 +101,10 @@ class CBattleMode: CApplicationMode {
 
             } else {
                 PreviousSelections.removeAll()
+                print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
                 var AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
-                //                print("X: \(ClickedTile.X()) and \(ClickedTile.Y())")
-                //   print(AssetType)
-
-                //  context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: EAssetType)
+                print(AssetType)
+                // context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: EAssetType)
             }
         }
 

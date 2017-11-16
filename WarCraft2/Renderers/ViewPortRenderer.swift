@@ -118,8 +118,8 @@ class CViewportRenderer {
         // TODO: Uncomment after merging Andrew's hud
         //        DLastViewportWidth = Int(surface.frame.width)
         //        DLastViewportHeight = Int(surface.frame.height)
-        DLastViewportWidth = 500
-        DLastViewportHeight = 400
+        DLastViewportWidth = 800
+        DLastViewportHeight = 600
 
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
             DViewportX = DMapRenderer.DetailedMapWidth() - DLastViewportWidth

@@ -207,6 +207,8 @@ class CApplicationData {
     // mouse things
     var DCurrentX: Int
     var DCurrentY: Int
+    var TestX: Int!
+    var TestY: Int!
     var DMouseDown: CPixelPosition
     var DLeftClick: Int
     var DRightClick: Int
