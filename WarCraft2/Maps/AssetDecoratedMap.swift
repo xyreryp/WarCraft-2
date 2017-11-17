@@ -257,7 +257,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if Height() > BottomY {
                 let ToX: Int = max(LeftX, 0)
-                for CurX in stride(from: min(RightX, Width() - 1), to: ToX, by: -1) {
+                for CurX in stride(from: min(RightX, Width() - 1), through: ToX, by: -1) {
                     if CanPlaceAsset(pos: CTilePosition(x: CurX, y: BottomY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: CurX, y: BottomY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -272,7 +272,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if 0 <= LeftX {
                 let ToY: Int = max(TopY, 0)
-                for CurY in stride(from: min(BottomY, Height() - 1), to: ToY, by: -1) {
+                for CurY in stride(from: min(BottomY, Height() - 1), through: ToY, by: -1) {
                     if CanPlaceAsset(pos: CTilePosition(x: LeftX, y: CurY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: LeftX, y: CurY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)

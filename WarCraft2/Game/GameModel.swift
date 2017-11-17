@@ -381,7 +381,7 @@ class CGameModel {
             } else if EAssetAction.Attack == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
                 if EAssetType.None == Asset.Type() {
-                    var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position())
+                    let ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position())
                     let DeltaPosition = CPixelPosition(x: ClosestTargetPosition.X() - Asset.PositionX(), y: ClosestTargetPosition.Y() - Asset.PositionY())
                     let Movement = (CPosition.TileWidth() * 5) / CPlayerAsset.UpdateFrequency()
                     let TargetDistance = Asset.Position().Distance(pos: ClosestTargetPosition)
