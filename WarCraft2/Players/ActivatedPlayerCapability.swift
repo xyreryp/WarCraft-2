@@ -14,6 +14,7 @@ protocol CActivatedPlayerCapability {
     var DTarget: CPlayerAsset { get set }
 
     func PercentComplete(max: Int) -> Int
+    @discardableResult
     func IncrementStep() -> Bool
     func Cancel()
 }

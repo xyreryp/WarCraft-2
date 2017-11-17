@@ -285,6 +285,7 @@ class CPlayerAssetType {
     /// Load the resources data from all the files in the "res" directory
     ///
     /// - Parameter filenames: List of all the filenames in the "res" directory
+    @discardableResult
     static func LoadTypes(filenames: [String]) -> Bool {
         for Filename in filenames {
             let TempDataSource = CDataSource()
