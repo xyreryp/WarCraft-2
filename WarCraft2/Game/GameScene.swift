@@ -31,6 +31,7 @@ class GameScene: SKScene {
         battleMode.Input(context: applicationData)
         battleMode.Render(context: applicationData)
         applicationData.DLeftClick = 0
+        applicationData.DRightClick = 0
     }
 
     func renderMap() {

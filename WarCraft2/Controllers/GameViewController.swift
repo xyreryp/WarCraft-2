@@ -35,6 +35,13 @@ extension SKView {
         //        applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
         applicationData.DLeftClick = 1
     }
+
+    open override func rightMouseDown(with event: NSEvent) {
+        // right mouse click
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = Int(event.locationInWindow.y)
+        applicationData.DRightClick = 1
+    }
 }
 
 class SpriteNode: SKSpriteNode {

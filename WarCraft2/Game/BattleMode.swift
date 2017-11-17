@@ -73,6 +73,12 @@ class CBattleMode: CApplicationMode {
         var Panning: Bool = false
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
+
+        if context.DRightClick == 1 && context.DSelectedPlayerAssets.count != 0 {
+            for Asset in context.DSelectedPlayerAssets {
+                print(Asset.Color())
+            }
+        }
         // starting from line 432 of BattleMode.cpp
         if context.DLeftClick == 1 {
             // missing else statement
@@ -102,9 +108,11 @@ class CBattleMode: CApplicationMode {
             } else {
                 PreviousSelections.removeAll()
                 print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
+                // This is our "equivalent" of pixelType.AssetType() for now
                 var AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
-                print(AssetType)
-                // context.DSelectedPlayerAssets = context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: EAssetType)
+
+                // Select peasant right now and appends the asset
+                context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
             }
         }
 
