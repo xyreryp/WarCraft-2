@@ -29,6 +29,7 @@ class GameScene: SKScene {
         clean()
         applicationData.DViewportSurface = self
         battleMode.Input(context: applicationData)
+        battleMode.Calculate(context: applicationData)
         battleMode.Render(context: applicationData)
         applicationData.DLeftClick = 0
         applicationData.DRightClick = 0

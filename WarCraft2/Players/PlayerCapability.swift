@@ -64,7 +64,6 @@ class CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
-
         return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
     }
 
