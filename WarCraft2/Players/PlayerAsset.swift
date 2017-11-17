@@ -124,6 +124,7 @@ class CPlayerAsset {
         DType = type
     }
 
+    @discardableResult
     func IncrementHitPoints(hitpts: Int) -> Int {
         DHitPoints += hitpts
         if MaxHitPoints() < DHitPoints {
@@ -132,6 +133,7 @@ class CPlayerAsset {
         return DHitPoints
     }
 
+    @discardableResult
     func DecrementHitPoints(hitpts: Int) -> Int {
         DHitPoints -= hitpts
         if 0 > DHitPoints {
@@ -140,6 +142,7 @@ class CPlayerAsset {
         return DHitPoints
     }
 
+    @discardableResult
     func Gold(gold: Int) -> Int {
         DGold = gold
         return DGold
@@ -149,21 +152,25 @@ class CPlayerAsset {
         return DGold
     }
 
+    @discardableResult
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
         return DGold
     }
 
+    @discardableResult
     func DecrementGold(gold: Int) -> Int {
         DGold -= gold
         return DGold
     }
 
+    @discardableResult
     func IncrementLumber(lumber: Int) -> Int {
         DLumber += lumber
         return DLumber
     }
 
+    @discardableResult
     func DecrementLumber(lumber: Int) -> Int {
         DLumber -= lumber
         return DLumber
@@ -173,6 +180,7 @@ class CPlayerAsset {
         return DLumber
     }
 
+    @discardableResult
     func Lumber(lumber: Int) -> Int {
         DLumber = lumber
         return DLumber
@@ -196,6 +204,7 @@ class CPlayerAsset {
         return ReturnPos
     }
 
+    @discardableResult
     func TilePosition(pos: CTilePosition) -> CTilePosition {
         DPosition.SetFromTile(pos: pos)
         return pos
@@ -218,6 +227,7 @@ class CPlayerAsset {
         return ReturnPos.Y()
     }
 
+    @discardableResult
     func TilePositionY(y: Int) -> Int {
         DPosition.SetYFromTile(y: y)
         return y
@@ -231,6 +241,7 @@ class CPlayerAsset {
         return DPosition
     }
 
+    @discardableResult
     func Position(position: CPixelPosition) -> CPixelPosition {
         DPosition = position
         return DPosition
@@ -240,6 +251,7 @@ class CPlayerAsset {
         return DPosition.X()
     }
 
+    @discardableResult
     func PositionX(x: Int) -> Int {
         return DPosition.X(x: x)
     }
@@ -248,10 +260,12 @@ class CPlayerAsset {
         return DPosition.Y()
     }
 
+    @discardableResult
     func PositionY(y: Int) -> Int {
         return DPosition.Y(y: y)
     }
 
+    @discardableResult
     func ClosestPosition(pos: CPixelPosition) -> CPixelPosition {
         return pos.ClosestPosition(objpos: DPosition, objsize: Size())
     }
@@ -282,12 +296,13 @@ class CPlayerAsset {
         return DDirection
     }
 
+    @discardableResult
     func Direction(direction: EDirection) -> EDirection {
         DDirection = direction
         return DDirection
     }
 
-    // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
+    // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
             DCommands.removeLast()
@@ -299,7 +314,7 @@ class CPlayerAsset {
         return RetVal
     }
 
-    // FIX: fix Struct 'RetVal' must be completely initialized before a member is stored to
+    // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func NextCommand() -> SAssetCommand {
         if 1 < DCommands.count {
             return DCommands[DCommands.count - 2]
@@ -432,6 +447,7 @@ class CPlayerAsset {
         return DHitPoints
     }
 
+    @discardableResult
     func HitPoints(hitpts: Int) -> Int {
         DHitPoints = hitpts
         return DHitPoints

@@ -102,7 +102,7 @@ class CMapRenderer {
             // light-grass
             while true {
                 var Value: Int
-                var FindThisTile: String = "light-grass-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "light-grass-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -115,7 +115,7 @@ class CMapRenderer {
             // dark-grass
             while true {
                 var Value: Int
-                var FindThisTile: String = "dark-grass-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "dark-grass-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -128,7 +128,7 @@ class CMapRenderer {
             // light-dirt
             while true {
                 var Value: Int
-                var FindThisTile: String = "light-dirt-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "light-dirt-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -141,7 +141,7 @@ class CMapRenderer {
             // dark-dirt
             while true {
                 var Value: Int
-                var FindThisTile: String = "dark-dirt-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "dark-dirt-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -154,7 +154,7 @@ class CMapRenderer {
             // rock
             while true {
                 var Value: Int
-                var FindThisTile: String = "rock-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "rock-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -167,7 +167,7 @@ class CMapRenderer {
             // forest
             while true {
                 var Value: Int
-                var FindThisTile: String = "forest-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "forest-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -180,7 +180,7 @@ class CMapRenderer {
             // shallow-water
             while true {
                 var Value: Int
-                var FindThisTile: String = "shallow-water-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "shallow-water-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -193,7 +193,7 @@ class CMapRenderer {
             // deep-water
             while true {
                 var Value: Int
-                var FindThisTile: String = "deep-water-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "deep-water-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -206,7 +206,7 @@ class CMapRenderer {
             // stump
             while true {
                 var Value: Int
-                var FindThisTile: String = "stump-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "stump-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
@@ -301,8 +301,8 @@ class CMapRenderer {
             var XPos = 0
 
             while XPos < DMap.Width() {
-                var TileType = DMap.TileType(xindex: XPos, yindex: YPos)
-                var XAnchor = XPos
+                let TileType = DMap.TileType(xindex: XPos, yindex: YPos)
+                let XAnchor = XPos
 
                 while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: YPos) == TileType {
                     XPos += 1

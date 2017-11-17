@@ -17,9 +17,9 @@ class CResourceRenderer: NSObject {
     var DPlayer: CPlayerData?
     var DIconIndices = [Int]()
     var DTextHeight = 5
-    var DForegroundColor = NSColor.white
-    var DBackgroundColor = NSColor.black
-    var DInsufficientColor = NSColor.red
+    var DForegroundColor: NSColor
+    var DBackgroundColor: NSColor
+    var DInsufficientColor: NSColor
     var DLastGoldDisplay = 0
     var DLastLumberDisplay = 0
 
@@ -30,7 +30,7 @@ class CResourceRenderer: NSObject {
         DFont = font
         DPlayer = player
         DForegroundColor = NSColor.white
-        DBackgroundColor = NSColor.black
+        DBackgroundColor = NSColor.white
         DInsufficientColor = NSColor.red
         DLastGoldDisplay = 0
         DLastLumberDisplay = 0

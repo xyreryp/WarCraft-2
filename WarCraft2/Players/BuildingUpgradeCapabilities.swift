@@ -33,7 +33,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
         var DGold: Int
 
         init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset, origtype: CPlayerAssetType, upgradetype: CPlayerAssetType, lumber: Int, gold: Int, steps: Int) {
-            var AssetCommand: SAssetCommand
+            var AssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 
             DTarget = target
             DPlayerData = playerdata
@@ -54,7 +54,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            var AddHitPoints: Int = ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints) * (DCurrentStep + 1) / DTotalSteps) - ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints * DCurrentStep / DTotalSteps))
+            let AddHitPoints: Int = ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints) * (DCurrentStep + 1) / DTotalSteps) - ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints * DCurrentStep / DTotalSteps))
 
             if DCurrentStep == 0 {
                 var AssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
@@ -73,7 +73,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
             DCurrentStep += 1
             DActor.IncrementStep()
             if DCurrentStep >= DTotalSteps {
-                var TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
+                let TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
                 DPlayerData.AddGameEvent(event: TempEvent)
 
                 DActor.PopCommand()
@@ -103,7 +103,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
     }
 
     override func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
+        let Iterator = playerdata.AssetTypes()[DBuildingName]
         if let AssetType = Iterator {
             if AssetType.DLumberCost > playerdata.DLumber {
                 return false
@@ -124,7 +124,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
     }
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var Iterator = (playerdata.AssetTypes())[DBuildingName]
+        let Iterator = (playerdata.AssetTypes())[DBuildingName]
         if let AssetType = Iterator {
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 

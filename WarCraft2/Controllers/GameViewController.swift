@@ -10,12 +10,51 @@ import Foundation
 import Cocoa
 import SpriteKit
 
+// var mouseLocation: NSPoint {
+//    return NSEvent.mouseLocation
+// }
+
+extension SKView {
+    open override func mouseDown(with event: NSEvent) {
+        //        var viewportPixel = CGPoint(x: applicationData.DViewportRenderer.DViewportX, y: applicationData.DViewportRenderer.DViewportY)
+        //        let sceneviewportPixel = viewPort.convert(viewportPixel, to: scene!.view)
+        // print("ViewportEdge: \(sceneviewportPixel)")
+
+        //        applicationData.DCurrentY = Int(scene!.convertPoint(toView: event.locationInWindow).y)
+        //
+        //        applicationData.DCurrentX = Int(scene!.convertPoint(toView: event.locationInWindow).x)
+
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
+
+        //        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
+        //        let windowPoint = CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)
+        //        let scenePoint = viewPort.convert(windowPoint, to: scene!.view)
+        //        applicationData.DCurrentX = Int(NSEvent.mouseLocation.x)
+        //        applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
+        applicationData.DLeftClick = 1
+    }
+
+    open override func rightMouseDown(with event: NSEvent) {
+        // right mouse click
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = Int(event.locationInWindow.y)
+        applicationData.DRightClick = 1
+    }
+}
+
+class SpriteNode: SKSpriteNode {
+    var DPixelColor: CPixelType!
+}
+
+var applicationData = CApplicationData()
+
 var peasantSelected = false
 
 class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
-    var applicationData = CApplicationData()
+    var battleMode = CBattleMode()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +66,9 @@ class GameViewController: NSViewController {
             self.scrollWheel(with: $0)
             return $0
         }
+
         applicationData.Activate()
-        skscene = GameScene(size: view.frame.size, applicationData: applicationData)
+        skscene = GameScene(size: CGSize(width: 800, height: 600), applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
@@ -54,6 +94,15 @@ class GameViewController: NSViewController {
             applicationData.DViewportRenderer.PanWest(pan: adjustPan(x))
         }
     }
+
+    //    override func mouseDown(with event: NSEvent) {
+    //        // update application data .DX .DY
+    //        applicationData.DLeftClick = 1
+    //        applicationData.DCurrentX = Int(mouseLocation.x)
+    //        applicationData.DCurrentY = Int(mouseLocation.y)
+    //
+    //        var eventPos = skscene!.convert(event.locationInWindow, to: skview!.scene!)
+    //    }
 
     override func keyDown(with event: NSEvent) {
         switch event.keyCode {

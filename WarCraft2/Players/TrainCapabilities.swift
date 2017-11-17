@@ -54,7 +54,7 @@ class CPlayerCapabilityTrainNormal: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            var AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
+            let AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
 
             DTarget.IncrementHitPoints(hitpts: AddHitPoints)
             if DTarget.HitPoints() > DTarget.MaxHitPoints() {
@@ -64,7 +64,7 @@ class CPlayerCapabilityTrainNormal: CPlayerCapability {
             DActor.IncrementStep()
             DTarget.IncrementStep()
             if DCurrentStep >= DTotalSteps {
-                var TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
+                let TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
 
                 DPlayerData.AddGameEvent(event: TempEvent)
 
@@ -95,7 +95,7 @@ class CPlayerCapabilityTrainNormal: CPlayerCapability {
     }
 
     override func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DUnitName]
+        let Iterator = playerdata.AssetTypes()[DUnitName]
 
         if let AssetType = Iterator {
             if AssetType.DLumberCost > playerdata.DLumber {
@@ -120,12 +120,12 @@ class CPlayerCapabilityTrainNormal: CPlayerCapability {
     }
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target _: CPlayerAsset) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DUnitName]
+        let Iterator = playerdata.AssetTypes()[DUnitName]
 
         if let AssetType = Iterator {
-            var NewAsset = playerdata.CreateAsset(assettypename: DUnitName)
+            let NewAsset = playerdata.CreateAsset(assettypename: DUnitName)
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
-            var Tileposition = CTilePosition()
+            let Tileposition = CTilePosition()
             Tileposition.SetFromPixel(pos: actor.Position())
             NewAsset.TilePosition(pos: Tileposition)
             NewAsset.HitPoints(hitpts: 1)
