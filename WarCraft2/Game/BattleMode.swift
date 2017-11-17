@@ -720,7 +720,7 @@ class CBattleMode: CApplicationMode {
                 context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }
         }
-  //      context.DGameModel.Timestep()
+        //      context.DGameModel.Timestep()
 
         //        // PrintDebug(DEBUG_LOW, "Started CBattleMode::Calculate\n")
         //
