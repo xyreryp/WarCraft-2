@@ -107,6 +107,12 @@ class CBattleMode: CApplicationMode {
                 PreviousSelections.removeAll()
                 print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
                 // This is our "equivalent" of pixelType.AssetType() for now
+                // FIXME: hardcoded for building testing
+                let NewAsset = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Barracks")
+                NewAsset.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                NewAsset.HitPoints(hitpts: 1)
+                print("Barracks created at \(ClickedTile.X()), \(ClickedTile.Y())")
+                // hardcode session ends
                 let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
 
                 // Select peasant right now and appends the asset
