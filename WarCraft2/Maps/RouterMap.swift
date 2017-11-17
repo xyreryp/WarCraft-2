@@ -115,8 +115,8 @@ class CRouterMap {
 
         TargetTile.SetFromPixel(pos: target)
         if (DMap.count != MapHeight + 2) || (DMap[0].count != MapWidth + 2) {
-            var LastYIndex: Int = MapHeight + 1
-            var LastXIndex: Int = MapWidth + 1
+            let LastYIndex: Int = MapHeight + 1
+            let LastXIndex: Int = MapWidth + 1
             DMap = [[Int]](repeating: [], count: MapHeight + 2)
             for var Row in DMap {
                 Row = [Int](repeating: Int(), count: MapWidth + 2)
@@ -133,8 +133,8 @@ class CRouterMap {
         }
 
         if asset.TilePosition() == TargetTile {
-            var DeltaX: Int = target.X() - asset.PositionX()
-            var DeltaY: Int = target.Y() - asset.PositionY()
+            let DeltaX: Int = target.X() - asset.PositionX()
+            let DeltaY: Int = target.Y() - asset.PositionY()
 
             if 0 < DeltaX {
                 if 0 < DeltaY {
@@ -166,7 +166,7 @@ class CRouterMap {
             }
         }
 
-        for var Res in resmap.DAssets {
+        for Res in resmap.DAssets {
             if asset != Res {
                 if EAssetType.None != Res.Type() {
                     if (EAssetAction.Walk != Res.Action()) || (asset.Color() != Res.Color()) {
@@ -205,11 +205,11 @@ class CRouterMap {
                 BestSearch = CurrentSearch
             }
             for Index in 0 ..< SearchDirectionCount {
-                _ = TempTile.X(x: CurrentSearch.DX + ResMapXOffsets[Index])
-                _ = TempTile.Y(y: CurrentSearch.DY + ResMapYOffsets[Index])
+                TempTile.X(x: CurrentSearch.DX + ResMapXOffsets[Index])
+                TempTile.Y(y: CurrentSearch.DY + ResMapYOffsets[Index])
                 if (SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1]) || CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: EDirection(rawValue: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1])!) {
                     DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
-                    var CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
+                    let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
                     // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
                     if CTerrainMap.IsTraversable(type: CurTileType) {
                         TempSearch.DX = TempTile.X()
@@ -226,27 +226,27 @@ class CRouterMap {
                 break
             }
             CurrentSearch = SearchQueue.front!
-            _ = SearchQueue.dequeue()
-            _ = CurrentTile.X(x: CurrentSearch.DX)
-            _ = CurrentTile.Y(y: CurrentSearch.DY)
+            SearchQueue.dequeue()
+            CurrentTile.X(x: CurrentSearch.DX)
+            CurrentTile.Y(y: CurrentSearch.DY)
         }
         DirectionBeforeLast = BestSearch.DInDirection
         LastInDirection = BestSearch.DInDirection
-        _ = CurrentTile.X(x: BestSearch.DX)
-        _ = CurrentTile.Y(y: BestSearch.DY)
+        CurrentTile.X(x: BestSearch.DX)
+        CurrentTile.Y(y: BestSearch.DY)
         while (CurrentTile.X() != StartX) || (CurrentTile.Y() != StartY) {
-            var Index: Int = DMap[CurrentTile.Y() + 1][CurrentTile.X() + 1]
+            let Index = DMap[CurrentTile.Y() + 1][CurrentTile.X() + 1]
 
             if (0 > Index) || (SearchDirectionCount <= Index) {
                 exit(0)
             }
             DirectionBeforeLast = LastInDirection
             LastInDirection = SearchDirections[Index]
-            _ = CurrentTile.DecrementX(x: ResMapXOffsets[Index])
-            _ = CurrentTile.DecrementY(y: ResMapYOffsets[Index])
+            CurrentTile.DecrementX(x: ResMapXOffsets[Index])
+            CurrentTile.DecrementY(y: ResMapYOffsets[Index])
         }
         if DirectionBeforeLast != LastInDirection {
-            var CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: StartX + DiagCheckXOffset[(DirectionBeforeLast.rawValue)], yindex: StartY + DiagCheckYOffset[(DirectionBeforeLast.rawValue)])
+            let CurTileType = resmap.TileType(xindex: StartX + DiagCheckXOffset[(DirectionBeforeLast.rawValue)], yindex: StartY + DiagCheckYOffset[(DirectionBeforeLast.rawValue)])
             // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
             if CTerrainMap.IsTraversable(type: CurTileType) {
                 var Sum: Int = (LastInDirection.rawValue) + (DirectionBeforeLast.rawValue)

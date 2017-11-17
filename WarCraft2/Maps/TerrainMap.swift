@@ -370,6 +370,7 @@ class CTerrainMap {
         return (Int(dimensions[0])!, Int(dimensions[1])!)
     }
 
+    @discardableResult
     func LoadMap(fileToRead: String) -> Bool {
         var ReturnStatus: Bool = false
         let StringMap = CDataSource.ReadMap(fileName: fileToRead, extensionType: ".map")

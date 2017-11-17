@@ -37,8 +37,8 @@ class CFogRenderer {
     }
 
     func DrawMap(surface: SKScene, rect: SRectangle) {
-        var TileWidth: Int = DTileset.TileWidth()
-        var TileHeight: Int = DTileset.TileHeight()
+        let TileWidth: Int = DTileset.TileWidth()
+        let TileHeight: Int = DTileset.TileHeight()
 
         var YIndex: Int = rect.DYPosition / TileHeight
         var YPos: Int = -(rect.DYPosition % TileHeight)
@@ -48,7 +48,7 @@ class CFogRenderer {
             var XPos = -(rect.DXPosition % TileWidth)
             while XPos < rect.DWidth {
 
-                var TileType: ETileVisibility = DDMap.TileType(xindex: XIndex, yindex: YIndex)
+                let TileType: ETileVisibility = DDMap.TileType(xindex: XIndex, yindex: YIndex)
 
                 if TileType == ETileVisibility.None {
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
@@ -83,7 +83,7 @@ class CFogRenderer {
                     for YOff in -1 ... 1 {
                         for XOff in -1 ... 1 {
                             if YOff > 0 || XOff > 0 {
-                                var VisTile: ETileVisibility = DDMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
+                                let VisTile: ETileVisibility = DDMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
 
                                 if VisTile == ETileVisibility.Visible || VisTile == ETileVisibility.Partial || VisTile == ETileVisibility.Seen {
                                     VisibilityIndex = VisibilityIndex | VisibilityMask
@@ -109,8 +109,8 @@ class CFogRenderer {
         for YPos in 0 ..< DDMap.Height() {
             var XPos: Int = 0
             while XPos < DDMap.Width() {
-                var TileType = DDMap.TileType(xindex: XPos, yindex: YPos)
-                var XAnchor: Int = XPos
+                let TileType = DDMap.TileType(xindex: XPos, yindex: YPos)
+                let XAnchor: Int = XPos
                 while (XPos < DDMap.Width()) && (TileType == DDMap.TileType(xindex: XPos, yindex: YPos)) {
                     XPos = XPos + 1
                 }

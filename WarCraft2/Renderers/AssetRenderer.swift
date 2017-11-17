@@ -335,7 +335,6 @@ class CAssetRenderer {
 
     //    // hard code locations, and which tile in tileset
     func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
-        let index = tileset.count - 1
 
         //        for tileset in DTilesets {
         //            switch tileset.
@@ -382,7 +381,6 @@ class CAssetRenderer {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
-        print(DNoneIndices)
         for AssetIterator in DPlayerMap.DAssets {
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
@@ -466,7 +464,6 @@ class CAssetRenderer {
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
                          EAssetAction.None:
-                        print("Asset is of type raw value: \(TempRenderData.DType.rawValue) and it's direction is: \(AssetIterator.DDirection.rawValue)")
                         TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         if 0 != AssetIterator.Speed() {
                             if 0 != AssetIterator.DLumber {
