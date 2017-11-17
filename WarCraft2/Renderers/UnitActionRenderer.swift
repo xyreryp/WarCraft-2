@@ -86,7 +86,7 @@ class CUnitActionRenderer {
 
     func Selection(pos: CPosition) -> EAssetCapabilityType {
         if ((pos.X() % (DFullIconWidth + DBevel.Width())) < DFullIconWidth) && ((pos.Y() % (DFulliconHeight + DBevel.Width()) < DFulliconHeight)) {
-            var Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
+            let Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
             return DDisplayedCommands[Index]
         }
         return EAssetCapabilityType.None
@@ -108,22 +108,20 @@ class CUnitActionRenderer {
             return
         }
 
-        for var Iterator: CPlayerAsset in selectionlist {
+        for Asset in selectionlist {
             // for Iterator: Int in selectionlist {
-            if let Asset: CPlayerAsset = Iterator { // FIXME, NOTE: This is weak_ptr lock()
-                if DPlayerColor != Asset.Color() {
-                    return
-                }
-                if IsFirst {
-                    UnitType = Asset.Type()
-                    IsFirst = false
-                    Moveable = 0 < Asset.Speed() // NOTE: Asset must be of type CPlayerAsset
-                } else if UnitType != Asset.Type() { // NOTE: Asset is currently of <error> type
-                    AllSame = false
-                }
-                if (Asset.Lumber() > 0) || (Asset.Gold() > 0) {
-                    HasCargo = true
-                }
+            if DPlayerColor != Asset.Color() {
+                return
+            }
+            if IsFirst {
+                UnitType = Asset.Type()
+                IsFirst = false
+                Moveable = 0 < Asset.Speed() // NOTE: Asset must be of type CPlayerAsset
+            } else if UnitType != Asset.Type() { // NOTE: Asset is currently of <error> type
+                AllSame = false
+            }
+            if (Asset.Lumber() > 0) || (Asset.Gold() > 0) {
+                HasCargo = true
             }
         }
 

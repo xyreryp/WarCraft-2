@@ -54,7 +54,7 @@ class CPlayerCapabilityTrainNormal: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            var AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
+            let AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
 
             DTarget.IncrementHitPoints(hitpts: AddHitPoints)
             if DTarget.HitPoints() > DTarget.MaxHitPoints() {

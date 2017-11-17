@@ -215,6 +215,7 @@ class CAIPlayer {
         return false
     }
 
+    @discardableResult
     func ActivatePeasants(command: inout PLAYERCOMMANDREQUEST_TAG, trainmore: Bool) -> Bool {
 
         var MiningAsset: CPlayerAsset?
@@ -390,8 +391,8 @@ class CAIPlayer {
             } else {
                 var CompletedAction: Bool = false
                 var BarracksCount: Int = 0
-                var FootmanCount = DPlayerData.PlayerAssetCount(type: EAssetType.Footman)
-                var ArcherCount = DPlayerData.PlayerAssetCount(type: EAssetType.Archer) + DPlayerData.PlayerAssetCount(type: EAssetType.Ranger)
+                let FootmanCount = DPlayerData.PlayerAssetCount(type: EAssetType.Footman)
+                let ArcherCount = DPlayerData.PlayerAssetCount(type: EAssetType.Archer) + DPlayerData.PlayerAssetCount(type: EAssetType.Ranger)
 
                 if !CompletedAction && (DPlayerData.FoodConsumption() >= DPlayerData.FoodProduction()) {
                     CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Farm, neartype: EAssetType.Farm)
@@ -399,8 +400,8 @@ class CAIPlayer {
                 if !CompletedAction {
                     CompletedAction = ActivatePeasants(command: &command, trainmore: false)
                 }
-                if !CompletedAction && (0 == (DPlayerData.PlayerAssetCount(type: EAssetType.Barracks))) {
-                    BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks)
+                BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks)
+                if !CompletedAction && (0 == BarracksCount) {
                     CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Barracks, neartype: EAssetType.Farm)
                 }
 

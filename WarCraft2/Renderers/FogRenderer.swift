@@ -119,21 +119,10 @@ class CFogRenderer {
                     switch TileType {
                     case .None:
                         ColorRGBA = 0xFF00_0000
-                        break
-                    case .PartialPartial: break
-
-                    case .Partial: break
-
-                    case .Visible: break
-
-                    case .SeenPartial:
+                    case .SeenPartial, .Seen:
                         ColorRGBA = 0xA800_0000
-                        break
-                    case .Seen: break
-
                     default:
                         ColorRGBA = 0x5400_0000
-                        break
                     }
 
                     ResourceContext.SetSourceRGBA(rgba: ColorRGBA)

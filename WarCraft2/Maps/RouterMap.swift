@@ -36,6 +36,7 @@ public struct Queue<T> {
         array.append(element)
     }
 
+    @discardableResult
     public mutating func dequeue() -> T? {
         guard head < array.count, let element = array[head] else { return nil }
 
@@ -108,7 +109,7 @@ class CRouterMap {
         var ResMapYOffsets: [Int] = [-1, 0, 1, 0]
         var DiagCheckXOffset: [Int] = [0, 1, 1, 1, 0, -1, -1, -1]
         var DiagCheckYOffset: [Int] = [-1, -1, 0, 1, 1, 1, 0, -1]
-        var SearchDirectionCount: Int = SearchDirections.count
+        let SearchDirectionCount: Int = SearchDirections.count
         var LastInDirection: EDirection
         var DirectionBeforeLast: EDirection
         var SearchQueue = Queue<SSearchTarget>()
@@ -118,9 +119,10 @@ class CRouterMap {
             let LastYIndex: Int = MapHeight + 1
             let LastXIndex: Int = MapWidth + 1
             DMap = [[Int]](repeating: [], count: MapHeight + 2)
-            for var Row in DMap {
-                Row = [Int](repeating: Int(), count: MapWidth + 2)
+            for Index in 0 ..< DMap.count {
+                DMap[Index] = [Int](repeating: 0, count: MapWidth + 2)
             }
+
             for Index in 0 ..< DMap.count {
                 DMap[Index][0] = SEARCH_STATUS_VISITED
                 DMap[Index][LastXIndex] = SEARCH_STATUS_VISITED

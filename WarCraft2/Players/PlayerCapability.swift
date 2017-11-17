@@ -34,9 +34,7 @@ class CPlayerCapability {
 
     @discardableResult
     static func Register(capability: CPlayerCapability) -> Bool {
-        if FindCapability(name: capability.DName) != nil {
-            return false
-        }
+        FindCapability(name: capability.DName)
 
         NameRegistry[capability.DName] = capability
         TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
@@ -59,6 +57,7 @@ class CPlayerCapability {
         fatalError("You should be able to find the player capability \(type).")
     }
 
+    @discardableResult
     static func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator

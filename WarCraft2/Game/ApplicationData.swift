@@ -619,8 +619,6 @@ class CApplicationData {
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
 
-        var test = CAssetDecoratedMap.DAllMaps[0]
-
         LoadGameMap(index: 0)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
@@ -884,12 +882,9 @@ class CApplicationData {
         print(CurHeight)
         DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
 
-        for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
-            if var asset: CPlayerAsset? = WeakAsset {
-
-                DViewportRenderer.CenterViewport(pos: asset!.DPosition)
-                break
-            }
+        for WeakAsset in DGameModel.Player(color: DPlayerColor)!.DAssets {
+            DViewportRenderer.CenterViewport(pos: WeakAsset.DPosition)
+            break
         }
     }
 

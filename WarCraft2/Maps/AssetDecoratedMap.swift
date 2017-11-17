@@ -82,6 +82,7 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     // FIXME: Hard coded to take in one map for now
+    @discardableResult
     static func TestLoadMaps(filename: String) -> Bool {
 
         let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
@@ -401,12 +402,9 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func TestLoadMap(filename: String) -> Bool {
-        let TempString = String()
         //        var Tokens = [String]()
         // var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
         //        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
-        var ResourceCount = Int()
-        var AssetCount = Int()
         var InitialLumber = 400
         var ReturnStatus = false
 

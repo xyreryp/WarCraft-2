@@ -664,14 +664,13 @@ class CBattleMode: CApplicationMode {
                     }
 
                     // for all units that are selected for that player
-                    for WeakActor in context.DPlayerCommands[Index].DActors {
-                        if let Actor: CPlayerAsset? = WeakActor {
-                            // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
-                            if PlayerCapability.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
-                                // start the action if you can do it
-                                // increment step for each action in basic cap
-                                PlayerCapability.ApplyCapability(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
-                            }
+                    for Actor in context.DPlayerCommands[Index].DActors {
+
+                        // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
+                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
+                            // start the action if you can do it
+                            // increment step for each action in basic cap
+                            PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
                         }
                     }
                 }
@@ -688,22 +687,20 @@ class CBattleMode: CApplicationMode {
         //        PrintDebug(DEBUG_LOW, "Started 1st while (4th loop)\n")
 
         // MARK: PLEASE CHECK. TRYING TO MAKE SURE REMOVAL OF ITEM IS SAFE
-        for (Index, AssetItem) in context.DSelectedPlayerAssets.enumerated().reversed() {
-            if let Asset: CPlayerAsset? = AssetItem { // WeakAsset should never return nil?
-                if context.DGameModel.ValidAsset(asset: Asset!) && Asset!.Alive() {
-                    if Asset!.Speed() != 0 && (EAssetAction.Capability == Asset!.Action()) {
-                        var Command = Asset!.CurrentCommand()
-                        if (Command.DAssetTarget != nil) && (EAssetAction.Construct == Command.DAssetTarget?.Action()) {
-                            // var TempEvent: SGameEvent NEED TO ADD
-                            var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-                            context.DSelectedPlayerAssets.removeAll()
-                            context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
-                            TempEvent.DType = EEventType.Selection
-                            TempEvent.DAsset = Command.DAssetTarget!
-                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                            break
-                        }
+        for (Index, Asset) in context.DSelectedPlayerAssets.enumerated().reversed() {
+            if context.DGameModel.ValidAsset(asset: Asset) && Asset.Alive() {
+                if Asset.Speed() != 0 && (EAssetAction.Capability == Asset.Action()) {
+                    let Command = Asset.CurrentCommand()
+                    if (Command.DAssetTarget != nil) && (EAssetAction.Construct == Command.DAssetTarget?.Action()) {
+                        var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
+                        context.DSelectedPlayerAssets.removeAll()
+                        context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
+                        TempEvent.DType = EEventType.Selection
+                        TempEvent.DAsset = Command.DAssetTarget!
+                        context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                        break
                     }
+
                 } else {
                     context.DSelectedPlayerAssets.remove(at: Index)
                 }

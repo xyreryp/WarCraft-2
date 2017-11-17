@@ -381,7 +381,7 @@ class CGameModel {
             } else if EAssetAction.Attack == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
                 if EAssetType.None == Asset.Type() {
-                    var ClosestTargetPosition: CPixelPosition = (CurrentCommand.DAssetTarget?.ClosestPosition(pos: Asset.Position()))!
+                    var ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position())
                     let DeltaPosition = CPixelPosition(x: ClosestTargetPosition.X() - Asset.PositionX(), y: ClosestTargetPosition.Y() - Asset.PositionY())
                     let Movement = (CPosition.TileWidth() * 5) / CPlayerAsset.UpdateFrequency()
                     let TargetDistance = Asset.Position().Distance(pos: ClosestTargetPosition)
@@ -603,7 +603,7 @@ class CGameModel {
             } else if (EAssetAction.ConveyLumber == Asset.Action()) || (EAssetAction.ConveyGold == Asset.Action()) {
                 Asset.IncrementStep()
                 if DConveySteps <= Asset.Step() {
-                    var Command = Asset.CurrentCommand()
+                    let Command = Asset.CurrentCommand()
                     var NextTarget = CTilePosition(x: DPlayers[Asset.Color().rawValue].DPlayerMap.Width() - 1, y: DPlayers[Asset.Color().rawValue].DPlayerMap.Height() - 1)
                     DPlayers[Asset.Color().rawValue].IncrementGold(gold: Asset.Gold())
                     DPlayers[Asset.Color().rawValue].IncrementLumber(lumber: Asset.Lumber())
@@ -617,7 +617,7 @@ class CGameModel {
                     Asset.TilePosition(pos: DPlayers[Asset.Color().rawValue].DPlayerMap.FindAssetPlacement(placeasset: Asset, fromasset: Command.DAssetTarget!, nexttiletarget: NextTarget))
                 }
             } else if EAssetAction.Construct == Asset.Action() {
-                var Command = Asset.CurrentCommand()
+                let Command = Asset.CurrentCommand()
                 if Command.DActivatedCapability != nil {
                     if Command.DActivatedCapability!.IncrementStep() {
                         // ALL DONE
