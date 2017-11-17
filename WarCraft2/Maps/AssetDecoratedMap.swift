@@ -311,6 +311,35 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset!
     }
 
+    func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
+        var AssetColor: EPlayerColor
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
+                print("...")
+                AssetColor = Asset.AssetType().DColor
+                return AssetColor
+            }
+        }
+        AssetColor = EPlayerColor.None
+        return AssetColor
+    }
+
+    func FakeFindAsset(pos: CTilePosition) -> EAssetType {
+        var BestAsset: EAssetType
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
+                BestAsset = Asset.AssetType().DType
+                return BestAsset
+            }
+        }
+        BestAsset = EAssetType.None
+        return BestAsset
+    }
+
     func RemoveLumber(pos: CTilePosition, from: CTilePosition, amount: Int) {
         var Index: Int! = 0
         for YOff in stride(from: 0, to: 2, by: 1) {

@@ -11,20 +11,28 @@ import SpriteKit
 
 class GameScene: SKScene {
     var applicationData: CApplicationData
+    var battleMode: CBattleMode
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(size: CGSize, applicationData: CApplicationData) {
+    init(size: CGSize, applicationData: CApplicationData, battleMode: CBattleMode) {
         self.applicationData = applicationData
+        self.battleMode = battleMode
         super.init(size: size)
-        anchorPoint = CGPoint(x: 0.2, y: 0.4)
+        //  scaleMode = .aspectFill
+        anchorPoint = CGPoint(x: 0, y: 1)
     }
 
     override func update(_: CFTimeInterval) {
         clean()
-        renderMap()
+        applicationData.DViewportSurface = self
+        battleMode.Input(context: applicationData)
+        battleMode.Calculate(context: applicationData)
+        battleMode.Render(context: applicationData)
+        applicationData.DLeftClick = 0
+        applicationData.DRightClick = 0
     }
 
     func renderMap() {

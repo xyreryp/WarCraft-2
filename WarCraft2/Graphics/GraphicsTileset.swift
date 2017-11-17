@@ -220,22 +220,9 @@ class CGraphicTileset {
         return true
     } // end DuplicateClippedTile()
 
-    //    func printDMapping() {
-    //        print("DMapping values")
-    //        for (k, v) in DMapping {
-    //            print("key: \(k)")
-    //            print("value: \(v)")
-    //        }
-    //    }
-    func FindTile(tilename: String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOUT
-        //        var findTile:Int? = DMapping[tilename]
-        //        print ("Found \(findTile) of tilename \(tilename)")
-        //        if findTile != nil { // if findTile exists
-        //            return findTile!
-        //        }
+    func FindTile(tilename: String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOU
         for (k, v) in DMapping {
             if String(k) == tilename {
-                print("Tilename was: \(tilename)")
                 return v
             }
         }
@@ -354,6 +341,19 @@ class CGraphicTileset {
         }
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
+
+        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
+        tempNode.position = CGPoint(x: xpos, y: ypos)
+        skscene.addChild(tempNode)
+    }
+
+    func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int, colorIndex: CPixelType) {
+        if 0 > tileindex || tileindex >= DTileCount {
+            return
+        }
+
+        let tempNode = SpriteNode(texture: DTileSet[tileindex])
+        tempNode.DPixelColor = colorIndex
         tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
