@@ -21,13 +21,13 @@ class GameScene: SKScene {
         self.applicationData = applicationData
         self.battleMode = battleMode
         super.init(size: size)
-        //  scaleMode = .aspectFill
         anchorPoint = CGPoint(x: 0, y: 1)
     }
 
     override func update(_: CFTimeInterval) {
         clean()
         applicationData.DViewportSurface = self
+        applicationData.DGameModel.Timestep()
         battleMode.Input(context: applicationData)
         battleMode.Render(context: applicationData)
         applicationData.DLeftClick = 0
