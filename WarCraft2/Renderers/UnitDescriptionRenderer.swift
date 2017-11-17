@@ -228,7 +228,7 @@ class CUnitDescriptionRenderer {
         //    func DrawUnitDescription(surface: SKScene, selectionlist: [CPlayerAsset?]) {
         DDisplayedIcons = 0
         if selectionlist.count > 0 {
-            var ResourceContext = surface.CreateResourceContext() // -> CGraphicResourceContext
+            let ResourceContext = surface.CreateResourceContext() // -> CGraphicResourceContext
             var HorizontalIcons: Int
             var VerticalIcons: Int
             var HorizontalGap: Int
@@ -245,12 +245,12 @@ class CUnitDescriptionRenderer {
             if selectionlist.count == 1 {
                 DDisplayedIcons = 1
                 if let Asset = selectionlist[0] { // not nil
-                    var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
+                    let HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
                     var TextWidth: Int = Int()
                     var TextHeight: Int = Int()
                     var TextCenter: Int = Int()
                     var TextTop: Int = Int()
-                    var AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
+                    let AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
 
                     var TempString: String = String()
 
@@ -435,9 +435,9 @@ class CUnitDescriptionRenderer {
                 DDisplayedIcons = 0
                 var HorizontalOffset: Int = DBevel.Width()
                 var VerticalOffset: Int = DBevel.Width()
-                for var Item in selectionlist {
+                for Item in selectionlist {
                     if let Asset = Item {
-                        var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
+                        let HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
                         var TextWidth: Int = Int()
                         var TextHeight: Int = Int()
                         var TextTop: Int = Int()
@@ -465,9 +465,9 @@ class CUnitDescriptionRenderer {
 
                         HorizontalOffset += DFullIconWidth + HorizontalGap
                         DDisplayedIcons = DDisplayedIcons + 1
-                        if 0 == (self.DDisplayedIcons % HorizontalIcons) {
-                            HorizontalOffset = self.self.DBevel.Width()
-                            VerticalOffset += self.DFullIconHeight + VerticalGap
+                        if 0 == (DDisplayedIcons % HorizontalIcons) {
+                            HorizontalOffset = `self`.DBevel.Width()
+                            VerticalOffset += DFullIconHeight + VerticalGap
                         }
                     }
                 }

@@ -335,7 +335,6 @@ class CAssetRenderer {
 
     //    // hard code locations, and which tile in tileset
     func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
-        let index = tileset.count - 1
 
         //        for tileset in DTilesets {
         //            switch tileset.

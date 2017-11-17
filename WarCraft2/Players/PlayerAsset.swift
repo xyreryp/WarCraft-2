@@ -158,16 +158,19 @@ class CPlayerAsset {
         return DGold
     }
 
+    @discardableResult
     func DecrementGold(gold: Int) -> Int {
         DGold -= gold
         return DGold
     }
 
+    @discardableResult
     func IncrementLumber(lumber: Int) -> Int {
         DLumber += lumber
         return DLumber
     }
 
+    @discardableResult
     func DecrementLumber(lumber: Int) -> Int {
         DLumber -= lumber
         return DLumber
@@ -177,6 +180,7 @@ class CPlayerAsset {
         return DLumber
     }
 
+    @discardableResult
     func Lumber(lumber: Int) -> Int {
         DLumber = lumber
         return DLumber

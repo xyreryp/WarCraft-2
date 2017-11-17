@@ -198,6 +198,7 @@ class CPosition {
     }
 
     // set new value to DY and return
+    @discardableResult
     func Y(y: Int) -> Int {
         DY = y
         return DY

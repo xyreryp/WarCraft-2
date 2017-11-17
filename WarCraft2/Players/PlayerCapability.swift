@@ -52,21 +52,18 @@ class CPlayerCapability {
         return DTargetType
     }
 
-    // FIXME: Not sure about return type
     static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
-        return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
+        fatalError("You should be able to find the player capability \(type).")
     }
 
-    // FIXME: Not sure about return type
     static func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
-
-        return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
+        fatalError("You should be able to find the player capability \(name).")
     }
 
     static func NameToType(name: String) -> EAssetCapabilityType {

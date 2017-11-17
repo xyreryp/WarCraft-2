@@ -150,6 +150,7 @@ class CAssetDecoratedMap: CTerrainMap {
         return CAssetDecoratedMap(map: DAllMaps[index], newcolors: &newcolors)
     }
 
+    @discardableResult
     func AddAsset(asset: CPlayerAsset) -> Bool {
         DAssets.append(asset)
         return true
@@ -315,7 +316,7 @@ class CAssetDecoratedMap: CTerrainMap {
     func FakeFindAsset(pos: CTilePosition) -> EAssetType {
         var BestAsset: EAssetType
         for Asset in DAssets {
-            var DTilePosition = CTilePosition()
+            let DTilePosition = CTilePosition()
             DTilePosition.SetFromPixel(pos: Asset.Position())
             if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
                 BestAsset = Asset.AssetType().DType

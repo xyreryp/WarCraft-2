@@ -649,33 +649,33 @@ class CBattleMode: CApplicationMode {
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
                 // find capability of the command
-                if let PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction) {
-                    if PlayerCapability != nil {
-                        var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-                        // if traget type is not none
-                        if (CPlayerCapability.ETargetType.None != PlayerCapability!.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability!.DTargetType) {
-                            // if no target type command, then create a marker aka if you clicked on grass
-                            if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-                                NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
-                            } else {
-                                // Not sure if need a let; got rid of a lock()
-                                // if you clicked on an asset, then select the asset
-                                NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
-                            }
-                        }
-                        // for all units that are selected for that player
-                        for WeakActor in context.DPlayerCommands[Index].DActors {
-                            if let Actor: CPlayerAsset? = WeakActor {
-                                // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
-                                if PlayerCapability!.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
-                                    // start the action if you can do it
-                                    // increment step for each action in basic cap
-                                    PlayerCapability?.ApplyCapability(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
-                                }
+                let PlayerCapability = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction)
+
+                var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+                // if traget type is not none
+                if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
+                    // if no target type command, then create a marker aka if you clicked on grass
+                    if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
+                        NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
+                    } else {
+                        // Not sure if need a let; got rid of a lock()
+                        // if you clicked on an asset, then select the asset
+                        NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
+                    }
+
+                    // for all units that are selected for that player
+                    for WeakActor in context.DPlayerCommands[Index].DActors {
+                        if let Actor: CPlayerAsset? = WeakActor {
+                            // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
+                            if PlayerCapability.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
+                                // start the action if you can do it
+                                // increment step for each action in basic cap
+                                PlayerCapability.ApplyCapability(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
                             }
                         }
                     }
                 }
+
                 // handled action, so set it back to none
                 context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }

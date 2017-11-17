@@ -16,7 +16,6 @@ import SpriteKit
 
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
         //        var viewportPixel = CGPoint(x: applicationData.DViewportRenderer.DViewportX, y: applicationData.DViewportRenderer.DViewportY)
         //        let sceneviewportPixel = viewPort.convert(viewportPixel, to: scene!.view)
         // print("ViewportEdge: \(sceneviewportPixel)")

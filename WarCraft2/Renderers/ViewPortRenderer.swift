@@ -42,6 +42,7 @@ class CViewportRenderer {
         return DViewportX
     }
 
+    @discardableResult
     func ViewPortX(x: Int) -> Int {
         DViewportX = x
         if DViewportX + DLastViewportWidth >= DMapRenderer.DetailedMapWidth() {
@@ -53,10 +54,12 @@ class CViewportRenderer {
         return DViewportX
     }
 
+    @discardableResult
     func ViewPortY() -> Int {
         return DViewportY
     }
 
+    @discardableResult
     func ViewPortY(y: Int) -> Int {
         DViewportY = y
         if DViewportY + DLastViewportHeight >= DMapRenderer.DetailedMapHeight() {

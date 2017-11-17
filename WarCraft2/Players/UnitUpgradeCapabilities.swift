@@ -232,7 +232,7 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
 
                         for WeakAsset in DPlayerData.Assets() {
                             if EAssetType.Archer == WeakAsset.Type() {
-                                var HitPointIncrement = ranger.DHitPoints - WeakAsset.MaxHitPoints()
+                                let HitPointIncrement = ranger.DHitPoints - WeakAsset.MaxHitPoints()
 
                                 WeakAsset.ChangeType(type: ranger)
                                 WeakAsset.IncrementHitPoints(hitpts: HitPointIncrement)
