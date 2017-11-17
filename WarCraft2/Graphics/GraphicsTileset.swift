@@ -152,6 +152,7 @@ class CGraphicTileset {
         return DTileCount
     } // end TileCount()
 
+    @discardableResult
     func ClearTile(index: Int) -> Bool {
         if (0 > index) || (index >= DTileCount) {
             return false

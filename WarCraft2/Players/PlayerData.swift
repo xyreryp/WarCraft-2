@@ -75,26 +75,31 @@ class CPlayerData {
         return DAssets.count > 0
     }
 
+    @discardableResult
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
         return DGold
     }
 
+    @discardableResult
     func DecrementGold(gold: Int) -> Int {
         DGold -= gold
         return DGold
     }
 
+    @discardableResult
     func IncrementLumber(lumber: Int) -> Int {
         DLumber += lumber
         return DLumber
     }
 
+    @discardableResult
     func DecrementLumber(lumber: Int) -> Int {
         DLumber -= lumber
         return DLumber
     }
 
+    @discardableResult
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
         for Asset in DAssets {
@@ -324,14 +329,14 @@ class CPlayerData {
         }
         for Asset in DPlayerMap.DAssets {
             if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
-                var Command = Asset.CurrentCommand()
+                let Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
                     if (Command.DAssetTarget != nil) && EAssetAction.Construct == Command.DAssetTarget?.Action() {
                         continue
                     }
                 }
                 if EAssetAction.ConveyGold != Command.DAction && EAssetAction.ConveyLumber != Command.DAction && EAssetAction.MineGold != Command.DAction {
-                    var CurrentDistance = Asset.ClosestPosition(pos: pos).DistanceSquared(pos: pos)
+                    let CurrentDistance = Asset.ClosestPosition(pos: pos).DistanceSquared(pos: pos)
 
                     if 0 > r || CurrentDistance <= r {
                         if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {

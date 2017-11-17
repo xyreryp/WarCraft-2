@@ -155,6 +155,7 @@ class CAssetDecoratedMap: CTerrainMap {
         return true
     }
 
+    @discardableResult
     func RemoveAsset(asset: CPlayerAsset) -> Bool {
         for index in 0 ... DAssets.count {
             if DAssets[index] === asset { // not certain if this will work, if not we need to make CPlayerAsset equatable
@@ -586,6 +587,7 @@ class CAssetDecoratedMap: CTerrainMap {
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: CPlayerAssetType.MaxSight())
     }
 
+    @discardableResult
     func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {
 
         if DMap.count != resmap.DMap.count {

@@ -188,14 +188,14 @@ class CUnitDescriptionRenderer {
 
     // TODO: Check if CGraphicSurface is actually
     func DrawCompletionBar(surface: CGraphicSurface, percent: Int) {
-        var ResourceContext = surface.CreateResourceContext()
+        let ResourceContext = surface.CreateResourceContext()
         var TextWidth: Int = Int()
         var TextHeight: Int = Int()
         var DisplayWidth: Int = Int()
         var TextTop: Int = Int()
         var TextBottom: Int = Int()
 
-        var BlackColor: UInt32 = 0x000000
+        let BlackColor: UInt32 = 0x000000
         DFonts[EFontSize.Large.rawValue].MeasureTextDetailed(str: "% Complete", width: &TextWidth, height: &TextHeight, top: &TextTop, bottom: &TextBottom)
 
         TextHeight = TextBottom - TextTop + 1
@@ -287,7 +287,7 @@ class CUnitDescriptionRenderer {
                     }
 
                     if DPlayerColor == Asset.Color() {
-                        if Asset.Speed() != nil { // issues
+                        if Asset.Speed() > 0 {
                             var TextLineHeight: Int = Int()
                             var UpgradeValue: Int = Int()
 
@@ -367,10 +367,11 @@ class CUnitDescriptionRenderer {
                                 } else if Command.DActivatedCapability != nil {
                                     PercentComplete = (Command.DActivatedCapability?.PercentComplete(max: 100))!
                                 }
+                                // FIXME:
                                 DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
                             } else if EAssetAction.Capability == Asset.Action() {
-                                var Command = Asset.CurrentCommand()
-                                var PercentComplete: Int = 0
+                                let Command = Asset.CurrentCommand()
+                                let PercentComplete: Int = 0
                                 // NOTE: this is in new Linux code?
                                 //                                if Command.DActivatedCapability != nil {
                                 //                                    PercentComplete = Command.DActivatedCapabilityPercentComplete(max: 100)

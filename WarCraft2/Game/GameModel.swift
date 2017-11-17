@@ -200,11 +200,11 @@ class CGameModel {
             }
 
             if EAssetAction.Capability == Asset.Action() {
-                var Command: SAssetCommand = Asset.CurrentCommand()
+                let Command: SAssetCommand = Asset.CurrentCommand()
                 if let command = Command.DActivatedCapability {
                     command.IncrementStep()
                 } else {
-                    var PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
+                    let PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
                     Asset.PopCommand()
 
                     if PlayerCapability.CanApply(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!) {
@@ -546,11 +546,11 @@ class CGameModel {
                              }
                              AttackDirection = DeltaPosition.TileOctant();
                              */
-                            var AttackDirection: EDirection = Asset.Position().DirectionTo(pos: ClosestTargetPosition)
+                            let AttackDirection: EDirection = Asset.Position().DirectionTo(pos: ClosestTargetPosition)
                             Asset.Direction(direction: AttackDirection)
                             Asset.IncrementStep()
                             if Asset.Step() == Asset.AttackSteps() {
-                                var ArrowAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
+                                let ArrowAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
                                 var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget!.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
                                 Damage += Asset.EffectivePiercingDamage()
@@ -586,7 +586,7 @@ class CGameModel {
                         }
                     }
                 } else {
-                    var NextCommand: SAssetCommand = Asset.NextCommand()
+                    let NextCommand: SAssetCommand = Asset.NextCommand()
                     Asset.PopCommand()
                     if EAssetAction.StandGround != NextCommand.DAction {
                         var NewTarget = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveSight())

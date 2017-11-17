@@ -115,8 +115,8 @@ class CRouterMap {
 
         TargetTile.SetFromPixel(pos: target)
         if (DMap.count != MapHeight + 2) || (DMap[0].count != MapWidth + 2) {
-            var LastYIndex: Int = MapHeight + 1
-            var LastXIndex: Int = MapWidth + 1
+            let LastYIndex: Int = MapHeight + 1
+            let LastXIndex: Int = MapWidth + 1
             DMap = [[Int]](repeating: [], count: MapHeight + 2)
             for var Row in DMap {
                 Row = [Int](repeating: Int(), count: MapWidth + 2)
@@ -133,8 +133,8 @@ class CRouterMap {
         }
 
         if asset.TilePosition() == TargetTile {
-            var DeltaX: Int = target.X() - asset.PositionX()
-            var DeltaY: Int = target.Y() - asset.PositionY()
+            let DeltaX: Int = target.X() - asset.PositionX()
+            let DeltaY: Int = target.Y() - asset.PositionY()
 
             if 0 < DeltaX {
                 if 0 < DeltaY {

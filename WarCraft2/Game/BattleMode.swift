@@ -59,9 +59,9 @@ class CBattleMode: CApplicationMode {
     // get inputs, set commands
     override func Input(context: CApplicationData) {
         // FIXME: this information is slightly off because of Viewport information and how clicks work. If you can figure out how to basically get the X/Y of the click that directly references the correct pixel, please fix it!
-        var CurrentX: Int = context.DCurrentX
+        let CurrentX: Int = context.DCurrentX
 
-        var CurrentY: Int = context.DCurrentY
+        let CurrentY: Int = context.DCurrentY
 
         var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
         var ViewportTile = CTilePosition()
@@ -84,17 +84,15 @@ class CBattleMode: CApplicationMode {
             // missing else statement
 
             // which player you are
-            var SearchColor = context.DPlayerColor
+            let SearchColor = context.DPlayerColor
             var PreviousSelections: [CPlayerAsset] = [CPlayerAsset]()
 
             // change values for when selecting multiple units
-            var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+            let TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
 
             // will need to check if this is being populated (most likely rectangle)
-            for WeakAsset in context.DSelectedPlayerAssets {
-                if let LockedAsset: CPlayerAsset? = WeakAsset {
-                    PreviousSelections.append(LockedAsset!)
-                }
+            for asset in context.DSelectedPlayerAssets { // FIXME: Original DSelectedPlayerAssets is weak var
+                PreviousSelections.append(asset)
             }
 
             // useless statement for now (multiplayer most likely)
@@ -109,7 +107,7 @@ class CBattleMode: CApplicationMode {
                 PreviousSelections.removeAll()
                 print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
                 // This is our "equivalent" of pixelType.AssetType() for now
-                var AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
+                let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
 
                 // Select peasant right now and appends the asset
                 context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!

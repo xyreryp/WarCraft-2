@@ -32,6 +32,7 @@ class CPlayerCapability {
     static var NameRegistry: [String: CPlayerCapability] = [:]
     static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
+    @discardableResult
     static func Register(capability: CPlayerCapability) -> Bool {
         if FindCapability(name: capability.DName) != nil {
             return false
@@ -168,5 +169,6 @@ class CPlayerCapability {
     // FIXME: Virtual
     func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
+    @discardableResult
     func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
 }

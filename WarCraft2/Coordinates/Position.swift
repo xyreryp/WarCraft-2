@@ -166,23 +166,27 @@ class CPosition {
     }
 
     // getter for DX
+    @discardableResult
     func X() -> Int {
         return DX
     }
 
     // set new value to DX and return
+    @discardableResult
     func X(x: Int) -> Int {
         DX = x
         return DX
     }
 
     // increment and return DX
+    @discardableResult
     func IncrementX(x: Int) -> Int {
         DX += x
         return DX
     }
 
     // decrement and return DY
+    @discardableResult
     func DecrementX(x: Int) -> Int {
         DX -= x
         return DX
@@ -200,12 +204,14 @@ class CPosition {
     }
 
     // increment and return DY
+    @discardableResult
     func IncrementY(y: Int) -> Int {
         DY += y
         return DY
     }
 
     // decrement and return DY
+    @discardableResult
     func DecrementY(y: Int) -> Int {
         DY -= y
         return DY
