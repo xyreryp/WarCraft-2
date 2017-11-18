@@ -676,7 +676,10 @@ class CBattleMode: CApplicationMode {
         }
 
         context.DGameModel.Timestep()
-        context.DSelectedPlayerAssets.filter { asset in
+
+        var removeIndex: Int?
+        for index in 0 ..< context.DSelectedPlayerAssets.count {
+            let asset = context.DSelectedPlayerAssets[index]
             if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
                 if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
                     if let assetType = asset.CurrentCommand().DAssetTarget {
@@ -688,9 +691,12 @@ class CBattleMode: CApplicationMode {
                         }
                     }
                 }
-                return true
+                removeIndex = index
+                break
             }
-            return false
+        }
+        if let removeIndex = removeIndex {
+            context.DSelectedPlayerAssets.remove(at: removeIndex)
         }
     }
 
