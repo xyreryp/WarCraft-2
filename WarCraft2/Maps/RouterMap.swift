@@ -180,13 +180,13 @@ class CRouterMap {
                             }
                         }
                     } else {
-                        DMap[Res.TilePositionY() + 1][Res.TilePositionX() + 1] = SEARCH_STATUS_OCCUPIED - (Res.DDirection.rawValue)
+                        DMap[Res.TilePositionY() + 1][Res.TilePositionX() + 1] = SEARCH_STATUS_OCCUPIED - (Res.Direction().rawValue)
                     }
                 }
             }
         }
 
-        CRouterMap.DIdealSearchDirection = asset.DDirection
+        CRouterMap.DIdealSearchDirection = asset.Direction()
         CurrentTile = asset.TilePosition()
         CurrentSearch.DX = CurrentTile.X()
         BestSearch.DX = CurrentTile.X()
@@ -209,7 +209,9 @@ class CRouterMap {
             for Index in 0 ..< SearchDirectionCount {
                 TempTile.X(x: CurrentSearch.DX + ResMapXOffsets[Index])
                 TempTile.Y(y: CurrentSearch.DY + ResMapYOffsets[Index])
-                if (SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1]) || CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: EDirection(rawValue: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1])!) {
+                print("\(TempTile.Y() + 1) and \(TempTile.X() + 1)")
+                print("This is temptile: \(DMap[TempTile.Y() + 1][TempTile.X() + 1]) comparing to \(SEARCH_STATUS_UNVISITED)")
+                if SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1] {
                     DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
                     let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
                     // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
@@ -222,6 +224,18 @@ class CRouterMap {
                         TempSearch.DInDirection = SearchDirections[Index]
                         SearchQueue.enqueue(TempSearch)
                     }
+                    //                } else if CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: EDirection(rawValue: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1])!) {
+                    //                    let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
+                    //                    // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
+                    //                    if CTerrainMap.IsTraversable(type: CurTileType) {
+                    //                        TempSearch.DX = TempTile.X()
+                    //                        TempSearch.DY = TempTile.Y()
+                    //                        TempSearch.DSteps = CurrentSearch.DSteps + 1
+                    //                        TempSearch.DTileType = CurTileType
+                    //                        TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(pos: TargetTile)
+                    //                        TempSearch.DInDirection = SearchDirections[Index]
+                    //                        SearchQueue.enqueue(TempSearch)
+                    //                    }
                 }
             }
             if SearchQueue.isEmpty {

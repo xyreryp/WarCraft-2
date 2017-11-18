@@ -305,7 +305,7 @@ class CPlayerAsset {
     // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
-            DCommands.removeLast()
+            return (DCommands.last)!
         }
         // FIXME: DActivatedCapability?
         var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)

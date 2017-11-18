@@ -765,7 +765,7 @@ class CBattleMode: CApplicationMode {
             }
         }
 
-        // context.DGameModel.Timestep()
+        context.DGameModel.Timestep()
         //        context.DSelectedPlayerAssets.filter { asset in
         //            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
         //                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
