@@ -81,12 +81,12 @@ class CRouterMap {
     static var DIdealSearchDirection: EDirection = EDirection.North
     static var DMapWidth: Int = 1
 
-    static func MovingAway(dir1: EDirection, dir2: EDirection) -> Bool {
+    static func MovingAway(dir1: EDirection, dir2: Int) -> Bool {
         var Value: Int
-        if (0 > dir2.rawValue) || (EDirection.Max.rawValue) <= dir2.rawValue {
+        if (0 > dir2) || (EDirection.Max.rawValue) <= dir2 {
             return false
         }
-        Value = ((EDirection.Max.rawValue + dir2.rawValue - dir1.rawValue) % EDirection.Max.rawValue)
+        Value = ((EDirection.Max.rawValue + dir2 - dir1.rawValue) % EDirection.Max.rawValue)
         if (1 >= Value) || (EDirection.Max.rawValue - 1) <= Value {
             return true
         }
@@ -100,7 +100,7 @@ class CRouterMap {
         var StartY: Int = asset.TilePositionY()
         var CurrentSearch: SSearchTarget = SSearchTarget() // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#Int#>)
         var BestSearch: SSearchTarget = SSearchTarget() // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
-        var TempSearch: SSearchTarget = SSearchTarget() // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
+        // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
         var CurrentTile: CTilePosition
         var TargetTile: CTilePosition = CTilePosition()
         var TempTile: CTilePosition = CTilePosition()
@@ -207,10 +207,9 @@ class CRouterMap {
                 BestSearch = CurrentSearch
             }
             for Index in 0 ..< SearchDirectionCount {
+                var TempSearch: SSearchTarget = SSearchTarget()
                 TempTile.X(x: CurrentSearch.DX + ResMapXOffsets[Index])
                 TempTile.Y(y: CurrentSearch.DY + ResMapYOffsets[Index])
-                print("\(TempTile.Y() + 1) and \(TempTile.X() + 1)")
-                print("This is temptile: \(DMap[TempTile.Y() + 1][TempTile.X() + 1]) comparing to \(SEARCH_STATUS_UNVISITED)")
                 if SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1] {
                     DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
                     let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
@@ -224,18 +223,18 @@ class CRouterMap {
                         TempSearch.DInDirection = SearchDirections[Index]
                         SearchQueue.enqueue(TempSearch)
                     }
-                    //                } else if CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: EDirection(rawValue: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1])!) {
-                    //                    let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
-                    //                    // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
-                    //                    if CTerrainMap.IsTraversable(type: CurTileType) {
-                    //                        TempSearch.DX = TempTile.X()
-                    //                        TempSearch.DY = TempTile.Y()
-                    //                        TempSearch.DSteps = CurrentSearch.DSteps + 1
-                    //                        TempSearch.DTileType = CurTileType
-                    //                        TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(pos: TargetTile)
-                    //                        TempSearch.DInDirection = SearchDirections[Index]
-                    //                        SearchQueue.enqueue(TempSearch)
-                    //                    }
+                } else if CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1]) {
+                    let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
+                    // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
+                    if CTerrainMap.IsTraversable(type: CurTileType) {
+                        TempSearch.DX = TempTile.X()
+                        TempSearch.DY = TempTile.Y()
+                        TempSearch.DSteps = CurrentSearch.DSteps + 1
+                        TempSearch.DTileType = CurTileType
+                        TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(pos: TargetTile)
+                        TempSearch.DInDirection = SearchDirections[Index]
+                        SearchQueue.enqueue(TempSearch)
+                    }
                 }
             }
             if SearchQueue.isEmpty {
@@ -270,7 +269,7 @@ class CRouterMap {
                     Sum += 8
                 }
                 Sum /= 2
-
+                print("Walking in this direction: \(Sum)")
                 LastInDirection = EDirection(rawValue: Sum)!
             }
         }
