@@ -678,8 +678,6 @@ class CBattleMode: CApplicationMode {
         }
 
         context.DGameModel.Timestep()
-
-        // MARK: PLEASE CHECK. TRYING TO MAKE SURE REMOVAL OF ITEM IS SAFE
         context.DSelectedPlayerAssets.filter { asset in
             if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
                 if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
