@@ -74,7 +74,6 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
         var SearchColor = context.DPlayerColor
-
         if context.DRightClick == 1 && context.DSelectedPlayerAssets.count != 0 {
             var CanMove: Bool = true
             for Asset in context.DSelectedPlayerAssets {
@@ -192,9 +191,11 @@ class CBattleMode: CApplicationMode {
 
                 // This is our "equivalent" of pixelType.AssetType() for now
                 let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
+                print("You found: \(AssetType)")
 
                 // Select peasant right now and appends the asset
                 context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
+                print(context.DSelectedPlayerAssets.count)
             }
         }
 
@@ -765,27 +766,27 @@ class CBattleMode: CApplicationMode {
 
         context.DGameModel.Timestep()
 
-        var removeIndex: Int?
-        for index in 0 ..< context.DSelectedPlayerAssets.count {
-            let asset = context.DSelectedPlayerAssets[index]
-            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
-                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
-                    if let assetType = asset.CurrentCommand().DAssetTarget {
-                        if EAssetAction.Construct == assetType.Action() {
-                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
-                            context.DSelectedPlayerAssets.removeAll()
-                            context.DSelectedPlayerAssets.append(assetType)
-                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                        }
-                    }
-                }
-                removeIndex = index
-                break
-            }
-        }
-        if let removeIndex = removeIndex {
-            context.DSelectedPlayerAssets.remove(at: removeIndex)
-        }
+        //        var removeIndex: Int?
+        //        for index in 0 ..< context.DSelectedPlayerAssets.count {
+        //            let asset = context.DSelectedPlayerAssets[index]
+        //            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
+        //                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
+        //                    if let assetType = asset.CurrentCommand().DAssetTarget {
+        //                        if EAssetAction.Construct == assetType.Action() {
+        //                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
+        //                            context.DSelectedPlayerAssets.removeAll()
+        //                            context.DSelectedPlayerAssets.append(assetType)
+        //                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+        //                        }
+        //                    }
+        //                }
+        //                removeIndex = index
+        //                break
+        //            }
+        //        }
+        //        if let removeIndex = removeIndex {
+        //            context.DSelectedPlayerAssets.remove(at: removeIndex)
+        //        }
     }
 
     /**

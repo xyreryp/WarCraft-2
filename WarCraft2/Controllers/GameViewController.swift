@@ -9,6 +9,32 @@
 import Foundation
 import Cocoa
 import SpriteKit
+extension SKView {
+    open override func mouseDown(with event: NSEvent) {
+        //        var viewportPixel = CGPoint(x: applicationData.DViewportRenderer.DViewportX, y: applicationData.DViewportRenderer.DViewportY)
+        //        let sceneviewportPixel = viewPort.convert(viewportPixel, to: scene!.view)
+        // print("ViewportEdge: \(sceneviewportPixel)")
+        //        applicationData.DCurrentY = Int(scene!.convertPoint(toView: event.locationInWindow).y)
+        //
+        //        applicationData.DCurrentX = Int(scene!.convertPoint(toView: event.locationInWindow).x)
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
+
+        //        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
+        //        let windowPoint = CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)
+        //        let scenePoint = viewPort.convert(windowPoint, to: scene!.view)
+        //        applicationData.DCurrentX = Int(NSEvent.mouseLocation.x)
+        //        applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
+        applicationData.DLeftClick = 1
+    }
+
+    open override func rightMouseDown(with event: NSEvent) {
+        // right mouse click
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = Int(event.locationInWindow.y)
+        applicationData.DRightClick = 1
+    }
+}
 
 var applicationData = CApplicationData()
 
@@ -45,12 +71,12 @@ class GameViewController: NSViewController {
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
-        let position = CPixelPosition(x: 71 * 32, y: 31 * 32) // location of the red color peasant in bay map
-        let peasant = applicationData.DPlayer.SelectAsset(pos: position, assettype: EAssetType.Peasant)
-        let targetPosition = CPixelPosition(x: 100 * 32, y: 100 * 32)
-        let target = applicationData.DPlayer.CreateMarker(pos: targetPosition, addtomap: true)
-        let moveCapability = CPlayerCapabilityMove()
-        moveCapability.ApplyCapability(actor: peasant, playerdata: applicationData.DPlayer, target: target)
+        //        let position = CPixelPosition(x: 71 * 32, y: 31 * 32) // location of the red color peasant in bay map
+        //        let peasant = applicationData.DPlayer.SelectAsset(pos: position, assettype: EAssetType.Peasant)
+        //        let targetPosition = CPixelPosition(x: 100 * 32, y: 100 * 32)
+        //        let target = applicationData.DPlayer.CreateMarker(pos: targetPosition, addtomap: true)
+        //        let moveCapability = CPlayerCapabilityMove()
+        //        moveCapability.ApplyCapability(actor: peasant, playerdata: applicationData.DPlayer, target: target)
     }
 
     func adjustPan(_ value: Int) -> Int {
