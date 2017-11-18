@@ -598,8 +598,6 @@ class CBattleMode: CApplicationMode {
          context.DPanningSpeed = 1 << CBattleMode.PAN_SPEED_SHIFT
          }
          } */
-
-        // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Input\n")
     }
 
     /**
@@ -681,9 +679,7 @@ class CBattleMode: CApplicationMode {
         context.DSelectedPlayerAssets.filter { asset in
             if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
                 if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
-                    let Command = asset.CurrentCommand()
-
-                    if let assetType = Command.DAssetTarget {
+                    if let assetType = asset.CurrentCommand().DAssetTarget {
                         if EAssetAction.Construct == assetType.Action() {
                             let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
                             context.DSelectedPlayerAssets.removeAll()
@@ -712,7 +708,6 @@ class CBattleMode: CApplicationMode {
         context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: cgr, selectrect: rect)
     }
 
-    //        // PrintDebug(DEBUG_LOW, "Started CBatleMode::Render\n")
     //        // FIXME: SRectangle doesn't exist
     //        var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
     //        var CurrentX: Int = Int()
@@ -857,7 +852,6 @@ class CBattleMode: CApplicationMode {
     //
     //        // FIXME: SoundEventRenderer
     //        // context.DSoundEventRenderer.RenderEvents(ViewportRectangle)
-    //        // PrintDebug(DEBUG_LOW, "Finished CBattleMode::Render\n")
     //    }
 
     func Instance() -> CApplicationMode {

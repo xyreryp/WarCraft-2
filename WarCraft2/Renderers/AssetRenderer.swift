@@ -135,7 +135,6 @@ class CAssetRenderer {
         DBuildIndices = [[Int]](repeating: [], count: DTilesets.count)
 
         for Tileset in DTilesets {
-            // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
             //            Tileset.printDMapping()
             for DirectionName in ["walk-n-", "walk-ne-", "walk-e-", "walk-se-", "walk-s-", "walk-sw-", "walk-w-", "walk-nw-"] {
                 var StepIndex: Int = 0
@@ -168,7 +167,7 @@ class CAssetRenderer {
                 }
                 StepIndex = StepIndex + 1
             }
-            // PrintDebug(DEBUG_LOW,"Checking Gold on %d\n",TypeIndex);
+
             for DirectionName in ["gold-n-", "gold-ne-", "gold-e-", "gold-se-", "gold-s-", "gold-sw-", "gold-w-", "gold-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -183,7 +182,7 @@ class CAssetRenderer {
                     StepIndex = StepIndex + 1
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Lumber on %d\n",TypeIndex);
+
             for DirectionName in ["lumber-n-", "lumber-ne-", "lumber-e-", "lumber-se-", "lumber-s-", "lumber-sw-", "lumber-w-", "lumber-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -198,7 +197,7 @@ class CAssetRenderer {
                     StepIndex = StepIndex + 1
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Attack on %d\n",TypeIndex);
+
             for DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "attack-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -227,7 +226,7 @@ class CAssetRenderer {
                     }
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Death on %d\n",TypeIndex);
+
             var LastDirectionName: String = "death-nw"
             for DirectionName in ["death-n-", "death-ne-", "death-e-", "death-se-", "death-s-", "death-sw-", "death-w-", "death-nw-"] {
                 var StepIndex: Int = 0
@@ -250,9 +249,10 @@ class CAssetRenderer {
                 }
                 LastDirectionName = DirectionName
             }
-            // if DDeathIndices[TypeIndex].count {
-            // }
-            // PrintDebug(DEBUG_LOW,"Checking None on %d\n",TypeIndex);
+            
+            if DDeathIndices[TypeIndex].count > 0 {
+            }
+            
             for DirectionName in ["none-n-", "none-ne-", "none-e-", "none-se-", "none-s-", "none-sw-", "none-w-", "none-nw-"] {
                 var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
                 if 0 <= TileIndex {
@@ -266,7 +266,7 @@ class CAssetRenderer {
                     }
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Build on %d\n",TypeIndex);
+
             for DirectionName in ["build-n-", "build-ne-", "build-e-", "build-se-", "build-s-", "build-sw-", "build-w-", "build-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -292,11 +292,8 @@ class CAssetRenderer {
                     StepIndex = StepIndex + 1
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Place on %d\n",TypeIndex);
+
             DPlaceIndices[TypeIndex].append(Tileset.FindTile(tilename: "place"))
-
-            // PrintDebug(DEBUG_LOW,"Done checking type %d\n",TypeIndex);
-
             TypeIndex = TypeIndex + 1
         }
     }
