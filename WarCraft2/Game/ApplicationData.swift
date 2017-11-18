@@ -110,7 +110,7 @@ class CApplicationData {
     // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
-    var DMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer!
     // cursor things
     // TODO: CCursorset?
     // var DCursorset: CCursorSet? = nil
@@ -274,7 +274,7 @@ class CApplicationData {
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
         // Map Renderer
-        DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
+        // DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
         // cursor things
         // TODO: uncomment later
