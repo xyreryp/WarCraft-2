@@ -375,9 +375,8 @@ class CPlayerAssetType {
     }
 
     static func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
-        var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
-        ReturnRegistry = DRegistry
-        return ReturnRegistry
+        // FIXME: Change color
+        return DRegistry
     }
 
     func Construct() -> CPlayerAsset {
