@@ -122,10 +122,12 @@ class CPlayerData {
         return TotalProduction
     }
 
+    @discardableResult
     func VisibilityMap() -> CVisibilityMap? {
         return DVisibilityMap
     }
 
+    @discardableResult
     func PlayerMap() -> CAssetDecoratedMap {
         return DPlayerMap
     }
