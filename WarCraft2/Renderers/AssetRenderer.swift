@@ -249,10 +249,10 @@ class CAssetRenderer {
                 }
                 LastDirectionName = DirectionName
             }
-            
+
             if DDeathIndices[TypeIndex].count > 0 {
             }
-            
+
             for DirectionName in ["none-n-", "none-ne-", "none-e-", "none-se-", "none-s-", "none-sw-", "none-w-", "none-nw-"] {
                 var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
                 if 0 <= TileIndex {
@@ -329,50 +329,6 @@ class CAssetRenderer {
 
         return first.DX <= second.DX
     }
-
-    //    // hard code locations, and which tile in tileset
-    func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
-
-        //        for tileset in DTilesets {
-        //            switch tileset.
-        //        }
-        tileset[5].DrawTile(skscene: surface, xpos: -100, ypos: -50, tileindex: 0) // peasant
-        tileset[5].DrawTile(skscene: surface, xpos: 100, ypos: -50, tileindex: 1) // peasant
-        tileset[5].DrawTile(skscene: surface, xpos: 200, ypos: -50, tileindex: 2) // Footman
-        tileset[5].DrawTile(skscene: surface, xpos: 300, ypos: -50, tileindex: 3) // Archer
-        tileset[5].DrawTile(skscene: surface, xpos: 400, ypos: -50, tileindex: 2) // Ranger
-        //        tileset[5].DrawTile(skscene: surface, xpos: 500, ypos: -50, tileindex: 1) // Goldmine
-        //        tileset[5].DrawTile(skscene: surface, xpos: 0, ypos: 0, tileindex: 1)
-        //        tileset[6].DrawTile(skscene: surface, xpos: 600, ypos: -50, tileindex: 3) // Townhall
-        //        tileset[5].DrawTile(skscene: surface, xpos: 700, ypos: -50, tileindex: 1) // keep
-        //        tileset[5].DrawTile(skscene: surface, xpos: 100, ypos: -200, tileindex: 1) // castle
-        //        tileset[5].DrawTile(skscene: surface, xpos: 200, ypos: -200, tileindex: 3) // Farm
-        //        tileset[10].DrawTile(skscene: surface, xpos: 300, ypos: -200, tileindex: 3) // Barracks
-        //        tileset[11].DrawTile(skscene: surface, xpos: 400, ypos: -200, tileindex: 3) // lumberMill
-        //        tileset[12].DrawTile(skscene: surface, xpos: 500, ypos: -200, tileindex: 2) // Blacksmith
-        //        tileset[13].DrawTile(skscene: surface, xpos: 600, ypos: -200, tileindex: 2) // ScoutTower
-        //        tileset[14].DrawTile(skscene: surface, xpos: 700, ypos: -200, tileindex: 0) // GuardTower
-        //        tileset[15].DrawTile(skscene: surface, xpos: 800, ypos: -200, tileindex: 0) // Cannon Tower
-    }
-
-    func movePeasant(x: Int, y: Int, surface: SKScene, tileset: [CGraphicTileset]) {
-
-        tileset[1].DrawTile(skscene: surface, xpos: x, ypos: y, tileindex: 0)
-    }
-
-    //    func TestDrawAssets(surface: SKScene, typesurface _: SKScene, rect: SRectangle) {
-    //        // split into [String: [Int]]
-    //        for asset in DPlayerMap.DStartingAssets {
-    //            let splitasset = asset.split(separator: " ")
-    //            let assetname = splitasset[0]
-    //            let owner = splitasset[1]
-    //            let xpos = splitasset[2]
-    //            let ypos = splitasset[3]
-    //
-    //
-    //        }
-    //
-    //    }
 
     func DrawAssets(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
@@ -594,9 +550,6 @@ class CAssetRenderer {
         }
 
         for LockedAsset in selectionlist {
-            // if var LockedAsset = AssetIterator.lock() {
-            // if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
-
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = LockedAsset.Type()
             if EAssetType.None == TempRenderData.DType {
@@ -845,8 +798,8 @@ class CAssetRenderer {
             }
             if OnScreen {
                 var XPos, YPos: Int
-                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
-                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
                 // FIXME:
                 DTilesets[type.rawValue].DrawTile(skscene: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
                 XPos = TempPosition.X()
