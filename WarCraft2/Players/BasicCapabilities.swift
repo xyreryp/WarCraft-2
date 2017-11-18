@@ -69,7 +69,7 @@ class CPlayerCapabilityMove: CPlayerCapability {
         return actor.Speed() > 0
     }
 
-    func CanApply(actor: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerData) -> Bool {
+    override func CanApply(actor: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool {
         return actor.Speed() > 0
     }
 

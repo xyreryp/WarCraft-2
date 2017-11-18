@@ -320,7 +320,6 @@ class CAssetDecoratedMap: CTerrainMap {
             let DTilePosition = CTilePosition()
             DTilePosition.SetFromPixel(pos: Asset.Position())
             if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
-                print("...")
                 AssetColor = Asset.AssetType().DColor
                 return AssetColor
             }

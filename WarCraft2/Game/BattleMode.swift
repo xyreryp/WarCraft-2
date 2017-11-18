@@ -95,7 +95,7 @@ class CBattleMode: CApplicationMode {
 
                 // Don't enter this if loop - not tested. This means you click on peasant and then you clicked on building. Only continue if you have correct color for building/code for building in GameModel::Timestep()
                 if fakeColor != EPlayerColor.None {
-
+                    print("Wrong. You are not walking, in wrong loop")
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
                     // FIXME: need colors to be right for playerAssets
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = fakeColor
@@ -135,6 +135,7 @@ class CBattleMode: CApplicationMode {
                     }
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 } else {
+                    print("Entered walking loop")
                     var CanHarvest: Bool = true
                     var fakeColor = context.DGameModel.DActualMap.fakeFindColor(pos: ClickedTile)
 
@@ -737,6 +738,7 @@ class CBattleMode: CApplicationMode {
                 if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
                     // if no target type command, then create a marker aka if you clicked on grass
                     if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
+                        print("here")
                         NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
                     } else {
                         // Not sure if need a let; got rid of a lock()
@@ -748,7 +750,9 @@ class CBattleMode: CApplicationMode {
                     for Actor in context.DPlayerCommands[Index].DActors {
 
                         // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
-                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
+                        // FIXME: removing Actor.Interruptible and EAssetCapabilityCancel from if statement
+                        //                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
+                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) {
                             // start the action if you can do it
                             // increment step for each action in basic cap
                             PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
@@ -761,25 +765,25 @@ class CBattleMode: CApplicationMode {
             }
         }
 
-        context.DGameModel.Timestep()
-        context.DSelectedPlayerAssets.filter { asset in
-            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
-                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
-                    let Command = asset.CurrentCommand()
-
-                    if let assetType = Command.DAssetTarget {
-                        if EAssetAction.Construct == assetType.Action() {
-                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
-                            context.DSelectedPlayerAssets.removeAll()
-                            context.DSelectedPlayerAssets.append(assetType)
-                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                        }
-                    }
-                }
-                return true
-            }
-            return false
-        }
+        // context.DGameModel.Timestep()
+        //        context.DSelectedPlayerAssets.filter { asset in
+        //            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
+        //                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
+        //                    let Command = asset.CurrentCommand()
+        //
+        //                    if let assetType = Command.DAssetTarget {
+        //                        if EAssetAction.Construct == assetType.Action() {
+        //                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
+        //                            context.DSelectedPlayerAssets.removeAll()
+        //                            context.DSelectedPlayerAssets.append(assetType)
+        //                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+        //                        }
+        //                    }
+        //                }
+        //                return true
+        //            }
+        //            return false
+        //        }
     }
 
     /**

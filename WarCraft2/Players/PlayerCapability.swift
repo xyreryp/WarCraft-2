@@ -34,7 +34,7 @@ class CPlayerCapability {
 
     @discardableResult
     static func Register(capability: CPlayerCapability) -> Bool {
-        FindCapability(name: capability.DName)
+        // FindCapability(name: capability.DName)
 
         NameRegistry[capability.DName] = capability
         TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
