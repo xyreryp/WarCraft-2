@@ -16,7 +16,6 @@ import SpriteKit
 
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
         //        var viewportPixel = CGPoint(x: applicationData.DViewportRenderer.DViewportX, y: applicationData.DViewportRenderer.DViewportY)
         //        let sceneviewportPixel = viewPort.convert(viewportPixel, to: scene!.view)
         // print("ViewportEdge: \(sceneviewportPixel)")
@@ -69,8 +68,6 @@ class GameViewController: NSViewController {
         }
 
         applicationData.Activate()
-        //        skscene = GameScene(size: CGSize(width: 450, height: 300), applicationData: applicationData, battleMode: battleMode)
-        //        skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skscene = GameScene(size: CGSize(width: 800, height: 600), applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)

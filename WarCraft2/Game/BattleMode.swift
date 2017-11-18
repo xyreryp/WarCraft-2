@@ -59,9 +59,9 @@ class CBattleMode: CApplicationMode {
     // get inputs, set commands
     override func Input(context: CApplicationData) {
         // FIXME: this information is slightly off because of Viewport information and how clicks work. If you can figure out how to basically get the X/Y of the click that directly references the correct pixel, please fix it!
-        var CurrentX: Int = context.DCurrentX
+        let CurrentX: Int = context.DCurrentX
 
-        var CurrentY: Int = context.DCurrentY
+        let CurrentY: Int = context.DCurrentY
 
         var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
         var ViewportTile = CTilePosition()
@@ -164,16 +164,17 @@ class CBattleMode: CApplicationMode {
             // missing else statement
 
             // which player you are
+
+            let SearchColor = context.DPlayerColor
+
             var PreviousSelections: [CPlayerAsset] = [CPlayerAsset]()
 
             // change values for when selecting multiple units
-            var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+            let TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
 
-            // will cneed to check if this is being populated (most likely rectangle)
-            for WeakAsset in context.DSelectedPlayerAssets {
-                if let LockedAsset: CPlayerAsset? = WeakAsset {
-                    PreviousSelections.append(LockedAsset!)
-                }
+            // will need to check if this is being populated (most likely rectangle)
+            for asset in context.DSelectedPlayerAssets { // FIXME: Original DSelectedPlayerAssets is weak var
+                PreviousSelections.append(asset)
             }
 
             // useless statement for now (multiplayer most likely)
@@ -187,9 +188,12 @@ class CBattleMode: CApplicationMode {
             } else {
                 PreviousSelections.removeAll()
                 print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
-                var fakeAssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
-                // Select peasant right now and appends the asset. FakeAssetType is equivalent to: PixelType.AssetType() in the C++ code
-                context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: fakeAssetType))!
+
+                // This is our "equivalent" of pixelType.AssetType() for now
+                let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
+
+                // Select peasant right now and appends the asset
+                context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
             }
         }
 
@@ -692,136 +696,90 @@ class CBattleMode: CApplicationMode {
      */
     // tell game to actuall do the actions from input
     override func Calculate(context: CApplicationData) {
+
+        // number of players left in the battle
+        var PlayerLeft = 0
+
+        // calculate the total number of players left in the battle
+        for Index in 1 ..< EPlayerColor.Max.rawValue {
+            if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAlive())! {
+                PlayerLeft += 1
+
+                // if there is any NPC left in the battle
+                if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+                    CBattleMode.DBattleWon = false
+                } else {
+                    CBattleMode.DBattleWon = true
+                }
+            }
+            // FIXME: NOT CRUCIAL FOR NOW
+            //            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
+            //                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
+            //            }
+        }
+
+        // if game is oer
+        // if there is only one player left in battle, battle ends
+        // FIXME: uncomment when CEndOfBattleMode finish
+        //        if PlayerLeft == 1 {
+        //            context.ChangeApplicationMode(CEndOfBattleMode.Instance())
+        //        }
+
+        // go through all the players, check all their current commands
         for Index in 1 ..< EPlayerColor.Max.rawValue {
             // print("\(context.DPlayerCommands[Index].DAction)")
             if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
-                var PlayerCapability = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction)
-                // FIXME: need an actual PlayerCapability from FindCapability
-                if true {
-                    var NewTarget: CPlayerAsset!
-                    // FIXME: Hardcoded. Need PlayerCapability::FindCapability to be working
-                    PlayerCapability.DTargetType = CPlayerCapability.ETargetType.Terrain
-                    if PlayerCapability.TargetType() != CPlayerCapability.ETargetType.None && PlayerCapability.TargetType() != CPlayerCapability.ETargetType.Player {
-                        // Should always go in if loop if walking
-                        if context.DPlayerCommands[Index].DTargetType == EAssetType.None {
-                            print("I should be walking and creating a marker")
-                            NewTarget = (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true))!
-                        } else {
-                            print("I shouldn't want to be here!")
-                            NewTarget = (context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)?.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType))!
-                        }
+                // find capability of the command
+                let PlayerCapability = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction)
+
+                var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+                // if traget type is not none
+                if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
+                    // if no target type command, then create a marker aka if you clicked on grass
+                    if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
+                        NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
+                    } else {
+                        // Not sure if need a let; got rid of a lock()
+                        // if you clicked on an asset, then select the asset
+                        NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
                     }
-                    for Asset in context.DPlayerCommands[Index].DActors {
-                        if PlayerCapability.CanApply(actor: Asset, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Asset.Interruptible() || context.DPlayerCommands[Index].DAction == EAssetCapabilityType.Cancel) {
-                            PlayerCapability.ApplyCapability(actor: Asset, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
+
+                    // for all units that are selected for that player
+                    for Actor in context.DPlayerCommands[Index].DActors {
+
+                        // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
+                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
+                            // start the action if you can do it
+                            // increment step for each action in basic cap
+                            PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
                         }
                     }
                 }
+
+                // handled action, so set it back to none
                 context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }
         }
-        //      context.DGameModel.Timestep()
 
-        //        // PrintDebug(DEBUG_LOW, "Started CBattleMode::Calculate\n")
-        //
-        //        // number of players left in the battle
-        //        var PlayerLeft = 0
-        //
-        //        // PrintDebug(DEBUG_LOW, "Started 1st for loop\n")
-        //
-        //        // calculate the total number of players left in the battle
-        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
-        //            if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAlive())! {
-        //                PlayerLeft += 1
-        //
-        //                // if there is any NPC left in the battle
-        //                if (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-        //                    CBattleMode.DBattleWon = false
-        //                } else {
-        //                    CBattleMode.DBattleWon = true
-        //                }
-        //            }
-        //            // give them a command to do
-        //            // FIXME: NOT CRUCIAL FOR NOW
-        //            //            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
-        //            //                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
-        //            //            }
-        //        }
-        //
-        //        // if game is oer
-        //        // if there is only one player left in battle, battle ends
-        //        // if PlayerLeft == 1 {
-        //        //     context.ChangeApplicationMode(CEndOfBattleMode.Instance())
-        //        // }
-        //
-        //        // go through all the players, check all their current commands
-        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
-        //            if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
-        //                // find capability of the command
-        //                if let PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction) {
-        //                    if PlayerCapability != nil {
-        //                        var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-        //                        // if traget type is not none
-        //                        if (CPlayerCapability.ETargetType.None != PlayerCapability!.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability!.DTargetType) {
-        //                            // if no target type command, then create a marker aka if you clicked on grass
-        //                            if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-        //                                NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
-        //                            } else {
-        //                                // Not sure if need a let; got rid of a lock()
-        //                                // if you clicked on an asset, then select the asset
-        //                                NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
-        //                            }
-        //                        }
-        //                        // for all units that are selected for that player
-        //                        for WeakActor in context.DPlayerCommands[Index].DActors {
-        //                            if let Actor: CPlayerAsset? = WeakActor {
-        //                                // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
-        //                                if PlayerCapability!.CanApply(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && ((Actor?.Interruptible())! || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction)) {
-        //                                    // start the action if you can do it
-        //                                    // increment step for each action in basic cap
-        //                                    PlayerCapability?.ApplyCapability(actor: Actor!, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //                // handled action, so set it back to none
-        //                context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
-        //            }
-        //        }
-        //
-        //        // MARK: - Timestep()
-        //        // all assets increment their time step
-        //        // do a step of their command
-        //        context.DGameModel.Timestep()
-        //        //        PrintDebug(DEBUG_LOW, "Started 1st while (4th loop)\n")
-        //
-        //        // MARK: PLEASE CHECK. TRYING TO MAKE SURE REMOVAL OF ITEM IS SAFE
-        //        for (Index, AssetItem) in context.DSelectedPlayerAssets.enumerated().reversed() {
-        //            if let Asset: CPlayerAsset? = AssetItem { // WeakAsset should never return nil?
-        //                if context.DGameModel.ValidAsset(asset: Asset!) && Asset!.Alive() {
-        //                    if Asset!.Speed() != 0 && (EAssetAction.Capability == Asset!.Action()) {
-        //                        var Command = Asset!.CurrentCommand()
-        //                        if (Command.DAssetTarget != nil) && (EAssetAction.Construct == Command.DAssetTarget?.Action()) {
-        //                            // var TempEvent: SGameEvent NEED TO ADD
-        //                            var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-        //                            context.DSelectedPlayerAssets.removeAll()
-        //                            context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
-        //                            TempEvent.DType = EEventType.Selection
-        //                            TempEvent.DAsset = Command.DAssetTarget!
-        //                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-        //                            break
-        //                        }
-        //                    }
-        //                } else {
-        //                    context.DSelectedPlayerAssets.remove(at: Index)
-        //                }
-        //            } else {
-        //                context.DSelectedPlayerAssets.remove(at: Index)
-        //            }
-        //        }
-        //        //   PrintDebug(DEBUG_LOW, "Finished 1st while (4th loop)\n")
-        //        //  PrintDebug(DEBUG_LOW, "Finished CBattleMode::Calculate\n")
+        context.DGameModel.Timestep()
+        context.DSelectedPlayerAssets.filter { asset in
+            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
+                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
+                    let Command = asset.CurrentCommand()
+
+                    if let assetType = Command.DAssetTarget {
+                        if EAssetAction.Construct == assetType.Action() {
+                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
+                            context.DSelectedPlayerAssets.removeAll()
+                            context.DSelectedPlayerAssets.append(assetType)
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                        }
+                    }
+                }
+                return true
+            }
+            return false
+        }
     }
 
     /**

@@ -111,7 +111,7 @@ class CDataSource {
     func GetNumLinesBetweenComments() -> Int {
         var numLines = 0
         let currentLine = DCurrentLine + 1 // Skip the first comment line
-        while DData[currentLine + numLines].characters.contains("#") == false {
+        while DData[currentLine + numLines].contains("#") == false {
             numLines += 1
         }
         return numLines

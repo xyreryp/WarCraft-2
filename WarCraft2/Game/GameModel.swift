@@ -162,11 +162,11 @@ class CGameModel {
             }
         }
         // update visibility
-//        for PlayerIndex in 1 ..< EPlayerColor.Max.rawValue {
-//            if DPlayers[PlayerIndex].IsAlive() {
-//                DPlayers[PlayerIndex].UpdateVisibility()
-//            }
-//        }
+        //        for PlayerIndex in 1 ..< EPlayerColor.Max.rawValue {
+        //            if DPlayers[PlayerIndex].IsAlive() {
+        //                DPlayers[PlayerIndex].UpdateVisibility()
+        //            }
+        //        }
         var AllAssets = DActualMap.Assets() // AllAssets is of [CPlayerAsset] type
 
         //        Following Code implements sorting the order of the asset turns.
@@ -200,11 +200,11 @@ class CGameModel {
             }
 
             if EAssetAction.Capability == Asset.Action() {
-                var Command: SAssetCommand = Asset.CurrentCommand()
+                let Command: SAssetCommand = Asset.CurrentCommand()
                 if let command = Command.DActivatedCapability {
                     command.IncrementStep()
                 } else {
-                    var PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
+                    let PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
                     Asset.PopCommand()
 
                     if PlayerCapability.CanApply(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!) {
@@ -225,7 +225,7 @@ class CGameModel {
                 if EDirection.Max == HarvestDirection {
                     if TilePosition == Asset.TilePosition() {
                         // want to harvest, but missed. find nearest of that type aka forest or mine or etc
-                        var TilePosition: CTilePosition = DPlayers[Asset.Color().rawValue].DPlayerMap.FindNearestReachableTileType(pos: Asset.TilePosition(), type: CTerrainMap.ETileType.Forest)
+                        let TilePosition: CTilePosition = DPlayers[Asset.Color().rawValue].DPlayerMap.FindNearestReachableTileType(pos: Asset.TilePosition(), type: CTerrainMap.ETileType.Forest)
                         // Find new lumber
                         Asset.PopCommand()
                         if 0 <= TilePosition.X() {
@@ -269,8 +269,8 @@ class CGameModel {
                 }
             } else if EAssetAction.MineGold == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                var ClosestPosition: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
-                var TilePosition: CTilePosition = CTilePosition()
+                let ClosestPosition: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
+                let TilePosition: CTilePosition = CTilePosition()
                 var MineDirection: EDirection
                 TilePosition.SetFromPixel(pos: ClosestPosition)
                 MineDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
@@ -282,7 +282,7 @@ class CGameModel {
                 } else {
                     if 0 == Asset.Step() {
                         if ((Command.DAssetTarget?.CommandCount())! + 1) * DGoldPerMining <= (Command.DAssetTarget?.Gold())! {
-                            var NewCommand = SAssetCommand(DAction: EAssetAction.Build, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
+                            let NewCommand = SAssetCommand(DAction: EAssetAction.Build, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
                             Command.DAssetTarget?.EnqueueCommand(command: NewCommand)
                             Asset.IncrementStep()
                             Asset.TilePosition(pos: (Command.DAssetTarget?.TilePosition())!)
@@ -293,15 +293,15 @@ class CGameModel {
                     } else {
                         Asset.IncrementStep()
                         if DMineSteps <= Asset.Step() {
-                            var OldTarget: CPlayerAsset? = Command.DAssetTarget
-                            var NearestRepository: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(pos: Asset.Position(), assettypes: [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle])
+                            let OldTarget: CPlayerAsset? = Command.DAssetTarget
+                            let NearestRepository: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(pos: Asset.Position(), assettypes: [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle])
 
                             var NextTarget: CTilePosition? = CTilePosition(x: DPlayers[Asset.Color().rawValue].DPlayerMap.Width() - 1, y: DPlayers[Asset.Color().rawValue].DPlayerMap.Height() - 1)
                             Command.DAssetTarget?.DecrementGold(gold: DGoldPerMining)
                             Command.DAssetTarget?.PopCommand()
                             if let goldValue = Command.DAssetTarget?.Gold() {
                                 if 0 >= goldValue {
-                                    var NewCommand = SAssetCommand(DAction: .Death, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+                                    let NewCommand = SAssetCommand(DAction: .Death, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
                                     Command.DAssetTarget?.ClearCommand()
                                     Command.DAssetTarget?.PushCommand(command: NewCommand)
                                     Command.DAssetTarget?.ResetStep()
@@ -326,7 +326,7 @@ class CGameModel {
 
             } else if EAssetAction.StandGround == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
-                var NewTarget: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveRange())
+                let NewTarget: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveRange())
                 if NewTarget != nil {
                     Command.DAction = EAssetAction.None
                 } else {
@@ -339,9 +339,9 @@ class CGameModel {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
                 if let Alive = CurrentCommand.DAssetTarget?.Alive() { // doesn't actually check if alive.  Only checks if DAssetTarget exists.
                     if Alive {
-                        var RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
+                        let RepairDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
                         if EDirection.Max == RepairDirection {
-                            var NextCommand: SAssetCommand = Asset.NextCommand()
+                            var NextCommand = Asset.NextCommand()
                             CurrentCommand.DAction = EAssetAction.Walk
                             Asset.PushCommand(command: CurrentCommand)
                             Asset.ResetStep()
@@ -381,7 +381,7 @@ class CGameModel {
             } else if EAssetAction.Attack == Asset.Action() {
                 var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
                 if EAssetType.None == Asset.Type() {
-                    var ClosestTargetPosition: CPixelPosition = (CurrentCommand.DAssetTarget?.ClosestPosition(pos: Asset.Position()))!
+                    let ClosestTargetPosition: CPixelPosition = CurrentCommand.DAssetTarget!.ClosestPosition(pos: Asset.Position())
                     let DeltaPosition = CPixelPosition(x: ClosestTargetPosition.X() - Asset.PositionX(), y: ClosestTargetPosition.Y() - Asset.PositionY())
                     let Movement = (CPosition.TileWidth() * 5) / CPlayerAsset.UpdateFrequency()
                     let TargetDistance = Asset.Position().Distance(pos: ClosestTargetPosition)
@@ -441,9 +441,9 @@ class CGameModel {
                     }
                 } else if CurrentCommand.DAssetTarget!.Alive() {
                     if 1 == Asset.EffectiveRange() {
-                        var AttackDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
+                        let AttackDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: CurrentCommand.DAssetTarget!.TilePosition(), objsize: CurrentCommand.DAssetTarget!.Size())
                         if EDirection.Max == AttackDirection {
-                            var NextCommand: SAssetCommand = Asset.NextCommand()
+                            var NextCommand = Asset.NextCommand()
                             if EAssetAction.StandGround != NextCommand.DAction {
                                 CurrentCommand.DAction = EAssetAction.Walk
                                 Asset.PushCommand(command: CurrentCommand)
@@ -546,11 +546,11 @@ class CGameModel {
                              }
                              AttackDirection = DeltaPosition.TileOctant();
                              */
-                            var AttackDirection: EDirection = Asset.Position().DirectionTo(pos: ClosestTargetPosition)
+                            let AttackDirection: EDirection = Asset.Position().DirectionTo(pos: ClosestTargetPosition)
                             Asset.Direction(direction: AttackDirection)
                             Asset.IncrementStep()
                             if Asset.Step() == Asset.AttackSteps() {
-                                var ArrowAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
+                                let ArrowAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
                                 var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget!.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
                                 Damage += Asset.EffectivePiercingDamage()
@@ -586,10 +586,10 @@ class CGameModel {
                         }
                     }
                 } else {
-                    var NextCommand: SAssetCommand = Asset.NextCommand()
+                    let NextCommand: SAssetCommand = Asset.NextCommand()
                     Asset.PopCommand()
                     if EAssetAction.StandGround != NextCommand.DAction {
-                        var NewTarget = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveSight())
+                        let NewTarget = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveSight())
                         // if !NewTarget.expired()
                         // FIXME: not sure how to handle this conditional check listed in the comments above
                         if !(NewTarget == nil) {
@@ -603,7 +603,7 @@ class CGameModel {
             } else if (EAssetAction.ConveyLumber == Asset.Action()) || (EAssetAction.ConveyGold == Asset.Action()) {
                 Asset.IncrementStep()
                 if DConveySteps <= Asset.Step() {
-                    var Command: SAssetCommand = Asset.CurrentCommand()
+                    let Command = Asset.CurrentCommand()
                     var NextTarget = CTilePosition(x: DPlayers[Asset.Color().rawValue].DPlayerMap.Width() - 1, y: DPlayers[Asset.Color().rawValue].DPlayerMap.Height() - 1)
                     DPlayers[Asset.Color().rawValue].IncrementGold(gold: Asset.Gold())
                     DPlayers[Asset.Color().rawValue].IncrementLumber(lumber: Asset.Lumber())
@@ -617,7 +617,7 @@ class CGameModel {
                     Asset.TilePosition(pos: DPlayers[Asset.Color().rawValue].DPlayerMap.FindAssetPlacement(placeasset: Asset, fromasset: Command.DAssetTarget!, nexttiletarget: NextTarget))
                 }
             } else if EAssetAction.Construct == Asset.Action() {
-                var Command: SAssetCommand = Asset.CurrentCommand()
+                let Command = Asset.CurrentCommand()
                 if Command.DActivatedCapability != nil {
                     if Command.DActivatedCapability!.IncrementStep() {
                         // ALL DONE
@@ -628,9 +628,9 @@ class CGameModel {
                 if Asset.Step() > DDeathSteps {
                     if Asset.Speed() != 0 {
                         // FIXME: look at DecayCommand, could be an issue with initialization to nil
-                        var DecayCommand = SAssetCommand(DAction: EAssetAction.Decay, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
+                        let DecayCommand = SAssetCommand(DAction: EAssetAction.Decay, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
                         // Create corpse
-                        var CorpseAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
+                        let CorpseAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
                         CorpseAsset.Position(position: Asset.Position())
                         CorpseAsset.Direction(direction: Asset.Direction())
                         CorpseAsset.PushCommand(command: DecayCommand)
@@ -650,9 +650,9 @@ class CGameModel {
                 if Asset.TileAligned() {
                     var Command: SAssetCommand = Asset.CurrentCommand()
                     // grab next command from the stack
-                    var NextCommand: SAssetCommand = Asset.NextCommand()
+                    let NextCommand = Asset.NextCommand()
                     var TravelDirection: EDirection
-                    var MapTarget: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
+                    let MapTarget: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
                     // dont need
                     // if after walking you need to attack. if attack is below move on the command stack
                     if EAssetAction.Attack == NextCommand.DAction {
@@ -687,7 +687,7 @@ class CGameModel {
                             Asset.PopCommand()
                             Asset.PopCommand()
                             if 0 <= TilePosition.X() {
-                                var NewPosition: CPixelPosition = CPixelPosition()
+                                var NewPosition = CPixelPosition()
                                 NewPosition.SetFromTile(pos: TilePosition)
                                 Command.DAction = EAssetAction.HarvestLumber
                                 Command.DAssetTarget = DPlayers[Asset.Color().rawValue].CreateMarker(pos: NewPosition, addtomap: false)

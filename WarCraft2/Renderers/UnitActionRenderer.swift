@@ -31,9 +31,6 @@ class CUnitActionRenderer {
         DFulliconHeight = DIconTileset.TileHeight() + DBevel.Width() * 2
 
         DDisplayedCommands = [EAssetCapabilityType](repeating: EAssetCapabilityType.None, count: 9)
-        for var Commands in DDisplayedCommands {
-            Commands = EAssetCapabilityType.None
-        }
         DCommandIndices = [Int](repeating: Int(), count: EAssetCapabilityType.Max.rawValue)
         DCommandIndices[EAssetCapabilityType.None.rawValue] = -1
         DCommandIndices[EAssetCapabilityType.BuildPeasant.rawValue] = DIconTileset.FindTile(tilename: "peasant")
@@ -86,7 +83,7 @@ class CUnitActionRenderer {
 
     func Selection(pos: CPosition) -> EAssetCapabilityType {
         if ((pos.X() % (DFullIconWidth + DBevel.Width())) < DFullIconWidth) && ((pos.Y() % (DFulliconHeight + DBevel.Width()) < DFulliconHeight)) {
-            var Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
+            let Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
             return DDisplayedCommands[Index]
         }
         return EAssetCapabilityType.None
@@ -100,30 +97,27 @@ class CUnitActionRenderer {
         var HasCargo: Bool = false
         var UnitType: EAssetType = EAssetType.None
 
-        for var Command in DDisplayedCommands {
-            Command = EAssetCapabilityType.None
+        for Index in 0 ..< DDisplayedCommands.count {
+            DDisplayedCommands[Index] = EAssetCapabilityType.None
         }
 
         if selectionlist.count == 0 {
             return
         }
 
-        for var Iterator: CPlayerAsset in selectionlist {
-            // for Iterator: Int in selectionlist {
-            if let Asset: CPlayerAsset = Iterator { // FIXME, NOTE: This is weak_ptr lock()
-                if DPlayerColor != Asset.Color() {
-                    return
-                }
-                if IsFirst {
-                    UnitType = Asset.Type()
-                    IsFirst = false
-                    Moveable = 0 < Asset.Speed() // NOTE: Asset must be of type CPlayerAsset
-                } else if UnitType != Asset.Type() { // NOTE: Asset is currently of <error> type
-                    AllSame = false
-                }
-                if (Asset.Lumber() > 0) || (Asset.Gold() > 0) {
-                    HasCargo = true
-                }
+        for Asset in selectionlist {
+            if DPlayerColor != Asset.Color() {
+                return
+            }
+            if IsFirst {
+                UnitType = Asset.Type()
+                IsFirst = false
+                Moveable = 0 < Asset.Speed() // NOTE: Asset must be of type CPlayerAsset
+            } else if UnitType != Asset.Type() { // NOTE: Asset is currently of <error> type
+                AllSame = false
+            }
+            if (Asset.Lumber() > 0) || (Asset.Gold() > 0) {
+                HasCargo = true
             }
         }
 
@@ -182,20 +176,18 @@ class CUnitActionRenderer {
 
                     for IconType in DDisplayedCommands {
                         if EAssetCapabilityType.None != IconType {
-                            var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
+                            let PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: IconType)
                             // FIXME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
                             DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
                             // variable is casted right now, needs to change later
                             DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
 
-                            if PlayerCapability != nil {
-                                // do something
-                                // FIX ME:
-                                if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
-                                    // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
-                                    // FIX ME: SKScene issue/ CGraphicSurface issue
-                                    DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
-                                }
+                            // do something
+                            // FIX ME:
+                            if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
+                                // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
+                                // FIX ME: SKScene issue/ CGraphicSurface issue
+                                DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
                             }
                         }
                     }
