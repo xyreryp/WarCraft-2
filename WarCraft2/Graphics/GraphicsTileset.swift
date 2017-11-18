@@ -338,19 +338,7 @@ class CGraphicTileset {
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
 
-        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
-        tempNode.position = CGPoint(x: xpos, y: ypos)
-        skscene.addChild(tempNode)
-    }
-
-    func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int, colorIndex: CPixelType) {
-        if 0 > tileindex || tileindex >= DTileCount {
-            return
-        }
-
-        let tempNode = SpriteNode(texture: DTileSet[tileindex])
-        tempNode.DPixelColor = colorIndex
-        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
+        //        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }

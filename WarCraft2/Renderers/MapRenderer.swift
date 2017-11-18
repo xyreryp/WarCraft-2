@@ -233,23 +233,17 @@ class CMapRenderer {
     }
 
     func DrawMap(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
-        var TileWidth: Int = Int()
-        var TileHeight: Int = Int()
-
-        TileWidth = DTileset.TileWidth()
-        TileHeight = DTileset.TileHeight()
-
-        //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
-
-        var YPos: Int = -(rect.DYPosition % TileHeight)
-        var XPos: Int = -(rect.DXPosition % TileWidth)
-
-        for YIndex in (rect.DYPosition / TileHeight) ..< rect.DHeight {
-            for XIndex in (rect.DXPosition / TileWidth) ..< rect.DWidth {
+        let TileWidth = DTileset.TileWidth()
+        let TileHeight = DTileset.TileHeight()
+        // TODO: typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+        var YIndex = rect.DYPosition / TileHeight
+        for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
+            var XIndex = rect.DXPosition / TileWidth
+            for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {
                 let ThisTileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
                 let TileIndex = DMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
 
-                if (0 <= TileIndex) && (16 < TileIndex) {
+                if (0 <= TileIndex) && (16 > TileIndex) {
                     var DisplayIndex = -1
                     let AltTileCount = DTileIndices[ThisTileType.rawValue][TileIndex].count
 
@@ -266,9 +260,9 @@ class CMapRenderer {
 
                     return
                 }
-                XPos += TileWidth
+                XIndex += 1
             }
-            YPos += TileHeight
+            YIndex += 1
         }
     }
 
