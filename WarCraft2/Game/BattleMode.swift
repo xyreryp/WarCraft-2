@@ -74,9 +74,7 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
         var SearchColor = context.DPlayerColor
-        // This is our "equivalent" of pixelType.AssetType() for now
-        // This is our "equivalent" of pixelType.Color() for now [Always returns red for right now - needs to change]
-
+    
         if context.DRightClick == 1 && context.DSelectedPlayerAssets.count != 0 {
             var CanMove: Bool = true
             for Asset in context.DSelectedPlayerAssets {
@@ -89,6 +87,8 @@ class CBattleMode: CApplicationMode {
                 }
             }
             if CanMove {
+                // This is our "equivalent" of pixelType.Color() for now [Always returns red for right now - needs to change]
+
                 var fakeColor = context.DGameModel.DActualMap.fakeFindColor(pos: ClickedTile)
 
                 var fakeAssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!

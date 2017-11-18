@@ -29,7 +29,7 @@ class CPlayerData {
         DActualMap = map
         DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
         // FIXME: supposed to be a createInitializeMap(in this case it should be blank)
-        DPlayerMap = map
+        DPlayerMap = DActualMap.CreateInitializeMap()
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
@@ -49,12 +49,6 @@ class CPlayerData {
             if AssetInit.DColor == color {
 
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
-
-                // FIXME: hardcoded for right now. CreateAsset does not append the right color to the Asset
-                if color == EPlayerColor.Red {
-
-                    InitAsset.DType.DColor = EPlayerColor.Red
-                }
 
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
 
