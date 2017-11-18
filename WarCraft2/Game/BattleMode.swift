@@ -613,12 +613,9 @@ class CBattleMode: CApplicationMode {
      */
     // tell game to actuall do the actions from input
     override func Calculate(context: CApplicationData) {
-        // PrintDebug(DEBUG_LOW, "Started CBattleMode::Calculate\n")
 
         // number of players left in the battle
         var PlayerLeft = 0
-
-        // PrintDebug(DEBUG_LOW, "Started 1st for loop\n")
 
         // calculate the total number of players left in the battle
         for Index in 1 ..< EPlayerColor.Max.rawValue {
@@ -632,7 +629,6 @@ class CBattleMode: CApplicationMode {
                     CBattleMode.DBattleWon = true
                 }
             }
-            // give them a command to do
             // FIXME: NOT CRUCIAL FOR NOW
             //            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
             //                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
@@ -641,9 +637,10 @@ class CBattleMode: CApplicationMode {
 
         // if game is oer
         // if there is only one player left in battle, battle ends
-        // if PlayerLeft == 1 {
-        //     context.ChangeApplicationMode(CEndOfBattleMode.Instance())
-        // }
+        // FIXME: uncomment when CEndOfBattleMode finish
+        //        if PlayerLeft == 1 {
+        //            context.ChangeApplicationMode(CEndOfBattleMode.Instance())
+        //        }
 
         // go through all the players, check all their current commands
         for Index in 1 ..< EPlayerColor.Max.rawValue {
@@ -680,36 +677,27 @@ class CBattleMode: CApplicationMode {
             }
         }
 
-        // MARK: - Timestep()
-        // all assets increment their time step
-        // do a step of their command
         context.DGameModel.Timestep()
-        //        PrintDebug(DEBUG_LOW, "Started 1st while (4th loop)\n")
 
         // MARK: PLEASE CHECK. TRYING TO MAKE SURE REMOVAL OF ITEM IS SAFE
-        for (Index, Asset) in context.DSelectedPlayerAssets.enumerated().reversed() {
-            if context.DGameModel.ValidAsset(asset: Asset) && Asset.Alive() {
-                if Asset.Speed() != 0 && (EAssetAction.Capability == Asset.Action()) {
-                    let Command = Asset.CurrentCommand()
-                    if (Command.DAssetTarget != nil) && (EAssetAction.Construct == Command.DAssetTarget?.Action()) {
-                        var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-                        context.DSelectedPlayerAssets.removeAll()
-                        context.DSelectedPlayerAssets.append(Command.DAssetTarget!)
-                        TempEvent.DType = EEventType.Selection
-                        TempEvent.DAsset = Command.DAssetTarget!
-                        context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                        break
-                    }
+        context.DSelectedPlayerAssets.filter { asset in
+            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
+                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
+                    let Command = asset.CurrentCommand()
 
-                } else {
-                    context.DSelectedPlayerAssets.remove(at: Index)
+                    if let assetType = Command.DAssetTarget {
+                        if EAssetAction.Construct == assetType.Action() {
+                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
+                            context.DSelectedPlayerAssets.removeAll()
+                            context.DSelectedPlayerAssets.append(assetType)
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                        }
+                    }
                 }
-            } else {
-                context.DSelectedPlayerAssets.remove(at: Index)
+                return true
             }
+            return false
         }
-        //   PrintDebug(DEBUG_LOW, "Finished 1st while (4th loop)\n")
-        //  PrintDebug(DEBUG_LOW, "Finished CBattleMode::Calculate\n")
     }
 
     /**

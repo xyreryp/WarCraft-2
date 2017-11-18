@@ -27,8 +27,8 @@ class GameScene: SKScene {
     override func update(_: CFTimeInterval) {
         clean()
         applicationData.DViewportSurface = self
-        applicationData.DGameModel.Timestep()
         battleMode.Input(context: applicationData)
+        battleMode.Calculate(context: applicationData)
         battleMode.Render(context: applicationData)
         applicationData.DLeftClick = 0
         applicationData.DRightClick = 0

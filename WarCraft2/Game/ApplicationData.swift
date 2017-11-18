@@ -824,14 +824,11 @@ class CApplicationData {
         //                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
         //            }
         //        }
-        DCurrentAssetCapability = EAssetCapabilityType.None
-        DPlayerColor = EPlayerColor.Red
         // setup map dimensions and tiles
         DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
         // load the map file
-
         DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
