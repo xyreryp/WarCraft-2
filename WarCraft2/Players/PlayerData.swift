@@ -161,7 +161,7 @@ class CPlayerData {
                 let CreatedAsset: CPlayerAsset = pair.Construct()
                 CreatedAsset.CreationCycle(cycle: DGameCycle)
                 DAssets.append(CreatedAsset)
-                //FIXME: Where is this actually done? I can't seem to find when PlayerMap is added to
+                // FIXME: Where is this actually done? I can't seem to find when PlayerMap is added to
                 DPlayerMap.AddAsset(asset: CreatedAsset)
                 DActualMap.AddAsset(asset: CreatedAsset)
                 return CreatedAsset

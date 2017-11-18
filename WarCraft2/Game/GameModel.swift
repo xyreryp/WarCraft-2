@@ -723,7 +723,7 @@ class CGameModel {
                     }
                 }
                 if !(Asset.MoveStep(occupancymap: &DAssetOccupancyMap, diagonals: &DDiagonalOccupancyMap)) {
-                    Asset.Direction(direction: DirectionOpposite(dir: Asset.Position().TileOctant()))
+                    Asset.Direction(direction: DirectionOpp osite(dir: Asset.Position().TileOctant()))
                 }
             }
         }

@@ -84,22 +84,19 @@ class CPixelPosition: CPosition {
         var YIndex: Int = 0
         var XIndex: Int = 0
 
-        repeat {
-            repeat {
+        for YIndex in 0 ..< objsize {
+            for XIndex in 0 ..< objsize {
                 let CurDistance: Int = CurPosition.DistanceSquared(pos: self)
                 if (-1 == BestDistance) || (CurDistance < BestDistance) {
                     BestDistance = CurDistance
                     BestPosition = CurPosition
                 }
                 CurPosition.DX = CurPosition.IncrementX(x: CPosition.DTileWidth)
-                XIndex += 1
-            } while XIndex < objsize
+            }
 
             CurPosition.DX = CurPosition.X(x: objpos.X())
             CurPosition.DY = CurPosition.IncrementY(y: CPosition.DTileHeight)
-            YIndex += 1
-        } while YIndex < objsize
-
+        }
         return BestPosition!
     }
 }
