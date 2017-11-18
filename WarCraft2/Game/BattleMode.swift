@@ -216,115 +216,115 @@ class CBattleMode: CApplicationMode {
         //         }
         //         }
         //         // go through all keys pressed and do an action
-        //         for Key in context.DReleasedKeys {
-        //         // Handle releases
-        //         if context.DSelectedPlayerAssets.count != 0 {
-        //         var CanMove: Bool = true
-        //         for Asset in context.DSelectedPlayerAssets {
-        //         if let LockedAsset: CPlayerAsset = Asset {
-        //         if context.DPlayerColor != LockedAsset.Color() {
-        //         context.DReleasedKeys.removeAll()
-        //         return
-        //         }
-        //         if 0 == LockedAsset.Speed() {
-        //         CanMove = false
-        //         break
-        //         }
-        //         }
-        //         }
-        //         if SGUIKeyType.Escape == Key {
-        //         context.DCurrentAssetCapability = EAssetCapabilityType.None
-        //         }
-        //         if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability {
-        //         // check build
-        //         if let KeyLookup = context.DBuildHotKeyMap[Key] {
-        //         var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
-        //         if PlayerCapability != nil {
-        //         let ActorTarget = context.DSelectedPlayerAssets.first
-        //         if (PlayerCapability?.CanInitiate(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!))! {
-        //         var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-        //         TempEvent.DType = EEventType.ButtonTick
-        //         context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-        //         context.DCurrentAssetCapability = KeyLookup
-        //         }
-        //         }
-        //         }
-        //         } else if CanMove {
-        //         if let KeyLookup = context.DUnitHotKeyMap[Key] {
-        //         var HasCapability: Bool = true
-        //         for Asset in context.DSelectedPlayerAssets {
-        //         if let LockedAsset: CPlayerAsset = Asset {
-        //         if !LockedAsset.HasCapability(capability: KeyLookup) {
-        //         HasCapability = false
-        //         break
-        //         }
-        //         }
-        //         }
-        //         if HasCapability {
-        //         var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
-        //         var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-        //         TempEvent.DType = EEventType.ButtonTick
-        //         context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-        //         if PlayerCapability != nil {
-        //         if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
-        //         let ActorTarget = context.DSelectedPlayerAssets.first
-        //
-        //         if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
-        //
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = (ActorTarget?.Position())!
-        //         context.DCurrentAssetCapability = EAssetCapabilityType.None
-        //         }
-        //         } else {
-        //         context.DCurrentAssetCapability = KeyLookup
-        //         }
-        //         } else {
-        //         context.DCurrentAssetCapability = KeyLookup
-        //         }
-        //         }
-        //         }
-        //         } else {
-        //         if let KeyLookup = context.DTrainHotKeyMap[Key] {
-        //         var HasCapability: Bool = true
-        //         for Asset in context.DSelectedPlayerAssets {
-        //         if let LockedAsset: CPlayerAsset? = Asset {
-        //         if !LockedAsset!.HasCapability(capability: KeyLookup) {
-        //         HasCapability = false
-        //         break
-        //         }
-        //         }
-        //         }
-        //         if HasCapability {
-        //         var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
-        //         var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-        //         TempEvent.DType = EEventType.ButtonTick
-        //         context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-        //
-        //         if PlayerCapability != nil {
-        //         if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
-        //         let ActorTarget = context.DSelectedPlayerAssets.first
-        //         if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
-        //         context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = (ActorTarget?.Position())!
-        //         context.DCurrentAssetCapability = EAssetCapabilityType.None
-        //         }
-        //         } else {
-        //         context.DCurrentAssetCapability = KeyLookup
-        //         }
-        //         } else {
-        //         context.DCurrentAssetCapability = KeyLookup
-        //         }
-        //         }
-        //         }
-        //         }
-        //         }
-        //         }
+
+        for Key in context.DReleasedKeys { // Handle releases
+            if context.DSelectedPlayerAssets.count != 0 { // make sure player selected asset
+                var CanMove: Bool = true
+                for Asset in context.DSelectedPlayerAssets { // Player can select multiple assets
+                    if let LockedAsset: CPlayerAsset = Asset {
+                        if context.DPlayerColor != LockedAsset.Color() { // check if player asset selected, not AI
+                            context.DReleasedKeys.removeAll()
+                            return
+                        }
+                        if 0 == LockedAsset.Speed() { // check if selected asset can move
+                            CanMove = false
+                            break
+                        }
+                    }
+                }
+                if SGUIKeyType.Escape == Key { // if esc pressed, no capabilities selected
+                    context.DCurrentAssetCapability = EAssetCapabilityType.None
+                }
+                if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability { // check if capability was to build
+                    if let KeyLookup = context.DBuildHotKeyMap[Key] { // check if valid hotkey
+                        print("trying to build")
+                        var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                        if PlayerCapability != nil {
+                            let ActorTarget = context.DSelectedPlayerAssets.first
+                            if (PlayerCapability?.CanInitiate(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!))! {
+                                var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
+                                TempEvent.DType = EEventType.ButtonTick
+                                context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                                context.DCurrentAssetCapability = KeyLookup
+                            }
+                        }
+                    }
+                } else if CanMove {
+                    if let KeyLookup = context.DUnitHotKeyMap[Key] {
+                        var HasCapability: Bool = true
+                        for Asset in context.DSelectedPlayerAssets {
+                            if let LockedAsset: CPlayerAsset = Asset {
+                                if !LockedAsset.HasCapability(capability: KeyLookup) {
+                                    HasCapability = false
+                                    break
+                                }
+                            }
+                        }
+                        if HasCapability {
+                            var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                            var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
+                            TempEvent.DType = EEventType.ButtonTick
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                            if PlayerCapability != nil {
+                                if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
+                                    let ActorTarget = context.DSelectedPlayerAssets.first
+
+                                    if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
+
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = (ActorTarget?.Position())!
+                                        context.DCurrentAssetCapability = EAssetCapabilityType.None
+                                    }
+                                } else {
+                                    context.DCurrentAssetCapability = KeyLookup
+                                }
+                            } else {
+                                context.DCurrentAssetCapability = KeyLookup
+                            }
+                        }
+                    }
+                } else {
+                    if let KeyLookup = context.DTrainHotKeyMap[Key] {
+                        var HasCapability: Bool = true
+                        for Asset in context.DSelectedPlayerAssets {
+                            if let LockedAsset: CPlayerAsset? = Asset {
+                                if !LockedAsset!.HasCapability(capability: KeyLookup) {
+                                    HasCapability = false
+                                    break
+                                }
+                            }
+                        }
+                        if HasCapability {
+                            var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                            var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
+                            TempEvent.DType = EEventType.ButtonTick
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+
+                            if PlayerCapability != nil {
+                                if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
+                                    let ActorTarget = context.DSelectedPlayerAssets.first
+                                    if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
+                                        context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = (ActorTarget?.Position())!
+                                        context.DCurrentAssetCapability = EAssetCapabilityType.None
+                                    }
+                                } else {
+                                    context.DCurrentAssetCapability = KeyLookup
+                                }
+                            } else {
+                                context.DCurrentAssetCapability = KeyLookup
+                            }
+                        }
+                    }
+                }
+            }
+        }
         //
         //         // by here, you have gone through all keys.
         //         // delete events after you handle
@@ -720,7 +720,7 @@ class CBattleMode: CApplicationMode {
                 context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }
         }
-  //      context.DGameModel.Timestep()
+        //      context.DGameModel.Timestep()
 
         //        // PrintDebug(DEBUG_LOW, "Started CBattleMode::Calculate\n")
         //

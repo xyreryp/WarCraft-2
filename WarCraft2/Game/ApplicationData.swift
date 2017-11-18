@@ -474,7 +474,70 @@ class CApplicationData {
     // func MainWindowDeleteEventCallback(widget: CGUIWidget, data: TGUICalldata) -> Bool {}
     // func MainWindowDestroyCallback(widget: CGUIWidget, data: TGUICalldata )
     // func MainWindowKeyPressEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
-    // func MainWindowKeyReleaseEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
+
+    /**
+     * Logs any button presses in the main window.
+     *
+     * @param[in] widget The widget you pressed a key in.
+     * @parem[in] The event that occured to the widget (that you did).
+     *
+     * @return Always returns false.
+     *
+     */
+
+    func MainWindowKeyPressEvent(event: NSEvent) -> Bool {
+        var Found: Bool = false
+        for Key in DPressedKeys {
+            if Key == UInt32(event.characters!) {
+                Found = true
+                break
+            }
+        }
+        if !Found {
+            // DPressedKeys.append(UInt32(event.characters!)!)
+        }
+        return true
+    }
+
+    /**
+     * Logs when a button is released in the main window (erases that button from
+     * the list of held/pressed buttons).
+     *
+     * @param[in] widget The main window, you released a button in it.
+     * @param[in] event  The event that occured to the widget (you let go of a
+     * button).
+     *
+     * @return Always returns true.
+     *
+     */
+
+    func MainWindowKeyReleaseEvent(event: NSEvent) -> Bool {
+        var Found: Bool = false
+        var Index: Int = 0
+
+        for Key in DPressedKeys {
+            if Key == UInt32(event.characters!) {
+                Found = true
+                break
+            }
+            Index += 1
+        }
+        if Found {
+            DPressedKeys.remove(at: Index)
+        }
+        Found = false
+        for Key in DReleasedKeys {
+            if Key == UInt32(event.characters!) {
+                Found = true
+                break
+            }
+        }
+        if !Found {
+            // DReleasedKeys.append(UInt32(event.characters!)!)
+        }
+        return true
+    }
+
     // func MainWindowConfigureEventCallback(widget: CGUIWidget, event: SGUIConfigureEvent, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaDrawCallback(widget: CGUIWidget, rc: CGraphicResourceContext, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaButtonPressEventCallback(widget: CGUIWidget, event: SGUIConfigureEven, data: TGUICalldata ) -> Bool {}

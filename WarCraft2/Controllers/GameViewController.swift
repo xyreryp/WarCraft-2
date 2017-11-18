@@ -63,6 +63,10 @@ class GameViewController: NSViewController {
             self.keyDown(with: $0)
             return $0
         }
+        NSEvent.addLocalMonitorForEvents(matching: .keyUp) {
+            self.keyUp(with: $0)
+            return $0
+        }
         NSEvent.addLocalMonitorForEvents(matching: .scrollWheel) {
             self.scrollWheel(with: $0)
             return $0
@@ -118,7 +122,13 @@ class GameViewController: NSViewController {
         case 124: // NSRightArrowFunctionKey:
             applicationData.DViewportRenderer.PanEast(pan: 32)
         default:
-            break
+            print("key pressed: ", event.characters!)
+            applicationData.MainWindowKeyPressEvent(event: event)
         }
+    }
+
+    override func keyUp(with event: NSEvent) {
+        print("key released: ")
+        applicationData.MainWindowKeyReleaseEvent(event: event)
     }
 }
