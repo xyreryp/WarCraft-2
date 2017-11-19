@@ -685,6 +685,7 @@ class CGameModel {
                     // CRUCIAL
                     // find direction you're gonna walk to
                     TravelDirection = DRouterMap.FindRoute(resmap: DPlayers[Asset.Color().rawValue].DPlayerMap, asset: Asset, target: MapTarget)
+                    print(TravelDirection)
                     // checking for valid direction, from FindRoute()
                     if EDirection.Max != TravelDirection {
                         Asset.Direction(direction: TravelDirection)

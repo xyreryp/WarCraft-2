@@ -74,6 +74,7 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
         var SearchColor = context.DPlayerColor
+        // print("X: \(ClickedTile.X()) and Y: \(ClickedTile.Y())")
         if context.DRightClick == 1 && context.DSelectedPlayerAssets.count != 0 {
             var CanMove: Bool = true
             for Asset in context.DSelectedPlayerAssets {
@@ -134,7 +135,7 @@ class CBattleMode: CApplicationMode {
                     }
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 } else {
-                    print("Entered walking loop")
+                    print("You are now walking to \(ClickedTile.X()) and \(ClickedTile.Y())")
                     var CanHarvest: Bool = true
                     var fakeColor = context.DGameModel.DActualMap.fakeFindColor(pos: ClickedTile)
 
@@ -195,7 +196,6 @@ class CBattleMode: CApplicationMode {
 
                 // Select peasant right now and appends the asset
                 context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
-                print(context.DSelectedPlayerAssets.count)
             }
         }
 
@@ -737,7 +737,6 @@ class CBattleMode: CApplicationMode {
                 if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
                     // if no target type command, then create a marker aka if you clicked on grass
                     if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-                        print("here")
                         NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
                     } else {
                         // Not sure if need a let; got rid of a lock()
@@ -766,27 +765,26 @@ class CBattleMode: CApplicationMode {
 
         context.DGameModel.Timestep()
 
-        //        var removeIndex: Int?
-        //        for index in 0 ..< context.DSelectedPlayerAssets.count {
-        //            let asset = context.DSelectedPlayerAssets[index]
-        //            if context.DGameModel.ValidAsset(asset: asset) && asset.Alive() {
-        //                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
-        //                    if let assetType = asset.CurrentCommand().DAssetTarget {
-        //                        if EAssetAction.Construct == assetType.Action() {
-        //                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
-        //                            context.DSelectedPlayerAssets.removeAll()
-        //                            context.DSelectedPlayerAssets.append(assetType)
-        //                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-        //                        }
-        //                    }
-        //                }
-        //                removeIndex = index
-        //                break
-        //            }
-        //        }
-        //        if let removeIndex = removeIndex {
-        //            context.DSelectedPlayerAssets.remove(at: removeIndex)
-        //        }
+        var removeIndex: Int?
+        for index in 0 ..< context.DSelectedPlayerAssets.count {
+            let asset = context.DSelectedPlayerAssets[index]
+            if context.DGameModel.ValidAsset(asset: asset) {
+                if asset.Speed() > 0 && EAssetAction.Capability == asset.Action() {
+                    if let assetType = asset.CurrentCommand().DAssetTarget {
+                        if EAssetAction.Construct == assetType.Action() {
+                            let TempEvent = SGameEvent(DType: EEventType.Selection, DAsset: assetType)
+                            context.DSelectedPlayerAssets.removeAll()
+                            context.DSelectedPlayerAssets.append(assetType)
+                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
+                            break
+                        }
+                    }
+                }
+            } else {
+                print("Removing asset from DSelectedPlayerAssets")
+                context.DSelectedPlayerAssets.remove(at: index)
+            }
+        }
     }
 
     /**

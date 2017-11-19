@@ -31,7 +31,7 @@ extension SKView {
     open override func rightMouseDown(with event: NSEvent) {
         // right mouse click
         applicationData.DCurrentX = Int(event.locationInWindow.x)
-        applicationData.DCurrentY = Int(event.locationInWindow.y)
+        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
         applicationData.DRightClick = 1
     }
 }
