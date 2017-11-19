@@ -218,7 +218,7 @@ class CBattleMode: CApplicationMode {
         //         // go through all keys pressed and do an action
 
         for Key in context.DReleasedKeys { // Handle releases
-            if context.DSelectedPlayerAssets.count != 0 { // make sure player selected asset
+            /*if context.DSelectedPlayerAssets.count != 0 { // make sure player selected asset
                 var CanMove: Bool = true
                 for Asset in context.DSelectedPlayerAssets { // Player can select multiple assets
                     if let LockedAsset: CPlayerAsset = Asset {
@@ -231,7 +231,7 @@ class CBattleMode: CApplicationMode {
                             break
                         }
                     }
-                }
+                }*/
                 if SGUIKeyType.Escape == Key { // if esc pressed, no capabilities selected
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 }
@@ -325,10 +325,10 @@ class CBattleMode: CApplicationMode {
                 }
             }
         }
-        //
-        //         // by here, you have gone through all keys.
-        //         // delete events after you handle
-        //         context.DReleasedKeys.removeAll()
+        
+                 // by here, you have gone through all keys.
+                 // delete events after you handle
+        context.DReleasedKeys.removeAll()
         //         // set to default state: nothing! before doing anything
         //         context.DMenuButtonState = CButtonRenderer.EButtonState.None
         //

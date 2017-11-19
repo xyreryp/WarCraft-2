@@ -484,7 +484,10 @@ class CApplicationData {
      * @return Always returns false.
      *
      */
-
+    /**
+     * Logs any button presses in DPressedKeys
+     * Always returns true
+     */
     func MainWindowKeyPressEvent(event: UInt32) -> Bool {
         var Found: Bool = false
         for Key in DPressedKeys {
@@ -502,15 +505,9 @@ class CApplicationData {
     }
 
     /**
-     * Logs when a button is released in the main window (erases that button from
-     * the list of held/pressed buttons).
-     *
-     * @param[in] widget The main window, you released a button in it.
-     * @param[in] event  The event that occured to the widget (you let go of a
-     * button).
-     *
-     * @return Always returns true.
-     *
+     * Logs any button released into KeysReleased
+     * Erases that button from the list of pressed buttons
+     * Always returns true.
      */
 
     func MainWindowKeyReleaseEvent(event: UInt32) -> Bool {
