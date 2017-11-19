@@ -111,13 +111,13 @@ class CBattleMode: CApplicationMode {
                 let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
 
                 // create fake actor and target with same coord to trigger building
-                let actor = CPlayerAsset(type: CPlayerAssetType())
+                let actor = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Peasant")
                 let target = CPlayerAsset(type: CPlayerAssetType())
                 actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
-                //                let NewAsset = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Barracks")
-                //                NewAsset.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                // let NewAsset = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Barracks")
+                // NewAsset.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 //                NewAsset.HitPoints(hitpts: 1)
                 //                var NewCommand = SAssetCommand(DAction: EAssetAction.Construct, DCapability: EAssetCapabilityType.BuildSimple, DAssetTarget: NewAsset, DActivatedCapability: nil)
                 //
