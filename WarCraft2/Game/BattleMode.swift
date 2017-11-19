@@ -108,10 +108,21 @@ class CBattleMode: CApplicationMode {
                 print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
                 // This is our "equivalent" of pixelType.AssetType() for now
                 // FIXME: hardcoded for building testing
-                let NewAsset = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Barracks")
-                NewAsset.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
-                NewAsset.HitPoints(hitpts: 1)
-                print("Barracks created at \(ClickedTile.X()), \(ClickedTile.Y())")
+                let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
+
+                // create fake actor and target with same coord to trigger building
+                let actor = CPlayerAsset(type: CPlayerAssetType())
+                let target = CPlayerAsset(type: CPlayerAssetType())
+                actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
+                //                let NewAsset = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Barracks")
+                //                NewAsset.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                //                NewAsset.HitPoints(hitpts: 1)
+                //                var NewCommand = SAssetCommand(DAction: EAssetAction.Construct, DCapability: EAssetCapabilityType.BuildSimple, DAssetTarget: NewAsset, DActivatedCapability: nil)
+                //
+                //                NewAsset.PushCommand(command: NewCommand)
+                // print("Barracks created at \(ClickedTile.X()), \(ClickedTile.Y())")
                 // hardcode session ends
                 let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
 
