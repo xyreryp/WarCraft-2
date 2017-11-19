@@ -201,8 +201,8 @@ class CApplicationData {
     var DCurrentAssetCapability: EAssetCapabilityType
 
     // keys related things
-    var DPressedKeys: [uint32]
-    var DReleasedKeys: [uint32]
+    var DPressedKeys: [UInt32]
+    var DReleasedKeys: [UInt32]
 
     // mouse things
     var DCurrentX: Int
@@ -380,7 +380,7 @@ class CApplicationData {
         DCurrentAssetCapability = EAssetCapabilityType.None
 
         // keys related things
-        DPressedKeys = [uint32]()
+        DPressedKeys = [UInt32]()
         DReleasedKeys = [uint32]()
 
         DMenuButtonState = CButtonRenderer.EButtonState.None
@@ -485,17 +485,19 @@ class CApplicationData {
      *
      */
 
-    func MainWindowKeyPressEvent(event: NSEvent) -> Bool {
+    func MainWindowKeyPressEvent(event: UInt32) -> Bool {
         var Found: Bool = false
         for Key in DPressedKeys {
-            if Key == UInt32(event.characters!) {
+            if Key == event {
                 Found = true
                 break
             }
         }
         if !Found {
-            // DPressedKeys.append(UInt32(event.characters!)!)
+            DPressedKeys.append(event)
         }
+        print("DReleased: ", DReleasedKeys)
+        print("DPressed: ", DPressedKeys)
         return true
     }
 
@@ -511,12 +513,12 @@ class CApplicationData {
      *
      */
 
-    func MainWindowKeyReleaseEvent(event: NSEvent) -> Bool {
+    func MainWindowKeyReleaseEvent(event: UInt32) -> Bool {
         var Found: Bool = false
         var Index: Int = 0
 
         for Key in DPressedKeys {
-            if Key == UInt32(event.characters!) {
+            if Key == event {
                 Found = true
                 break
             }
@@ -527,14 +529,16 @@ class CApplicationData {
         }
         Found = false
         for Key in DReleasedKeys {
-            if Key == UInt32(event.characters!) {
+            if Key == event {
                 Found = true
                 break
             }
         }
         if !Found {
-            // DReleasedKeys.append(UInt32(event.characters!)!)
+            DReleasedKeys.append(event)
         }
+        print("DReleased: ", DReleasedKeys)
+        print("DPressed: ", DPressedKeys)
         return true
     }
 

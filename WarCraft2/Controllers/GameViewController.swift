@@ -121,14 +121,40 @@ class GameViewController: NSViewController {
             applicationData.DViewportRenderer.PanWest(pan: 32)
         case 124: // NSRightArrowFunctionKey:
             applicationData.DViewportRenderer.PanEast(pan: 32)
+            //        case 0:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyA)
+            //            print("key pressed: ", event.characters!)
+            //        case 11:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyB)
+            //        case 8:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyC)
+            //        case 2:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyD)
+            //        case 14:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyE)
+            //        case 3:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyF)
+            //        case 5:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyG)
+            //        case 4:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyH)
+            //        case 34:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyI)
+            //            print("key pressed: ", event.characters!)
+            //        case 38:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyJ)
+            //            print("key pressed: ", event.characters!)
+            //        case 40:
+            //            applicationData.MainWindowKeyPressEvent(event: SGUIKeyType.KeyK)
+            //            print("key pressed: ", event.characters!)
         default:
-            print("key pressed: ", event.characters!)
-            applicationData.MainWindowKeyPressEvent(event: event)
+            print("key pressed: ", event.keyCode)
+            applicationData.MainWindowKeyPressEvent(event: UInt32(event.keyCode))
         }
     }
 
     override func keyUp(with event: NSEvent) {
-        print("key released: ")
-        applicationData.MainWindowKeyReleaseEvent(event: event)
+        print("key released: ", event.characters!)
+        applicationData.MainWindowKeyReleaseEvent(event: UInt32(event.keyCode))
     }
 }
