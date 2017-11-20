@@ -31,9 +31,6 @@ class CUnitActionRenderer {
         DFulliconHeight = DIconTileset.TileHeight() + DBevel.Width() * 2
 
         DDisplayedCommands = [EAssetCapabilityType](repeating: EAssetCapabilityType.None, count: 9)
-        for var Commands in DDisplayedCommands {
-            Commands = EAssetCapabilityType.None
-        }
         DCommandIndices = [Int](repeating: Int(), count: EAssetCapabilityType.Max.rawValue)
         DCommandIndices[EAssetCapabilityType.None.rawValue] = -1
         DCommandIndices[EAssetCapabilityType.BuildPeasant.rawValue] = DIconTileset.FindTile(tilename: "peasant")
@@ -100,8 +97,8 @@ class CUnitActionRenderer {
         var HasCargo: Bool = false
         var UnitType: EAssetType = EAssetType.None
 
-        for var Command in DDisplayedCommands {
-            Command = EAssetCapabilityType.None
+        for Index in 0 ..< DDisplayedCommands.count {
+            DDisplayedCommands[Index] = EAssetCapabilityType.None
         }
 
         if selectionlist.count == 0 {
@@ -109,7 +106,6 @@ class CUnitActionRenderer {
         }
 
         for Asset in selectionlist {
-            // for Iterator: Int in selectionlist {
             if DPlayerColor != Asset.Color() {
                 return
             }

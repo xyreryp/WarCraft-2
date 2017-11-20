@@ -74,7 +74,6 @@ class CButtonRenderer {
         DWhiteIndex = DFont.FindColor(colorname: "white")
         DGoldIndex = DFont.FindColor(colorname: "gold")
         DBlackIndex = DFont.FindColor(colorname: "black")
-        //        PrintDebug(DEBUG_HIGH,"CButtonRenderer w = %d, g = %d, b = %d\n", DWhiteIndex, DGoldIndex, DBlackIndex);
     }
 
     func ButtonColor() -> EPlayerColor {

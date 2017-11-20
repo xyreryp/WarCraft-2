@@ -304,7 +304,11 @@ class CPlayerAsset {
 
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
+<<<<<<< HEAD
             return DCommands[DCommands.endIndex - 1]
+=======
+            return (DCommands.last)!
+>>>>>>> changeToBattleMode
         }
         var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
         return RetVal
@@ -431,8 +435,8 @@ class CPlayerAsset {
             occupancymap[NewTilePosition.Y()][NewTilePosition.X()] = occupancymap[CurrentTile.Y()][CurrentTile.X()]
             occupancymap[CurrentTile.Y()][CurrentTile.X()] = nil
         }
-
-        return false
+        IncrementStep()
+        return true
     }
 
     func MaxHitPoints() -> Int {

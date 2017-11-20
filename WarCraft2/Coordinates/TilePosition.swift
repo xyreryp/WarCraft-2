@@ -33,7 +33,7 @@ class CTilePosition: CPosition {
 
     // overloaded operators to compare Positions
     static func !=(lhs: CTilePosition, rhs: CTilePosition) -> Bool {
-        return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
+        return (lhs.DX != rhs.DX || lhs.DY != rhs.DY)
     }
 
     // set new position

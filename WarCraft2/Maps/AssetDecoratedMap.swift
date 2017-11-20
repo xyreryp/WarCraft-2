@@ -257,7 +257,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if Height() > BottomY {
                 let ToX: Int = max(LeftX, 0)
-                for CurX in stride(from: min(RightX, Width() - 1), to: ToX, by: -1) {
+                for CurX in stride(from: min(RightX, Width() - 1), through: ToX, by: -1) {
                     if CanPlaceAsset(pos: CTilePosition(x: CurX, y: BottomY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: CurX, y: BottomY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -272,7 +272,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if 0 <= LeftX {
                 let ToY: Int = max(TopY, 0)
-                for CurY in stride(from: min(BottomY, Height() - 1), to: ToY, by: -1) {
+                for CurY in stride(from: min(BottomY, Height() - 1), through: ToY, by: -1) {
                     if CanPlaceAsset(pos: CTilePosition(x: LeftX, y: CurY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: LeftX, y: CurY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -312,6 +312,20 @@ class CAssetDecoratedMap: CTerrainMap {
             }
         }
         return BestAsset!
+    }
+
+    func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
+        var AssetColor: EPlayerColor
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
+                AssetColor = Asset.AssetType().DColor
+                return AssetColor
+            }
+        }
+        AssetColor = EPlayerColor.None
+        return AssetColor
     }
 
     func FakeFindAsset(pos: CTilePosition) -> EAssetType {
@@ -563,13 +577,15 @@ class CAssetDecoratedMap: CTerrainMap {
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
-            for var Row in ReturnMap.DMap {
-                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = ETileType.None
-                }
-            }
+            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
+            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
+            //            for var Row in ReturnMap.DMap {
+            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
+            //                for index in 0 ..< Row.count {
+            //                    Row[index] = ETileType.None
+            //                }
+            //            }
+            ReturnMap.DMap = DMap
             ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
 
             for var Row in ReturnMap.DMapIndices {
