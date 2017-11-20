@@ -431,8 +431,8 @@ class CPlayerAsset {
             occupancymap[NewTilePosition.Y()][NewTilePosition.X()] = occupancymap[CurrentTile.Y()][CurrentTile.X()]
             occupancymap[CurrentTile.Y()][CurrentTile.X()] = nil
         }
-
-        return false
+        IncrementStep()
+        return true
     }
 
     func MaxHitPoints() -> Int {

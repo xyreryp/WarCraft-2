@@ -110,7 +110,7 @@ class CApplicationData {
     // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
-    var DMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer!
     // cursor things
     // TODO: CCursorset?
     // var DCursorset: CCursorSet? = nil
@@ -231,7 +231,7 @@ class CApplicationData {
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
-    var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
+    var DPlayer: CPlayerData!
 
     init() { // appName _: String, key _: SPrivateApplicationType) {
         //        DApplicationPointer = CApplicationData()
@@ -274,7 +274,7 @@ class CApplicationData {
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
         // Map Renderer
-        DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
+        // DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
         // cursor things
         // TODO: uncomment later
@@ -392,7 +392,6 @@ class CApplicationData {
         TempDataSource = CDataSource()
 
         // playerData needed for assetRenderer
-        DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
         DPlayerColor = EPlayerColor.Red
         //        DMiniMapViewportColor = 0xFFFFFF
         DDeleted = false
@@ -620,6 +619,8 @@ class CApplicationData {
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
 
         LoadGameMap(index: 0)
+
+        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[0], color: DPlayerColor)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }

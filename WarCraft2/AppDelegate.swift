@@ -10,6 +10,9 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+    //    func applicationWillFinishLaunching(_: Notification) {
+    //        CPlayerCapabilityMove.Register(capability: CPlayerCapabilityMove())
+    //    }
 
     func applicationDidFinishLaunching(_: Notification) {
         // Insert code here to initialize your application

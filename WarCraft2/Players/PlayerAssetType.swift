@@ -8,6 +8,7 @@
 
 import Foundation
 class CPlayerAssetType {
+    var DThis: CPlayerAssetType!
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
@@ -70,7 +71,7 @@ class CPlayerAssetType {
 
     // default constructor
     init() {
-        //        DThis = CPlayerAssetType()
+
         DCapabilities = [Bool]()
         DCapabilities = [Bool](repeating: false, count: EAssetCapabilityType.Max.rawValue)
         DHitPoints = 1
@@ -374,9 +375,14 @@ class CPlayerAssetType {
         return FindDefaultFromName(name: TypeToName(type: type))
     }
 
-    static func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+    static func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
         var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
-        ReturnRegistry = DRegistry
+        for (string, assettype) in DRegistry {
+            var NewAssetType: CPlayerAssetType = CPlayerAssetType(asset: assettype)
+            NewAssetType.DThis = NewAssetType
+            NewAssetType.DColor = color
+            ReturnRegistry[string] = NewAssetType
+        }
         return ReturnRegistry
     }
 
