@@ -9,9 +9,7 @@
 import Cocoa
 
 class SelectColorsDifficultyViewController: NSViewController {
-    
 
-    
     @IBOutlet weak var yellowX1: NSImageView!
     @IBOutlet weak var yellowX2: NSImageView!
     @IBOutlet weak var yellowX3: NSImageView!

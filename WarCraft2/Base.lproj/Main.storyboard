@@ -1628,7 +1628,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="cancelBtnClicked:" target="nsi-Ph-mOs" id="6Bz-kk-EmY"/>
+                                    <action selector="cancelBtnClicked:" target="nsi-Ph-mOs" id="dkI-qA-UK6"/>
                                 </connections>
                             </button>
                         </subviews>
