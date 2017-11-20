@@ -53,8 +53,6 @@ class CPlayerCapability {
 
     // FIXME: Not sure about return type
     static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
-        print("type: ", type)
-        print("type raw: ", type.rawValue)
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }

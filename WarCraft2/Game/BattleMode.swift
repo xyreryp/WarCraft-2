@@ -217,6 +217,8 @@ class CBattleMode: CApplicationMode {
         //         }
         //         // go through all keys pressed and do an action
 
+        context.DCurrentAssetCapability = EAssetCapabilityType.BuildSimple // DEBUG hardcoded to BuildSimple
+
         for Key in context.DReleasedKeys { // Handle releases
             if context.DSelectedPlayerAssets.count != 0 { // make sure player selected asset
                 var CanMove: Bool = true
@@ -233,23 +235,27 @@ class CBattleMode: CApplicationMode {
                     }
                 }
                 if SGUIKeyType.Escape == Key { // if esc pressed, no capabilities selected
-                    print("escape") // Debug
+                    print("pressed escape") // Debug
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 }
                 if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability { // check if capability was to build
                     if let KeyLookup = context.DBuildHotKeyMap[Key] { // check if valid hotkey
-                        print("trying to build") // Debug
+
+                        print("HotKey:", Key, "pressed") // Debug
+                        print("capability type:", KeyLookup) // Debug
+
                         var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
                         if PlayerCapability != nil {
-                            print("Player capab: ", PlayerCapability!.DTargetType) // Debug
+                            print("Not assigned to PlayerCapability from FindCapability because not found in Registry")
+                            print("Player capability type: ", PlayerCapability!.DTargetType) // Debug
+
                             let ActorTarget = context.DSelectedPlayerAssets.first
-                            print("Actor Target: ", ActorTarget) // Debug
+
                             if (PlayerCapability?.CanInitiate(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!))! {
                                 var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
                                 TempEvent.DType = EEventType.ButtonTick
                                 context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
                                 context.DCurrentAssetCapability = KeyLookup
-                                print("set CurrentAssetCapbility to: ", KeyLookup)
                             }
                         }
                     }

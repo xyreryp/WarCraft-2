@@ -499,8 +499,6 @@ class CApplicationData {
         if !Found {
             DPressedKeys.append(event)
         }
-        print("DReleased: ", DReleasedKeys)
-        print("DPressed: ", DPressedKeys)
         return true
     }
 
@@ -534,8 +532,6 @@ class CApplicationData {
         if !Found {
             DReleasedKeys.append(event)
         }
-        print("DReleased: ", DReleasedKeys)
-        print("DPressed: ", DPressedKeys)
         return true
     }
 
