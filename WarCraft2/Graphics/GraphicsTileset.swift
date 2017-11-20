@@ -152,6 +152,7 @@ class CGraphicTileset {
         return DTileCount
     } // end TileCount()
 
+    @discardableResult
     func ClearTile(index: Int) -> Bool {
         if (0 > index) || (index >= DTileCount) {
             return false
@@ -220,13 +221,8 @@ class CGraphicTileset {
         return true
     } // end DuplicateClippedTile()
 
-    func FindTile(tilename: String) -> Int { // NOTE: Alex Soong changed Findtile String input to NOT BE INOU
-        for (k, v) in DMapping {
-            if String(k) == tilename {
-                return v
-            }
-        }
-        return -1
+    func FindTile(tilename: String) -> Int {
+        return DMapping[tilename] ?? -1
     } // end FindTile()
 
     func GroupName(index: Int) -> String {
@@ -342,19 +338,7 @@ class CGraphicTileset {
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
 
-        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
-        tempNode.position = CGPoint(x: xpos, y: ypos)
-        skscene.addChild(tempNode)
-    }
-
-    func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int, colorIndex: CPixelType) {
-        if 0 > tileindex || tileindex >= DTileCount {
-            return
-        }
-
-        let tempNode = SpriteNode(texture: DTileSet[tileindex])
-        tempNode.DPixelColor = colorIndex
-        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
+        //        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }

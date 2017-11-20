@@ -110,7 +110,7 @@ class CApplicationData {
     // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
-    var DMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer!
     // cursor things
     // TODO: CCursorset?
     // var DCursorset: CCursorSet? = nil
@@ -231,7 +231,7 @@ class CApplicationData {
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
-    var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
+    var DPlayer: CPlayerData!
 
     init() { // appName _: String, key _: SPrivateApplicationType) {
         //        DApplicationPointer = CApplicationData()
@@ -274,7 +274,7 @@ class CApplicationData {
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
         // Map Renderer
-        DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
+        // DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
         // cursor things
         // TODO: uncomment later
@@ -354,7 +354,6 @@ class CApplicationData {
         //        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
 
         //        DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
-        let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
 
         // DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicMulticolorTileset(), fonts: [CFontTileset](), color: EPlayerColor.None)
         // DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: CGraphicTileset(), color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
@@ -393,7 +392,6 @@ class CApplicationData {
         TempDataSource = CDataSource()
 
         // playerData needed for assetRenderer
-        DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
         DPlayerColor = EPlayerColor.Red
         //        DMiniMapViewportColor = 0xFFFFFF
         DDeleted = false
@@ -680,9 +678,9 @@ class CApplicationData {
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
 
-        var test = CAssetDecoratedMap.DAllMaps[0]
-
         LoadGameMap(index: 0)
+
+        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[0], color: DPlayerColor)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }
@@ -887,14 +885,11 @@ class CApplicationData {
         //                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
         //            }
         //        }
-        DCurrentAssetCapability = EAssetCapabilityType.None
-        DPlayerColor = EPlayerColor.Red
         // setup map dimensions and tiles
         DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
         // load the map file
-
         DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
@@ -945,12 +940,9 @@ class CApplicationData {
         print(CurHeight)
         DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
 
-        for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
-            if var asset: CPlayerAsset? = WeakAsset {
-
-                DViewportRenderer.CenterViewport(pos: asset!.DPosition)
-                break
-            }
+        for WeakAsset in DGameModel.Player(color: DPlayerColor)!.DAssets {
+            DViewportRenderer.CenterViewport(pos: WeakAsset.DPosition)
+            break
         }
     }
 

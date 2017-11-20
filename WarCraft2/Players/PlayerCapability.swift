@@ -32,10 +32,9 @@ class CPlayerCapability {
     static var NameRegistry: [String: CPlayerCapability] = [:]
     static var TypeRegistry: [Int: CPlayerCapability] = [:]
 
+    @discardableResult
     static func Register(capability: CPlayerCapability) -> Bool {
-        if FindCapability(name: capability.DName) != nil {
-            return false
-        }
+        // FindCapability(name: capability.DName)
 
         NameRegistry[capability.DName] = capability
         TypeRegistry[(NameToType(name: capability.DName).rawValue)] = capability
@@ -51,20 +50,19 @@ class CPlayerCapability {
         return DTargetType
     }
 
-    // FIXME: Not sure about return type
     static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
-        return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
+        fatalError("You should be able to find the player capability \(type).")
     }
 
-    // FIXME: Not sure about return type
+    @discardableResult
     static func FindCapability(name: String) -> CPlayerCapability {
         if let Iterator = NameRegistry[name] {
             return Iterator
         }
-        return CPlayerCapability(name: "", targettype: CPlayerCapability.ETargetType.None)
+        fatalError("You should be able to find the player capability \(name).")
     }
 
     static func NameToType(name: String) -> EAssetCapabilityType {
@@ -167,5 +165,6 @@ class CPlayerCapability {
     // FIXME: Virtual
     func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
+    @discardableResult
     func ApplyCapability(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
 }

@@ -29,7 +29,7 @@ class CPlayerData {
         DActualMap = map
         DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
         // FIXME: supposed to be a createInitializeMap(in this case it should be blank)
-        DPlayerMap = map
+        DPlayerMap = DActualMap.CreateInitializeMap()
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
@@ -49,12 +49,6 @@ class CPlayerData {
             if AssetInit.DColor == color {
 
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
-
-                // FIXME: hardcoded for right now. CreateAsset does not append the right color to the Asset
-                if color == EPlayerColor.Red {
-
-                    InitAsset.DType.DColor = EPlayerColor.Red
-                }
 
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
 
@@ -84,26 +78,31 @@ class CPlayerData {
         return DAssets.count > 0
     }
 
+    @discardableResult
     func IncrementGold(gold: Int) -> Int {
         DGold += gold
         return DGold
     }
 
+    @discardableResult
     func DecrementGold(gold: Int) -> Int {
         DGold -= gold
         return DGold
     }
 
+    @discardableResult
     func IncrementLumber(lumber: Int) -> Int {
         DLumber += lumber
         return DLumber
     }
 
+    @discardableResult
     func DecrementLumber(lumber: Int) -> Int {
         DLumber -= lumber
         return DLumber
     }
 
+    @discardableResult
     func FoodConsumption() -> Int {
         var TotalConsumption: Int = 0
         for Asset in DAssets {
@@ -126,10 +125,12 @@ class CPlayerData {
         return TotalProduction
     }
 
+    @discardableResult
     func VisibilityMap() -> CVisibilityMap? {
         return DVisibilityMap
     }
 
+    @discardableResult
     func PlayerMap() -> CAssetDecoratedMap {
         return DPlayerMap
     }
@@ -160,6 +161,8 @@ class CPlayerData {
                 let CreatedAsset: CPlayerAsset = pair.Construct()
                 CreatedAsset.CreationCycle(cycle: DGameCycle)
                 DAssets.append(CreatedAsset)
+                // FIXME: Where is this actually done? I can't seem to find when PlayerMap is added to
+                DPlayerMap.AddAsset(asset: CreatedAsset)
                 DActualMap.AddAsset(asset: CreatedAsset)
                 return CreatedAsset
             }
@@ -323,9 +326,9 @@ class CPlayerData {
         return BestAsset
     }
 
-    func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset {
+    func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset? {
 
-        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+        var BestAsset: CPlayerAsset?
         var BestDistanceSquared = -1
         var r = range
         if 0 < r {
@@ -333,14 +336,14 @@ class CPlayerData {
         }
         for Asset in DPlayerMap.DAssets {
             if Asset.Color() != DColor && Asset.Color() != EPlayerColor.None && Asset.Alive() {
-                var Command = Asset.CurrentCommand()
+                let Command = Asset.CurrentCommand()
                 if EAssetAction.Capability == Command.DAction {
                     if (Command.DAssetTarget != nil) && EAssetAction.Construct == Command.DAssetTarget?.Action() {
                         continue
                     }
                 }
                 if EAssetAction.ConveyGold != Command.DAction && EAssetAction.ConveyLumber != Command.DAction && EAssetAction.MineGold != Command.DAction {
-                    var CurrentDistance = Asset.ClosestPosition(pos: pos).DistanceSquared(pos: pos)
+                    let CurrentDistance = Asset.ClosestPosition(pos: pos).DistanceSquared(pos: pos)
 
                     if 0 > r || CurrentDistance <= r {
                         if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {

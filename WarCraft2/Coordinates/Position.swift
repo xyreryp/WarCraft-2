@@ -111,9 +111,9 @@ class CPosition {
             DHalfTileWidth = width / 2
             DHalfTileHeight = height / 2
 
-            DOctant = [[EDirection]](repeating: [], count: DTileHeight + 1)
+            DOctant = [[EDirection]](repeating: [], count: DTileHeight)
             for (i, _) in DOctant.enumerated() {
-                DOctant[i] = [EDirection](repeating: EDirection.Max, count: DTileWidth + 1)
+                DOctant[i] = [EDirection](repeating: EDirection.Max, count: DTileWidth)
             }
         }
 
@@ -166,23 +166,27 @@ class CPosition {
     }
 
     // getter for DX
+    @discardableResult
     func X() -> Int {
         return DX
     }
 
     // set new value to DX and return
+    @discardableResult
     func X(x: Int) -> Int {
         DX = x
         return DX
     }
 
     // increment and return DX
+    @discardableResult
     func IncrementX(x: Int) -> Int {
         DX += x
         return DX
     }
 
     // decrement and return DY
+    @discardableResult
     func DecrementX(x: Int) -> Int {
         DX -= x
         return DX
@@ -194,18 +198,21 @@ class CPosition {
     }
 
     // set new value to DY and return
+    @discardableResult
     func Y(y: Int) -> Int {
         DY = y
         return DY
     }
 
     // increment and return DY
+    @discardableResult
     func IncrementY(y: Int) -> Int {
         DY += y
         return DY
     }
 
     // decrement and return DY
+    @discardableResult
     func DecrementY(y: Int) -> Int {
         DY -= y
         return DY
