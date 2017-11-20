@@ -304,11 +304,7 @@ class CPlayerAsset {
 
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
-<<<<<<< HEAD
             return DCommands[DCommands.endIndex - 1]
-=======
-            return (DCommands.last)!
->>>>>>> changeToBattleMode
         }
         var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
         return RetVal
