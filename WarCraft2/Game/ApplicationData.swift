@@ -884,6 +884,20 @@ class CApplicationData {
             DViewportRenderer.CenterViewport(pos: WeakAsset.DPosition)
             break
         }
+
+        InitTypeRegistry()
+    }
+
+    func InitTypeRegistry() {
+        // FIXME: Need to add more Caps tp Registrant
+        CPlayerCapabilityMove.AddToRegistrant()
+        CPlayerCapabilityRepair.AddToRegistrant()
+        CPlayerCapabilityPatrol.AddToRegistrant()
+        CPlayerCapabilityAttack.AddToRegistrant()
+        CPlayerCapabilityMineHarvest.AddToRegistrant()
+        CPlayerCapabilityCancel.AddToRegistrant()
+        CPlayerCapabilityConvey.AddToRegistrant()
+        CPlayerCapabilityStandGround.AddToRegistrant()
     }
 
     func ResetPlayerColors() {
