@@ -193,15 +193,58 @@ class CBattleMode: CApplicationMode {
                 // This is our "equivalent" of pixelType.AssetType() for now
                 // FIXME: hardcoded for building testing
                 let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
-
+                //  let playercap = CPlayerCapabilityBuildNormal(buildingname: "Castle")
                 // create fake actor and target with same coord to trigger building
+                // let archer = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Archer") // Hardcoded to build add archer and castle at the same time
+
                 let actor = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Peasant")
                 let target = CPlayerAsset(type: CPlayerAssetType())
+                // let target2 = CPlayerAsset(type: CPlayerAssetType())
+
+                // archer.TilePosition(pos: CTilePosition(x: ClickedTile.X() + 2, y: ClickedTile.Y() + 2))
+                //
+                //                let grass = CPixelType.EAssetTerrainType.Grass
+                //                let dirt = CPixelType.EAssetTerrainType.Dirt
+
                 actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["Barracks"]!.DSize, ignoreasset: actor) {
                     playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
                 }
+                //=======
+                //                //target2.TilePosition(pos: CTilePosition(x: ClickedTile.X() + 2, y: ClickedTile.Y() + 2))
+                //
+                //                let buildTerrain = context.DGameModel.DActualMap.TerrainTileType(xindex: ClickedTile.X(), yindex: ClickedTile.Y())
+                //                var trueTerrain: Bool = false
+                //
+                //                switch buildTerrain {
+                //                case CTerrainMap.ETerrainTileType.DarkDirt:
+                //                    trueTerrain = true
+                //                case CTerrainMap.ETerrainTileType.DarkGrass:
+                //                    trueTerrain = true
+                //                case CTerrainMap.ETerrainTileType.LightDirt:
+                //                    trueTerrain = true
+                //                case CTerrainMap.ETerrainTileType.LightGrass:
+                //                    trueTerrain = true
+                //                default:
+                //                    trueTerrain = false
+                //                }
+                //
+                //                // apply capability only if grass, dirt,
+                //                if trueTerrain {
+                //                    print(buildTerrain)
+                //                    playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
+                //                    let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
+                //                    print("You found: \(AssetType)")
+                //
+                //                    // Select peasant right now and appends the asset
+                //                    context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
+                //                }
+                //                // this should be inside if block
+                //
+                //                // playercap.ApplyCapability(actor: archer, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target2)
+                //
+                // >>>>>>> origin/draw-building
                 // let NewAsset = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Barracks")
                 // NewAsset.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 //                NewAsset.HitPoints(hitpts: 1)
@@ -210,11 +253,6 @@ class CBattleMode: CApplicationMode {
                 //                NewAsset.PushCommand(command: NewCommand)
                 // print("Barracks created at \(ClickedTile.X()), \(ClickedTile.Y())")
                 // hardcode session ends
-                let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
-                print("You found: \(AssetType)")
-
-                // Select peasant right now and appends the asset
-                context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
             }
         }
 
