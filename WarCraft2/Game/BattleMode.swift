@@ -215,7 +215,7 @@ class CBattleMode: CApplicationMode {
             var ViewPortPosition: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
             // FIXME: passing in context.DViewportTypeSurface as CGraphic Surface. May need to change PixelType to take in skscene>
             // type of the tile||asset you've clicked on, or color of it if it is something a player owns
-            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface, pos: ViewPortPosition)
+            var PixelType = CPixelType(red: 1, green: 0, blue: 0)
             // did you right click, and while its not held down, and if selected
             if context.DRightClick != 0 && !context.DRightDown && context.DSelectedPlayerAssets.count > 0 {
                 var CanMove: Bool = true
@@ -770,7 +770,7 @@ class CBattleMode: CApplicationMode {
         case CApplicationData.EUIComponentType.uictViewport:
             var ViewportCursorLocation: CPixelPosition = context.ScreenToViewport(pos: CPixelPosition(x: CurrentX, y: CurrentY))
             //
-            var PixelType = CPixelType.GetPixelType(surface: context.DViewportTypeSurface as! CGraphicSurface, xpos: ViewportCursorLocation.X(), ypos: ViewportCursorLocation.Y())
+            var PixelType = CPixelType(red: 1, green: 0, blue: 0)
             context.DCursorType = CApplicationData.ECursorType.ctPointer
             if EAssetCapabilityType.None == context.DCurrentAssetCapability {
                 if PixelType.Color() == context.DPlayerColor {

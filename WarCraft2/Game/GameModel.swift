@@ -719,8 +719,8 @@ class CGameModel {
     }
 
     func ClearGameEvents() {
-        for PlayerIndex in 0 ..< EAssetCapabilityType.Max.rawValue - 1 {
-            DPlayers[PlayerIndex].ClearGameEvents()
-        }
+        //        for PlayerIndex in 0 ..< EAssetCapabilityType.Max.rawValue - 2 {
+        //            DPlayers[PlayerIndex].ClearGameEvents()
+        //        }
     }
 }

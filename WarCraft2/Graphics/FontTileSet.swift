@@ -6,7 +6,7 @@
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 extension Character {
     var asciiValue: Int {
@@ -129,22 +129,11 @@ class CFontTileset: CGraphicMulticolorTileset {
     }
 
     // graphics factory core graphics->
-    public func DrawText(surface: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, str: String) {
-        var LastChar = Int()
-        var NextChar: Int
-        var Skip: Bool = true
-        var xposHold: Int = xpos
+    public func DrawText(surface _: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, str: String) {
+        let atrString = NSAttributedString(string: str)
+        atrString.draw(at: NSPoint(x: xpos, y: ypos))
 
-        for index in str.indices {
-
-            NextChar = str[index].asciiValue - 32
-            if !Skip {
-                xposHold += DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
-            }
-            Skip = false
-            super.DrawTile(context: surface, xpos: xposHold, ypos: ypos, width: 50, height: 50, tileindex: NextChar) // FIXME: Not sure what width/hieght should be
-            LastChar = NextChar
-        }
+        // atrString.draw(with: <#T##NSRect#>, options: <#T##NSString.DrawingOptions#>, context: <#T##NSStringDrawingContext?#>)
     }
 
     public func DrawTextColor(surface: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, colorindex: Int, str: String) {
@@ -169,17 +158,22 @@ class CFontTileset: CGraphicMulticolorTileset {
         }
     }
 
-    public func DrawTextWithShadow(surface: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, color: Int, shadowcol: Int, shadowwidth: Int, str: String) {
-        if (0 > color) || (color >= DColoredTilesets.count) {
-            print("Invalid!! color %d of %zd\n", color, DColoredTilesets.count)
-            return
-        }
-        if (0 > shadowcol) || (shadowcol >= DColoredTilesets.count) {
-            print("Invalid!! shadcolor %d of %zd\n", shadowcol, DColoredTilesets.count)
-            return
-        }
-        DrawTextColor(surface: surface, xpos: xpos + shadowwidth, ypos: ypos + shadowwidth, colorindex: shadowcol, str: str)
-        DrawTextColor(surface: surface, xpos: xpos, ypos: ypos, colorindex: color, str: str)
+    public func DrawTextWithShadow(surface _: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, color _: Int, shadowcol _: Int, shadowwidth _: Int, str: String) {
+
+        let atrs = [NSAttributedStringKey.foregroundColor: NSColor.white]
+        let atrString = NSAttributedString(string: str, attributes: atrs)
+
+        atrString.draw(at: NSPoint(x: xpos, y: 10))
+
+        // DrawTextColor(surface: surface, xpos: xpos + shadowwidth, ypos: ypos + shadowwidth, colorindex: shadowcol, str: str)
+        // DrawTextColor(surface: surface, xpos: xpos, ypos: ypos, colorindex: color, str: str)
+    }
+
+    static func DrawTextWithShadow(surface _: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, color _: Int, shadowcol _: Int, shadowwidth _: Int, str: String) {
+
+        let atrs = [NSAttributedStringKey.foregroundColor: NSColor.white]
+        let atrString = NSAttributedString(string: str, attributes: atrs)
+        atrString.draw(at: NSPoint(x: xpos, y: ypos))
     }
 
     public func MeasureText(str: String, width: inout Int, height: inout Int) {
