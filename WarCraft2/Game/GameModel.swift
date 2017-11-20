@@ -664,12 +664,15 @@ class CGameModel {
                 // if asset is in this tile
                 // FIXME: lol kill me
                 if true {
-                    //               if Asset.TileAligned() {
+                    // if Asset.TileAligned() {
                     var Command: SAssetCommand = Asset.CurrentCommand()
                     // grab next command from the stack
                     let NextCommand = Asset.NextCommand()
                     var TravelDirection: EDirection
                     let MapTarget: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
+                    var TestTilePosition: CTilePosition = CTilePosition()
+                    TestTilePosition.SetFromPixel(pos: MapTarget)
+                    print("Target Tile is: \(TestTilePosition.X()) and \(TestTilePosition.Y())")
                     // dont need
                     // if after walking you need to attack. if attack is below move on the command stack
                     if EAssetAction.Attack == NextCommand.DAction {
@@ -685,7 +688,7 @@ class CGameModel {
                     // CRUCIAL
                     // find direction you're gonna walk to
                     TravelDirection = DRouterMap.FindRoute(resmap: DPlayers[Asset.Color().rawValue].DPlayerMap, asset: Asset, target: MapTarget)
-                    print(TravelDirection)
+
                     // checking for valid direction, from FindRoute()
                     if EDirection.Max != TravelDirection {
                         Asset.Direction(direction: TravelDirection)
