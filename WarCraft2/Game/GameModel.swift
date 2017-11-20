@@ -30,11 +30,6 @@ struct SGameEvent {
     var DAsset: CPlayerAsset
 }
 
-// extern int GAssetIDCount;
-// extern std::map< int, std::shared_ptr< CPlayerAsset > > GAssetIDMap;
-// extern std::shared_ptr< CPlayerAsset > FindAssetObj(int AssetID);
-// extern void MapNewAssetObj(std::shared_ptr< CPlayerAsset > CreatedAsset);
-
 // Function is exclusive to this file
 // TODO: Check if this workaround is correct
 fileprivate func RangeToDistanceSquared(range: Int) -> Int {
