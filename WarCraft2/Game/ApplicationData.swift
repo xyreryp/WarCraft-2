@@ -9,6 +9,8 @@
 import Foundation
 import SpriteKit
 
+let TIMEOUT_INTERVAL = 50
+let TIMEOUT_FREQUENCY = (1000 / TIMEOUT_INTERVAL)
 class CApplicationData {
     static var INITIAL_MAP_WIDTH = 800
     static var INITIAL_MAO_HEIGHT = 600
@@ -632,6 +634,8 @@ class CApplicationData {
         //        if !DOuterBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "OuterBevel") {
         //            print("Failed to load Outer Bevel Tileset")
         //        }
+        CPlayerAsset.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
+        CAssetRenderer.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
     }
 
     // functiones for going back and forth between screen and actions
