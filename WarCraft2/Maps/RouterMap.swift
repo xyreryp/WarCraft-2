@@ -63,18 +63,17 @@ public struct Queue<T> {
 
 /// CRouterMap Class
 class CRouterMap {
-
     struct SSearchTarget {
-        var DX: Int = Int()
-        var DY: Int = Int()
-        var DSteps: Int = Int()
-        var DTileType: CTerrainMap.ETileType = CTerrainMap.ETileType.None
-        var DTargetDistanceSquared: Int = Int()
-        var DInDirection: EDirection = EDirection(rawValue: Int())!
+        var DX = Int()
+        var DY = Int()
+        var DSteps = Int()
+        var DTileType = CTerrainMap.ETileType.None
+        var DTargetDistanceSquared = Int()
+        var DInDirection = EDirection.North
     }
 
-    var DMap = [[Int]]()
-    var DSearchTargets = [SSearchTarget]()
+    var DMap: [[Int]] = []
+    var DSearchTargets: [SSearchTarget] = []
 
     static var DIdealSearchDirection: EDirection = EDirection.North
     static var DMapWidth: Int = 1
@@ -100,8 +99,8 @@ class CRouterMap {
         var BestSearch = SSearchTarget()
         var TempSearch = SSearchTarget()
         var CurrentTile: CTilePosition
-        var TargetTile: CTilePosition = CTilePosition()
-        var TempTile: CTilePosition = CTilePosition()
+        let TargetTile = CTilePosition()
+        let TempTile = CTilePosition()
         var SearchDirections: [EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
         var ResMapXOffsets: [Int] = [0, 1, 0, -1]
         var ResMapYOffsets: [Int] = [-1, 0, 1, 0]
@@ -253,7 +252,6 @@ class CRouterMap {
                     Sum += 8
                 }
                 Sum /= 2
-                print("Walking in this direction: \(Sum)")
                 LastInDirection = EDirection(rawValue: Sum)!
             }
         }
