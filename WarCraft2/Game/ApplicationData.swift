@@ -808,11 +808,10 @@ class CApplicationData {
 
         DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: &DLoadingPlayerColors)
         // AI INFORMATION
-        //        let Index = 1
-        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
         //            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
         //        }
-        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
         //            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
         //                var Downsample: Int = 1
         //                switch DLoadingPlayerTypes[Index] {
@@ -905,8 +904,7 @@ class CApplicationData {
     }
 
     func ResetPlayerColors() {
-        let Index = 0
-        for Index in Index ..< EPlayerColor.Max.rawValue {
+        for Index in 0 ..< EPlayerColor.Max.rawValue {
             DLoadingPlayerColors[Index] = EPlayerColor(rawValue: Index)!
         }
     }

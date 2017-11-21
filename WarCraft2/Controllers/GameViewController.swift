@@ -46,7 +46,6 @@ class GameViewController: NSViewController {
         }
 
         applicationData.Activate()
-        // populating typeregistry and dregistry
 
         skscene = GameScene(size: CGSize(width: 800, height: 600), applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
