@@ -247,12 +247,11 @@ class CBattleMode: CApplicationMode {
                 if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability { // check if capability was to build
                     if let KeyLookup = context.DBuildHotKeyMap[Key] { // check if valid hotkey
 
-                        print("HotKey:", Key, "pressed") // Debug
-                        print("capability type:", KeyLookup) // Debug
+                        // print("capability type:", KeyLookup) // Debug
 
-                        var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
+                        var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup) // Not assigned to PlayerCapability from FindCapability because not found in Registry
                         if PlayerCapability != nil {
-                            print("Not assigned to PlayerCapability from FindCapability because not found in Registry")
+
                             print("Player capability type: ", PlayerCapability!.DTargetType) // Debug
 
                             let ActorTarget = context.DSelectedPlayerAssets.first
