@@ -11,27 +11,16 @@ import Cocoa
 import SpriteKit
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-        //        var viewportPixel = CGPoint(x: applicationData.DViewportRenderer.DViewportX, y: applicationData.DViewportRenderer.DViewportY)
-        //        let sceneviewportPixel = viewPort.convert(viewportPixel, to: scene!.view)
-        // print("ViewportEdge: \(sceneviewportPixel)")
-        //        applicationData.DCurrentY = Int(scene!.convertPoint(toView: event.locationInWindow).y)
-        //
-        //        applicationData.DCurrentX = Int(scene!.convertPoint(toView: event.locationInWindow).x)
-        applicationData.DCurrentX = Int(event.locationInWindow.x)
-        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
 
-        //        let viewPort = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
-        //        let windowPoint = CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)
-        //        let scenePoint = viewPort.convert(windowPoint, to: scene!.view)
-        //        applicationData.DCurrentX = Int(NSEvent.mouseLocation.x)
-        //        applicationData.DCurrentY = Int(NSEvent.mouseLocation.y)
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
         applicationData.DLeftClick = 1
     }
 
     open override func rightMouseDown(with event: NSEvent) {
         // right mouse click
         applicationData.DCurrentX = Int(event.locationInWindow.x)
-        applicationData.DCurrentY = 600 - Int(event.locationInWindow.y)
+        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
         applicationData.DRightClick = 1
     }
 }
@@ -61,15 +50,6 @@ class GameViewController: NSViewController {
         }
 
         applicationData.Activate()
-        // populating typeregistry and dregistry
-        let move = CPlayerCapabilityMove.DRegistrant
-        let repair = CPlayerCapabilityRepair.DRegistrant
-        let patrol = CPlayerCapabilityPatrol.DRegistrant
-        let attack = CPlayerCapabilityAttack.DRegistrant
-        let mineharvest = CPlayerCapabilityMineHarvest.DRegistrant
-        let cancel = CPlayerCapabilityCancel.DRegistrant
-        let convey = CPlayerCapabilityConvey.DRegistrant
-        let standground = CPlayerCapabilityStandGround.DRegistrant
 
         skscene = GameScene(size: CGSize(width: 800, height: 600), applicationData: applicationData, battleMode: battleMode)
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))

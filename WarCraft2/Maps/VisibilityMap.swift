@@ -79,7 +79,7 @@ class CVisibilityMap {
         return DMap.count - 2 * DMaxVisibility
     }
 
-    //    // TODO: need CPlayerAsset, otherwise everything is in swift
+    // TODO: need CPlayerAsset, otherwise everything is in swift
     func Update(assets: [CPlayerAsset]) {
         for Row in DMap {
             for var Cell in Row {

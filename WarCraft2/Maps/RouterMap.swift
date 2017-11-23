@@ -63,20 +63,17 @@ public struct Queue<T> {
 
 /// CRouterMap Class
 class CRouterMap {
-
-    struct SEARCHTARGET_TAG {
-        var DX: Int = Int()
-        var DY: Int = Int()
-        var DSteps: Int = Int()
-        var DTileType: CTerrainMap.ETileType = CTerrainMap.ETileType.None
-        var DTargetDistanceSquared: Int = Int()
-        var DInDirection: EDirection = EDirection(rawValue: Int())!
+    struct SSearchTarget {
+        var DX = Int()
+        var DY = Int()
+        var DSteps = Int()
+        var DTileType = CTerrainMap.ETileType.None
+        var DTargetDistanceSquared = Int()
+        var DInDirection = EDirection.North
     }
 
-    typealias SSearchTarget = SEARCHTARGET_TAG
-
-    var DMap = [[Int]]()
-    var DSearchTargets = [SSearchTarget]()
+    var DMap: [[Int]] = []
+    var DSearchTargets: [SSearchTarget] = []
 
     static var DIdealSearchDirection: EDirection = EDirection.North
     static var DMapWidth: Int = 1
@@ -94,16 +91,16 @@ class CRouterMap {
     }
 
     public func FindRoute(resmap: CAssetDecoratedMap, asset: CPlayerAsset, target: CPixelPosition) -> EDirection {
-        var MapWidth: Int = resmap.Width()
-        var MapHeight: Int = resmap.Height()
-        var StartX: Int = asset.TilePositionX()
-        var StartY: Int = asset.TilePositionY()
-        var CurrentSearch: SSearchTarget = SSearchTarget() // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#Int#>)
-        var BestSearch: SSearchTarget = SSearchTarget() // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
-        // SSearchTarget(DX: <#Int#>, DY: <#Int#>, DSteps: <#Int#>, DTileType: <#CTerrainMap.ETileType#>, DTargetDistanceSquared: <#Int#>, DInDirection: <#EDirection#>)
+        let MapWidth = resmap.Width()
+        let MapHeight = resmap.Height()
+        let StartX = asset.TilePositionX()
+        let StartY = asset.TilePositionY()
+        var CurrentSearch = SSearchTarget()
+        var BestSearch = SSearchTarget()
+        var TempSearch = SSearchTarget()
         var CurrentTile: CTilePosition
-        var TargetTile: CTilePosition = CTilePosition()
-        var TempTile: CTilePosition = CTilePosition()
+        let TargetTile = CTilePosition()
+        let TempTile = CTilePosition()
         var SearchDirections: [EDirection] = [EDirection.North, EDirection.East, EDirection.South, EDirection.West]
         var ResMapXOffsets: [Int] = [0, 1, 0, -1]
         var ResMapYOffsets: [Int] = [-1, 0, 1, 0]
@@ -207,25 +204,11 @@ class CRouterMap {
                 BestSearch = CurrentSearch
             }
             for Index in 0 ..< SearchDirectionCount {
-                var TempSearch: SSearchTarget = SSearchTarget()
                 TempTile.X(x: CurrentSearch.DX + ResMapXOffsets[Index])
                 TempTile.Y(y: CurrentSearch.DY + ResMapYOffsets[Index])
-                if SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1] {
+                if (SEARCH_STATUS_UNVISITED == DMap[TempTile.Y() + 1][TempTile.X() + 1]) || (CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1])) {
                     DMap[TempTile.Y() + 1][TempTile.X() + 1] = Index
                     let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
-                    // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
-                    if CTerrainMap.IsTraversable(type: CurTileType) {
-                        TempSearch.DX = TempTile.X()
-                        TempSearch.DY = TempTile.Y()
-                        TempSearch.DSteps = CurrentSearch.DSteps + 1
-                        TempSearch.DTileType = CurTileType
-                        TempSearch.DTargetDistanceSquared = TempTile.DistanceSquared(pos: TargetTile)
-                        TempSearch.DInDirection = SearchDirections[Index]
-                        SearchQueue.enqueue(TempSearch)
-                    }
-                } else if CRouterMap.MovingAway(dir1: SearchDirections[Index], dir2: SEARCH_STATUS_OCCUPIED - DMap[TempTile.Y() + 1][TempTile.X() + 1]) {
-                    let CurTileType: CTerrainMap.ETileType = resmap.TileType(xindex: TempTile.X(), yindex: TempTile.Y())
-                    // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
                     if CTerrainMap.IsTraversable(type: CurTileType) {
                         TempSearch.DX = TempTile.X()
                         TempSearch.DY = TempTile.Y()
@@ -253,7 +236,7 @@ class CRouterMap {
             let Index = DMap[CurrentTile.Y() + 1][CurrentTile.X() + 1]
 
             if (0 > Index) || (SearchDirectionCount <= Index) {
-                exit(0)
+                fatalError("Wrong directions")
             }
             DirectionBeforeLast = LastInDirection
             LastInDirection = SearchDirections[Index]
@@ -262,14 +245,13 @@ class CRouterMap {
         }
         if DirectionBeforeLast != LastInDirection {
             let CurTileType = resmap.TileType(xindex: StartX + DiagCheckXOffset[(DirectionBeforeLast.rawValue)], yindex: StartY + DiagCheckYOffset[(DirectionBeforeLast.rawValue)])
-            // if((CTerrainMap::ETileType::Grass == CurTileType)||(CTerrainMap::ETileType::Dirt == CurTileType)||(CTerrainMap::ETileType::Stump == CurTileType)||(CTerrainMap::ETileType::Rubble == CurTileType)||(CTerrainMap::ETileType::None == CurTileType)){
+
             if CTerrainMap.IsTraversable(type: CurTileType) {
                 var Sum: Int = (LastInDirection.rawValue) + (DirectionBeforeLast.rawValue)
                 if (6 == Sum) && ((EDirection.North == LastInDirection) || (EDirection.North == DirectionBeforeLast)) { // NW wrap around
                     Sum += 8
                 }
                 Sum /= 2
-                print("Walking in this direction: \(Sum)")
                 LastInDirection = EDirection(rawValue: Sum)!
             }
         }
