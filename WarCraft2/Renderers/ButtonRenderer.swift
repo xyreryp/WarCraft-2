@@ -74,7 +74,6 @@ class CButtonRenderer {
         DWhiteIndex = DFont.FindColor(colorname: "white")
         DGoldIndex = DFont.FindColor(colorname: "gold")
         DBlackIndex = DFont.FindColor(colorname: "black")
-        //        PrintDebug(DEBUG_HIGH,"CButtonRenderer w = %d, g = %d, b = %d\n", DWhiteIndex, DGoldIndex, DBlackIndex);
     }
 
     func ButtonColor() -> EPlayerColor {
@@ -151,7 +150,7 @@ class CButtonRenderer {
     //    func DrawButton(surface: CGraphicSurface, x: Int, y: Int, state: EButtonState) {
     func DrawButton(surface: CGraphicResourceContext, x: Int, y: Int, state: EButtonState) {
 
-        var ResourceContext = surface
+        let ResourceContext = surface
         if EButtonState.Pressed == state {
             let BevelWidth: Int = DInnerBevel.Width()
             ResourceContext.SetSourceRGBA(rgba: DColorMap.ColorValue(gindex: DDarkIndices[DButtonColor.rawValue], cindex: 0))

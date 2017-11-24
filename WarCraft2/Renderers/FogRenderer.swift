@@ -66,7 +66,7 @@ class CFogRenderer {
                     for YOff in -1 ... 1 {
                         for XOff in -1 ... 1 {
                             if (YOff > 0) || (XOff > 0) {
-                                var VisTile: ETileVisibility = DDMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
+                                let VisTile: ETileVisibility = DDMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
                                 if VisTile == ETileVisibility.Visible {
                                     VisibilityIndex = VisibilityIndex | VisibilityMask
                                 }

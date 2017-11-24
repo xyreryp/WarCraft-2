@@ -5,7 +5,6 @@
 //  Created by David Montes on 10/19/17.
 //  Copyright © 2017 UC Davis. All rights reserved.
 //
-
 import Foundation
 import SpriteKit
 
@@ -135,7 +134,6 @@ class CAssetRenderer {
         DBuildIndices = [[Int]](repeating: [], count: DTilesets.count)
 
         for Tileset in DTilesets {
-            // PrintDebug(DEBUG_LOW, "Checking Walk on %d\n", TypeIndex)
             //            Tileset.printDMapping()
             for DirectionName in ["walk-n-", "walk-ne-", "walk-e-", "walk-se-", "walk-s-", "walk-sw-", "walk-w-", "walk-nw-"] {
                 var StepIndex: Int = 0
@@ -168,7 +166,7 @@ class CAssetRenderer {
                 }
                 StepIndex = StepIndex + 1
             }
-            // PrintDebug(DEBUG_LOW,"Checking Gold on %d\n",TypeIndex);
+
             for DirectionName in ["gold-n-", "gold-ne-", "gold-e-", "gold-se-", "gold-s-", "gold-sw-", "gold-w-", "gold-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -183,7 +181,7 @@ class CAssetRenderer {
                     StepIndex = StepIndex + 1
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Lumber on %d\n",TypeIndex);
+
             for DirectionName in ["lumber-n-", "lumber-ne-", "lumber-e-", "lumber-se-", "lumber-s-", "lumber-sw-", "lumber-w-", "lumber-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -198,7 +196,7 @@ class CAssetRenderer {
                     StepIndex = StepIndex + 1
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Attack on %d\n",TypeIndex);
+
             for DirectionName in ["attack-n-", "attack-ne-", "attack-e-", "attack-se-", "attack-s-", "attack-sw-", "attack-w-", "attack-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -227,7 +225,7 @@ class CAssetRenderer {
                     }
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Death on %d\n",TypeIndex);
+
             var LastDirectionName: String = "death-nw"
             for DirectionName in ["death-n-", "death-ne-", "death-e-", "death-se-", "death-s-", "death-sw-", "death-w-", "death-nw-"] {
                 var StepIndex: Int = 0
@@ -250,9 +248,10 @@ class CAssetRenderer {
                 }
                 LastDirectionName = DirectionName
             }
-            // if DDeathIndices[TypeIndex].count {
-            // }
-            // PrintDebug(DEBUG_LOW,"Checking None on %d\n",TypeIndex);
+
+            if DDeathIndices[TypeIndex].count > 0 {
+            }
+
             for DirectionName in ["none-n-", "none-ne-", "none-e-", "none-se-", "none-s-", "none-sw-", "none-w-", "none-nw-"] {
                 var TileIndex: Int = Tileset.FindTile(tilename: String(DirectionName))
                 if 0 <= TileIndex {
@@ -266,7 +265,7 @@ class CAssetRenderer {
                     }
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Build on %d\n",TypeIndex);
+
             for DirectionName in ["build-n-", "build-ne-", "build-e-", "build-se-", "build-s-", "build-sw-", "build-w-", "build-nw-"] {
                 var StepIndex: Int = 0
                 var TileIndex: Int
@@ -292,11 +291,8 @@ class CAssetRenderer {
                     StepIndex = StepIndex + 1
                 }
             }
-            // PrintDebug(DEBUG_LOW,"Checking Place on %d\n",TypeIndex);
+
             DPlaceIndices[TypeIndex].append(Tileset.FindTile(tilename: "place"))
-
-            // PrintDebug(DEBUG_LOW,"Done checking type %d\n",TypeIndex);
-
             TypeIndex = TypeIndex + 1
         }
     }
@@ -332,50 +328,6 @@ class CAssetRenderer {
 
         return first.DX <= second.DX
     }
-
-    //    // hard code locations, and which tile in tileset
-    func TestDrawAssets(surface: SKScene, tileset: [CGraphicTileset]) {
-
-        //        for tileset in DTilesets {
-        //            switch tileset.
-        //        }
-        tileset[5].DrawTile(skscene: surface, xpos: -100, ypos: -50, tileindex: 0) // peasant
-        tileset[5].DrawTile(skscene: surface, xpos: 100, ypos: -50, tileindex: 1) // peasant
-        tileset[5].DrawTile(skscene: surface, xpos: 200, ypos: -50, tileindex: 2) // Footman
-        tileset[5].DrawTile(skscene: surface, xpos: 300, ypos: -50, tileindex: 3) // Archer
-        tileset[5].DrawTile(skscene: surface, xpos: 400, ypos: -50, tileindex: 2) // Ranger
-        //        tileset[5].DrawTile(skscene: surface, xpos: 500, ypos: -50, tileindex: 1) // Goldmine
-        //        tileset[5].DrawTile(skscene: surface, xpos: 0, ypos: 0, tileindex: 1)
-        //        tileset[6].DrawTile(skscene: surface, xpos: 600, ypos: -50, tileindex: 3) // Townhall
-        //        tileset[5].DrawTile(skscene: surface, xpos: 700, ypos: -50, tileindex: 1) // keep
-        //        tileset[5].DrawTile(skscene: surface, xpos: 100, ypos: -200, tileindex: 1) // castle
-        //        tileset[5].DrawTile(skscene: surface, xpos: 200, ypos: -200, tileindex: 3) // Farm
-        //        tileset[10].DrawTile(skscene: surface, xpos: 300, ypos: -200, tileindex: 3) // Barracks
-        //        tileset[11].DrawTile(skscene: surface, xpos: 400, ypos: -200, tileindex: 3) // lumberMill
-        //        tileset[12].DrawTile(skscene: surface, xpos: 500, ypos: -200, tileindex: 2) // Blacksmith
-        //        tileset[13].DrawTile(skscene: surface, xpos: 600, ypos: -200, tileindex: 2) // ScoutTower
-        //        tileset[14].DrawTile(skscene: surface, xpos: 700, ypos: -200, tileindex: 0) // GuardTower
-        //        tileset[15].DrawTile(skscene: surface, xpos: 800, ypos: -200, tileindex: 0) // Cannon Tower
-    }
-
-    func movePeasant(x: Int, y: Int, surface: SKScene, tileset: [CGraphicTileset]) {
-
-        tileset[1].DrawTile(skscene: surface, xpos: x, ypos: y, tileindex: 0)
-    }
-
-    //    func TestDrawAssets(surface: SKScene, typesurface _: SKScene, rect: SRectangle) {
-    //        // split into [String: [Int]]
-    //        for asset in DPlayerMap.DStartingAssets {
-    //            let splitasset = asset.split(separator: " ")
-    //            let assetname = splitasset[0]
-    //            let owner = splitasset[1]
-    //            let xpos = splitasset[2]
-    //            let ypos = splitasset[3]
-    //
-    //
-    //        }
-    //
-    //    }
 
     func DrawAssets(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
@@ -513,7 +465,7 @@ class CAssetRenderer {
             }
         }
 
-        FinalRenderList.sorted(by: CompareRenderData)
+        FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 // FIXME: Currently reversing height for rendering to make it render properly
@@ -597,9 +549,6 @@ class CAssetRenderer {
         }
 
         for LockedAsset in selectionlist {
-            // if var LockedAsset = AssetIterator.lock() {
-            // if let commandDAssetTarget: CPlayerAsset = Command.DAssetTarget {
-
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = LockedAsset.Type()
             if EAssetType.None == TempRenderData.DType {
@@ -848,8 +797,8 @@ class CAssetRenderer {
             }
             if OnScreen {
                 var XPos, YPos: Int
-                _ = TempPosition.X(x: TempPosition.X() - rect.DXPosition)
-                _ = TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
+                TempPosition.X(x: TempPosition.X() - rect.DXPosition)
+                TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
                 // FIXME:
                 DTilesets[type.rawValue].DrawTile(skscene: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
                 XPos = TempPosition.X()

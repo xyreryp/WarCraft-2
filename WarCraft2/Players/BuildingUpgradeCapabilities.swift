@@ -33,7 +33,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
         var DGold: Int
 
         init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset, origtype: CPlayerAssetType, upgradetype: CPlayerAssetType, lumber: Int, gold: Int, steps: Int) {
-            var AssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var AssetCommand = SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
 
             DTarget = target
             DPlayerData = playerdata

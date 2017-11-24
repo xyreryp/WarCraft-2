@@ -154,7 +154,7 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
                 NewCommand.DAction = EAssetAction.Capability
                 NewCommand.DCapability = AssetCapabilityType()
                 NewCommand.DAssetTarget = NewAsset
-                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
+                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: NewAsset, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
                 actor.PushCommand(command: NewCommand)
 
             } else {

@@ -314,6 +314,21 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset!
     }
 
+    // FIXME: delete hardcode
+    func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
+        var AssetColor: EPlayerColor
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
+                AssetColor = Asset.AssetType().DColor
+                return AssetColor
+            }
+        }
+        AssetColor = EPlayerColor.None
+        return AssetColor
+    }
+
     func FakeFindAsset(pos: CTilePosition) -> EAssetType {
         var BestAsset: EAssetType
         for Asset in DAssets {
@@ -563,13 +578,15 @@ class CAssetDecoratedMap: CTerrainMap {
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
-            for var Row in ReturnMap.DMap {
-                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = ETileType.None
-                }
-            }
+            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
+            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
+            //            for var Row in ReturnMap.DMap {
+            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
+            //                for index in 0 ..< Row.count {
+            //                    Row[index] = ETileType.None
+            //                }
+            //            }
+            ReturnMap.DMap = DMap
             ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
 
             for var Row in ReturnMap.DMapIndices {

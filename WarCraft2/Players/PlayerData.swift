@@ -29,7 +29,7 @@ class CPlayerData {
         DActualMap = map
         DAssetTypes = CPlayerAssetType.DuplicateRegistry(color: color)
         // FIXME: supposed to be a createInitializeMap(in this case it should be blank)
-        DPlayerMap = map
+        DPlayerMap = DActualMap.CreateInitializeMap()
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 0
         DLumber = 0
@@ -47,8 +47,11 @@ class CPlayerData {
 
         for AssetInit in DActualMap.DAssetInitializationList {
             if AssetInit.DColor == color {
+
                 let InitAsset: CPlayerAsset = CreateAsset(assettypename: AssetInit.DType)
+
                 InitAsset.TilePosition(pos: AssetInit.DTilePosition)
+
                 let assetInitType: String = AssetInit.DType
                 if EAssetType.GoldMine == CPlayerAssetType.NameToType(name: assetInitType) {
                     InitAsset.Gold(gold: DGold)
@@ -158,6 +161,8 @@ class CPlayerData {
                 let CreatedAsset: CPlayerAsset = pair.Construct()
                 CreatedAsset.CreationCycle(cycle: DGameCycle)
                 DAssets.append(CreatedAsset)
+                // FIXME: Where is this actually done? I can't seem to find when PlayerMap is added to
+                DPlayerMap.AddAsset(asset: CreatedAsset)
                 DActualMap.AddAsset(asset: CreatedAsset)
                 return CreatedAsset
             }

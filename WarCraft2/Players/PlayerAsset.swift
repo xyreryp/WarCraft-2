@@ -27,8 +27,8 @@ class CPlayerAsset {
     var DDirection: EDirection
     var DCommands: [SAssetCommand]
     var DType: CPlayerAssetType
-    static var DUpdateFrequency: Int = 1
-    static var DUpdateDivisor: Int = 32
+    static var DUpdateFrequency: Int = 0
+    static var DUpdateDivisor: Int = 128
     static var DGenerateRandomNum: RandomNumberGenerator = RandomNumberGenerator()
 
     init(type: CPlayerAssetType) {
@@ -305,13 +305,10 @@ class CPlayerAsset {
     // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
-            DCommands.removeLast()
+            return DCommands[DCommands.endIndex - 1]
         }
-        // FIXME: DActivatedCapability?
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
-        RetVal.DAction = EAssetAction.None
 
-        return RetVal
+        return SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
     }
 
     // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
@@ -320,9 +317,7 @@ class CPlayerAsset {
             return DCommands[DCommands.count - 2]
         }
 
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
-        RetVal.DAction = EAssetAction.None
-        return RetVal
+        return SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
     }
 
     func Action() -> EAssetAction {
@@ -388,7 +383,9 @@ class CPlayerAsset {
         let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
 
         CurrentTile.SetFromPixel(pos: DPosition)
+        print("My current tile is \(CurrentTile.X()) and \(CurrentTile.Y())")
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
+
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
             let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
             DMoveRemainderX = NewX % CPlayerAsset.DUpdateDivisor
@@ -396,6 +393,7 @@ class CPlayerAsset {
             DPosition.IncrementX(x: NewX / CPlayerAsset.DUpdateDivisor)
             DPosition.IncrementY(y: NewY / CPlayerAsset.DUpdateDivisor)
         } else { // Entering
+
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
             let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
             var TempMoveRemainderX: Int = NewX % CPlayerAsset.DUpdateDivisor
@@ -414,7 +412,6 @@ class CPlayerAsset {
             DMoveRemainderY = TempMoveRemainderY
         }
         NewTilePosition.SetFromPixel(pos: DPosition)
-
         if CurrentTile != NewTilePosition {
             let Diagonal: Bool = (CurrentTile.X() != NewTilePosition.X()) && (CurrentTile.Y() != NewTilePosition.Y())
             let DiagonalX: Int = min(CurrentTile.X(), NewTilePosition.X())
@@ -435,8 +432,8 @@ class CPlayerAsset {
             occupancymap[NewTilePosition.Y()][NewTilePosition.X()] = occupancymap[CurrentTile.Y()][CurrentTile.X()]
             occupancymap[CurrentTile.Y()][CurrentTile.X()] = nil
         }
-
-        return false
+        IncrementStep()
+        return true
     }
 
     func MaxHitPoints() -> Int {

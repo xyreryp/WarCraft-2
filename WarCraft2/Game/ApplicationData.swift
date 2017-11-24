@@ -9,9 +9,11 @@
 import Foundation
 import SpriteKit
 
+let TIMEOUT_INTERVAL = 50
+let TIMEOUT_FREQUENCY = (1000 / TIMEOUT_INTERVAL)
 class CApplicationData {
     static var INITIAL_MAP_WIDTH = 800
-    static var INITIAL_MAO_HEIGHT = 600
+    static var INITIAL_MAP_HEIGHT = 600
     static var TIMEOUT_INTERVAL = 50
     static var MINI_MAP_MIN_WIDTH = 128
     static var MINI_MAP_MIN_HEGHT = 128
@@ -110,7 +112,7 @@ class CApplicationData {
     // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
-    var DMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer!
     // cursor things
     // TODO: CCursorset?
     // var DCursorset: CCursorSet? = nil
@@ -231,7 +233,7 @@ class CApplicationData {
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
-    var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
+    var DPlayer: CPlayerData!
 
     init() { // appName _: String, key _: SPrivateApplicationType) {
         //        DApplicationPointer = CApplicationData()
@@ -274,7 +276,7 @@ class CApplicationData {
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
         // Map Renderer
-        DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
+        // DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
         // cursor things
         // TODO: uncomment later
@@ -307,16 +309,16 @@ class CApplicationData {
         //        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
         //            print("Failed to lead BuildingDeath tileset")
         //        }
-        var bevelDataSource = CDataSource()
-        var MiniBevelTileset = CGraphicTileset()
+        let bevelDataSource = CDataSource()
+        let MiniBevelTileset = CGraphicTileset()
         if !MiniBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
             print("Failed to lead MiniBevel tileset")
         }
-        var InnerBevelTileset = CGraphicTileset()
+        let InnerBevelTileset = CGraphicTileset()
         if !InnerBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
             print("Failed to lead InnerBevel tileset")
         }
-        var OuterBevelTileset = CGraphicTileset()
+        let OuterBevelTileset = CGraphicTileset()
         if !OuterBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
             print("Failed to lead OuterBevel tileset")
         }
@@ -392,7 +394,6 @@ class CApplicationData {
         TempDataSource = CDataSource()
 
         // playerData needed for assetRenderer
-        DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
         DPlayerColor = EPlayerColor.Red
         //        DMiniMapViewportColor = 0xFFFFFF
         DDeleted = false
@@ -620,6 +621,8 @@ class CApplicationData {
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
 
         LoadGameMap(index: 0)
+
+        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[0], color: DPlayerColor)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }
@@ -631,6 +634,8 @@ class CApplicationData {
         //        if !DOuterBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "OuterBevel") {
         //            print("Failed to load Outer Bevel Tileset")
         //        }
+        CPlayerAsset.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
+        CAssetRenderer.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
     }
 
     // functiones for going back and forth between screen and actions
@@ -803,11 +808,10 @@ class CApplicationData {
 
         DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: &DLoadingPlayerColors)
         // AI INFORMATION
-        //        let Index = 1
-        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
         //            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
         //        }
-        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
         //            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
         //                var Downsample: Int = 1
         //                switch DLoadingPlayerTypes[Index] {
@@ -883,11 +887,24 @@ class CApplicationData {
             DViewportRenderer.CenterViewport(pos: WeakAsset.DPosition)
             break
         }
+
+        InitTypeRegistry()
+    }
+
+    func InitTypeRegistry() {
+        // FIXME: Need to add more Caps tp Registrant
+        CPlayerCapabilityMove.AddToRegistrant()
+        CPlayerCapabilityRepair.AddToRegistrant()
+        CPlayerCapabilityPatrol.AddToRegistrant()
+        CPlayerCapabilityAttack.AddToRegistrant()
+        CPlayerCapabilityMineHarvest.AddToRegistrant()
+        CPlayerCapabilityCancel.AddToRegistrant()
+        CPlayerCapabilityConvey.AddToRegistrant()
+        CPlayerCapabilityStandGround.AddToRegistrant()
     }
 
     func ResetPlayerColors() {
-        let Index = 0
-        for Index in Index ..< EPlayerColor.Max.rawValue {
+        for Index in 0 ..< EPlayerColor.Max.rawValue {
             DLoadingPlayerColors[Index] = EPlayerColor(rawValue: Index)!
         }
     }

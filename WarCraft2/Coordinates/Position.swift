@@ -111,9 +111,9 @@ class CPosition {
             DHalfTileWidth = width / 2
             DHalfTileHeight = height / 2
 
-            DOctant = [[EDirection]](repeating: [], count: DTileHeight + 1)
+            DOctant = [[EDirection]](repeating: [], count: DTileHeight)
             for (i, _) in DOctant.enumerated() {
-                DOctant[i] = [EDirection](repeating: EDirection.Max, count: DTileWidth + 1)
+                DOctant[i] = [EDirection](repeating: EDirection.Max, count: DTileWidth)
             }
         }
 

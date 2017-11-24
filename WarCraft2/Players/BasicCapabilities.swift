@@ -10,13 +10,10 @@
 import Foundation
 
 class CPlayerCapabilityMove: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityMove())
-        }
-    }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityMove())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
 
@@ -69,7 +66,7 @@ class CPlayerCapabilityMove: CPlayerCapability {
         return actor.Speed() > 0
     }
 
-    func CanApply(actor: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerData) -> Bool {
+    override func CanApply(actor: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool {
         return actor.Speed() > 0
     }
 
@@ -91,13 +88,10 @@ class CPlayerCapabilityMove: CPlayerCapability {
 }
 
 class CPlayerCapabilityMineHarvest: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityMineHarvest())
-        }
-    }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityMineHarvest())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -186,13 +180,10 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
 }
 
 class CPlayerCapabilityStandGround: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityStandGround())
-        }
-    }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityStandGround())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -267,13 +258,10 @@ class CPlayerCapabilityStandGround: CPlayerCapability {
 }
 
 class CPlayerCapabilityCancel: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityCancel())
-        }
-    }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityCancel())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -346,13 +334,10 @@ class CPlayerCapabilityCancel: CPlayerCapability {
 }
 
 class CPlayerCapabilityConvey: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityConvey())
-        }
-    }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityConvey())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -372,8 +357,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            var NearestRepository: CPlayerAsset
-            var AssetCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var AssetCommand = SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
             var TempEvent: SGameEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
 
             TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
@@ -383,6 +367,8 @@ class CPlayerCapabilityConvey: CPlayerCapability {
             if DActor.DLumber > 0 {
                 AssetCommand.DAction = EAssetAction.ConveyLumber
                 AssetCommand.DAssetTarget = DTarget
+                DActor.PushCommand(command: AssetCommand)
+                AssetCommand.DAction = EAssetAction.Walk
                 DActor.PushCommand(command: AssetCommand)
                 DActor.ResetStep()
             } else if DActor.DGold > 0 {
@@ -441,13 +427,10 @@ class CPlayerCapabilityConvey: CPlayerCapability {
 }
 
 class CPlayerCapabilityPatrol: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityPatrol())
-        }
-    }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityPatrol())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -531,13 +514,9 @@ class CPlayerCapabilityPatrol: CPlayerCapability {
 
 class CPlayerCapabilityAttack: CPlayerCapability {
 
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityAttack())
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityAttack())
     }
-
-    static var DRegistrant: CRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -616,13 +595,17 @@ class CPlayerCapabilityAttack: CPlayerCapability {
 }
 
 class CPlayerCapabilityRepair: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityRepair())
-        }
-    }
+    //    class CRegistrant {
+    //        init() {
+    //            CPlayerCapability.Register(capability: CPlayerCapabilityRepair())
+    //        }
+    //    }
+    //
+    //    static var DRegistrant: CRegistrant = CRegistrant()
 
-    static var DRegistrant: CRegistrant = CRegistrant()
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityRepair())
+    }
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
