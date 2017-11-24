@@ -703,7 +703,7 @@ class CGameModel {
                             Asset.PopCommand()
                             Asset.PopCommand()
                             if 0 <= TilePosition.X() {
-                                var NewPosition = CPixelPosition()
+                                let NewPosition = CPixelPosition()
                                 NewPosition.SetFromTile(pos: TilePosition)
                                 Command.DAction = EAssetAction.HarvestLumber
                                 Command.DAssetTarget = DPlayers[Asset.Color().rawValue].CreateMarker(pos: NewPosition, addtomap: false)

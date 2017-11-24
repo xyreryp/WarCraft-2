@@ -91,14 +91,14 @@ class CUnitActionRenderer {
 
     // using array of CPlayerAsset for list of weakpointers of type CPlayerAsset in C++ code
     func DrawUnitAction(surface: CGraphicSurface, selectionlist: [CPlayerAsset], currentAction: EAssetCapabilityType) {
-        var AllSame: Bool = true
-        var IsFirst: Bool = true
-        var Moveable: Bool = true
-        var HasCargo: Bool = false
-        var UnitType: EAssetType = EAssetType.None
+        var AllSame = true
+        var IsFirst = true
+        var Moveable = true
+        var HasCargo = false
+        var UnitType = EAssetType.None
 
         for Index in 0 ..< DDisplayedCommands.count {
-            DDisplayedCommands[Index] = EAssetCapabilityType.None
+            DDisplayedCommands[Index] = .None
         }
 
         if selectionlist.count == 0 {

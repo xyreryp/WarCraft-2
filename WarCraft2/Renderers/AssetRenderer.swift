@@ -465,7 +465,7 @@ class CAssetRenderer {
             }
         }
 
-        FinalRenderList.sorted(by: CompareRenderData)
+        FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 // FIXME: Currently reversing height for rendering to make it render properly

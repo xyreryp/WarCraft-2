@@ -27,7 +27,7 @@ class CMiniMapRenderer {
         DVisibleWidth = DMapRenderer.MapWidth()
         DVisibleHeight = DMapRenderer.MapHeight()
         DWorkingSurface = CGraphicFactory.CreateSurface(width: DMapRenderer.MapWidth(), height: DMapRenderer.MapHeight(), format: format)!
-        var ResourceContext = DWorkingSurface.CreateResourceContext()
+        let ResourceContext = DWorkingSurface.CreateResourceContext()
         ResourceContext.SetSourceRGB(rgb: 0x000000)
         ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DMapRenderer.MapWidth(), height: DMapRenderer.MapHeight())
         ResourceContext.Fill()

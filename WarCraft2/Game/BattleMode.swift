@@ -74,7 +74,7 @@ class CBattleMode: CApplicationMode {
         var ShiftPressed: Bool = false
         var PanningDirection: EDirection = EDirection.Max
         var SearchColor = context.DPlayerColor
-        // print("X: \(ClickedTile.X()) and Y: \(ClickedTile.Y())")
+
         if context.DRightClick == 1 && context.DSelectedPlayerAssets.count != 0 {
             var CanMove: Bool = true
             for Asset in context.DSelectedPlayerAssets {
@@ -89,13 +89,14 @@ class CBattleMode: CApplicationMode {
             if CanMove {
                 // This is our "equivalent" of pixelType.Color() for now [Always returns red for right now - needs to change]
 
-                var fakeColor = context.DGameModel.DActualMap.fakeFindColor(pos: ClickedTile)
+                let fakeColor = context.DGameModel.DActualMap.fakeFindColor(pos: ClickedTile)
 
-                var fakeAssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
+                let fakeAssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
 
                 // Don't enter this if loop - not tested. This means you click on peasant and then you clicked on building. Only continue if you have correct color for building/code for building in GameModel::Timestep()
+                // FIXME:
                 if fakeColor != EPlayerColor.None {
-                    print("Wrong. You are not walking, in wrong loop")
+
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
                     // FIXME: need colors to be right for playerAssets
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = fakeColor
@@ -135,13 +136,13 @@ class CBattleMode: CApplicationMode {
                     }
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 } else {
-                    print("You are now walking to \(ClickedTile.X()) and \(ClickedTile.Y())")
+
                     var CanHarvest: Bool = true
                     var fakeColor = context.DGameModel.DActualMap.fakeFindColor(pos: ClickedTile)
 
-                    context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
-                    context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = EPlayerColor.None
-                    context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.None
+                    context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Move
+                    context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetColor = .None
+                    context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = .None
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = ClickedPixel
 
@@ -188,12 +189,9 @@ class CBattleMode: CApplicationMode {
 
             } else {
                 PreviousSelections.removeAll()
-                print("Tile clicked at \(ClickedTile.X()) and \(ClickedTile.Y())")
 
                 // This is our "equivalent" of pixelType.AssetType() for now
                 let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
-                print("You found: \(AssetType)")
-
                 // Select peasant right now and appends the asset
                 context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
             }
@@ -727,7 +725,7 @@ class CBattleMode: CApplicationMode {
 
         // go through all the players, check all their current commands
         for Index in 1 ..< EPlayerColor.Max.rawValue {
-            // print("\(context.DPlayerCommands[Index].DAction)")
+
             if EAssetCapabilityType.None != context.DPlayerCommands[Index].DAction {
                 // find capability of the command
                 let PlayerCapability = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction)
@@ -781,7 +779,7 @@ class CBattleMode: CApplicationMode {
                     }
                 }
             } else {
-                print("Removing asset from DSelectedPlayerAssets")
+
                 context.DSelectedPlayerAssets.remove(at: index)
             }
         }
