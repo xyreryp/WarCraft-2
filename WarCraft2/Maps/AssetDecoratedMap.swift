@@ -753,7 +753,6 @@ class CAssetDecoratedMap: CTerrainMap {
                     if type == CurTileType {
                         return CTilePosition(x: TempSearch.DX - 1, y: TempSearch.DY - 1)
                     }
-                    // if((ETileType::Grass == CurTileType)||(ETileType::Dirt == CurTileType)||(ETileType::Stump == CurTileType)||(ETileType::Rubble == CurTileType)||(ETileType::None == CurTileType)){
                     if CTerrainMap.IsTraversable(type: CurTileType) {
                         SearchQueue.append(TempSearch)
                     }

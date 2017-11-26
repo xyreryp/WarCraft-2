@@ -383,7 +383,6 @@ class CPlayerAsset {
         let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
 
         CurrentTile.SetFromPixel(pos: DPosition)
-        print("My current tile is \(CurrentTile.X()) and \(CurrentTile.Y())")
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
 
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
