@@ -437,7 +437,7 @@ class CApplicationData {
 
         DBuildHotKeyMap = [uint32: EAssetCapabilityType]()
         DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
-        DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
+        DBuildHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFarm // F
         DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
         DBuildHotKeyMap[SGUIKeyType.KeyL] = EAssetCapabilityType.BuildLumberMill // L
         DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
