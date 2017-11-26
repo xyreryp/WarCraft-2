@@ -965,6 +965,7 @@ class CApplicationData {
         CPlayerCapabilityBuildingUpgrade.AddToRegistrant()
         CPlayerCapabilityUnitUpgrade.AddToRegistrant()
         CPlayerCapabilityBuildRanger.AddToRegistrant()
+        CPlayerCapabilityBuildSimple.AddToRegistrant()
     }
 
     func ResetPlayerColors() {

@@ -683,3 +683,17 @@ class CPlayerCapabilityRepair: CPlayerCapability {
         return false
     }
 }
+
+//this class does not build anything - solely for choosing what to build next
+class CPlayerCapabilityBuildSimple: CPlayerCapability {
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildSimple())
+    }
+
+    init() {
+        super.init(name: "BuildSimple", targettype: ETargetType.None)
+    }
+
+    deinit {
+    }
+}
