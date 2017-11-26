@@ -60,7 +60,8 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
             if DTarget.HitPoints() > DTarget.MaxHitPoints() {
                 DTarget.HitPoints(hitpts: DTarget.MaxHitPoints())
             }
-            DCurrentStep += 1
+            //FIXME: change back to 1
+            DCurrentStep += 10
             DActor.IncrementStep()
             DTarget.IncrementStep()
             if DCurrentStep >= DTotalSteps {
@@ -141,7 +142,7 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 
             actor.ClearCommand()
-            //FIXME: 
+            //FIXME:
             if (actor.TilePosition().X() == target.TilePosition().X()) && (actor.TilePosition().Y() == target.TilePosition().Y() + 1) {
                 let NewAsset = playerdata.CreateAsset(assettypename: DBuildingName)
                 let TilePosition = CTilePosition()
