@@ -302,7 +302,6 @@ class CPlayerAsset {
         return DDirection
     }
 
-    // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
             return DCommands[DCommands.endIndex - 1]
