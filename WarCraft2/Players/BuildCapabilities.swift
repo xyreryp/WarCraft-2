@@ -9,18 +9,15 @@
 import Foundation
 
 class CPlayerCapabilityBuildNormal: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "TownHall"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Farm"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Barracks"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "LumberMill"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Blacksmith"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "ScoutTower"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "TownHall"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Farm"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Barracks"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "LumberMill"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Blacksmith"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "ScoutTower"))
     }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
 

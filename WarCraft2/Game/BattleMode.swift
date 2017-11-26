@@ -197,12 +197,12 @@ class CBattleMode: CApplicationMode {
                 // FIXME: hardcoded for building testing
                 // create fake actor and target with same coord to trigger building
                 let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
-                let actor = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Peasant")
+
                 let target = CPlayerAsset(type: CPlayerAssetType())
-                actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                //                actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
                 target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
-                if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["Barracks"]!.DSize, ignoreasset: actor) {
-                    playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
+                if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["Barracks"]!.DSize, ignoreasset: context.DSelectedPlayerAssets[0]) {
+                    playercapability.ApplyCapability(actor: context.DSelectedPlayerAssets[0], playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
                 }
             }
         }

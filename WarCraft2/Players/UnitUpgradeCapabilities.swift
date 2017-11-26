@@ -9,21 +9,17 @@
 import Foundation
 
 class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade2"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade3"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Longbow"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "RangerScouting"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Marksmanship"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Longbow"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "RangerScouting"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Marksmanship"))
     }
-
-    static var DRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -140,14 +136,10 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
 }
 
 class CPlayerCapabilityBuildRanger: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildRanger(unitname: "Ranger"))
-        }
+    static func AddToRegistrant() {
+         CPlayerCapability.Register(capability: CPlayerCapabilityBuildRanger(unitname: "Ranger"))
     }
-
-    static var DRegistrant = CRegistrant()
-
+    
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
 

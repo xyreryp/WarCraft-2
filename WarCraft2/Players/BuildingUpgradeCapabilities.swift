@@ -9,18 +9,12 @@
 import Foundation
 
 class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
-
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "Keep"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "Castle"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "GuardTower"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "CannonTower"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "Keep"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "Castle"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "GuardTower"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "CannonTower"))
     }
-
-    static var DRegistrant = CRegistrant()
-
     class CActivatedCapability: CActivatedPlayerCapability {
         var DTarget: CPlayerAsset
         var DOriginalType: CPlayerAssetType
