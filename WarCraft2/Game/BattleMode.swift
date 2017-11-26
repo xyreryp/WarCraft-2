@@ -90,18 +90,13 @@ class CBattleMode: CApplicationMode {
                     }
                 }
                 if SGUIKeyType.Escape == Key { // if esc pressed, no capabilities selected
-                    print("pressed escape") // Debug
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 }
                 if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability { // check if capability was to build
                     if let KeyLookup = context.DBuildHotKeyMap[Key] { // check if valid hotkey
 
-                        // print("capability type:", KeyLookup) // Debug
-
                         var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup) // Not assigned to PlayerCapability from FindCapability because not found in Registry
                         if PlayerCapability != nil {
-
-                            print("Player capability type: ", PlayerCapability!.DTargetType) // Debug
 
                             let ActorTarget = context.DSelectedPlayerAssets.first
 
@@ -112,8 +107,6 @@ class CBattleMode: CApplicationMode {
                     }
                 } else if CanMove {
                     if let KeyLookup = context.DUnitHotKeyMap[Key] {
-
-                        print("In Can move:", Key, ":", KeyLookup) // Debug
 
                         var HasCapability: Bool = true
                         for Asset in context.DSelectedPlayerAssets {
@@ -256,18 +249,18 @@ class CBattleMode: CApplicationMode {
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = ClickedPixel
 
-                    //
-                    //                    for Asset in context.DSelectedPlayerAssets {
-                    //                        if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
-                    //                            CanHarvest = false
-                    //                            break
-                    //                        }
-                    //                    }
-                    //
-                    //                    if (CanHarvest) {
-                    //                        if (CPixelType.EAssetTerrainType.Tree)
-                    //                    }
-                    //
+                    for Asset in context.DSelectedPlayerAssets {
+                        if !(Asset.HasCapability(capability: EAssetCapabilityType.Mine)) {
+                            CanHarvest = false
+                            break
+                        }
+                    }
+                    if CanHarvest {
+                        if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindGoldMine(pos: ClickedTile))! {
+                            print("Found GoldMine")
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .None
+                        }
+                    }
                 }
             }
         }

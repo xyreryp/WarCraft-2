@@ -343,6 +343,19 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset
     }
 
+    func FakeFindGoldMine(pos: CTilePosition) -> Bool {
+        var found = false
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 3 && abs(DTilePosition.Y() - pos.Y()) <= 3 && Asset.AssetType().DName == "GoldMine" {
+                found = true
+                return found
+            }
+        }
+        return found
+    }
+
     func RemoveLumber(pos: CTilePosition, from: CTilePosition, amount: Int) {
         var Index: Int! = 0
         for YOff in 0 ..< 2 {
