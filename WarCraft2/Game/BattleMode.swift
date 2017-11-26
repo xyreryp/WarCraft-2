@@ -290,7 +290,7 @@ class CBattleMode: CApplicationMode {
                                 if (CPlayerCapability.ETargetType.None == PlayerCapability.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability.DTargetType) {
                                     let ActorTarget = context.DSelectedPlayerAssets.first
 
-                                    if (PlayerCapability.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!)) {
+                                    if PlayerCapability.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!) {
 
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
