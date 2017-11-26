@@ -197,7 +197,6 @@ class CBattleMode: CApplicationMode {
                 // FIXME: hardcoded for building testing
                 // create fake actor and target with same coord to trigger building
                 let playercapability = CPlayerCapabilityBuildNormal(buildingname: "TownHall")
-                //                let pos = CPixelPosition(x: 141, y: 425)
                 let pos = ClickedPixel
                 let target = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateMarker(pos: pos, addtomap: false)
                 if playercapability.CanApply(actor: context.DSelectedPlayerAssets[0], playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target) {

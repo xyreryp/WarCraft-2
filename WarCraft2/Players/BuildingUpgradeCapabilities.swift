@@ -15,6 +15,7 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
         CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "GuardTower"))
         CPlayerCapability.Register(capability: CPlayerCapabilityBuildingUpgrade(buildingname: "CannonTower"))
     }
+
     class CActivatedCapability: CActivatedPlayerCapability {
         var DTarget: CPlayerAsset
         var DOriginalType: CPlayerAssetType

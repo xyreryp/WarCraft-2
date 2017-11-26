@@ -141,7 +141,8 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 
             actor.ClearCommand()
-            if actor.TilePosition() == target.TilePosition() {
+            //FIXME: 
+            if (actor.TilePosition().X() == target.TilePosition().X()) && (actor.TilePosition().Y() == target.TilePosition().Y() + 1) {
                 let NewAsset = playerdata.CreateAsset(assettypename: DBuildingName)
                 let TilePosition = CTilePosition()
                 TilePosition.SetFromPixel(pos: target.Position())
