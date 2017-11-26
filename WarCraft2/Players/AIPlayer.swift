@@ -202,7 +202,7 @@ class CAIPlayer {
                 return SearchMap(command: &command)
             }
 
-            if PlayerCapability.CanInitiate(actor: BuilderAsset!, playerdata: DPlayerData) {
+            if (PlayerCapability?.CanInitiate(actor: BuilderAsset!, playerdata: DPlayerData))! {
                 if 0 <= Placement.X() {
                     command.DAction = BuildAction!
                     command.DActors.append(BuilderAsset!)
@@ -286,7 +286,7 @@ class CAIPlayer {
             }
             return true
         } else if (TownHallAsset != nil) && trainmore {
-            let PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildPeasant)
+            let PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildPeasant)!
             if PlayerCapability.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
                 command.DAction = EAssetCapabilityType.BuildPeasant
                 command.DActors.append(TownHallAsset!)
@@ -330,7 +330,7 @@ class CAIPlayer {
         if TrainingAsset != nil {
             let PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
 
-            if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
+            if (PlayerCapability?.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!))! {
                 command.DAction = EAssetCapabilityType.BuildFootman
                 command.DActors.append(TrainingAsset!)
                 command.DTargetLocation = TrainingAsset!.DPosition
@@ -361,7 +361,7 @@ class CAIPlayer {
         if TrainingAsset != nil {
             let PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
 
-            if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
+            if (PlayerCapability?.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!))! {
                 command.DAction = BuildType
                 command.DActors.append(TrainingAsset!)
                 command.DTargetLocation = TrainingAsset!.DPosition

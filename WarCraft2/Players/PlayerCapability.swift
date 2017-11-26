@@ -50,11 +50,11 @@ class CPlayerCapability {
         return DTargetType
     }
 
-    static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability {
+    static func FindCapability(type: EAssetCapabilityType) -> CPlayerCapability? {
         if let Iterator = TypeRegistry[type.rawValue] {
             return Iterator
         }
-        fatalError("You should be able to find the player capability \(type).")
+        return nil
     }
 
     @discardableResult

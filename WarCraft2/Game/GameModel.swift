@@ -62,7 +62,6 @@ class CGameModel {
     var DLumberPerHarvest: Int
     var DGoldPerMining: Int
 
-    
     // TODO: newcolors is a fixed array of size EPlayer.Max.rawValue
     init(mapindex: Int, seed _: UInt64, newcolors: inout [EPlayerColor]) {
         DHarvestTime = 5
@@ -201,8 +200,8 @@ class CGameModel {
                 } else {
                     let PlayerCapability = CPlayerCapability.FindCapability(type: Command.DCapability)
                     Asset.PopCommand()
-                    if PlayerCapability.CanApply(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!) {
-                        PlayerCapability.ApplyCapability(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!)
+                    if (PlayerCapability?.CanApply(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!))! {
+                        PlayerCapability?.ApplyCapability(actor: Asset, playerdata: DPlayers[Asset.Color().rawValue], target: Command.DAssetTarget!)
                     } else {
                         // Can't apply notify problem
                     }

@@ -196,15 +196,17 @@ class CBattleMode: CApplicationMode {
                 context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
                 // FIXME: hardcoded for building testing
                 // create fake actor and target with same coord to trigger building
-                let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
-                let actor = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Peasant")
-                let target = CPlayerAsset(type: CPlayerAssetType())
-                actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
-                target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
-                if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["Barracks"]!.DSize, ignoreasset: actor) {
-                    playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
-                }
+
+                //                let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
+                //                let actor = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Peasant")
+                //                let target = CPlayerAsset(type: CPlayerAssetType())
+                //                actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                //                target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
+                //                if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["Barracks"]!.DSize, ignoreasset: actor) {
+                //                    playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
+                //                }
             }
+            context.DCurrentAssetCapability = EAssetCapabilityType.None
         }
 
         // certain events pushed on to stack in game model
@@ -265,9 +267,6 @@ class CBattleMode: CApplicationMode {
                             let ActorTarget = context.DSelectedPlayerAssets.first
 
                             if (PlayerCapability?.CanInitiate(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!))! {
-                                var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-                                TempEvent.DType = EEventType.ButtonTick
-                                context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
                                 context.DCurrentAssetCapability = KeyLookup
                             }
                         }
@@ -287,15 +286,11 @@ class CBattleMode: CApplicationMode {
                             }
                         }
                         if HasCapability {
-                            var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup)
-                            var TempEvent: SGameEvent = SGameEvent(DType: EEventType.None, DAsset: CPlayerAsset(type: CPlayerAssetType()))
-                            TempEvent.DType = EEventType.ButtonTick
-                            context.DGameModel.Player(color: context.DPlayerColor)?.AddGameEvent(event: TempEvent)
-                            if PlayerCapability != nil {
-                                if (CPlayerCapability.ETargetType.None == PlayerCapability?.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability?.DTargetType) {
+                            if let PlayerCapability = CPlayerCapability.FindCapability(type: KeyLookup) {
+                                if (CPlayerCapability.ETargetType.None == PlayerCapability.DTargetType) || (CPlayerCapability.ETargetType.Player == PlayerCapability.DTargetType) {
                                     let ActorTarget = context.DSelectedPlayerAssets.first
 
-                                    if (PlayerCapability?.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!))! {
+                                    if (PlayerCapability.CanApply(actor: ActorTarget!, playerdata: context.DGameModel.Player(color: context.DPlayerColor)!, target: ActorTarget!)) {
 
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = KeyLookup
                                         context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
@@ -755,7 +750,7 @@ class CBattleMode: CApplicationMode {
 
                 var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
                 // if traget type is not none
-                if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
+                if (CPlayerCapability.ETargetType.None != PlayerCapability?.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability?.DTargetType) {
                     // if no target type command, then create a marker aka if you clicked on grass
                     if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
                         NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
@@ -771,10 +766,10 @@ class CBattleMode: CApplicationMode {
                         // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
                         // FIXME: removing Actor.Interruptible and EAssetCapabilityCancel from if statement
                         //                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
-                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) {
+                        if (PlayerCapability?.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget))! {
                             // start the action if you can do it
                             // increment step for each action in basic cap
-                            PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
+                            PlayerCapability?.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
                         }
                     }
                 }
