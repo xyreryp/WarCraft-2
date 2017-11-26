@@ -125,12 +125,12 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
             }
             DActor.ClearCommand()
             DActor.PushCommand(command: AssetCommand)
-            AssetCommand.DAction = EAssetAction.Walk
+            var WalkCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.Walk, DCapability: EAssetCapabilityType.None, DAssetTarget: DTarget, DActivatedCapability: nil)
             if !DActor.TileAligned() {
                 DActor.Direction(direction: DirectionOpposite(dir: DActor.Position().TileOctant()))
             }
 
-            DActor.PushCommand(command: AssetCommand)
+            DActor.PushCommand(command: WalkCommand)
             return true
         }
 
