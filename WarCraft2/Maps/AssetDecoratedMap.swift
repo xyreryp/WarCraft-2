@@ -168,7 +168,7 @@ class CAssetDecoratedMap: CTerrainMap {
         return false
     }
 
-    func CanPlaceAsset(pos: CTilePosition, size: Int, ignoreasset _: CPlayerAsset) -> Bool {
+    func CanPlaceAsset(pos: CTilePosition, size: Int, ignoreasset: CPlayerAsset) -> Bool {
         var RightX: Int
         var BottomY: Int
 
@@ -194,9 +194,9 @@ class CAssetDecoratedMap: CTerrainMap {
             if EAssetType.None == Asset.Type() {
                 continue
             }
-            //            if ignoreasset == Asset {
-            //                continue
-            //            }
+            if ignoreasset == Asset {
+                continue
+            }
             if RightX <= Asset.TilePositionX() - Offset {
                 continue
             }
@@ -753,7 +753,6 @@ class CAssetDecoratedMap: CTerrainMap {
                     if type == CurTileType {
                         return CTilePosition(x: TempSearch.DX - 1, y: TempSearch.DY - 1)
                     }
-                    // if((ETileType::Grass == CurTileType)||(ETileType::Dirt == CurTileType)||(ETileType::Stump == CurTileType)||(ETileType::Rubble == CurTileType)||(ETileType::None == CurTileType)){
                     if CTerrainMap.IsTraversable(type: CurTileType) {
                         SearchQueue.append(TempSearch)
                     }

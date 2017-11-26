@@ -302,7 +302,6 @@ class CPlayerAsset {
         return DDirection
     }
 
-    // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func CurrentCommand() -> SAssetCommand {
         if !DCommands.isEmpty {
             return DCommands[DCommands.endIndex - 1]
@@ -383,7 +382,6 @@ class CPlayerAsset {
         let CurrentPosition: CPixelPosition = CPixelPosition(pos: DPosition)
 
         CurrentTile.SetFromPixel(pos: DPosition)
-        print("My current tile is \(CurrentTile.X()) and \(CurrentTile.Y())")
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
 
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
