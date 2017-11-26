@@ -137,9 +137,9 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
 
 class CPlayerCapabilityBuildRanger: CPlayerCapability {
     static func AddToRegistrant() {
-         CPlayerCapability.Register(capability: CPlayerCapabilityBuildRanger(unitname: "Ranger"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildRanger(unitname: "Ranger"))
     }
-    
+
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
 
