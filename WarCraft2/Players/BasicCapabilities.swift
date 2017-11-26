@@ -125,12 +125,12 @@ class CPlayerCapabilityMineHarvest: CPlayerCapability {
             }
             DActor.ClearCommand()
             DActor.PushCommand(command: AssetCommand)
-            AssetCommand.DAction = EAssetAction.Walk
+            var WalkCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.Walk, DCapability: EAssetCapabilityType.None, DAssetTarget: DTarget, DActivatedCapability: nil)
             if !DActor.TileAligned() {
                 DActor.Direction(direction: DirectionOpposite(dir: DActor.Position().TileOctant()))
             }
 
-            DActor.PushCommand(command: AssetCommand)
+            DActor.PushCommand(command: WalkCommand)
             return true
         }
 
@@ -681,5 +681,19 @@ class CPlayerCapabilityRepair: CPlayerCapability {
             return true
         }
         return false
+    }
+}
+
+//this class does not build anything - solely for choosing what to build next
+class CPlayerCapabilityBuildSimple: CPlayerCapability {
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildSimple())
+    }
+
+    init() {
+        super.init(name: "BuildSimple", targettype: ETargetType.None)
+    }
+
+    deinit {
     }
 }

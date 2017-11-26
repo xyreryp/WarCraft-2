@@ -354,7 +354,7 @@ class CPlayerAssetType {
         for _ in 0 ..< CapabilityCount {
             TempString = source.Read()
             // TODO: Add back in when CPlayerCapability works
-            //            PlayerAssetType.AddCapability(capability: CPlayerCapability.NameToType(name: TempString))
+            PlayerAssetType.AddCapability(capability: CPlayerCapability.NameToType(name: TempString))
         }
 
         AssetRequirementCount = Int(source.Read())!

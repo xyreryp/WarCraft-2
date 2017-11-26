@@ -203,8 +203,8 @@ class CApplicationData {
     var DCurrentAssetCapability: EAssetCapabilityType
 
     // keys related things
-    var DPressedKeys: [uint32]
-    var DReleasedKeys: [uint32]
+    var DPressedKeys: [UInt32]
+    var DReleasedKeys: [UInt32]
 
     // mouse things
     var DCurrentX: Int
@@ -381,7 +381,7 @@ class CApplicationData {
         DCurrentAssetCapability = EAssetCapabilityType.None
 
         // keys related things
-        DPressedKeys = [uint32]()
+        DPressedKeys = [UInt32]()
         DReleasedKeys = [uint32]()
 
         DMenuButtonState = CButtonRenderer.EButtonState.None
@@ -437,7 +437,7 @@ class CApplicationData {
 
         DBuildHotKeyMap = [uint32: EAssetCapabilityType]()
         DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
-        DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
+        DBuildHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFarm // F
         DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
         DBuildHotKeyMap[SGUIKeyType.KeyL] = EAssetCapabilityType.BuildLumberMill // L
         DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
@@ -474,7 +474,67 @@ class CApplicationData {
     // func MainWindowDeleteEventCallback(widget: CGUIWidget, data: TGUICalldata) -> Bool {}
     // func MainWindowDestroyCallback(widget: CGUIWidget, data: TGUICalldata )
     // func MainWindowKeyPressEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
-    // func MainWindowKeyReleaseEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
+
+    /**
+     * Logs any button presses in the main window.
+     *
+     * @param[in] widget The widget you pressed a key in.
+     * @parem[in] The event that occured to the widget (that you did).
+     *
+     * @return Always returns false.
+     *
+     */
+    /**
+     * Logs any button presses in DPressedKeys
+     * Always returns true
+     */
+    func MainWindowKeyPressEvent(event: UInt32) -> Bool {
+        var Found: Bool = false
+        for Key in DPressedKeys {
+            if Key == event {
+                Found = true
+                break
+            }
+        }
+        if !Found {
+            DPressedKeys.append(event)
+        }
+        return true
+    }
+
+    /**
+     * Logs any button released into KeysReleased
+     * Erases that button from the list of pressed buttons
+     * Always returns true.
+     */
+
+    func MainWindowKeyReleaseEvent(event: UInt32) -> Bool {
+        var Found: Bool = false
+        var Index: Int = 0
+
+        for Key in DPressedKeys {
+            if Key == event {
+                Found = true
+                break
+            }
+            Index += 1
+        }
+        if Found {
+            DPressedKeys.remove(at: Index)
+        }
+        Found = false
+        for Key in DReleasedKeys {
+            if Key == event {
+                Found = true
+                break
+            }
+        }
+        if !Found {
+            DReleasedKeys.append(event)
+        }
+        return true
+    }
+
     // func MainWindowConfigureEventCallback(widget: CGUIWidget, event: SGUIConfigureEvent, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaDrawCallback(widget: CGUIWidget, rc: CGraphicResourceContext, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaButtonPressEventCallback(widget: CGUIWidget, event: SGUIConfigureEven, data: TGUICalldata ) -> Bool {}
@@ -905,6 +965,7 @@ class CApplicationData {
         CPlayerCapabilityBuildingUpgrade.AddToRegistrant()
         CPlayerCapabilityUnitUpgrade.AddToRegistrant()
         CPlayerCapabilityBuildRanger.AddToRegistrant()
+        CPlayerCapabilityBuildSimple.AddToRegistrant()
     }
 
     func ResetPlayerColors() {
