@@ -307,9 +307,8 @@ class CPlayerAsset {
         if !DCommands.isEmpty {
             return DCommands[DCommands.endIndex - 1]
         }
-        // FIXME: DActivatedCapability?
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: CPlayerAsset(type: CPlayerAssetType()), DActivatedCapability: nil)
-        return RetVal
+
+        return SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
     }
 
     // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
@@ -318,8 +317,7 @@ class CPlayerAsset {
             return DCommands[DCommands.count - 2]
         }
 
-        var RetVal: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
-        return RetVal
+        return SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
     }
 
     func Action() -> EAssetAction {
@@ -387,7 +385,7 @@ class CPlayerAsset {
         CurrentTile.SetFromPixel(pos: DPosition)
         print("My current tile is \(CurrentTile.X()) and \(CurrentTile.Y())")
         if (EDirection.Max == CurrentOctant) || (CurrentOctant == DDirection) { // Aligned just move
-            let intDirection = DDirection.rawValue
+
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
             let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
             DMoveRemainderX = NewX % CPlayerAsset.DUpdateDivisor
@@ -395,7 +393,7 @@ class CPlayerAsset {
             DPosition.IncrementX(x: NewX / CPlayerAsset.DUpdateDivisor)
             DPosition.IncrementY(y: NewY / CPlayerAsset.DUpdateDivisor)
         } else { // Entering
-            let intDirection = DDirection.rawValue
+
             let NewX: Int = Speed() * DeltaX[DDirection.rawValue] * CPosition.TileWidth() + DMoveRemainderX
             let NewY: Int = Speed() * DeltaY[DDirection.rawValue] * CPosition.TileHeight() + DMoveRemainderY
             var TempMoveRemainderX: Int = NewX % CPlayerAsset.DUpdateDivisor

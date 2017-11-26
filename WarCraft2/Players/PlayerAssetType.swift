@@ -378,7 +378,7 @@ class CPlayerAssetType {
     static func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
         var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
         for (string, assettype) in DRegistry {
-            var NewAssetType: CPlayerAssetType = CPlayerAssetType(asset: assettype)
+            let NewAssetType = CPlayerAssetType(asset: assettype)
             NewAssetType.DThis = NewAssetType
             NewAssetType.DColor = color
             ReturnRegistry[string] = NewAssetType

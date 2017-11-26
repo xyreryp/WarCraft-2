@@ -357,8 +357,7 @@ class CPlayerCapabilityConvey: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            var NearestRepository: CPlayerAsset
-            var AssetCommand: SAssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var AssetCommand = SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
             var TempEvent: SGameEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
 
             TempEvent = SGameEvent(DType: EEventType.Acknowledge, DAsset: DActor)
@@ -368,6 +367,8 @@ class CPlayerCapabilityConvey: CPlayerCapability {
             if DActor.DLumber > 0 {
                 AssetCommand.DAction = EAssetAction.ConveyLumber
                 AssetCommand.DAssetTarget = DTarget
+                DActor.PushCommand(command: AssetCommand)
+                AssetCommand.DAction = EAssetAction.Walk
                 DActor.PushCommand(command: AssetCommand)
                 DActor.ResetStep()
             } else if DActor.DGold > 0 {

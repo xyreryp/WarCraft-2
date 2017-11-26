@@ -309,16 +309,16 @@ class CApplicationData {
         //        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
         //            print("Failed to lead BuildingDeath tileset")
         //        }
-        var bevelDataSource = CDataSource()
-        var MiniBevelTileset = CGraphicTileset()
+        let bevelDataSource = CDataSource()
+        let MiniBevelTileset = CGraphicTileset()
         if !MiniBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
             print("Failed to lead MiniBevel tileset")
         }
-        var InnerBevelTileset = CGraphicTileset()
+        let InnerBevelTileset = CGraphicTileset()
         if !InnerBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
             print("Failed to lead InnerBevel tileset")
         }
-        var OuterBevelTileset = CGraphicTileset()
+        let OuterBevelTileset = CGraphicTileset()
         if !OuterBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
             print("Failed to lead OuterBevel tileset")
         }

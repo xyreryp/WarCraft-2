@@ -79,14 +79,12 @@ class CPixelPosition: CPosition {
     // calculate the closest postiion from the given position
     func ClosestPosition(objpos: CPixelPosition, objsize: Int) -> CPixelPosition {
         let CurPosition = CPixelPosition(pos: objpos)
-        var BestDistance: Int = -1
+        var BestDistance = -1
         var BestPosition: CPixelPosition?
-        var YIndex: Int = 0
-        var XIndex: Int = 0
 
-        for YIndex in 0 ..< objsize {
-            for XIndex in 0 ..< objsize {
-                let CurDistance: Int = CurPosition.DistanceSquared(pos: self)
+        for _ in 0 ..< objsize {
+            for _ in 0 ..< objsize {
+                let CurDistance = CurPosition.DistanceSquared(pos: self)
                 if (-1 == BestDistance) || (CurDistance < BestDistance) {
                     BestDistance = CurDistance
                     BestPosition = CurPosition

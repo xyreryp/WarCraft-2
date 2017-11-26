@@ -62,7 +62,7 @@ class CGameModel {
     var DLumberPerHarvest: Int
     var DGoldPerMining: Int
 
-    // Public
+    
     // TODO: newcolors is a fixed array of size EPlayer.Max.rawValue
     init(mapindex: Int, seed _: UInt64, newcolors: inout [EPlayerColor]) {
         DHarvestTime = 5
@@ -703,7 +703,7 @@ class CGameModel {
                             Asset.PopCommand()
                             Asset.PopCommand()
                             if 0 <= TilePosition.X() {
-                                var NewPosition = CPixelPosition()
+                                let NewPosition = CPixelPosition()
                                 NewPosition.SetFromTile(pos: TilePosition)
                                 Command.DAction = EAssetAction.HarvestLumber
                                 Command.DAssetTarget = DPlayers[Asset.Color().rawValue].CreateMarker(pos: NewPosition, addtomap: false)

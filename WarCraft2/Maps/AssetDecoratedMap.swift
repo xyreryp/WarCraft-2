@@ -314,6 +314,7 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset!
     }
 
+    // FIXME: delete hardcode
     func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
         var AssetColor: EPlayerColor
         for Asset in DAssets {
