@@ -62,7 +62,6 @@ class CGameModel {
     var DLumberPerHarvest: Int
     var DGoldPerMining: Int
 
-    
     // TODO: newcolors is a fixed array of size EPlayer.Max.rawValue
     init(mapindex: Int, seed _: UInt64, newcolors: inout [EPlayerColor]) {
         DHarvestTime = 5

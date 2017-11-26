@@ -196,13 +196,13 @@ class CBattleMode: CApplicationMode {
                 context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
                 // FIXME: hardcoded for building testing
                 // create fake actor and target with same coord to trigger building
-                let playercapability = CPlayerCapabilityBuildNormal(buildingname: "Barracks")
-                let actor = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateAsset(assettypename: "Peasant")
-                let target = CPlayerAsset(type: CPlayerAssetType())
-                actor.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
-                target.TilePosition(pos: CTilePosition(x: ClickedTile.X(), y: ClickedTile.Y()))
-                if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["Barracks"]!.DSize, ignoreasset: actor) {
-                    playercapability.ApplyCapability(actor: actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
+                let playercapability = CPlayerCapabilityBuildNormal(buildingname: "ScoutTower")
+                let pos = ClickedPixel
+                let target = context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.CreateMarker(pos: pos, addtomap: false)
+                if playercapability.CanApply(actor: context.DSelectedPlayerAssets[0], playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target) {
+                    if context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.PlayerMap().CanPlaceAsset(pos: target.TilePosition(), size: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!.AssetTypes()["ScoutTower"]!.DSize, ignoreasset: context.DSelectedPlayerAssets[0]) {
+                        playercapability.ApplyCapability(actor: context.DSelectedPlayerAssets[0], playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: 1)!)!, target: target)
+                    }
                 }
             }
         }
