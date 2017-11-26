@@ -72,7 +72,7 @@ class CRouterMap {
         var DInDirection = EDirection.North
     }
 
-    var DMap: [[Int]] = [[]]
+    var DMap = [[Int]]()
     var DSearchTargets: [SSearchTarget] = []
 
     static var DIdealSearchDirection: EDirection = EDirection.North
