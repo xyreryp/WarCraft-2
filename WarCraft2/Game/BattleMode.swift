@@ -257,8 +257,8 @@ class CBattleMode: CApplicationMode {
                     }
                     if CanHarvest {
                         if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindGoldMine(pos: ClickedTile))! {
-                            print("Found GoldMine")
-                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .None
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Mine
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.GoldMine
                         }
                     }
                 }
