@@ -62,7 +62,7 @@ class CFogRenderer {
                 let TileType: ETileVisibility = DDMap.TileType(xindex: XIndex, yindex: YIndex)
 
                 if TileType == ETileVisibility.None {
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: DDMap.Height() - YPos, tileindex: DNoneIndex)
                 }
                 if TileType == ETileVisibility.Visible {
                     // Do nothing
@@ -86,7 +86,7 @@ class CFogRenderer {
                         }
                     }
 
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DFogIndices[VisibilityIndex])
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: DDMap.Height() - YPos, tileindex: DFogIndices[VisibilityIndex])
                 }
                 if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.SeenPartial {
                     var VisibilityIndex: Int = 0
@@ -105,7 +105,7 @@ class CFogRenderer {
                         }
                     }
 
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: DDMap.Height() - YPos, tileindex: DBlackIndices[VisibilityIndex])
                 }
                 XIndex = XIndex + 1
                 XPos += TileWidth

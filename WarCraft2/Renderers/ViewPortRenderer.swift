@@ -176,6 +176,6 @@ class CViewportRenderer {
         //        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
         //                                     pos: CPixelPosition(x: selectrect.DXPosition,
         //                                                         y: selectrect.DYPosition), type: PlaceType, builder: Builder)
-        DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
+        // DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
     }
 }
