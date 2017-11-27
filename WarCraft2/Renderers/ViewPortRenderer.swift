@@ -134,6 +134,7 @@ class CViewportRenderer {
         TempRectangle.DXPosition = DViewportX
         TempRectangle.DYPosition = DViewportY
         TempRectangle.DWidth = DLastViewportWidth
+        // FIXME: no idea how to change viewport stuff
         TempRectangle.DHeight = DLastViewportWidth
 
         /*  switch curcapability {

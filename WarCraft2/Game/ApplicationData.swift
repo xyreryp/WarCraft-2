@@ -937,8 +937,8 @@ class CApplicationData {
         var CurWidth: Int
         var CurHeight: Int
 
-        CurWidth = Int(DViewportSurface.frame.width)
-        CurHeight = Int(DViewportSurface.frame.height)
+        CurWidth = Int(DViewportSurface.size.width)
+        CurHeight = Int(DViewportSurface.size.height)
         DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
 
         for WeakAsset in DGameModel.Player(color: DPlayerColor)!.DAssets {
