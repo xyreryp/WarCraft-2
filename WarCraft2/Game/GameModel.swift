@@ -67,7 +67,9 @@ class CGameModel {
         DHarvestTime = 5
         DHarvestSteps = CPlayerAsset.UpdateFrequency() * DHarvestTime
         DMineTime = 5
-        DMineSteps = CPlayerAsset.UpdateFrequency() * DMineTime
+        // DMineSteps = CPlayerAsset.UpdateFrequency() * DMineTime
+        // FIXME: 10 for faster and testing
+        DMineSteps = 10
         DConveyTime = 1
         DConveySteps = CPlayerAsset.UpdateFrequency() * DConveyTime
         DDeathTime = 1

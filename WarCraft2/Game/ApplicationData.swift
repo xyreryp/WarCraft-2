@@ -544,6 +544,8 @@ class CApplicationData {
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
+        CPlayerAsset.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
+        CAssetRenderer.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
         DAssetTilesets = [CGraphicTileset](repeating: CGraphicTileset(), count: EAssetType.Max.rawValue)
 
         //         load tileset for peasant
@@ -694,8 +696,6 @@ class CApplicationData {
         //        if !DOuterBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "OuterBevel") {
         //            print("Failed to load Outer Bevel Tileset")
         //        }
-        CPlayerAsset.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
-        CAssetRenderer.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
     }
 
     // functiones for going back and forth between screen and actions

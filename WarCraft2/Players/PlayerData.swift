@@ -288,9 +288,9 @@ class CPlayerData {
         return BestAsset
     }
 
-    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
+    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset? {
 
-        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+        var BestAsset: CPlayerAsset? = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
 
         for Asset in DAssets {
@@ -306,7 +306,7 @@ class CPlayerData {
                 }
             }
         }
-        return BestAsset
+        return nil
     }
 
     func FindNearestAsset(pos: CPixelPosition, assettype: EAssetType) -> CPlayerAsset {
