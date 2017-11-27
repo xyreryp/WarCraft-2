@@ -28,12 +28,10 @@ class CVisibilityMap {
 
     init(width: Int, height: Int, maxvisibility: Int) {
         DMaxVisibility = maxvisibility
-        DMap = [[]]
         DMap = [[ETileVisibility]](repeating: [], count: height + 2 * DMaxVisibility)
         // FIXME:
-        for (i, _) in DMap.enumerated() {
-            DMap[i] = [ETileVisibility](repeating: ETileVisibility.None, count: width + 2 * DMaxVisibility)
-            _ = ETileVisibility.None
+        for Row in 0 ..< DMap.count {
+            DMap[Row] = Array(repeating: ETileVisibility.None, count: width + 2 * DMaxVisibility)
         }
 
         DTotalMapTiles = width * height
