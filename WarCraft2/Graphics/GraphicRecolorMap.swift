@@ -89,6 +89,7 @@ class CGraphicRecolorMap {
         //        let LineSource = CCommentSkipLineDataSource(source: source!, commentchar: "#")
         //        var PNGPath = String()
         //        var TempString = String()
+        //        var _: [String]
         //
         //        if nil == source {
         //            return false
@@ -97,7 +98,7 @@ class CGraphicRecolorMap {
         //            return false
         //        }
         //        // TODO: Uncomment once GraphicFactory has been written
-        //        //let ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
+        //        let ColorSurface = CGraphicFactory.LoadSurface(source: source!.Container().DataSource(name: PNGPath))
         //        if nil == ColorSurface {
         //            return false
         //        }

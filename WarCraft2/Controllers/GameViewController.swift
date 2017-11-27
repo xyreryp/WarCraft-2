@@ -32,7 +32,6 @@ var peasantSelected = false
 class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
-    var applicationData = CApplicationData()
     var battleMode = CBattleMode()
 
     override func viewDidLoad() {

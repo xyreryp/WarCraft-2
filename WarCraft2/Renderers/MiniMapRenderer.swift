@@ -103,22 +103,21 @@ class CMiniMapRenderer {
         // DMapRenderer.DrawMiniMap(surface: DWorkingSurface)
         //        DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
 
-        if DFogRenderer == nil {
-            DFogRenderer.DrawMiniMap(ResourceContext: ResourceContext)
-        }
-
         ResourceContext.Save()
         ResourceContext.Scale(sx: SX, sy: SY)
         ResourceContext.SetSourceSurface(srcsurface: DWorkingSurface, xpos: 0, ypos: 0)
         ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DrawWidth, height: DrawHeight)
         ResourceContext.Fill()
         ResourceContext.Restore()
-        ResourceContext.SetSourceRGB(rgb: DViewportColor)
-        MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
-        MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
-        MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
-        MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
-        ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
-        ResourceContext.Stroke()
+
+        if DViewportRenderer != nil {
+            ResourceContext.SetSourceRGB(rgb: DViewportColor)
+            MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+            MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+            MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+            MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+            ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
+            ResourceContext.Stroke()
+        }
     }
 }

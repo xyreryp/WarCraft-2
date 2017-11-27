@@ -97,8 +97,8 @@ class CUnitActionRenderer {
         var HasCargo: Bool = false
         var UnitType: EAssetType = EAssetType.None
 
-        for var Command in DDisplayedCommands {
-            Command = EAssetCapabilityType.None
+        for Index in 0 ..< DDisplayedCommands.count {
+            DDisplayedCommands[Index] = .None
         }
 
         if selectionlist.count == 0 {
@@ -125,26 +125,25 @@ class CUnitActionRenderer {
             }
         }
 
-        let Asset = selectionlist[0]
         if EAssetCapabilityType.None == currentAction {
             if Moveable {
-
                 DDisplayedCommands[0] = HasCargo ? EAssetCapabilityType.Convey : EAssetCapabilityType.Move
                 DDisplayedCommands[1] = EAssetCapabilityType.StandGround
                 DDisplayedCommands[2] = EAssetCapabilityType.Attack
-                if Asset.HasCapability(capability: EAssetCapabilityType.Repair) {
-                    DDisplayedCommands[3] = EAssetCapabilityType.Repair
+                if let Asset: CPlayerAsset = selectionlist[0] {
+                    if Asset.HasCapability(capability: EAssetCapabilityType.Repair) {
+                        DDisplayedCommands[3] = EAssetCapabilityType.Repair
+                    }
+                    if Asset.HasCapability(capability: EAssetCapabilityType.Patrol) {
+                        DDisplayedCommands[3] = EAssetCapabilityType.Patrol
+                    }
+                    if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
+                        DDisplayedCommands[4] = EAssetCapabilityType.Mine
+                    }
+                    if (Asset.HasCapability(capability: EAssetCapabilityType.BuildSimple)) && (selectionlist.count == 1) {
+                        DDisplayedCommands[6] = EAssetCapabilityType.BuildSimple
+                    }
                 }
-                if Asset.HasCapability(capability: EAssetCapabilityType.Patrol) {
-                    DDisplayedCommands[3] = EAssetCapabilityType.Patrol
-                }
-                if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
-                    DDisplayedCommands[4] = EAssetCapabilityType.Mine
-                }
-                if (Asset.HasCapability(capability: EAssetCapabilityType.BuildSimple)) && (selectionlist.count == 1) {
-                    DDisplayedCommands[6] = EAssetCapabilityType.BuildSimple
-                }
-
             } else {
                 if let Asset: CPlayerAsset = selectionlist[0] {
                     if (EAssetAction.Construct == Asset.Action()) || (EAssetAction.Capability == Asset.Action()) {

@@ -21,7 +21,6 @@ class GameScene: SKScene {
         self.applicationData = applicationData
         self.battleMode = battleMode
         super.init(size: size)
-        //  scaleMode = .aspectFill
         anchorPoint = CGPoint(x: 0, y: 1)
     }
 
@@ -29,8 +28,10 @@ class GameScene: SKScene {
         clean()
         applicationData.DViewportSurface = self
         battleMode.Input(context: applicationData)
+        battleMode.Calculate(context: applicationData)
         battleMode.Render(context: applicationData)
         applicationData.DLeftClick = 0
+        applicationData.DRightClick = 0
     }
 
     func renderMap() {
