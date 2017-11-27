@@ -179,7 +179,7 @@ class CUnitActionRenderer {
         }
 
         var XOffset: Int = DBevel.Width()
-        var YOffset: Int = DBevel.Width()
+        var YOffset: Int = 100 - DBevel.Width()
         var Index: Int = 0
 
         for IconType in DDisplayedCommands {
@@ -204,7 +204,7 @@ class CUnitActionRenderer {
             Index += 1
             if 0 == (Index % 3) {
                 XOffset = DBevel.Width()
-                YOffset += (DFulliconHeight + DBevel.Width())
+                YOffset -= (DFulliconHeight + DBevel.Width())
             }
         }
     }
