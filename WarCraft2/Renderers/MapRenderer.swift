@@ -29,7 +29,7 @@ class CMapRenderer {
         DTileIndices = [[[Int]]]()
         DPixelIndices = [Int]()
 
-        CHelper.resize(array: &DPixelIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: CTerrainMap.ETileType.None.rawValue)
+        DPixelIndices = [Int](repeating: Int(), count: CTerrainMap.ETileType.Max.rawValue)
 
         //        if !LineSource.Read(line: &TempString) {
         //            return
@@ -86,25 +86,25 @@ class CMapRenderer {
         DPixelIndices[CTerrainMap.ETileType.DeepWater.rawValue] = Int(0xFF05_1015)
         DPixelIndices[CTerrainMap.ETileType.Rubble.rawValue] = Int(0xFF3A_512B)
 
-        CHelper.resize(array: &DTileIndices, size: CTerrainMap.ETileType.Max.rawValue, defaultValue: [[Int()]])
-        for (i, _) in DTileIndices.enumerated() {
-            CHelper.resize(array: &DTileIndices[i], size: 16, defaultValue: [])
+        DTileIndices = [[[Int]]](repeating: [[Int]](), count: CTerrainMap.ETileType.Max.rawValue)
+
+        for Index in 0 ..< DTileIndices.count {
+            DTileIndices[Index] = [[Int]](repeating: [Int](), count: 16)
         }
 
-        var Index2: Int = 0
-        while Index2 < 16 {
-            let TempIndexString = String(Index2, radix: 16, uppercase: true)
+        for Index in 0 ..< 16 {
+            let TempIndexString = String(Index, radix: 16, uppercase: true)
             var AltTileIndex: Int = 0
 
             // light-grass
             while true {
                 var Value: Int
-                var FindThisTile: String = "light-grass-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "light-grass-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.LightGrass.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.LightGrass.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -112,12 +112,12 @@ class CMapRenderer {
             // dark-grass
             while true {
                 var Value: Int
-                var FindThisTile: String = "dark-grass-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "dark-grass-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.DarkGrass.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.DarkGrass.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -125,12 +125,12 @@ class CMapRenderer {
             // light-dirt
             while true {
                 var Value: Int
-                var FindThisTile: String = "light-dirt-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "light-dirt-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.LightDirt.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.LightDirt.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -138,12 +138,12 @@ class CMapRenderer {
             // dark-dirt
             while true {
                 var Value: Int
-                var FindThisTile: String = "dark-dirt-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "dark-dirt-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.DarkDirt.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.DarkDirt.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -151,12 +151,12 @@ class CMapRenderer {
             // rock
             while true {
                 var Value: Int
-                var FindThisTile: String = "rock-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "rock-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.Rock.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.Rock.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -164,12 +164,12 @@ class CMapRenderer {
             // forest
             while true {
                 var Value: Int
-                var FindThisTile: String = "forest-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "forest-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.Forest.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.Forest.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -177,12 +177,12 @@ class CMapRenderer {
             // shallow-water
             while true {
                 var Value: Int
-                var FindThisTile: String = "shallow-water-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "shallow-water-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.ShallowWater.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.ShallowWater.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
@@ -190,38 +190,31 @@ class CMapRenderer {
             // deep-water
             while true {
                 var Value: Int
-                var FindThisTile: String = "deep-water-" + TempIndexString + "-" + String(AltTileIndex)
+                let FindThisTile: String = "deep-water-" + TempIndexString + "-" + String(AltTileIndex)
                 Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.DeepWater.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.DeepWater.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
 
             AltTileIndex = 0
             // stump
             while true {
-                var Value: Int
-                var FindThisTile: String = "stump-" + TempIndexString + "-" + String(AltTileIndex)
-                Value = DTileset.FindTile(tilename: FindThisTile)
+                let FindThisTile: String = "stump-" + TempIndexString + "-" + String(AltTileIndex)
+                let Value = DTileset.FindTile(tilename: FindThisTile)
                 if 0 > Value {
                     break
                 }
-                DTileIndices[CTerrainMap.ETileType.Stump.rawValue][Index2].append(Value)
+                DTileIndices[CTerrainMap.ETileType.Stump.rawValue][Index].append(Value)
                 AltTileIndex += 1
             }
-            Index2 += 1
         }
-
-        var Idx: Int = 0
-        while Idx < 16 {
-            DTileIndices[CTerrainMap.ETileType.Rubble.rawValue][Idx].append(DTileIndices[CTerrainMap.ETileType.Rock.rawValue][0][0])
-            Idx += 1
+        for Index in 0 ..< 16 {
+            DTileIndices[CTerrainMap.ETileType.Rubble.rawValue][Index].append(DTileIndices[CTerrainMap.ETileType.Rock.rawValue][0][0])
         }
     }
-
-    // end of init()
 
     func MapWidth() -> Int {
         return DMap.Width()
@@ -240,54 +233,37 @@ class CMapRenderer {
     }
 
     func DrawMap(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
-        var TileWidth: Int = Int()
-        var TileHeight: Int = Int()
-
-        TileWidth = DTileset.TileWidth()
-        TileHeight = DTileset.TileHeight()
-
-        //        typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
-
-        var YIndex: Int = rect.DYPosition / TileHeight
-        var YPos: Int = -(rect.DYPosition % TileHeight)
-        var XIndex: Int = rect.DXPosition / TileWidth
-        var XPos: Int = -(rect.DXPosition % TileWidth)
-
-        repeat {
-            repeat {
-                // let type: CTerrainMap.ETileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
-                // PixelType used in DrawClipped
-                let PixelType: CPixelType = CPixelType(type: DMap.TileType(xindex: XIndex, yindex: YIndex))
-                let ThisTileType: CTerrainMap.ETileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
-                let TileIndex: Int = DMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
+        let TileWidth = DTileset.TileWidth()
+        let TileHeight = DTileset.TileHeight()
+        // TODO: typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+        var YIndex = rect.DYPosition / TileHeight
+        for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
+            var XIndex = rect.DXPosition / TileWidth
+            for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {
+                let ThisTileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
+                let TileIndex = DMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
 
                 if (0 <= TileIndex) && (16 > TileIndex) {
-                    var DisplayIndex: Int = -1
-                    let AltTileCount: Int = DTileIndices[ThisTileType.rawValue][TileIndex].count
+                    var DisplayIndex = -1
+                    let AltTileCount = DTileIndices[ThisTileType.rawValue][TileIndex].count
+
                     if AltTileCount > 0 {
-                        let AltIndex: Int = (XIndex + YIndex) % AltTileCount
+                        let AltIndex = (XIndex + YIndex) % AltTileCount
                         DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
                     }
-
-                    if -1 != DisplayIndex {
-                        //                        print("xpos : \(XPos) ypos: \(YPos) display: \(DisplayIndex)")
+                    if DisplayIndex != -1 {
                         DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
-                        // TODO: Uncomment after uncommeting CGraphicSurface.DrawClipped
+                        // FIXME: Uncomment when finishing DrawClipped
                         // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }
                 } else {
+
                     return
                 }
-
                 XIndex += 1
-                XPos += TileWidth
-            } while XPos < rect.DWidth
-
-            XIndex = rect.DXPosition / TileWidth
-            XPos = -(rect.DXPosition % TileWidth)
+            }
             YIndex += 1
-            YPos += TileHeight
-        } while YPos < rect.DHeight
+        }
     }
 
     func DrawMiniMap(ResourceContext: CGraphicResourceContext) {

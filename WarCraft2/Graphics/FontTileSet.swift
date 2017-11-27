@@ -48,8 +48,8 @@ class CFontTileset: CGraphicMulticolorTileset {
     }
 
     static func TopBottomSearch(data: Any, pixel: UInt32) -> UInt32 {
-        var Font: CFontTileset = data as! CFontTileset
-        var Row: Int = (Font.DSearchCall / Font.DTileWidth)
+        let Font: CFontTileset = data as! CFontTileset
+        let Row: Int = (Font.DSearchCall / Font.DTileWidth)
 
         Font.DSearchCall += 1
         if pixel != 0 & 0xFF00_0000 {
@@ -63,7 +63,7 @@ class CFontTileset: CGraphicMulticolorTileset {
     }
 
     public func LoadFont(colormap: CGraphicRecolorMap, source: CDataSource) -> Bool {
-        var LineSource = CLineDataSource(source: source)
+        let LineSource = CLineDataSource(source: source)
         var TempString: String?
         var ReturnStatus: Bool = false
         var BestLine: Int = 0

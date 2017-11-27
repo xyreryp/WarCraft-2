@@ -9,21 +9,17 @@
 import Foundation
 
 class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade2"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade3"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Longbow"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "RangerScouting"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Marksmanship"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Longbow"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "RangerScouting"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Marksmanship"))
     }
-
-    static var DRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -45,7 +41,7 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
         var DGold: Int
 
         init(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset, upgradingtype: CPlayerAssetType, upgradename: String, lumber: Int, gold: Int, steps: Int) {
-            var AssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+            var AssetCommand = SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
 
             DUpgradingType = upgradingtype
             DUpgradeName = upgradename
@@ -65,6 +61,7 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
             return DCurrentStep * max * DTotalSteps
         }
 
+        @discardableResult
         func IncrementStep() -> Bool {
             DCurrentStep += 1
             DActor.IncrementStep()
@@ -99,7 +96,7 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
     }
 
     override func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
-        var Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: DUpgradeName)
+        let Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: DUpgradeName)
 
         if let upgrade = Upgrade {
             if upgrade.DLumberCost > playerdata.DLumber {
@@ -115,7 +112,7 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
     }
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: DUpgradeName)
+        let Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: DUpgradeName)
 
         if let upgrade = Upgrade {
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
@@ -139,13 +136,9 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
 }
 
 class CPlayerCapabilityBuildRanger: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildRanger(unitname: "Ranger"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildRanger(unitname: "Ranger"))
     }
-
-    static var DRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -200,7 +193,7 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
 
         func IncrementStep() -> Bool {
             if EAssetType.Barracks == DActor.Type() {
-                var AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
+                let AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
 
                 DTarget.IncrementHitPoints(hitpts: AddHitPoints)
                 if DTarget.HitPoints() > DTarget.MaxHitPoints() {
@@ -214,9 +207,9 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
                 var TempEvent = SGameEvent(DType: EEventType.None, DAsset: DActor)
 
                 if EAssetType.LumberMill == DActor.Type() {
-                    var BarracksIterator = DPlayerData.AssetTypes()["Barracks"]
-                    var RangerIterator = DPlayerData.AssetTypes()["Ranger"]
-                    var LumberMillIterator = DPlayerData.AssetTypes()["LumberMill"]
+                    let BarracksIterator = DPlayerData.AssetTypes()["Barracks"]
+                    let RangerIterator = DPlayerData.AssetTypes()["Ranger"]
+                    let LumberMillIterator = DPlayerData.AssetTypes()["LumberMill"]
 
                     TempEvent.DType = EEventType.WorkComplete
                     TempEvent.DAsset = DActor
@@ -231,7 +224,7 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
 
                         for WeakAsset in DPlayerData.Assets() {
                             if EAssetType.Archer == WeakAsset.Type() {
-                                var HitPointIncrement = ranger.DHitPoints - WeakAsset.MaxHitPoints()
+                                let HitPointIncrement = ranger.DHitPoints - WeakAsset.MaxHitPoints()
 
                                 WeakAsset.ChangeType(type: ranger)
                                 WeakAsset.IncrementHitPoints(hitpts: HitPointIncrement)
@@ -275,7 +268,7 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
         if EAssetType.LumberMill == actor.Type() {
-            var upgrade = CPlayerUpgrade.FindUpgradeFromName(name: "Build\(DUnitName)")
+            let upgrade = CPlayerUpgrade.FindUpgradeFromName(name: "Build\(DUnitName)")
 
             if let found = upgrade {
                 var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
@@ -290,12 +283,12 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
                 return true
             }
         } else if EAssetType.Barracks == actor.Type() {
-            var AssetIterator = playerdata.AssetTypes()[DUnitName]
+            let AssetIterator = playerdata.AssetTypes()[DUnitName]
 
             if let AssetType = AssetIterator {
-                var NewAsset = playerdata.CreateAsset(assettypename: DUnitName)
+                let NewAsset = playerdata.CreateAsset(assettypename: DUnitName)
                 var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
-                var TilePosition = CTilePosition()
+                let TilePosition = CTilePosition()
 
                 TilePosition.SetFromPixel(pos: actor.Position())
                 NewAsset.TilePosition(pos: TilePosition)
@@ -318,7 +311,7 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
     override func CanInitiate(actor: CPlayerAsset, playerdata: CPlayerData) -> Bool {
 
         if EAssetType.LumberMill == actor.Type() {
-            var Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: "Build\(DUnitName)")
+            let Upgrade = CPlayerUpgrade.FindUpgradeFromName(name: "Build\(DUnitName)")
 
             if let found = Upgrade {
                 if found.DLumberCost > playerdata.DLumber {
@@ -332,7 +325,7 @@ class CPlayerCapabilityBuildRanger: CPlayerCapability {
                 }
             }
         } else if EAssetType.Barracks == actor.Type() {
-            var AssetIterator = playerdata.AssetTypes()[DUnitName]
+            let AssetIterator = playerdata.AssetTypes()[DUnitName]
 
             if let AssetType = AssetIterator {
                 if AssetType.DLumberCost > playerdata.DLumber {

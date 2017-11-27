@@ -27,7 +27,7 @@ class CMiniMapRenderer {
         DVisibleWidth = DMapRenderer.MapWidth()
         DVisibleHeight = DMapRenderer.MapHeight()
         DWorkingSurface = CGraphicFactory.CreateSurface(width: DMapRenderer.MapWidth(), height: DMapRenderer.MapHeight(), format: format)!
-        var ResourceContext = DWorkingSurface.CreateResourceContext()
+        let ResourceContext = DWorkingSurface.CreateResourceContext()
         ResourceContext.SetSourceRGB(rgb: 0x000000)
         ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DMapRenderer.MapWidth(), height: DMapRenderer.MapHeight())
         ResourceContext.Fill()
@@ -54,7 +54,7 @@ class CMiniMapRenderer {
     }
 
     func DrawMiniMap(surface: CGraphicSurface) {
-        var ResourceContext = surface.CreateResourceContext()
+        let ResourceContext = surface.CreateResourceContext()
         var MiniMapViewportX = 0
         var MiniMapViewportY = 0
         var MiniMapViewportWidth = 0
@@ -113,15 +113,12 @@ class CMiniMapRenderer {
         ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DrawWidth, height: DrawHeight)
         ResourceContext.Fill()
         ResourceContext.Restore()
-
-        if DViewportRenderer != nil {
-            ResourceContext.SetSourceRGB(rgb: DViewportColor)
-            MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
-            MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
-            MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
-            MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
-            ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
-            ResourceContext.Stroke()
-        }
+        ResourceContext.SetSourceRGB(rgb: DViewportColor)
+        MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+        MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+        MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+        MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+        ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
+        ResourceContext.Stroke()
     }
 }

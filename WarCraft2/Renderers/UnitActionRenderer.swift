@@ -31,10 +31,7 @@ class CUnitActionRenderer {
         DFulliconHeight = DIconTileset.TileHeight() + DBevel.Width() * 2
 
         DDisplayedCommands = [EAssetCapabilityType](repeating: EAssetCapabilityType.None, count: 9)
-        for var Commands in DDisplayedCommands {
-            Commands = EAssetCapabilityType.None
-        }
-        CHelper.resize(array: &DCommandIndices, size: EAssetCapabilityType.Max.rawValue, defaultValue: 0)
+        DCommandIndices = [Int](repeating: Int(), count: EAssetCapabilityType.Max.rawValue)
         DCommandIndices[EAssetCapabilityType.None.rawValue] = -1
         DCommandIndices[EAssetCapabilityType.BuildPeasant.rawValue] = DIconTileset.FindTile(tilename: "peasant")
         DCommandIndices[EAssetCapabilityType.BuildFootman.rawValue] = DIconTileset.FindTile(tilename: "footman")
@@ -86,7 +83,7 @@ class CUnitActionRenderer {
 
     func Selection(pos: CPosition) -> EAssetCapabilityType {
         if ((pos.X() % (DFullIconWidth + DBevel.Width())) < DFullIconWidth) && ((pos.Y() % (DFulliconHeight + DBevel.Width()) < DFulliconHeight)) {
-            var Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
+            let Index: Int = (pos.X() / (DFullIconWidth + DBevel.Width())) + (pos.Y() / (DFulliconHeight + DBevel.Width())) * 3
             return DDisplayedCommands[Index]
         }
         return EAssetCapabilityType.None
@@ -128,25 +125,26 @@ class CUnitActionRenderer {
             }
         }
 
+        let Asset = selectionlist[0]
         if EAssetCapabilityType.None == currentAction {
             if Moveable {
+
                 DDisplayedCommands[0] = HasCargo ? EAssetCapabilityType.Convey : EAssetCapabilityType.Move
                 DDisplayedCommands[1] = EAssetCapabilityType.StandGround
                 DDisplayedCommands[2] = EAssetCapabilityType.Attack
-                if let Asset: CPlayerAsset = selectionlist[0] {
-                    if Asset.HasCapability(capability: EAssetCapabilityType.Repair) {
-                        DDisplayedCommands[3] = EAssetCapabilityType.Repair
-                    }
-                    if Asset.HasCapability(capability: EAssetCapabilityType.Patrol) {
-                        DDisplayedCommands[3] = EAssetCapabilityType.Patrol
-                    }
-                    if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
-                        DDisplayedCommands[4] = EAssetCapabilityType.Mine
-                    }
-                    if (Asset.HasCapability(capability: EAssetCapabilityType.BuildSimple)) && (selectionlist.count == 1) {
-                        DDisplayedCommands[6] = EAssetCapabilityType.BuildSimple
-                    }
+                if Asset.HasCapability(capability: EAssetCapabilityType.Repair) {
+                    DDisplayedCommands[3] = EAssetCapabilityType.Repair
                 }
+                if Asset.HasCapability(capability: EAssetCapabilityType.Patrol) {
+                    DDisplayedCommands[3] = EAssetCapabilityType.Patrol
+                }
+                if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
+                    DDisplayedCommands[4] = EAssetCapabilityType.Mine
+                }
+                if (Asset.HasCapability(capability: EAssetCapabilityType.BuildSimple)) && (selectionlist.count == 1) {
+                    DDisplayedCommands[6] = EAssetCapabilityType.BuildSimple
+                }
+
             } else {
                 if let Asset: CPlayerAsset = selectionlist[0] {
                     if (EAssetAction.Construct == Asset.Action()) || (EAssetAction.Capability == Asset.Action()) {

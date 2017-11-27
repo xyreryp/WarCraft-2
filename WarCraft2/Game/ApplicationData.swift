@@ -9,9 +9,11 @@
 import Foundation
 import SpriteKit
 
+let TIMEOUT_INTERVAL = 50
+let TIMEOUT_FREQUENCY = (1000 / TIMEOUT_INTERVAL)
 class CApplicationData {
     static var INITIAL_MAP_WIDTH = 800
-    static var INITIAL_MAO_HEIGHT = 600
+    static var INITIAL_MAP_HEIGHT = 600
     static var TIMEOUT_INTERVAL = 50
     static var MINI_MAP_MIN_WIDTH = 128
     static var MINI_MAP_MIN_HEGHT = 128
@@ -110,7 +112,7 @@ class CApplicationData {
     // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
-    var DMapRenderer: CMapRenderer
+    var DMapRenderer: CMapRenderer!
     // cursor things
     // TODO: CCursorset?
     // var DCursorset: CCursorSet? = nil
@@ -201,12 +203,14 @@ class CApplicationData {
     var DCurrentAssetCapability: EAssetCapabilityType
 
     // keys related things
-    var DPressedKeys: [uint32]
-    var DReleasedKeys: [uint32]
+    var DPressedKeys: [UInt32]
+    var DReleasedKeys: [UInt32]
 
     // mouse things
     var DCurrentX: Int
     var DCurrentY: Int
+    var TestX: Int!
+    var TestY: Int!
     var DMouseDown: CPixelPosition
     var DLeftClick: Int
     var DRightClick: Int
@@ -229,7 +233,7 @@ class CApplicationData {
 
     // Data Source, used for all reading of files
     var TempDataSource: CDataSource
-    var DPlayer: CPlayerData = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
+    var DPlayer: CPlayerData!
 
     var DAssetMap: CAssetDecoratedMap
 
@@ -277,7 +281,7 @@ class CApplicationData {
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
         // Map Renderer
-        DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
+        // DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
         // cursor things
         // TODO: uncomment later
@@ -308,16 +312,16 @@ class CApplicationData {
         //        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
         //            print("Failed to lead BuildingDeath tileset")
         //        }
-        var bevelDataSource = CDataSource()
-        var MiniBevelTileset = CGraphicTileset()
+        let bevelDataSource = CDataSource()
+        let MiniBevelTileset = CGraphicTileset()
         if !MiniBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
             print("Failed to lead MiniBevel tileset")
         }
-        var InnerBevelTileset = CGraphicTileset()
+        let InnerBevelTileset = CGraphicTileset()
         if !InnerBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
             print("Failed to lead InnerBevel tileset")
         }
-        var OuterBevelTileset = CGraphicTileset()
+        let OuterBevelTileset = CGraphicTileset()
         if !OuterBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
             print("Failed to lead OuterBevel tileset")
         }
@@ -356,7 +360,6 @@ class CApplicationData {
         //        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
 
         //        DMiniMapRenderer = CMiniMapRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())), viewport: CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), fogrender: CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))), format: ESurfaceFormat.A1)
-        let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
 
         DIconTileset = CGraphicMulticolorTileset()
         if !DIconTileset.TestLoadTileset(source: CDataSource(), assetName: "Icons") {
@@ -390,7 +393,7 @@ class CApplicationData {
         DCurrentAssetCapability = EAssetCapabilityType.None
 
         // keys related things
-        DPressedKeys = [uint32]()
+        DPressedKeys = [UInt32]()
         DReleasedKeys = [uint32]()
 
         DMenuButtonState = CButtonRenderer.EButtonState.None
@@ -403,7 +406,6 @@ class CApplicationData {
         TempDataSource = CDataSource()
 
         // playerData needed for assetRenderer
-        DPlayer = CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None)
         DPlayerColor = EPlayerColor.Red
         //        DMiniMapViewportColor = 0xFFFFFF
         DDeleted = false
@@ -447,7 +449,7 @@ class CApplicationData {
 
         DBuildHotKeyMap = [uint32: EAssetCapabilityType]()
         DBuildHotKeyMap[SGUIKeyType.KeyB] = EAssetCapabilityType.BuildBarracks // key B
-        DBuildHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildFarm // F
+        DBuildHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFarm // F
         DBuildHotKeyMap[SGUIKeyType.KeyH] = EAssetCapabilityType.BuildTownHall // H
         DBuildHotKeyMap[SGUIKeyType.KeyL] = EAssetCapabilityType.BuildLumberMill // L
         DBuildHotKeyMap[SGUIKeyType.KeyS] = EAssetCapabilityType.BuildBlacksmith // S
@@ -484,7 +486,67 @@ class CApplicationData {
     // func MainWindowDeleteEventCallback(widget: CGUIWidget, data: TGUICalldata) -> Bool {}
     // func MainWindowDestroyCallback(widget: CGUIWidget, data: TGUICalldata )
     // func MainWindowKeyPressEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
-    // func MainWindowKeyReleaseEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
+
+    /**
+     * Logs any button presses in the main window.
+     *
+     * @param[in] widget The widget you pressed a key in.
+     * @parem[in] The event that occured to the widget (that you did).
+     *
+     * @return Always returns false.
+     *
+     */
+    /**
+     * Logs any button presses in DPressedKeys
+     * Always returns true
+     */
+    func MainWindowKeyPressEvent(event: UInt32) -> Bool {
+        var Found: Bool = false
+        for Key in DPressedKeys {
+            if Key == event {
+                Found = true
+                break
+            }
+        }
+        if !Found {
+            DPressedKeys.append(event)
+        }
+        return true
+    }
+
+    /**
+     * Logs any button released into KeysReleased
+     * Erases that button from the list of pressed buttons
+     * Always returns true.
+     */
+
+    func MainWindowKeyReleaseEvent(event: UInt32) -> Bool {
+        var Found: Bool = false
+        var Index: Int = 0
+
+        for Key in DPressedKeys {
+            if Key == event {
+                Found = true
+                break
+            }
+            Index += 1
+        }
+        if Found {
+            DPressedKeys.remove(at: Index)
+        }
+        Found = false
+        for Key in DReleasedKeys {
+            if Key == event {
+                Found = true
+                break
+            }
+        }
+        if !Found {
+            DReleasedKeys.append(event)
+        }
+        return true
+    }
+
     // func MainWindowConfigureEventCallback(widget: CGUIWidget, event: SGUIConfigureEvent, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaDrawCallback(widget: CGUIWidget, rc: CGraphicResourceContext, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaButtonPressEventCallback(widget: CGUIWidget, event: SGUIConfigureEven, data: TGUICalldata ) -> Bool {}
@@ -494,9 +556,7 @@ class CApplicationData {
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        CHelper.resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: CGraphicTileset())
-        // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
-        //        resize(array: &DAssetTilesets, size: EAssetType.Max.rawValue, defaultValue: [CGraphicMulticolorTileset]())
+        DAssetTilesets = [CGraphicTileset](repeating: CGraphicTileset(), count: EAssetType.Max.rawValue)
 
         //         load tileset for peasant
         //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
@@ -582,6 +642,7 @@ class CApplicationData {
         }
 
         CPosition.SetTileDimensions(width: DTerrainTileset.DTileWidth, height: DTerrainTileset.DTileHeight)
+        print(DTerrainTileset.DTileHeight)
 
         // marker tileset needed for asset renderer
         DMarkerTileset = CGraphicTileset()
@@ -641,9 +702,9 @@ class CApplicationData {
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
         CAssetDecoratedMap.TestLoadMaps(filename: "bay")
 
-        var test = CAssetDecoratedMap.DAllMaps[0]
-
         LoadGameMap(index: 0)
+
+        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[0], color: DPlayerColor)
         //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }
@@ -655,6 +716,8 @@ class CApplicationData {
         //        if !DOuterBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "OuterBevel") {
         //            print("Failed to load Outer Bevel Tileset")
         //        }
+        CPlayerAsset.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
+        CAssetRenderer.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
     }
 
     // functiones for going back and forth between screen and actions
@@ -830,11 +893,10 @@ class CApplicationData {
 
         DGameModel = CGameModel(mapindex: index, seed: 0x123_4567_89AB_CDEF, newcolors: &DLoadingPlayerColors)
         // AI INFORMATION
-        //        let Index = 1
-        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
         //            DGameModel.Player(color: DPlayerColor)?.IsAI(isai: EPlayerType.ptAIEasy.rawValue <= DLoadingPlayerTypes[Index].rawValue && EPlayerType.ptAIHard.rawValue >= DLoadingPlayerTypes[Index].rawValue)
         //        }
-        //        for Index in Index ..< EPlayerColor.Max.rawValue {
+        //        for Index in 1 ..< EPlayerColor.Max.rawValue {
         //            if (DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
         //                var Downsample: Int = 1
         //                switch DLoadingPlayerTypes[Index] {
@@ -851,14 +913,11 @@ class CApplicationData {
         //                //  DAIPlayers[Index] = CAIPlayer(playerdata: DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, downsample: Downsample)
         //            }
         //        }
-        DCurrentAssetCapability = EAssetCapabilityType.None
-        DPlayerColor = EPlayerColor.Red
         // setup map dimensions and tiles
         DetailedMapWidth = DGameModel.Map().Width() * DTerrainTileset.TileWidth()
         DetailedMapHeight = DGameModel.Map().Width() * DTerrainTileset.TileHeight()
 
         // load the map file
-
         DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
@@ -906,20 +965,37 @@ class CApplicationData {
 
         CurWidth = Int(DViewportSurface.frame.width)
         CurHeight = Int(DViewportSurface.frame.height)
+        print(CurWidth)
+        print(CurHeight)
         DViewportRenderer.InitViewportDimensions(width: CurWidth, height: CurHeight)
 
-        for WeakAsset in (DGameModel.Player(color: DPlayerColor)?.DAssets)! {
-            if var asset: CPlayerAsset? = WeakAsset {
-
-                DViewportRenderer.CenterViewport(pos: asset!.DPosition)
-                break
-            }
+        for WeakAsset in DGameModel.Player(color: DPlayerColor)!.DAssets {
+            DViewportRenderer.CenterViewport(pos: WeakAsset.DPosition)
+            break
         }
+
+        InitTypeRegistry()
+    }
+
+    func InitTypeRegistry() {
+        // FIXME: Need to add more Caps tp Registrant
+        CPlayerCapabilityMove.AddToRegistrant()
+        CPlayerCapabilityRepair.AddToRegistrant()
+        CPlayerCapabilityPatrol.AddToRegistrant()
+        CPlayerCapabilityAttack.AddToRegistrant()
+        CPlayerCapabilityMineHarvest.AddToRegistrant()
+        CPlayerCapabilityCancel.AddToRegistrant()
+        CPlayerCapabilityConvey.AddToRegistrant()
+        CPlayerCapabilityStandGround.AddToRegistrant()
+        CPlayerCapabilityBuildNormal.AddToRegistrant()
+        CPlayerCapabilityBuildingUpgrade.AddToRegistrant()
+        CPlayerCapabilityUnitUpgrade.AddToRegistrant()
+        CPlayerCapabilityBuildRanger.AddToRegistrant()
+        CPlayerCapabilityBuildSimple.AddToRegistrant()
     }
 
     func ResetPlayerColors() {
-        let Index = 0
-        for Index in Index ..< EPlayerColor.Max.rawValue {
+        for Index in 0 ..< EPlayerColor.Max.rawValue {
             DLoadingPlayerColors[Index] = EPlayerColor(rawValue: Index)!
         }
     }

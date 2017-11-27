@@ -8,6 +8,7 @@
 
 import Foundation
 class CPlayerAssetType {
+    var DThis: CPlayerAssetType!
     var DName: String = String()
     var DType: EAssetType = EAssetType.None
     var DColor: EPlayerColor = EPlayerColor.None
@@ -70,9 +71,9 @@ class CPlayerAssetType {
 
     // default constructor
     init() {
-        //        DThis = CPlayerAssetType()
+
         DCapabilities = [Bool]()
-        CHelper.resize(array: &DCapabilities, size: EAssetCapabilityType.Max.rawValue, defaultValue: false)
+        DCapabilities = [Bool](repeating: false, count: EAssetCapabilityType.Max.rawValue)
         DHitPoints = 1
         DArmor = 0
         DSight = 0
@@ -285,6 +286,7 @@ class CPlayerAssetType {
     /// Load the resources data from all the files in the "res" directory
     ///
     /// - Parameter filenames: List of all the filenames in the "res" directory
+    @discardableResult
     static func LoadTypes(filenames: [String]) -> Bool {
         for Filename in filenames {
             let TempDataSource = CDataSource()
@@ -352,7 +354,7 @@ class CPlayerAssetType {
         for _ in 0 ..< CapabilityCount {
             TempString = source.Read()
             // TODO: Add back in when CPlayerCapability works
-            //            PlayerAssetType.AddCapability(capability: CPlayerCapability.NameToType(name: TempString))
+            PlayerAssetType.AddCapability(capability: CPlayerCapability.NameToType(name: TempString))
         }
 
         AssetRequirementCount = Int(source.Read())!
@@ -373,9 +375,14 @@ class CPlayerAssetType {
         return FindDefaultFromName(name: TypeToName(type: type))
     }
 
-    static func DuplicateRegistry(color _: EPlayerColor) -> [String: CPlayerAssetType] {
+    static func DuplicateRegistry(color: EPlayerColor) -> [String: CPlayerAssetType] {
         var ReturnRegistry: [String: CPlayerAssetType] = [String: CPlayerAssetType]()
-        ReturnRegistry = DRegistry
+        for (string, assettype) in DRegistry {
+            let NewAssetType = CPlayerAssetType(asset: assettype)
+            NewAssetType.DThis = NewAssetType
+            NewAssetType.DColor = color
+            ReturnRegistry[string] = NewAssetType
+        }
         return ReturnRegistry
     }
 

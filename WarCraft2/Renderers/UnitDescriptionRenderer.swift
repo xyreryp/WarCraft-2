@@ -194,14 +194,14 @@ class CUnitDescriptionRenderer {
 
     // TODO: Check if CGraphicSurface is actually
     func DrawCompletionBar(surface: CGraphicSurface, percent: Int) {
-        var ResourceContext = surface.CreateResourceContext()
+        let ResourceContext = surface.CreateResourceContext()
         var TextWidth: Int = Int()
         var TextHeight: Int = Int()
         var DisplayWidth: Int = Int()
         var TextTop: Int = Int()
         var TextBottom: Int = Int()
 
-        var BlackColor: UInt32 = 0x000000
+        let BlackColor: UInt32 = 0x000000
         DFonts[EFontSize.Large.rawValue].MeasureTextDetailed(str: "% Complete", width: &TextWidth, height: &TextHeight, top: &TextTop, bottom: &TextBottom)
 
         TextHeight = TextBottom - TextTop + 1
@@ -250,12 +250,12 @@ class CUnitDescriptionRenderer {
             if selectionlist.count == 1 {
                 DDisplayedIcons = 1
                 if let Asset = selectionlist[0] { // not nil
-                    var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
+                    let HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
                     var TextWidth: Int = Int()
                     var TextHeight: Int = Int()
                     var TextCenter: Int = Int()
                     var TextTop: Int = Int()
-                    var AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
+                    let AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
 
                     var TempString: String = String()
 
@@ -298,7 +298,7 @@ class CUnitDescriptionRenderer {
                     }
 
                     if DPlayerColor == Asset.Color() {
-                        if Asset.Speed() != nil { // issues
+                        if Asset.Speed() > 0 {
                             var TextLineHeight: Int = Int()
                             var UpgradeValue: Int = Int()
 
@@ -390,8 +390,8 @@ class CUnitDescriptionRenderer {
                                 }
                                 // DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
                             } else if EAssetAction.Capability == Asset.Action() {
-                                var Command = Asset.CurrentCommand()
-                                var PercentComplete: Int = 0
+                                let Command = Asset.CurrentCommand()
+                                let PercentComplete: Int = 0
                                 // NOTE: this is in new Linux code?
                                 //                                if Command.DActivatedCapability != nil {
                                 //                                    PercentComplete = Command.DActivatedCapabilityPercentComplete(max: 100)
@@ -460,9 +460,9 @@ class CUnitDescriptionRenderer {
                 DDisplayedIcons = 0
                 var HorizontalOffset: Int = DBevel.Width()
                 var VerticalOffset: Int = DBevel.Width()
-                for var Item in selectionlist {
+                for Item in selectionlist {
                     if let Asset = Item {
-                        var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
+                        let HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
                         var TextWidth: Int = Int()
                         var TextHeight: Int = Int()
                         var TextTop: Int = Int()
@@ -492,9 +492,9 @@ class CUnitDescriptionRenderer {
 
                         HorizontalOffset += DFullIconWidth + HorizontalGap
                         DDisplayedIcons = DDisplayedIcons + 1
-                        if 0 == (self.DDisplayedIcons % HorizontalIcons) {
-                            HorizontalOffset = self.self.DBevel.Width()
-                            VerticalOffset += self.DFullIconHeight + VerticalGap
+                        if 0 == (DDisplayedIcons % HorizontalIcons) {
+                            HorizontalOffset = `self`.DBevel.Width()
+                            VerticalOffset += DFullIconHeight + VerticalGap
                         }
                     }
                 }

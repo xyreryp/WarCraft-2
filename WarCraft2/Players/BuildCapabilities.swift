@@ -9,18 +9,15 @@
 import Foundation
 
 class CPlayerCapabilityBuildNormal: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "TownHall"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Farm"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Barracks"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "LumberMill"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Blacksmith"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "ScoutTower"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "TownHall"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Farm"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Barracks"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "LumberMill"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "Blacksmith"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityBuildNormal(buildingname: "ScoutTower"))
     }
 
-    static var DRegistrant: CRegistrant = CRegistrant()
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
 
@@ -57,17 +54,18 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            var AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
+            let AddHitPoints = (DTarget.MaxHitPoints() * (DCurrentStep + 1) / DTotalSteps) - (DTarget.MaxHitPoints() * DCurrentStep / DTotalSteps)
 
             DTarget.IncrementHitPoints(hitpts: AddHitPoints)
             if DTarget.HitPoints() > DTarget.MaxHitPoints() {
                 DTarget.HitPoints(hitpts: DTarget.MaxHitPoints())
             }
-            DCurrentStep += 1
+            // FIXME: change back to 1
+            DCurrentStep += 10
             DActor.IncrementStep()
             DTarget.IncrementStep()
             if DCurrentStep >= DTotalSteps {
-                var TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
+                let TempEvent = SGameEvent(DType: EEventType.WorkComplete, DAsset: DActor)
 
                 DPlayerData.AddGameEvent(event: TempEvent)
 
@@ -99,7 +97,7 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
     }
 
     override func CanInitiate(actor _: CPlayerAsset, playerdata: CPlayerData) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
+        let Iterator = playerdata.AssetTypes()[DBuildingName]
 
         if let AssetType = Iterator {
             if AssetType.DLumberCost > playerdata.DLumber {
@@ -114,7 +112,7 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
     }
 
     override func CanApply(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
+        let Iterator = playerdata.AssetTypes()[DBuildingName]
 
         if (actor != target) && (EAssetType.None != target.Type()) {
             return false
@@ -138,15 +136,16 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
     }
 
     override func ApplyCapability(actor: CPlayerAsset, playerdata: CPlayerData, target: CPlayerAsset) -> Bool {
-        var Iterator = playerdata.AssetTypes()[DBuildingName]
+        let Iterator = playerdata.AssetTypes()[DBuildingName]
 
         if let AssetType = Iterator {
             var NewCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
 
             actor.ClearCommand()
-            if actor.TilePosition() == target.TilePosition() {
-                var NewAsset = playerdata.CreateAsset(assettypename: DBuildingName)
-                var TilePosition = CTilePosition()
+            // FIXME:
+            if (actor.TilePosition().X() == target.TilePosition().X()) && (actor.TilePosition().Y() == target.TilePosition().Y() + 1) {
+                let NewAsset = playerdata.CreateAsset(assettypename: DBuildingName)
+                let TilePosition = CTilePosition()
                 TilePosition.SetFromPixel(pos: target.Position())
                 NewAsset.TilePosition(pos: TilePosition)
                 NewAsset.HitPoints(hitpts: 1)
@@ -154,7 +153,7 @@ class CPlayerCapabilityBuildNormal: CPlayerCapability {
                 NewCommand.DAction = EAssetAction.Capability
                 NewCommand.DCapability = AssetCapabilityType()
                 NewCommand.DAssetTarget = NewAsset
-                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: target, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
+                NewCommand.DActivatedCapability = CActivatedCapability(actor: actor, playerdata: playerdata, target: NewAsset, lumber: AssetType.DLumberCost, gold: AssetType.DGoldCost, steps: CPlayerAsset.UpdateFrequency() * AssetType.DBuildTime)
                 actor.PushCommand(command: NewCommand)
 
             } else {

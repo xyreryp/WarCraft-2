@@ -152,6 +152,7 @@ class CGraphicTileset {
         return DTileCount
     } // end TileCount()
 
+    @discardableResult
     func ClearTile(index: Int) -> Bool {
         if (0 > index) || (index >= DTileCount) {
             return false
@@ -353,7 +354,8 @@ class CGraphicTileset {
         }
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
-        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
+
+        //        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }

@@ -9,6 +9,23 @@
 import Foundation
 import Cocoa
 import SpriteKit
+extension SKView {
+    open override func mouseDown(with event: NSEvent) {
+
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+        applicationData.DLeftClick = 1
+    }
+
+    open override func rightMouseDown(with event: NSEvent) {
+        // right mouse click
+        applicationData.DCurrentX = Int(event.locationInWindow.x)
+        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+        applicationData.DRightClick = 1
+    }
+}
+
+var applicationData = CApplicationData()
 
 var peasantSelected = false
 
@@ -22,6 +39,10 @@ class GameViewController: NSViewController {
         super.viewDidLoad()
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
+            return $0
+        }
+        NSEvent.addLocalMonitorForEvents(matching: .keyUp) {
+            self.keyUp(with: $0)
             return $0
         }
         NSEvent.addLocalMonitorForEvents(matching: .scrollWheel) {
@@ -152,7 +173,13 @@ class GameViewController: NSViewController {
         case 124: // NSRightArrowFunctionKey:
             applicationData.DViewportRenderer.PanEast(pan: 32)
         default:
-            break
+            // print("key pressed: ", event.keyCode)
+            applicationData.MainWindowKeyPressEvent(event: UInt32(event.keyCode))
         }
+    }
+
+    override func keyUp(with event: NSEvent) {
+        // print("key released: ", event.characters!)
+        applicationData.MainWindowKeyReleaseEvent(event: UInt32(event.keyCode))
     }
 }

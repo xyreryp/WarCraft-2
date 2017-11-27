@@ -82,6 +82,7 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     // FIXME: Hard coded to take in one map for now
+    @discardableResult
     static func TestLoadMaps(filename: String) -> Bool {
 
         let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
@@ -150,11 +151,13 @@ class CAssetDecoratedMap: CTerrainMap {
         return CAssetDecoratedMap(map: DAllMaps[index], newcolors: &newcolors)
     }
 
+    @discardableResult
     func AddAsset(asset: CPlayerAsset) -> Bool {
         DAssets.append(asset)
         return true
     }
 
+    @discardableResult
     func RemoveAsset(asset: CPlayerAsset) -> Bool {
         for index in 0 ... DAssets.count {
             if DAssets[index] === asset { // not certain if this will work, if not we need to make CPlayerAsset equatable
@@ -165,12 +168,12 @@ class CAssetDecoratedMap: CTerrainMap {
         return false
     }
 
-    func CanPlaceAsset(pos: CTilePosition, size: Int, ignoreasset _: CPlayerAsset) -> Bool {
+    func CanPlaceAsset(pos: CTilePosition, size: Int, ignoreasset: CPlayerAsset) -> Bool {
         var RightX: Int
         var BottomY: Int
 
-        for YOff in stride(from: 0, to: size, by: 1) {
-            for XOff in stride(from: 0, to: size, by: 1) {
+        for YOff in 0 ..< size {
+            for XOff in 0 ..< size {
                 let TileTerrainType = TileType(xindex: pos.X() + XOff, yindex: pos.Y() + YOff)
                 if !CTerrainMap.CanPlaceOn(type: TileTerrainType) {
                     return false
@@ -191,9 +194,9 @@ class CAssetDecoratedMap: CTerrainMap {
             if EAssetType.None == Asset.Type() {
                 continue
             }
-            //            if ignoreasset == Asset {
-            //                continue
-            //            }
+            if ignoreasset == Asset {
+                continue
+            }
             if RightX <= Asset.TilePositionX() - Offset {
                 continue
             }
@@ -224,7 +227,7 @@ class CAssetDecoratedMap: CTerrainMap {
             var Skipped: Int = 0
             if 0 <= TopY {
                 let ToX: Int = min(RightX, Width() - 1)
-                for CurX in stride(from: max(LeftX, 0), to: ToX, by: 1) {
+                for CurX in max(LeftX, 0) ... ToX {
                     if CanPlaceAsset(pos: CTilePosition(x: CurX, y: TopY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: CurX, y: TopY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -239,7 +242,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if Width() > RightX {
                 let ToY: Int = min(BottomY, Height() - 1)
-                for CurY in stride(from: max(TopY, 0), to: ToY, by: 1) {
+                for CurY in max(TopY, 0) ... ToY {
                     if CanPlaceAsset(pos: CTilePosition(x: RightX, y: CurY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: RightX, y: CurY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -254,7 +257,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if Height() > BottomY {
                 let ToX: Int = max(LeftX, 0)
-                for CurX in stride(from: min(RightX, Width() - 1), to: ToX, by: -1) {
+                for CurX in stride(from: min(RightX, Width() - 1), through: ToX, by: -1) {
                     if CanPlaceAsset(pos: CTilePosition(x: CurX, y: BottomY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: CurX, y: BottomY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -269,7 +272,7 @@ class CAssetDecoratedMap: CTerrainMap {
             }
             if 0 <= LeftX {
                 let ToY: Int = max(TopY, 0)
-                for CurY in stride(from: min(BottomY, Height() - 1), to: ToY, by: -1) {
+                for CurY in stride(from: min(BottomY, Height() - 1), through: ToY, by: -1) {
                     if CanPlaceAsset(pos: CTilePosition(x: LeftX, y: CurY), size: placeasset.Size(), ignoreasset: placeasset) {
                         let TempPosition = CTilePosition(x: LeftX, y: CurY)
                         CurDistance = TempPosition.DistanceSquared(pos: nexttiletarget)
@@ -311,10 +314,39 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset!
     }
 
+    // FIXME: delete hardcode
+    func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
+        var AssetColor: EPlayerColor
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
+                AssetColor = Asset.AssetType().DColor
+                return AssetColor
+            }
+        }
+        AssetColor = EPlayerColor.None
+        return AssetColor
+    }
+
+    func FakeFindAsset(pos: CTilePosition) -> EAssetType {
+        var BestAsset: EAssetType
+        for Asset in DAssets {
+            let DTilePosition = CTilePosition()
+            DTilePosition.SetFromPixel(pos: Asset.Position())
+            if abs(DTilePosition.X() - pos.X()) <= 1 && abs(DTilePosition.Y() - pos.Y()) <= 1 {
+                BestAsset = Asset.AssetType().DType
+                return BestAsset
+            }
+        }
+        BestAsset = EAssetType.None
+        return BestAsset
+    }
+
     func RemoveLumber(pos: CTilePosition, from: CTilePosition, amount: Int) {
         var Index: Int! = 0
-        for YOff in stride(from: 0, to: 2, by: 1) {
-            for XOff in stride(from: 0, to: 2, by: 1) {
+        for YOff in 0 ..< 2 {
+            for XOff in 0 ..< 2 {
                 let XPos: Int = pos.X() + XOff
                 let YPos: Int = pos.Y() + YOff
                 Index! |= (ETerrainTileType.Forest == DTerrainMap[YPos][XPos]) && (DPartials.count <= YPos && DPartials[YPos].count <= XPos) ? 1 << (YOff * 2 + XOff) : 0
@@ -385,12 +417,9 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func TestLoadMap(filename: String) -> Bool {
-        let TempString = String()
         //        var Tokens = [String]()
         // var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
         //        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
-        var ResourceCount = Int()
-        var AssetCount = Int()
         var InitialLumber = 400
         var ReturnStatus = false
 
@@ -439,9 +468,9 @@ class CAssetDecoratedMap: CTerrainMap {
             DAssetInitializationList.append(TempAssetInit)
 
             // FIXME: index out of range on line 448
-            CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
+            DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
             for RowIndex in 0 ... DLumberAvailable.count - 1 {
-                CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
+                DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
                 for ColIndex in 0 ... DTerrainMap[RowIndex].count - 1 {
                     if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                         DLumberAvailable[RowIndex][ColIndex] = DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0
@@ -474,7 +503,7 @@ class CAssetDecoratedMap: CTerrainMap {
         //        }
         ResourceCount = Int(TempString)!
         DResourceInitializationList.removeAll()
-        for Index in stride(from: 0, to: ResourceCount, by: 1) {
+        for Index in 0 ... ResourceCount {
             //            if !LineSource.Read(line: &TempString) {
             //                print("Failed to read map resource %d.\n", Index)
             //                return ReturnStatus
@@ -504,7 +533,7 @@ class CAssetDecoratedMap: CTerrainMap {
         //        }
         AssetCount = Int(TempString)!
         DAssetInitializationList.removeAll()
-        for Index in stride(from: 0, to: AssetCount, by: 1) {
+        for Index in 0 ..< AssetCount {
             //            if !LineSource.Read(line: &TempString) {
             //                print("Failed to read map asset %d.\n", Index)
             //                return ReturnStatus
@@ -531,10 +560,10 @@ class CAssetDecoratedMap: CTerrainMap {
             DAssetInitializationList.append(TempAssetInit)
         }
 
-        CHelper.resize(array: &DLumberAvailable, size: DTerrainMap.count, defaultValue: [])
-        for RowIndex in stride(from: 0, to: DLumberAvailable.count, by: 1) {
-            CHelper.resize(array: &DLumberAvailable[RowIndex], size: DTerrainMap[RowIndex].count, defaultValue: Int())
-            for ColIndex in stride(from: 0, to: DTerrainMap[RowIndex].count, by: 1) {
+        DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
+        for RowIndex in 0 ..< DLumberAvailable.count {
+            DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
+            for ColIndex in 0 ..< DTerrainMap[RowIndex].count {
                 if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
                     DLumberAvailable[RowIndex][ColIndex] = DPartials.count <= RowIndex && DPartials[RowIndex].count <= ColIndex ? InitialLumber : 0
                 } else {
@@ -554,17 +583,20 @@ class CAssetDecoratedMap: CTerrainMap {
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            CHelper.resize(array: &ReturnMap.DMap, size: DMap.count, defaultValue: [])
-            for var Row in ReturnMap.DMap {
-                CHelper.resize(array: &Row, size: DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
-                for index in stride(from: 0, to: Row.count, by: 1) {
-                    Row[index] = ETileType.None
-                }
-            }
-            CHelper.resize(array: &ReturnMap.DMapIndices, size: DMap.count, defaultValue: [])
+            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
+            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
+            //            for var Row in ReturnMap.DMap {
+            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
+            //                for index in 0 ..< Row.count {
+            //                    Row[index] = ETileType.None
+            //                }
+            //            }
+            ReturnMap.DMap = DMap
+            ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+
             for var Row in ReturnMap.DMapIndices {
-                CHelper.resize(array: &Row, size: DMapIndices[0].count, defaultValue: Int())
-                for index in stride(from: 0, to: Row.count, by: 1) {
+                Row = [Int](repeating: Int(), count: DMapIndices[0].count)
+                for index in 0 ..< Row.count {
                     Row[index] = 0
                 }
             }
@@ -576,74 +608,55 @@ class CAssetDecoratedMap: CTerrainMap {
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: CPlayerAssetType.MaxSight())
     }
 
+    @discardableResult
     func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {
-        var Iterator = DAssets[0]
 
         if DMap.count != resmap.DMap.count {
             DTerrainMap = resmap.DTerrainMap
             DPartials = resmap.DPartials
-            CHelper.resize(array: &DMap, size: resmap.DMap.count, defaultValue: [])
+            DMap = [[CTerrainMap.ETileType]](repeating: [], count: resmap.DMap.count)
             for var Row in DMap {
-                CHelper.resize(array: &Row, size: resmap.DMap[0].count, defaultValue: CTerrainMap.ETileType.None)
-                for index in stride(from: 0, to: Row.count, by: 1) {
+                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: resmap.DMap[0].count)
+                for index in 0 ..< Row.count {
                     Row[index] = ETileType.None
                 }
             }
-            CHelper.resize(array: &DMapIndices, size: resmap.DMapIndices.count, defaultValue: [])
+            DMapIndices = [[Int]](repeating: [], count: resmap.DMapIndices.count)
             for var Row in DMapIndices {
-                CHelper.resize(array: &Row, size: resmap.DMapIndices[0].count, defaultValue: Int())
-                for index in stride(from: 0, to: Row.count, by: 1) {
+                Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
+                for index in 0 ..< Row.count {
                     Row[index] = 0
                 }
             }
         }
-        while Iterator != DAssets[DAssets.count] {
-            let CurPosition: CTilePosition = Iterator.TilePosition()
-            let AssetSize: Int = Iterator.Size()
-            var RemoveAsset: Bool = false
-            if (Iterator.Speed() != 0) || (EAssetAction.Decay == Iterator.Action()) || (EAssetAction.Attack == Iterator.Action()) { //  Remove all movable units
-                // https://stackoverflow.com/questions/24092712/how-to-remove-an-element-of-a-given-value-from-an-array-in-swift
-                for itemToRemoveIndex in stride(from: 0, to: DAssets.count, by: 1) {
-                    if !(DAssets[itemToRemoveIndex] != Iterator) {
-                        DAssets.remove(at: itemToRemoveIndex)
-                        Iterator = DAssets[itemToRemoveIndex + 1]
-                    }
-                } // FIXME: this is essentially array.erase(object).
-                continue
-            }
-            for YOff in stride(from: 0, to: AssetSize, by: 1) {
+
+        // Remove all movable units
+        DAssets = DAssets.filter { asset in
+            return !((asset.Speed() != 0) || (EAssetAction.Decay == asset.Action()) || (EAssetAction.Attack == asset.Action()))
+        }
+
+        DAssets = DAssets.filter { asset in
+            let CurPosition = asset.TilePosition()
+            let AssetSize = asset.Size()
+
+            for YOff in 0 ..< AssetSize {
                 let YPos: Int = CurPosition.Y() + YOff
-                for XOff in stride(from: 0, to: AssetSize, by: 1) {
+
+                for XOff in 0 ..< AssetSize {
                     let XPos: Int = CurPosition.X() + XOff
 
                     let VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
-                    if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) { // Remove visible so they can be updated
-                        RemoveAsset = EAssetType.None != Iterator.Type()
-                        break
+                    if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
+                        // Remove visible so they can be updated
+                        return !(EAssetType.None != asset.Type())
                     }
                 }
-                if RemoveAsset {
-                    break
-                }
             }
-            if RemoveAsset {
-                for itemToRemoveIndex: Int in stride(from: 0, to: DAssets.count, by: 1) {
-                    if !(DAssets[itemToRemoveIndex] != Iterator) {
-                        DAssets.remove(at: itemToRemoveIndex)
-                        Iterator = DAssets[itemToRemoveIndex + 1]
-                    }
-                }
-                continue
-            }
-            // Iterator ++ FIXME
-            for itemToRemoveIndex in stride(from: 0, to: DAssets.count, by: 1) {
-                if !(DAssets[itemToRemoveIndex] != Iterator) {
-                    Iterator = DAssets[itemToRemoveIndex + 1]
-                }
-            }
+            return true
         }
-        for YPos: Int in stride(from: 0, to: DMap.count, by: 1) {
-            for XPos: Int in stride(from: 0, to: DMap[YPos].count, by: 1) {
+
+        for YPos: Int in 0 ..< DMap.count {
+            for XPos: Int in 0 ..< DMap[YPos].count {
                 let VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
                 if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
@@ -651,14 +664,15 @@ class CAssetDecoratedMap: CTerrainMap {
                 }
             }
         }
+
         for Asset in resmap.DAssets {
             let CurPosition: CTilePosition = Asset.TilePosition()
             let AssetSize: Int = Asset.Size()
             var AddAsset: Bool = false
 
-            for YOff: Int in stride(from: 0, to: AssetSize, by: 1) {
+            for YOff in 0 ..< AssetSize {
                 let YPos: Int = CurPosition.Y() + YOff
-                for XOff: Int in stride(from: 0, to: AssetSize, by: 1) {
+                for XOff: Int in 0 ..< AssetSize {
                     let XPos: Int = CurPosition.X() + XOff
                     let VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
                     if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) { // Add visible resources
@@ -694,33 +708,33 @@ class CAssetDecoratedMap: CTerrainMap {
         var SearchYOffsets: [Int] = [-1, 0, 1, 0]
 
         if DSearchMap.count != DMap.count {
-            CHelper.resize(array: &DSearchMap, size: DMap.count, defaultValue: [])
+            DSearchMap = [[Int]](repeating: [], count: DMap.count)
             for var Row in DSearchMap {
-                CHelper.resize(array: &Row, size: DMap[0].count, defaultValue: Int())
-                for index in stride(from: 0, to: Row.count, by: 1) {
+                Row = [Int](repeating: Int(), count: DMap[0].count)
+                for index in 0 ..< Row.count {
                     Row[index] = 0
                 }
             }
             let LastYIndex: Int = DMap.count - 1
             let LastXIndex: Int = DMap[0].count - 1
-            for Index in stride(from: 0, to: DMap.count, by: 1) {
+            for Index in 0 ..< DMap.count {
                 DSearchMap[Index][0] = SEARCH_STATUS_VISITED
                 DSearchMap[Index][LastXIndex] = SEARCH_STATUS_VISITED
             }
-            for Index in stride(from: 1, to: LastXIndex, by: 1) {
+            for Index in 1 ..< LastXIndex {
                 DSearchMap[0][Index] = SEARCH_STATUS_VISITED
                 DSearchMap[LastYIndex][Index] = SEARCH_STATUS_VISITED
             }
         }
-        for Y in stride(from: 0, to: MapHeight, by: 1) {
-            for X in stride(from: 0, to: MapWidth, by: 1) {
+        for Y in 0 ..< MapHeight {
+            for X in 0 ..< MapWidth {
                 DSearchMap[Y + 1][X + 1] = SEARCH_STATUS_UNVISITED
             }
         }
-        for index in stride(from: 0, to: DAssets.count, by: 1) {
+        for index in 0 ..< DAssets.count {
             if DAssets[index].TilePosition() != pos {
-                for Y in stride(from: 0, to: DAssets[index].Size(), by: 1) {
-                    for X in stride(from: 0, to: DAssets[index].Size(), by: 1) {
+                for Y in 0 ..< DAssets[index].Size() {
+                    for X in 0 ..< DAssets[index].Size() {
                         DSearchMap[DAssets[index].TilePositionY() + Y + 1][DAssets[index].TilePositionX() + X + 1] = SEARCH_STATUS_VISITED
                     }
                 }
@@ -734,7 +748,7 @@ class CAssetDecoratedMap: CTerrainMap {
             CurrentSearch = SearchQueue.first!
             SearchQueue.removeFirst()
             DSearchMap[CurrentSearch.DY][CurrentSearch.DX] = SEARCH_STATUS_VISITED
-            for Index in stride(from: 0, to: SearchXOffsets.count, by: 1) {
+            for Index in 0 ..< SearchXOffsets.count {
                 TempSearch.DX = CurrentSearch.DX + SearchXOffsets[Index]
                 TempSearch.DY = CurrentSearch.DY + SearchYOffsets[Index]
                 if SEARCH_STATUS_UNVISITED == DSearchMap[TempSearch.DY][TempSearch.DX] {
@@ -744,7 +758,6 @@ class CAssetDecoratedMap: CTerrainMap {
                     if type == CurTileType {
                         return CTilePosition(x: TempSearch.DX - 1, y: TempSearch.DY - 1)
                     }
-                    // if((ETileType::Grass == CurTileType)||(ETileType::Dirt == CurTileType)||(ETileType::Stump == CurTileType)||(ETileType::Rubble == CurTileType)||(ETileType::None == CurTileType)){
                     if CTerrainMap.IsTraversable(type: CurTileType) {
                         SearchQueue.append(TempSearch)
                     }

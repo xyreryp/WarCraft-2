@@ -28,8 +28,9 @@ class CAIPlayer {
         DDownSample = downsample
     }
 
+    @discardableResult
     func SearchMap(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
-        var IdleAssets = DPlayerData.IdleAssets() // IdleAssets list of weak_ptrs of type CPlayerAsset
+        let IdleAssets = DPlayerData.IdleAssets() // IdleAssets list of weak_ptrs of type CPlayerAsset
         var MovableAsset: CPlayerAsset?
 
         for Weak_Asset in IdleAssets {
@@ -41,7 +42,7 @@ class CAIPlayer {
         }
 
         if MovableAsset != nil {
-            var UnknownPosition: CTilePosition = DPlayerData.DPlayerMap.FindNearestReachableTileType(pos: MovableAsset!.TilePosition(), type: CTerrainMap.ETileType.None)
+            let UnknownPosition: CTilePosition = DPlayerData.DPlayerMap.FindNearestReachableTileType(pos: MovableAsset!.TilePosition(), type: CTerrainMap.ETileType.None)
             if 0 <= UnknownPosition.X() {
                 command.DAction = EAssetCapabilityType.Move
                 command.DActors.append(MovableAsset!)
@@ -69,7 +70,7 @@ class CAIPlayer {
     }
 
     func AttackEnemies(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
-        var AverageLocation = CPixelPosition(x: 0, y: 0)
+        let AverageLocation = CPixelPosition(x: 0, y: 0)
 
         for Weak_Asset in DPlayerData.DAssets {
             let Asset = Weak_Asset
@@ -86,8 +87,7 @@ class CAIPlayer {
             AverageLocation.X(x: AverageLocation.X() / command.DActors.count)
             AverageLocation.Y(y: AverageLocation.Y() / command.DActors.count)
 
-            let TargetEnemy = DPlayerData.FindNearestEnemy(pos: AverageLocation, range: -1)
-            if TargetEnemy == nil {
+            guard let TargetEnemy = DPlayerData.FindNearestEnemy(pos: AverageLocation, range: -1) else {
                 command.DActors.removeAll()
                 return SearchMap(command: &command)
             }
@@ -100,8 +100,9 @@ class CAIPlayer {
         return false
     }
 
+    @discardableResult
     func BuildTownHall(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
-        var IdleAssets = DPlayerData.IdleAssets()
+        let IdleAssets = DPlayerData.IdleAssets()
         var BuilderAsset: CPlayerAsset?
 
         for Weak_Asset in IdleAssets {
@@ -113,8 +114,8 @@ class CAIPlayer {
         }
 
         if BuilderAsset != nil {
-            var GoldMineAsset = DPlayerData.FindNearestAsset(pos: BuilderAsset!.DPosition, assettype: EAssetType.GoldMine)
-            var Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(pos: GoldMineAsset.TilePosition(), builder: BuilderAsset!, assettype: EAssetType.TownHall, buffer: 1)
+            let GoldMineAsset = DPlayerData.FindNearestAsset(pos: BuilderAsset!.DPosition, assettype: EAssetType.GoldMine)
+            let Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(pos: GoldMineAsset.TilePosition(), builder: BuilderAsset!, assettype: EAssetType.TownHall, buffer: 1)
             if 0 <= Placement.X() {
                 command.DAction = EAssetCapabilityType.BuildTownHall
                 command.DActors.append(BuilderAsset!)
@@ -178,9 +179,9 @@ class CAIPlayer {
             return false
         }
         if BuilderAsset != nil {
-            var PlayerCapability = CPlayerCapability.FindCapability(type: BuildAction!)
+            let PlayerCapability = CPlayerCapability.FindCapability(type: BuildAction!)
             var SourcePosition: CTilePosition = TownHallAsset!.TilePosition()
-            var MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width() / 2, y: DPlayerData.DPlayerMap.Height() / 2)
+            let MapCenter = CTilePosition(x: DPlayerData.DPlayerMap.Width() / 2, y: DPlayerData.DPlayerMap.Height() / 2)
 
             if NearAsset != nil {
                 SourcePosition = NearAsset!.TilePosition()
@@ -196,18 +197,17 @@ class CAIPlayer {
                 SourcePosition.IncrementY(y: TownHallAsset!.Size() / 2)
             }
 
-            var Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(pos: SourcePosition, builder: BuilderAsset!, assettype: buildingtype, buffer: 1)
+            let Placement: CTilePosition = DPlayerData.FindBestAssetPlacement(pos: SourcePosition, builder: BuilderAsset!, assettype: buildingtype, buffer: 1)
             if 0 > Placement.X() {
                 return SearchMap(command: &command)
             }
-            if PlayerCapability != nil {
-                if PlayerCapability.CanInitiate(actor: BuilderAsset!, playerdata: DPlayerData) {
-                    if 0 <= Placement.X() {
-                        command.DAction = BuildAction!
-                        command.DActors.append(BuilderAsset!)
-                        command.DTargetLocation.SetFromTile(pos: Placement)
-                        return true
-                    }
+
+            if PlayerCapability.CanInitiate(actor: BuilderAsset!, playerdata: DPlayerData) {
+                if 0 <= Placement.X() {
+                    command.DAction = BuildAction!
+                    command.DActors.append(BuilderAsset!)
+                    command.DTargetLocation.SetFromTile(pos: Placement)
+                    return true
                 }
             }
         }
@@ -215,6 +215,7 @@ class CAIPlayer {
         return false
     }
 
+    @discardableResult
     func ActivatePeasants(command: inout PLAYERCOMMANDREQUEST_TAG, trainmore: Bool) -> Bool {
 
         var MiningAsset: CPlayerAsset?
@@ -264,9 +265,9 @@ class CAIPlayer {
                 if MiningAsset == nil {
                     MiningAsset = InterruptibleAsset
                 }
-                var GoldMineAsset = DPlayerData.FindNearestAsset(pos: MiningAsset!.DPosition, assettype: EAssetType.GoldMine)
+                let GoldMineAsset = DPlayerData.FindNearestAsset(pos: MiningAsset!.DPosition, assettype: EAssetType.GoldMine)
                 if (GoldMiners != 0) && ((DPlayerData.DGold > DPlayerData.DLumber * 3) || SwitchToLumber) {
-                    var LumberLocation: CTilePosition = DPlayerData.DPlayerMap.FindNearestReachableTileType(pos: MiningAsset!.TilePosition(), type: CTerrainMap.ETileType.Forest)
+                    let LumberLocation: CTilePosition = DPlayerData.DPlayerMap.FindNearestReachableTileType(pos: MiningAsset!.TilePosition(), type: CTerrainMap.ETileType.Forest)
 
                     if 0 <= LumberLocation.X() {
                         command.DAction = EAssetCapabilityType.Mine
@@ -285,21 +286,19 @@ class CAIPlayer {
             }
             return true
         } else if (TownHallAsset != nil) && trainmore {
-            var PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildPeasant)
-            if PlayerCapability != nil {
-                if PlayerCapability.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
-                    command.DAction = EAssetCapabilityType.BuildPeasant
-                    command.DActors.append(TownHallAsset!)
-                    command.DTargetLocation = TownHallAsset!.DPosition
-                    return true
-                }
+            let PlayerCapability: CPlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildPeasant)
+            if PlayerCapability.CanApply(actor: TownHallAsset!, playerdata: DPlayerData, target: TownHallAsset!) {
+                command.DAction = EAssetCapabilityType.BuildPeasant
+                command.DActors.append(TownHallAsset!)
+                command.DTargetLocation = TownHallAsset!.DPosition
+                return true
             }
         }
         return false
     }
 
     func ActivateFighters(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
-        var IdleAssets = DPlayerData.IdleAssets()
+        let IdleAssets = DPlayerData.IdleAssets()
 
         for Weak_Asset in IdleAssets {
             let Asset = Weak_Asset
@@ -318,7 +317,7 @@ class CAIPlayer {
 
     func TrainFootman(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
 
-        var IdleAssets = DPlayerData.IdleAssets()
+        let IdleAssets = DPlayerData.IdleAssets()
         var TrainingAsset: CPlayerAsset?
 
         for Weak_Asset in IdleAssets {
@@ -329,22 +328,20 @@ class CAIPlayer {
             }
         }
         if TrainingAsset != nil {
-            var PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
+            let PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
 
-            if PlayerCapability != nil {
-                if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
-                    command.DAction = EAssetCapabilityType.BuildFootman
-                    command.DActors.append(TrainingAsset!)
-                    command.DTargetLocation = TrainingAsset!.DPosition
-                    return true
-                }
+            if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
+                command.DAction = EAssetCapabilityType.BuildFootman
+                command.DActors.append(TrainingAsset!)
+                command.DTargetLocation = TrainingAsset!.DPosition
+                return true
             }
         }
         return false
     }
 
     func TrainArcher(command: inout PLAYERCOMMANDREQUEST_TAG) -> Bool {
-        var IdleAssets = DPlayerData.IdleAssets()
+        let IdleAssets = DPlayerData.IdleAssets()
         var TrainingAsset: CPlayerAsset?
         var BuildType: EAssetCapabilityType = EAssetCapabilityType.BuildArcher
 
@@ -362,14 +359,13 @@ class CAIPlayer {
             }
         }
         if TrainingAsset != nil {
-            var PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
-            if PlayerCapability != nil {
-                if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
-                    command.DAction = BuildType
-                    command.DActors.append(TrainingAsset!)
-                    command.DTargetLocation = TrainingAsset!.DPosition
-                    return true
-                }
+            let PlayerCapability = CPlayerCapability.FindCapability(type: EAssetCapabilityType.BuildFootman)
+
+            if PlayerCapability.CanApply(actor: TrainingAsset!, playerdata: DPlayerData, target: TrainingAsset!) {
+                command.DAction = BuildType
+                command.DActors.append(TrainingAsset!)
+                command.DTargetLocation = TrainingAsset!.DPosition
+                return true
             }
         }
         return false
@@ -395,8 +391,8 @@ class CAIPlayer {
             } else {
                 var CompletedAction: Bool = false
                 var BarracksCount: Int = 0
-                var FootmanCount = DPlayerData.PlayerAssetCount(type: EAssetType.Footman)
-                var ArcherCount = DPlayerData.PlayerAssetCount(type: EAssetType.Archer) + DPlayerData.PlayerAssetCount(type: EAssetType.Ranger)
+                let FootmanCount = DPlayerData.PlayerAssetCount(type: EAssetType.Footman)
+                let ArcherCount = DPlayerData.PlayerAssetCount(type: EAssetType.Archer) + DPlayerData.PlayerAssetCount(type: EAssetType.Ranger)
 
                 if !CompletedAction && (DPlayerData.FoodConsumption() >= DPlayerData.FoodProduction()) {
                     CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Farm, neartype: EAssetType.Farm)
@@ -404,8 +400,8 @@ class CAIPlayer {
                 if !CompletedAction {
                     CompletedAction = ActivatePeasants(command: &command, trainmore: false)
                 }
-                if !CompletedAction && (0 == (DPlayerData.PlayerAssetCount(type: EAssetType.Barracks))) {
-                    BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks)
+                BarracksCount = DPlayerData.PlayerAssetCount(type: EAssetType.Barracks)
+                if !CompletedAction && (0 == BarracksCount) {
                     CompletedAction = BuildBuilding(command: &command, buildingtype: EAssetType.Barracks, neartype: EAssetType.Farm)
                 }
 

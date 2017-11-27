@@ -102,7 +102,7 @@ class CGraphicRecolorMap {
         //            return false
         //        }
         //
-        //        resize(array: &DColors, size: ColorSurface!.Height(), defaultValue: [0x0])
+        // DColors = [[UInt32]](repeating:[], count: ColorSurface!.Height())
         //        resize(array: &DOriginalColors, size: ColorSurface!.Height(), defaultValue: [0x0])
         //        for var Row in DColors {
         //            resize(array: &Row, size: ColorSurface!.Width(), defaultValue: 0x0)
