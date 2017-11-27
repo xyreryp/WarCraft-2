@@ -587,10 +587,12 @@ class CAssetDecoratedMap: CTerrainMap {
             //                }
             //            }
             ReturnMap.DMap = DMap
-            ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+            // ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+            ReturnMap.DMapIndices = Array(repeating: Array(repeating: 0, count: DMap.count), count: DMap.count) // initialize correctly
 
             for var Row in ReturnMap.DMapIndices {
                 Row = [Int](repeating: Int(), count: DMapIndices[0].count)
+                //                Row = [Int](repeating: 0, count: DMapIndices[0].count)
                 for index in 0 ..< Row.count {
                     Row[index] = 0
                 }
@@ -616,9 +618,11 @@ class CAssetDecoratedMap: CTerrainMap {
                     Row[index] = ETileType.None
                 }
             }
-            DMapIndices = [[Int]](repeating: [], count: resmap.DMapIndices.count)
+            // DMapIndices = [[Int]](repeating: [0], count: resmap.DMapIndices.count)
+            DMapIndices = Array(repeating: Array(repeating: 0, count: resmap.DMapIndices.count), count: resmap.DMapIndices.count) // initialize with value to stop "index out of range error"
             for var Row in DMapIndices {
-                Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
+                // Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
+                Row = [Int](repeating: 0, count: resmap.DMapIndices[0].count)
                 for index in 0 ..< Row.count {
                     Row[index] = 0
                 }
@@ -652,10 +656,18 @@ class CAssetDecoratedMap: CTerrainMap {
 
         for YPos: Int in 0 ..< DMap.count {
             for XPos: Int in 0 ..< DMap[YPos].count {
+                //                print("ypos: \(YPos)    xpos: \(XPos)")
+                //                print("DMapIndices")
+                //                print("\(DMapIndices[YPos][XPos]) ")
                 let VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
                 if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
-                    // DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos] FIXME: tempfix on out_of_range
+                    //                    print("dmap values are")
+                    //                    print(DMap[YPos][XPos])
+                    //                    print("mapindices are")
+                    //                    print(resmap.DMapIndices[YPos][XPos])
+                    // print(DMapIndices[68][68])
+                    DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos] // resolved FIXME
                     if DMapIndices[YPos].count < XPos + 1 {
                         DMapIndices[YPos].append(resmap.DMapIndices[YPos][XPos])
                     } else {
