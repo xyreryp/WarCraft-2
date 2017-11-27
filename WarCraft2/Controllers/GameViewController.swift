@@ -13,15 +13,14 @@ extension SKView {
     open override func mouseDown(with event: NSEvent) {
 
         applicationData.DCurrentX = Int(event.locationInWindow.x) - 180
-        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y) - 30
-        print("x: \(applicationData.DCurrentX), y: \(applicationData.DCurrentY)")
+        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y) + 30
         applicationData.DLeftClick = 1
     }
 
     open override func rightMouseDown(with event: NSEvent) {
         // right mouse click
         applicationData.DCurrentX = Int(event.locationInWindow.x) - 180
-        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y) - 30
+        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y) + 30
         applicationData.DRightClick = 1
     }
 }
@@ -55,10 +54,10 @@ class GameViewController: NSViewController {
             self.mouseDragged(with: $0)
             return $0
         }
-        //        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) {
-        //            self.mouseDown(with: $0)
-        //            return $0
-        //        }
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) {
+            self.mouseDown(with: $0)
+            return $0
+        }
         applicationData.Activate()
 
         let mysize: CGSize = CGSize(width: 600, height: 500)
@@ -90,7 +89,6 @@ class GameViewController: NSViewController {
         //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
         let x: Int = Int(event.locationInWindow.x)
         let y: Int = Int(event.locationInWindow.y)
-        print("x: \(x), y: \(y)")
         if x >= 20 && x <= 148 && y >= 410 && y <= 538 {
             var tempPosition = applicationData.ScreenToMiniMap(pos: CPixelPosition(x: x, y: y))
             tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
@@ -101,33 +99,19 @@ class GameViewController: NSViewController {
         }
     }
 
-    //    override func mouseDown(with event: NSEvent) {
-    //        //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
-    //        let x: Int = Int(event.locationInWindow.x)
-    //        let y: Int = Int(event.locationInWindow.y)
-    //        print("x: \(x), y: \(y)")
-    //        if x >= 20 && x <= 148 && y >= 410 && y <= 538 {
-    //            var tempPosition = applicationData.ScreenToMiniMap(pos: CPixelPosition(x: x, y: y))
-    //            tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
-    //            applicationData.DViewportRenderer.CenterViewport(pos: tempPosition)
-    //            let cgr = CGraphicResourceContext()
-    //            let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
-    //            applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
-    //        }
-    //
-    //        applicationData.DCurrentX = x
-    //        applicationData.DCurrentY = y
-    //    }
-
-    //
-    //    override func mouseUp(with _: NSEvent) {
-    //        //        vc?.leftUp()
-    //    }
-
-    // FIXME: hardcoded to bay map right now
-    // let assetRenderer = CAssetRenderer(colors: colorMap, tilesets: application.DAssetTilesets, markertileset: application.DMarkerTileset, corpsetileset: application.DCorpseTileset, firetileset: application.DFireTileset, buildingdeath: application.DBuildingDeathTileset, arrowtileset: application.DArrowTileset, player: playerData, map: assetDecoratedMap)
-    //        application.DAssetRenderer.DrawAssets(surface: skscene!, typesurface: skscene!, rect: rect)
-    // application.DMapRenderer.DrawMap(surface: skscene!, typesurface: cgr, rect: SRectangle(DXPosition: 0, DYPosition: 0, DWidth: application.DMapRenderer.DetailedMapWidth() * application.DTerrainTileset.TileWidth(), DHeight: application.DMapRenderer.DetailedMapHeight() * application.DTerrainTileset.TileHeight()))
+    override func mouseDown(with event: NSEvent) {
+        //        sound.playMusic(audioFileName: “annoyed2”, audioType: “wav”, numloops: 0)
+        let x: Int = Int(event.locationInWindow.x)
+        let y: Int = Int(event.locationInWindow.y)
+        if x >= 20 && x <= 148 && y >= 410 && y <= 538 {
+            var tempPosition = applicationData.ScreenToMiniMap(pos: CPixelPosition(x: x, y: y))
+            tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
+            applicationData.DViewportRenderer.CenterViewport(pos: tempPosition)
+            let cgr = CGraphicResourceContext()
+            let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+            applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectrect: rect)
+        }
+    }
 
     func addBevels() {
         let bevelView = CBevelView(frame: NSRect(x: 10, y: 20, width: 150, height: 150))
