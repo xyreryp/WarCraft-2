@@ -267,6 +267,17 @@ class CGameModel {
                         }
                     }
                 }
+            } else if EAssetAction.StandGround == Asset.Action() {
+                var Command: SAssetCommand = Asset.CurrentCommand()
+                let NewTarget: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveRange())
+                if NewTarget != nil {
+                    Command.DAction = EAssetAction.None
+                } else {
+                    Command.DAction = EAssetAction.Attack
+                    Command.DAssetTarget = NewTarget
+                }
+                Asset.PushCommand(command: Command)
+                Asset.ResetStep()
             }
 
             // MARK: CRUCIALLLLLLLLLLLLLLL
@@ -404,18 +415,7 @@ class CGameModel {
 //                    }
 //                }
 
-// else if EAssetAction.StandGround == Asset.Action() {
-//                var Command: SAssetCommand = Asset.CurrentCommand()
-//                let NewTarget: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveRange())
-//                if NewTarget != nil {
-//                    Command.DAction = EAssetAction.None
-//                } else {
-//                    Command.DAction = EAssetAction.Attack
-//                    Command.DAssetTarget = NewTarget
-//                }
-//                Asset.PushCommand(command: Command)
-//                Asset.ResetStep()
-//            } else if EAssetAction.Repair == Asset.Action() {
+// else if EAssetAction.Repair == Asset.Action() {
 //                var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
 //                if let Alive = CurrentCommand.DAssetTarget?.Alive() { // doesn't actually check if alive.  Only checks if DAssetTarget exists.
 //                    if Alive {

@@ -743,24 +743,24 @@ class CBattleMode: CApplicationMode {
                         // if you clicked on an asset, then select the asset
                         NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
                     }
-
-                    // for all units that are selected for that player
-                    for Actor in context.DPlayerCommands[Index].DActors {
-
-                        // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
-                        // FIXME: removing Actor.Interruptible and EAssetCapabilityCancel from if statement
-                        //                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
-                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) {
-                            // start the action if you can do it
-                            // increment step for each action in basic cap
-                            PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
-                        }
-                    }
                 }
 
-                // handled action, so set it back to none
-                context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
+                // for all units that are selected for that player
+                for Actor in context.DPlayerCommands[Index].DActors {
+
+                    // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
+                    // FIXME: removing Actor.Interruptible and EAssetCapabilityCancel from if statement
+                    //                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
+                    if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) {
+                        // start the action if you can do it
+                        // increment step for each action in basic cap
+                        PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
+                    }
+                }
             }
+
+            // handled action, so set it back to none
+            context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
         }
 
         context.DGameModel.Timestep()
