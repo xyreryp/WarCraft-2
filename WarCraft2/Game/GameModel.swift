@@ -156,11 +156,11 @@ class CGameModel {
             }
         }
         // update visibility
-        //        for PlayerIndex in 1 ..< EPlayerColor.Max.rawValue {
-        //            if DPlayers[PlayerIndex].IsAlive() {
-        //                DPlayers[PlayerIndex].UpdateVisibility()
-        //            }
-        //        }
+        for PlayerIndex in 1 ..< EPlayerColor.Max.rawValue {
+            if DPlayers[PlayerIndex].IsAlive() {
+                DPlayers[PlayerIndex].UpdateVisibility()
+            }
+        }
         var AllAssets = DPlayers[1].DAssets // AllAssets is of [CPlayerAsset] type
 
         //        Following Code implements sorting the order of the asset turns.

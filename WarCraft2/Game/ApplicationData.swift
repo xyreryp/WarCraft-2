@@ -140,7 +140,7 @@ class CApplicationData {
     var DOuterBevelTileset: CGraphicTileset
     var DListViewIconTileset: CGraphicTileset
     var DTerrainTileset: CGraphicTileset
-    // var DFogTileset: CGraphicTileset
+    var DFogTileset: CGraphicTileset
 
     // bevel things
     var DMiniBevel: CBevel
@@ -166,7 +166,7 @@ class CApplicationData {
     // all renderer things
     var DAssetRenderer: CAssetRenderer!
 
-    //    var DFogRenderer: CFogRenderer
+    var DFogRenderer: CFogRenderer
 
     var DViewportRenderer: CViewportRenderer!
     // var DMiniMapRenderer: CMiniMapRenderer
@@ -330,7 +330,7 @@ class CApplicationData {
         // more tileset things
         DMapRendererConfigurationData = [Character]()
         DTerrainTileset = CGraphicTileset()
-        //        DFogTileset = CGraphicTileset()
+        DFogTileset = CGraphicTileset()
 
         // recolor maps
         DAssetRecolorMap = CGraphicRecolorMap()
@@ -350,7 +350,7 @@ class CApplicationData {
         // all renderer things
         // DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
 
-        // DFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
+        DFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
 
         // MARK: Does this exist? Need to crosscheck with C++ code
         //        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
@@ -638,6 +638,11 @@ class CApplicationData {
             print("Failed to lead Marker tileset")
         }
 
+        DFogTileset = CGraphicTileset()
+        if !DFogTileset.TestLoadTileset(source: TempDataSource, assetName: "Fog") {
+            print("Failed to load Fog tileset")
+        }
+
         // corpose tileset needed for asset renderer
         DCorpseTileset = CGraphicTileset()
         if !DCorpseTileset.TestLoadTileset(source: TempDataSource, assetName: "Corpse") {
@@ -896,9 +901,9 @@ class CApplicationData {
         DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DPlayerMap)!)
 
-        // DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
-        let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
-        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
+        DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
+        // let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
 
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)

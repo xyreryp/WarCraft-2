@@ -655,7 +655,13 @@ class CAssetDecoratedMap: CTerrainMap {
                 let VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
                 if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
-                    DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
+                    // DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos] FIXME: tempfix on out_of_range
+                    if DMapIndices[YPos].count < XPos + 1 {
+                        DMapIndices[YPos].append(resmap.DMapIndices[YPos][XPos])
+                    } else {
+                        DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
+                    }
+                    // TempFix end
                 }
             }
         }
