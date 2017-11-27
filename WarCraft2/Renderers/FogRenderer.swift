@@ -27,7 +27,10 @@ class CFogRenderer {
         DFogIndices = [Int]()
         DBlackIndices = [Int]()
         for Index in 0 ..< 0x100 {
-            let hexIndex = String(Index, radix: 16, uppercase: true)
+            var hexIndex = String(Index, radix: 16, uppercase: true)
+            if hexIndex.count == 1 {
+                hexIndex = "0" + hexIndex
+            }
             DFogIndices.append(DTileset.FindTile(tilename: "pf-\(hexIndex)"))
             DBlackIndices.append(DTileset.FindTile(tilename: "pb-\(hexIndex)"))
         }
@@ -40,24 +43,32 @@ class CFogRenderer {
         let TileWidth: Int = DTileset.TileWidth()
         let TileHeight: Int = DTileset.TileHeight()
 
+        //        for(int YIndex = rect.DYPosition / TileHeight, YPos = -(rect.DYPosition % TileHeight); YPos < rect.DHeight; YIndex++, YPos += TileHeight){
+        //            for(int XIndex = rect.DXPosition / TileWidth, XPos = -(rect.DXPosition % TileWidth); XPos < rect.DWidth; XIndex++, XPos += TileWidth){
+
         var YIndex: Int = rect.DYPosition / TileHeight
         var YPos: Int = -(rect.DYPosition % TileHeight)
-        while YPos < rect.DHeight {
 
-            var XIndex = rect.DXPosition / TileWidth
-            var XPos = -(rect.DXPosition % TileWidth)
-            while XPos < rect.DWidth {
-
+        var XIndex = rect.DXPosition / TileWidth
+        var XPos = -(rect.DXPosition % TileWidth)
+        while true {
+            if YPos > rect.DHeight {
+                break
+            }
+            while true {
+                if XPos > rect.DWidth {
+                    break
+                }
                 let TileType: ETileVisibility = DDMap.TileType(xindex: XIndex, yindex: YIndex)
 
                 if TileType == ETileVisibility.None {
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
-                    continue
-                } else if TileType == ETileVisibility.Visible {
-                    continue
+                }
+                if TileType == ETileVisibility.Visible {
+                    // Do nothing
                 }
                 if (TileType == ETileVisibility.Seen) || (TileType == ETileVisibility.SeenPartial) {
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DNoneIndex)
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DSeenIndex)
                 }
                 if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.Partial {
                     var VisibilityIndex: Int = 0
@@ -65,7 +76,7 @@ class CFogRenderer {
 
                     for YOff in -1 ... 1 {
                         for XOff in -1 ... 1 {
-                            if (YOff > 0) || (XOff > 0) {
+                            if (YOff != 0) || (XOff != 0) {
                                 let VisTile: ETileVisibility = DDMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
                                 if VisTile == ETileVisibility.Visible {
                                     VisibilityIndex = VisibilityIndex | VisibilityMask
@@ -74,6 +85,7 @@ class CFogRenderer {
                             }
                         }
                     }
+
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DFogIndices[VisibilityIndex])
                 }
                 if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.SeenPartial {
@@ -82,7 +94,7 @@ class CFogRenderer {
 
                     for YOff in -1 ... 1 {
                         for XOff in -1 ... 1 {
-                            if YOff > 0 || XOff > 0 {
+                            if YOff != 0 || XOff != 0 {
                                 let VisTile: ETileVisibility = DDMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
 
                                 if VisTile == ETileVisibility.Visible || VisTile == ETileVisibility.Partial || VisTile == ETileVisibility.Seen {
@@ -92,14 +104,17 @@ class CFogRenderer {
                             }
                         }
                     }
+
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
                 }
                 XIndex = XIndex + 1
-                XPos = XPos + TileWidth
-            }
+                XPos += TileWidth
+            } // inner loop
+            XIndex = rect.DXPosition / TileWidth
+            XPos = -(rect.DXPosition % TileWidth)
             YIndex = YIndex + 1
-            YPos = YPos + TileHeight
-        }
+            YPos += TileHeight
+        } // outer loop
     }
 
     func DrawMiniMap(ResourceContext: CGraphicResourceContext) {
