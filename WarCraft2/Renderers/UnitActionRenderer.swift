@@ -190,21 +190,21 @@ class CUnitActionRenderer {
 
                 DBevel.DrawBevel(context: surface, xpos: XOffset, ypos: YOffset, width: 40, height: 40)
 
-                if PlayerCapability != nil {
-                    // do something
-                    // FIX ME:
-                    if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
-                        // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
-
-                        DIconTileset.DrawTile(context: surface, xpos: XOffset, ypos: YOffset, width: 10, height: 10, tileindex: DDisabledIndex)
-                    }
-                }
+//                if PlayerCapability != nil {
+//                    // do something
+//                    // FIX ME:
+//                    if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
+//                        // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
+//
+//                        DIconTileset.DrawTile(context: surface, xpos: XOffset, ypos: YOffset, width: 10, height: 10, tileindex: DDisabledIndex)
+//                    }
+//                }
             }
             XOffset += DFullIconWidth + DBevel.Width()
             Index += 1
             if 0 == (Index % 3) {
                 XOffset = DBevel.Width()
-                YOffset += DFulliconHeight + DBevel.Width()
+                YOffset -= (DFulliconHeight + DBevel.Width())
             }
         }
     }

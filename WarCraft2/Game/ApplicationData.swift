@@ -12,8 +12,8 @@ import SpriteKit
 let TIMEOUT_INTERVAL = 50
 let TIMEOUT_FREQUENCY = (1000 / TIMEOUT_INTERVAL)
 class CApplicationData {
-    static var INITIAL_MAP_WIDTH = 800
-    static var INITIAL_MAP_HEIGHT = 600
+    static var INITIAL_MAP_WIDTH = 600
+    static var INITIAL_MAP_HEIGHT = 500
     static var TIMEOUT_INTERVAL = 50
     static var MINI_MAP_MIN_WIDTH = 128
     static var MINI_MAP_MIN_HEGHT = 128
