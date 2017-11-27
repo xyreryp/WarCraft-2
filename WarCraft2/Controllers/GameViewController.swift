@@ -34,9 +34,11 @@ class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
     var battleMode = CBattleMode()
+    var musicManager = SoundManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        musicManager.stopMusic()
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
             return $0
