@@ -267,6 +267,22 @@ class CGameModel {
                         }
                     }
                 }
+            } else if (EAssetAction.ConveyLumber == Asset.Action()) || (EAssetAction.ConveyGold == Asset.Action()) {
+                Asset.IncrementStep()
+                if DConveySteps <= Asset.Step() {
+                    let Command = Asset.CurrentCommand()
+                    var NextTarget = CTilePosition(x: DPlayers[Asset.Color().rawValue].DPlayerMap.Width() - 1, y: DPlayers[Asset.Color().rawValue].DPlayerMap.Height() - 1)
+                    DPlayers[Asset.Color().rawValue].IncrementGold(gold: Asset.Gold())
+                    DPlayers[Asset.Color().rawValue].IncrementLumber(lumber: Asset.Lumber())
+                    Asset.Gold(gold: 0)
+                    Asset.Lumber(lumber: 0)
+                    Asset.PopCommand()
+                    Asset.ResetStep()
+                    if EAssetAction.None != Asset.Action() {
+                        NextTarget = (Asset.CurrentCommand().DAssetTarget?.TilePosition())!
+                    }
+                    Asset.TilePosition(pos: DPlayers[Asset.Color().rawValue].DPlayerMap.FindAssetPlacement(placeasset: Asset, fromasset: Command.DAssetTarget!, nexttiletarget: NextTarget))
+                }
             } else if EAssetAction.StandGround == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
                 let NewTarget: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveRange())
@@ -680,23 +696,8 @@ class CGameModel {
 //                        }
 //                    }
 //                }
-//            } else if (EAssetAction.ConveyLumber == Asset.Action()) || (EAssetAction.ConveyGold == Asset.Action()) {
-//                Asset.IncrementStep()
-//                if DConveySteps <= Asset.Step() {
-//                    let Command = Asset.CurrentCommand()
-//                    var NextTarget = CTilePosition(x: DPlayers[Asset.Color().rawValue].DPlayerMap.Width() - 1, y: DPlayers[Asset.Color().rawValue].DPlayerMap.Height() - 1)
-//                    DPlayers[Asset.Color().rawValue].IncrementGold(gold: Asset.Gold())
-//                    DPlayers[Asset.Color().rawValue].IncrementLumber(lumber: Asset.Lumber())
-//                    Asset.Gold(gold: 0)
-//                    Asset.Lumber(lumber: 0)
-//                    Asset.PopCommand()
-//                    Asset.ResetStep()
-//                    if EAssetAction.None != Asset.Action() {
-//                        NextTarget = (Asset.CurrentCommand().DAssetTarget?.TilePosition())!
-//                    }
-//                    Asset.TilePosition(pos: DPlayers[Asset.Color().rawValue].DPlayerMap.FindAssetPlacement(placeasset: Asset, fromasset: Command.DAssetTarget!, nexttiletarget: NextTarget))
-//                }
-//            } else if EAssetAction.Construct == Asset.Action() {
+//       }
+// else if EAssetAction.Construct == Asset.Action() {
 //                let Command = Asset.CurrentCommand()
 //                if Command.DActivatedCapability != nil {
 //                    if Command.DActivatedCapability!.IncrementStep() {
