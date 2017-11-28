@@ -9,6 +9,18 @@
 import Cocoa
 
 class SelectColorsDifficultyViewController: NSViewController {
+    @IBAction func selectBtnClicked(_: Any) {
+        if let mainWC = view.window?.windowController as? MainWindowController {
+            mainWC.move(newMenu: "Game")
+        }
+    }
+
+    @IBAction func backBtnClicked(_: Any) {
+        if let mainWC = view.window?.windowController as? MainWindowController {
+            mainWC.move(newMenu: "SelectMapMenu")
+        }
+    }
+
     @IBOutlet weak var yellowX1: NSImageView!
     @IBOutlet weak var yellowX2: NSImageView!
     @IBOutlet weak var yellowX3: NSImageView!
@@ -22,12 +34,12 @@ class SelectColorsDifficultyViewController: NSViewController {
         var col: Int
     }
 
-    var mark1: mark
-    var mark2: mark
-    var mark3: mark
-    var mark4: mark
-    var mark5: mark
-    var mark6: mark
+    var mark1: mark?
+    var mark2: mark?
+    var mark3: mark?
+    var mark4: mark?
+    var mark5: mark?
+    var mark6: mark?
 
     @IBOutlet weak var red1: NSButton!
     @IBOutlet weak var red2: NSButton!
@@ -405,15 +417,15 @@ class SelectColorsDifficultyViewController: NSViewController {
         resolveConflict(yellowX: yellowX)
     }
 
-    required init?(coder _: NSCoder) {
-        mark1 = mark(X: yellowX1, row: 1, col: 1)
-        mark2 = mark(X: yellowX2, row: 2, col: 2)
-        mark3 = mark(X: yellowX3, row: 3, col: 3)
-        mark4 = mark(X: yellowX4, row: 4, col: 4)
-        mark5 = mark(X: yellowX5, row: 5, col: 5)
-        mark6 = mark(X: yellowX6, row: 6, col: 6)
-        fatalError("init(coder:) has not been implemented")
-    }
+    //    required init?(coder _: NSCoder) {
+    //        mark1 = mark(X: yellowX1, row: 1, col: 1)
+    //        mark2 = mark(X: yellowX2, row: 2, col: 2)
+    //        mark3 = mark(X: yellowX3, row: 3, col: 3)
+    //        mark4 = mark(X: yellowX4, row: 4, col: 4)
+    //        mark5 = mark(X: yellowX5, row: 5, col: 5)
+    //        mark6 = mark(X: yellowX6, row: 6, col: 6)
+    //        fatalError("init(coder:) has not been implemented")
+    //    }
 
     override func viewDidAppear() {
         if let mainWC = view.window?.windowController as? MainWindowController {
@@ -431,6 +443,12 @@ class SelectColorsDifficultyViewController: NSViewController {
     }
 
     override func viewDidLoad() {
+        mark1 = mark(X: yellowX1, row: 1, col: 1)
+        mark2 = mark(X: yellowX2, row: 2, col: 2)
+        mark3 = mark(X: yellowX3, row: 3, col: 3)
+        mark4 = mark(X: yellowX4, row: 4, col: 4)
+        mark5 = mark(X: yellowX5, row: 5, col: 5)
+        mark6 = mark(X: yellowX6, row: 6, col: 6)
         super.viewDidLoad()
     }
 }
