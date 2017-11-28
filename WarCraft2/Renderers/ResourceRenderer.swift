@@ -68,7 +68,7 @@ class CResourceRenderer: NSObject {
             if (-3 < DeltaLumber) && (3 > DeltaLumber) {
                 DLastLumberDisplay = DPlayer.DLumber
             } else {
-                DLastLumberDisplay += DeltaLumber
+                DLastLumberDisplay += DPlayer.DLumber // DeltaLumber
             }
 
             // FIXME: Make less arbitrary
@@ -94,19 +94,22 @@ class CResourceRenderer: NSObject {
 
             DIconTileset.DrawTile(context: context, xpos: XOffset, ypos: ImageYOffset, width: iconWidth, height: iconWidth, tileindex: DIconIndices[EMiniIconTypes.Food.rawValue])
 
+            let production = DPlayer.FoodProduction()
+            let consumption = DPlayer.FoodConsumption()
+
             if DPlayer.FoodConsumption() > DPlayer.FoodProduction() {
                 var secondTextWidth = 0
                 var TotalTextWidth = 0
                 var TextHeight = 0
-                DFont.MeasureText(str: " / \(DPlayer.FoodProduction)", width: &secondTextWidth, height: &TextHeight)
-                DFont.MeasureText(str: " \(DPlayer.FoodConsumption()) / \(DPlayer.FoodProduction())", width: &TotalTextWidth, height: &TextHeight)
+                DFont.MeasureText(str: " / \(production) ", width: &secondTextWidth, height: &TextHeight)
+                DFont.MeasureText(str: " \(consumption)  / \(production)", width: &TotalTextWidth, height: &TextHeight)
                 // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DPlayer.FoodConsumption)")
-                DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: " \(DPlayer.FoodConsumption)")
+                //                DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: " \(consumption) ")
                 // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth() + TotalTextWidth - secondTextWidth, ypos: TextYOffset, str: " / \(DPlayer.FoodProduction())")
-                DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: " / \(DPlayer.FoodProduction())")
+                DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: "\(consumption) / \(production)")
             } else {
                 // DFont.DrawTextWithShadow(surface: surface, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, str: " \(DPlayer.FoodConsumption()) / \(DPlayer.FoodProduction())")
-                DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: " \(DPlayer.FoodConsumption()) / \(DPlayer.FoodProduction())")
+                DFont.DrawTextWithShadow(surface: context, xpos: XOffset + DIconTileset.TileWidth(), ypos: TextYOffset, color: DForegroundColor, shadowcol: DBackgroundColor, shadowwidth: 1, str: " \(consumption) / \(production)")
             }
         }
     }
