@@ -295,8 +295,7 @@ class CPlayerData {
 
         for Asset in DAssets {
             for AssetType in assettypes {
-                // FIXME: Nitta's code is really weird. Changed EAssetType.Keep == AssetType since those would always equal true at some point, but not in his code
-                if (Asset.Type() == AssetType && EAssetAction.Construct != Asset.Action()) || Asset.Type() == EAssetType.Keep || Asset.Type() == EAssetType.Castle {
+                if Asset.Type() == AssetType && (EAssetAction.Construct != Asset.Action() || AssetType == EAssetType.Keep || AssetType == EAssetType.Castle) {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
 
                     if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {

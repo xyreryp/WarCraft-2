@@ -46,7 +46,7 @@ class CPosition {
 
     // overloaded operators to compare Positions
     static func !=(lhs: CPosition, rhs: CPosition) -> Bool {
-        return (lhs.DX != rhs.DX || lhs.DX != rhs.DX)
+        return (lhs.DX != rhs.DX || lhs.DY != rhs.DY)
     }
 
     // calculate change, and give new direction
@@ -132,7 +132,7 @@ class CPosition {
                     continue
                 }
 
-                let SinSquared: Double = Double(YDistance) / Double(YDistance + XDistance)
+                let SinSquared: Double = Double(YDistance / (YDistance + XDistance))
 
                 if 0.1464466094 > SinSquared { // East or West
                     if NegativeX { // West

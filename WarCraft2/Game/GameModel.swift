@@ -216,20 +216,19 @@ class CGameModel {
                 TilePosition.SetFromPixel(pos: ClosestPosition)
                 MineDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
                 // FIXME: issue with tilealignment and tile pixels. Need someone to figure this out ASAP.
-                //                if (EDirection.Max == MineDirection) && (TilePosition != Asset.TilePosition()) {
-                //                    var NewCommand: SAssetCommand = Command
-                //                    NewCommand.DAction = EAssetAction.Walk
-                //                    Asset.PushCommand(command: NewCommand)
-                //                    Asset.ResetStep()
-                //                }
-                // FIXME: Richard, don't make the same mistake as before
-                if true {
+                if (EDirection.Max == MineDirection) && (TilePosition != Asset.TilePosition()) {
+                    var NewCommand: SAssetCommand = Command
+                    NewCommand.DAction = EAssetAction.Walk
+                    Asset.PushCommand(command: NewCommand)
+                    Asset.ResetStep()
+                } else {
                     if 0 == Asset.Step() {
                         if ((Command.DAssetTarget?.CommandCount())! + 1) * DGoldPerMining <= (Command.DAssetTarget?.Gold())! {
-                            let NewCommand = SAssetCommand(DAction: EAssetAction.Build, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
+                            let NewCommand = SAssetCommand(DAction: EAssetAction.Build, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: Asset, DActivatedCapability: nil)
                             Command.DAssetTarget?.EnqueueCommand(command: NewCommand)
                             Asset.IncrementStep()
-                            Asset.TilePosition(pos: (Command.DAssetTarget?.TilePosition())!)
+                            // FIXME: Tileposition causes errors lol
+                            //  Asset.TilePosition(pos: (Command.DAssetTarget?.TilePosition())!)
                         } else {
                             // Look for new mine or give up?
                             Asset.PopCommand()
@@ -281,6 +280,7 @@ class CGameModel {
                     if EAssetAction.None != Asset.Action() {
                         NextTarget = (Asset.CurrentCommand().DAssetTarget?.TilePosition())!
                     }
+
                     Asset.TilePosition(pos: DPlayers[Asset.Color().rawValue].DPlayerMap.FindAssetPlacement(placeasset: Asset, fromasset: Command.DAssetTarget!, nexttiletarget: NextTarget))
                 }
             } else if EAssetAction.StandGround == Asset.Action() {

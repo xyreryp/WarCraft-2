@@ -732,35 +732,37 @@ class CBattleMode: CApplicationMode {
                 // find capability of the command
                 let PlayerCapability = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction)
 
-                var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-                // if traget type is not none
-                if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
-                    // if no target type command, then create a marker aka if you clicked on grass
-                    if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-                        NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
-                    } else {
-                        // Not sure if need a let; got rid of a lock()
-                        // if you clicked on an asset, then select the asset
-                        NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
+                if nil != PlayerCapability {
+                    var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+                    // if traget type is not none
+                    if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
+                        // if no target type command, then create a marker aka if you clicked on grass
+                        if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
+                            NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
+                        } else {
+                            // Not sure if need a let; got rid of a lock()
+                            // if you clicked on an asset, then select the asset
+                            NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
+                        }
+                    }
+
+                    // for all units that are selected for that player
+                    for Actor in context.DPlayerCommands[Index].DActors {
+
+                        // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
+                        // FIXME: removing Actor.Interruptible and EAssetCapabilityCancel from if statement
+                        //                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
+                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) {
+                            // start the action if you can do it
+                            // increment step for each action in basic cap
+                            PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
+                        }
                     }
                 }
 
-                // for all units that are selected for that player
-                for Actor in context.DPlayerCommands[Index].DActors {
-
-                    // can the selected actor apply this action? aka archer cant apply, so it wont apply capability
-                    // FIXME: removing Actor.Interruptible and EAssetCapabilityCancel from if statement
-                    //                        if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) && (Actor.Interruptible()) || (EAssetCapabilityType.Cancel == context.DPlayerCommands[Index].DAction) {
-                    if PlayerCapability.CanApply(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget) {
-                        // start the action if you can do it
-                        // increment step for each action in basic cap
-                        PlayerCapability.ApplyCapability(actor: Actor, playerdata: context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!, target: NewTarget)
-                    }
-                }
+                // handled action, so set it back to none
+                context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
             }
-
-            // handled action, so set it back to none
-            context.DPlayerCommands[Index].DAction = EAssetCapabilityType.None
         }
 
         context.DGameModel.Timestep()
