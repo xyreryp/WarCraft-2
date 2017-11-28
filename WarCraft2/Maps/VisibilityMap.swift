@@ -67,7 +67,7 @@ class CVisibilityMap {
     }
 
     func Width() -> Int {
-        if DMap.count > 2 {
+        if 0 != DMap.count {
             return DMap.first!.count - 2 * DMaxVisibility
         }
         return 0
