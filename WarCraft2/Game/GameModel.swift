@@ -65,7 +65,8 @@ class CGameModel {
     // TODO: newcolors is a fixed array of size EPlayer.Max.rawValue
     init(mapindex: Int, seed _: UInt64, newcolors: inout [EPlayerColor]) {
         DHarvestTime = 5
-        DHarvestSteps = CPlayerAsset.UpdateFrequency() * DHarvestTime
+        //        DHarvestSteps = CPlayerAsset.UpdateFrequency() * DHarvestTime
+        DHarvestSteps = 15
         DMineTime = 5
         // DMineSteps = CPlayerAsset.UpdateFrequency() * DMineTime
         // FIXME: 10 for faster and testing
