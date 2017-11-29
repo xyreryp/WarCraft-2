@@ -17,13 +17,6 @@ class CMapRenderer {
 
     // FIXME: Hardcoded for one map
     init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
-        // additional var's
-        // For the mini map rendering: @source
-        //        let LineSource: CCommentSkipLineDataSource = CCommentSkipLineDataSource(source: config, commentchar: "#")
-        //                var TempString: String = String()
-        //                var ItemCount: Int = Int()
-
-        // data members
         DTileset = tileset
         DMap = map
         DTileIndices = [[[Int]]]()
@@ -73,7 +66,6 @@ class CMapRenderer {
         //            Index += 1
         //        } while Index < ItemCount
         //
-
         // TODO:
         DPixelIndices[CTerrainMap.ETileType.LightGrass.rawValue] = Int(0xFF28_540C)
         DPixelIndices[CTerrainMap.ETileType.DarkGrass.rawValue] = Int(0xFF14_4006)
@@ -232,37 +224,80 @@ class CMapRenderer {
         return DMap.Height() * DTileset.TileHeight()
     }
 
-    func DrawMap(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
-        let TileWidth = DTileset.TileWidth()
-        let TileHeight = DTileset.TileHeight()
-        // TODO: typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
-        var YIndex = rect.DYPosition / TileHeight
-        for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
-            var XIndex = rect.DXPosition / TileWidth
-            for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {
+    //    func DrawMap(surface: SKScene, typesurface _: CGraphicResourceContext, rect: SRectangle) {
+    //        let TileWidth = DTileset.TileWidth()
+    //        let TileHeight = DTileset.TileHeight()
+    //        // TODO: typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
+    //        var YIndex = rect.DYPosition / TileHeight
+    //        for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
+    //            var XIndex = rect.DXPosition / TileWidth
+    //            for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {
+    //                let ThisTileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
+    //                let TileIndex = DMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
+    //
+    //                if (0 <= TileIndex) && (16 > TileIndex) {
+    //                    var DisplayIndex = -1
+    //                    let AltTileCount = DTileIndices[ThisTileType.rawValue][TileIndex].count
+    //
+    //                    if AltTileCount > 0 {
+    //                        let AltIndex = (XIndex + YIndex) % AltTileCount
+    //                        DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
+    //                    }
+    //                    if DisplayIndex != -1 {
+    //                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
+    //                        // FIXME: Uncomment when finishing DrawClipped
+    //                        // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
+    //                    }
+    //                } else {
+    //
+    //                    return
+    //                }
+    //                XIndex += 1
+    //            }
+    //            YIndex += 1
+    //        }
+    //    }
+    // iOS's drawMap
+    func DrawMap(surface: SKScene, rect: SRectangle) {
+        let TileWidth = DTileset.DTileWidth
+        let TileHeight = DTileset.DTileHeight
+
+        // Convert each tile index into a tile and store it in the map node
+        var DisplayIndex = 0
+        var YIndex: Int = rect.DYPosition / TileHeight
+        var XIndex: Int = rect.DXPosition / TileWidth
+        var YPos: Int = -(rect.DYPosition % TileHeight)
+        var XPos: Int = -(rect.DXPosition % TileWidth)
+        var AltTileCount = 0
+        while true {
+            if YPos > rect.DHeight {
+                break
+            }
+            while true {
+                if XPos > rect.DWidth {
+                    break
+                }
+                let PixelType = CPixelType(type: DMap.TileType(xindex: XIndex, yindex: YIndex))
                 let ThisTileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
                 let TileIndex = DMap.TileTypeIndex(xindex: XIndex, yindex: YIndex)
-
                 if (0 <= TileIndex) && (16 > TileIndex) {
-                    var DisplayIndex = -1
-                    let AltTileCount = DTileIndices[ThisTileType.rawValue][TileIndex].count
-
-                    if AltTileCount > 0 {
-                        let AltIndex = (XIndex + YIndex) % AltTileCount
-                        DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
-                    }
-                    if DisplayIndex != -1 {
-                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
-                        // FIXME: Uncomment when finishing DrawClipped
-                        // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
-                    }
-                } else {
-
-                    return
+                    DisplayIndex = -1
+                    AltTileCount = DTileIndices[ThisTileType.rawValue][TileIndex].count
                 }
-                XIndex += 1
+                if AltTileCount > 0 {
+                    let AltIndex = (XIndex + YIndex) % AltTileCount
+                    DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
+                }
+                if -1 != DisplayIndex {
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
+                }
+                XIndex = XIndex + 1
+                XPos += TileWidth
             }
-            YIndex += 1
+            XIndex = rect.DXPosition / TileWidth
+            XPos = -(rect.DXPosition % TileWidth)
+            YIndex = YIndex + 1
+            YPos += TileHeight
         }
     }
 

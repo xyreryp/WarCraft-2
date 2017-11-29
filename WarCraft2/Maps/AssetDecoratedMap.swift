@@ -13,12 +13,22 @@ class CAssetDecoratedMap: CTerrainMap {
         var DType: String
         var DColor: EPlayerColor
         var DTilePosition: CTilePosition
+        init() {
+            DType = "None"
+            DColor = EPlayerColor.None
+            DTilePosition = CTilePosition()
+        }
     }
 
     public struct SResourceInitialization {
         var DColor: EPlayerColor
         var DGold: Int
         var DLumber: Int
+        init() {
+            DColor = EPlayerColor.None
+            DGold = 0
+            DLumber = 0
+        }
     }
 
     var DAssets: [CPlayerAsset]
@@ -83,47 +93,47 @@ class CAssetDecoratedMap: CTerrainMap {
 
     // FIXME: Hard coded to take in one map for now
     @discardableResult
-    static func TestLoadMaps(filename: String) -> Bool {
+    static func LoadMaps(mapNames: [String]) {
 
-        let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
-        let FileName = filename
-        // FIXME: index out of range when populating dterrainmap please step into to see!
-        if !TempMap.TestLoadMap(filename: FileName) {
-            print("Failed To Load \(FileName) map")
+        for map in mapNames {
+            let TempMap = CAssetDecoratedMap()
+            //            let TempMap = CAssetDecoratedMap(filename: map)
+            let TempDataSource = CDataSource()
+            TempDataSource.LoadFile(named: map, extensionType: "map", commentChar: "#")
+            TempMap.LoadMap(from: TempDataSource)
+            TempMap.RenderTerrain()
+            DMapNameTranslation[TempMap.DMapName] = DAllMaps.count
+            DAllMaps.append(TempMap)
         }
-        TempMap.RenderTerrain()
-        CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = DAllMaps.count
-        CAssetDecoratedMap.DAllMaps.append(TempMap)
-        return false
     }
 
-    func LoadMaps(container: CDataContainer) -> Bool {
-
-        let FileIterator: CDataContainerIterator! = container.First()
-        if FileIterator == nil {
-            print("FileIterator == nullptr\n")
-            return false
-        }
-        while ((FileIterator != nil)) && (FileIterator.IsValid()) {
-            let Filename: String = FileIterator.Name()
-            FileIterator.Next()
-            if Filename.range(of: ".map") != nil {
-                let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
-
-                if !TempMap.LoadMap(source: container.DataSource(name: Filename)) {
-                    print("Failed to load map \"%s\".\n", Filename)
-                    continue
-                } else {
-                    print("Loaded map \"%s\".\n", Filename)
-                }
-                TempMap.RenderTerrain()
-                CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = CAssetDecoratedMap.DAllMaps.count
-                CAssetDecoratedMap.DAllMaps.append(TempMap)
-            }
-        }
-        print("Maps loaded\n")
-        return true
-    }
+    //    func LoadMaps(container: CDataContainer) -> Bool {
+    //
+    //        let FileIterator: CDataContainerIterator! = container.First()
+    //        if FileIterator == nil {
+    //            print("FileIterator == nullptr\n")
+    //            return false
+    //        }
+    //        while ((FileIterator != nil)) && (FileIterator.IsValid()) {
+    //            let Filename: String = FileIterator.Name()
+    //            FileIterator.Next()
+    //            if Filename.range(of: ".map") != nil {
+    //                let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
+    //
+    //                if !TempMap.LoadMap(source: container.DataSource(name: Filename)) {
+    //                    print("Failed to load map \"%s\".\n", Filename)
+    //                    continue
+    //                } else {
+    //                    print("Loaded map \"%s\".\n", Filename)
+    //                }
+    //                TempMap.RenderTerrain()
+    //                CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = CAssetDecoratedMap.DAllMaps.count
+    //                CAssetDecoratedMap.DAllMaps.append(TempMap)
+    //            }
+    //        }
+    //        print("Maps loaded\n")
+    //        return true
+    //    }
 
     func Assets() -> [CPlayerAsset] {
         return DAssets
@@ -436,159 +446,132 @@ class CAssetDecoratedMap: CTerrainMap {
         }
     }
 
-    func TestLoadMap(filename: String) -> Bool {
-        //        var Tokens = [String]()
-        // var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
-        //        var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
-        var InitialLumber = 400
-        var ReturnStatus = false
+    override func LoadMap(from source: CDataSource) {
+        var AssetDataSource = CDataSource()
+        var InitialLumber: Int = 400
+        // Create the terrain map
+        super.LoadMap(from: source)
 
-        super.LoadMap(fileToRead: "bay")
-
-        let map = CDataSource.ReadMap(fileName: filename, extensionType: ".map")
-
-        let startingResources = map[8]
-        for Index in 1 ... startingResources.count - 2 {
-            var Tokens = startingResources[Index].split(separator: " ")
-            var TempResourceInit = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
-
+        // Get the initial resource data
+        let ResourceCount = Int(source.Read())!
+        for _ in 0 ... ResourceCount {
+            var TempResourceInit = SResourceInitialization()
+            let Tokens = source.Read().components(separatedBy: " ")
             TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
             TempResourceInit.DGold = Int(Tokens[1])!
             TempResourceInit.DLumber = Int(Tokens[2])!
 
-            if TempResourceInit.DColor == EPlayerColor.None {
-                InitialLumber = TempResourceInit.DLumber
-            }
             DResourceInitializationList.append(TempResourceInit)
         }
 
-        let startingAssets = map[10]
-
-        for Index in 1 ... startingAssets.count - 2 {
-            var Tokens = startingAssets[Index].split(separator: " ")
-            var TempAssetInit = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
-
-            TempAssetInit.DType = String(Tokens[0])
+        // Get the initial asset data
+        let AssetCount = Int(source.Read())!
+        for _ in 0 ..< AssetCount {
+            var TempAssetInit = SAssetInitialization()
+            let Tokens = source.Read().components(separatedBy: " ")
+            TempAssetInit.DType = Tokens[0]
             TempAssetInit.DColor = EPlayerColor(rawValue: Int(Tokens[1])!)!
             TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
             TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
+            // InitializeMiniMapAsset(asset: TempAssetInit)
+            AssetDataSource.LoadFile(named: Tokens[0], extensionType: "dat", commentChar: "#", subdirectory: "res")
 
-            if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
-                // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
-            }
+            // AddAsset(asset: CPlayerAsset(source: AssetDataSource, xPos: Int(Tokens[2])!, yPos: Int(Tokens[3])!))
 
-            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
-                // print("Invalid resource position, \(Index), \(TempAssetInit.DTilePosition.X()), \(TempAssetInit.DTilePosition.Y())")
-            }
-            DAssetInitializationList.append(TempAssetInit)
-
-            // FIXME: index out of range on line 448
-            DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
-            for RowIndex in 0 ... DLumberAvailable.count - 1 {
-                DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
-                for ColIndex in 0 ... DTerrainMap[RowIndex].count - 1 {
-                    if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
-                        DLumberAvailable[RowIndex][ColIndex] = DPartials[RowIndex][ColIndex] > 0 ? InitialLumber : 0
-                    } else {
-                        DLumberAvailable[RowIndex][ColIndex] = 0
-                    }
-                }
-            }
-            ReturnStatus = true
-        }
-
-        return ReturnStatus
-    }
-
-    func LoadMap(source _: CDataSource) -> Bool {
-        //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#") //there is a '#' here and not entirely sure how to handle it.
-        var TempString: String = ""
-        var Tokens: [String] = [String]()
-        var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
-        var TempAssetInit: SAssetInitialization = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
-        var ResourceCount: Int, AssetCount: Int
-        var InitialLumber: Int = 400
-        var ReturnStatus: Bool = false
-        //        if !LoadMap(source: source) {
-        //            return false
-        //        }
-        //        if !LineSource.Read(line: &TempString) { // supposingly where try starts
-        //            print("Failed To read map resource count.\n")
-        //            return ReturnStatus
-        //        }
-        ResourceCount = Int(TempString)!
-        DResourceInitializationList.removeAll()
-        for Index in 0 ... ResourceCount {
-            //            if !LineSource.Read(line: &TempString) {
-            //                print("Failed to read map resource %d.\n", Index)
-            //                return ReturnStatus
-            //            }
-            CTokenizer.Tokenize(tokens: &Tokens, data: TempString, delimiters: "")
-            if 3 > Tokens.count {
-                print("Too few tokens for resource %d.\n", Index)
-                return ReturnStatus
-            }
-            TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
-            if (0 == Index) && (EPlayerColor.None != TempResourceInit.DColor) {
-                print("Expected first resource to be for color None.\n")
-                return ReturnStatus
-            }
-            TempResourceInit.DGold = Int(Tokens[1])!
-            TempResourceInit.DLumber = Int(Tokens[2])!
-            if EPlayerColor.None == TempResourceInit.DColor {
-                InitialLumber = TempResourceInit.DLumber
-            }
-
-            DResourceInitializationList.append(TempResourceInit)
-        }
-
-        //        if !LineSource.Read(line: &TempString) {
-        //            print("Failed to read map asset count.\n")
-        //            return ReturnStatus
-        //        }
-        AssetCount = Int(TempString)!
-        DAssetInitializationList.removeAll()
-        for Index in 0 ..< AssetCount {
-            //            if !LineSource.Read(line: &TempString) {
-            //                print("Failed to read map asset %d.\n", Index)
-            //                return ReturnStatus
-            //            }
-            CTokenizer.Tokenize(tokens: &Tokens, data: TempString)
-            if 4 > Tokens.count {
-                print("Too few tokens for asset %d.\n", Index)
-                return ReturnStatus
-            }
-            TempAssetInit.DType = Tokens[0]
-            TempAssetInit.DColor = EPlayerColor(rawValue: Int(Tokens[1])!)!
-            var StopGivingMeWarning = TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
-            StopGivingMeWarning = TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
-            StopGivingMeWarning = StopGivingMeWarning + 1
-
-            if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
-                print("Invalid resource position %d (%d, %d).\n", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y())
-                return ReturnStatus
-            }
-            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
-                print("Invalid resource position %d (%d, %d).\n", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y())
-                return ReturnStatus
-            }
             DAssetInitializationList.append(TempAssetInit)
         }
-
-        DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
-        for RowIndex in 0 ..< DLumberAvailable.count {
-            DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
-            for ColIndex in 0 ..< DTerrainMap[RowIndex].count {
-                if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
-                    DLumberAvailable[RowIndex][ColIndex] = DPartials.count <= RowIndex && DPartials[RowIndex].count <= ColIndex ? InitialLumber : 0
-                } else {
-                    DLumberAvailable[RowIndex][ColIndex] = 0
-                }
-            }
-        }
-        ReturnStatus = true
-        return ReturnStatus // supposingly where try ends and where catch begins
+        // TODO: Add lumber stuff
     }
+
+    //    func LoadMap(source _: CDataSource) -> Bool {
+    //        //        let LineSource = CCommentSkipLineDataSource(source: source, commentchar: "#") //there is a '#' here and not entirely sure how to handle it.
+    //        var TempString: String = ""
+    //        var Tokens: [String] = [String]()
+    //        var TempResourceInit: SResourceInitialization = SResourceInitialization(DColor: EPlayerColor.None, DGold: Int(), DLumber: Int())
+    //        var TempAssetInit: SAssetInitialization = SAssetInitialization(DType: String(), DColor: EPlayerColor.None, DTilePosition: CTilePosition())
+    //        var ResourceCount: Int, AssetCount: Int
+    //        var InitialLumber: Int = 400
+    //        var ReturnStatus: Bool = false
+    //        //        if !LoadMap(source: source) {
+    //        //            return false
+    //        //        }
+    //        //        if !LineSource.Read(line: &TempString) { // supposingly where try starts
+    //        //            print("Failed To read map resource count.\n")
+    //        //            return ReturnStatus
+    //        //        }
+    //        ResourceCount = Int(TempString)!
+    //        DResourceInitializationList.removeAll()
+    //        for Index in 0 ... ResourceCount {
+    //            //            if !LineSource.Read(line: &TempString) {
+    //            //                print("Failed to read map resource %d.\n", Index)
+    //            //                return ReturnStatus
+    //            //            }
+    //            CTokenizer.Tokenize(tokens: &Tokens, data: TempString, delimiters: "")
+    //            if 3 > Tokens.count {
+    //                print("Too few tokens for resource %d.\n", Index)
+    //                return ReturnStatus
+    //            }
+    //            TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
+    //            if (0 == Index) && (EPlayerColor.None != TempResourceInit.DColor) {
+    //                print("Expected first resource to be for color None.\n")
+    //                return ReturnStatus
+    //            }
+    //            TempResourceInit.DGold = Int(Tokens[1])!
+    //            TempResourceInit.DLumber = Int(Tokens[2])!
+    //            if EPlayerColor.None == TempResourceInit.DColor {
+    //                InitialLumber = TempResourceInit.DLumber
+    //            }
+    //
+    //            DResourceInitializationList.append(TempResourceInit)
+    //        }
+    //
+    //        //        if !LineSource.Read(line: &TempString) {
+    //        //            print("Failed to read map asset count.\n")
+    //        //            return ReturnStatus
+    //        //        }
+    //        AssetCount = Int(TempString)!
+    //        DAssetInitializationList.removeAll()
+    //        for Index in 0 ..< AssetCount {
+    //            //            if !LineSource.Read(line: &TempString) {
+    //            //                print("Failed to read map asset %d.\n", Index)
+    //            //                return ReturnStatus
+    //            //            }
+    //            CTokenizer.Tokenize(tokens: &Tokens, data: TempString)
+    //            if 4 > Tokens.count {
+    //                print("Too few tokens for asset %d.\n", Index)
+    //                return ReturnStatus
+    //            }
+    //            TempAssetInit.DType = Tokens[0]
+    //            TempAssetInit.DColor = EPlayerColor(rawValue: Int(Tokens[1])!)!
+    //            var StopGivingMeWarning = TempAssetInit.DTilePosition.X(x: Int(Tokens[2])!)
+    //            StopGivingMeWarning = TempAssetInit.DTilePosition.Y(y: Int(Tokens[3])!)
+    //            StopGivingMeWarning = StopGivingMeWarning + 1
+    //
+    //            if (0 > TempAssetInit.DTilePosition.X()) || (0 > TempAssetInit.DTilePosition.Y()) {
+    //                print("Invalid resource position %d (%d, %d).\n", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y())
+    //                return ReturnStatus
+    //            }
+    //            if (Width() <= TempAssetInit.DTilePosition.X()) || (Height() <= TempAssetInit.DTilePosition.Y()) {
+    //                print("Invalid resource position %d (%d, %d).\n", Index, TempAssetInit.DTilePosition.X(), TempAssetInit.DTilePosition.Y())
+    //                return ReturnStatus
+    //            }
+    //            DAssetInitializationList.append(TempAssetInit)
+    //        }
+    //
+    //        DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
+    //        for RowIndex in 0 ..< DLumberAvailable.count {
+    //            DLumberAvailable[RowIndex] = [Int](repeating: Int(), count: DTerrainMap[RowIndex].count)
+    //            for ColIndex in 0 ..< DTerrainMap[RowIndex].count {
+    //                if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
+    //                    DLumberAvailable[RowIndex][ColIndex] = DPartials.count <= RowIndex && DPartials[RowIndex].count <= ColIndex ? InitialLumber : 0
+    //                } else {
+    //                    DLumberAvailable[RowIndex][ColIndex] = 0
+    //                }
+    //            }
+    //        }
+    //        ReturnStatus = true
+    //        return ReturnStatus // supposingly where try ends and where catch begins
+    //    }
 
     func CreateInitializeMap() -> CAssetDecoratedMap {
         let ReturnMap: CAssetDecoratedMap = CAssetDecoratedMap()

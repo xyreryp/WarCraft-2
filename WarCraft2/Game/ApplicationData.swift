@@ -62,22 +62,7 @@ class CApplicationData {
     //  var DApplicationPointer: CApplicationData?
     var DDeleted: Bool
     var DGameSessionType: EGameSessionType
-    // var DSoundVolume: Float
-    // var DMusicVolume: Float
-    // var DUserName: String
-    // var DRemoteHostName: String
-    // var DMultiplayerPort = 55107 // Asc
 
-    // pretty sure dont need these
-    //    std::shared_ptr<CGUIApplication> DApplication;
-    //    std::shared_ptr<CGUIWindow> DMainWindow;
-    //    std::shared_ptr<CGUIDrawingArea> DDrawingArea;
-    //    std::shared_ptr<CGUICursor> DBlankCursor;
-
-    // different surfaces
-    // var DDoubleBufferSurface: SKScene
-    // var DWorkingBufferSurface: SKScene
-    // var DWorkingBufferSurface: SKScene?
     // var DMiniMapSurface: CGraphicResourceContext
     var DViewportSurface: SKScene
     var DViewportTypeSurface: SKScene
@@ -85,21 +70,16 @@ class CApplicationData {
     var DUnitActionSurface: SKScene
     var DResourceSurface: SKScene
     var DMapSelectListViewSurface: SKScene
-    // var DMiniMapViewportColor: uint32
 
     // coordinate and map and options related things
     var DBorderWidth: Int
     var DPanningSpeed: Int
     var DViewportXOffset: Int
     var DViewportYOffset: Int
-    //    var DMiniMapXOffset: Int
-    //    var DMiniMapYOffset: Int
     var DUnitDescriptionXOffset: Int
     var DUnitDescriptionYOffset: Int
     var DUnitActionXOffset: Int
     var DUnitActionYOffset: Int
-    //    var DMenuButtonXOffset: Int
-    //    var DMenuButtonYOffset: Int
     var DMapSelectListViewXOffset: Int
     var DMapSelectListViewYOffset: Int
     var DSelectedMapIndex: Int
@@ -109,12 +89,9 @@ class CApplicationData {
     //    var DOptionsEditLocations: [SRectangle]
     //    var DOptionsEditTitles: [String]
     //  var DOptionsEditText: [String]
-    // TODO: uncomment later
     //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
     var DMapRenderer: CMapRenderer!
-    // cursor things
-    // TODO: CCursorset?
     // var DCursorset: CCursorSet? = nil
     var DCursorIndices: [Int]
     var DCursorType: ECursorType
@@ -126,26 +103,25 @@ class CApplicationData {
 
     // var DFonts: [CFontTileset]// = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
 
-    // loading steps things
     //    var DTotalLoadingSteps: Int
     //    var DCurrentLoadingStep: Int
 
     // tileset things
     var DLoadingResourceContext: CGraphicResourceContext
-    var DSplashTileset: CGraphicTileset
-    var DMarkerTileset: CGraphicTileset
-    var DBackgroundTileset: CGraphicTileset
-    var DMiniBevelTileset: CGraphicTileset
-    var DInnerBevelTileset: CGraphicTileset
-    var DOuterBevelTileset: CGraphicTileset
-    var DListViewIconTileset: CGraphicTileset
-    var DTerrainTileset: CGraphicTileset
-    // var DFogTileset: CGraphicTileset
+    var DSplashTileset: CGraphicTileset!
+    var DMarkerTileset: CGraphicTileset!
+    var DBackgroundTileset: CGraphicTileset!
+    var DMiniBevelTileset: CGraphicTileset!
+    var DInnerBevelTileset: CGraphicTileset!
+    var DOuterBevelTileset: CGraphicTileset!
+    var DListViewIconTileset: CGraphicTileset!
+    var DTerrainTileset: CGraphicTileset!
+    var DFogTileset: CGraphicTileset!
 
     // bevel things
-    var DMiniBevel: CBevel
-    var DInnerBevel: CBevel
-    var DOuterBevel: CBevel
+    var DMiniBevel: CBevel!
+    var DInnerBevel: CBevel!
+    var DOuterBevel: CBevel!
     var DMapRendererConfigurationData: [Character]
 
     // recolor maps
@@ -155,7 +131,8 @@ class CApplicationData {
     var DPlayerRecolorMap: CGraphicRecolorMap
 
     // asset renderer tileset things
-    var DIconTileset: CGraphicMulticolorTileset
+    //    var DIconTileset: CGraphicMulticolorTileset
+    var DIconTileset: CGraphicTileset!
     var DMiniIconTileset: CGraphicTileset
     var DAssetTilesets: [CGraphicTileset]
     var DFireTileset: [CGraphicTileset]
@@ -163,10 +140,9 @@ class CApplicationData {
     var DBuildingDeathTileset: CGraphicTileset
     var DArrowTileset: CGraphicTileset
 
-    // all renderer things
     var DAssetRenderer: CAssetRenderer!
 
-    //    var DFogRenderer: CFogRenderer
+    var DFogRenderer: CFogRenderer!
 
     var DViewportRenderer: CViewportRenderer!
     // var DMiniMapRenderer: CMiniMapRenderer
@@ -187,11 +163,6 @@ class CApplicationData {
     // var DAIPlayers: [CAIPlayer]
     var DLoadingPlayerTypes: [EPlayerType]
     var DLoadingPlayerColors: [EPlayerColor]
-
-    // application mode things
-    // FIXME: we will need applicationMode later, focusing on Battlemode
-    //    var DApplicationMode: CApplicationMode
-    //    var DNextApplicationMode: CApplicationMode
 
     // hotkeys unordererd maps --> dictionaries
     var DUnitHotKeyMap: [uint32: EAssetCapabilityType]
@@ -216,15 +187,12 @@ class CApplicationData {
     var DRightClick: Int
     var DLeftDown: Bool
     var DRightDown: Bool
-    // more mouse things
     var DLeftClicked: Bool
     var DRightClicked: Bool
     var X: Int
     var Y: Int
 
     var DMenuButtonState: CButtonRenderer.EButtonState
-
-    // end of member variables from ApplicationData.h
 
     var ECursorTypeRef: ECursorType
     var EUIComponentTypeRef: EUIComponentType
@@ -235,20 +203,9 @@ class CApplicationData {
     var TempDataSource: CDataSource
     var DPlayer: CPlayerData!
 
-    init() { // appName _: String, key _: SPrivateApplicationType) {
+    init() {
         //        DApplicationPointer = CApplicationData()
         DGameSessionType = EGameSessionType.gstSinglePlayer
-
-        // pretty sure dont need these
-        //    std::shared_ptr<CGUIApplication> DApplication;
-        //    std::shared_ptr<CGUIWindow> DMainWindow;
-        //    std::shared_ptr<CGUIDrawingArea> DDrawingArea;
-        //    std::shared_ptr<CGUICursor> DBlankCursor;
-
-        // different surfaces
-        //        DDoubleBufferSurface = SKScene()
-        //        DWorkingBufferSurface = SKScene()
-        //        DMiniMapSurface = CGraphicResourceContext()
         DViewportSurface = SKScene()
         DViewportTypeSurface = SKScene()
         DUnitDescriptionSurface = SKScene()
@@ -272,14 +229,10 @@ class CApplicationData {
         //        DOptionsEditLocations = [SRectangle]()
         //        DOptionsEditTitles = [String]()
         //        DOptionsEditText = [String]()
-        // TODO: uncomment later
         //    var DOptionsEditValidationFunctions: [TEditValidationCallbackFunction] = [TEditValidationCallbackFunction]()
 
-        // Map Renderer
         // DMapRenderer = CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap())
 
-        // cursor things
-        // TODO: uncomment later
         // var DCursorset: CCursorSet? = nil
         DCursorIndices = [Int](repeating: Int(), count: ECursorType.ctMax.rawValue)
 
@@ -306,25 +259,25 @@ class CApplicationData {
 
         // bevel things
         //        DBuildingDeathTileset = CGraphicTileset()
-        //        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
+        //        if !DBuildingDeathTileset.LoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
         //            print("Failed to lead BuildingDeath tileset")
         //        }
-        let bevelDataSource = CDataSource()
-        let MiniBevelTileset = CGraphicTileset()
-        if !MiniBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
-            print("Failed to lead MiniBevel tileset")
-        }
-        let InnerBevelTileset = CGraphicTileset()
-        if !InnerBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
-            print("Failed to lead InnerBevel tileset")
-        }
-        let OuterBevelTileset = CGraphicTileset()
-        if !OuterBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
-            print("Failed to lead OuterBevel tileset")
-        }
-        DMiniBevel = CBevel(tileset: MiniBevelTileset)
-        DInnerBevel = CBevel(tileset: InnerBevelTileset) //tileset: InnerBevelTileset)
-        DOuterBevel = CBevel(tileset: OuterBevelTileset)
+        //        let bevelDataSource = CDataSource()
+        //        let MiniBevelTileset = CGraphicTileset()
+        //        if !MiniBevelTileset.LoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
+        //            print("Failed to lead MiniBevel tileset")
+        //        }
+        //        let InnerBevelTileset = CGraphicTileset()
+        //        if !InnerBevelTileset.LoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
+        //            print("Failed to lead InnerBevel tileset")
+        //        }
+        //        let OuterBevelTileset = CGraphicTileset()
+        //        if !OuterBevelTileset.LoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
+        //            print("Failed to lead OuterBevel tileset")
+        //        }
+        //        DMiniBevel = CBevel(tileset: MiniBevelTileset)
+        //        DInnerBevel = CBevel(tileset: InnerBevelTileset) //tileset: InnerBevelTileset)
+        //        DOuterBevel = CBevel(tileset: OuterBevelTileset)
         //tileset: OuterBevelTileset)
 
         // more tileset things
@@ -541,159 +494,84 @@ class CApplicationData {
     // func DrawingAreaButtonReleaseEventCallback(widget: CGUIWidget, event: SGUIButtonEvent, data: TGUICalldata ) -> Bool {}
     // func DrawingAreaMotionNotifyEventCallback(widget: CGUIWidget, event: SGUIMotionEvent , data: TGUICalldata ) -> Bool {}
 
+    // Credit to Hong from iOS, loading in tilesets
     func Activate() {
         // entry point for reading inall the related tilests
         // resize to the number of EAssetTypes, from GameDataTypes. Should be 16.
         CPlayerAsset.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
         CAssetRenderer.UpdateFrequency(freq: TIMEOUT_FREQUENCY)
         DAssetTilesets = [CGraphicTileset](repeating: CGraphicTileset(), count: EAssetType.Max.rawValue)
-
-        //         load tileset for peasant
-        //        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicMulticolorTileset()
-        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Peasant.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Peasant") {
-            print("Failed to load peasant tileset")
-        }
-
-        DAssetTilesets[EAssetType.Footman.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Footman.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Footman") {
-            print("Failed to load Footman tileset")
-        }
-
-        DAssetTilesets[EAssetType.Archer.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Archer.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Archer") {
-            print("Failed to load Archer tileset")
-        }
-
-        DAssetTilesets[EAssetType.Ranger.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Ranger.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Ranger") {
-            print("Failed to load Ranger tileset")
-        }
-
-        DAssetTilesets[EAssetType.GoldMine.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.GoldMine.rawValue].TestLoadTileset(source: TempDataSource, assetName: "GoldMine") {
-            print("Failed to load GoldMine tileset")
-        }
-
-        DAssetTilesets[EAssetType.TownHall.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.TownHall.rawValue].TestLoadTileset(source: TempDataSource, assetName: "TownHall") {
-            print("Failed to load TownHall tileset")
-        }
-
-        DAssetTilesets[EAssetType.Keep.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Keep.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Keep") {
-            print("Failed to load Keep tileset")
-        }
-
-        DAssetTilesets[EAssetType.Castle.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Castle.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Castle") {
-            print("Failed to load Castle tileset")
-        }
-
-        DAssetTilesets[EAssetType.Farm.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Farm.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Farm") {
-            print("Failed to load Farm tileset")
-        }
-
-        DAssetTilesets[EAssetType.Barracks.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Barracks.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Barracks") {
-            print("Failed to load Barracks tileset")
-        }
-
-        DAssetTilesets[EAssetType.LumberMill.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.LumberMill.rawValue].TestLoadTileset(source: TempDataSource, assetName: "LumberMill") {
-            print("Failed to load LumberMill tileset")
-        }
-
-        DAssetTilesets[EAssetType.Blacksmith.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.Blacksmith.rawValue].TestLoadTileset(source: TempDataSource, assetName: "Blacksmith") {
-            print("Failed to load Blacksmith tileset")
-        }
-
-        DAssetTilesets[EAssetType.ScoutTower.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.ScoutTower.rawValue].TestLoadTileset(source: TempDataSource, assetName: "ScoutTower") {
-            print("Failed to load ScoutTower tileset")
-        }
-
-        DAssetTilesets[EAssetType.GuardTower.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.GuardTower.rawValue].TestLoadTileset(source: TempDataSource, assetName: "GuardTower") {
-            print("Failed to load GuardTower tileset")
-        }
-
-        DAssetTilesets[EAssetType.CannonTower.rawValue] = CGraphicTileset()
-        if !DAssetTilesets[EAssetType.CannonTower.rawValue].TestLoadTileset(source: TempDataSource, assetName: "CannonTower") {
-            print("Failed to load CannonTower tileset")
-        }
-
-        // load tileset for terrain.dat
-        DTerrainTileset = CGraphicTileset()
-        if !DTerrainTileset.TestLoadTileset(source: TempDataSource, assetName: "Terrain") {
-            print("Failed to lead terrain tileset")
-        }
-
+        DTerrainTileset.LoadTileset(filename: "Terrain")
         CPosition.SetTileDimensions(width: DTerrainTileset.DTileWidth, height: DTerrainTileset.DTileHeight)
-        print(DTerrainTileset.DTileHeight)
 
-        // marker tileset needed for asset renderer
+        DFogTileset = CGraphicTileset()
+        DFogTileset.LoadTileset(filename: "Fog")
+
         DMarkerTileset = CGraphicTileset()
-        if !DMarkerTileset.TestLoadTileset(source: TempDataSource, assetName: "Marker") {
-            print("Failed to lead Marker tileset")
-        }
+        DMarkerTileset.LoadTileset(filename: "Marker")
 
-        // corpose tileset needed for asset renderer
+        // Load the Asset Information Icons
+        DIconTileset = CGraphicTileset()
+        DIconTileset.LoadTileset(filename: "Icons")
+
+        //        DMiniIconTilesets = CGraphicTileset()
+        //        DMiniIconTilesets.LoadTileset(filename: "MiniIcons")
+
         DCorpseTileset = CGraphicTileset()
-        if !DCorpseTileset.TestLoadTileset(source: TempDataSource, assetName: "Corpse") {
-            print("Failed to lead Corpse tileset")
-        }
+        DCorpseTileset.LoadTileset(filename: "Corpse")
 
-        // fireSmall tileset needed for asset renderer
-        let fireSmallTileset = CGraphicTileset()
-        if !fireSmallTileset.TestLoadTileset(source: TempDataSource, assetName: "FireSmall") {
-            print("Failed to lead FireSmall tileset")
-        }
-        DFireTileset.append(fireSmallTileset)
+        // Load the fires
+        var TempFireTileset = CGraphicTileset()
+        TempFireTileset.LoadTileset(filename: "FireSmall")
+        DFireTileset.append(TempFireTileset)
 
-        // fireLarge tileset needed for asset renderer
-        let fireLargeTileset = CGraphicTileset()
-        if !fireLargeTileset.TestLoadTileset(source: TempDataSource, assetName: "FireLarge") {
-            print("Failed to lead FireLarge tileset")
-        }
-        DFireTileset.append(fireLargeTileset)
+        TempFireTileset = CGraphicTileset()
+        TempFireTileset.LoadTileset(filename: "FireLarge")
+        DFireTileset.append(TempFireTileset)
 
-        // BuildingDeath tileset needed for asset renderer
         DBuildingDeathTileset = CGraphicTileset()
-        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
-            print("Failed to lead BuildingDeath tileset")
-        }
+        DBuildingDeathTileset.LoadTileset(filename: "BuildingDeath")
 
-        // Arrow tileset needed for asset renderer
         DArrowTileset = CGraphicTileset()
-        if !DArrowTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow") {
-            print("Failed to lead Arrow tileset")
-        }
-
-        DMiniIconTileset = CGraphicTileset()
-        if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
-            print("Failed to load Mini Icon tileset")
-        }
-
-        // FIXME: Hardcoded for now for bay, waiting for datasource to change
+        DArrowTileset.LoadTileset(filename: "Arrow")
         let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
-        CAssetDecoratedMap.TestLoadMaps(filename: "bay")
 
-        LoadGameMap(index: 0)
+        DAssetTilesets.reserveCapacity(EAssetType.Max.rawValue)
+        for _ in 0 ..< EAssetType.Max.rawValue {
+            DAssetTilesets.append(CGraphicTileset())
+        }
+        DAssetTilesets[EAssetType.Peasant.rawValue].LoadTileset(filename: "Peasant")
+        DAssetTilesets[EAssetType.Footman.rawValue].LoadTileset(filename: "Footman")
+        DAssetTilesets[EAssetType.Archer.rawValue].LoadTileset(filename: "Archer")
+        DAssetTilesets[EAssetType.Ranger.rawValue].LoadTileset(filename: "Ranger")
+        DAssetTilesets[EAssetType.GoldMine.rawValue].LoadTileset(filename: "GoldMine")
+        DAssetTilesets[EAssetType.TownHall.rawValue].LoadTileset(filename: "TownHall")
+        DAssetTilesets[EAssetType.Keep.rawValue].LoadTileset(filename: "Keep")
+        DAssetTilesets[EAssetType.Castle.rawValue].LoadTileset(filename: "Castle")
+        DAssetTilesets[EAssetType.Farm.rawValue].LoadTileset(filename: "Farm")
+        DAssetTilesets[EAssetType.Barracks.rawValue].LoadTileset(filename: "Barracks")
+        DAssetTilesets[EAssetType.LumberMill.rawValue].LoadTileset(filename: "LumberMill")
+        DAssetTilesets[EAssetType.Blacksmith.rawValue].LoadTileset(filename: "Blacksmith")
+        DAssetTilesets[EAssetType.ScoutTower.rawValue].LoadTileset(filename: "ScoutTower")
+        DAssetTilesets[EAssetType.GuardTower.rawValue].LoadTileset(filename: "GuardTower")
+        DAssetTilesets[EAssetType.CannonTower.rawValue].LoadTileset(filename: "CannonTower")
 
-        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[0], color: DPlayerColor)
-        //        if !DMiniBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniBevel") {
+        let MapFileNames = CDataSource.GetDirectoryFiles(subdirectory: "map", extensionType: "map")
+        CAssetDecoratedMap.LoadMaps(mapNames: MapFileNames)
+
+        LoadGameMap(index: 3)
+
+        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[3], color: DPlayerColor)
+        //        if !DMiniBevelTileset.LoadTileset(source: TempDataSource, assetName: "MiniBevel") {
         //            print("Failed to load Mini Bevel Tileset")
         //        }
         //
-        //        if !DInnerBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "InnerBevel") {
+        //        if !DInnerBevelTileset.LoadTileset(source: TempDataSource, assetName: "InnerBevel") {
         //            print("Failed to load Inner Bevel Tileset")
         //        }
         //
-        //        if !DOuterBevelTileset.TestLoadTileset(source: TempDataSource, assetName: "OuterBevel") {
+        //        if !DOuterBevelTileset.LoadTileset(source: TempDataSource, assetName: "OuterBevel") {
         //            print("Failed to load Outer Bevel Tileset")
         //        }
     }
@@ -916,8 +794,8 @@ class CApplicationData {
         var MinUnitDescrHeight: Int
 
         //        DMiniMapXOffset = DInnerBevel.Width() * 2
-        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
-        DUnitActionXOffset = DUnitDescriptionXOffset
+        //        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
+        //        DUnitActionXOffset = DUnitDescriptionXOffset
         //        DViewportXOffset = LeftPanelWidth + DInnerBevel.Width()
 
         //        DMiniMapYOffset = DBorderWidth

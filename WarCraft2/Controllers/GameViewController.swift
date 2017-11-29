@@ -33,6 +33,12 @@ class GameViewController: NSViewController {
     var skview: SKView!
     var skscene: GameScene!
     var battleMode = CBattleMode()
+    var DMapNameToFileName: [String: String] = [
+        "Three ways to cross": "bay",
+        "No way out of this maze": "hedges",
+        "One way in one way out": "mountain",
+        "Nowhere to run, nowhere to hide": "nwhr2rn",
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +61,6 @@ class GameViewController: NSViewController {
         skview = SKView(frame: NSRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
-        //        let position = CPixelPosition(x: 71 * 32, y: 31 * 32) // location of the red color peasant in bay map
-        //        let peasant = applicationData.DPlayer.SelectAsset(pos: position, assettype: EAssetType.Peasant)
-        //        let targetPosition = CPixelPosition(x: 100 * 32, y: 100 * 32)
-        //        let target = applicationData.DPlayer.CreateMarker(pos: targetPosition, addtomap: true)
-        //        let moveCapability = CPlayerCapabilityMove()
-        //        moveCapability.ApplyCapability(actor: peasant, playerdata: applicationData.DPlayer, target: target)
     }
 
     func adjustPan(_ value: Int) -> Int {
