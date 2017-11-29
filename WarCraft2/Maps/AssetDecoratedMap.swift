@@ -356,6 +356,13 @@ class CAssetDecoratedMap: CTerrainMap {
         return found
     }
 
+    func FakeFindTrees(pos: CTilePosition) -> Bool {
+        if TerrainTileType(pos: pos) == ETerrainTileType.Forest || TerrainTileType(pos: pos) == ETerrainTileType.ForestPartial {
+            return true
+        }
+        return false
+    }
+
     func RemoveLumber(pos: CTilePosition, from: CTilePosition, amount: Int) {
         var Index: Int! = 0
         for YOff in 0 ..< 2 {

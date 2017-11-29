@@ -208,6 +208,58 @@ class CGameModel {
                         // Can't apply notify problem
                     }
                 }
+            } else if EAssetAction.HarvestLumber == Asset.Action() {
+                var Command: SAssetCommand = Asset.CurrentCommand()
+                var TilePosition: CTilePosition = (Command.DAssetTarget?.TilePosition())!
+                var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
+                // if you told your peasasnt to harvest something from something that was not a forest
+                if CTerrainMap.ETileType.Forest != DActualMap.TileType(pos: TilePosition) {
+                    HarvestDirection = EDirection.Max
+                    TilePosition = Asset.TilePosition()
+                }
+                if EDirection.Max == HarvestDirection {
+                    if TilePosition == Asset.TilePosition() {
+                        // want to harvest, but missed. find nearest of that type aka forest or mine or etc
+                        let TilePosition: CTilePosition = DPlayers[Asset.Color().rawValue].DPlayerMap.FindNearestReachableTileType(pos: Asset.TilePosition(), type: CTerrainMap.ETileType.Forest)
+                        // Find new lumber
+                        Asset.PopCommand()
+                        if 0 <= TilePosition.X() {
+                            let NewPosition: CPixelPosition = CPixelPosition()
+                            NewPosition.SetFromTile(pos: TilePosition)
+                            Command.DAssetTarget = DPlayers[Asset.Color().rawValue].CreateMarker(pos: NewPosition, addtomap: false)
+                            Asset.PushCommand(command: Command)
+                            Command.DAction = EAssetAction.Walk
+                            Asset.PushCommand(command: Command)
+                            Asset.ResetStep()
+                        }
+                    } else {
+                        var NewCommand: SAssetCommand = Command
+                        NewCommand.DAction = EAssetAction.Walk
+                        Asset.PushCommand(command: NewCommand)
+                        Asset.ResetStep()
+                    }
+                } else {
+                    Asset.Direction(direction: HarvestDirection)
+                    Asset.IncrementStep()
+                    if DHarvestSteps <= Asset.Step() {
+                        var NearestRepository: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(pos: Asset.Position(), assettypes: [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
+                        DActualMap.RemoveLumber(pos: TilePosition, from: Asset.TilePosition(), amount: DLumberPerHarvest)
+
+                        if NearestRepository != nil {
+                            Command.DAction = EAssetAction.ConveyLumber
+                            Command.DAssetTarget = NearestRepository
+                            Asset.PushCommand(command: Command)
+                            Command.DAction = EAssetAction.Walk
+                            Asset.PushCommand(command: Command)
+                            Asset.Lumber(lumber: DLumberPerHarvest)
+                            Asset.ResetStep()
+                        } else {
+                            Asset.PopCommand()
+                            Asset.Lumber(lumber: DLumberPerHarvest)
+                            Asset.ResetStep()
+                        }
+                    }
+                }
             } else if EAssetAction.MineGold == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
                 let ClosestPosition: CPixelPosition = Command.DAssetTarget!.ClosestPosition(pos: Asset.Position())
@@ -375,61 +427,6 @@ class CGameModel {
         }
     }
 }
-
-//            } else if EAssetAction.HarvestLumber == Asset.Action() {
-//                var Command: SAssetCommand = Asset.CurrentCommand()
-//                var TilePosition: CTilePosition = (Command.DAssetTarget?.TilePosition())!
-//                var HarvestDirection: EDirection = Asset.TilePosition().AdjacentTileDirection(pos: TilePosition)
-//                // if you told your peasasnt to harvest something from something that was not a forest
-//                if CTerrainMap.ETileType.Forest != DActualMap.TileType(pos: TilePosition) {
-//                    HarvestDirection = EDirection.Max
-//                    TilePosition = Asset.TilePosition()
-//                }
-//                if EDirection.Max == HarvestDirection {
-//                    if TilePosition == Asset.TilePosition() {
-//                        // want to harvest, but missed. find nearest of that type aka forest or mine or etc
-//                        let TilePosition: CTilePosition = DPlayers[Asset.Color().rawValue].DPlayerMap.FindNearestReachableTileType(pos: Asset.TilePosition(), type: CTerrainMap.ETileType.Forest)
-//                        // Find new lumber
-//                        Asset.PopCommand()
-//                        if 0 <= TilePosition.X() {
-//                            let NewPosition: CPixelPosition = CPixelPosition()
-//                            NewPosition.SetFromTile(pos: TilePosition)
-//                            Command.DAssetTarget = DPlayers[Asset.Color().rawValue].CreateMarker(pos: NewPosition, addtomap: false)
-//                            Asset.PushCommand(command: Command)
-//                            Command.DAction = EAssetAction.Walk
-//                            Asset.PushCommand(command: Command)
-//                            Asset.ResetStep()
-//                        }
-//                    } else {
-//                        var NewCommand: SAssetCommand = Command
-//                        NewCommand.DAction = EAssetAction.Walk
-//                        Asset.PushCommand(command: NewCommand)
-//                        Asset.ResetStep()
-//                    }
-//                } else {
-//                    TempEvent = SGameEvent(DType: EEventType.Harvest, DAsset: Asset)
-//                    CurrentEvents.append(TempEvent)
-//                    Asset.Direction(direction: HarvestDirection)
-//                    Asset.IncrementStep()
-//                    if DHarvestSteps <= Asset.Step() {
-//                        var NearestRepository: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestOwnedAsset(pos: Asset.Position(), assettypes: [EAssetType.TownHall, EAssetType.Keep, EAssetType.Castle, EAssetType.LumberMill])
-//                        DActualMap.RemoveLumber(pos: TilePosition, from: Asset.TilePosition(), amount: DLumberPerHarvest)
-//
-//                        if NearestRepository != nil {
-//                            Command.DAction = EAssetAction.ConveyLumber
-//                            Command.DAssetTarget = NearestRepository
-//                            Asset.PushCommand(command: Command)
-//                            Command.DAction = EAssetAction.Walk
-//                            Asset.PushCommand(command: Command)
-//                            Asset.Lumber(lumber: DLumberPerHarvest)
-//                            Asset.ResetStep()
-//                        } else {
-//                            Asset.PopCommand()
-//                            Asset.Lumber(lumber: DLumberPerHarvest)
-//                            Asset.ResetStep()
-//                        }
-//                    }
-//                }
 
 // else if EAssetAction.Repair == Asset.Action() {
 //                var CurrentCommand: SAssetCommand = Asset.CurrentCommand()
