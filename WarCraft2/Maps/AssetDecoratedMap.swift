@@ -66,7 +66,7 @@ class CAssetDecoratedMap: CTerrainMap {
         DAssetInitializationList = [SAssetInitialization]()
         DResourceInitializationList = [SResourceInitialization]()
         DSearchMap = [[Int]]()
-        DLumberAvailable = [[Int]]()
+        DLumberAvailable = map.DLumberAvailable
 
         DAssets = map.DAssets
         DLumberAvailable = map.DLumberAvailable
@@ -374,74 +374,59 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func RemoveLumber(pos: CTilePosition, from: CTilePosition, amount: Int) {
-        var Index: Int! = 0
+        var Index: Int = 0
         for YOff in 0 ..< 2 {
             for XOff in 0 ..< 2 {
                 let XPos: Int = pos.X() + XOff
                 let YPos: Int = pos.Y() + YOff
-                Index! |= (ETerrainTileType.Forest == DTerrainMap[YPos][XPos]) && (DPartials.count <= YPos && DPartials[YPos].count <= XPos) ? 1 << (YOff * 2 + XOff) : 0
+                //                Index! |= (ETerrainTileType.Forest == DTerrainMap[YPos][XPos]) && (DPartials.count <= YPos && DPartials[YPos].count <= XPos) ? 1 << (YOff * 2 + XOff) : 0
+                Index |= ((ETerrainTileType.Forest == DTerrainMap[YPos][XPos]) && (0 != DPartials[YPos][XPos])) ? (1 << (YOff * 2 + XOff)) : 0
             }
         }
-        if Index != nil && (0xF != Index) {
+        if (0 != Index) && (0xF != Index) {
             switch Index {
             case 1: Index = 0
-                break
             case 2: Index = 1
-                break
             case 3: Index = from.X() > pos.X() ? 1 : 0
-                break
             case 4: Index = 2
-                break
             case 5: Index = from.Y() < pos.Y() ? 0 : 2
-                break
             case 6: Index = from.Y() > pos.Y() ? 2 : 1
-                break
             case 7: Index = 2
-                break
             case 8: Index = 3
-                break
             case 9: Index = from.Y() > pos.Y() ? 0 : 3
-                break
             case 10: Index = from.Y() > pos.Y() ? 3 : 1
-                break
             case 11: Index = 0
-                break
             case 12: Index = from.X() < pos.X() ? 2 : 3
-                break
             case 13: Index = 3
-                break
             case 14: Index = 1
-                break
-            default:
-                break
+            default: break
             }
             switch Index {
-            case 0: DLumberAvailable[pos.Y()][pos.X()] -= amount
+            case 0:
+                DLumberAvailable[pos.Y()][pos.X()] -= amount
                 if 0 >= DLumberAvailable[pos.Y()][pos.X()] {
                     DLumberAvailable[pos.Y()][pos.X()] = 0
                     ChangeTerrainTilePartial(xindex: pos.X(), yindex: pos.Y(), val: 0)
                 }
-                break
-            case 1: DLumberAvailable[pos.Y()][pos.X() + 1] -= amount
+            case 1:
+                DLumberAvailable[pos.Y()][pos.X() + 1] -= amount
                 if 0 >= DLumberAvailable[pos.Y()][pos.X() + 1] {
                     DLumberAvailable[pos.Y()][pos.X() + 1] = 0
                     ChangeTerrainTilePartial(xindex: pos.X() + 1, yindex: pos.Y(), val: 0)
                 }
-                break
-            case 2: DLumberAvailable[pos.Y() + 1][pos.X()] -= amount
+            case 2:
+                DLumberAvailable[pos.Y() + 1][pos.X()] -= amount
                 if 0 >= DLumberAvailable[pos.Y() + 1][pos.X()] {
                     DLumberAvailable[pos.Y() + 1][pos.X()] = 0
                     ChangeTerrainTilePartial(xindex: pos.X(), yindex: pos.Y() + 1, val: 0)
                 }
-                break
-            case 3: DLumberAvailable[pos.Y() + 1][pos.X() + 1] -= amount
+            case 3:
+                DLumberAvailable[pos.Y() + 1][pos.X() + 1] -= amount
                 if 0 >= DLumberAvailable[pos.Y() + 1][pos.X() + 1] {
                     DLumberAvailable[pos.Y() + 1][pos.X() + 1] = 0
                     ChangeTerrainTilePartial(xindex: pos.X() + 1, yindex: pos.Y() + 1, val: 0)
                 }
-                break
-            default:
-                break
+            default: break
             }
         }
     }
@@ -460,7 +445,9 @@ class CAssetDecoratedMap: CTerrainMap {
             TempResourceInit.DColor = EPlayerColor(rawValue: Int(Tokens[0])!)!
             TempResourceInit.DGold = Int(Tokens[1])!
             TempResourceInit.DLumber = Int(Tokens[2])!
-
+            if EPlayerColor.None == TempResourceInit.DColor {
+                InitialLumber = TempResourceInit.DLumber
+            }
             DResourceInitializationList.append(TempResourceInit)
         }
 
@@ -480,7 +467,16 @@ class CAssetDecoratedMap: CTerrainMap {
 
             DAssetInitializationList.append(TempAssetInit)
         }
-        // TODO: Add lumber stuff
+
+        DLumberAvailable = [[Int]](repeating: [], count: DTerrainMap.count)
+        for RowIndex in 0 ..< DLumberAvailable.count {
+            DLumberAvailable[RowIndex] = [Int](repeating: 0, count: DTerrainMap[RowIndex].count)
+            for ColIndex in 0 ..< DTerrainMap[RowIndex].count {
+                if ETerrainTileType.Forest == DTerrainMap[RowIndex][ColIndex] {
+                    DLumberAvailable[RowIndex][ColIndex] = (0 != DPartials[RowIndex][ColIndex]) ? InitialLumber : 0
+                }
+            }
+        }
     }
 
     //    func LoadMap(source _: CDataSource) -> Bool {
