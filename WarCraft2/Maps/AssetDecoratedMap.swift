@@ -723,13 +723,8 @@ class CAssetDecoratedMap: CTerrainMap {
         var SearchYOffsets: [Int] = [-1, 0, 1, 0]
 
         if DSearchMap.count != DMap.count {
-            DSearchMap = [[Int]](repeating: [], count: DMap.count)
-            for var Row in DSearchMap {
-                Row = [Int](repeating: Int(), count: DMap[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = 0
-                }
-            }
+            DSearchMap = [[Int]](repeating: Array(repeating: 0, count: DMap[0].count), count: DMap.count)
+
             let LastYIndex: Int = DMap.count - 1
             let LastXIndex: Int = DMap[0].count - 1
             for Index in 0 ..< DMap.count {
