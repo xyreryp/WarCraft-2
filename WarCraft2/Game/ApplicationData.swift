@@ -415,19 +415,6 @@ class CApplicationData {
         return 0
     }
 
-    //    func Instnace(appName: String) -> CApplicationData {
-    //        if let applicationPointer = DApplicationPointer {
-    //
-    //        }
-    //    }
-
-    // Prob dont need?
-    // func ActivateCallback(data: TGUICalldata ) {}
-    // func TimeoutCallback(data: TGUICalldata ) -> Bool {}
-    // func MainWindowDeleteEventCallback(widget: CGUIWidget, data: TGUICalldata) -> Bool {}
-    // func MainWindowDestroyCallback(widget: CGUIWidget, data: TGUICalldata )
-    // func MainWindowKeyPressEventCallback(widget: CGUIWidget, event: SGUIKeyEvent , data: TGUICalldata ) -> Bool {}
-
     /**
      * Logs any button presses in the main window.
      *
@@ -537,28 +524,40 @@ class CApplicationData {
         let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
 
-        DAssetTilesets.reserveCapacity(EAssetType.Max.rawValue)
-        for _ in 0 ..< EAssetType.Max.rawValue {
-            DAssetTilesets.append(CGraphicTileset())
-        }
-        DAssetTilesets[EAssetType.Peasant.rawValue].LoadTileset(filename: "Peasant")
-        DAssetTilesets[EAssetType.Footman.rawValue].LoadTileset(filename: "Footman")
-        DAssetTilesets[EAssetType.Archer.rawValue].LoadTileset(filename: "Archer")
-        DAssetTilesets[EAssetType.Ranger.rawValue].LoadTileset(filename: "Ranger")
-        DAssetTilesets[EAssetType.GoldMine.rawValue].LoadTileset(filename: "GoldMine")
-        DAssetTilesets[EAssetType.TownHall.rawValue].LoadTileset(filename: "TownHall")
-        DAssetTilesets[EAssetType.Keep.rawValue].LoadTileset(filename: "Keep")
-        DAssetTilesets[EAssetType.Castle.rawValue].LoadTileset(filename: "Castle")
-        DAssetTilesets[EAssetType.Farm.rawValue].LoadTileset(filename: "Farm")
-        DAssetTilesets[EAssetType.Barracks.rawValue].LoadTileset(filename: "Barracks")
-        DAssetTilesets[EAssetType.LumberMill.rawValue].LoadTileset(filename: "LumberMill")
-        DAssetTilesets[EAssetType.Blacksmith.rawValue].LoadTileset(filename: "Blacksmith")
-        DAssetTilesets[EAssetType.ScoutTower.rawValue].LoadTileset(filename: "ScoutTower")
-        DAssetTilesets[EAssetType.GuardTower.rawValue].LoadTileset(filename: "GuardTower")
-        DAssetTilesets[EAssetType.CannonTower.rawValue].LoadTileset(filename: "CannonTower")
-
         let MapFileNames = CDataSource.GetDirectoryFiles(subdirectory: "map", extensionType: "map")
         CAssetDecoratedMap.LoadMaps(mapNames: MapFileNames)
+
+        DAssetTilesets = [CGraphicTileset](repeating: CGraphicTileset(), count: EAssetType.Max.rawValue)
+        DAssetTilesets[EAssetType.Peasant.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Peasant.rawValue].LoadTileset(filename: "Peasant")
+        DAssetTilesets[EAssetType.Footman.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Footman.rawValue].LoadTileset(filename: "Footman")
+        DAssetTilesets[EAssetType.Archer.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Archer.rawValue].LoadTileset(filename: "Archer")
+        DAssetTilesets[EAssetType.Ranger.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Ranger.rawValue].LoadTileset(filename: "Ranger")
+        DAssetTilesets[EAssetType.GoldMine.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.GoldMine.rawValue].LoadTileset(filename: "GoldMine")
+        DAssetTilesets[EAssetType.TownHall.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.TownHall.rawValue].LoadTileset(filename: "TownHall")
+        DAssetTilesets[EAssetType.Keep.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Keep.rawValue].LoadTileset(filename: "Keep")
+        DAssetTilesets[EAssetType.Castle.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Castle.rawValue].LoadTileset(filename: "Castle")
+        DAssetTilesets[EAssetType.Farm.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Farm.rawValue].LoadTileset(filename: "Farm")
+        DAssetTilesets[EAssetType.Barracks.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Barracks.rawValue].LoadTileset(filename: "Barracks")
+        DAssetTilesets[EAssetType.LumberMill.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.LumberMill.rawValue].LoadTileset(filename: "LumberMill")
+        DAssetTilesets[EAssetType.Blacksmith.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.Blacksmith.rawValue].LoadTileset(filename: "Blacksmith")
+        DAssetTilesets[EAssetType.ScoutTower.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.ScoutTower.rawValue].LoadTileset(filename: "ScoutTower")
+        DAssetTilesets[EAssetType.GuardTower.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.GuardTower.rawValue].LoadTileset(filename: "GuardTower")
+        DAssetTilesets[EAssetType.CannonTower.rawValue] = CGraphicTileset()
+        DAssetTilesets[EAssetType.CannonTower.rawValue].LoadTileset(filename: "CannonTower")
 
         LoadGameMap(index: 3)
 
@@ -726,19 +725,6 @@ class CApplicationData {
     //            DCurrentLoadingStep += 1
     //        }
     //    }
-
-    // FIXME: What is TSoundLibraryLoadingCalldata
-    // static func SoundLoadingCallback(data: TSoundLibraryLoadingCalldata) {}
-
-    //    func ChangeApplicationMode(mode: CApplicationMode) {
-    //        DNextApplicationMode = mode
-    //        DNextApplicationMode.InitializeChange(context: self)
-    //    }
-
-    // FIXME: can't do this overloaded operator.
-    // func ModeIsChanging() -> Bool {
-    //     return DNextApplicationMode == DApplicationMode
-    // }
 
     func LoadGameMap(index: Int) {
         var DetailedMapWidth: Int
