@@ -132,7 +132,7 @@ class CPosition {
                     continue
                 }
 
-                let SinSquared: Double = Double(YDistance / (YDistance + XDistance))
+                let SinSquared: Double = Double(YDistance) / Double(YDistance + XDistance)
 
                 if 0.1464466094 > SinSquared { // East or West
                     if NegativeX { // West

@@ -256,13 +256,12 @@ class CBattleMode: CApplicationMode {
                         }
                     }
                     if CanHarvest {
-                        //                        var TempTilePosition: CTilePosition = CTilePosition()
-                        //                        TempTilePosition.Y(y: ClickedTile.DY)
-                        //                        TempTilePosition.X(x: ClickedTile.DX)
-                        //                        if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindTrees(pos: ClickedTile))! {
-                        //                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Mine
-                        //
-                        //                        }
+                        var TempTilePosition: CTilePosition = CTilePosition()
+                        TempTilePosition.Y(y: ClickedTile.DY)
+                        TempTilePosition.X(x: ClickedTile.DX)
+                        if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindTrees(pos: ClickedTile))! {
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Mine
+                        }
                         if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindGoldMine(pos: ClickedTile))! {
                             context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Mine
                             context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.GoldMine
