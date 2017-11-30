@@ -2,6 +2,11 @@
 No way out of this maze
 # Map Dimensions W x H
 128 128
+# Map Description
+The map description will go here
+it can be 0 or more lines
+# Map Tileset
+./path/to/Terrain.dat
 # Map Terrain Data
 gggggggggggggggFFFFgGGGGGGgFFFFgGGGGggFFFFggGGGGgGGGGgggggFFFFgggggGGGggGGGGGGGGGGGGGGGGGGGGGgFFFFgggGGGGGGGGGGGGGGGGGGGggGGGGGGG
 GGGGGgGGGGGGgggFFFFgGGGGGGgFFFFgGGGGggFFFFggGGGGGGGGGGGgggFFFFgGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGgFFFFgGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG

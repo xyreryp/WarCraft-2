@@ -62,8 +62,12 @@ class CTerrainMap {
     var DPartials: [[UInt8]]
     var DMap: [[ETileType]]
     var DMapIndices: [[Int]]
+    var DMapDescription: [String] = []
     var DMapName: String
+    var DMapTileset: String?
     var DRendered: Bool
+    var MapWidth = 0
+    var MapHeight = 0
 
     init() {
         DMapName = "not rendered"
@@ -81,6 +85,8 @@ class CTerrainMap {
         DMap = map.DMap
         DMapIndices = map.DMapIndices
         DRendered = map.DRendered
+        MapWidth = map.MapWidth
+        MapHeight = map.MapHeight
     }
 
     deinit {}
@@ -247,12 +253,7 @@ class CTerrainMap {
         let UR = DTerrainMap[y][x + 1]
         let LL = DTerrainMap[y + 1][x]
         let LR = DTerrainMap[y + 1][x + 1]
-
-        let Temp1 = ((DPartials[y][x] & 0x8) >> 3)
-        let Temp2 = ((DPartials[y][x + 1] & 0x4) >> 1)
-        let Temp3 = ((DPartials[y + 1][x] & 0x2) << 1)
-        let Temp4 = ((DPartials[y + 1][x + 1] & 0x1) << 3)
-        var TypeIndex: Int = Int(Temp1) | Int(Temp2) | Int(Temp3) | Int(Temp4)
+        var TypeIndex = ((DPartials[y][x] & 0x8) >> 3) | ((DPartials[y][x + 1] & 0x4) >> 1) | ((DPartials[y + 1][x] & 0x2) << 1) | ((DPartials[y + 1][x + 1] & 0x1) << 3)
 
         if (ETerrainTileType.DarkGrass == UL) || (ETerrainTileType.DarkGrass == UR) || (ETerrainTileType.DarkGrass == LL) || (ETerrainTileType.DarkGrass == LR) {
             TypeIndex &= (ETerrainTileType.DarkGrass == UL) ? 0xF : 0xE
@@ -260,55 +261,56 @@ class CTerrainMap {
             TypeIndex &= (ETerrainTileType.DarkGrass == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.DarkGrass == LR) ? 0xF : 0x7
             type = ETileType.DarkGrass
-            index = TypeIndex
-
+            index = Int(TypeIndex)
         } else if (ETerrainTileType.DarkDirt == UL) || (ETerrainTileType.DarkDirt == UR) || (ETerrainTileType.DarkDirt == LL) || (ETerrainTileType.DarkDirt == LR) {
             TypeIndex &= (ETerrainTileType.DarkDirt == UL) ? 0xF : 0xE
             TypeIndex &= (ETerrainTileType.DarkDirt == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.DarkDirt == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.DarkDirt == LR) ? 0xF : 0x7
             type = ETileType.DarkDirt
-            index = TypeIndex
+            index = Int(TypeIndex)
         } else if (ETerrainTileType.DeepWater == UL) || (ETerrainTileType.DeepWater == UR) || (ETerrainTileType.DeepWater == LL) || (ETerrainTileType.DeepWater == LR) {
             TypeIndex &= (ETerrainTileType.DeepWater == UL) ? 0xF : 0xE
             TypeIndex &= (ETerrainTileType.DeepWater == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.DeepWater == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.DeepWater == LR) ? 0xF : 0x7
             type = ETileType.DeepWater
-            index = TypeIndex
+            index = Int(TypeIndex)
         } else if (ETerrainTileType.ShallowWater == UL) || (ETerrainTileType.ShallowWater == UR) || (ETerrainTileType.ShallowWater == LL) || (ETerrainTileType.ShallowWater == LR) {
             TypeIndex &= (ETerrainTileType.ShallowWater == UL) ? 0xF : 0xE
             TypeIndex &= (ETerrainTileType.ShallowWater == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.ShallowWater == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.ShallowWater == LR) ? 0xF : 0x7
             type = ETileType.ShallowWater
-            index = TypeIndex
+            index = Int(TypeIndex)
         } else if (ETerrainTileType.Rock == UL) || (ETerrainTileType.Rock == UR) || (ETerrainTileType.Rock == LL) || (ETerrainTileType.Rock == LR) {
             TypeIndex &= (ETerrainTileType.Rock == UL) ? 0xF : 0xE
             TypeIndex &= (ETerrainTileType.Rock == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.Rock == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.Rock == LR) ? 0xF : 0x7
-            type = (TypeIndex != 0) ? .Rock : .Rubble
-            index = TypeIndex
+            type = (TypeIndex != 0) ? ETileType.Rock : ETileType.Rubble
+            index = Int(TypeIndex)
         } else if (ETerrainTileType.Forest == UL) || (ETerrainTileType.Forest == UR) || (ETerrainTileType.Forest == LL) || (ETerrainTileType.Forest == LR) {
             TypeIndex &= (ETerrainTileType.Forest == UL) ? 0xF : 0xE
             TypeIndex &= (ETerrainTileType.Forest == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.Forest == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.Forest == LR) ? 0xF : 0x7
-            if TypeIndex != 0 {
+            if Int(TypeIndex) != 0 {
                 type = ETileType.Forest
-                index = TypeIndex
+                index = Int(TypeIndex)
             } else {
                 type = ETileType.Stump
                 index = ((ETerrainTileType.Forest == UL) ? 0x1 : 0x0) | ((ETerrainTileType.Forest == UR) ? 0x2 : 0x0) | ((ETerrainTileType.Forest == LL) ? 0x4 : 0x0) | ((ETerrainTileType.Forest == LR) ? 0x8 : 0x0)
             }
+
         } else if (ETerrainTileType.LightDirt == UL) || (ETerrainTileType.LightDirt == UR) || (ETerrainTileType.LightDirt == LL) || (ETerrainTileType.LightDirt == LR) {
             TypeIndex &= (ETerrainTileType.LightDirt == UL) ? 0xF : 0xE
             TypeIndex &= (ETerrainTileType.LightDirt == UR) ? 0xF : 0xD
             TypeIndex &= (ETerrainTileType.LightDirt == LL) ? 0xF : 0xB
             TypeIndex &= (ETerrainTileType.LightDirt == LR) ? 0xF : 0x7
             type = ETileType.LightDirt
-            index = TypeIndex
+            index = Int(TypeIndex)
+
         } else {
             // Error?
             type = ETileType.LightGrass
@@ -319,16 +321,17 @@ class CTerrainMap {
     //terain being rendered
     // second for loop has index out of range
     func RenderTerrain() {
-        DMap = [[ETileType]](repeating: [], count: DTerrainMap.count + 1)
-        DMapIndices = [[Int]](repeating: [], count: DTerrainMap.count + 1)
-        for YPos in 0 ..< DMap.count {
+        DMap = Array(repeating: Array(repeating: ETileType.None, count: 0), count: DTerrainMap.count + 1)
+        DMapIndices = Array(repeating: Array(repeating: 0, count: 0), count: DTerrainMap.count + 1)
+
+        for YPos in 0 ... DMap.count - 1 {
             if (0 == YPos) || (DMap.count - 1 == YPos) {
-                for _ in 0 ..< DTerrainMap[0].count + 1 {
+                for _ in 0 ... DTerrainMap[0].count {
                     DMap[YPos].append(ETileType.Rock)
                     DMapIndices[YPos].append(0xF)
                 }
             } else {
-                for XPos in 0 ..< DTerrainMap[YPos - 1].count + 1 {
+                for XPos in 0 ... DTerrainMap[YPos - 1].count {
                     if (0 == XPos) || (DTerrainMap[YPos - 1].count == XPos) {
                         DMap[YPos].append(ETileType.Rock)
                         DMapIndices[YPos].append(0xF)
@@ -371,83 +374,86 @@ class CTerrainMap {
     }
 
     @discardableResult
-    func LoadMap(fileToRead: String) -> Bool {
-        var ReturnStatus: Bool = false
-        let StringMap = CDataSource.ReadMap(fileName: fileToRead, extensionType: ".map")
-        DMapName = getMapName(fileText: StringMap[1])
-        let dimensions: (Int, Int) = getMapWidthandHeight(fileText: StringMap[2])
-        let MapWidth = dimensions.0
-        let MapHeight = dimensions.1
-        if (8 > MapWidth) || (8 > MapHeight) {
-            return ReturnStatus
+    func LoadMap(from source: CDataSource) {
+        var tokens: [String]
+
+        DMapName = source.Read()
+
+        // Get the map dimensions
+        tokens = source.Read().components(separatedBy: " ")
+        MapWidth = Int(tokens[0])!
+        MapHeight = Int(tokens[1])!
+
+        // Adding in Map Description
+        let numLinesInDescription = source.GetNumLinesBetweenComments()
+        for _ in 0 ..< numLinesInDescription {
+            DMapDescription.append(source.Read())
         }
 
-        // Reading in DTerrainMap
-        DTerrainMap = [[CTerrainMap.ETerrainTileType]](repeating: [], count: MapHeight + 1)
-        for Index in 0 ..< DTerrainMap.count {
-            DTerrainMap[Index] = [CTerrainMap.ETerrainTileType](repeating: ETerrainTileType.None, count: MapWidth + 1)
-            for Inner in 0 ..< MapWidth + 1 {
-                let index1: String.Index = StringMap[5][Index + 1].index(StringMap[5][Index + 1].startIndex, offsetBy: Inner)
-                // fifth array in array of arrays, then first character of fifth array.
-                // start populating DTerrainMap
-                switch StringMap[5][Index + 1][index1] {
-                case "G": DTerrainMap[Index][Inner] = ETerrainTileType.DarkGrass
+        // Adding the path of the map's tileset
+        DMapTileset = source.Read()
+
+        // Get the string representation of the terrain map
+        var StringMap: [String] = []
+        for _ in 0 ... MapHeight {
+            StringMap.append(source.Read())
+        }
+
+        // Use StringMap to determine which tile to place in the terrain map
+        DTerrainMap = Array(repeating: Array(repeating: ETerrainTileType.None, count: MapWidth + 1), count: MapHeight + 1)
+        // miniMap = Array(repeating: pixel(alpha: 0, red: 0, green: 0, blue: 0), count: (MapWidth+1)*(MapHeight+1))
+        // miniMapNoAssets = Array(repeating: pixel(alpha: 0, red: 0, green: 0, blue: 0), count: (MapWidth+1)*(MapHeight+1))
+        for index in 0 ... MapHeight {
+            for j in 0 ... MapWidth {
+                let str = StringMap[index]
+                let inner = str.index(str.startIndex, offsetBy: j)
+
+                switch StringMap[index][inner]
+                {
+                case "G": DTerrainMap[index][j] = ETerrainTileType.DarkGrass
                     break
-                case "g": DTerrainMap[Index][Inner] = ETerrainTileType.LightGrass
+                case "g": DTerrainMap[index][j] = ETerrainTileType.LightGrass
                     break
-                case "D": DTerrainMap[Index][Inner] = ETerrainTileType.DarkDirt
+                case "D": DTerrainMap[index][j] = ETerrainTileType.DarkDirt
                     break
-                case "d": DTerrainMap[Index][Inner] = ETerrainTileType.LightDirt
+                case "d": DTerrainMap[index][j] = ETerrainTileType.LightDirt
                     break
-                case "R": DTerrainMap[Index][Inner] = ETerrainTileType.Rock
+                case "R": DTerrainMap[index][j] = ETerrainTileType.Rock
                     break
-                case "r": DTerrainMap[Index][Inner] = ETerrainTileType.RockPartial
+                case "r": DTerrainMap[index][j] = ETerrainTileType.RockPartial
                     break
-                case "F": DTerrainMap[Index][Inner] = ETerrainTileType.Forest
+                case "F": DTerrainMap[index][j] = ETerrainTileType.Forest
                     break
-                case "f": DTerrainMap[Index][Inner] = ETerrainTileType.ForestPartial
+                case "f": DTerrainMap[index][j] = ETerrainTileType.ForestPartial
                     break
-                case "W": DTerrainMap[Index][Inner] = ETerrainTileType.DeepWater
+                case "W": DTerrainMap[index][j] = ETerrainTileType.DeepWater
                     break
-                case "w": DTerrainMap[Index][Inner] = ETerrainTileType.ShallowWater
+                case "w": DTerrainMap[index][j] = ETerrainTileType.ShallowWater
                     break
-                default: return ReturnStatus
-                }
-                if Inner != 0 {
-                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index][(Inner - 1)].rawValue] {
-                        return ReturnStatus
-                    }
-                }
-                if Index != 0 {
-                    if !CTerrainMap.DAllowedAdjacent[DTerrainMap[Index][Inner].rawValue][DTerrainMap[Index - 1][Inner].rawValue] {
-                        return ReturnStatus
-                    }
+                default: break
                 }
             }
         }
+        // Get the string representation of the map's partial bits
+        StringMap.removeAll()
+        for _ in 0 ... MapHeight {
+            StringMap.append(source.Read())
+        }
 
-        DPartials = [[UInt8]](repeating: [], count: MapHeight + 1)
-        let valueStringValues: [Character] = ["0", "A"]
-        var asciiValues: [UInt8] = String(valueStringValues).utf8.map { UInt8($0) }
-        for Index in 0 ..< DTerrainMap.count {
-            DPartials[Index] = [UInt8](repeating: 0x0, count: MapWidth + 1)
-            for Inner in 0 ..< MapWidth + 1 {
-                // FIXME: change 7 to somehting
-                let index: String.Index = StringMap[6][Index + 1].index(StringMap[6][Index + 1].startIndex, offsetBy: Inner)
+        DPartials = Array(repeating: Array(repeating: 0x00, count: MapWidth + 1), count: MapHeight + 1)
+        for index in 0 ... MapHeight {
+            for j in 0 ... MapWidth {
+                let str = StringMap[index]
+                let inner = str.index(str.startIndex, offsetBy: j)
 
-                let intValue: UInt8 = String(StringMap[6][Index + 1][index]).utf8.map { UInt8($0) }[0]
-
-                if ("0" <= StringMap[6][Index + 1][index]) && ("9" >= StringMap[6][Index + 1][index]) {
-                    DPartials[Index][Inner] = intValue - asciiValues[0]
-                } else if ("A" <= StringMap[6][Index + 1][index]) && ("F" >= StringMap[6][Index + 1][index]) {
-                    DPartials[Index][Inner] = intValue - asciiValues[1] + 0x0A
+                if ("0" <= StringMap[index][inner]) && ("9" >= StringMap[index][inner]) {
+                    // DPartials[index][j] = StringMap[index][inner] - "0"
+                } else if ("A" <= StringMap[index][inner]) && ("F" >= StringMap[index][inner]) {
+                    // DPartials[index][j] = StringMap[index][inner] - 'A' + 0x0A;
+                    DPartials[index][j] = 0x0F
                 } else {
-                    return ReturnStatus
                 }
             }
         }
-
-        ReturnStatus = true
-        return ReturnStatus
     }
 }

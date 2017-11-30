@@ -134,6 +134,7 @@ class CViewportRenderer {
         TempRectangle.DXPosition = DViewportX
         TempRectangle.DYPosition = DViewportY
         TempRectangle.DWidth = DLastViewportWidth
+        // FIXME: no idea how to change viewport stuff
         TempRectangle.DHeight = DLastViewportWidth
 
         /*  switch curcapability {
@@ -152,7 +153,7 @@ class CViewportRenderer {
          default:
          break // do nothing
          }*/
-
+        // DMapRenderer.DrawMap(surface: surface, rect: TempRectangle)
         DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
         //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))

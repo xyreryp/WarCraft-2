@@ -90,18 +90,13 @@ class CBattleMode: CApplicationMode {
                     }
                 }
                 if SGUIKeyType.Escape == Key { // if esc pressed, no capabilities selected
-                    print("pressed escape") // Debug
                     context.DCurrentAssetCapability = EAssetCapabilityType.None
                 }
                 if EAssetCapabilityType.BuildSimple == context.DCurrentAssetCapability { // check if capability was to build
                     if let KeyLookup = context.DBuildHotKeyMap[Key] { // check if valid hotkey
 
-                        // print("capability type:", KeyLookup) // Debug
-
                         var PlayerCapability: CPlayerCapability? = CPlayerCapability.FindCapability(type: KeyLookup) // Not assigned to PlayerCapability from FindCapability because not found in Registry
                         if PlayerCapability != nil {
-
-                            print("Player capability type: ", PlayerCapability!.DTargetType) // Debug
 
                             let ActorTarget = context.DSelectedPlayerAssets.first
 
@@ -112,8 +107,6 @@ class CBattleMode: CApplicationMode {
                     }
                 } else if CanMove {
                     if let KeyLookup = context.DUnitHotKeyMap[Key] {
-
-                        print("In Can move:", Key, ":", KeyLookup) // Debug
 
                         var HasCapability: Bool = true
                         for Asset in context.DSelectedPlayerAssets {
@@ -256,18 +249,24 @@ class CBattleMode: CApplicationMode {
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DActors = context.DSelectedPlayerAssets
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetLocation = ClickedPixel
 
-                    //
-                    //                    for Asset in context.DSelectedPlayerAssets {
-                    //                        if Asset.HasCapability(capability: EAssetCapabilityType.Mine) {
-                    //                            CanHarvest = false
-                    //                            break
-                    //                        }
-                    //                    }
-                    //
-                    //                    if (CanHarvest) {
-                    //                        if (CPixelType.EAssetTerrainType.Tree)
-                    //                    }
-                    //
+                    for Asset in context.DSelectedPlayerAssets {
+                        if !(Asset.HasCapability(capability: EAssetCapabilityType.Mine)) {
+                            CanHarvest = false
+                            break
+                        }
+                    }
+                    if CanHarvest {
+                        var TempTilePosition: CTilePosition = CTilePosition()
+                        TempTilePosition.Y(y: ClickedTile.DY)
+                        TempTilePosition.X(x: ClickedTile.DX)
+                        if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindTrees(pos: ClickedTile))! {
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Mine
+                        }
+                        if (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindGoldMine(pos: ClickedTile))! {
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = .Mine
+                            context.DPlayerCommands[context.DPlayerColor.rawValue].DTargetType = EAssetType.GoldMine
+                        }
+                    }
                 }
             }
         }
@@ -739,16 +738,18 @@ class CBattleMode: CApplicationMode {
                 // find capability of the command
                 let PlayerCapability = CPlayerCapability.FindCapability(type: context.DPlayerCommands[Index].DAction)
 
-                var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
-                // if traget type is not none
-                if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
-                    // if no target type command, then create a marker aka if you clicked on grass
-                    if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
-                        NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
-                    } else {
-                        // Not sure if need a let; got rid of a lock()
-                        // if you clicked on an asset, then select the asset
-                        NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
+                if nil != PlayerCapability {
+                    var NewTarget: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+                    // if traget type is not none
+                    if (CPlayerCapability.ETargetType.None != PlayerCapability.DTargetType) && (CPlayerCapability.ETargetType.Player != PlayerCapability.DTargetType) {
+                        // if no target type command, then create a marker aka if you clicked on grass
+                        if EAssetType.None == context.DPlayerCommands[Index].DTargetType {
+                            NewTarget = context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.CreateMarker(pos: context.DPlayerCommands[Index].DTargetLocation, addtomap: true)
+                        } else {
+                            // Not sure if need a let; got rid of a lock()
+                            // if you clicked on an asset, then select the asset
+                            NewTarget = context.DGameModel.Player(color: context.DPlayerCommands[Index].DTargetColor)!.SelectAsset(pos: context.DPlayerCommands[Index].DTargetLocation, assettype: context.DPlayerCommands[Index].DTargetType)
+                        }
                     }
 
                     // for all units that are selected for that player

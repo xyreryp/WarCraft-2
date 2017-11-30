@@ -288,14 +288,14 @@ class CPlayerData {
         return BestAsset
     }
 
-    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
+    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset? {
 
-        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+        var BestAsset: CPlayerAsset?
         var BestDistanceSquared = -1
 
         for Asset in DAssets {
             for AssetType in assettypes {
-                if Asset.Type() == AssetType && EAssetAction.Construct != Asset.Action() || EAssetType.Keep == AssetType || EAssetType.Castle == AssetType {
+                if Asset.Type() == AssetType && (EAssetAction.Construct != Asset.Action() || AssetType == EAssetType.Keep || AssetType == EAssetType.Castle) {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
 
                     if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {

@@ -262,21 +262,28 @@ class CGraphicTileset {
         }
     } // end CreateCLippingMasks()
 
-    func TestLoadTileset(source: CDataSource!, assetName: String) -> Bool {
+    @discardableResult
+    func LoadTileset(filename: String) {
         // use DataSource to Read
-        var TempTokens = source.ReadInTiles(fileName: assetName, extensionType: "dat")
-        var Tokens = [String]()
-        for i in 5 ..< TempTokens.count {
-            //            print("loading \(assetName) tilenum \(i)")
-            Tokens.append(TempTokens[i])
-            DMapping[TempTokens[i]] = i - 5
-            DTileNames.append(TempTokens[i])
-            //            print("TilesetName: \(TempTokens[i])")
-        }
-        DTileCount = Tokens.count - 1
+        let source = CDataSource()
+        source.LoadFile(named: filename, extensionType: "dat", commentChar: "#")
 
-        // load the actual image from Assets folder.
-        let Tileset = NSImage(named: NSImage.Name(rawValue: assetName))!
+        // Get the path to the PNG of this file
+        _ = source.Read()
+        DTileCount = Int(source.Read())!
+
+        // Get the name of each frame in the tileset and map it to its tile index
+        var TempString: String
+        DTileNames = Array(repeating: "", count: DTileCount)
+        for Index in 0 ..< DTileCount {
+            TempString = source.Read()
+            DTileNames[Index] = TempString
+            DMapping[TempString] = Index
+        }
+
+        // Split the image into individual tile images
+        // use a class member
+        let Tileset = NSImage(named: NSImage.Name(rawValue: filename))!
         DTileWidth = Int(Tileset.size.width)
         DTileHeight = Int(Tileset.size.height)
         DTileHeight /= DTileCount
@@ -293,43 +300,42 @@ class CGraphicTileset {
             DTileSet.append(tempTexture)
         }
         UpdateGroupName()
-        return true
     }
 
-    func LoadTileset(source _: CDataSource!) -> Bool {
-        if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
-            do {
-                let TempString = try String(contentsOfFile: filepath, encoding: .utf8)
-                let TempTokens = TempString.components(separatedBy: .newlines)
-                var Tokens = [String]()
-                for i in 5 ..< TempTokens.count {
-                    Tokens.append(TempTokens[i])
-                    DMapping[TempTokens[i]] = i - 5
-                    DTileNames.append(TempTokens[i])
-                }
-                DTileCount = Tokens.count
-            } catch {
-                print(error)
-            }
-        }
-        let Tileset = #imageLiteral(resourceName: "Terrain")
-        DTileWidth = Int(Tileset.size.width)
-        DTileHeight = Int(Tileset.size.height)
-        DTileHeight /= DTileCount
-        DTileHalfWidth = DTileWidth / 2
-        DTileHalfHeight = DTileHeight / 2
-        for i in 1 ... DTileCount {
-            let newSize: NSSize
-            newSize = NSSize(width: DTileWidth, height: DTileHeight)
-            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
-            DTileImageSet.append(temp)
-            let tempTexture = SKTexture(image: temp)
-            DTileSet.append(tempTexture)
-        }
-
-        UpdateGroupName()
-        return true
-    }
+    //    func LoadTileset(source _: CDataSource!) -> Bool {
+    //        if let filepath = Bundle.main.path(forResource: "Terrain", ofType: "dat") {
+    //            do {
+    //                let TempString = try String(contentsOfFile: filepath, encoding: .utf8)
+    //                let TempTokens = TempString.components(separatedBy: .newlines)
+    //                var Tokens = [String]()
+    //                for i in 5 ..< TempTokens.count {
+    //                    Tokens.append(TempTokens[i])
+    //                    DMapping[TempTokens[i]] = i - 5
+    //                    DTileNames.append(TempTokens[i])
+    //                }
+    //                DTileCount = Tokens.count
+    //            } catch {
+    //                print(error)
+    //            }
+    //        }
+    //        let Tileset = #imageLiteral(resourceName: "Terrain")
+    //        DTileWidth = Int(Tileset.size.width)
+    //        DTileHeight = Int(Tileset.size.height)
+    //        DTileHeight /= DTileCount
+    //        DTileHalfWidth = DTileWidth / 2
+    //        DTileHalfHeight = DTileHeight / 2
+    //        for i in 1 ... DTileCount {
+    //            let newSize: NSSize
+    //            newSize = NSSize(width: DTileWidth, height: DTileHeight)
+    //            let temp: NSImage = Tileset.crop(size: newSize, index: i)!
+    //            DTileImageSet.append(temp)
+    //            let tempTexture = SKTexture(image: temp)
+    //            DTileSet.append(tempTexture)
+    //        }
+    //
+    //        UpdateGroupName()
+    //        return true
+    //    }
 
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
         if 0 > tileindex || tileindex >= DTileCount {
@@ -352,23 +358,6 @@ class CGraphicTileset {
         let imageRect = CGRect(x: CGFloat(xpos), y: CGFloat(ypos), width: CGFloat(width), height: CGFloat(height))
         context.myContext.draw(image.CGImage, in: imageRect)
     }
-
-    //
-    //        surface.Draw(srcsurface: DSurfaceTileset!, dxpos: xpos, dypos: ypos, width: DTileWidth, height: DTileHeight, sxpos: 0, sypos: (tileindex * DTileHeight))
-    //    } // end LoadTileset()
-    //
-
-    //    func DrawClipped(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, rgb: UInt32) {
-    //        if 0 > tileindex || tileindex >= DClippingMasks.count {
-    //            return
-    //        }
-    //
-    //        // following done through core graphics kit
-    //        let ResourceContext: CGraphicResourceContext = surface.CreateResourceContext()
-    //        ResourceContext.Fill()
-    //        ResourceContext.SetSourceRGB(rgb: rgb)
-    //        ResourceContext.MaskSurface(srcsurface: DClippingMasks[tileindex], xpos: xpos, ypos: ypos)
-    //    }
 }
 
 // https://gist.github.com/MaciejGad/11d8469b218817290ee77012edb46608
