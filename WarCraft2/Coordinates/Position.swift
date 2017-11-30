@@ -46,11 +46,7 @@ class CPosition {
 
     // overloaded operators to compare Positions
     static func !=(lhs: CPosition, rhs: CPosition) -> Bool {
-        if lhs.DX != rhs.DX || lhs.DY != rhs.DY {
-            return true
-        }
-        return false
-    }
+        return lhs.DX != rhs.DX || lhs.DY != rhs.DY
 
     // calculate change, and give new direction
     func DirectionTo(pos: CPosition) -> EDirection {
