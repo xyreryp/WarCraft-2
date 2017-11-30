@@ -254,7 +254,7 @@ class CApplicationData {
         // more tileset things
         DMapRendererConfigurationData = [Character]()
         DTerrainTileset = CGraphicTileset()
-        //        DFogTileset = CGraphicTileset()
+        DFogTileset = CGraphicTileset()
 
         // recolor maps
         DAssetRecolorMap = CGraphicRecolorMap()
@@ -270,7 +270,6 @@ class CApplicationData {
         DCorpseTileset = CGraphicTileset()
         DBuildingDeathTileset = CGraphicTileset()
         DArrowTileset = CGraphicTileset()
-
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         //        DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
@@ -498,7 +497,6 @@ class CApplicationData {
         DAssetTilesets[EAssetType.GuardTower.rawValue].LoadTileset(filename: "GuardTower")
         DAssetTilesets[EAssetType.CannonTower.rawValue] = CGraphicTileset()
         DAssetTilesets[EAssetType.CannonTower.rawValue].LoadTileset(filename: "CannonTower")
-
         LoadGameMap(index: 3)
 
         DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[3], color: DPlayerColor)
@@ -623,9 +621,9 @@ class CApplicationData {
         DMapRenderer = CMapRenderer(config: nil, tileset: DTerrainTileset, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
         DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: DAssetTilesets, markertileset: DMarkerTileset, corpsetileset: DCorpseTileset, firetileset: DFireTileset, buildingdeath: DBuildingDeathTileset, arrowtileset: DArrowTileset, player: DGameModel.Player(color: DPlayerColor)!, map: (DGameModel.Player(color: DPlayerColor)?.DActualMap)!)
 
-        // DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
-        let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
-        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: fog)
+        DFogRenderer = CFogRenderer(tileset: DFogTileset, map: (DGameModel.Player(color: DPlayerColor)?.DVisibilityMap)!)
+        // let fog = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: 0, height: 0, maxvisibility: 10))
+        DViewportRenderer = CViewportRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer)
 
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
