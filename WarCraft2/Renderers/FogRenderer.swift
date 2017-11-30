@@ -27,7 +27,12 @@ class CFogRenderer {
         DFogIndices = [Int]()
         DBlackIndices = [Int]()
         for Index in 0 ..< 0x100 {
-            let hexIndex = String(format: "%02X", Index)
+            var hexIndex = String(Index, radix: 16, uppercase: true)
+            if hexIndex.count == 1 {
+                var temp = "0"
+                temp.append(hexIndex)
+                hexIndex = temp
+            }
             DFogIndices.append(DTileset.FindTile(tilename: "pf-\(hexIndex)"))
             DBlackIndices.append(DTileset.FindTile(tilename: "pb-\(hexIndex)"))
         }
@@ -35,69 +40,143 @@ class CFogRenderer {
         DNoneIndex = DBlackIndices[0x00]
     }
 
+    //    func DrawMap(surface: SKScene, rect: SRectangle) {
+    //        let TileWidth = DTileset.TileWidth()
+    //        let TileHeight = DTileset.TileHeight()
+    //        var YIndex = rect.DYPosition / TileHeight
+    //
+    //        for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
+    //            var XIndex = rect.DXPosition / TileWidth
+    //
+    //            for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {
+    //                let TileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
+    //
+    //                if TileType == .None {
+    //                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DNoneIndex)
+    //                    continue
+    //                } else if TileType == .Visible {
+    //                    continue
+    //                }
+    //
+    //                if TileType == .Seen || TileType == .SeenPartial {
+    //                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DSeenIndex)
+    //                }
+    //                if ETileVisibility.PartialPartial == TileType || ETileVisibility.Partial == TileType {
+    //                    var VisibilityIndex = 0
+    //                    var VisibilityMask = 0x1
+    //
+    //                    for YOff in -1 ..< 2 {
+    //                        for XOff in -1 ..< 2 {
+    //                            if YOff != 0 || XOff != 0 {
+    //                                let VisTile = DMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
+    //
+    //                                if VisTile == .Visible {
+    //                                    VisibilityIndex = VisibilityIndex | VisibilityMask
+    //                                }
+    //
+    //                                VisibilityMask <<= 1
+    //                            }
+    //                        }
+    //                    }
+    //                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DFogIndices[VisibilityIndex])
+    //                }
+    //
+    //                if TileType == .PartialPartial || TileType == .SeenPartial {
+    //                    var VisibilityIndex = 0
+    //                    var VisibilityMask = 0x1
+    //
+    //                    for YOff in -1 ..< 2 {
+    //                        for XOff in -1 ..< 2 {
+    //                            if YOff != 0 || XOff != 0 {
+    //                                let VisTile = DMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
+    //
+    //                                if ETileVisibility.Visible == VisTile || ETileVisibility.Partial == VisTile || ETileVisibility.Seen == VisTile {
+    //                                    VisibilityIndex = VisibilityIndex | VisibilityMask
+    //                                }
+    //                                VisibilityMask <<= 1
+    //                            }
+    //                        }
+    //                    }
+    //                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
+    //                }
+    //                XIndex += 1
+    //            }
+    //            YIndex += 1
+    //        }
+    //    }
     func DrawMap(surface: SKScene, rect: SRectangle) {
         let TileWidth = DTileset.TileWidth()
         let TileHeight = DTileset.TileHeight()
-        var YIndex = rect.DYPosition / TileHeight
 
-        for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
-            var XIndex = rect.DXPosition / TileWidth
+        var YIndex: Int = rect.DYPosition / TileHeight
+        var XIndex: Int = rect.DXPosition / TileWidth
+        var YPos: Int = -(rect.DYPosition % TileHeight)
+        var XPos: Int = -(rect.DXPosition % TileWidth)
 
-            for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {
-                let TileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
-
-                if TileType == .None {
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DNoneIndex)
-                    continue
-                } else if TileType == .Visible {
-                    continue
+        while true {
+            if YPos > rect.DHeight {
+                break
+            }
+            while true {
+                if XPos > rect.DWidth {
+                    break
                 }
+                let TileType: ETileVisibility = DMap.TileType(xindex: XIndex, yindex: YIndex)
 
-                if TileType == .Seen || TileType == .SeenPartial {
+                if TileType == ETileVisibility.None {
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DNoneIndex)
+                }
+                if TileType == ETileVisibility.Visible {
+                    // Do nothing
+                }
+                if (TileType == ETileVisibility.Seen) || (TileType == ETileVisibility.SeenPartial) {
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DSeenIndex)
                 }
-                if ETileVisibility.PartialPartial == TileType || ETileVisibility.Partial == TileType {
-                    var VisibilityIndex = 0
+                if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.Partial {
+                    var VisibilityIndex: Int = 0
                     var VisibilityMask = 0x1
 
-                    for YOff in -1 ..< 2 {
-                        for XOff in -1 ..< 2 {
-                            if YOff != 0 || XOff != 0 {
-                                let VisTile = DMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
-
-                                if VisTile == .Visible {
+                    for YOff in -1 ... 1 {
+                        for XOff in -1 ... 1 {
+                            if (YOff != 0) || (XOff != 0) {
+                                let VisTile: ETileVisibility = DMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
+                                if VisTile == ETileVisibility.Visible {
                                     VisibilityIndex = VisibilityIndex | VisibilityMask
                                 }
-
-                                VisibilityMask <<= 1
+                                VisibilityMask = VisibilityMask << 1
                             }
                         }
                     }
+
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DFogIndices[VisibilityIndex])
                 }
+                if TileType == ETileVisibility.PartialPartial || TileType == ETileVisibility.SeenPartial {
+                    var VisibilityIndex: Int = 0
+                    var VisibilityMask: Int = 0x1
 
-                if TileType == .PartialPartial || TileType == .SeenPartial {
-                    var VisibilityIndex = 0
-                    var VisibilityMask = 0x1
-
-                    for YOff in -1 ..< 2 {
-                        for XOff in -1 ..< 2 {
+                    for YOff in -1 ... 1 {
+                        for XOff in -1 ... 1 {
                             if YOff != 0 || XOff != 0 {
-                                let VisTile = DMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
+                                let VisTile: ETileVisibility = DMap.TileType(xindex: XIndex + XOff, yindex: YIndex + YOff)
 
-                                if ETileVisibility.Visible == VisTile || ETileVisibility.Partial == VisTile || ETileVisibility.Seen == VisTile {
+                                if VisTile == ETileVisibility.Visible || VisTile == ETileVisibility.Partial || VisTile == ETileVisibility.Seen {
                                     VisibilityIndex = VisibilityIndex | VisibilityMask
                                 }
-                                VisibilityMask <<= 1
+                                VisibilityMask = VisibilityMask << 1
                             }
                         }
                     }
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
+
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DBlackIndices[VisibilityIndex])
                 }
-                XIndex += 1
-            }
-            YIndex += 1
-        }
+                XIndex = XIndex + 1
+                XPos += TileWidth
+            } // inner loop
+            XIndex = rect.DXPosition / TileWidth
+            XPos = -(rect.DXPosition % TileWidth)
+            YIndex = YIndex + 1
+            YPos += TileHeight
+        } // outer loop
     }
 
     func DrawMiniMap(ResourceContext: CGraphicResourceContext) {
