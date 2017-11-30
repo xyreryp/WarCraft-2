@@ -91,23 +91,6 @@ class CDataSource {
         return line
     }
 
-    //    func ReadInTiles(fileName: String, extensionType: String) -> [String] {
-    //
-    //        let path = Bundle.main.path(forResource: fileName, ofType: extensionType, inDirectory: "img")
-    //        var lines = [String]() /// empty array of Strings
-    //        do {
-    //            // read the whole file
-    //            let wholeFile = try String(contentsOf: URL(fileURLWithPath: path!), encoding: String.Encoding.utf8)
-    //            // separte wholeFile into lines, separated by new lines
-    //            lines = wholeFile.components(separatedBy: .newlines)
-    //            // remove hash if any
-    //            //            lines = removeComments(Arr: lines)
-    //        } catch {
-    //            print("Error")
-    //        }
-    //        return lines
-    //    }
-
     func GetNumLinesBetweenComments() -> Int {
         var numLines = 0
         let currentLine = DCurrentLine + 1 // Skip the first comment line
