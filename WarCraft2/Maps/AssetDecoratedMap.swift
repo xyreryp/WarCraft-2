@@ -571,33 +571,56 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func CreateInitializeMap() -> CAssetDecoratedMap {
-        let ReturnMap: CAssetDecoratedMap = CAssetDecoratedMap()
+        let ReturnMap = CAssetDecoratedMap()
 
         if ReturnMap.DMap.count != DMap.count {
             ReturnMap.DTerrainMap = DTerrainMap
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
-            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
-            //            for var Row in ReturnMap.DMap {
-            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
-            //                for index in 0 ..< Row.count {
-            //                    Row[index] = ETileType.None
-            //                }
-            //            }
-            ReturnMap.DMap = DMap
-            ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+            ReturnMap.DMap = [[ETileType]](repeating: [], count: DMap.count)
+            for Row in 0 ..< ReturnMap.DMap.count {
+                ReturnMap.DMap[Row] = [ETileType](repeating: ETileType.None, count: DMap[0].count)
+            }
 
-            for var Row in ReturnMap.DMapIndices {
-                Row = [Int](repeating: Int(), count: DMapIndices[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = 0
-                }
+            ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+            for Row in 0 ..< DMapIndices.count {
+                ReturnMap.DMapIndices[Row] = [Int](repeating: 0, count: DMapIndices[0].count)
             }
         }
         return ReturnMap
     }
+
+    //    func CreateInitializeMap() -> CAssetDecoratedMap {
+    //        let ReturnMap: CAssetDecoratedMap = CAssetDecoratedMap()
+    //
+    //        if ReturnMap.DMap.count != DMap.count {
+    //            ReturnMap.DTerrainMap = DTerrainMap
+    //            ReturnMap.DPartials = DPartials
+    //
+    //            // Initialize to empty grass
+    //            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
+    //            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
+    //            //            for var Row in ReturnMap.DMap {
+    //            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
+    //            //                for index in 0 ..< Row.count {
+    //            //                    Row[index] = ETileType.None
+    //            //                }
+    //            //            }
+    //            ReturnMap.DMap = DMap
+    //            // ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+    //            ReturnMap.DMapIndices = Array(repeating: Array(repeating: 0, count: DMap.count), count: DMap.count) // initialize correctly
+    //
+    //            for var Row in ReturnMap.DMapIndices {
+    //                Row = [Int](repeating: Int(), count: DMapIndices[0].count)
+    //                //                Row = [Int](repeating: 0, count: DMapIndices[0].count)
+    //                for index in 0 ..< Row.count {
+    //                    Row[index] = 0
+    //                }
+    //            }
+    //        }
+    //        return ReturnMap
+    //    }
 
     func CreateVisibilityMap() -> CVisibilityMap {
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: CPlayerAssetType.MaxSight())
@@ -616,9 +639,11 @@ class CAssetDecoratedMap: CTerrainMap {
                     Row[index] = ETileType.None
                 }
             }
-            DMapIndices = [[Int]](repeating: [], count: resmap.DMapIndices.count)
+            // DMapIndices = [[Int]](repeating: [0], count: resmap.DMapIndices.count)
+            DMapIndices = Array(repeating: Array(repeating: 0, count: resmap.DMapIndices.count), count: resmap.DMapIndices.count) // initialize with value to stop "index out of range error"
             for var Row in DMapIndices {
-                Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
+                // Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
+                Row = [Int](repeating: 0, count: resmap.DMapIndices[0].count)
                 for index in 0 ..< Row.count {
                     Row[index] = 0
                 }
@@ -652,10 +677,24 @@ class CAssetDecoratedMap: CTerrainMap {
 
         for YPos: Int in 0 ..< DMap.count {
             for XPos: Int in 0 ..< DMap[YPos].count {
+                //                print("ypos: \(YPos)    xpos: \(XPos)")
+                //                print("DMapIndices")
+                //                print("\(DMapIndices[YPos][XPos]) ")
                 let VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
                 if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
-                    DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
+                    //                    print("dmap values are")
+                    //                    print(DMap[YPos][XPos])
+                    //                    print("mapindices are")
+                    //                    print(resmap.DMapIndices[YPos][XPos])
+                    // print(DMapIndices[68][68])
+                    DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos] // resolved FIXME
+                    if DMapIndices[YPos].count < XPos + 1 {
+                        DMapIndices[YPos].append(resmap.DMapIndices[YPos][XPos])
+                    } else {
+                        DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
+                    }
+                    // TempFix end
                 }
             }
         }
