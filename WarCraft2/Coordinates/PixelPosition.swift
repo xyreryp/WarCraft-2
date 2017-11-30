@@ -92,8 +92,8 @@ class CPixelPosition: CPosition {
                 CurPosition.DX = CurPosition.IncrementX(x: CPosition.DTileWidth)
             }
 
-          CurPosition.DX = CurPosition.X(x: objpos.X())
-          CurPosition.DY = CurPosition.IncrementY(y: CPosition.DTileHeight)
+            CurPosition.DX = CurPosition.X(x: objpos.X())
+            CurPosition.DY = CurPosition.IncrementY(y: CPosition.DTileHeight)
         }
         return BestPosition!
     }
