@@ -166,7 +166,7 @@ class CApplicationData {
     // all renderer things
     var DAssetRenderer: CAssetRenderer!
 
-    var DFogRenderer: CFogRenderer
+    var DFogRenderer: CFogRenderer!
 
     var DViewportRenderer: CViewportRenderer!
     // var DMiniMapRenderer: CMiniMapRenderer
@@ -349,8 +349,6 @@ class CApplicationData {
 
         // all renderer things
         // DAssetRenderer = CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap())
-
-        DFogRenderer = CFogRenderer(tileset: CGraphicTileset(), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int()))
 
         // MARK: Does this exist? Need to crosscheck with C++ code
         //        DViewportRenderer = CViewportRenderer(maprender: CMapRenderer(config: CDataSource(), tileset: CGraphicTileset(), map: CTerrainMap()), assetrender: CAssetRenderer(colors: CGraphicRecolorMap(), tilesets: [CGraphicTileset](), markertileset: CGraphicTileset(), corpsetileset: CGraphicTileset(), firetileset: [CGraphicTileset](), buildingdeath: CGraphicTileset(), arrowtileset: CGraphicTileset(), player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), map: CAssetDecoratedMap()), map: CVisibilityMap(width: Int(), height: Int(), maxvisibility: Int())))
