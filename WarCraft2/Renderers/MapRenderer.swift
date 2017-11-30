@@ -237,6 +237,10 @@ class CMapRenderer {
         let TileHeight = DTileset.TileHeight()
         // TODO: typesurface.Clear(xpos: Int(), ypos: Int(), width: Int(), height: Int())
         var YIndex = rect.DYPosition / TileHeight
+        //        var XIndex: Int = rect.DXPosition / TileWidth // from ios
+        //        var YPos: Int = -(rect.DYPosition % TileHeight)
+        //        var XPos: Int = -(rect.DXPosition % TileWidth)
+
         for YPos in stride(from: -(rect.DYPosition % TileHeight), to: rect.DHeight, by: TileHeight) {
             var XIndex = rect.DXPosition / TileWidth
             for XPos in stride(from: -(rect.DXPosition % TileWidth), to: rect.DWidth, by: TileWidth) {

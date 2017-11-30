@@ -571,35 +571,56 @@ class CAssetDecoratedMap: CTerrainMap {
     }
 
     func CreateInitializeMap() -> CAssetDecoratedMap {
-        let ReturnMap: CAssetDecoratedMap = CAssetDecoratedMap()
+        let ReturnMap = CAssetDecoratedMap()
 
         if ReturnMap.DMap.count != DMap.count {
             ReturnMap.DTerrainMap = DTerrainMap
             ReturnMap.DPartials = DPartials
 
             // Initialize to empty grass
-            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
-            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
-            //            for var Row in ReturnMap.DMap {
-            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
-            //                for index in 0 ..< Row.count {
-            //                    Row[index] = ETileType.None
-            //                }
-            //            }
-            ReturnMap.DMap = DMap
-            // ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
-            ReturnMap.DMapIndices = Array(repeating: Array(repeating: 0, count: DMap.count), count: DMap.count) // initialize correctly
+            ReturnMap.DMap = [[ETileType]](repeating: [], count: DMap.count)
+            for Row in 0 ..< ReturnMap.DMap.count {
+                ReturnMap.DMap[Row] = [ETileType](repeating: ETileType.None, count: DMap[0].count)
+            }
 
-            for var Row in ReturnMap.DMapIndices {
-                Row = [Int](repeating: Int(), count: DMapIndices[0].count)
-                //                Row = [Int](repeating: 0, count: DMapIndices[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = 0
-                }
+            ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+            for Row in 0 ..< DMapIndices.count {
+                ReturnMap.DMapIndices[Row] = [Int](repeating: 0, count: DMapIndices[0].count)
             }
         }
         return ReturnMap
     }
+
+    //    func CreateInitializeMap() -> CAssetDecoratedMap {
+    //        let ReturnMap: CAssetDecoratedMap = CAssetDecoratedMap()
+    //
+    //        if ReturnMap.DMap.count != DMap.count {
+    //            ReturnMap.DTerrainMap = DTerrainMap
+    //            ReturnMap.DPartials = DPartials
+    //
+    //            // Initialize to empty grass
+    //            // FIXME: UpdateMap should change ReturnMap.DMap, but need visbility map to work too
+    //            //            ReturnMap.DMap = [[CTerrainMap.ETileType]](repeating: [], count: DMap.count)
+    //            //            for var Row in ReturnMap.DMap {
+    //            //                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: DMap[0].count)
+    //            //                for index in 0 ..< Row.count {
+    //            //                    Row[index] = ETileType.None
+    //            //                }
+    //            //            }
+    //            ReturnMap.DMap = DMap
+    //            // ReturnMap.DMapIndices = [[Int]](repeating: [], count: DMap.count)
+    //            ReturnMap.DMapIndices = Array(repeating: Array(repeating: 0, count: DMap.count), count: DMap.count) // initialize correctly
+    //
+    //            for var Row in ReturnMap.DMapIndices {
+    //                Row = [Int](repeating: Int(), count: DMapIndices[0].count)
+    //                //                Row = [Int](repeating: 0, count: DMapIndices[0].count)
+    //                for index in 0 ..< Row.count {
+    //                    Row[index] = 0
+    //                }
+    //            }
+    //        }
+    //        return ReturnMap
+    //    }
 
     func CreateVisibilityMap() -> CVisibilityMap {
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: CPlayerAssetType.MaxSight())
