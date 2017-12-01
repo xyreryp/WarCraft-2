@@ -47,9 +47,11 @@ class CFogRenderer {
 
                 if TileType == .None {
                     DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DNoneIndex)
-                    //                    continue
+                    XIndex += 1
+                    continue
                 } else if TileType == .Visible {
-                    //                    continue
+                    XIndex += 1
+                    continue
                 }
 
                 if TileType == .Seen || TileType == .SeenPartial {
