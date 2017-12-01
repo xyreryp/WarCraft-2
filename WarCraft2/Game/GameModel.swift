@@ -74,7 +74,8 @@ class CGameModel {
         DConveyTime = 1
         DConveySteps = CPlayerAsset.UpdateFrequency() * DConveyTime
         DDeathTime = 1
-        DDeathSteps = CPlayerAsset.UpdateFrequency() * DDeathTime
+        // DDeathSteps = CPlayerAsset.UpdateFrequency() * DDeathTime
+        DDeathSteps = 15
         DDecayTime = 4
         DDecaySteps = CPlayerAsset.UpdateFrequency() * DDecayTime
         DLumberPerHarvest = 100

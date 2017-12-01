@@ -164,20 +164,14 @@ class CPlayerData {
     }
 
     func DeleteAsset(asset: CPlayerAsset) {
-        //        for i in 0 ..< DAssets.count {
-        //            let currAsset = DAssets[i]
-        //            if !(currAsset != asset) {
-        //                DAssets.remove(at: i)
-        //                break
-        //            }
-        //        }
-        //        DActualMap.RemoveAsset(asset: asset)
+
         for (Index, Asset) in DAssets.enumerated().reversed() {
             if Asset == asset {
                 DAssets.remove(at: Index)
                 break
             }
         }
+        DActualMap.RemoveAsset(asset: asset)
     }
 
     func AssetRequirementsMet(assettypename: String) -> Bool {
