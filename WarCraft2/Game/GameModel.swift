@@ -42,7 +42,7 @@ fileprivate func RangeToDistanceSquared(range: Int) -> Int {
 
 class CGameModel {
 
-    var DRandomNumberGenerator: RandomNumberGenerator
+    //    var DRandomNumberGenerator: RandomNumberGenerator
     var DActualMap: CAssetDecoratedMap
     var DAssetOccupancyMap: [[CPlayerAsset?]]
     var DDiagonalOccupancyMap: [[Bool]] // = [[true, false]]
@@ -79,7 +79,7 @@ class CGameModel {
         DDecaySteps = CPlayerAsset.UpdateFrequency() * DDecayTime
         DLumberPerHarvest = 100
         DGoldPerMining = 100
-        DRandomNumberGenerator = RandomNumberGenerator()
+        //        DRandomNumberGenerator = RandomNumberGenerator()
         // FIXME: Readd back in later
         // DRandomNumberGenerator.Seed(seed: seed)
         DDiagonalOccupancyMap = [[]]
@@ -416,11 +416,11 @@ class CGameModel {
                                 var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget!.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
                                 Damage += Asset.EffectivePiercingDamage()
-                                let random: UInt32 = 0x1
-                                if (DRandomNumberGenerator.Random() & random) != 0 {
-                                    // 50% chance half damage
-                                    Damage /= 2
-                                }
+                                //                                let random: UInt32 = 0x1
+                                //                                if (DRandomNumberGenerator.Random() & random) != 0 {
+                                //                                    // 50% chance half damage
+                                //                                    Damage /= 2
+                                //                                }
                                 CurrentCommand.DAssetTarget!.DecrementHitPoints(hitpts: Damage)
                                 TempEvent = SGameEvent(DType: EEventType.MeleeHit, DAsset: Asset)
                                 CurrentEvents.append(TempEvent)
@@ -476,11 +476,11 @@ class CGameModel {
                                 var Damage: Int = Asset.EffectiveBasicDamage() - CurrentCommand.DAssetTarget!.EffectiveArmor()
                                 Damage = 0 > Damage ? 0 : Damage
                                 Damage += Asset.EffectivePiercingDamage()
-                                let random: UInt32 = 0x1
-                                if (DRandomNumberGenerator.Random() & random) != 0 {
-                                    // 50% chance half damage
-                                    Damage /= 2
-                                }
+                                //                                let random: UInt32 = 0x1
+                                //                                if (DRandomNumberGenerator.Random() & random) != 0 {
+                                //                                    // 50% chance half damage
+                                //                                    Damage /= 2
+                                //                                }
                                 TempEvent = SGameEvent(DType: EEventType.MissleFire, DAsset: Asset)
                                 CurrentEvents.append(TempEvent)
                                 ArrowAsset.HitPoints(hitpts: Damage)
