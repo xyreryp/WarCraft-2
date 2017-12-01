@@ -449,7 +449,7 @@ class CAssetRenderer {
                                 TempRenderData.DTileIndex = DDeathIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue * ActionSteps + CurrentStep]
                             }
                         } else {
-                            if AssetIterator.DStep < (DBuildingDeathTileset?.TileCount())! {
+                            if AssetIterator.DStep < (DBuildingDeathTileset?.TileCount())! - DTilesets[TempRenderData.DType.rawValue].TileCount() {
                                 TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.DStep - 1
                                 TempRenderData.DX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileHalfWidth() - (DBuildingDeathTileset?.TileHalfWidth())!
                                 TempRenderData.DY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHalfHeight() - (DBuildingDeathTileset?.TileHalfHeight())!
