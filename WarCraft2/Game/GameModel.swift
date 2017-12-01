@@ -555,7 +555,6 @@ class CGameModel {
                 Asset.ResetStep()
             }
 
-            // MARK: CRUCIALLLLLLLLLLLLLLL
             if EAssetAction.Walk == Asset.Action() {
                 if Asset.TileAligned() {
                     var Command: SAssetCommand = Asset.CurrentCommand()

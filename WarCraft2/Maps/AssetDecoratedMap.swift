@@ -91,7 +91,6 @@ class CAssetDecoratedMap: CTerrainMap {
     deinit {
     }
 
-    // FIXME: Hard coded to take in one map for now
     @discardableResult
     static func LoadMaps(mapNames: [String]) {
 
@@ -106,34 +105,6 @@ class CAssetDecoratedMap: CTerrainMap {
             DAllMaps.append(TempMap)
         }
     }
-
-    //    func LoadMaps(container: CDataContainer) -> Bool {
-    //
-    //        let FileIterator: CDataContainerIterator! = container.First()
-    //        if FileIterator == nil {
-    //            print("FileIterator == nullptr\n")
-    //            return false
-    //        }
-    //        while ((FileIterator != nil)) && (FileIterator.IsValid()) {
-    //            let Filename: String = FileIterator.Name()
-    //            FileIterator.Next()
-    //            if Filename.range(of: ".map") != nil {
-    //                let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    //
-    //                if !TempMap.LoadMap(source: container.DataSource(name: Filename)) {
-    //                    print("Failed to load map \"%s\".\n", Filename)
-    //                    continue
-    //                } else {
-    //                    print("Loaded map \"%s\".\n", Filename)
-    //                }
-    //                TempMap.RenderTerrain()
-    //                CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = CAssetDecoratedMap.DAllMaps.count
-    //                CAssetDecoratedMap.DAllMaps.append(TempMap)
-    //            }
-    //        }
-    //        print("Maps loaded\n")
-    //        return true
-    //    }
 
     func Assets() -> [CPlayerAsset] {
         return DAssets
@@ -328,7 +299,6 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset!
     }
 
-    // FIXME: delete hardcode
     func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
         var AssetColor: EPlayerColor
         for Asset in DAssets {

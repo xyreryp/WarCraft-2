@@ -805,7 +805,6 @@ class CAssetRenderer {
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
-                        // FIXME:
                         DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }
