@@ -450,7 +450,7 @@ class CAssetRenderer {
                             }
                         } else {
                             if AssetIterator.DStep < (DBuildingDeathTileset?.TileCount())! {
-                                TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.DStep
+                                TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.DStep - 1
                                 TempRenderData.DX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileHalfWidth() - (DBuildingDeathTileset?.TileHalfWidth())!
                                 TempRenderData.DY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHalfHeight() - (DBuildingDeathTileset?.TileHalfHeight())!
                             }
@@ -465,7 +465,7 @@ class CAssetRenderer {
             }
         }
 
-        FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
+        // FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 // FIXME: Currently reversing height for rendering to make it render properly

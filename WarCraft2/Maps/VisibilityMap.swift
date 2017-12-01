@@ -82,7 +82,6 @@ class CVisibilityMap {
         // Update the visibility of all tiles in the terrain map
         for Row in 0 ..< DMap.count {
             for Col in 0 ..< DMap[0].count {
-                // print("Dmap tile value: \(DMap[Row][Col])")
                 if (ETileVisibility.Visible == DMap[Row][Col]) || (ETileVisibility.Partial == DMap[Row][Col]) {
                     DMap[Row][Col] = ETileVisibility.Seen
                 } else if ETileVisibility.PartialPartial == DMap[Row][Col] {
@@ -94,8 +93,7 @@ class CVisibilityMap {
         for WeakAsset in assets {
             if let CurAsset: CPlayerAsset = WeakAsset {
                 let Anchor = CurAsset.TilePosition()
-                //                let Sight = CurAsset.EffectiveSight() + CurAsset.Size() / 2
-                let Sight = CurAsset.Sight() + CurAsset.Size() / 2
+                let Sight = CurAsset.EffectiveSight() + CurAsset.Size() / 2
                 let SightSquared: Int = Sight * Sight
                 Anchor.X(x: Anchor.X() + CurAsset.Size() / 2)
                 Anchor.Y(y: Anchor.Y() + CurAsset.Size() / 2)
@@ -116,34 +114,32 @@ class CVisibilityMap {
                         } else if (XSquared1 + YSquared1) < SightSquared {
                             var CurVis: ETileVisibility = DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility]
 
-                            // NOTE: CHANGING TO SEEN PARTIAL MAKES IT COMPLETELY DARK
-
                             if ETileVisibility.Seen == CurVis {
-                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial // orig partial
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial
                             } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial // orig PP
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial
                             }
 
                             CurVis = DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility]
                             if ETileVisibility.Seen == CurVis {
-                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial // orig parital
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial
                             } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial // orig PP
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial
                             }
 
                             CurVis = DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility]
                             if ETileVisibility.Seen == CurVis {
-                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial // orign partial
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial
                             } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial // orig PP
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial
                             }
 
                             CurVis = DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility]
                             if ETileVisibility.Seen == CurVis {
-                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial // orig  partial
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial
                             } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial // orig PP
-                            } // NOTE: END NOTE
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial
+                            }
                         }
                     }
                 }

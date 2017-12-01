@@ -164,7 +164,7 @@ class CGameModel {
                 DPlayers[PlayerIndex].UpdateVisibility()
             }
         }
-        var AllAssets = DPlayers[1].DAssets // AllAssets is of [CPlayerAsset] type
+        var AllAssets = DActualMap.Assets()
 
         //        Following Code implements sorting the order of the asset turns.
 
@@ -522,6 +522,25 @@ class CGameModel {
                         }
                     }
                 }
+            } else if EAssetAction.Death == Asset.Action() {
+                Asset.IncrementStep()
+                if Asset.Step() > DDeathSteps {
+                    if Asset.Speed() != 0 {
+                        // FIXME: look at DecayCommand, could be an issue with initialization to nil
+                        let DecayCommand = SAssetCommand(DAction: EAssetAction.Decay, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
+                        // Create corpse
+                        let CorpseAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
+                        CorpseAsset.Position(position: Asset.Position())
+                        CorpseAsset.Direction(direction: Asset.Direction())
+                        CorpseAsset.PushCommand(command: DecayCommand)
+                    }
+                    DPlayers[Asset.Color().rawValue].DeleteAsset(asset: Asset)
+                }
+            } else if EAssetAction.Decay == Asset.Action() {
+                Asset.IncrementStep()
+                if Asset.Step() > DDecaySteps {
+                    DPlayers[Asset.Color().rawValue].DeleteAsset(asset: Asset)
+                }
             } else if EAssetAction.StandGround == Asset.Action() {
                 var Command: SAssetCommand = Asset.CurrentCommand()
                 let NewTarget: CPlayerAsset? = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveRange())
@@ -665,24 +684,5 @@ class CGameModel {
 //                    if Command.DActivatedCapability!.IncrementStep() {
 //                        // ALL DONE
 //                    }
-//                }
-//            } else if EAssetAction.Death == Asset.Action() {
-//                Asset.IncrementStep()
-//                if Asset.Step() > DDeathSteps {
-//                    if Asset.Speed() != 0 {
-//                        // FIXME: look at DecayCommand, could be an issue with initialization to nil
-//                        let DecayCommand = SAssetCommand(DAction: EAssetAction.Decay, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
-//                        // Create corpse
-//                        let CorpseAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")
-//                        CorpseAsset.Position(position: Asset.Position())
-//                        CorpseAsset.Direction(direction: Asset.Direction())
-//                        CorpseAsset.PushCommand(command: DecayCommand)
-//                    }
-//                    DPlayers[Asset.Color().rawValue].DeleteAsset(asset: Asset)
-//                }
-//            } else if EAssetAction.Decay == Asset.Action() {
-//                Asset.IncrementStep()
-//                if Asset.Step() > DDecaySteps {
-//                    DPlayers[Asset.Color().rawValue].DeleteAsset(asset: Asset)
 //                }
 //            }

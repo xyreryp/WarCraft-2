@@ -168,7 +168,7 @@ class CApplicationData {
     var DTrainHotKeyMap: [uint32: EAssetCapabilityType]
 
     // asset capabilities things
-    var DSelectedPlayerAssets: [CPlayerAsset]
+    var DSelectedPlayerAssets: [CPlayerAsset?] = []
     var DCurrentAssetCapability: EAssetCapabilityType
 
     // keys related things
@@ -275,7 +275,7 @@ class CApplicationData {
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
 
         // asset capabilities things
-        DSelectedPlayerAssets = [CPlayerAsset]()
+        //        DSelectedPlayerAssets: [CPlayerAsset?] = []
         DCurrentAssetCapability = EAssetCapabilityType.None
 
         // keys related things
