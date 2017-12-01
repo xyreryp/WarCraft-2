@@ -449,8 +449,8 @@ class CAssetRenderer {
                                 TempRenderData.DTileIndex = DDeathIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue * ActionSteps + CurrentStep]
                             }
                         } else {
-                            if AssetIterator.DStep < (DBuildingDeathTileset?.TileCount())! {
-                                TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.DStep
+                            if AssetIterator.DStep < (DBuildingDeathTileset?.TileCount())! - DTilesets[TempRenderData.DType.rawValue].TileCount() {
+                                TempRenderData.DTileIndex = DTilesets[TempRenderData.DType.rawValue].TileCount() + AssetIterator.DStep - 1
                                 TempRenderData.DX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileHalfWidth() - (DBuildingDeathTileset?.TileHalfWidth())!
                                 TempRenderData.DY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHalfHeight() - (DBuildingDeathTileset?.TileHalfHeight())!
                             }
@@ -465,7 +465,7 @@ class CAssetRenderer {
             }
         }
 
-        FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
+        // FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
                 // FIXME: Currently reversing height for rendering to make it render properly
@@ -805,7 +805,6 @@ class CAssetRenderer {
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
-                        // FIXME:
                         DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }

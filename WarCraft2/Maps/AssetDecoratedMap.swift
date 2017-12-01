@@ -91,7 +91,6 @@ class CAssetDecoratedMap: CTerrainMap {
     deinit {
     }
 
-    // FIXME: Hard coded to take in one map for now
     @discardableResult
     static func LoadMaps(mapNames: [String]) {
 
@@ -106,34 +105,6 @@ class CAssetDecoratedMap: CTerrainMap {
             DAllMaps.append(TempMap)
         }
     }
-
-    //    func LoadMaps(container: CDataContainer) -> Bool {
-    //
-    //        let FileIterator: CDataContainerIterator! = container.First()
-    //        if FileIterator == nil {
-    //            print("FileIterator == nullptr\n")
-    //            return false
-    //        }
-    //        while ((FileIterator != nil)) && (FileIterator.IsValid()) {
-    //            let Filename: String = FileIterator.Name()
-    //            FileIterator.Next()
-    //            if Filename.range(of: ".map") != nil {
-    //                let TempMap: CAssetDecoratedMap = CAssetDecoratedMap()
-    //
-    //                if !TempMap.LoadMap(source: container.DataSource(name: Filename)) {
-    //                    print("Failed to load map \"%s\".\n", Filename)
-    //                    continue
-    //                } else {
-    //                    print("Loaded map \"%s\".\n", Filename)
-    //                }
-    //                TempMap.RenderTerrain()
-    //                CAssetDecoratedMap.DMapNameTranslation[TempMap.MapName()] = CAssetDecoratedMap.DAllMaps.count
-    //                CAssetDecoratedMap.DAllMaps.append(TempMap)
-    //            }
-    //        }
-    //        print("Maps loaded\n")
-    //        return true
-    //    }
 
     func Assets() -> [CPlayerAsset] {
         return DAssets
@@ -169,13 +140,17 @@ class CAssetDecoratedMap: CTerrainMap {
 
     @discardableResult
     func RemoveAsset(asset: CPlayerAsset) -> Bool {
-        for index in 0 ... DAssets.count {
-            if DAssets[index] === asset { // not certain if this will work, if not we need to make CPlayerAsset equatable
-                DAssets.remove(at: index)
-                return true
-            }
+        //        for index in 0 ... DAssets.count {
+        //            if DAssets[index] === asset { // not certain if this will work, if not we need to make CPlayerAsset equatable
+        //                DAssets.remove(at: index)
+        //                return true
+        //            }
+        //        }
+        //        return false
+        DAssets = DAssets.filter {
+            $0 != asset
         }
-        return false
+        return true
     }
 
     func CanPlaceAsset(pos: CTilePosition, size: Int, ignoreasset: CPlayerAsset) -> Bool {
@@ -324,7 +299,6 @@ class CAssetDecoratedMap: CTerrainMap {
         return BestAsset!
     }
 
-    // FIXME: delete hardcode
     func fakeFindColor(pos: CTilePosition) -> EPlayerColor {
         var AssetColor: EPlayerColor
         for Asset in DAssets {
@@ -625,75 +599,58 @@ class CAssetDecoratedMap: CTerrainMap {
         return CVisibilityMap(width: Width(), height: Height(), maxvisibility: CPlayerAssetType.MaxSight())
     }
 
-    @discardableResult
     func UpdateMap(vismap: CVisibilityMap, resmap: CAssetDecoratedMap) -> Bool {
-
         if DMap.count != resmap.DMap.count {
             DTerrainMap = resmap.DTerrainMap
             DPartials = resmap.DPartials
-            DMap = [[CTerrainMap.ETileType]](repeating: [], count: resmap.DMap.count)
-            for var Row in DMap {
-                Row = [CTerrainMap.ETileType](repeating: CTerrainMap.ETileType.None, count: resmap.DMap[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = ETileType.None
-                }
+
+            DMap = [[ETileType]](repeating: [], count: resmap.DMap.count)
+            for Row in 0 ..< DMap.count {
+                DMap[Row] = [ETileType](repeating: ETileType.None, count: resmap.DMap[0].count)
             }
-            // DMapIndices = [[Int]](repeating: [0], count: resmap.DMapIndices.count)
-            DMapIndices = Array(repeating: Array(repeating: 0, count: resmap.DMapIndices.count), count: resmap.DMapIndices.count) // initialize with value to stop "index out of range error"
-            for var Row in DMapIndices {
-                // Row = [Int](repeating: Int(), count: resmap.DMapIndices[0].count)
-                Row = [Int](repeating: 0, count: resmap.DMapIndices[0].count)
-                for index in 0 ..< Row.count {
-                    Row[index] = 0
-                }
+
+            DMapIndices = [[Int]](repeating: [], count: resmap.DMapIndices.count)
+            for Row in 0 ..< DMapIndices.count {
+                DMapIndices[Row] = [Int](repeating: 0, count: resmap.DMapIndices[0].count)
             }
         }
 
         // Remove all movable units
         DAssets = DAssets.filter { asset in
-            return !((asset.Speed() != 0) || (EAssetAction.Decay == asset.Action()) || (EAssetAction.Attack == asset.Action()))
+            return (0 == asset.Speed()) || (EAssetAction.Decay != asset.Action()) || (EAssetAction.Attack != asset.Action())
         }
 
+        // Remove all stationary assets that have some sort of visibility
         DAssets = DAssets.filter { asset in
             let CurPosition = asset.TilePosition()
             let AssetSize = asset.Size()
+            var RemoveAsset = false
 
+            // Look at all the tiles the asset takes up
             for YOff in 0 ..< AssetSize {
-                let YPos: Int = CurPosition.Y() + YOff
-
+                let YPos = CurPosition.Y() + YOff
                 for XOff in 0 ..< AssetSize {
-                    let XPos: Int = CurPosition.X() + XOff
+                    let XPos = CurPosition.X() + XOff
 
-                    let VisType: ETileVisibility = vismap.TileType(xindex: XPos, yindex: YPos)
-                    if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
-                        // Remove visible so they can be updated
-                        return !(EAssetType.None != asset.Type())
+                    let VisType = vismap.TileType(xindex: XPos, yindex: YPos)
+                    switch VisType {
+                    case ETileVisibility.Partial, ETileVisibility.PartialPartial, ETileVisibility.Visible:
+                        // Ignore terrain tiles
+                        RemoveAsset = EAssetType.None != asset.Type()
+                    default: RemoveAsset = false
                     }
                 }
+                if RemoveAsset { break }
             }
-            return true
+            return !RemoveAsset
         }
 
         for YPos: Int in 0 ..< DMap.count {
             for XPos: Int in 0 ..< DMap[YPos].count {
-                //                print("ypos: \(YPos)    xpos: \(XPos)")
-                //                print("DMapIndices")
-                //                print("\(DMapIndices[YPos][XPos]) ")
                 let VisType: ETileVisibility = vismap.TileType(xindex: XPos - 1, yindex: YPos - 1)
                 if (ETileVisibility.Partial == VisType) || (ETileVisibility.PartialPartial == VisType) || (ETileVisibility.Visible == VisType) {
                     DMap[YPos][XPos] = resmap.DMap[YPos][XPos]
-                    //                    print("dmap values are")
-                    //                    print(DMap[YPos][XPos])
-                    //                    print("mapindices are")
-                    //                    print(resmap.DMapIndices[YPos][XPos])
-                    // print(DMapIndices[68][68])
-                    DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos] // resolved FIXME
-                    if DMapIndices[YPos].count < XPos + 1 {
-                        DMapIndices[YPos].append(resmap.DMapIndices[YPos][XPos])
-                    } else {
-                        DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
-                    }
-                    // TempFix end
+                    DMapIndices[YPos][XPos] = resmap.DMapIndices[YPos][XPos]
                 }
             }
         }
@@ -719,7 +676,6 @@ class CAssetDecoratedMap: CTerrainMap {
                 }
             }
         }
-
         return true
     }
 

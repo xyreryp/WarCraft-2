@@ -156,26 +156,18 @@ class CPlayerData {
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
         // FIXME: Why is this function so different than the .cpp?
-        for (key, pair) in DAssetTypes {
-            if assettypename == key {
-                let CreatedAsset: CPlayerAsset = pair.Construct()
-                CreatedAsset.CreationCycle(cycle: DGameCycle)
-                DAssets.append(CreatedAsset)
-                // FIXME: Where is this actually done? I can't seem to find when PlayerMap is added to
-                DPlayerMap.AddAsset(asset: CreatedAsset)
-                DActualMap.AddAsset(asset: CreatedAsset)
-                return CreatedAsset
-            }
-        }
-        print("Did not find asset name, in PlayerData class")
-        return (DAssetTypes[assettypename]?.Construct())!
+        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
+        CreatedAsset.CreationCycle(cycle: DGameCycle)
+        DAssets.append(CreatedAsset)
+        DActualMap.AddAsset(asset: CreatedAsset)
+        return CreatedAsset
     }
 
     func DeleteAsset(asset: CPlayerAsset) {
-        for i in 0 ..< DAssets.count {
-            let currAsset = DAssets[i]
-            if !(currAsset != asset) {
-                DAssets.remove(at: i)
+
+        for (Index, Asset) in DAssets.enumerated().reversed() {
+            if Asset == asset {
+                DAssets.remove(at: Index)
                 break
             }
         }

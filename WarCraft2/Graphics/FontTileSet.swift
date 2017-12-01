@@ -135,7 +135,7 @@ class CFontTileset: CGraphicMulticolorTileset {
                 xposHold += DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
             }
             Skip = false
-            super.DrawTile(context: surface, xpos: xposHold, ypos: ypos, width: 50, height: 50, tileindex: NextChar) // FIXME: Not sure what width/hieght should be
+            super.DrawTile(context: surface, xpos: xposHold, ypos: ypos, width: 50, height: 50, tileindex: NextChar)
             LastChar = NextChar
         }
     }

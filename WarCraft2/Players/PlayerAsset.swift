@@ -275,7 +275,7 @@ class CPlayerAsset {
     }
 
     func ClearCommand() {
-        DCommands = [SAssetCommand]()
+        DCommands.removeAll()
     }
 
     func PushCommand(command: SAssetCommand) {
