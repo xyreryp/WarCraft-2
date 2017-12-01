@@ -16,16 +16,6 @@ class CBattleMode: CApplicationMode {
     struct SPrivateConstructorType {
     }
 
-    //    template <typename T>
-    //    inline bool WeakPtrEquals(const std.weak_ptr<T>& t, const std.weak_ptr<T>& u){
-    //    return !t.expired() && t.lock() == u.lock()
-    //    }
-    //
-    //    template <typename T>
-    //    inline bool WeakPtrCompare(const std.weak_ptr<T>& t, const std.weak_ptr<T>& u){
-    //    return !t.expired() && t.lock() <= u.lock()
-    //    }
-
     static var DBattleModePointer: CBattleMode?
     static func IsActive() -> Bool { // can change to return DBattleModePointer != nil
         if DBattleModePointer != nil {
@@ -67,7 +57,7 @@ class CBattleMode: CApplicationMode {
         var ViewportTile = CTilePosition()
 
         // FIXME: hardcoded to be 4 tiles up for testing purposes
-        var ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX(), y: CurrentY + context.DViewportRenderer.DViewportY + 128)
+        var ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
         var ClickedTile = CTilePosition()
         ClickedTile.SetFromPixel(pos: ClickedPixel)
         var Panning: Bool = false
@@ -196,8 +186,6 @@ class CBattleMode: CApplicationMode {
 
                 let fakeAssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: ClickedTile))!
 
-                // Don't enter this if loop - not tested. This means you click on peasant and then you clicked on building. Only continue if you have correct color for building/code for building in GameModel::Timestep()
-                // FIXME:
                 if fakeColor != EPlayerColor.None {
 
                     context.DPlayerCommands[context.DPlayerColor.rawValue].DAction = EAssetCapabilityType.Move
