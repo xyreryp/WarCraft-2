@@ -513,8 +513,6 @@ class CGameModel {
                     Asset.PopCommand()
                     if EAssetAction.StandGround != NextCommand.DAction {
                         let NewTarget = DPlayers[Asset.Color().rawValue].FindNearestEnemy(pos: Asset.Position(), range: Asset.EffectiveSight())
-                        // if !NewTarget.expired()
-                        // FIXME: not sure how to handle this conditional check listed in the comments above
                         if !(NewTarget == nil) {
                             // MARK: dunno
                             CurrentCommand.DAssetTarget = NewTarget
@@ -527,7 +525,6 @@ class CGameModel {
                 Asset.IncrementStep()
                 if Asset.Step() > DDeathSteps {
                     if Asset.Speed() != 0 {
-                        // FIXME: look at DecayCommand, could be an issue with initialization to nil
                         let DecayCommand = SAssetCommand(DAction: EAssetAction.Decay, DCapability: EAssetCapabilityType(rawValue: 0)!, DAssetTarget: nil, DActivatedCapability: nil)
                         // Create corpse
                         let CorpseAsset = DPlayers[EPlayerColor.None.rawValue].CreateAsset(assettypename: "None")

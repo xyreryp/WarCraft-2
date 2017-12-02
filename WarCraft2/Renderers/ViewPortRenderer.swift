@@ -110,7 +110,7 @@ class CViewportRenderer {
         }
     }
 
-    // FIXME: took out parameters
+
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
                       selectionmarkerlist: [CPlayerAsset],
                       selectrect: SRectangle, curcapability _: EAssetCapabilityType) {

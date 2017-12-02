@@ -15,7 +15,6 @@ class CMapRenderer {
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
-    // FIXME: Hardcoded for one map
     init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         DTileset = tileset
         DMap = map

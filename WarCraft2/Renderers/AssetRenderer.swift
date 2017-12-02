@@ -468,8 +468,6 @@ class CAssetRenderer {
         // FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
-                // FIXME: Currently reversing height for rendering to make it render properly
-                //        This translation should probably be handled in asset code
                 DTilesets[RenderIterator.DType.rawValue].DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: DPlayerMap.Height() - RenderIterator.DY, tileindex: RenderIterator.DTileIndex) // , colorindex: RenderIterator.DColorIndex)
                 // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
             } else {
@@ -491,11 +489,10 @@ class CAssetRenderer {
         default:
             node.strokeColor = .green
         }
-        //    tempNode.anchor = CGPoint(x: 0, y: 1)
         node.lineWidth = 1
         skscene.addChild(node)
     }
-
+    //Drawing rectangle around peasant(and assets)
     func DrawRectangleAsset(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
         node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos - 32)
         switch color {
@@ -508,13 +505,11 @@ class CAssetRenderer {
         default:
             node.strokeColor = .green
         }
-        //    tempNode.anchor = CGPoint(x: 0, y: 1)
         node.lineWidth = 1
         skscene.addChild(node)
     }
-
+    //FIXME: no highlight yet. I think this is if you're hovering and trying to create a building?
     func DrawSelections(surface: SKScene, rect: SRectangle, selectionlist: [CPlayerAsset], selectrect: SRectangle, highlightbuilding _: Bool) {
-
         var ScreenRightX = rect.DXPosition + rect.DWidth - 1
         var ScreenBottomY = rect.DYPosition + rect.DHeight - 1
         var color = 0
@@ -658,7 +653,6 @@ class CAssetRenderer {
                     if OnScreen {
                         var ActionSteps: Int = DArrowIndices.count
                         ActionSteps = ActionSteps / EDirection.Max.rawValue
-                        // FIXME:
                         DArrowTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.DDirection.rawValue * ActionSteps + (((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % ActionSteps)])
                     }
                 }
@@ -705,7 +699,6 @@ class CAssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            // FIXME:
                             DFireTilesets[TilesetIndex].DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     }
@@ -798,7 +791,6 @@ class CAssetRenderer {
                 var XPos, YPos: Int
                 TempPosition.X(x: TempPosition.X() - rect.DXPosition)
                 TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
-                // FIXME:
                 DTilesets[type.rawValue].DrawTile(skscene: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()

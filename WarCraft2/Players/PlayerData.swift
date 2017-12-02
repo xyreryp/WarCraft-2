@@ -155,7 +155,6 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        // FIXME: Why is this function so different than the .cpp?
         var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
         CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
