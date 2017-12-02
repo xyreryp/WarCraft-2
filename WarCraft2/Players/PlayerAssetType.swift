@@ -274,7 +274,6 @@ class CPlayerAssetType {
     }
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
-    // FIXME: fix
     static func MaxSight() -> Int {
         //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
         //        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })

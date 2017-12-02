@@ -337,6 +337,7 @@ class CGraphicTileset {
     //        return true
     //    }
 
+    // DrawTile for regular scene
     func DrawTile(skscene: SKScene, xpos: Int, ypos: Int, tileindex: Int) {
         if 0 > tileindex || tileindex >= DTileCount {
             return
@@ -344,7 +345,7 @@ class CGraphicTileset {
 
         let tempNode = SKSpriteNode(texture: DTileSet[tileindex])
 
-        //        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
+        tempNode.anchorPoint = CGPoint(x: 0, y: 1)
         tempNode.position = CGPoint(x: xpos, y: ypos)
         skscene.addChild(tempNode)
     }

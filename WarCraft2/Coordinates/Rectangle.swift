@@ -22,7 +22,35 @@ struct SRectangle {
         self.DHeight = DHeight
     }
 
-    func PointInside(x: Int, y: Int) -> Bool {
-        return (x >= DXPosition) && (x < DXPosition + DWidth) && (y >= DYPosition) && (y < DYPosition + DHeight)
+    func AssetInside(x: Int, y: Int) -> Bool {
+        //top left quadrant
+        if DHeight < 0 && DWidth < 0 {
+            if DXPosition + DWidth < x && x < DXPosition && DYPosition + DHeight < y && y < DYPosition {
+                return true
+            }
+            return false
+        }
+        //top right quadrant
+        if DHeight < 0 && DWidth > 0 {
+            if DXPosition + DWidth > x && x > DXPosition && DYPosition + DHeight < y && y < DYPosition {
+                return true
+            }
+            return false
+        }
+        // bottom left quadrant
+        if DHeight > 0 && DWidth < 0 {
+            if DXPosition + DWidth < x && x < DXPosition && DYPosition + DHeight > y && y > DYPosition {
+                return true
+            }
+            return false
+        }
+        // bottom right quadrant
+        if DHeight > 0 && DWidth > 0 {
+            if DXPosition + DWidth > x && x > DXPosition && DYPosition + DHeight > y && y > DYPosition {
+                return true
+            }
+            return false
+        }
+        return false
     }
 }

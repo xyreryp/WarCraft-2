@@ -11,17 +11,24 @@ import Cocoa
 import SpriteKit
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-
-        applicationData.DCurrentX = Int(event.locationInWindow.x)
-        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
-        applicationData.DLeftClick = 1
+        applicationData.PressClickEvent(event: event)
     }
 
     open override func rightMouseDown(with event: NSEvent) {
         // right mouse click
-        applicationData.DCurrentX = Int(event.locationInWindow.x)
-        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
-        applicationData.DRightClick = 1
+        applicationData.PressClickEvent(event: event)
+    }
+
+    open override func mouseUp(with event: NSEvent) {
+        applicationData.ReleaseClickEvent(event: event)
+    }
+
+    open override func rightMouseUp(with event: NSEvent) {
+        applicationData.ReleaseClickEvent(event: event)
+    }
+
+    open override func mouseDragged(with event: NSEvent) {
+        applicationData.LeftMouseDragged(event: event)
     }
 }
 

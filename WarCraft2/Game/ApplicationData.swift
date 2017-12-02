@@ -420,6 +420,52 @@ class CApplicationData {
         return true
     }
 
+    /**
+     * Used in conjunction with its release event counterpart to determine
+     * what type of mouse click has occured to this area (double click, etc.)
+     */
+
+    func PressClickEvent(event: NSEvent) -> Bool {
+        if event.buttonNumber == 0 { // leftclick pressed
+            DCurrentX = Int(event.locationInWindow.x)
+            DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+            DLeftClick = 1
+            DLeftDown = true
+        } else if event.buttonNumber == 1 { // rightclick pressed
+            DCurrentX = Int(event.locationInWindow.x)
+            DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+            DRightClick = 1
+            DRightDown = true
+        }
+        return true
+    }
+
+    /**
+     * Used in conjunction with its press event counterpart to determine
+     * the type of mouse click that has occured.
+     */
+
+    func ReleaseClickEvent(event: NSEvent) -> Bool {
+        if event.buttonNumber == 0 { // leftclick released
+            DCurrentX = Int(event.locationInWindow.x)
+            DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+            DLeftClick = 1
+            DLeftDown = false
+        } else if event.buttonNumber == 1 { // rightclick released
+            DCurrentX = Int(event.locationInWindow.x)
+            DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+            DRightClick = 1
+            DRightDown = false
+        }
+        return true
+    }
+
+    func LeftMouseDragged(event: NSEvent) -> Bool {
+        DCurrentX = Int(event.locationInWindow.x)
+        DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+        return true
+    }
+
     // Credit to Hong from iOS, loading in tilesets
     func Activate() {
         // entry point for reading inall the related tilests

@@ -30,14 +30,16 @@ class GameScene: SKScene {
         battleMode.Input(context: applicationData)
         battleMode.Calculate(context: applicationData)
         battleMode.Render(context: applicationData)
-        applicationData.DLeftClick = 0
+        if !applicationData.DLeftDown || applicationData.DLeftClick != 2 {
+            applicationData.DLeftClick = 0
+        }
+
         applicationData.DRightClick = 0
     }
 
     func renderMap() {
         let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         let cgr = CGraphicResourceContext()
-        applicationData.DViewportRenderer.DrawViewport(surface: self, typesurface: cgr, selectrect: rect)
     }
 
     func clean() {
