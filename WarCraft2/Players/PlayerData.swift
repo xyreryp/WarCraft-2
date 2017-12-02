@@ -228,9 +228,11 @@ class CPlayerData {
             ReturnList.append(BestAsset)
 
         } else {
+            if selectarea.DWidth < 0 {
+            }
             var AnyMovable: Bool = false
             for Asset in DAssets {
-                if selectarea.DXPosition <= Asset.PositionX() && Asset.PositionX() < selectarea.DXPosition + selectarea.DWidth && selectarea.DYPosition <= Asset.PositionY() && Asset.PositionY() < selectarea.DYPosition + selectarea.DHeight {
+                if selectarea.AssetInside(x: Asset.DPosition.X(), y: Asset.DPosition.Y()) {
                     if AnyMovable {
                         if Asset.Speed() > 0 {
                             ReturnList.append(Asset)

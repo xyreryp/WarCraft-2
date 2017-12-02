@@ -167,8 +167,8 @@ class CBattleMode: CApplicationMode {
                 }
             }
         }
-        context.DReleasedKeys.removeAll()
         var OriginalPosition: CPixelPosition = CPixelPosition(pos: CurrentPixel)
+        context.DReleasedKeys.removeAll()
         if context.DRightClick == 1 && context.DSelectedPlayerAssets.count != 0 {
             var CanMove: Bool = true
             for Asset in context.DSelectedPlayerAssets {
@@ -257,6 +257,7 @@ class CBattleMode: CApplicationMode {
                 }
             }
         }
+
         // starting from line 432 of BattleMode.cpp
         if context.DLeftClick == 1 {
             if context.DCurrentAssetCapability == EAssetCapabilityType.None || context.DCurrentAssetCapability == EAssetCapabilityType.BuildSimple {
@@ -274,12 +275,17 @@ class CBattleMode: CApplicationMode {
                         PreviousSelections.append(asset!)
                     }
 
-                    TempRectangle.DXPosition = min(context.DMouseDown.X(), CurrentPixel.X())
-                    TempRectangle.DYPosition = min(context.DMouseDown.Y(), CurrentPixel.Y())
-                    TempRectangle.DWidth = max(context.DMouseDown.X(), CurrentPixel.X()) - TempRectangle.DXPosition
-                    TempRectangle.DHeight = max(context.DMouseDown.Y(), CurrentPixel.Y()) - TempRectangle.DYPosition
+                    //                    TempRectangle.DXPosition = min(context.DMouseDown.X(), CurrentPixel.X())
+                    //                    TempRectangle.DYPosition = min(context.DMouseDown.Y(), CurrentPixel.Y())
+                    //                    TempRectangle.DWidth = max(context.DMouseDown.X(), CurrentPixel.X()) - TempRectangle.DXPosition
+                    //                    TempRectangle.DHeight = max(context.DMouseDown.Y(), CurrentPixel.Y()) - TempRectangle.DYPosition
 
-                    if (TempRectangle.DWidth < CPosition.TileWidth()) || (TempRectangle.DHeight < CPosition.TileHeight()) || (2 == context.DLeftClick) {
+                    TempRectangle.DXPosition = context.DMouseDown.X()
+                    TempRectangle.DYPosition = context.DMouseDown.Y()
+                    TempRectangle.DWidth = CurrentPixel.X() - TempRectangle.DXPosition
+                    TempRectangle.DHeight = CurrentPixel.Y() - TempRectangle.DYPosition
+
+                    if (abs(TempRectangle.DWidth) < CPosition.TileWidth()) || (abs(TempRectangle.DHeight) < CPosition.TileHeight()) || (2 == context.DLeftClick) {
                         TempRectangle.DXPosition = CurrentPixel.X()
                         TempRectangle.DYPosition = CurrentPixel.Y()
                         TempRectangle.DWidth = 0
@@ -300,6 +306,7 @@ class CBattleMode: CApplicationMode {
                         let AssetType: EAssetType = (context.DGameModel.Player(color: SearchColor)?.DActualMap.FakeFindAsset(pos: CurrentTile))!
                         context.DSelectedPlayerAssets = (context.DGameModel.Player(color: SearchColor)?.SelectAssets(selectarea: TempRectangle, assettype: AssetType))!
                     }
+                    context.DMouseDown = CPixelPosition(x: -1, y: -1)
                 }
                 context.DCurrentAssetCapability = EAssetCapabilityType.None
             } else {
@@ -449,11 +456,11 @@ class CBattleMode: CApplicationMode {
         let CurrentY = context.DCurrentY
         let CurrentPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
         var SelectionAndMarkerList = context.DSelectedPlayerAssets
-        if context.DLeftDown {
-            TempRectangle.DXPosition = min(context.DMouseDown.X(), CurrentPixel.X())
-            TempRectangle.DYPosition = min(context.DMouseDown.Y(), CurrentPixel.Y())
-            TempRectangle.DWidth = max(context.DMouseDown.X(), CurrentPixel.X()) - TempRectangle.DXPosition
-            TempRectangle.DHeight = max(context.DMouseDown.Y(), CurrentPixel.Y()) - TempRectangle.DYPosition
+        if context.DLeftDown && context.DMouseDown.X() > 0 {
+            TempRectangle.DXPosition = context.DMouseDown.X()
+            TempRectangle.DYPosition = context.DMouseDown.Y()
+            TempRectangle.DWidth = CurrentPixel.X() - TempRectangle.DXPosition
+            TempRectangle.DHeight = CurrentPixel.Y() - TempRectangle.DYPosition
         } else {
             TempRectangle.DXPosition = CurrentPixel.X()
             TempRectangle.DYPosition = CurrentPixel.Y()

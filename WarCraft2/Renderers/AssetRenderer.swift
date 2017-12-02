@@ -478,79 +478,50 @@ class CAssetRenderer {
         }
     }
 
-    func DrawSelections(surface _: SKScene, rect _: SRectangle, selectionlist _: [CPlayerAsset], selectrect _: SRectangle, highlightbuilding _: Bool) {
-        //        let ResourceContext = surface.CreateResourceContext()
-        //        var RectangleColor: UInt32 = DPixelColors[EPlayerColor.Max.rawValue]
-        //        let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
-        //        let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
-        //        var SelectionX, SelectionY: Int
-        //
-        //        if highlightbuilding {
-        //            RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 2]
-        //
-        //            ResourceContext.SetSourceRGB(rgb: RectangleColor)
-        //            for AssetIterator in DPlayerMap.DAssets {
-        //                var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
-        //                TempRenderData.DType = AssetIterator.Type()
-        //                if EAssetType.None == TempRenderData.DType {
-        //                    continue
-        //                }
-        //                if (0 <= TempRenderData.DType.rawValue) && (TempRenderData.DType.rawValue < DTilesets.count) {
-        //                    if 0 == AssetIterator.Speed() {
-        //                        var RightX: Int
-        //                        let Offset: Int = EAssetType.GoldMine == TempRenderData.DType ? 1 : 0
-        //
-        //                        TempRenderData.DX = AssetIterator.PositionX() + (AssetIterator.Size() - 1) * CPosition.DHalfTileWidth - DTilesets[TempRenderData.DType.rawValue].TileHalfWidth()
-        //                        TempRenderData.DY = AssetIterator.PositionY() + (AssetIterator.Size() - 1) * CPosition.DHalfTileHeight - DTilesets[TempRenderData.DType.rawValue].TileHalfHeight()
-        //                        TempRenderData.DX = TempRenderData.DX - Offset * CPosition.TileWidth()
-        //                        TempRenderData.DY = TempRenderData.DY - Offset * CPosition.TileHeight()
-        //
-        //                        RightX = TempRenderData.DX + DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * CPosition.TileWidth()) - 1
-        //                        TempRenderData.DBottomY = TempRenderData.DY + DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * CPosition.TileHeight()) - 1
-        //                        var OnScreen: Bool = true
-        //                        if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
-        //                            OnScreen = false
-        //                        } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
-        //                            OnScreen = false
-        //                        }
-        //                        TempRenderData.DX = TempRenderData.DX - rect.DXPosition
-        //                        TempRenderData.DY = TempRenderData.DY - rect.DYPosition
-        //                        if OnScreen {
-        //                            ResourceContext.Rectangle(xpos: TempRenderData.DX, ypos: TempRenderData.DY, width: DTilesets[TempRenderData.DType.rawValue].TileWidth() + (2 * Offset * CPosition.TileWidth()), height: DTilesets[TempRenderData.DType.rawValue].TileHeight() + (2 * Offset * CPosition.TileHeight()))
-        //                            ResourceContext.Stroke()
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //
-        //            RectangleColor = DPixelColors[EPlayerColor.Max.rawValue]
-        //        }
-        //
-        //        ResourceContext.SetSourceRGB(rgb: RectangleColor)
-        //
-        //        if selectrect.DWidth != 0 && selectrect.DHeight != 0 {
-        //            SelectionX = selectrect.DXPosition - rect.DXPosition
-        //            SelectionY = selectrect.DYPosition - rect.DYPosition
-        //
-        //            ResourceContext.Rectangle(xpos: SelectionX, ypos: SelectionY, width: selectrect.DWidth, height: selectrect.DHeight)
-        //            ResourceContext.Stroke()
-        //        }
-        //
-        //        if selectionlist.count > 0 {
-        //            // if var Asset = selectionlist.front().lock() {  ***Don't delete!  >:( David
-        //            if let Asset = selectionlist.first {
-        //                if EPlayerColor.None == Asset.Color() {
-        //                    RectangleColor = DPixelColors[EPlayerColor.None.rawValue]
-        //                } else if DPlayerData?.DColor != Asset.Color() {
-        //                    RectangleColor = DPixelColors[EPlayerColor.Max.rawValue + 1]
-        //                }
-        //                ResourceContext.SetSourceRGB(rgb: RectangleColor)
-        //            }
-        //        }
-        //
+    // DrawTile for drawing a rectangle
+    func DrawRectangle(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
+        node.position = CGPoint(x: xpos - 32, y: DPlayerMap.Height() - ypos + 32)
+        switch color {
+        case 1:
+            node.strokeColor = .yellow
+            break
+        case 2:
+            node.strokeColor = .red
+            break
+        default:
+            node.strokeColor = .green
+        }
+        //    tempNode.anchor = CGPoint(x: 0, y: 1)
+        node.lineWidth = 1
+        skscene.addChild(node)
+    }
+
+    func DrawSelections(surface: SKScene, rect: SRectangle, selectionlist: [CPlayerAsset], selectrect: SRectangle, highlightbuilding _: Bool) {
+        var ScreenRightX = rect.DXPosition + rect.DWidth - 1
+        var ScreenBottomY = rect.DYPosition + rect.DHeight - 1
+        var color = 0
+        if selectrect.DHeight != 0 && selectrect.DWidth != 0 {
+            var ResourceContext = SKShapeNode()
+            let Rectangle = CGRect(x: 0, y: 0, width: selectrect.DWidth, height: -selectrect.DHeight)
+            ResourceContext.path = CGPath(rect: Rectangle, transform: nil)
+            var SelectionX = selectrect.DXPosition - rect.DXPosition
+            var SelectionY = selectrect.DYPosition - rect.DYPosition
+            DrawRectangle(skscene: surface, node: ResourceContext, xpos: SelectionX, ypos: SelectionY, color: color)
+        }
+        if selectionlist.count > 0 {
+            if let Asset = selectionlist.first {
+                if EPlayerColor.None == Asset.Color() {
+                    color = 1
+                } else if DPlayerData?.DColor != Asset.Color() {
+                    color = 2
+                }
+            }
+        }
+
         //        for LockedAsset in selectionlist {
         //            var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
         //            TempRenderData.DType = LockedAsset.Type()
+        //            // Selected the terrain
         //            if EAssetType.None == TempRenderData.DType {
         //                if EAssetAction.Decay == LockedAsset.Action() {
         //                    var RightX: Int
@@ -566,20 +537,23 @@ class CAssetRenderer {
         //                    } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
         //                        OnScreen = false
         //                    }
-        //                    TempRenderData.DX = TempRenderData.DX - rect.DXPosition
-        //                    TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+        //
+        //                    TempRenderData.DX -= rect.DXPosition
+        //                    TempRenderData.DY -= rect.DYPosition
+        //
         //                    if OnScreen {
         //                        var ActionSteps: Int = DCorpseIndices.count
-        //                        ActionSteps = ActionSteps / EDirection.Max.rawValue
+        //                        ActionSteps /= EDirection.Max.rawValue
+        //
         //                        if 0 != ActionSteps {
-        //                            var CurrentStep: Int = LockedAsset.DStep / (CAssetRenderer.DAnimationDownsample * CAssetRenderer.TARGET_FREQUENCY)
+        //                            var CurrentStep: Int = LockedAsset.Step() / (CAssetRenderer.DAnimationDownsample * CAssetRenderer.TARGET_FREQUENCY)
         //                            if CurrentStep >= ActionSteps {
         //                                CurrentStep = ActionSteps - 1
         //                            }
         //                            TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.DDirection.rawValue * ActionSteps + CurrentStep]
         //                        }
-        //                        // FIXME:
-        //                        //                            DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+        //                        // FIXME: need to prob. highlight
+        //                        // DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
         //                    }
         //                } else if EAssetAction.Attack != LockedAsset.Action() {
         //                    var RightX: Int
@@ -595,13 +569,15 @@ class CAssetRenderer {
         //                    } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
         //                        OnScreen = false
         //                    }
-        //                    TempRenderData.DX = TempRenderData.DX - rect.DXPosition
-        //                    TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+        //
+        //                    TempRenderData.DX -= rect.DXPosition
+        //                    TempRenderData.DY -= rect.DYPosition
+        //
         //                    if OnScreen {
         //                        let MarkerIndex: Int = LockedAsset.DStep / CAssetRenderer.DAnimationDownsample
         //                        if MarkerIndex < DMarkerIndices.count {
-        //                            // FIXME:
-        //                            //                                DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
+        //                            // FIXME: Comment this back in after we have MarkerTileset
+        //                            //                            DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
         //                        }
         //                    }
         //                }
@@ -615,6 +591,7 @@ class CAssetRenderer {
         //                RectHeight = CPosition.TileHeight() * LockedAsset.Size()
         //                RightX = TempRenderData.DX + RectWidth
         //                TempRenderData.DBottomY = TempRenderData.DY + RectHeight
+        //
         //                if (RightX < rect.DXPosition) || (TempRenderData.DX > ScreenRightX) {
         //                    OnScreen = false
         //                } else if (TempRenderData.DBottomY < rect.DYPosition) || (TempRenderData.DY > ScreenBottomY) {
@@ -622,11 +599,13 @@ class CAssetRenderer {
         //                } else if (EAssetAction.MineGold == LockedAsset.Action()) || (EAssetAction.ConveyLumber == LockedAsset.Action()) || (EAssetAction.ConveyGold == LockedAsset.Action()) {
         //                    OnScreen = false
         //                }
-        //                TempRenderData.DX = TempRenderData.DX - rect.DXPosition
-        //                TempRenderData.DY = TempRenderData.DY - rect.DYPosition
+        //
+        //                TempRenderData.DX -= rect.DXPosition
+        //                TempRenderData.DY -= rect.DYPosition
+        //
         //                if OnScreen {
-        //                    ResourceContext.Rectangle(xpos: TempRenderData.DX, ypos: TempRenderData.DY, width: RectWidth, height: RectHeight)
-        //                    ResourceContext.Stroke()
+        //                    var ResourceContext = SKShapeNode(rect: CGRect(x: 0, y: 0, width: selectrect.DWidth, height: selectrect.DHeight))
+        //                    DrawRectangle(skscene: surface, node: ResourceContext, xpos: TempRenderData.DX, ypos: TempRenderData.DY, color: color)
         //                }
         //            }
         //        }
