@@ -30,7 +30,10 @@ class GameScene: SKScene {
         battleMode.Input(context: applicationData)
         battleMode.Calculate(context: applicationData)
         battleMode.Render(context: applicationData)
-        applicationData.DLeftClick = 0
+        if !applicationData.DLeftDown || applicationData.DLeftClick != 2 {
+            applicationData.DLeftClick = 0
+        }
+
         applicationData.DRightClick = 0
     }
 
