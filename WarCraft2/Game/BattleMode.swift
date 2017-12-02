@@ -443,9 +443,27 @@ class CBattleMode: CApplicationMode {
      *
      */
     override func Render(context: CApplicationData) {
-        let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
+        var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         let cgr = CGraphicResourceContext()
-        context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: cgr, selectrect: rect)
+        let CurrentX = context.DCurrentX
+        let CurrentY = context.DCurrentY
+        let CurrentPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
+        var SelectionAndMarkerList = context.DSelectedPlayerAssets
+        if context.DLeftDown {
+            TempRectangle.DXPosition = min(context.DMouseDown.X(), CurrentPixel.X())
+            TempRectangle.DYPosition = min(context.DMouseDown.Y(), CurrentPixel.Y())
+            TempRectangle.DWidth = max(context.DMouseDown.X(), CurrentPixel.X()) - TempRectangle.DXPosition
+            TempRectangle.DHeight = max(context.DMouseDown.Y(), CurrentPixel.Y()) - TempRectangle.DYPosition
+        } else {
+            TempRectangle.DXPosition = CurrentPixel.X()
+            TempRectangle.DYPosition = CurrentPixel.Y()
+        }
+        for Asset in (context.DGameModel.Player(color: context.DPlayerColor)?.DPlayerMap.DAssets)! {
+            if Asset.Type() == EAssetType.None {
+                SelectionAndMarkerList.append(Asset)
+            }
+        }
+        context.DViewportRenderer.DrawViewport(surface: context.DViewportSurface, typesurface: cgr, selectionmarkerlist: SelectionAndMarkerList as! [CPlayerAsset], selectrect: TempRectangle, curcapability: context.DCurrentAssetCapability)
     }
 
     //        // FIXME: SRectangle doesn't exist
