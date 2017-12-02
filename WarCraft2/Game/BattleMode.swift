@@ -36,7 +36,6 @@ class CBattleMode: CApplicationMode {
     override init() { // nothing
     }
 
-
     override func InitializeChange(context: CApplicationData) {
         context.LoadGameMap(index: context.DSelectedMapIndex)
         //        context.DSoundLibraryMixer.PlaySong(context.DSoundLibraryMixer.FindSong("game1"), context.DMusicVolume)
@@ -363,7 +362,7 @@ class CBattleMode: CApplicationMode {
                     CBattleMode.DBattleWon = true
                 }
             }
-            // FIXME:AI
+            // FIXME: AI
             //            if context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)!.IsAlive() && (context.DGameModel.Player(color: EPlayerColor(rawValue: Index)!)?.IsAI())! {
             //                context.DAIPlayers[Index].CalculateCommand(command: &context.DPlayerCommands[Index])
             //            }

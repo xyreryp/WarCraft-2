@@ -492,7 +492,8 @@ class CAssetRenderer {
         node.lineWidth = 1
         skscene.addChild(node)
     }
-    //Drawing rectangle around peasant(and assets)
+
+    // Drawing rectangle around peasant(and assets)
     func DrawRectangleAsset(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
         node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos - 32)
         switch color {
@@ -508,7 +509,8 @@ class CAssetRenderer {
         node.lineWidth = 1
         skscene.addChild(node)
     }
-    //FIXME: no highlight yet. I think this is if you're hovering and trying to create a building?
+
+    // FIXME: no highlight yet. I think this is if you're hovering and trying to create a building?
     func DrawSelections(surface: SKScene, rect: SRectangle, selectionlist: [CPlayerAsset], selectrect: SRectangle, highlightbuilding _: Bool) {
         var ScreenRightX = rect.DXPosition + rect.DWidth - 1
         var ScreenBottomY = rect.DYPosition + rect.DHeight - 1

@@ -110,7 +110,6 @@ class CViewportRenderer {
         }
     }
 
-
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
                       selectionmarkerlist: [CPlayerAsset],
                       selectrect: SRectangle, curcapability _: EAssetCapabilityType) {
