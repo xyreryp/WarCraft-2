@@ -168,7 +168,7 @@ class CApplicationData {
     var DTrainHotKeyMap: [uint32: EAssetCapabilityType]
 
     // asset capabilities things
-    var DSelectedPlayerAssets: [CPlayerAsset?] = []
+    var DSelectedPlayerAssets: [CPlayerAsset] = []
     var DCurrentAssetCapability: EAssetCapabilityType
 
     // keys related things
@@ -258,17 +258,11 @@ class CApplicationData {
         //        }
         let bevelDataSource = CDataSource()
         let MiniBevelTileset = CGraphicTileset()
-        if !MiniBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "MiniBevel") {
-            print("Failed to lead MiniBevel tileset")
-        }
+        MiniBevelTileset.LoadTileset(filename: "MiniBevel")
         let InnerBevelTileset = CGraphicTileset()
-        if !InnerBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "InnerBevel") {
-            print("Failed to lead InnerBevel tileset")
-        }
+        InnerBevelTileset.LoadTileset(filename: "InnerBevel")
         let OuterBevelTileset = CGraphicTileset()
-        if !OuterBevelTileset.TestLoadTileset(source: bevelDataSource, assetName: "OuterBevel") {
-            print("Failed to lead OuterBevel tileset")
-        }
+        OuterBevelTileset.LoadTileset(filename: "OuterBevel")
 
         DMiniBevel = CBevel(tileset: MiniBevelTileset)
         DInnerBevel = CBevel(tileset: InnerBevelTileset) //tileset: InnerBevelTileset)
@@ -294,15 +288,13 @@ class CApplicationData {
         DBuildingDeathTileset = CGraphicTileset()
         DArrowTileset = CGraphicTileset()
         DIconTileset = CGraphicMulticolorTileset()
-        if !DIconTileset.TestLoadTileset(source: CDataSource(), assetName: "Icons") {
-            print("Failed to load Icon tileset")
-        }
+        DIconTileset.LoadTileset(filename: "Icons")
 
         DFonts = [CFontTileset](repeating: CFontTileset(), count: 10)
 
         DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: DIconTileset, color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
 
-        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset, fonts: DFonts, color: EPlayerColor.Red)
+        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset as! CGraphicMulticolorTileset, fonts: DFonts, color: EPlayerColor.Red)
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         //        DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
@@ -538,20 +530,14 @@ class CApplicationData {
         DBuildingDeathTileset.LoadTileset(filename: "BuildingDeath")
 
         DArrowTileset = CGraphicTileset()
-        if !DArrowTileset.TestLoadTileset(source: TempDataSource, assetName: "Arrow") {
-            print("Failed to lead Arrow tileset")
-        }
+        DArrowTileset.LoadTileset(filename: "Arrow")
 
         DMiniIconTileset = CGraphicTileset()
-        if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "MiniIcons") {
-            print("Failed to load Mini Icon tileset")
-        }
+        DMiniIconTileset.LoadTileset(filename: "MiniIcons")
 
-        DIconTileset = CGraphicMulticolorTileset()
-        if !DMiniIconTileset.TestLoadTileset(source: TempDataSource, assetName: "Icons") {
-            print("Failed to load Icon tileset")
-        }
-        DArrowTileset.LoadTileset(filename: "Arrow")
+        DIconTileset = CGraphicTileset()
+        DIconTileset.LoadTileset(filename: "Icons")
+
         let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
 
@@ -679,6 +665,7 @@ class CApplicationData {
         var pos = pos
         return DViewportRenderer.DetailedPosition(pos: &pos)
     }
+
     func LoadGameMap(index: Int) {
         var DetailedMapWidth: Int
         var DetailedMapHeight: Int
