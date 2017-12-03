@@ -47,12 +47,14 @@ class CBattleMode: CApplicationMode {
 
         let CurrentY: Int = context.DCurrentY
 
-        var ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
-        var ViewportTile = CTilePosition()
+        let ViewportPixel = CPixelPosition(x: context.DViewportRenderer.ViewPortX(), y: context.DViewportRenderer.ViewPortY())
+        let ViewportTile = CTilePosition()
 
         // FIXME: hardcoded to be 4 tiles up for testing purposes
-        var CurrentPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
-        var CurrentTile = CTilePosition()
+        let ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
+        let CurrentTile = CTilePosition()
+        var CurrentPixel = CPixelPosition()
+        CurrentPixel = context.ScreenToViewport(pos: ClickedPixel)
         CurrentTile.SetFromPixel(pos: CurrentPixel)
         var Panning: Bool = false
         var ShiftPressed: Bool = false
@@ -439,7 +441,9 @@ class CBattleMode: CApplicationMode {
         let cgr = CGraphicResourceContext()
         let CurrentX = context.DCurrentX
         let CurrentY = context.DCurrentY
-        let CurrentPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
+        let ClickedPixel = CPixelPosition(x: CurrentX + context.DViewportRenderer.ViewPortX() + 32, y: CurrentY + context.DViewportRenderer.DViewportY + 160)
+        var CurrentPixel = CPixelPosition()
+        CurrentPixel = context.ScreenToViewport(pos: ClickedPixel)
         var SelectionAndMarkerList = context.DSelectedPlayerAssets
         if context.DLeftDown && context.DMouseDown.X() > 0 {
             TempRectangle.DXPosition = context.DMouseDown.X()

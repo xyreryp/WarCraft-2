@@ -453,7 +453,13 @@ class CApplicationData {
     func PressClickEvent(event: NSEvent) -> Bool {
         if event.buttonNumber == 0 { // leftclick pressed
             DCurrentX = Int(event.locationInWindow.x)
+            //            print("X: \(DCurrentX)")
             DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+            //            print("Y: \(CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y))")
+            //            print("BevelWidths:")
+            //            print("MiniBev: \(DMiniBevel.DWidth)")
+            //            print("InnerBev: \(DInnerBevel.DWidth)")
+            //            print("OuterBev: \(DOuterBevel.DWidth)")
             DLeftClick = 1
             DLeftDown = true
         } else if event.buttonNumber == 1 { // rightclick pressed
@@ -666,6 +672,27 @@ class CApplicationData {
         return DViewportRenderer.DetailedPosition(pos: &pos)
     }
 
+    func MiniMaptoDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        var X = pos.X() * DGameModel.Map().Width() / DMapRenderer.MapWidth()
+        var V = pos.Y() * DGameModel.Map().Width() / DMapRenderer.MapHeight()
+        if X < 0 {
+            X = 0
+        }
+        if DGameModel.Map().Width() <= X {
+            X = DGameModel.Map().Width() - 1
+        }
+        if Y < 0 {
+            Y = 0
+        }
+        if DGameModel.Map().Height() <= Y {
+            Y = DGameModel.Map().Width() - 1
+        }
+        let Temp = CPixelPosition()
+        Temp.SetXFromTile(x: X)
+        Temp.SetYFromTile(y: Y)
+        return Temp
+    }
+
     func LoadGameMap(index: Int) {
         var DetailedMapWidth: Int
         var DetailedMapHeight: Int
@@ -719,7 +746,7 @@ class CApplicationData {
         //        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
         //        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
         var MinUnitDescrHeight: Int
-
+        DViewportXOffset = (DInnerBevel.Width() + DMiniBevel.Width()) * DTerrainTileset.DTileWidth
         //        DMiniMapXOffset = DInnerBevel.Width() * 2
         //        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
         //        DUnitActionXOffset = DUnitDescriptionXOffset

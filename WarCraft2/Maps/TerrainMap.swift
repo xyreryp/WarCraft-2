@@ -373,7 +373,6 @@ class CTerrainMap {
         return (Int(dimensions[0])!, Int(dimensions[1])!)
     }
 
-    
     func LoadMap(from source: CDataSource) {
         var tokens: [String]
 

@@ -91,7 +91,6 @@ class CAssetDecoratedMap: CTerrainMap {
     deinit {
     }
 
-    
     static func LoadMaps(mapNames: [String]) {
 
         for map in mapNames {

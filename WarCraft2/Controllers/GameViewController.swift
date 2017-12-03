@@ -101,11 +101,8 @@ class GameViewController: NSViewController {
         let y: Int = Int(event.locationInWindow.y)
         if x >= 20 && x <= 148 && y >= 410 && y <= 538 {
             var tempPosition = applicationData.ScreenToMiniMap(pos: CPixelPosition(x: x, y: y))
-            //            tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
+            //  tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
             applicationData.DViewportRenderer.CenterViewport(pos: tempPosition)
-            let cgr = CGraphicResourceContext()
-            let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
-            applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectionmarkerlist: applicationData.DSelectedPlayerAssets, selectrect: rect, curcapability: applicationData.DCurrentAssetCapability)
         }
     }
 
@@ -115,11 +112,8 @@ class GameViewController: NSViewController {
         let y: Int = Int(event.locationInWindow.y)
         if x >= 20 && x <= 148 && y >= 410 && y <= 538 {
             var tempPosition = applicationData.ScreenToMiniMap(pos: CPixelPosition(x: x, y: y))
-            //            tempPosition = applicationData.MiniMapToDetailedMap(pos: tempPosition)
+            tempPosition = applicationData.MiniMaptoDetailedMap(pos: tempPosition)
             applicationData.DViewportRenderer.CenterViewport(pos: tempPosition)
-            let cgr = CGraphicResourceContext()
-            let rect = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
-            applicationData.DViewportRenderer.DrawViewport(surface: skscene, typesurface: cgr, selectionmarkerlist: applicationData.DSelectedPlayerAssets, selectrect: rect, curcapability: applicationData.DCurrentAssetCapability)
         }
     }
 
