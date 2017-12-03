@@ -12,8 +12,8 @@ import SpriteKit
 let TIMEOUT_INTERVAL = 50
 let TIMEOUT_FREQUENCY = (1000 / TIMEOUT_INTERVAL)
 class CApplicationData {
-    static var INITIAL_MAP_WIDTH = 800
-    static var INITIAL_MAP_HEIGHT = 600
+    static var INITIAL_MAP_WIDTH = 600
+    static var INITIAL_MAP_HEIGHT = 500
     static var TIMEOUT_INTERVAL = 50
     static var MINI_MAP_MIN_WIDTH = 128
     static var MINI_MAP_MIN_HEGHT = 128
@@ -64,9 +64,9 @@ class CApplicationData {
     // var DMiniMapSurface: CGraphicResourceContext
     var DViewportSurface: SKScene
     var DViewportTypeSurface: SKScene
-    var DUnitDescriptionSurface: SKScene
-    var DUnitActionSurface: SKScene
-    var DResourceSurface: SKScene
+    var DUnitDescriptionSurface: NSView
+    var DUnitActionSurface: NSView
+    var DResourceSurface: NSView
     var DMapSelectListViewSurface: SKScene
 
     // coordinate and map and options related things
@@ -99,7 +99,7 @@ class CApplicationData {
     // var DSoundLibraryMixer: CSoundLibraryMixer? = nil
     // var DSoundEventRenderer: CSoundEventRenderer? = nil
 
-    // var DFonts: [CFontTileset]// = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
+    var DFonts: [CFontTileset] = [CFontTileset](repeating: CFontTileset(), count: CUnitDescriptionRenderer.EFontSize.Max.rawValue)
 
     //    var DTotalLoadingSteps: Int
     //    var DCurrentLoadingStep: Int
@@ -146,8 +146,8 @@ class CApplicationData {
     // var DMiniMapRenderer: CMiniMapRenderer
 
     // TODO: finish these types of renderers
-    // var DUnitDescriptionRenderer: CUnitDescriptionRenderer
-    // var DUnitActionRenderer: CUnitActionRenderer
+    var DUnitDescriptionRenderer: CUnitDescriptionRenderer
+    var DUnitActionRenderer: CUnitActionRenderer
     // var DResourceRenderer: CResourceRenderer
     // var DMenuButtonRenderer: CButtonRenderer
     // var DButtonRenderer: CButtonRenderer
@@ -168,7 +168,7 @@ class CApplicationData {
     var DTrainHotKeyMap: [uint32: EAssetCapabilityType]
 
     // asset capabilities things
-    var DSelectedPlayerAssets: [CPlayerAsset?] = []
+    var DSelectedPlayerAssets: [CPlayerAsset] = []
     var DCurrentAssetCapability: EAssetCapabilityType
 
     // keys related things
@@ -206,9 +206,9 @@ class CApplicationData {
         DGameSessionType = EGameSessionType.gstSinglePlayer
         DViewportSurface = SKScene()
         DViewportTypeSurface = SKScene()
-        DUnitDescriptionSurface = SKScene()
-        DUnitActionSurface = SKScene()
-        DResourceSurface = SKScene()
+        DUnitDescriptionSurface = NSView()
+        DUnitActionSurface = NSView()
+        DResourceSurface = NSView()
         DMapSelectListViewSurface = SKScene()
 
         // coordinate and map and options related things
@@ -251,6 +251,23 @@ class CApplicationData {
         DOuterBevelTileset = CGraphicTileset()
         DListViewIconTileset = CGraphicTileset()
 
+        // bevel things
+        //        DBuildingDeathTileset = CGraphicTileset()
+        //        if !DBuildingDeathTileset.TestLoadTileset(source: TempDataSource, assetName: "BuildingDeath") {
+        //            print("Failed to lead BuildingDeath tileset")
+        //        }
+        let bevelDataSource = CDataSource()
+        let MiniBevelTileset = CGraphicTileset()
+        MiniBevelTileset.LoadTileset(filename: "MiniBevel")
+        let InnerBevelTileset = CGraphicTileset()
+        InnerBevelTileset.LoadTileset(filename: "InnerBevel")
+        let OuterBevelTileset = CGraphicTileset()
+        OuterBevelTileset.LoadTileset(filename: "OuterBevel")
+
+        DMiniBevel = CBevel(tileset: MiniBevelTileset)
+        DInnerBevel = CBevel(tileset: InnerBevelTileset) //tileset: InnerBevelTileset)
+        DOuterBevel = CBevel(tileset: OuterBevelTileset)
+        //tileset: OuterBevelTileset)
         // more tileset things
         DMapRendererConfigurationData = [Character]()
         DTerrainTileset = CGraphicTileset()
@@ -270,6 +287,14 @@ class CApplicationData {
         DCorpseTileset = CGraphicTileset()
         DBuildingDeathTileset = CGraphicTileset()
         DArrowTileset = CGraphicTileset()
+        DIconTileset = CGraphicMulticolorTileset()
+        DIconTileset.LoadTileset(filename: "Icons")
+
+        DFonts = [CFontTileset](repeating: CFontTileset(), count: 10)
+
+        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: DIconTileset, color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+
+        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset as! CGraphicMulticolorTileset, fonts: DFonts, color: EPlayerColor.Red)
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         //        DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
@@ -428,7 +453,13 @@ class CApplicationData {
     func PressClickEvent(event: NSEvent) -> Bool {
         if event.buttonNumber == 0 { // leftclick pressed
             DCurrentX = Int(event.locationInWindow.x)
+            //            print("X: \(DCurrentX)")
             DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y)
+            //            print("Y: \(CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y))")
+            //            print("BevelWidths:")
+            //            print("MiniBev: \(DMiniBevel.DWidth)")
+            //            print("InnerBev: \(DInnerBevel.DWidth)")
+            //            print("OuterBev: \(DOuterBevel.DWidth)")
             DLeftClick = 1
             DLeftDown = true
         } else if event.buttonNumber == 1 { // rightclick pressed
@@ -506,6 +537,13 @@ class CApplicationData {
 
         DArrowTileset = CGraphicTileset()
         DArrowTileset.LoadTileset(filename: "Arrow")
+
+        DMiniIconTileset = CGraphicTileset()
+        DMiniIconTileset.LoadTileset(filename: "MiniIcons")
+
+        DIconTileset = CGraphicTileset()
+        DIconTileset.LoadTileset(filename: "Icons")
+
         let AssetFileNames = CDataSource.GetDirectoryFiles(subdirectory: "res", extensionType: "dat")
         CPlayerAssetType.LoadTypes(filenames: AssetFileNames)
 
@@ -612,9 +650,10 @@ class CApplicationData {
         return CPixelPosition(x: pos.X() - DViewportXOffset, y: pos.Y() - DViewportYOffset)
     }
 
-    //    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
-    //        return CPixelPosition(x: pos.X() - DMiniMapXOffset, y: pos.Y() - DMiniMapYOffset)
-    //    }
+    // Hardcoded to location of minimap in HUD.
+    func ScreenToMiniMap(pos: CPixelPosition) -> CPixelPosition {
+        return CPixelPosition(x: pos.X() - 20, y: 538 - pos.Y())
+    }
 
     func ScreenToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
         return ViewportToDetailedMap(pos: ScreenToViewport(pos: pos))
@@ -631,6 +670,27 @@ class CApplicationData {
     func ViewportToDetailedMap(pos: CPixelPosition) -> CPixelPosition {
         var pos = pos
         return DViewportRenderer.DetailedPosition(pos: &pos)
+    }
+
+    func MiniMaptoDetailedMap(pos: CPixelPosition) -> CPixelPosition {
+        var X = pos.X() * DGameModel.Map().Width() / DMapRenderer.MapWidth()
+        var V = pos.Y() * DGameModel.Map().Width() / DMapRenderer.MapHeight()
+        if X < 0 {
+            X = 0
+        }
+        if DGameModel.Map().Width() <= X {
+            X = DGameModel.Map().Width() - 1
+        }
+        if Y < 0 {
+            Y = 0
+        }
+        if DGameModel.Map().Height() <= Y {
+            Y = DGameModel.Map().Width() - 1
+        }
+        let Temp = CPixelPosition()
+        Temp.SetXFromTile(x: X)
+        Temp.SetYFromTile(y: Y)
+        return Temp
     }
 
     func LoadGameMap(index: Int) {
@@ -674,7 +734,8 @@ class CApplicationData {
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
         //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
-        // DUnitActionRenderer = CUnitActionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
+
+        //        DUnitActionRenderer = CUnitActionRenderer(bevel: DMiniBevel, icons: DIconTileset, color: DPlayerColor, player: DGameModel.Player(color: DPlayerColor)!)
         // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
         //        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
         //        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])
@@ -685,7 +746,7 @@ class CApplicationData {
         //        var LeftPanelWidth = max(DUnitDescriptionRenderer.MinimumWidth(), DUnitActionrenderer.MinimumWidth()) + DOuterBevel.Width * 4
         //        LeftPanelWidth = max(LeftPanelWidth, CApplicationData.MINI_MAP_MIN_WIDTH + DInnerBevel.Width() * 4)
         var MinUnitDescrHeight: Int
-
+        DViewportXOffset = (DInnerBevel.Width() + DMiniBevel.Width()) * DTerrainTileset.DTileWidth
         //        DMiniMapXOffset = DInnerBevel.Width() * 2
         //        DUnitDescriptionXOffset = DOuterBevel.Width() * 2
         //        DUnitActionXOffset = DUnitDescriptionXOffset

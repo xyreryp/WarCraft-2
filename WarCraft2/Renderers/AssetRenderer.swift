@@ -336,6 +336,7 @@ class CAssetRenderer {
         let ScreenRightX: Int = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY: Int = rect.DYPosition + rect.DHeight - 1
         var FinalRenderList = [SAssetRenderData]()
+        //        print(DNoneIndices)
         for AssetIterator in DPlayerMap.DAssets {
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = AssetIterator.Type()
@@ -419,6 +420,7 @@ class CAssetRenderer {
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
                          EAssetAction.None:
+                        //                        print("Asset is of type raw value: \(TempRenderData.DType.rawValue) and it's direction is: \(AssetIterator.DDirection.rawValue)")
                         TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         if 0 != AssetIterator.Speed() {
                             if 0 != AssetIterator.DLumber {
@@ -822,8 +824,7 @@ class CAssetRenderer {
         }
     }
 
-    func DrawMiniAssets(surface: CGraphicSurface) {
-        let ResourceContext = surface.CreateResourceContext()
+    func DrawMiniAssets(ResourceContext: CGraphicResourceContext) {
         if nil == DPlayerData {
             for AssetIterator in DPlayerMap.DAssets {
                 var AssetColor: EPlayerColor = AssetIterator.Color()
@@ -831,7 +832,9 @@ class CAssetRenderer {
                 if AssetColor == DPlayerData?.DColor {
                     AssetColor = EPlayerColor.Max
                 }
-                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
+                //                ResourceContext.SetSourceRGBA(r: 1.0, g: 1.0, b: 0.0, a: 1.0) // Hardcode to Yellow.
+                //                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue]) // Original Port.
+                ResourceContext.HackRGBA(rgb: UInt32(AssetColor.rawValue)) // Hack.
                 ResourceContext.Rectangle(xpos: AssetIterator.TilePositionX(), ypos: AssetIterator.TilePositionY(), width: Size, height: Size)
                 ResourceContext.Fill()
             }
@@ -840,8 +843,10 @@ class CAssetRenderer {
                 let AssetColor: EPlayerColor = AssetIterator.DColor
                 let Size: Int = CPlayerAssetType.FindDefaultFromName(name: AssetIterator.DType).DSize
 
-                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue])
-                ResourceContext.Rectangle(xpos: AssetIterator.DTilePosition.X(), ypos: AssetIterator.DTilePosition.Y(), width: Size, height: Size)
+                //                ResourceContext.SetSourceRGBA(r: 1.0, g: 1.0, b: 0.0, a: 1.0) // Hardcode to Yellow.
+                //                ResourceContext.SetSourceRGB(rgb: DPixelColors[AssetColor.rawValue]) // Original Port.
+                ResourceContext.HackRGBA(rgb: UInt32(AssetColor.rawValue)) // Hack.
+                ResourceContext.Rectangle(xpos: AssetIterator.DTilePosition.X(), ypos: DPlayerMap.Height() - AssetIterator.DTilePosition.Y(), width: Size, height: Size)
                 ResourceContext.Fill()
             }
         }

@@ -312,11 +312,12 @@ class CMapRenderer {
         for YPos in 0 ..< DMap.Height() {
             var XPos = 0
 
+            // Flipped the YPos by subtracting it from DMap.Height()
             while XPos < DMap.Width() {
-                let TileType = DMap.TileType(xindex: XPos, yindex: YPos)
+                let TileType = DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos)
                 let XAnchor = XPos
 
-                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: YPos) == TileType {
+                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos) == TileType {
                     XPos += 1
                 }
 

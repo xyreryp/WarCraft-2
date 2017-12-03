@@ -122,6 +122,9 @@ class CPlayerData {
                 TotalProduction += AssetConsumption
             }
         }
+        if TotalProduction < 0 {
+            return 0
+        }
         return TotalProduction
     }
 
