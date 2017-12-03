@@ -181,14 +181,17 @@ class CUnitActionRenderer {
                 // FIXME: surface is declared as CGraphicsSurface for Bevel and SKScene for CGraphicTileset
                 DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: XOffset, ypos: YOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
                 // variable is casted right now, needs to change later
-                DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
+
+                // TODO: UNCOMMENT DICONTILESET CODE LATER
+                //                DIconTileset.DrawTile(skscene: (surface as? SKScene)!, xpos: XOffset, ypos: YOffset, tileindex: DCommandIndices[IconType.rawValue])
 
                 // do something
                 // FIX ME:
                 if !(PlayerCapability.CanInitiate(actor: selectionlist[0], playerdata: DPlayerData)) {
                     // if(!PlayerCapability.CanInitiate(selectionlist.front().lock(), DPlayerData)) {
-                    // FIX ME: SKScene issue/ CGraphicSurface issue
-                    DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
+
+                    // TODO: UNCOMMENT ME!!!!
+                    //                    DIconTileset.DrawTile(skscene: surface as! SKScene, xpos: XOffset, ypos: YOffset, tileindex: DDisabledIndex)
                 }
             }
         }
