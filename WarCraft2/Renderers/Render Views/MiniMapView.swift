@@ -26,11 +26,14 @@ class MiniMapView: NSView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var cgcontext:CGraphicResourceContext? = nil
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         let context = NSGraphicsContext.current!.cgContext
         let cgcontext = CGraphicResourceContextCoreGraphics(context: context)
+        self.cgcontext = cgcontext
         mapRenderer.DrawMiniMap(ResourceContext: cgcontext)
         assetRenderer.DrawMiniAssets(ResourceContext: cgcontext)
         fogRenderer.DrawMiniMap(ResourceContext: cgcontext)
