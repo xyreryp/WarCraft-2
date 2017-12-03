@@ -146,17 +146,18 @@ class CViewportRenderer {
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();
         if selectionmarkerlist.count != 0 { // if list is not empty
+            // Builder = selectionmarkerlist[0]
 
             // NOTE: check what value Builder has:
-         // type of selectionmarkerlist guarantees it cannot be a non-optional
-         Builder = selectionmarkerlist[0]
+            // type of selectionmarkerlist guarantees it cannot be a non-optional
+            //            Builder = selectionmarkerlist[0]
 
-//                     if let tempValue = selectionmarkerlist[0] {
-//                         Builder = tempValue
-//                     } else {
-//                         Builder = nil // cannot Builder assign to nil
-//                     }
-        } // NOTE: This might break shit
+            //                     if let tempValue = selectionmarkerlist[0] {
+            //                         Builder = tempValue
+            //                     } else {
+            //                         Builder = nil // cannot Builder assign to nil
+            //                     }
+        } //
         // NOTE: this was uncommented,
         DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle, pos: CPixelPosition(x: selectrect.DXPosition, y: selectrect.DYPosition), type: PlaceType, builder: Builder)
 

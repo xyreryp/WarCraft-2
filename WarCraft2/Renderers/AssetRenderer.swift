@@ -32,6 +32,7 @@ class CAssetRenderer {
     var DDeathIndices: [[Int]]!
     var DPlaceIndices: [[Int]]!
     var DPixelColors: [UInt32]
+    //    var MarkerIndex: Int
 
     static var DAnimationDownsample: Int = 1
     static let TARGET_FREQUENCY = 10
@@ -594,7 +595,8 @@ class CAssetRenderer {
                         let MarkerIndex: Int = LockedAsset.DStep / CAssetRenderer.DAnimationDownsample
                         if MarkerIndex < DMarkerIndices.count {
                             // FIXME: Comment this back in after we have MarkerTileset
-                            //                            DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
+
+                            DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: MarkerIndex)
                         }
                     }
                 }
@@ -800,6 +802,8 @@ class CAssetRenderer {
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
+                        // NOTE: this call is incorrect
+                        //                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DMarkerIndices[MarkerIndex]) // matches ios function call
                         DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }
