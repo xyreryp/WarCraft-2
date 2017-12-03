@@ -2,6 +2,11 @@
 Nowhere to run, nowhere to hide
 # Map Dimensions W x H
 32 32
+# Map Description
+The map description will go here
+it can be 0 or more lines
+# Map Tileset
+./path/to/Terrain.dat
 # Map Terrain Data
 ggggggggggggFFFFFFFgggggggGGGGGgg
 ggggggggggggFFFFFFFggggGGGGGGGGgg
@@ -79,13 +84,21 @@ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 3 2000 1500
 4 2000 1500
 # Number of assets
-8
+9
 # Starting assets Type Owner X Y
 GoldMine 0 0 0
 GoldMine 0 29 0
 Peasant 2 3 4
 Peasant 1 28 4
+Footman 1 27 7
 Peasant 3 4 27
 Peasant 4 26 28
 GoldMine 0 29 29
 GoldMine 0 0 29
+# Number of scripts
+3
+# AI Scripts
+script1.lua
+script2.lua
+script3.lua
+

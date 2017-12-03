@@ -158,27 +158,18 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        // FIXME: Why is this function so different than the .cpp?
-        for (key, pair) in DAssetTypes {
-            if assettypename == key {
-                let CreatedAsset: CPlayerAsset = pair.Construct()
-                CreatedAsset.CreationCycle(cycle: DGameCycle)
-                DAssets.append(CreatedAsset)
-                // FIXME: Where is this actually done? I can't seem to find when PlayerMap is added to
-                DPlayerMap.AddAsset(asset: CreatedAsset)
-                DActualMap.AddAsset(asset: CreatedAsset)
-                return CreatedAsset
-            }
-        }
-        print("Did not find asset name, in PlayerData class")
-        return (DAssetTypes[assettypename]?.Construct())!
+        var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
+        CreatedAsset.CreationCycle(cycle: DGameCycle)
+        DAssets.append(CreatedAsset)
+        DActualMap.AddAsset(asset: CreatedAsset)
+        return CreatedAsset
     }
 
     func DeleteAsset(asset: CPlayerAsset) {
-        for i in 0 ..< DAssets.count {
-            let currAsset = DAssets[i]
-            if !(currAsset != asset) {
-                DAssets.remove(at: i)
+
+        for (Index, Asset) in DAssets.enumerated().reversed() {
+            if Asset == asset {
+                DAssets.remove(at: Index)
                 break
             }
         }
@@ -237,18 +228,13 @@ class CPlayerData {
         if selectarea.DWidth == 0 || selectarea.DHeight == 0 {
             let BestAsset: CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
             ReturnList.append(BestAsset)
-            /*
-             if selectidentical && LockedAsset.Speed() > 0 {
-             for Asset in DAssets {
-             if LockedAsset != Asset && Asset.Type() == assettype {
-             ReturnList.append(Asset)
-             }
-             }
-             }*/
+
         } else {
+            if selectarea.DWidth < 0 {
+            }
             var AnyMovable: Bool = false
             for Asset in DAssets {
-                if selectarea.DXPosition <= Asset.PositionX() && Asset.PositionX() < selectarea.DXPosition + selectarea.DWidth && selectarea.DYPosition <= Asset.PositionY() && Asset.PositionY() < selectarea.DYPosition + selectarea.DHeight {
+                if selectarea.AssetInside(x: Asset.DPosition.X(), y: Asset.DPosition.Y()) {
                     if AnyMovable {
                         if Asset.Speed() > 0 {
                             ReturnList.append(Asset)
@@ -291,14 +277,14 @@ class CPlayerData {
         return BestAsset
     }
 
-    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset {
+    func FindNearestOwnedAsset(pos: CPixelPosition, assettypes: [EAssetType]) -> CPlayerAsset? {
 
-        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
+        var BestAsset: CPlayerAsset?
         var BestDistanceSquared = -1
 
         for Asset in DAssets {
             for AssetType in assettypes {
-                if Asset.Type() == AssetType && EAssetAction.Construct != Asset.Action() || EAssetType.Keep == AssetType || EAssetType.Castle == AssetType {
+                if Asset.Type() == AssetType && (EAssetAction.Construct != Asset.Action() || AssetType == EAssetType.Keep || AssetType == EAssetType.Castle) {
                     let CurrentDistance = Asset.DPosition.DistanceSquared(pos: pos)
 
                     if -1 == BestDistanceSquared || CurrentDistance < BestDistanceSquared {

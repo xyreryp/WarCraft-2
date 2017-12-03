@@ -61,79 +61,82 @@ class CFontTileset: CGraphicMulticolorTileset {
 
         return pixel
     }
-
-    public func LoadFont(colormap: CGraphicRecolorMap, source: CDataSource) -> Bool {
-        var LineSource = CLineDataSource(source: source)
-        var TempString: String?
-        var ReturnStatus: Bool = false
-        var BestLine: Int = 0
-
-        if !super.LoadTileset(colormap: colormap, source: source) {
-            return false
-        }
-
-        DCharacterTops = [Int](repeating: 0, count: DTileCount)
-        DCharacterBottoms = [Int](repeating: 0, count: DTileCount)
-        DCharacterBaseline = DTileHeight
-
-        do {
-            for index in 0 ... DTileCount {
-                if !LineSource.Read(line: &TempString!) {
-                    return ReturnStatus
-                }
-                DCharacterWidths[index] = Int(TempString!)!
-            }
-            for FromIndex in 0 ... DTileCount {
-                var Values: [String]?
-                // resize
-                if !LineSource.Read(line: &TempString!) {
-                    return ReturnStatus
-                }
-                CTokenizer.Tokenize(tokens: &Values!, data: TempString!)
-                if Values?.count != DTileCount {
-                    return ReturnStatus
-                }
-                for ToIndex in 0 ... DTileCount {
-                    DDeltaWidths[FromIndex][ToIndex] = Int(Values![ToIndex])!
-                }
-            }
-            ReturnStatus = true
-        } catch is exception {
-            print("Error: FontTileSet: LoadFont")
-        }
-        // Try Catch here, not sure about swift error handling
-
-        var BottomOccurence = Array(repeating: Int(), count: DTileHeight + 1)
-        for Index in 0 ... BottomOccurence.count {
-            if BottomOccurence[BestLine] < BottomOccurence[Index] {
-                BestLine = Index
-            }
-        }
-        for Index in 0 ... DTileCount {
-            DTopOpaque = DTileHeight
-            DBottomOpaque = 0
-            DSearchCall = 0
-            // DSurfaceTileset.Transform(DSurfaceTileset, 0, Index * DTileHeight, DTileWidth, DTileHeight, 0, Index * DTileHeight, self, TopBottomSearch) // TODO: function not written yet
-            DCharacterTops[Index] = DTopOpaque
-            DCharacterBottoms[Index] = DBottomOpaque
-            BottomOccurence[DBottomOpaque] += 1
-        }
-        for Index in 1 ... BottomOccurence.count {
-            if BottomOccurence[BestLine] < BottomOccurence[Index] {
-                BestLine = Index
-            }
-        }
-        DCharacterBaseline = BestLine
-
-        return ReturnStatus
-    }
-
+    //    public func LoadFont(colormap: CGraphicRecolorMap, source: CDataSource) -> Bool {
+    //        let LineSource = CLineDataSource(source: source)
+    //        var TempString: String?
+    //        var ReturnStatus: Bool = false
+    //        var BestLine: Int = 0
+    //
+    //        if !super.LoadTileset(colormap: colormap, source: source) {
+    //            return false
+    //        }
+    //
+    //        // NOTE: resizes of arrays not neccesary
+    //        DCharacterBaseline = DTileHeight
+    //
+    //        do {
+    //            for index in 0 ... DTileCount {
+    //                if !LineSource.Read(line: &TempString!) {
+    //                    return ReturnStatus
+    //                }
+    //                DCharacterWidths[index] = Int(TempString!)!
+    //            }
+    //            for FromIndex in 0 ... DTileCount {
+    //                var Values: [String]?
+    //                // resize
+    //                if !LineSource.Read(line: &TempString!) {
+    //                    return ReturnStatus
+    //                }
+    //                CTokenizer.Tokenize(tokens: &Values!, data: TempString!)
+    //                if Values?.count != DTileCount {
+    //                    return ReturnStatus
+    //                }
+    //                for ToIndex in 0 ... DTileCount {
+    //                    DDeltaWidths[FromIndex][ToIndex] = Int(Values![ToIndex])!
+    //                }
+    //            }
+    //            ReturnStatus = true
+    //        } catch is exception {
+    //            print("Error: FontTileSet: LoadFont")
+    //        }
+    //        // Try Catch here, not sure about swift error handling
+    //
+    //        var BottomOccurence = Array(repeating: Int(), count: DTileHeight + 1)
+    //        for Index in 0 ... BottomOccurence.count {
+    //            if BottomOccurence[BestLine] < BottomOccurence[Index] {
+    //                BestLine = Index
+    //            }
+    //        }
+    //        for Index in 0 ... DTileCount {
+    //            DTopOpaque = DTileHeight
+    //            DBottomOpaque = 0
+    //            DSearchCall = 0
+    //            // DSurfaceTileset.Transform(DSurfaceTileset, 0, Index * DTileHeight, DTileWidth, DTileHeight, 0, Index * DTileHeight, self, TopBottomSearch) // TODO: function not written yet
+    //            DCharacterTops[Index] = DTopOpaque
+    //            DCharacterBottoms[Index] = DBottomOpaque
+    //            BottomOccurence[DBottomOpaque] += 1
+    //        }
+    //        for Index in 1 ... BottomOccurence.count {
+    //            if BottomOccurence[BestLine] < BottomOccurence[Index] {
+    //                BestLine = Index
+    //            }
+    //        }
+    //        DCharacterBaseline = BestLine
+    //
+    //        return ReturnStatus
+    //    }
     // graphics factory core graphics->
     public func DrawText(surface _: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, str: String) {
         let atrString = NSAttributedString(string: str)
         atrString.draw(at: NSPoint(x: xpos, y: ypos))
-
-        // atrString.draw(with: <#T##NSRect#>, options: <#T##NSString.DrawingOptions#>, context: <#T##NSStringDrawingContext?#>)
+            NextChar = str[index].asciiValue - 32
+            if !Skip {
+                xposHold += DCharacterWidths[LastChar] + DDeltaWidths[LastChar][NextChar]
+            }
+            Skip = false
+            super.DrawTile(context: surface, xpos: xposHold, ypos: ypos, width: 50, height: 50, tileindex: NextChar)
+            LastChar = NextChar
+        }
     }
 
     public func DrawTextColor(surface: CGraphicResourceContextCoreGraphics, xpos: Int, ypos: Int, colorindex: Int, str: String) {

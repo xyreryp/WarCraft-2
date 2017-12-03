@@ -110,10 +110,9 @@ class CViewportRenderer {
         }
     }
 
-    // FIXME: took out parameters
     func DrawViewport(surface: SKScene, typesurface: CGraphicResourceContext,
-                      /* selectionmarkerlist: inout [CPlayerAsset],*/
-                      selectrect _: SRectangle /* ,curcapability: EAssetCapabilityType */ ) {
+                      selectionmarkerlist: [CPlayerAsset],
+                      selectrect: SRectangle, curcapability _: EAssetCapabilityType) {
         var TempRectangle: SRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         var PlaceType: EAssetType = EAssetType.None
         var Builder: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
@@ -134,28 +133,13 @@ class CViewportRenderer {
         TempRectangle.DXPosition = DViewportX
         TempRectangle.DYPosition = DViewportY
         TempRectangle.DWidth = DLastViewportWidth
+        // FIXME: no idea how to change viewport stuff
         TempRectangle.DHeight = DLastViewportWidth
 
-        /*  switch curcapability {
-         case EAssetCapabilityType.BuildFarm:
-         PlaceType = EAssetType.Farm
-         case EAssetCapabilityType.BuildTownHall:
-         PlaceType = EAssetType.TownHall
-         case EAssetCapabilityType.BuildBarracks:
-         PlaceType = EAssetType.Barracks
-         case EAssetCapabilityType.BuildLumberMill:
-         PlaceType = EAssetType.LumberMill
-         case EAssetCapabilityType.BuildBlacksmith:
-         PlaceType = EAssetType.Blacksmith
-         case EAssetCapabilityType.BuildScoutTower:
-         PlaceType = EAssetType.ScoutTower
-         default:
-         break // do nothing
-         }*/
-
+        // DMapRenderer.DrawMap(surface: surface, rect: TempRectangle)
         DMapRenderer.DrawMap(surface: surface, typesurface: typesurface, rect: TempRectangle)
-        //  DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist,
-        //      selectrect: selectrect, highlightbuilding: (EAssetType.None != PlaceType))
+        // FIXME: Highlight building set to false for now
+        DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist, selectrect: selectrect, highlightbuilding: false)
         DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
         //  DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
 
@@ -176,6 +160,7 @@ class CViewportRenderer {
         //        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
         //                                     pos: CPixelPosition(x: selectrect.DXPosition,
         //                                                         y: selectrect.DYPosition), type: PlaceType, builder: Builder)
-        //  DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
+
+        DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
     }
 }

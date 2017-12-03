@@ -274,13 +274,17 @@ class CPlayerAssetType {
     }
 
     //    https://developer.apple.com/documentation/swift/dictionary/2296181-max
-    // FIXME: fix
     static func MaxSight() -> Int {
-        var MaxSightFound: Int = 0
         //        let MaxSightFound = DRegistry.max { a, b in a.value.DSight < b.value.DSight }
         //        let MaxSightFound = CPlayerAssetType.DRegistry.max(by: { a, b in a.value.DSight > b.value.DSight })
         //        return MaxSightFound!.value.DSight
-        return 3
+        var MaxSightFound = 0
+        let Keys = DRegistry.keys
+        for Key in Keys {
+            let ResType = DRegistry[Key]
+            MaxSightFound = MaxSightFound > (ResType?.DSight)! + (ResType?.DSize)! ? MaxSightFound : (ResType?.DSight)! + (ResType?.DSize)!
+        }
+        return MaxSightFound
     }
 
     /// Load the resources data from all the files in the "res" directory

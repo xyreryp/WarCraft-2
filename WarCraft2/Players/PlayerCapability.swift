@@ -162,7 +162,6 @@ class CPlayerCapability {
         return TypeStrings[type.rawValue]
     }
 
-    // FIXME: Virtual
     func CanInitiate(actor _: CPlayerAsset, playerdata _: CPlayerData) -> Bool { return false }
     func CanApply(actor _: CPlayerAsset, playerdata _: CPlayerData, target _: CPlayerAsset) -> Bool { return true }
     @discardableResult

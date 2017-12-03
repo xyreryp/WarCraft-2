@@ -11,17 +11,23 @@ import Cocoa
 import SpriteKit
 extension SKView {
     open override func mouseDown(with event: NSEvent) {
-
-        applicationData.DCurrentX = Int(event.locationInWindow.x) - 180
-        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y) + 30
-        applicationData.DLeftClick = 1
+        applicationData.PressClickEvent(event: event)
     }
 
     open override func rightMouseDown(with event: NSEvent) {
-        // right mouse click
-        applicationData.DCurrentX = Int(event.locationInWindow.x) - 180
-        applicationData.DCurrentY = CApplicationData.INITIAL_MAP_HEIGHT - Int(event.locationInWindow.y) + 30
-        applicationData.DRightClick = 1
+        applicationData.PressClickEvent(event: event)
+    }
+
+    open override func mouseUp(with event: NSEvent) {
+        applicationData.ReleaseClickEvent(event: event)
+    }
+
+    open override func rightMouseUp(with event: NSEvent) {
+        applicationData.ReleaseClickEvent(event: event)
+    }
+
+    open override func mouseDragged(with event: NSEvent) {
+        applicationData.LeftMouseDragged(event: event)
     }
 }
 
@@ -34,6 +40,12 @@ class GameViewController: NSViewController {
     var skscene: GameScene!
     var battleMode = CBattleMode()
     var musicManager = SoundManager()
+    var DMapNameToFileName: [String: String] = [
+        "Three ways to cross": "bay",
+        "No way out of this maze": "hedges",
+        "One way in one way out": "mountain",
+        "Nowhere to run, nowhere to hide": "nwhr2rn",
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +77,6 @@ class GameViewController: NSViewController {
         skview = SKView(frame: NSRect(x: 180, y: 30, width: mysize.width, height: mysize.height))
         skview.presentScene(skscene)
         view.addSubview(skview)
-
-        //        time = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
 
         let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
         let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)

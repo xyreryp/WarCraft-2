@@ -8,7 +8,6 @@
 
 import Foundation
 
-// FIXME:
 // using TGraphicSurfaceTransformCallback = uint32_t (*)(void *calldata, uint32_t src);
 
 class CGraphicResourceContext {
@@ -40,6 +39,5 @@ class CGraphicResourceContext {
     func Restore() {}
     //    func DrawSurface(srcsurface: CGraphicSurface, dxpos: Int, dypos: Int, width: Int, height: Int, sxpos: Int, sypos: Int) {}
     //    func CopySurface(srcsurface: CGraphicSurface, dxpos: Int, dypos: Int, width: Int, height: Int, sxpos: Int, sypos: Int) {}
-    // FIXME:
     //    virtual void Transform(std::shared_ptr<CGraphicSurface> srcsurface, int dxpos, int dypos, int width, int height, int sxpos, int sypos, void *calldata, TGraphicSurfaceTransformCallback callback) = 0;
 }

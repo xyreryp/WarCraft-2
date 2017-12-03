@@ -24,31 +24,31 @@ class CGraphicMulticolorTileset: CGraphicTileset {
         return DColorMap.FindColor(colorname: colorname)
     }
 
-    func TestLoadTileset(colormap: CGraphicRecolorMap, source: CDataSource, assetName: String) -> Bool {
+    //    func TestLoadTileset(colormap: CGraphicRecolorMap, source: CDataSource, assetName: String) -> Bool {
+    //
+    //        if !super.TestLoadTileset(source: source, assetName: assetName) {
+    //            return false
+    //        }
+    //        DColoredTilesets.removeAll()
+    //        DColoredTilesets.append(DSurfaceTileset!)
+    //        for ColIndex in 1 ..< colormap.GroupCount() {
+    //            DColoredTilesets.append(colormap.RecolorSurface(index: ColIndex, srcsurface: DSurfaceTileset!)!)
+    //        }
+    //        return true
+    //    }
 
-        if !super.TestLoadTileset(source: source, assetName: assetName) {
-            return false
-        }
-        DColoredTilesets.removeAll()
-        DColoredTilesets.append(DSurfaceTileset!)
-        for ColIndex in 1 ..< colormap.GroupCount() {
-            DColoredTilesets.append(colormap.RecolorSurface(index: ColIndex, srcsurface: DSurfaceTileset!)!)
-        }
-        return true
-    }
-
-    func LoadTileset(colormap: CGraphicRecolorMap, source: CDataSource) -> Bool {
-        DColorMap = colormap
-        if !super.LoadTileset(source: source) {
-            return false
-        }
-        DColoredTilesets.removeAll()
-        DColoredTilesets.append(DSurfaceTileset!)
-        for ColIndex in 1 ..< colormap.GroupCount() {
-            DColoredTilesets.append(colormap.RecolorSurface(index: ColIndex, srcsurface: DSurfaceTileset!)!)
-        }
-        return true
-    }
+    //    func LoadTileset(colormap: CGraphicRecolorMap, source: CDataSource) -> Bool {
+    //        DColorMap = colormap
+    //        if !super.LoadTileset(source: source) {
+    //            return false
+    //        }
+    //        DColoredTilesets.removeAll()
+    //        DColoredTilesets.append(DSurfaceTileset!)
+    //        for ColIndex in 1 ..< colormap.GroupCount() {
+    //            DColoredTilesets.append(colormap.RecolorSurface(index: ColIndex, srcsurface: DSurfaceTileset!)!)
+    //        }
+    //        return true
+    //    }
 
     func DrawTile(surface: CGraphicSurface, xpos: Int, ypos: Int, tileindex: Int, colorindex: Int) {
         if (0 > tileindex) || (tileindex >= DTileCount) {

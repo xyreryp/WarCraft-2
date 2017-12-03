@@ -28,12 +28,10 @@ class CVisibilityMap {
 
     init(width: Int, height: Int, maxvisibility: Int) {
         DMaxVisibility = maxvisibility
-        DMap = [[]]
         DMap = [[ETileVisibility]](repeating: [], count: height + 2 * DMaxVisibility)
         // FIXME:
-        for (i, _) in DMap.enumerated() {
-            DMap[i] = [ETileVisibility](repeating: ETileVisibility.None, count: width + 2 * DMaxVisibility)
-            _ = ETileVisibility.None
+        for Row in 0 ..< DMap.count {
+            DMap[Row] = Array(repeating: ETileVisibility.None, count: width + 2 * DMaxVisibility)
         }
 
         DTotalMapTiles = width * height
@@ -69,7 +67,7 @@ class CVisibilityMap {
     }
 
     func Width() -> Int {
-        if DMap.count > 2 {
+        if 0 != DMap.count {
             return DMap.first!.count - 2 * DMaxVisibility
         }
         return 0
@@ -81,69 +79,71 @@ class CVisibilityMap {
 
     // TODO: need CPlayerAsset, otherwise everything is in swift
     func Update(assets: [CPlayerAsset]) {
-        for Row in DMap {
-            for var Cell in Row {
-                if (ETileVisibility.Visible == Cell) || (ETileVisibility.Partial == Cell) {
-                    Cell = ETileVisibility.Seen
-                } else if ETileVisibility.PartialPartial == Cell {
-                    Cell = ETileVisibility.SeenPartial
+        // Update the visibility of all tiles in the terrain map
+        for Row in 0 ..< DMap.count {
+            for Col in 0 ..< DMap[0].count {
+                if (ETileVisibility.Visible == DMap[Row][Col]) || (ETileVisibility.Partial == DMap[Row][Col]) {
+                    DMap[Row][Col] = ETileVisibility.Seen
+                } else if ETileVisibility.PartialPartial == DMap[Row][Col] {
+                    DMap[Row][Col] = ETileVisibility.SeenPartial
                 }
             }
         }
-        for CurAsset in assets {
 
-            let Anchor: CTilePosition = CurAsset.TilePosition()
-            let Sight: Int = CurAsset.EffectiveSight() + CurAsset.Size() / 2
-            let SightSquared: Int = Sight * Sight
-            Anchor.X(x: Anchor.X() + CurAsset.Size() / 2)
-            Anchor.Y(y: Anchor.X() + CurAsset.Size() / 2)
+        for WeakAsset in assets {
+            if let CurAsset: CPlayerAsset = WeakAsset {
+                let Anchor = CurAsset.TilePosition()
+                let Sight = CurAsset.EffectiveSight() + CurAsset.Size() / 2
+                let SightSquared: Int = Sight * Sight
+                Anchor.X(x: Anchor.X() + CurAsset.Size() / 2)
+                Anchor.Y(y: Anchor.Y() + CurAsset.Size() / 2)
 
-            var X: Int = 0
-            repeat {
-                let XSquared: Int = X * X
-                let XSquared1: Int = X != 0 ? (X - 1) * (X - 1) : 0
+                for X in 0 ... Sight {
+                    let XSquared: Int = X * X
+                    let XSquared1: Int = X != 0 ? (X - 1) * (X - 1) : 0
 
-                var Y: Int = 0
-                repeat {
-                    let YSquared: Int = Y * Y
-                    let YSquared1: Int = Y != 0 ? (Y - 1) * (Y - 1) : 0
-                    if (XSquared + YSquared) < SightSquared {
-                        DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Visible
-                        DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Visible
-                        DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Visible
-                        DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Visible
-                    } else if (XSquared1 + YSquared1) < SightSquared {
-                        var CurVis: ETileVisibility = DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility]
+                    for Y in 0 ... Sight {
+                        let YSquared: Int = Y * Y
+                        let YSquared1: Int = Y != 0 ? (Y - 1) * (Y - 1) : 0
 
-                        if ETileVisibility.Seen == CurVis {
-                            DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial
-                        } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                            DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial
-                        }
-                        CurVis = DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility]
-                        if ETileVisibility.Seen == CurVis {
-                            DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial
-                        } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                            DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial
-                        }
-                        CurVis = DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility]
-                        if ETileVisibility.Seen == CurVis {
-                            DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial
-                        } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                            DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial
-                        }
-                        CurVis = DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility]
-                        if ETileVisibility.Seen == CurVis {
-                            DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial
-                        } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
-                            DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial
+                        if (XSquared + YSquared) < SightSquared {
+                            DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Visible
+                            DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Visible
+                            DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Visible
+                            DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Visible
+                        } else if (XSquared1 + YSquared1) < SightSquared {
+                            var CurVis: ETileVisibility = DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility]
+
+                            if ETileVisibility.Seen == CurVis {
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial
+                            } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial
+                            }
+
+                            CurVis = DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility]
+                            if ETileVisibility.Seen == CurVis {
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial
+                            } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
+                                DMap[Anchor.Y() - Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial
+                            }
+
+                            CurVis = DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility]
+                            if ETileVisibility.Seen == CurVis {
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.Partial
+                            } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() - X + DMaxVisibility] = ETileVisibility.PartialPartial
+                            }
+
+                            CurVis = DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility]
+                            if ETileVisibility.Seen == CurVis {
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.Partial
+                            } else if (ETileVisibility.None == CurVis) || (ETileVisibility.SeenPartial == CurVis) {
+                                DMap[Anchor.Y() + Y + DMaxVisibility][Anchor.X() + X + DMaxVisibility] = ETileVisibility.PartialPartial
+                            }
                         }
                     }
-
-                    Y += 1
-                } while Y <= Sight
-                X += 1
-            } while X <= Sight
+                }
+            }
         }
 
         let MinY: Int = DMaxVisibility
@@ -151,16 +151,12 @@ class CVisibilityMap {
         let MinX: Int = DMaxVisibility
         let MaxX: Int = DMap.first!.count - DMaxVisibility
         DUnseenTiles = 0
-        var Y: Int = MinY
-        repeat {
-            var X: Int = MinX
-            repeat {
+        for Y in MinY ..< MaxY {
+            for X in MinX ..< MaxX {
                 if ETileVisibility.None == DMap[Y][X] {
                     DUnseenTiles += 1
                 }
-                X += 1
-            } while X < MaxX
-            Y += 1
-        } while Y < MaxY
+            }
+        }
     }
 }
