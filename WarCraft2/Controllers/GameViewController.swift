@@ -81,7 +81,7 @@ class GameViewController: NSViewController {
         let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
         let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
         view.addSubview(resourceView)
-        let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer)
+        let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer, fogRenderer: applicationData.DFogRenderer)
         view.addSubview(miniMapView)
 
         let unitActionView = UnitActionView(frame: NSRect(x: 15, y: 25, width: 145, height: 145), unitActionRenderer: applicationData.DUnitActionRenderer)
