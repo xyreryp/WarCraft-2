@@ -26,8 +26,8 @@ class MiniMapView: NSView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    var cgcontext:CGraphicResourceContext? = nil
+
+    var cgcontext: CGraphicResourceContext?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

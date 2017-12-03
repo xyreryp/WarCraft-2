@@ -182,6 +182,8 @@ class GameViewController: NSViewController, toGameVC {
     }
 
     func updateMiniMap() {
-        miniMapView.setNeedsDisplay(NSRect.zero)
+        if let context = miniMapView.cgcontext {
+            miniMapView.fogRenderer.DrawMiniMap(ResourceContext: context)
+        }
     }
 }
