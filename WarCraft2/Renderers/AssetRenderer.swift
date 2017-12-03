@@ -32,6 +32,7 @@ class CAssetRenderer {
     var DDeathIndices: [[Int]]!
     var DPlaceIndices: [[Int]]!
     var DPixelColors: [UInt32]
+    //    var MarkerIndex: Int
 
     static var DAnimationDownsample: Int = 1
     static let TARGET_FREQUENCY = 10
@@ -74,12 +75,14 @@ class CAssetRenderer {
         //        DPixelColors[EPlayerColor.Max.rawValue + 2] = colors.ColorValue(gindex: colors.FindColor(colorname: "building"), cindex: 0)
 
         while true {
-            let markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
-            let Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
+            // let markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
+            let Index: Int = DMarkerTileset!.FindTile(tilename: String("marker-" + "\(MarkerIndex)"))
             if 0 > Index {
+
                 break
             }
             DMarkerIndices.append(Index)
+            // print("Dmarker: \(DMarkerIndices)")
             MarkerIndex += 1
         }
         DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: "place-good")
@@ -470,10 +473,10 @@ class CAssetRenderer {
         // FinalRenderList = FinalRenderList.sorted(by: CompareRenderData)
         for RenderIterator in FinalRenderList {
             if RenderIterator.DTileIndex < DTilesets[RenderIterator.DType.rawValue].TileCount() {
-                DTilesets[RenderIterator.DType.rawValue].DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: DPlayerMap.Height() - RenderIterator.DY, tileindex: RenderIterator.DTileIndex) // , colorindex: RenderIterator.DColorIndex)
+                DTilesets[RenderIterator.DType.rawValue].DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: DPlayerMap.Height() - RenderIterator.DY, tileindex: RenderIterator.DTileIndex, zpos: 2) // , colorindex: RenderIterator.DColorIndex)
                 // DTilesets[RenderIterator.DType.rawValue].DrawClipped(typesurface, RenderIterator.DX, RenderIterator.DY, RenderIterator.DTileIndex, RenderIterator.DPixelColor)
             } else {
-                DBuildingDeathTileset?.DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: DPlayerMap.Height() - RenderIterator.DY, tileindex: RenderIterator.DTileIndex)
+                DBuildingDeathTileset?.DrawTile(skscene: surface, xpos: RenderIterator.DX, ypos: DPlayerMap.Height() - RenderIterator.DY, tileindex: RenderIterator.DTileIndex, zpos: 2)
             }
         }
     }
@@ -570,7 +573,7 @@ class CAssetRenderer {
                             TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.DDirection.rawValue * ActionSteps + CurrentStep]
                         }
                         // FIXME: need to prob. highlight
-                        // DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+                        DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: DPlayerMap.Height() - TempRenderData.DY, tileindex: TempRenderData.DTileIndex, zpos: 4)
                     }
                 } else if EAssetAction.Attack != LockedAsset.Action() {
                     var RightX: Int
@@ -594,7 +597,8 @@ class CAssetRenderer {
                         let MarkerIndex: Int = LockedAsset.DStep / CAssetRenderer.DAnimationDownsample
                         if MarkerIndex < DMarkerIndices.count {
                             // FIXME: Comment this back in after we have MarkerTileset
-                            //                            DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DMarkerIndices[MarkerIndex])
+
+                            DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: DPlayerMap.Height() - TempRenderData.DY, tileindex: MarkerIndex, zpos: 10) // zpos: 10 from ios
                         }
                     }
                 }
@@ -630,7 +634,7 @@ class CAssetRenderer {
         }
     }
 
-    func DrawOverlays(surface: SKScene, rect: SRectangle) {
+    func DrawOverlays(surface _: SKScene, rect: SRectangle) {
         let ScreenRightX = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY = rect.DYPosition + rect.DHeight - 1
 
@@ -657,7 +661,9 @@ class CAssetRenderer {
                     if OnScreen {
                         var ActionSteps: Int = DArrowIndices.count
                         ActionSteps = ActionSteps / EDirection.Max.rawValue
-                        DArrowTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.DDirection.rawValue * ActionSteps + (((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % ActionSteps)])
+
+                        // TODO: UNCOMMENT ME LATER
+                        //                        DArrowTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: DArrowIndices[AssetIterator.DDirection.rawValue * ActionSteps + (((DPlayerData?.DGameCycle)! - AssetIterator.DCreationCycle) % ActionSteps)])
                     }
                 }
             } else if 0 == AssetIterator.Speed() {
@@ -703,7 +709,9 @@ class CAssetRenderer {
                         TempRenderData.DX = TempRenderData.DX - rect.DXPosition
                         TempRenderData.DY = TempRenderData.DY - rect.DYPosition
                         if OnScreen {
-                            DFireTilesets[TilesetIndex].DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
+
+                            // TODO: UNCOMMENT ME LATER:
+                            //                            DFireTilesets[TilesetIndex].DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: TempRenderData.DY, tileindex: TempRenderData.DTileIndex)
                         }
                     }
                 }
@@ -711,7 +719,7 @@ class CAssetRenderer {
         }
     }
 
-    func DrawPlacement(surface: SKScene, rect: SRectangle, pos: CPixelPosition, type: EAssetType, builder: CPlayerAsset) {
+    func DrawPlacement(surface _: SKScene, rect: SRectangle, pos: CPixelPosition, type: EAssetType, builder: CPlayerAsset) {
         let ScreenRightX = rect.DXPosition + rect.DWidth - 1
         let ScreenBottomY = rect.DYPosition + rect.DHeight - 1
 
@@ -795,12 +803,18 @@ class CAssetRenderer {
                 var XPos, YPos: Int
                 TempPosition.X(x: TempPosition.X() - rect.DXPosition)
                 TempPosition.Y(y: TempPosition.Y() - rect.DYPosition)
-                DTilesets[type.rawValue].DrawTile(skscene: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
+
+                // TODO: UNCOMMENT ME LATER!!
+                //                DTilesets[type.rawValue].DrawTile(skscene: surface, xpos: TempPosition.X(), ypos: TempPosition.Y(), tileindex: DPlaceIndices[type.rawValue][0])
                 XPos = TempPosition.X()
                 YPos = TempPosition.Y()
                 for Row in PlacementTiles {
                     for Cell in Row {
-                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
+                        // NOTE: this call is incorrect
+                        //                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DMarkerIndices[MarkerIndex]) // matches ios function call
+
+                        // TODO: UNCOMMENT ME LATER!!
+                        //                        DMarkerTileset!.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: ((0 != Cell) ? DPlaceGoodIndex : DPlaceBadIndex)!)
                         XPos = XPos + DMarkerTileset!.TileWidth()
                     }
                     YPos = YPos + DMarkerTileset!.TileHeight()

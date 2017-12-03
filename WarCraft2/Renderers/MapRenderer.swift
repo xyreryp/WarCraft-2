@@ -247,7 +247,7 @@ class CMapRenderer {
                         DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
                     }
                     if DisplayIndex != -1 {
-                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
+                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex, zpos: 0)
                         // FIXME: Uncomment when finishing DrawClipped
                         // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }
