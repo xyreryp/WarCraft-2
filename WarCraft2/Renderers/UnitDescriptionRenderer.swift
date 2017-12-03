@@ -52,7 +52,7 @@ class CUnitDescriptionRenderer {
     init(bevel: CBevel, icons: CGraphicMulticolorTileset, fonts: [CFontTileset], color: EPlayerColor) {
         DIconTileset = icons
         DBevel = bevel
-        DFonts = [CFontTileset]()
+        DFonts = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
         DAssetIndices = [Int]()
         DResearchIndices = [Int]()
         DFontColorIndices = Array(repeating: [Int](), count: EFontSize.Max.rawValue)
@@ -77,8 +77,7 @@ class CUnitDescriptionRenderer {
         var index: Int = 0
         while index < EFontSize.Max.rawValue {
             DFonts[index] = fonts[index]
-            // DFontColorIndices[index].resize(2) FIXME: need array of size 2
-
+            DFontColorIndices[index] = [Int](repeating: 0, count: 2)
             DFontColorIndices[index][FG_COLOR] = DFonts[index].FindColor(colorname: "white")
             DFontColorIndices[index][BG_COLOR] = DFonts[index].FindColor(colorname: "black")
             index = index + 1
@@ -91,6 +90,7 @@ class CUnitDescriptionRenderer {
         DFullIconWidth = (DIconTileset as CGraphicTileset).TileWidth() + DBevel.Width() * 2
         DFullIconHeight = (DIconTileset as CGraphicTileset).TileHeight() + DBevel.Width() * 3 + HEALTH_HEIGHT + 2 + TextHeight
 
+        DHealthColors = [UInt32](repeating: 0, count: MAX_HP_COLOR)
         DHealthColors[0] = 0xFC0000
         DHealthColors[1] = 0xFCFC00
         DHealthColors[2] = 0x307000
@@ -102,6 +102,9 @@ class CUnitDescriptionRenderer {
         DConstructionRectangleBG = 0x505050
         DConstructionRectangleCompletion = 0x307000
         DConstructionRectangleShadow = 0x000000
+
+        // DAssetIndices.resize(to_underlying(EAssetType::Max));
+        DAssetIndices = [Int](repeating: 0, count: EAssetType.Max.rawValue)
 
         DAssetIndices[EAssetType.Peasant.rawValue] = DIconTileset.FindTile(tilename: "peasant")
         DAssetIndices[EAssetType.Footman.rawValue] = DIconTileset.FindTile(tilename: "footman")
@@ -118,6 +121,9 @@ class CUnitDescriptionRenderer {
         DAssetIndices[EAssetType.ScoutTower.rawValue] = DIconTileset.FindTile(tilename: "scout-tower")
         DAssetIndices[EAssetType.GuardTower.rawValue] = DIconTileset.FindTile(tilename: "human-guard-tower")
         DAssetIndices[EAssetType.CannonTower.rawValue] = DIconTileset.FindTile(tilename: "human-cannon-tower")
+
+        // DResearchIndices.resize(to_underlying(EAssetCapabilityType::Max));
+        DResearchIndices = [Int](repeating: 0, count: EAssetCapabilityType.Max.rawValue)
 
         DResearchIndices[(EAssetCapabilityType.WeaponUpgrade1.rawValue)] = DIconTileset.FindTile(tilename: "human-weapon-1")
         DResearchIndices[EAssetCapabilityType.WeaponUpgrade2.rawValue] = DIconTileset.FindTile(tilename: "human-weapon-2")
@@ -188,14 +194,14 @@ class CUnitDescriptionRenderer {
 
     // TODO: Check if CGraphicSurface is actually
     func DrawCompletionBar(surface: CGraphicSurface, percent: Int) {
-        let ResourceContext = surface.CreateResourceContext()
+        var ResourceContext = surface.CreateResourceContext()
         var TextWidth: Int = Int()
         var TextHeight: Int = Int()
         var DisplayWidth: Int = Int()
         var TextTop: Int = Int()
         var TextBottom: Int = Int()
 
-        let BlackColor: UInt32 = 0x000000
+        var BlackColor: UInt32 = 0x000000
         DFonts[EFontSize.Large.rawValue].MeasureTextDetailed(str: "% Complete", width: &TextWidth, height: &TextHeight, top: &TextTop, bottom: &TextBottom)
 
         TextHeight = TextBottom - TextTop + 1
@@ -221,22 +227,21 @@ class CUnitDescriptionRenderer {
         ResourceContext.Rectangle(xpos: 4, ypos: DDisplayedHeight - (TextHeight + 8), width: DisplayWidth, height: TextHeight + 4)
         ResourceContext.Fill()
 
-        DFonts[EFontSize.Large.rawValue].DrawTextWithShadow(surface: surface, xpos: DDisplayedWidth / 2 - TextWidth / 2, ypos: DDisplayedWidth - (TextHeight + TextTop + 6), color: DFontColorIndices[EFontSize.Large.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Large.rawValue][BG_COLOR], shadowwidth: 1, str: "% Complete")
+        //        DFonts[EFontSize.Large.rawValue].DrawTextWithShadow(surface: surface, xpos: DDisplayedWidth / 2 - TextWidth / 2, ypos: DDisplayedWidth - (TextHeight + TextTop + 6), color: DFontColorIndices[EFontSize.Large.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Large.rawValue][BG_COLOR], shadowwidth: 1, str: "% Complete")
     }
 
-    func DrawUnitDescription(surface: CGraphicSurface, selectionlist: [CPlayerAsset?]) {
-        //    func DrawUnitDescription(surface: SKScene, selectionlist: [CPlayerAsset?]) {
+    func DrawUnitDescription(context: CGraphicResourceContextCoreGraphics, selectionlist: [CPlayerAsset?]) {
+
         DDisplayedIcons = 0
         if selectionlist.count > 0 {
-            let ResourceContext = surface.CreateResourceContext() // -> CGraphicResourceContext
+            var ResourceContext = context
             var HorizontalIcons: Int
             var VerticalIcons: Int
             var HorizontalGap: Int
             var VerticalGap: Int
 
-            // Passing in SKScene
-            DDisplayedWidth = surface.Width()
-            DDisplayedHeight = surface.Height()
+            DDisplayedWidth = 150
+            DDisplayedHeight = 180
             HorizontalIcons = DDisplayedWidth / DFullIconWidth
             VerticalIcons = DDisplayedHeight / DFullIconHeight
             HorizontalGap = (DDisplayedWidth - (HorizontalIcons * DFullIconWidth)) / (HorizontalIcons - 1)
@@ -245,25 +250,28 @@ class CUnitDescriptionRenderer {
             if selectionlist.count == 1 {
                 DDisplayedIcons = 1
                 if let Asset = selectionlist[0] { // not nil
-                    let HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
+                    var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
                     var TextWidth: Int = Int()
                     var TextHeight: Int = Int()
                     var TextCenter: Int = Int()
                     var TextTop: Int = Int()
-                    let AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
+                    var AssetName: String = AddAssetNameSpaces(name: CPlayerAssetType.TypeToName(type: Asset.Type()))
 
                     var TempString: String = String()
 
                     // FIXME: needs CGraphicResourceContextCoreGraphics
-                    DBevel.DrawBevel(context: ResourceContext as! CGraphicResourceContextCoreGraphics, xpos: DBevel.Width(), ypos: DBevel.Width(), width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                    // DBevel.DrawBevel(context: ResourceContext as! CGraphicResourceContextCoreGraphics, xpos: DBevel.Width(), ypos: DBevel.Width(), width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
 
                     // FIXME: should take in skscene
-                    DIconTileset.DrawTile(surface: surface, xpos: DBevel.Width(), ypos: DBevel.Width(), tileindex: DAssetIndices[Asset.Type().rawValue], colorindex: (Asset.Color().rawValue != 0) ? Asset.Color().rawValue - 1 : 0)
+                    // DIconTileset.DrawTile(surface: surface, xpos: DBevel.Width(), ypos: DBevel.Width(), tileindex: DAssetIndices[Asset.Type().rawValue], colorindex: (Asset.Color().rawValue != 0) ? Asset.Color().rawValue - 1 : 0)
+
+                    DIconTileset.DrawTile(context: context, xpos: DBevel.Width(), ypos: 180 - 50, width: 50, height: 50, tileindex: DAssetIndices[Asset.Type().rawValue])
 
                     DFonts[EFontSize.Medium.rawValue].MeasureText(str: AssetName, width: &TextWidth, height: &TextHeight)
                     TextCenter = (DDisplayedWidth + DIconTileset.TileWidth() + DBevel.Width() * 2) / 2
 
-                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth / 2, ypos: (DIconTileset.TileHeight() / 2 + DBevel.Width()) - TextHeight / 2, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: AssetName)
+                    // FIXME: Draw TExt
+                    CFontTileset.DrawTextWithShadow(surface: context, xpos: TextCenter - TextWidth / 2, ypos: 155, color: 0, shadowcol: 0, shadowwidth: 0, str: AssetName)
 
                     if EPlayerColor.None != Asset.Color() {
                         ResourceContext.SetSourceRGB(rgb: DHealthRectangleFG)
@@ -278,23 +286,27 @@ class CUnitDescriptionRenderer {
                         DFonts[EFontSize.Small.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
 
                         TextTop = DIconTileset.TileHeight() + DBevel.Width() * 4 + HEALTH_HEIGHT + 2
-                        DFonts[EFontSize.Small.rawValue].DrawTextWithShadow(surface: surface,
-                                                                            xpos: (DIconTileset.TileWidth() / 2 + DBevel.Width()) - TextWidth / 2,
-                                                                            ypos: TextTop,
-                                                                            color: DFontColorIndices[EFontSize.Small.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Small.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                        // FIXME: Draw Text
+                        // DFonts[EFontSize.Small.rawValue].DrawTextWithShadow(surface: surface,
+                        //                                                                            xpos: (DIconTileset.TileWidth() / 2 + DBevel.Width()) - TextWidth / 2,
+                        //                                                                            ypos: TextTop,
+                        //                                                                            color: DFontColorIndices[EFontSize.Small.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Small.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+
+                        CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 100, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                         TextTop += TextHeight
                     }
 
                     if DPlayerColor == Asset.Color() {
-                        if Asset.Speed() > 0 {
+                        if Asset.Speed() != nil { // issues
                             var TextLineHeight: Int = Int()
                             var UpgradeValue: Int = Int()
 
                             TempString = "Armor: "
                             DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
                             TextLineHeight = TextHeight
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 90, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             UpgradeValue = Asset.ArmorUpgrade()
                             TempString = String(Asset.Armor())
@@ -302,12 +314,14 @@ class CUnitDescriptionRenderer {
                                 TempString += " + "
                                 TempString += String(UpgradeValue)
                             }
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             TextTop += TextLineHeight
                             TempString = "Damage: "
-                            DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             UpgradeValue = Asset.BasicDamageUpgrade() + Asset.PiercingDamageUpgrade()
                             TempString = "" // clear string and make it empty
@@ -315,12 +329,14 @@ class CUnitDescriptionRenderer {
                                 TempString += " + "
                                 TempString += String(UpgradeValue)
                             }
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: String(Asset.PiercingDamage() / 2) + "-" + String(Asset.PiercingDamage() + Asset.BasicDamage()) + TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: String(Asset.PiercingDamage() / 2) + "-" + String(Asset.PiercingDamage() + Asset.BasicDamage()) + TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: String(Asset.PiercingDamage() / 2) + "-" + String(Asset.PiercingDamage() + Asset.BasicDamage()) + TempString)
 
                             TextTop += TextLineHeight
                             TempString = "Range: "
-                            DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             UpgradeValue = Asset.RangeUpgrade()
                             TempString = String(Asset.Range())
@@ -328,12 +344,14 @@ class CUnitDescriptionRenderer {
                                 TempString += " + "
                                 TempString += String(UpgradeValue)
                             }
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             TextTop += TextLineHeight
                             TempString = "Sight: "
-                            DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             UpgradeValue = Asset.SightUpgrade()
                             TempString = String(Asset.Sight())
@@ -342,19 +360,22 @@ class CUnitDescriptionRenderer {
                                 TempString += String(UpgradeValue)
                             }
 
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
 
                             TextTop += TextLineHeight
                             TempString = "Speed: "
-                            DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
                             UpgradeValue = Asset.SpeedUpgrade()
                             TempString = String(Asset.Speed())
                             if UpgradeValue != 0 {
                                 TempString += " + "
                                 TempString += String(UpgradeValue)
                             }
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            CFontTileset.DrawTextWithShadow(surface: context, xpos: 50, ypos: 50, color: 0, shadowcol: 0, shadowwidth: 0, str: TempString)
                         } else {
                             if EAssetAction.Construct == Asset.Action() {
                                 var Command = Asset.CurrentCommand()
@@ -367,11 +388,10 @@ class CUnitDescriptionRenderer {
                                 } else if Command.DActivatedCapability != nil {
                                     PercentComplete = (Command.DActivatedCapability?.PercentComplete(max: 100))!
                                 }
-                                // FIXME:
-                                DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
+                                // DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
                             } else if EAssetAction.Capability == Asset.Action() {
-                                let Command = Asset.CurrentCommand()
-                                let PercentComplete: Int = 0
+                                var Command = Asset.CurrentCommand()
+                                var PercentComplete: Int = 0
                                 // NOTE: this is in new Linux code?
                                 //                                if Command.DActivatedCapability != nil {
                                 //                                    PercentComplete = Command.DActivatedCapabilityPercentComplete(max: 100)
@@ -383,13 +403,16 @@ class CUnitDescriptionRenderer {
                                     VerticalOffset += DFullIconHeight + VerticalGap
 
                                     // FIXME: DrawBevel takes in what kind of surface?
-                                    DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                                    // DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+
                                     // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
-                                    DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Command.DAssetTarget!.Type().rawValue], colorindex: Command.DAssetTarget!.Color().rawValue != 0 ? Command.DAssetTarget!.Color().rawValue - 1 : 0)
+                                    //                                    DIconTileset.DrawTile(surface: surface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Command.DAssetTarget!.Type().rawValue], colorindex: Command.DAssetTarget!.Color().rawValue != 0 ? Command.DAssetTarget!.Color().rawValue - 1 : 0)
+
+                                    DIconTileset.DrawTile(context: context, xpos: HorizontalOffset, ypos: VerticalOffset, width: 100, height: 100, tileindex: Command.DAssetTarget!.Color().rawValue != 0 ? Command.DAssetTarget!.Color().rawValue - 1 : 0)
 
                                     TempString = "Training: "
-                                    DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: HorizontalOffset - TextWidth - DBevel.Width(), ypos: (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                                    // DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
+                                    // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: HorizontalOffset - TextWidth - DBevel.Width(), ypos: (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
                                 } else {
                                     var HorizontalOffset: Int = DBevel.Width(), VerticalOffset = DBevel.Width()
 
@@ -397,22 +420,24 @@ class CUnitDescriptionRenderer {
                                     VerticalOffset += DFullIconHeight + VerticalGap
 
                                     // FIXME: DrawBevel takes in what kind of surface?
-                                    DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                                    // DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
 
                                     // FIXME: should Drawtile take in GraphicSurface or SKScene or GraphicResourceContext
                                     //                                    DIconTileset->DrawTile(surface, HorizontalOffset, VerticalOffset, DResearchIndices[to_underlying(Command.DCapability)], to_underlying(Asset->Color()) ? to_underlying(Asset->Color()) - 1 : 0);
-                                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DResearchIndices[Command.DCapability.rawValue], colorindex: Asset.Color().rawValue != 0 ?
-                                        Asset.Color().rawValue - 1 : 0)
+                                    //                                    DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DResearchIndices[Command.DCapability.rawValue], colorindex: Asset.Color().rawValue != 0 ?
+                                    //                                        Asset.Color().rawValue - 1 : 0)
+
+                                    DIconTileset.DrawTile(context: context, xpos: HorizontalOffset, ypos: VerticalOffset, width: 100, height: 100, tileindex: DResearchIndices[Command.DCapability.rawValue])
 
                                     TempString = "Researching: "
-                                    DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
-                                    DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface,
-                                                                                         xpos: HorizontalOffset - TextWidth - DBevel.Width(),
-                                                                                         ypos: (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2,
-                                                                                         color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                                    // DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
+                                    // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface,
+                                    //                                                                                         xpos: HorizontalOffset - TextWidth - DBevel.Width(),
+                                    //                                                                                         ypos: (VerticalOffset + DIconTileset.TileHeight() / 2) - TextHeight / 2,
+                                    //                                                                                         color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
                                 }
                                 // FIXME: should DrawCompletionBar take in GraphicSurface or SKScene or GraphicResourceContext
-                                DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
+                                // DrawCompletionBar(surface: surface as! CGraphicSurface, percent: PercentComplete)
                             }
                         }
                     } else {
@@ -424,10 +449,10 @@ class CUnitDescriptionRenderer {
                             TempString = "Gold: "
                             DFonts[EFontSize.Medium.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
                             TextLineHeight = TextHeight
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter - TextWidth, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
 
                             TempString = CTextFormatter.IntegerToPrettyString(val: Asset.Gold())
-                            DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                            // DFonts[EFontSize.Medium.rawValue].DrawTextWithShadow(surface: surface, xpos: TextCenter, ypos: TextTop, color: DFontColorIndices[EFontSize.Medium.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Medium.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
                         }
                     }
                 }
@@ -437,16 +462,18 @@ class CUnitDescriptionRenderer {
                 var VerticalOffset: Int = DBevel.Width()
                 for Item in selectionlist {
                     if let Asset = Item {
-                        let HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
+                        var HPColor: Int = (Asset.DHitPoints - 1) * MAX_HP_COLOR / Asset.MaxHitPoints()
                         var TextWidth: Int = Int()
                         var TextHeight: Int = Int()
                         var TextTop: Int = Int()
                         var TempString: String = String()
 
                         // FIXME: DrawBevel takes in what kind of surface?
-                        DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
+                        // DBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: HorizontalOffset, ypos: VerticalOffset, width: DIconTileset.TileWidth(), height: DIconTileset.TileHeight())
                         // FIXME: DrawTile takes in what kind of surface?
-                        DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Asset.Type().rawValue], colorindex: Asset.Color().rawValue > 0 ? Asset.Color().rawValue - 1 : 0)
+                        // DIconTileset.DrawTile(surface: surface as! CGraphicSurface, xpos: HorizontalOffset, ypos: VerticalOffset, tileindex: DAssetIndices[Asset.Type().rawValue], colorindex: Asset.Color().rawValue > 0 ? Asset.Color().rawValue - 1 : 0)
+
+                        DIconTileset.DrawTile(context: context, xpos: HorizontalOffset, ypos: VerticalOffset, width: 100, height: 100, tileindex: DAssetIndices[Asset.Type().rawValue])
 
                         ResourceContext.SetSourceRGB(rgb: DHealthRectangleFG)
                         ResourceContext.Rectangle(xpos: HorizontalOffset - DBevel.Width(), ypos: VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 3, width: DIconTileset.TileWidth() + DBevel.Width() * 2, height: HEALTH_HEIGHT + 2)
@@ -460,8 +487,8 @@ class CUnitDescriptionRenderer {
                         DFonts[EFontSize.Small.rawValue].MeasureText(str: TempString, width: &TextWidth, height: &TextHeight)
 
                         TextTop = VerticalOffset + DIconTileset.TileHeight() + DBevel.Width() * 4 + HEALTH_HEIGHT + 2
-                        DFonts[EFontSize.Small.rawValue].DrawTextWithShadow(surface: surface,
-                                                                            xpos: HorizontalOffset + (DIconTileset.TileWidth() / 2 + DBevel.Width()) - TextWidth / 2, ypos: TextTop, color: DFontColorIndices[EFontSize.Small.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Small.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
+                        // DFonts[EFontSize.Small.rawValue].DrawTextWithShadow(surface: surface,
+                        //                                                                            xpos: HorizontalOffset + (DIconTileset.TileWidth() / 2 + DBevel.Width()) - TextWidth / 2, ypos: TextTop, color: DFontColorIndices[EFontSize.Small.rawValue][FG_COLOR], shadowcol: DFontColorIndices[EFontSize.Small.rawValue][BG_COLOR], shadowwidth: 1, str: TempString)
 
                         HorizontalOffset += DFullIconWidth + HorizontalGap
                         DDisplayedIcons = DDisplayedIcons + 1

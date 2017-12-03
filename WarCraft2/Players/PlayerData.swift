@@ -122,6 +122,9 @@ class CPlayerData {
                 TotalProduction += AssetConsumption
             }
         }
+        if TotalProduction < 0 {
+            return 0
+        }
         return TotalProduction
     }
 
@@ -155,7 +158,6 @@ class CPlayerData {
     }
 
     func CreateAsset(assettypename: String) -> CPlayerAsset {
-        // FIXME: Why is this function so different than the .cpp?
         var CreatedAsset: CPlayerAsset = (DAssetTypes[assettypename]?.Construct())!
         CreatedAsset.CreationCycle(cycle: DGameCycle)
         DAssets.append(CreatedAsset)
@@ -226,18 +228,13 @@ class CPlayerData {
         if selectarea.DWidth == 0 || selectarea.DHeight == 0 {
             let BestAsset: CPlayerAsset = SelectAsset(pos: CPixelPosition(x: selectarea.DXPosition, y: selectarea.DYPosition), assettype: assettype)
             ReturnList.append(BestAsset)
-            /*
-             if selectidentical && LockedAsset.Speed() > 0 {
-             for Asset in DAssets {
-             if LockedAsset != Asset && Asset.Type() == assettype {
-             ReturnList.append(Asset)
-             }
-             }
-             }*/
+
         } else {
+            if selectarea.DWidth < 0 {
+            }
             var AnyMovable: Bool = false
             for Asset in DAssets {
-                if selectarea.DXPosition <= Asset.PositionX() && Asset.PositionX() < selectarea.DXPosition + selectarea.DWidth && selectarea.DYPosition <= Asset.PositionY() && Asset.PositionY() < selectarea.DYPosition + selectarea.DHeight {
+                if selectarea.AssetInside(x: Asset.DPosition.X(), y: Asset.DPosition.Y()) {
                     if AnyMovable {
                         if Asset.Speed() > 0 {
                             ReturnList.append(Asset)

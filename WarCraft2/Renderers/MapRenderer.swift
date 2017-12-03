@@ -15,7 +15,6 @@ class CMapRenderer {
     var DTileIndices: [[[Int]]]
     var DPixelIndices: [Int]
 
-    // FIXME: Hardcoded for one map
     init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         DTileset = tileset
         DMap = map
@@ -248,7 +247,7 @@ class CMapRenderer {
                         DisplayIndex = DTileIndices[ThisTileType.rawValue][TileIndex][AltIndex]
                     }
                     if DisplayIndex != -1 {
-                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex)
+                        DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: MapHeight() - YPos, tileindex: DisplayIndex, zpos: 0)
                         // FIXME: Uncomment when finishing DrawClipped
                         // DTileset.DrawClipped(typesurface, XPos, YPos, DisplayIndex, PixelType.toPixelColor())
                     }
@@ -313,11 +312,12 @@ class CMapRenderer {
         for YPos in 0 ..< DMap.Height() {
             var XPos = 0
 
+            // Flipped the YPos by subtracting it from DMap.Height()
             while XPos < DMap.Width() {
-                let TileType = DMap.TileType(xindex: XPos, yindex: YPos)
+                let TileType = DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos)
                 let XAnchor = XPos
 
-                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: YPos) == TileType {
+                while XPos < DMap.Width() && DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos) == TileType {
                     XPos += 1
                 }
 

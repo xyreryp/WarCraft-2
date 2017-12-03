@@ -35,6 +35,7 @@ class CFogRenderer {
     }
 
     func DrawMap(surface: SKScene, rect: SRectangle) {
+        let Zpos = 4 // from ios DrawMap
         let TileWidth = DTileset.TileWidth()
         let TileHeight = DTileset.TileHeight()
         var YIndex = rect.DYPosition / TileHeight
@@ -46,7 +47,7 @@ class CFogRenderer {
                 let TileType = DMap.TileType(xindex: XIndex, yindex: YIndex)
 
                 if TileType == .None {
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DNoneIndex)
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DNoneIndex, zpos: Zpos)
                     XIndex += 1
                     continue
                 } else if TileType == .Visible {
@@ -55,7 +56,7 @@ class CFogRenderer {
                 }
 
                 if TileType == .Seen || TileType == .SeenPartial {
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DSeenIndex)
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DSeenIndex, zpos: Zpos)
                 }
                 if ETileVisibility.PartialPartial == TileType || ETileVisibility.Partial == TileType {
                     var VisibilityIndex = 0
@@ -74,7 +75,7 @@ class CFogRenderer {
                             }
                         }
                     }
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DFogIndices[VisibilityIndex])
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: applicationData.DGameModel.DActualMap.Height() - YPos, tileindex: DFogIndices[VisibilityIndex], zpos: Zpos)
                 }
 
                 if TileType == .PartialPartial || TileType == .SeenPartial {
@@ -93,7 +94,7 @@ class CFogRenderer {
                             }
                         }
                     }
-                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex])
+                    DTileset.DrawTile(skscene: surface, xpos: XPos, ypos: YPos, tileindex: DBlackIndices[VisibilityIndex], zpos: Zpos)
                 }
                 XIndex += 1
             }

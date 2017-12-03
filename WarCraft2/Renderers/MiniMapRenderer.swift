@@ -101,8 +101,7 @@ class CMiniMapRenderer {
         }
 
         // DMapRenderer.DrawMiniMap(surface: DWorkingSurface)
-        DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
-        DFogRenderer.DrawMiniMap(ResourceContext: ResourceContext)
+        //        DAssetRenderer.DrawMiniAssets(surface: DWorkingSurface)
 
         ResourceContext.Save()
         ResourceContext.Scale(sx: SX, sy: SY)
@@ -110,12 +109,15 @@ class CMiniMapRenderer {
         ResourceContext.Rectangle(xpos: 0, ypos: 0, width: DrawWidth, height: DrawHeight)
         ResourceContext.Fill()
         ResourceContext.Restore()
-        ResourceContext.SetSourceRGB(rgb: DViewportColor)
-        MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
-        MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
-        MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
-        MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
-        ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
-        ResourceContext.Stroke()
+
+        if DViewportRenderer != nil {
+            ResourceContext.SetSourceRGB(rgb: DViewportColor)
+            MiniMapViewportX = (DViewportRenderer.DViewportX * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+            MiniMapViewportY = (DViewportRenderer.DViewportY * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+            MiniMapViewportWidth = (DViewportRenderer.LastViewportWidth() * DVisibleWidth) / DMapRenderer.DetailedMapWidth()
+            MiniMapViewportHeight = (DViewportRenderer.LastViewportHeight() * DVisibleHeight) / DMapRenderer.DetailedMapHeight()
+            ResourceContext.Rectangle(xpos: MiniMapViewportX, ypos: MiniMapViewportY, width: MiniMapViewportWidth, height: MiniMapViewportHeight)
+            ResourceContext.Stroke()
+        }
     }
 }

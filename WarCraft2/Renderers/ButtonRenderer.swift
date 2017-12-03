@@ -148,7 +148,7 @@ class CButtonRenderer {
     }
 
     //    func DrawButton(surface: CGraphicSurface, x: Int, y: Int, state: EButtonState) {
-    func DrawButton(surface: CGraphicResourceContext, x: Int, y: Int, state: EButtonState) {
+    func DrawButton(surface: CGraphicResourceContextCoreGraphics, x: Int, y: Int, state: EButtonState) {
 
         let ResourceContext = surface
         if EButtonState.Pressed == state {
@@ -159,7 +159,7 @@ class CButtonRenderer {
             ResourceContext.Fill()
             // DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DDarkIndices[DButtonColor]);
             // FIXME: DrawTextWithShadow needs GraphicSurface??
-            DFont.DrawTextWithShadow(surface: surface as! CGraphicSurface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: DWhiteIndex, shadowcol: DBlackIndex, shadowwidth: 1, str: DText)
+            DFont.DrawTextWithShadow(surface: surface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: DWhiteIndex, shadowcol: DBlackIndex, shadowwidth: 1, str: DText)
             DInnerBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: x + BevelWidth, ypos: y + BevelWidth, width: DWidth - BevelWidth * 2, height: DHeight - BevelWidth * 2)
         } else if EButtonState.Inactive == state {
             let BevelWidth: Int = DOuterBevel.Width()
@@ -167,7 +167,7 @@ class CButtonRenderer {
             ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
             ResourceContext.Fill()
             // DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DDarkIndices[pcBlack]);
-            DFont.DrawTextWithShadow(surface: surface as! CGraphicSurface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: DBlackIndex, shadowcol: DWhiteIndex, shadowwidth: 1, str: DText)
+            DFont.DrawTextWithShadow(surface: surface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: DBlackIndex, shadowcol: DWhiteIndex, shadowwidth: 1, str: DText)
             DOuterBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: x + BevelWidth, ypos: y + BevelWidth, width: DWidth - BevelWidth * 2, height: DHeight - BevelWidth * 2)
         } else {
             let BevelWidth: Int = DOuterBevel.Width()
@@ -175,7 +175,7 @@ class CButtonRenderer {
             ResourceContext.Rectangle(xpos: x, ypos: y, width: DWidth, height: DHeight)
             ResourceContext.Fill()
             // DColorMap->DrawTileRectangle(drawable, x, y, DWidth, DHeight, DLightIndices[DButtonColor]);
-            DFont.DrawTextWithShadow(surface: surface as! CGraphicSurface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: EButtonState.Hover == state ? DWhiteIndex : DGoldIndex, shadowcol: DBlackIndex, shadowwidth: 1, str: DText)
+            DFont.DrawTextWithShadow(surface: surface, xpos: x + DTextOffsetX, ypos: y + DTextOffsetY, color: EButtonState.Hover == state ? DWhiteIndex : DGoldIndex, shadowcol: DBlackIndex, shadowwidth: 1, str: DText)
             DOuterBevel.DrawBevel(context: surface as! CGraphicResourceContextCoreGraphics, xpos: x + BevelWidth, ypos: y + BevelWidth, width: DWidth - BevelWidth * 2, height: DHeight - BevelWidth * 2)
         }
     }

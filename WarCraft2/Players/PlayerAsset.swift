@@ -310,7 +310,6 @@ class CPlayerAsset {
         return SAssetCommand(DAction: .None, DCapability: .None, DAssetTarget: nil, DActivatedCapability: nil)
     }
 
-    // FIXME: fix Struct 'RetVal' must be completely initialized before a member is stored to
     func NextCommand() -> SAssetCommand {
         if 1 < DCommands.count {
             return DCommands[DCommands.count - 2]
