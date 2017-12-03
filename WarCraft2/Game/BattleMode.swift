@@ -269,11 +269,6 @@ class CBattleMode: CApplicationMode {
                         PreviousSelections.append(asset!)
                     }
 
-                    //                    TempRectangle.DXPosition = min(context.DMouseDown.X(), CurrentPixel.X())
-                    //                    TempRectangle.DYPosition = min(context.DMouseDown.Y(), CurrentPixel.Y())
-                    //                    TempRectangle.DWidth = max(context.DMouseDown.X(), CurrentPixel.X()) - TempRectangle.DXPosition
-                    //                    TempRectangle.DHeight = max(context.DMouseDown.Y(), CurrentPixel.Y()) - TempRectangle.DYPosition
-
                     TempRectangle.DXPosition = context.DMouseDown.X()
                     TempRectangle.DYPosition = context.DMouseDown.Y()
                     TempRectangle.DWidth = CurrentPixel.X() - TempRectangle.DXPosition
