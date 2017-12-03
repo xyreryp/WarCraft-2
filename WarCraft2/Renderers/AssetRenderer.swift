@@ -74,13 +74,15 @@ class CAssetRenderer {
         //        DPixelColors[EPlayerColor.Max.rawValue + 2] = colors.ColorValue(gindex: colors.FindColor(colorname: "building"), cindex: 0)
 
         while true {
-            let markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
-            let Index: Int = DMarkerTileset!.FindTile(tilename: markerMarkerIndex)
+            // let markerMarkerIndex: String = "marker-" + "\(MarkerIndex)"
+            let Index: Int = DMarkerTileset!.FindTile(tilename: String("marker-" + "\(MarkerIndex)"))
             if 0 > Index {
+
                 break
             }
             DMarkerIndices.append(Index)
             MarkerIndex += 1
+            print("marker indices isn't failing yet")
         }
         DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: "place-good")
         DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: "place-bad")
