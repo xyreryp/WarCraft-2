@@ -141,25 +141,24 @@ class CViewportRenderer {
         // FIXME: Highlight building set to false for now
         DAssetRenderer.DrawSelections(surface: surface, rect: TempRectangle, selectionlist: selectionmarkerlist, selectrect: selectrect, highlightbuilding: false)
         DAssetRenderer.DrawAssets(surface: surface, typesurface: typesurface, rect: TempRectangle)
-        //  DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
+        DAssetRenderer.DrawOverlays(surface: surface, rect: TempRectangle)
 
         // NOTE: May require possible fix later
         // C++ code: Builder = selectionmarkerlist.front().lock();
-        /* if selectionmarkerlist.count != 0 { // if list is not empty
+        if selectionmarkerlist.count != 0 { // if list is not empty
 
+            // NOTE: check what value Builder has:
          // type of selectionmarkerlist guarantees it cannot be a non-optional
          Builder = selectionmarkerlist[0]
 
-         //            if let tempValue = selectionmarkerlist[0] {
-         //                Builder = tempValue
-         //            } else {
-         //                Builder = nil // cannot Builder assign to nil
-         //            }
-         } */
-
-        //        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle,
-        //                                     pos: CPixelPosition(x: selectrect.DXPosition,
-        //                                                         y: selectrect.DYPosition), type: PlaceType, builder: Builder)
+//                     if let tempValue = selectionmarkerlist[0] {
+//                         Builder = tempValue
+//                     } else {
+//                         Builder = nil // cannot Builder assign to nil
+//                     }
+        } // NOTE: This might break shit
+        // NOTE: this was uncommented,
+        DAssetRenderer.DrawPlacement(surface: surface, rect: TempRectangle, pos: CPixelPosition(x: selectrect.DXPosition, y: selectrect.DYPosition), type: PlaceType, builder: Builder)
 
         DFogRenderer.DrawMap(surface: surface, rect: TempRectangle)
     }

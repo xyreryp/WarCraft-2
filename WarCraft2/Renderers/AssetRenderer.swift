@@ -81,8 +81,8 @@ class CAssetRenderer {
                 break
             }
             DMarkerIndices.append(Index)
+            // print("Dmarker: \(DMarkerIndices)")
             MarkerIndex += 1
-            print("marker indices isn't failing yet")
         }
         DPlaceGoodIndex = DMarkerTileset!.FindTile(tilename: "place-good")
         DPlaceBadIndex = DMarkerTileset!.FindTile(tilename: "place-bad")
