@@ -482,7 +482,7 @@ class CAssetRenderer {
 
     // DrawTile for drawing a rectangle
     func DrawRectangle(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
-        node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos)
+        node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos + 32)
         switch color {
         case 1:
             node.strokeColor = .yellow

@@ -76,6 +76,7 @@ class GameViewController: NSViewController, toGameVC {
             self.mouseDown(with: $0)
             return $0
         }
+        battleMode.delegate = self
         applicationData.DSelectedMapIndex = DMapNameToMapIndex[MainWindowController.mapSelected]!
         applicationData.Activate()
 
