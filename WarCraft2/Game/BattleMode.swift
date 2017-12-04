@@ -439,7 +439,7 @@ class CBattleMode: CApplicationMode {
      *
      */
     override func Render(context: CApplicationData) {
-        // delegate?.updateMiniMap()
+        delegate?.updateMiniMap()
 
         var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         let cgr = CGraphicResourceContext()

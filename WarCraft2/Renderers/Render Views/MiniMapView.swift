@@ -12,6 +12,7 @@ class MiniMapView: NSView {
     var mapRenderer: CMapRenderer
     var assetRenderer: CAssetRenderer
     var fogRenderer: CFogRenderer
+    var cgcontext: CGraphicResourceContext?
 
     init(frame: NSRect, mapRenderer: CMapRenderer, assetRenderer: CAssetRenderer, fogRenderer: CFogRenderer) {
         self.mapRenderer = mapRenderer
@@ -26,8 +27,6 @@ class MiniMapView: NSView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    var cgcontext: CGraphicResourceContext?
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

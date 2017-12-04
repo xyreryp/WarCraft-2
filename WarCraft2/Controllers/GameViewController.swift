@@ -183,7 +183,17 @@ class GameViewController: NSViewController, toGameVC {
 
     func updateMiniMap() {
         if let context = miniMapView.cgcontext {
-            miniMapView.fogRenderer.DrawMiniMap(ResourceContext: context)
+            //            let newcontext = NSGraphicsContext.current!.cgContext
+            //            let newcgcontext = CGraphicResourceContextCoreGraphics(context: newcontext)
+            //            miniMapView.cgcontext = newcgcontext
+            //            context.Save()
+            //            context.Scale(sx: CGFloat(260/600), sy: CGFloat(160/500))
+            //            context.SetSourceSurface(srcsurface: context, xpos: 0, ypos: 0)
+            //            context.Rectangle(xpos: 0, ypos: 0, width: <#T##Int#>, height: <#T##Int#>)
+            //            miniMapView.mapRenderer.DrawMiniMap(ResourceContext: context)
+            //            miniMapView.assetRenderer.DrawMiniAssets(ResourceContext: context)
+            //            miniMapView.fogRenderer.DrawMiniMap(ResourceContext: context)
+            miniMapView.needsDisplay = true
         }
     }
 }
