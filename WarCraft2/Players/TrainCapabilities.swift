@@ -8,15 +8,11 @@
 
 import Foundation
 class CPlayerCapabilityTrainNormal: CPlayerCapability {
-    class CRegistrant {
-        init() {
-            CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Peasant"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Footman"))
-            CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Archer"))
-        }
+    static func AddToRegistrant() {
+        CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Peasant"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Footman"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityTrainNormal(unitname: "Archer"))
     }
-
-    static var DRegistrant = CRegistrant()
 
     class CActivatedCapability: CActivatedPlayerCapability {
         var DActor: CPlayerAsset
@@ -60,7 +56,7 @@ class CPlayerCapabilityTrainNormal: CPlayerCapability {
             if DTarget.HitPoints() > DTarget.MaxHitPoints() {
                 DTarget.HitPoints(hitpts: DTarget.MaxHitPoints())
             }
-            DCurrentStep += 1
+            DCurrentStep += 15
             DActor.IncrementStep()
             DTarget.IncrementStep()
             if DCurrentStep >= DTotalSteps {

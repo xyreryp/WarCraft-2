@@ -31,7 +31,7 @@ class CPlayerData {
         // FIXME: supposed to be a createInitializeMap(in this case it should be blank)
         DPlayerMap = DActualMap.CreateInitializeMap()
         DVisibilityMap = DActualMap.CreateVisibilityMap()
-        DGold = 0
+        DGold = 2000
         DLumber = 0
         DUpgrades = [Bool]()
         DGameEvents = [SGameEvent]()
@@ -118,8 +118,8 @@ class CPlayerData {
         var TotalProduction: Int = 0
         for Asset in DAssets {
             let AssetConsumption: Int = Asset.FoodConsumption()
-            if 0 > AssetConsumption && (EAssetAction.Construct != Asset.Action() || (Asset.CurrentCommand().DAssetTarget != nil)) {
-                TotalProduction += AssetConsumption
+            if 0 > AssetConsumption && (EAssetAction.Construct != Asset.Action() || (!(Asset.CurrentCommand().DAssetTarget != nil))) {
+                TotalProduction += -AssetConsumption
             }
         }
         if TotalProduction < 0 {

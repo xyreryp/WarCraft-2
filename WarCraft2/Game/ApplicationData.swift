@@ -366,10 +366,10 @@ class CApplicationData {
         DBuildHotKeyMap[SGUIKeyType.KeyT] = EAssetCapabilityType.BuildScoutTower // T
 
         DTrainHotKeyMap = [uint32: EAssetCapabilityType]()
-        //        DTrainHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildArcher // A
-        //        DTrainHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFootman // F
-        //        DTrainHotKeyMap[SGUIKeyType.KeyP] = EAssetCapabilityType.BuildPeasant // P
-        //        DTrainHotKeyMap[SGUIKeyType.KeyR] = EAssetCapabilityType.BuildRanger // R
+        DTrainHotKeyMap[SGUIKeyType.KeyA] = EAssetCapabilityType.BuildArcher // A
+        DTrainHotKeyMap[SGUIKeyType.KeyF] = EAssetCapabilityType.BuildFootman // F
+        DTrainHotKeyMap[SGUIKeyType.KeyP] = EAssetCapabilityType.BuildPeasant // P
+        DTrainHotKeyMap[SGUIKeyType.KeyR] = EAssetCapabilityType.BuildRanger // R
     }
 
     deinit {
@@ -796,6 +796,7 @@ class CApplicationData {
         CPlayerCapabilityUnitUpgrade.AddToRegistrant()
         CPlayerCapabilityBuildRanger.AddToRegistrant()
         CPlayerCapabilityBuildSimple.AddToRegistrant()
+        CPlayerCapabilityTrainNormal.AddToRegistrant()
     }
 
     func ResetPlayerColors() {
