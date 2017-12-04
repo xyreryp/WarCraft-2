@@ -35,7 +35,11 @@ var applicationData = CApplicationData()
 
 var peasantSelected = false
 
-class GameViewController: NSViewController {
+protocol toGameVC {
+    func updateMiniMap()
+}
+
+class GameViewController: NSViewController, toGameVC {
     var skview: SKView!
     var skscene: GameScene!
     var battleMode = CBattleMode()
@@ -46,6 +50,8 @@ class GameViewController: NSViewController {
         "One way in one way out": 0,
         "Nowhere to run, nowhere to hide": 1,
     ]
+
+    var miniMapView: MiniMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +88,7 @@ class GameViewController: NSViewController {
         let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
         let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
         view.addSubview(resourceView)
-        let miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer)
+        miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer, fogRenderer: applicationData.DFogRenderer)
         view.addSubview(miniMapView)
 
         let unitActionView = UnitActionView(frame: NSRect(x: 15, y: 25, width: 145, height: 145), unitActionRenderer: applicationData.DUnitActionRenderer)
@@ -172,5 +178,21 @@ class GameViewController: NSViewController {
     override func keyUp(with event: NSEvent) {
         // print("key released: ", event.characters!)
         applicationData.MainWindowKeyReleaseEvent(event: UInt32(event.keyCode))
+    }
+
+    func updateMiniMap() {
+        if let context = miniMapView.cgcontext {
+            //            let newcontext = NSGraphicsContext.current!.cgContext
+            //            let newcgcontext = CGraphicResourceContextCoreGraphics(context: newcontext)
+            //            miniMapView.cgcontext = newcgcontext
+            //            context.Save()
+            //            context.Scale(sx: CGFloat(260/600), sy: CGFloat(160/500))
+            //            context.SetSourceSurface(srcsurface: context, xpos: 0, ypos: 0)
+            //            context.Rectangle(xpos: 0, ypos: 0, width: <#T##Int#>, height: <#T##Int#>)
+            //            miniMapView.mapRenderer.DrawMiniMap(ResourceContext: context)
+            //            miniMapView.assetRenderer.DrawMiniAssets(ResourceContext: context)
+            //            miniMapView.fogRenderer.DrawMiniMap(ResourceContext: context)
+            miniMapView.needsDisplay = true
+        }
     }
 }

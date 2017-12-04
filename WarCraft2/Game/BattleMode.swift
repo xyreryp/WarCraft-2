@@ -16,6 +16,8 @@ class CBattleMode: CApplicationMode {
     struct SPrivateConstructorType {
     }
 
+    var delegate: toGameVC?
+
     static var DBattleModePointer: CBattleMode?
     static func IsActive() -> Bool { // can change to return DBattleModePointer != nil
         if DBattleModePointer != nil {
@@ -437,6 +439,8 @@ class CBattleMode: CApplicationMode {
      *
      */
     override func Render(context: CApplicationData) {
+        delegate?.updateMiniMap()
+
         var TempRectangle = SRectangle(DXPosition: 0, DYPosition: 0, DWidth: 0, DHeight: 0)
         let cgr = CGraphicResourceContext()
         let CurrentX = context.DCurrentX
