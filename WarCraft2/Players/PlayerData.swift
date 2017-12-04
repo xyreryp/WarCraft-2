@@ -313,7 +313,7 @@ class CPlayerData {
 
     func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset? {
 
-        var BestAsset: CPlayerAsset?
+        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
         var r = range
         if 0 < r {
