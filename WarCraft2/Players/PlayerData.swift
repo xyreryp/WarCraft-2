@@ -178,23 +178,19 @@ class CPlayerData {
 
     func AssetRequirementsMet(assettypename: String) -> Bool {
 
-        var AssetCount: [Int] = [Int]()
-        AssetCount = [Int](repeating: Int(), count: EAssetType.Max.rawValue)
+        var AssetCount: [Int] = Array(repeating: 0, count: EAssetType.Max.rawValue)
 
-        for Asset in DAssets {
-            if EAssetAction.Construct != Asset.Action() {
-                AssetCount[Asset.Type().rawValue] += 1
+        for WeakAsset in DAssets {
+            if EAssetAction.Construct != WeakAsset.Action() {
+                AssetCount[WeakAsset.Type().rawValue] += 1
             }
         }
         for Requirement in (DAssetTypes[assettypename]?.AssetRequirements())! {
             if 0 == AssetCount[Requirement.rawValue] {
-                let CastleAssetCount: Int? = AssetCount[EAssetType.Castle.rawValue]
-                if EAssetType.Keep == Requirement && CastleAssetCount != nil {
+                if (EAssetType.Keep == Requirement) && (0 != AssetCount[EAssetType.Castle.rawValue]) {
                     continue
                 }
-                let KeepAssetCount: Int? = AssetCount[EAssetType.Keep.rawValue]
-                let CastleAssetCount2: Int? = AssetCount[EAssetType.Castle.rawValue]
-                if EAssetType.TownHall == Requirement && KeepAssetCount != nil || CastleAssetCount2 != nil {
+                if (EAssetType.TownHall == Requirement) && (0 != AssetCount[EAssetType.Keep.rawValue]) || (0 != AssetCount[EAssetType.Castle.rawValue]) {
                     continue
                 }
                 return false

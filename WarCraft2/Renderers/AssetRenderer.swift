@@ -420,7 +420,6 @@ class CAssetRenderer {
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
                          EAssetAction.None:
-                        //                        print("Asset is of type raw value: \(TempRenderData.DType.rawValue) and it's direction is: \(AssetIterator.DDirection.rawValue)")
                         TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         if 0 != AssetIterator.Speed() {
                             if 0 != AssetIterator.DLumber {
