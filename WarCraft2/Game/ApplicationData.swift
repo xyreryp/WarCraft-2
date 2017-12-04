@@ -146,8 +146,8 @@ class CApplicationData {
     // var DMiniMapRenderer: CMiniMapRenderer
 
     // TODO: finish these types of renderers
-    var DUnitDescriptionRenderer: CUnitDescriptionRenderer
-    var DUnitActionRenderer: CUnitActionRenderer
+    var DUnitDescriptionRenderer: CUnitDescriptionRenderer!
+    var DUnitActionRenderer: CUnitActionRenderer!
     // var DResourceRenderer: CResourceRenderer
     // var DMenuButtonRenderer: CButtonRenderer
     // var DButtonRenderer: CButtonRenderer
@@ -280,21 +280,20 @@ class CApplicationData {
         DPlayerRecolorMap = CGraphicRecolorMap()
 
         // more tileset things
-        DIconTileset = CGraphicMulticolorTileset()
+        DIconTileset = CGraphicTileset()
         DMiniIconTileset = CGraphicTileset()
         DAssetTilesets = [CGraphicTileset]()
         DFireTileset = [CGraphicTileset]()
         DCorpseTileset = CGraphicTileset()
         DBuildingDeathTileset = CGraphicTileset()
         DArrowTileset = CGraphicTileset()
-        DIconTileset = CGraphicMulticolorTileset()
         DIconTileset.LoadTileset(filename: "Icons")
 
         DFonts = [CFontTileset](repeating: CFontTileset(), count: 10)
 
-        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: DIconTileset, color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
+        //        DUnitActionRenderer = CUnitActionRenderer(bevel: CBevel(tileset: MiniBevelTileset), icons: DIconTileset, color: EPlayerColor.None, player: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None))
 
-        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset as! CGraphicMulticolorTileset, fonts: DFonts, color: EPlayerColor.Red)
+        //  DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset as! CGraphicMulticolorTileset, fonts: DFonts, color: EPlayerColor.Red)
         DPlayerCommands = [PLAYERCOMMANDREQUEST_TAG](repeating: PLAYERCOMMANDREQUEST_TAG(DAction: EAssetCapabilityType.None, DActors: [], DTargetColor: EPlayerColor.None, DTargetType: EAssetType.None, DTargetLocation: CPixelPosition()), count: EPlayerColor.Max.rawValue)
         //        DAIPlayers = [CAIPlayer](repeating: CAIPlayer(playerdata: CPlayerData(map: CAssetDecoratedMap(), color: EPlayerColor.None), downsample: Int()), count: EPlayerColor.Max.rawValue)
         DLoadingPlayerTypes = [EPlayerType](repeating: EPlayerType.ptNone, count: EPlayerColor.Max.rawValue)
@@ -674,7 +673,7 @@ class CApplicationData {
 
     func MiniMaptoDetailedMap(pos: CPixelPosition) -> CPixelPosition {
         var X = pos.X() * DGameModel.Map().Width() / DMapRenderer.MapWidth()
-        var V = pos.Y() * DGameModel.Map().Width() / DMapRenderer.MapHeight()
+        var Y = pos.Y() * DGameModel.Map().Width() / DMapRenderer.MapHeight()
         if X < 0 {
             X = 0
         }
@@ -733,9 +732,10 @@ class CApplicationData {
 
         // FIXME: .Format()?
         // DMiniMapRenderer = CMiniMapRenderer(maprender: DMapRenderer, assetrender: DAssetRenderer, fogrender: DFogRenderer, viewport: DViewportRenderer, format: (DDoubleBufferSurface.Format())!)
-        //         DUnitDescriptionRenderer = CUnitDescriptionRenderer(DMiniBevel, DIconTileset, DPlayerColor, DGameModel.Player(color: DPlayerColor))
+        // DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset as! CGraphicMulticolorTileset, fonts: DFonts, color: DPlayerColor)
 
-        //        DUnitActionRenderer = CUnitActionRenderer(bevel: DMiniBevel, icons: DIconTileset, color: DPlayerColor, player: DGameModel.Player(color: DPlayerColor)!)
+        DUnitActionRenderer = CUnitActionRenderer(bevel: DMiniBevel, icons: DIconTileset, color: DPlayerColor, player: DGameModel.Player(color: DPlayerColor)!)
+        DUnitDescriptionRenderer = CUnitDescriptionRenderer(bevel: DMiniBevel, icons: DIconTileset, fonts: DFonts, color: DPlayerColor)
         // DResourceRenderer = CResourceRenderer(DMiniIconTileset, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue], DGameModel.Player(color: DPlayerColor))
         //        DSoundEventRenderer = CSoundEventRenderer(DSoundLibraryMixer, DGameModel.Player(color: DPlayerColor))
         //        DMenuButtonRenderer = CButtonRenderer(DButtonRecolorMap, DInnerBevel, DOuterBevel, DFonts[CUnitDescriptionRenderer.EFontSize.Medium.rawValue])

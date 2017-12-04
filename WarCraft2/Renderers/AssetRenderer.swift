@@ -420,7 +420,6 @@ class CAssetRenderer {
                     case EAssetAction.MineGold: break
                     case EAssetAction.StandGround,
                          EAssetAction.None:
-                        //                        print("Asset is of type raw value: \(TempRenderData.DType.rawValue) and it's direction is: \(AssetIterator.DDirection.rawValue)")
                         TempRenderData.DTileIndex = DNoneIndices[TempRenderData.DType.rawValue][AssetIterator.DDirection.rawValue]
                         if 0 != AssetIterator.Speed() {
                             if 0 != AssetIterator.DLumber {
@@ -483,7 +482,7 @@ class CAssetRenderer {
 
     // DrawTile for drawing a rectangle
     func DrawRectangle(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
-        node.position = CGPoint(x: xpos - 32, y: DPlayerMap.Height() - ypos + 32)
+        node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos)
         switch color {
         case 1:
             node.strokeColor = .yellow

@@ -49,10 +49,10 @@ class CPlayerCapabilityBuildingUpgrade: CPlayerCapability {
         }
 
         func IncrementStep() -> Bool {
-            let AddHitPoints: Int = ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints) * (DCurrentStep + 1) / DTotalSteps) - ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints * DCurrentStep / DTotalSteps))
+            let AddHitPoints: Int = ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints) * (DCurrentStep + 1) / DTotalSteps) - ((DUpgradeType.DHitPoints - DOriginalType.DHitPoints) * DCurrentStep / DTotalSteps)
 
             if DCurrentStep == 0 {
-                var AssetCommand = SAssetCommand(DAction: EAssetAction.None, DCapability: EAssetCapabilityType.None, DAssetTarget: nil, DActivatedCapability: nil)
+                var AssetCommand = DActor.CurrentCommand()
                 AssetCommand.DAction = EAssetAction.Construct
                 DActor.PopCommand()
                 DActor.PushCommand(command: AssetCommand)
