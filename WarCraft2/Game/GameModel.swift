@@ -44,8 +44,8 @@ class CGameModel {
 
     //    var DRandomNumberGenerator: RandomNumberGenerator
     var DActualMap: CAssetDecoratedMap
-    var DAssetOccupancyMap: [[CPlayerAsset?]] = [[]]
-    var DDiagonalOccupancyMap: [[Bool]] = [[true, false]]
+    var DAssetOccupancyMap: [[CPlayerAsset?]] = []
+    var DDiagonalOccupancyMap: [[Bool]] = []
     var DRouterMap: CRouterMap
     var DPlayers: [CPlayerData] = []
     var DGameCycle: Int = 0
