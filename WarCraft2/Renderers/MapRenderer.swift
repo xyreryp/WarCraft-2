@@ -75,7 +75,7 @@ class CMapRenderer {
         DPixelIndices[CTerrainMap.ETileType.DeepWater.rawValue] = Int(0xFF05_1015)
         DPixelIndices[CTerrainMap.ETileType.Rubble.rawValue] = Int(0xFF3A_512B)
 
-        DTileIndices = [[[Int]]](repeating: [[Int]](), count: CTerrainMap.ETileType.Max.rawValue)
+        DTileIndices = Array(repeating: Array(repeating: Array(repeating: -1, count: 0), count: 16), count: CTerrainMap.ETileType.Max.rawValue)
 
         for Index in 0 ..< DTileIndices.count {
             DTileIndices[Index] = [[Int]](repeating: [Int](), count: 16)
