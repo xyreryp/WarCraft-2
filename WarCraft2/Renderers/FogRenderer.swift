@@ -109,9 +109,9 @@ class CFogRenderer {
         for YPos in 0 ..< DMap.Height() {
             var XPos: Int = 0
             while XPos < DMap.Width() {
-                let TileType = DMap.TileType(xindex: XPos, yindex: YPos)
+                let TileType = DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos)
                 let XAnchor: Int = XPos
-                while (XPos < DMap.Width()) && (TileType == DMap.TileType(xindex: XPos, yindex: YPos)) {
+                while (XPos < DMap.Width()) && (TileType == DMap.TileType(xindex: XPos, yindex: DMap.Height() - YPos)) {
                     XPos = XPos + 1
                 }
                 if TileType != ETileVisibility.Visible {
