@@ -44,11 +44,11 @@ class GameViewController: NSViewController, toGameVC {
     var skscene: GameScene!
     var battleMode = CBattleMode()
     var musicManager = SoundManager()
-    var DMapNameToFileName: [String: String] = [
-        "Three ways to cross": "bay",
-        "No way out of this maze": "hedges",
-        "One way in one way out": "mountain",
-        "Nowhere to run, nowhere to hide": "nwhr2rn",
+    var DMapNameToMapIndex: [String: Int] = [
+        "Three ways to cross": 3,
+        "No way out of this maze": 2,
+        "One way in one way out": 0,
+        "Nowhere to run, nowhere to hide": 1,
     ]
 
     var miniMapView: MiniMapView!
@@ -76,8 +76,7 @@ class GameViewController: NSViewController, toGameVC {
             self.mouseDown(with: $0)
             return $0
         }
-
-        battleMode.delegate = self
+        applicationData.DSelectedMapIndex = DMapNameToMapIndex[MainWindowController.mapSelected]!
         applicationData.Activate()
 
         let mysize: CGSize = CGSize(width: 600, height: 500)
@@ -135,7 +134,7 @@ class GameViewController: NSViewController, toGameVC {
         let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
         view.addSubview(bevelView3)
 
-        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 140, height: 140))
         view.addSubview(bevelView4)
     }
 

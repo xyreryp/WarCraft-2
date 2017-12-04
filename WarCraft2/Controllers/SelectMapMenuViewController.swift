@@ -21,6 +21,7 @@ class SelectMapMenuViewController: NSViewController {
     @IBAction func onewayBtnClicked(_: Any) {
         unselectAll()
         numPlayers = 2
+        MainWindowController.mapSelected = "One way in one way out"
         miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_2player"))
         onewayLabel.image = NSImage(named: NSImage.Name(rawValue: "oneway_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_oneway"))
@@ -29,6 +30,7 @@ class SelectMapMenuViewController: NSViewController {
     @IBAction func nowhereBtnClicked(_: Any) {
         unselectAll()
         numPlayers = 4
+        MainWindowController.mapSelected = "Nowhere to run, nowhere to hide"
         miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_4player"))
         nowhereLabel.image = NSImage(named: NSImage.Name(rawValue: "nowhere_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_nowhere"))
@@ -37,6 +39,7 @@ class SelectMapMenuViewController: NSViewController {
     @IBAction func nowayBtnClicked(_: Any) {
         unselectAll()
         numPlayers = 6
+        MainWindowController.mapSelected = "No way out of this maze"
         miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_6player"))
         nowayLabel.image = NSImage(named: NSImage.Name(rawValue: "noway_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_noway"))
@@ -45,6 +48,7 @@ class SelectMapMenuViewController: NSViewController {
     @IBAction func threeBtnClicked(_: Any) {
         unselectAll()
         numPlayers = 3
+        MainWindowController.mapSelected = "Three ways to cross"
         miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_3player"))
         threeLabel.image = NSImage(named: NSImage.Name(rawValue: "threeways_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_three"))
