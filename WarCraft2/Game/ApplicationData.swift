@@ -674,7 +674,7 @@ class CApplicationData {
 
     func MiniMaptoDetailedMap(pos: CPixelPosition) -> CPixelPosition {
         var X = pos.X() * DGameModel.Map().Width() / DMapRenderer.MapWidth()
-        var V = pos.Y() * DGameModel.Map().Width() / DMapRenderer.MapHeight()
+        var Y = pos.Y() * DGameModel.Map().Width() / DMapRenderer.MapHeight()
         if X < 0 {
             X = 0
         }
