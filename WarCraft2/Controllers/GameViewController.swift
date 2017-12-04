@@ -128,7 +128,7 @@ class GameViewController: NSViewController {
         let bevelView3 = CBevelView(frame: NSRect(x: 174, y: 20, width: 706, height: 521))
         view.addSubview(bevelView3)
 
-        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 150, height: 150))
+        let bevelView4 = CBevelView(frame: NSRect(x: 10, y: 400, width: 140, height: 140))
         view.addSubview(bevelView4)
     }
 
