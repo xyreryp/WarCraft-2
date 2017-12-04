@@ -22,7 +22,7 @@ class MainWindowController: NSWindowController {
     var musicManager = SoundManager()
     var tickManager = SoundManager()
     var startedMainMenu = false
-    static var mapSelected: String = String()
+    static var mapSelected: String = "One way in one way out"
 
     override func windowDidLoad() {
         super.windowDidLoad()
