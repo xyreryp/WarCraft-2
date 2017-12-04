@@ -48,7 +48,7 @@ class SelectMapMenuViewController: NSViewController {
     @IBAction func threeBtnClicked(_: Any) {
         unselectAll()
         numPlayers = 3
-        MainWindowController.mapSelected = "three ways to cross"
+        MainWindowController.mapSelected = "Three ways to cross"
         miniMapLabel.image = NSImage(named: NSImage.Name(rawValue: "label_3player"))
         threeLabel.image = NSImage(named: NSImage.Name(rawValue: "threeways_selected"))
         mapPreview.image = NSImage(named: NSImage.Name(rawValue: "map_three"))
