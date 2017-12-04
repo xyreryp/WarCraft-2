@@ -44,10 +44,10 @@ class CGameModel {
 
     //    var DRandomNumberGenerator: RandomNumberGenerator
     var DActualMap: CAssetDecoratedMap
-    var DAssetOccupancyMap: [[CPlayerAsset?]]
-    var DDiagonalOccupancyMap: [[Bool]] // = [[true, false]]
+    var DAssetOccupancyMap: [[CPlayerAsset?]] = [[]]
+    var DDiagonalOccupancyMap: [[Bool]] = [[true, false]]
     var DRouterMap: CRouterMap
-    var DPlayers: [CPlayerData]
+    var DPlayers: [CPlayerData] = []
     var DGameCycle: Int = 0
     var DHarvestTime: Int
     var DHarvestSteps: Int
@@ -84,7 +84,6 @@ class CGameModel {
         // FIXME: Readd back in later
         // DRandomNumberGenerator.Seed(seed: seed)
         DDiagonalOccupancyMap = [[]]
-        var TestMap = CAssetDecoratedMap.DAllMaps[0]
 
         DActualMap = CAssetDecoratedMap.DuplicateMap(index: mapindex, newcolors: &newcolors)
 
@@ -95,14 +94,14 @@ class CGameModel {
             DPlayers.append(CPlayerData(map: DActualMap, color: EPlayerColor(rawValue: PlayerIndex)!))
         }
 
-        DAssetOccupancyMap = [[CPlayerAsset]](repeating: [], count: DActualMap.Height())
+        DAssetOccupancyMap = Array(repeating: [], count: DActualMap.Height())
         for Index in 0 ..< DAssetOccupancyMap.count {
-            DAssetOccupancyMap[Index] = [CPlayerAsset](repeating: CPlayerAsset(type: CPlayerAssetType()), count: DActualMap.Width())
+            DAssetOccupancyMap[Index] = Array(repeating: CPlayerAsset(type: CPlayerAssetType()), count: DActualMap.Width())
         }
 
-        DDiagonalOccupancyMap = [[Bool]](repeating: [], count: DActualMap.Height())
+        DDiagonalOccupancyMap = Array(repeating: [], count: DActualMap.Height())
         for Index in 0 ..< DDiagonalOccupancyMap.count {
-            DDiagonalOccupancyMap[Index] = [Bool](repeating: Bool(), count: DActualMap.Width())
+            DDiagonalOccupancyMap[Index] = Array(repeating: Bool(), count: DActualMap.Width())
         }
     }
 

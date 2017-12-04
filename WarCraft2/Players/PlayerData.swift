@@ -17,7 +17,7 @@ class CPlayerData {
     var DAssetTypes: [String: CPlayerAssetType]
     var DAssets: [CPlayerAsset]
     var DUpgrades: [Bool]
-    var DGameEvents: [SGameEvent]
+    var DGameEvents: [SGameEvent] = []
     var DGold: Int
     var DLumber: Int
     var DGameCycle: Int
@@ -33,10 +33,8 @@ class CPlayerData {
         DVisibilityMap = DActualMap.CreateVisibilityMap()
         DGold = 2000
         DLumber = 0
-        DUpgrades = [Bool]()
-        DGameEvents = [SGameEvent]()
         DAssets = []
-        DUpgrades = [Bool](repeating: false, count: EAssetCapabilityType.Max.rawValue)
+        DUpgrades = Array(repeating: false, count: EAssetCapabilityType.Max.rawValue)
 
         for ResourceInit in DActualMap.DResourceInitializationList {
             if ResourceInit.DColor == color {
@@ -313,7 +311,7 @@ class CPlayerData {
 
     func FindNearestEnemy(pos: CPixelPosition, range: Int) -> CPlayerAsset? {
 
-        var BestAsset: CPlayerAsset?
+        var BestAsset: CPlayerAsset = CPlayerAsset(type: CPlayerAssetType())
         var BestDistanceSquared = -1
         var r = range
         if 0 < r {
