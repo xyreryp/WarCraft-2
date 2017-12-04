@@ -318,7 +318,7 @@ class CAssetDecoratedMap: CTerrainMap {
         for Asset in DAssets {
             let DTilePosition = CTilePosition()
             DTilePosition.SetFromPixel(pos: Asset.Position())
-            if abs(DTilePosition.X() - pos.X()) <= 3 && abs(DTilePosition.Y() - pos.Y()) <= 3 && Asset.AssetType().DName == "GoldMine" {
+            if abs(DTilePosition.X() - pos.X()) <= 2 && abs(DTilePosition.Y() - pos.Y()) <= 2 && Asset.AssetType().DName == "GoldMine" {
                 found = true
                 return found
             }
