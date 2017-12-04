@@ -12,8 +12,8 @@ class CPlayerCapabilityUnitUpgrade: CPlayerCapability {
     static func AddToRegistrant() {
         CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade2"))
         CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "WeaponUpgrade3"))
-        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
-        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArrowUpgrade2"))
+        CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArrowUpgrade3"))
         CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade2"))
         CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "ArmorUpgrade3"))
         CPlayerCapability.Register(capability: CPlayerCapabilityUnitUpgrade(upgradename: "Longbow"))

@@ -12,16 +12,14 @@ import SpriteKit
 class CMapRenderer {
     var DTileset: CGraphicTileset
     var DMap: CTerrainMap
-    var DTileIndices: [[[Int]]]
+    var DTileIndices: [[[Int]]] = []
     var DPixelIndices: [Int]
 
     init(config _: CDataSource!, tileset: CGraphicTileset, map: CTerrainMap) {
         DTileset = tileset
         DMap = map
-        DTileIndices = [[[Int]]]()
-        DPixelIndices = [Int]()
 
-        DPixelIndices = [Int](repeating: Int(), count: CTerrainMap.ETileType.Max.rawValue)
+        DPixelIndices = Array(repeating: 0, count: CTerrainMap.ETileType.Max.rawValue)
 
         //        if !LineSource.Read(line: &TempString) {
         //            return

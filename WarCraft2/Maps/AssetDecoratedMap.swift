@@ -31,23 +31,17 @@ class CAssetDecoratedMap: CTerrainMap {
         }
     }
 
-    var DAssets: [CPlayerAsset]
-    var DAssetInitializationList: [SAssetInitialization]
-    var DResourceInitializationList: [SResourceInitialization]
-    var DSearchMap: [[Int]]
-    var DLumberAvailable: [[Int]]
+    var DAssets: [CPlayerAsset] = []
+    var DAssetInitializationList: [SAssetInitialization] = []
+    var DResourceInitializationList: [SResourceInitialization] = []
+    var DSearchMap: [[Int]] = []
+    var DLumberAvailable: [[Int]] = []
     static var DAllMaps: [CAssetDecoratedMap] = [CAssetDecoratedMap]()
-    static var DMapNameTranslation: [String: Int] = [String: Int]()
+    static var DMapNameTranslation: [String: Int] = [:]
 
     // start of functions
 
     public override init() {
-        DAssets = [CPlayerAsset]()
-        DAssetInitializationList = [SAssetInitialization]()
-        DResourceInitializationList = [SResourceInitialization]()
-        DSearchMap = [[Int]]()
-        DLumberAvailable = [[Int]]()
-
         super.init()
     }
 
@@ -56,18 +50,11 @@ class CAssetDecoratedMap: CTerrainMap {
         DLumberAvailable = map.DLumberAvailable
         DAssetInitializationList = map.DAssetInitializationList
         DResourceInitializationList = map.DResourceInitializationList
-        DSearchMap = [[Int]]()
-        DLumberAvailable = [[Int]]()
         super.init(map: map)
     }
 
     init(map: CAssetDecoratedMap, newcolors: inout [EPlayerColor]) { // const std::array< EPlayerColor, to_underlying(EPlayerColor::Max)> not entirely sure if it equals to [[int]]
-        DAssets = [CPlayerAsset]()
-        DAssetInitializationList = [SAssetInitialization]()
-        DResourceInitializationList = [SResourceInitialization]()
-        DSearchMap = [[Int]]()
         DLumberAvailable = map.DLumberAvailable
-
         DAssets = map.DAssets
         DLumberAvailable = map.DLumberAvailable
         for InitVal in map.DAssetInitializationList {

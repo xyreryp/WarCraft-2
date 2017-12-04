@@ -89,7 +89,7 @@ class GameViewController: NSViewController {
         view.addSubview(unitActionView)
 
         let unitDescView = UnitDescriptionView(frame: NSRect(x: 10, y: 180, width: 150, height: 180), unitDescRenderer: applicationData.DUnitDescriptionRenderer)
-        skscene.applicationData.DUnitDescriptionSurface = unitActionView
+        skscene.applicationData.DUnitDescriptionSurface = unitDescView
         view.addSubview(unitDescView)
 
         addBevels()

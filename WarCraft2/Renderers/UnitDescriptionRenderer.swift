@@ -25,7 +25,7 @@ class CUnitDescriptionRenderer {
         case Max
     }
 
-    var DIconTileset: CGraphicMulticolorTileset // shared ptr
+    var DIconTileset: CGraphicTileset // shared ptr
     var DBevel: CBevel // shared ptr
     var DFonts: [CFontTileset] // NOTE: FontTileset is currently in progress
     var DAssetIndices: [Int] // = [Int?](repeating: nil, count: EAssetType.Max.rawValue) // NOTE: May not need to initialize as empty
@@ -49,7 +49,7 @@ class CUnitDescriptionRenderer {
     var DDisplayedHeight: Int
     var DDisplayedIcons: Int
 
-    init(bevel: CBevel, icons: CGraphicMulticolorTileset, fonts: [CFontTileset], color: EPlayerColor) {
+    init(bevel: CBevel, icons: CGraphicTileset, fonts: [CFontTileset], color: EPlayerColor) {
         DIconTileset = icons
         DBevel = bevel
         DFonts = [CFontTileset](repeating: CFontTileset(), count: EFontSize.Max.rawValue)
