@@ -40,11 +40,11 @@ class GameViewController: NSViewController {
     var skscene: GameScene!
     var battleMode = CBattleMode()
     var musicManager = SoundManager()
-    var DMapNameToFileName: [String: String] = [
-        "Three ways to cross": "bay",
-        "No way out of this maze": "hedges",
-        "One way in one way out": "mountain",
-        "Nowhere to run, nowhere to hide": "nwhr2rn",
+    var DMapNameToMapIndex: [String: Int] = [
+        "Three ways to cross": 3,
+        "No way out of this maze": 2,
+        "One way in one way out": 0,
+        "Nowhere to run, nowhere to hide": 1,
     ]
 
     override func viewDidLoad() {
@@ -70,6 +70,7 @@ class GameViewController: NSViewController {
             self.mouseDown(with: $0)
             return $0
         }
+        applicationData.DSelectedMapIndex = DMapNameToMapIndex[MainWindowController.mapSelected]!
         applicationData.Activate()
 
         let mysize: CGSize = CGSize(width: 600, height: 500)

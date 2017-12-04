@@ -22,6 +22,7 @@ class MainWindowController: NSWindowController {
     var musicManager = SoundManager()
     var tickManager = SoundManager()
     var startedMainMenu = false
+    static var mapSelected: String = String()
 
     override func windowDidLoad() {
         super.windowDidLoad()

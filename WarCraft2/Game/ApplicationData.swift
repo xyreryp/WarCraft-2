@@ -580,9 +580,9 @@ class CApplicationData {
         DAssetTilesets[EAssetType.GuardTower.rawValue].LoadTileset(filename: "GuardTower")
         DAssetTilesets[EAssetType.CannonTower.rawValue] = CGraphicTileset()
         DAssetTilesets[EAssetType.CannonTower.rawValue].LoadTileset(filename: "CannonTower")
-        LoadGameMap(index: 3)
+        LoadGameMap(index: DSelectedMapIndex)
 
-        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[3], color: DPlayerColor)
+        DPlayer = CPlayerData(map: CAssetDecoratedMap.DAllMaps[DSelectedMapIndex], color: DPlayerColor)
     }
 
     // functiones for going back and forth between screen and actions
