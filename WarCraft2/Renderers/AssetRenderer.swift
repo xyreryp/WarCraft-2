@@ -498,7 +498,7 @@ class CAssetRenderer {
     }
 
     // Drawing rectangle around peasant(and assets)
-    func DrawRectangleAsset(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
+    func DrawRectanglePeasant(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int) {
         node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos - 32)
         switch color {
         case 1:
@@ -514,7 +514,23 @@ class CAssetRenderer {
         skscene.addChild(node)
     }
 
-    // FIXME: no highlight yet. I think this is if you're hovering and trying to create a building?
+    func DrawRectangleAsset(skscene: SKScene, node: SKShapeNode, xpos: Int, ypos: Int, color: Int, size: Int) {
+        node.position = CGPoint(x: xpos, y: DPlayerMap.Height() - ypos - (size * 32))
+        switch color {
+        case 1:
+            node.strokeColor = .yellow
+            break
+        case 2:
+            node.strokeColor = .red
+            break
+        default:
+            node.strokeColor = .green
+        }
+        node.lineWidth = 1
+        skscene.addChild(node)
+    }
+
+    // FIXME: no highlight yet.
     func DrawSelections(surface: SKScene, rect: SRectangle, selectionlist: [CPlayerAsset], selectrect: SRectangle, highlightbuilding _: Bool) {
         var ScreenRightX = rect.DXPosition + rect.DWidth - 1
         var ScreenBottomY = rect.DYPosition + rect.DHeight - 1
@@ -538,6 +554,7 @@ class CAssetRenderer {
         }
 
         for LockedAsset in selectionlist {
+            var size = LockedAsset.Size()
             var TempRenderData: SAssetRenderData = SAssetRenderData(DType: EAssetType.None, DX: Int(), DY: Int(), DBottomY: Int(), DTileIndex: Int(), DColorIndex: Int(), DPixelColor: UInt32())
             TempRenderData.DType = LockedAsset.Type()
             // Selected the terrain
@@ -571,7 +588,6 @@ class CAssetRenderer {
                             }
                             TempRenderData.DTileIndex = DCorpseIndices[LockedAsset.DDirection.rawValue * ActionSteps + CurrentStep]
                         }
-                        // FIXME: need to prob. highlight
                         DCorpseTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: DPlayerMap.Height() - TempRenderData.DY, tileindex: TempRenderData.DTileIndex, zpos: 4)
                     }
                 } else if EAssetAction.Attack != LockedAsset.Action() {
@@ -595,8 +611,6 @@ class CAssetRenderer {
                     if OnScreen {
                         let MarkerIndex: Int = LockedAsset.DStep / CAssetRenderer.DAnimationDownsample
                         if MarkerIndex < DMarkerIndices.count {
-                            // FIXME: Comment this back in after we have MarkerTileset
-
                             DMarkerTileset?.DrawTile(skscene: surface, xpos: TempRenderData.DX, ypos: DPlayerMap.Height() - TempRenderData.DY, tileindex: MarkerIndex, zpos: 10) // zpos: 10 from ios
                         }
                     }
@@ -624,10 +638,17 @@ class CAssetRenderer {
                 TempRenderData.DY -= rect.DYPosition
 
                 if OnScreen {
-                    var ResourceContext = SKShapeNode()
-                    let Rectangle = CGRect(x: 0, y: 0, width: RectWidth, height: RectHeight)
-                    ResourceContext.path = CGPath(rect: Rectangle, transform: nil)
-                    DrawRectangleAsset(skscene: surface, node: ResourceContext, xpos: TempRenderData.DX, ypos: TempRenderData.DY, color: color)
+                    if TempRenderData.DType != EAssetType.Peasant {
+                        var ResourceContext = SKShapeNode()
+                        let Rectangle = CGRect(x: 0, y: 0, width: RectWidth, height: RectHeight)
+                        ResourceContext.path = CGPath(rect: Rectangle, transform: nil)
+                        DrawRectangleAsset(skscene: surface, node: ResourceContext, xpos: TempRenderData.DX, ypos: TempRenderData.DY, color: color, size: size)
+                    } else {
+                        var ResourceContext = SKShapeNode()
+                        let Rectangle = CGRect(x: 0, y: 0, width: RectWidth, height: RectHeight)
+                        ResourceContext.path = CGPath(rect: Rectangle, transform: nil)
+                        DrawRectanglePeasant(skscene: surface, node: ResourceContext, xpos: TempRenderData.DX, ypos: TempRenderData.DY, color: color)
+                    }
                 }
             }
         }
