@@ -61,14 +61,14 @@ class CResourceRenderer: NSObject {
             if (-3 < DeltaGold) && (3 > DeltaGold) {
                 DLastGoldDisplay = DPlayer.DGold
             } else {
-                DLastGoldDisplay = DPlayer.DGold
+                DLastGoldDisplay += DeltaGold
             }
 
             DeltaLumber /= 5
             if (-3 < DeltaLumber) && (3 > DeltaLumber) {
                 DLastLumberDisplay = DPlayer.DLumber
             } else {
-                DLastLumberDisplay += DPlayer.DLumber // DeltaLumber
+                DLastLumberDisplay += DeltaLumber
             }
 
             // FIXME: Make less arbitrary

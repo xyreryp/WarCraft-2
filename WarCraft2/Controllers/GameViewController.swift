@@ -78,10 +78,9 @@ class GameViewController: NSViewController, toGameVC {
             self.mouseDown(with: $0)
             return $0
         }
-        battleMode.delegate = self
-        applicationData.DSelectedMapIndex = DMapNameToMapIndex[MainWindowController.mapSelected]!
 
         battleMode.delegate = self
+        applicationData.DSelectedMapIndex = DMapNameToMapIndex[MainWindowController.mapSelected]!
         applicationData.Activate()
 
         let mysize: CGSize = CGSize(width: 600, height: 500)
