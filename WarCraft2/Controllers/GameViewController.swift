@@ -52,6 +52,8 @@ class GameViewController: NSViewController, toGameVC {
     ]
 
     var miniMapView: MiniMapView!
+    var resourceView: ResourceView!
+    var unitDescView: UnitDescriptionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +80,8 @@ class GameViewController: NSViewController, toGameVC {
         }
         battleMode.delegate = self
         applicationData.DSelectedMapIndex = DMapNameToMapIndex[MainWindowController.mapSelected]!
+
+        battleMode.delegate = self
         applicationData.Activate()
 
         let mysize: CGSize = CGSize(width: 600, height: 500)
@@ -86,8 +90,9 @@ class GameViewController: NSViewController, toGameVC {
         skview.presentScene(skscene)
         view.addSubview(skview)
 
-        let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DPlayer)
-        let resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
+        let resourceRenderer = CResourceRenderer(icons: applicationData.DMiniIconTileset, font: CFontTileset(), player: applicationData.DGameModel.Player(color: applicationData.DPlayerColor)!)
+
+        resourceView = ResourceView(frame: NSRect(x: 150, y: view.frame.height - 60, width: 800, height: 60), resourceRenderer: resourceRenderer)
         view.addSubview(resourceView)
         miniMapView = MiniMapView(frame: NSRect(x: 20, y: 410, width: 260, height: 160), mapRenderer: applicationData.DMapRenderer, assetRenderer: applicationData.DAssetRenderer, fogRenderer: applicationData.DFogRenderer)
         view.addSubview(miniMapView)
@@ -96,7 +101,7 @@ class GameViewController: NSViewController, toGameVC {
         skscene.applicationData.DUnitActionSurface = unitActionView
         view.addSubview(unitActionView)
 
-        let unitDescView = UnitDescriptionView(frame: NSRect(x: 10, y: 180, width: 150, height: 180), unitDescRenderer: applicationData.DUnitDescriptionRenderer)
+        unitDescView = UnitDescriptionView(frame: NSRect(x: 10, y: 180, width: 150, height: 180), unitDescRenderer: applicationData.DUnitDescriptionRenderer)
         skscene.applicationData.DUnitDescriptionSurface = unitDescView
         view.addSubview(unitDescView)
 
@@ -194,6 +199,8 @@ class GameViewController: NSViewController, toGameVC {
             //            miniMapView.assetRenderer.DrawMiniAssets(ResourceContext: context)
             //            miniMapView.fogRenderer.DrawMiniMap(ResourceContext: context)
             miniMapView.needsDisplay = true
+            resourceView.needsDisplay = true
+            unitDescView.needsDisplay = true
         }
     }
 }
