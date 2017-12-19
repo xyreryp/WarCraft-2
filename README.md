@@ -1,12 +1,10 @@
-## Game: Flappy Nitta
-
-
-### How to start:
+## Game: WarCraft 2 (Flappy Nitta)
 
 
 
-### User guide:
+### Getting Started
+Make sure you have the latest version of [Xcode](https://developer.apple.com/xcode/) installed.
 
-
-
-### Credit to:
+```shell
+open WarCraft2.xcodeproj
+```
